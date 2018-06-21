@@ -9,9 +9,11 @@ time_slot: 1 hour
 
 In this lesson, you will learn:
 
-- About open data archives
+- About open data archives, especially the Arctic Data Center
 - What science metadata is and how it can be used
 - How data and code can be documented and published in open data archives
+    - Web-based submission
+    - Submission using R
 
 ## Data sharing and preservation
 
@@ -27,6 +29,9 @@ In this lesson, you will learn:
 - List of data repositories: http://re3data.org
 
 ![](images/RepoLogos.png)
+## Arctic Data Center
+
+
 
 ## Metadata
 
@@ -92,8 +97,9 @@ These data repositories all assign a unique identifier to every version of every
 data file, similarly to how it works with source code commits in GitHub.  Those identifiers
 usually take one of two forms.  A *DOI* identifier is often assigned to the metadata
 and becomes the publicly citable identifier for the package.  Each of the other files
-gets an internal identifier, often a UUID that is globally unique.  In the example above,
-the package can be cited with the DOI `doi:10.5063/F1F18WN4`.
+gets a global identifier, often a UUID that is globally unique.  In the example above,
+the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual
+files would have their own identfiers as well.
 
 ## DataONE Federation
 
@@ -121,26 +127,67 @@ a data package.  Let's walk through a web submission to see what you might expec
 
 I've already uploaded the test data package, and so you can access the data here:
 
-- https://test.arcticdata.io/#view/urn:uuid:630f4bcf-78f6-4c53-b495-b2f6f104202d
+- https://demo.arcticdata.io/#view/urn:uuid:0702cc63-4483-4af4-a218-531ccc59069f
 
 Grab both CSV files, and the R script, and store them in a convenient folder.
 
+![](images/hatfield-01.png)
+
 ### Login via ORCID
 
-We will walk through web submission on https://test.arcticdata.io, and start 
+We will walk through web submission on https://demo.arcticdata.io, and start 
 by logging in with an ORCID account. ORCID provides a common account for sharing
 scholarly data, so if you don't have one, you can create one when you are redirected
 to ORCID from the *Sign In* button.
 
+![](images/adc-banner.png)
+When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existin ORCID credentials, or create a new account.  ORCID provides multiple ways to login, including using your email address, institutional logins from many universities, and logins from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
+
+![](images/orcid-login.png)
+
 ### Create and submit the data set
 
 After signing in, you can access the data submission form using the *Submit* button.
-Once on the form, drag your two csv files and R script into the package, and then provide 
-the required metadata, which is highlighted with a red asterisk.  When finished, click
+Once on the form, upload your data files and follow the prompts to provide the 
+required metadata.
+
+#### Click **Add Files** to choose the data files for your package
+
+You can select multiple files at a time to efficiently upload many files.
+
+![](images/editor-01.png)
+
+The files will upload showing a progress indictator.  You can continue editing 
+metadata while they upload.
+
+![](images/editor-02.png)
+
+#### Enter Overview information
+
+This includes a descriptive title, abstract, and keywords.
+
+![](images/editor-03.png)
+![](images/editor-04.png)
+And you also must enter a funding award number and choose a license.  The funding field will 
+search for an NSF award identifier based on words in its title or the number itself.
+
+![](images/editor-05.png)
+
+#### People Information
+
+#### Location Information
+
+#### Temporal Information
+
+#### Methods
+
+#### Save a first version with **Submit**
+
+When finished, click
 the *Submit Dataset* button at the bottom.  If there are errors or missing fields,
 they will be highlighted.  Correct those, and then try submitting again.
 
-![](images/metadata-editor.png)
+
 
 ### Add workflow provenance
 
