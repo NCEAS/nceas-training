@@ -268,6 +268,43 @@ dialog to continue editing metadata.
 
 ### File and variable level metadata 
 
+The final major section of metadata concerns the structure and contents
+of your data files. In this case, provide the names and descriptions of
+the data contained in each file, as well as details of their internal structure.
+
+For example, for data tables, you'll need the name, label, and definition of 
+each variable in your file.  Click the **Describe** button to access a dialog to enter this information.
+
+![](images/editor-18.png)
+The **Attributes** tab is where you enter variable (aka attribute)
+information, including:
+
+- variable name (for programs)
+- variable label (for display)
+
+![](images/editor-19.png)
+- variable definition (be specific)
+- type of measurement
+![](images/editor-20.png)
+- units
+- code definitions for values
+- missing value codes
+
+![](images/editor-21.png)
+You'll need to add these definitions for every variable (column) in 
+the file. When done, click **Done**.
+![](images/editor-22.png)
+Now the list of data files will show a green checkbox indicating that you have
+full described that file's internal structure.  Proceed with the other CSV
+files, and then click **Submit Dataset** to save all of these changes.
+
+![](images/editor-23.png)
+After you get the big green success message, you can visit your 
+dataset and review all of the information that you provided. If
+you find any errors, simply click **Edit** again to make changes.
+
+![](images/editor-24.png)
+Et voilà!  A beatifully preserved data package!
 
 ## Publishing data from R
 
