@@ -172,22 +172,70 @@ And you also must enter a funding award number and choose a license.  The fundin
 search for an NSF award identifier based on words in its title or the number itself.
 
 ![](images/editor-05.png)
+![](images/editor-06.png)
 
 #### People Information
 
+Information about the people associated with the dataset is essential to provide 
+credit through citation and to help people understand who made contributions to
+the product.  Enter information for the following people:
+
+- Creators - **all the people who should be in the citation for the dataset**
+- Contacts - one is required, but defaults to the first Creator if omitted
+- Principal Investigators
+- and any other that are relevant
+
+For each, please strive to provide their [ORCID](https://orcid.org) identifier, which
+helps link this dataset to their other scholarly works.
+
+![](images/editor-07.png)
+
 #### Location Information
+
+The geospatial location that the data were collected is critical for discovery 
+and interpretation of the data.  Coordinates are entered in decimal degrees, and
+be sure to use negative values ofor West longitudes.  The editor allows you to 
+enter multiple locations, which you should do if you had discontiguous sampling
+locations.  This is particularly important if your sites are separated by large
+distances, so that spatial search will be more precise.
+
+![](images/editor-08.png)
+
+Noite that, if you miss fields that are required, they will be highlighted in red
+to draw your attention. In this case, for the description, provide a comma-separated 
+place name, ordered from the local to global:
+
+- Mission Canyon, Santa Barbara, California, USA
+
+![](images/editor-09.png)
 
 #### Temporal Information
 
+Add the temporal coverage of the data, which represents the time period to which
+data apply.  Again, use multiple date ranges if your sampling was discontinuous.
+
+![](images/editor-10.png)
+
 #### Methods
+
+Methods are critical to accurate interpretation and reuse of your data.  The editor 
+allows you to add multiple different methods sections, include details of 
+sampling methods, experimental design, quality assurance procedures, and computational
+techniques and software.  Please be complete with your methods sections, as they
+are fundamentally important to reuse of the data.
+
+![](images/editor-11.png)
 
 #### Save a first version with **Submit**
 
-When finished, click
-the *Submit Dataset* button at the bottom.  If there are errors or missing fields,
-they will be highlighted.  Correct those, and then try submitting again.
+When finished, click the *Submit Dataset* button at the bottom.  
+If there are errors or missing fields, they will be highlighted.  
+Correct those, and then try submitting again.  When you are successful, you should
+see a large green banner with a link to the current data set view.  Click the `X` 
+to close that banner, as we want to continue editing metadata.
 
-
+![](images/editor-12.png)
+Success!
 
 ### Add workflow provenance
 
@@ -196,11 +244,29 @@ especially as the number of files grows.  Raw data are transformed and integrate
 to produce derived data, that are often then used in analysis and visualization code
 to produce final outputs.  In DataONE, we support structured descriptions of these
 relationships, so one can see the flow of data from raw data to derived to outputs.
-Here's an example from a 
-[hydrocarbon dataset](https://search.dataone.org/index.html#view/urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171) 
-in Prince William Sound:
 
-![](images/provenance.png)
+You add provenance by navigating to the data table descriptions, and selecting the 
+'Add` buttons to link the data and scripts that were used in your computational 
+workflow.  On the left side, select the `Add` circle to add an input data source
+to the filteredSpecies.csv file.  This starts building the provenance graph to
+explain the origin and history of each data object.
+
+![](images/editor-13.png)
+The linkage to the source data set should appear.
+
+![](images/editor-14.png)
+
+Then you can add the link to the source code that handled the conversion
+between the data files by clicking on `Add` arrow and selecting the R script:
+
+![](images/editor-15.png)
+![](images/editor-16.png)
+![](images/editor-17.png)
+The diagram now shows the relationships among the data files and the R script, so
+click **Submit** to save another version of the package, and clear the success
+dialog to continue editing metadata.
+
+### File and variable level metadata 
 
 
 ## Publishing data from R
@@ -219,7 +285,7 @@ Before uploading any data to a DataONE repository, you must login to get an *aut
 ORCID is a researcher identifier that provides a common way to link your researcher identity to your articles and data.  An ORCID is to a researcher as a DOI is to a research article.  To obtain an ORCID, register at https://orcid.org.
 
 ### Log in to the test repository and copy your token
-We will be using a test server, so login and retrieve your token at https://test.arcticdata.io
+We will be using a test server, so login and retrieve your token at https://demo.arcticdata.io
 
 Once you are logged in, navigate to your Profile Settings, and locate the "Authentication Token" section, and then copy the token for R to your clipboard.
 
@@ -260,7 +326,7 @@ library(dataone)
 library(datapack)
 library(uuid)
 
-d1c <- D1Client("STAGING", "urn:node:mnTestARCTIC")
+d1c <- D1Client("STAGING2", "urn:node:mnTestKNB")
 dp <- new("DataPackage")
 show(dp)
 ```
