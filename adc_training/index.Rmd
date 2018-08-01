@@ -1,0 +1,32 @@
+--- 
+title: "ADC Training"
+date: "dates"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+description: "description here"
+always_allow_html: yes
+---
+
+<br>
+
+# Data Science Training for the Arctic Data Center
+
+[![arctic_data_logo](./arctic-data-center.png)](https://arcticdata.io)
+<br>
+
+The [Arctic Data Center](https://arcticdata.io) conducts training in data science and management,
+both of which are critical skills for stewardship of data, software, and other
+products of research that are preserved at the [Arctic Data Center](https://arcticdata.io).
+
+
+### Acknowledgements
+Work on this package was supported by:
+
+- [NSF award #1546024](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1546024) to M. B. Jones, S. Baker-Yeboah, A. Budden, J. Dozier, and M. Schildhauer
+
+Additional support was provided for working group collaboration by the National Center for Ecological Analysis and Synthesis, a Center funded by the University of California, Santa Barbara, and the State of California.
+
+[![nceas_footer](https://www.nceas.ucsb.edu/files/newLogo_0.png)](http://www.nceas.ucsb.edu)
