@@ -119,7 +119,7 @@ If the output of this does not say `1.1.447`, you should update your RStudio. Do
 
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
-```{r}
+```{r, eval = F}
 
 packages <- c( "devtools", "dplyr", "DT", "ggplot2", "ggpmisc", "kableExtra", "leaflet", "readxl", "remotes", "tidyr")
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
