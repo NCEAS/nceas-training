@@ -1,0 +1,184 @@
+# RStudio and Git/GitHub Setup and Motivation
+
+## Learning Objectives
+
+In this lesson, you will learn:
+
+- What computational reproducibility is and why it is useful
+- How version control can increase computational reproducibility
+- How to check to make sure your RStudio environment is set up properly for analysis
+- How to set up git
+
+
+## Reproducible Research
+Reproducibility is the hallmark of science, which is based on empirical observations 
+coupled with explanatory models.  While reproducibility encompasses 
+the full science lifecycle, and includes issues such as methodological consistency and
+treatment of bias, in this course we will focus on **computational reproducibility**: 
+the ability to document data, analyses, and models sufficiently for other researchers 
+to be able to understand and ideally re-execute the computations that led to 
+scientific results and conclusions.
+
+### The Reproducibility Crisis
+
+@ioannidis_why_2005 highlighted a growing crisis in reproducibility of science when 
+he wrote that "Most Research Findings Are False for Most Research Designs 
+and for Most Fields". Ioannidis outlined ways in which the research process
+has lead to inflated effect sizes and hypothesis tests that codify existing biases.
+Subsequent research has confirmed that reproducibility is low across many fields,
+including genetics [@ioannidis_repeatability_2009], ecology [@fraser_questionable_2018], and 
+psychology [@open_science_collaboration_estimating_2015], among others.  For example,
+effect size has been shown to significantly decrease in repeated experiments in 
+psychology (\@ref(fig:effectsize)).
+
+```{r effectsize, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Effect size decreases in replicated experiments [@open_science_collaboration_estimating_2015].'}
+knitr::include_graphics("images/effect-size.png")
+```
+
+### What is needed for computational reproducibility?
+
+The first step towards addressing these issues is to be able to evaluate the data,
+analyses, and models on which conclusions are drawn.  Under current practice, 
+this can be difficult because data are typically unavailable, the method sections
+of papers do not detail the computational approaches used, and analyses and models
+are often conducted in graphical programs, or, when scripted analyses are employed,
+the code is not available.
+
+And yet, this is easily remedied.  Researchers can achieve computational 
+reproducibility through open science approaches, including straightforward steps 
+for archiving data and code openly along with the scientific workflows describing 
+the provenance of scientific results (e.g., @hampton_tao_2015, @munafo_manifesto_2017).
+
+### Conceptualizing workflows
+
+Scientific workflows encapsulate all of the steps from data acquisition, cleaning,
+transformation, integration, analysis, and visualization.  
+
+```{r workflow, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Scientific workflows and provenance capture the multiple steps needed to reproduce a scientific result from raw data.'}
+knitr::include_graphics("images/workflow.png")
+```
+
+Workflows can range in detail from simple flowcharts (\@ref(fig:workflow))
+to fully executable scripts. R scripts and python scripts are a textual form 
+of a workflow, and when researchers publish specific versions of the scripts and 
+data used in an analysis, it becomes far easier to repeat their computations and 
+understand the provenance of their conclusions.
+
+## Why use git?
+
+### The problem with filenames
+
+![](images/phd_comics_final.png)
+
+Every file in the scientific process changes.  Manuscripts are edited.
+Figures get revised.  Code gets fixed when problems are discovered.  Data files
+get combined together, then errors are fixed, and then they are split and 
+combined again. In the course of a single analysis, one can expect thousands of
+changes to files.  And yet, all we use to track this are simplistic *filenames*.  
+You might think there is a better way, and you'd be right: __version control__.
+
+Version control systems help you track all of the changes to your files, without
+the spaghetti mess that ensues from simple file renaming.  In version control systems
+like `git`, the system tracks not just the name of the file, but also its contents,
+so that when contents change, it can tell you which pieces went where.  It tracks
+which version of a file a new version came from.  So its easy to draw a graph
+showing all of the versions of a file, like this one:
+
+![](images/version-graph.png)
+
+Version control systems assign an identifier to every version of every file, and 
+track their relationships. They also allow branches in those versions, and merging
+those branches back into the main line of work.  They also support having 
+*multiple copies* on multiple computers for backup, and for collaboration.
+And finally, they let you tag particular versions, such that it is easy to return 
+to a set of files exactly as they were when you tagged them.  For example, the 
+exact versions of data, code, and narrative that were used when a manuscript was 
+submitted might be `R2` in the graph above.
+
+## Checking the RStudio environment
+
+### R Version
+
+We will use R version 3.5.0, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
+
+```
+R.version$version.string
+```
+
+### RStudio Version
+
+First, lets make sure everyone's RStudio is up to date. Run the following in your RStudio console:
+
+```
+RStudio.Version()$version
+```
+
+If the output of this does not say `1.1.447`, you should update your RStudio. Do this by selecting Help -> Check for Updates and follow the prompts.
+
+### Package installation
+
+Run the following lines to check that all of the packages we need for the training are installed on your computer.
+
+```{r}
+
+packages <- c( "devtools", "dplyr", "DT", "ggplot2", "ggpmisc", "kableExtra", "leaflet", "readxl", "remotes", "tidyr")
+for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
+
+
+rm(packages) #remove variables from workspace
+```
+
+If you haven't installed all of the packages, this will automatically start installing them. If they are installed, it won't do anything.
+
+Next, create a new R Markdown (File -> New File -> R Markdown). If you have never made an R Markdown document before, a dialog box will pop up asking if you wish to install the required packages. Click yes.
+
+### Checking your package versions
+
+We'll be using the following package versions:
+    
+- devtools: version 1.13.5
+- dplyr: version 0.7.4
+- DT: version 0.4
+- ggplot2: version 2.2.1
+- ggpmisc: version 0.2.17
+- kableExtra: version 0.8.0
+- leaflet: version 2.0.0
+- remotes: version 1.1.1
+- readxl: version 1.1.0
+- tidyr: version 0.8.0
+
+Ideally, you should have the same versions installed. ...but as long as your versions are not too far off, you should be okay. To check your versions, you can run the following snippet:
+
+```r
+for (p in packages) {sprintf("%s: version %s", p, packageVersion(p)) %>% print()}
+```
+
+## Setting up git
+
+If you haven't already, go to [github.com](http://github.com) and create an account. If you haven't downloaded git already, you can download it [here](https://git-scm.com/downloads).
+
+Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
+
+A terminal tab should now be open where your console usually is. To set the global options, type the following into the command prompt, with your actual name, and press enter:
+
+```
+git config --global user.name "Your Name"
+```
+
+Next, enter the following line, with the email address you used when you created your account on github.com:
+
+```
+git config --global user.email "yourEmail@emaildomain.com"
+```
+
+Note that these lines need to be run one at a time.
+
+Finally, check to make sure everything looks correct by entering this line, which will return the options that you have set.
+
+```
+git config --global --list
+```
+
+### Note for Windows Users
+
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senerios, the git executable may not be available to the default terminal type.
