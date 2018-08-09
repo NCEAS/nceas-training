@@ -6,10 +6,9 @@ In this lesson we will:
 
 - get oriented to the RStudio interface
 - work with R in the console
+- explore RMarkdown
 - be introduced to built-in R functions
 - learn to use the help pages
-- explore RMarkdown
-- configure git on our computers
 
 ## Introduction and Motivation
 
@@ -30,7 +29,7 @@ knitr::opts_chunk$set(error = TRUE)
 
 ### Resources
 
-This lesson is a combination of excellent lessons by others. Huge thanks to Julie Lowndes for letting us build on her material, which in turn was built on Jenny Bryan's materials. I definitely recommend reading through the original lessons and using them as reference:   
+This lesson is a combination of excellent lessons by others. Huge thanks to Julie Lowndes for writing most of this content and letting us build on her material, which in turn was built on Jenny Bryan's materials. I definitely recommend reading through the original lessons and using them as reference:   
 
 [Julie Lowndes' Data Science Training for the Ocean Health Index][http://ohi-science.org/data-science-training/]
 
@@ -38,7 +37,7 @@ This lesson is a combination of excellent lessons by others. Huge thanks to Juli
 - [Programming in R](http://ohi-science.org/data-science-training/programming.html)
 
 
-[Dr. Jenny Bryan's lectures from STAT545 at UBC](https://stat545-ubc.github.io/)
+[Jenny Bryan's lectures from STAT545 at UBC](https://stat545-ubc.github.io/)
 
 - [R basics, workspace and working directory, RStudio projects](http://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html)
 - [Basic care and feeding of data in R](http://stat545-ubc.github.io/block006_care-feeding-data.html)
