@@ -51,7 +51,7 @@ RStudio has great resources as well:
 - [cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 
 
-## R at the console, RStudio goodies
+## R at the console
 
 Launch RStudio/R.
 
@@ -70,10 +70,18 @@ An important first question: **where are we?**
 
 If you've just opened RStudio for the first time, you'll be in your Home directory. This is noted by the `~/` at the top of the console. You can see too that the Files pane in the lower right shows what is in the Home directory where you are. You can navigate around within that Files pane and explore, but note that you won't change where you are: even as you click through you'll still be Home: `~/`. 
 
-![](img/RStudio_IDE_homedir.png)
+![](images/RStudio_IDE_homedir.png)
 
 
 OK let's go into the Console, where we interact with the live R process.
+
+We use R to calculate things for us, so let's do some simple math.
+
+```{r}
+3*4
+```
+
+You can assign the value of that mathematic operation to a variable, or object, in R. You do this using the assignment operator, `<-`.
 
 Make an assignment and then inspect the object you just created.
 
@@ -120,15 +128,56 @@ science_rocks <- "yes it does!"
 
 You can see that we can assign an object to be a word, not a number. In R, this is called a "string", and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R pretty easily, thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext#tidytext-text-mining-using-dplyr-ggplot2-and-other-tidy-tools) packages. We won't talk about strings very much specifically, but know that R can handle text, and it can work with text and numbers together. 
 
-Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. An object is a variable, function, data structure, or method that you have written to your environment. You can see what objects you have loaded by looking in the "environment" pane in RStudio. The operations you can do with an object will depend on what type of object it is. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup, it just doesn't make sense), you won't do certain things with character objects (strings). 
+Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. An object is a variable, function, data structure, or method that you have written to your environment. You can see what objects you have loaded by looking in the "environment" pane in RStudio. The operations you can do with an object will depend on what type of object it is. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings), for example.
 
 Try running the following line in your console:
 
 ```{r, eval = F}
-science_rocks * 3
+"Hello world!" * 3
 ```
 
 What happened? Why?
+
+
+
+
+You may have noticed that when assigning a value to an object, R does not print anything. You can force R to print the value by using parentheses or by typing the object name:
+
+```{r, purl=FALSE}
+weight_kg <- 55    # doesn't print anything
+(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+weight_kg          # and so does typing the name of the object
+```
+
+Now that R has `weight_kg` in memory, we can do arithmetic with it. For
+instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
+
+```{r}
+2.2 * weight_kg
+```
+
+We can also change a variable's value by assigning it a new one:
+
+```{r}
+weight_kg <- 57.5
+2.2 * weight_kg
+```
+
+This means that assigning a value to one variable does not change the values of
+other variables.  For example, let's store the animal's weight in pounds in a new
+variable, `weight_lb`:
+
+```{r}
+weight_lb <- 2.2 * weight_kg
+```
+
+and then change `weight_kg` to 100.
+
+```{r}
+weight_kg <- 100
+```
+
+What do you think is the current content of the object `weight_lb`? 126.5 or 220? Why?
 
 ### Error messages are your friends
 
@@ -140,7 +189,7 @@ Remember that this is a language, not unsimilar to English! There are times you 
 ![](images/practicalDev_googleErrorMessage.jpg)
 </div>
 
-And also know that there are errors that can creep in more subtly, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
+And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
 
 ### Logical operators and expressions
 
@@ -153,9 +202,9 @@ A moment about **logical operators and expressions**. We can ask questions about
 - `<=` means ` is less than or equal to'
 - `>=` means ` is greater than or equal to'
 ```{r}
-science_rocks == 2
-science_rocks <= 30
-science_rocks != 5
+weight_kg == 2
+weight_kg >= 30
+weight_kg != 5
 ```
 
 > Shortcuts
@@ -163,45 +212,8 @@ You will make lots of assignments and the operator `<-` is a pain to type. Don't
 Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces.
 RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, Alt+Shift+K brings up a keyboard shortcut reference card.
 
-When assigning a value to an object, R does not print anything. You can force R to print the value by using parentheses or by typing the object name:
 
-```{r, purl=FALSE}
-weight_kg <- 55    # doesn't print anything
-(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
-weight_kg          # and so does typing the name of the object
-```
-
-Now that R has `weight_kg` in memory, we can do arithmetic with it. For
-instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
-
-```{r, purl=FALSE}
-2.2 * weight_kg
-```
-
-We can also change a variable's value by assigning it a new one:
-
-```{r, purl=FALSE}
-weight_kg <- 57.5
-2.2 * weight_kg
-```
-
-This means that assigning a value to one variable does not change the values of
-other variables.  For example, let's store the animal's weight in pounds in a new
-variable, `weight_lb`:
-
-```{r, purl=FALSE}
-weight_lb <- 2.2 * weight_kg
-```
-
-and then change `weight_kg` to 100.
-
-```{r, purl=FALSE}
-weight_kg <- 100
-```
-
-What do you think is the current content of the object `weight_lb`? 126.5 or 220? Why?
-
-## Clearing the environment
+### Clearing the environment
 Now look at the objects in your environment (workspace) -- in the upper right pane. The workspace is where user-defined objects accumulate. 
 
 ![](images/RStudio_IDE_env.png)
@@ -229,13 +241,11 @@ or click the broom in RStudio's Environment pane.
 
 ## RMarkdown
 
-Now we are going to also introduce RMarkdown. This is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the course. 
+Now that we know some basic R syntax, let's learn a little about RMarkdown. You will drive yourself crazy (and fail to generate a reproducible workflow!) running code directly in the console. RMarkdown is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the course. 
 
 An RMarkdown file will allow us to weave markdown text with chunks of R code to be evaluated and output content like tables and plots.
 
 File -> New File -> RMarkdown... -> Document of output format HTML, OK.
-
-`r img(src='img/rstudio_new-rmd-doc-html.png', width=300)`
 
 <div style="width:300px">
 ![](images/rstudio_new-rmd-doc-html.png)
@@ -257,7 +267,7 @@ Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMark
 
 <br>
 
-![](img/rmarkdown_side_by_side.png)
+![](images/rmarkdown_side_by_side.png)
 
 What do you notice between the two? 
 
@@ -284,7 +294,7 @@ There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/M
 
 **Important**: note that the hashtag `#` is used differently in Markdown and in R: 
 
-- in R, a hashtag indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style. I use two `##` to indicate a comment so that it's clearer what is a comment versus what I don't want to run at the moment.
+- in R, a hashtag indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style.
 - in Markdown, a hashtag indicates a level of a header. And the number you use matters: `#` is a "level one header", meaning the biggest font and the top of the hierarchy. `###` is a level three header, and will show up nested below the `#` and `##` headers.
 
 Learn more: http://rmarkdown.rstudio.com/
@@ -298,7 +308,7 @@ Use the Markdown Quick Reference (in the menu bar: Help > Markdown Quick Referen
 
 ### Code chunks
 
-OK. Now let's practice with some of those commands that we were working on this morning.
+OK. Now let's practice with some of those commands.
 
 Create a new chunk in your RMarkdown first in one of these ways: 
 
@@ -326,7 +336,7 @@ Now, hitting return does not execute this command; remember, it's just a text fi
 
 ### Your turn
 
-Add a few more commands to your file from this morning. Execute them by trying the three ways above. Then, save your R Markdown file. 
+Add a few more commands to your file. Execute them by trying the three ways above. Then, save your R Markdown file. 
 
 
 ## R functions, help pages
@@ -335,7 +345,7 @@ So far we've learned some of the basic syntax and concepts of R programming, how
 
 R has a mind-blowing collection of built-in functions that are used with the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. When you type a function like this, we say we are "calling the function". `function_name(argument1 = value1, argument2 = value2, ...)`. 
 
-As our first function, we will introduce `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R, but we don't quite know how to use it. The help pages in RStudio will help us with this!
+As our first function, we will introduce `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R, but we don't quite know how to use it yet. The help pages in RStudio will help us with this!
 
 To access the help page for `read.csv`, enter the following into your console:
 
@@ -348,7 +358,7 @@ The help pane will show up in the lower right hand corner of your RStudio.
 You can see from this pane that the help page for this function is actually for a family of related functions that read in data. The help page tells the name of the package in the top left, and is broken down into sections:
 
  - Description: An extended description of what the function does.
- - Usage: The arguments of the function and their default values.
+ - Usage: The arguments of the function(s) and their default values.
  - Arguments: An explanation of the data each argument is expecting.
  - Details: Any important details to be aware of.
  - Value: The data the function returns.
@@ -357,13 +367,17 @@ You can see from this pane that the help page for this function is actually for 
 
 The help for `read.csv` has a lot of information in it, as this function has a lot of arguments, but the first one seems pretty critical. We have to tell it what file to look for. Let's get a file!
 
+### Download a file from the Arctic Data Center
+
 Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file called "BGchem2008data.csv"
 
 Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder in your Documents or Desktop called arctic_training_files, and putting it there.
 
-Now we have to tell `read.csv` how to find it. We do this using the `file` argument which you can see in usage section in the help page. In this case, we will specify what the file is using a path. Remember from the beginning that RStudio has told us where we are in the file system - the home directory.
+### Use a function to read a file into R
 
-![](img/RStudio_IDE_homedir.png)
+Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In this case, we will specify what the file is using a path. Remember from the beginning that RStudio has told us where we are in the file system - the home directory.
+
+![](images/RStudio_IDE_homedir.png)
 
 We will specify where R should look for the file relative to this location. Assuming you have moved your file to a folder on your Desktop called arctic_training_files, your `read.csv` call will look like this:
 
@@ -373,9 +387,19 @@ bg_chem <- read.csv("Desktop/arctic_training_files/BGchem2008data.csv")
 
 You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
 
-Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If not specified, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv` is `file`.
+Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If you do not specify a `name = value` pair for that argument in your function call, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv` is `file`.
 
-You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "Desktop/arctic_training_files/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `skip`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
+You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "Desktop/arctic_training_files/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
+
+Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
+
+```{r, eval = F}
+bg_chem <- read.csv("Desktop/arctic_training_files/BGchem2008data.csv", stringsAsFactors = FALSE)
+```
+
+```{r, eval = T, echo = F}
+bg_chem <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
+```
 
 ### Your turn
 
@@ -392,16 +416,50 @@ date()
 ```
 
 
-## Using `data.frame`s
+## Using `data.frames`
 
+A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv`, the object `bg_chem` that we created is a `data.frame`. There are a a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
+- click on the word `bg_chem` in the environment pane
+- click on the arrow next to `bg_chem` in the environment pane
+- execute `head(bg_chem)` in the console
+- execute `View(bg_chem)` in the console
 
+Usually we will want to run functions on individual columns in a `data.frame`. To call a specific column, we use the list subset operator `$`. Say you want to look at the first few rows of the `Date` column only. This would do the trick:
+
+```{r}
+head(bg_chem$Date)
+```
+
+How about calculating the mean temperature of all the CTD samples?
+
+```{r}
+mean(bg_chem$CTD_Temperature)
+```
+
+Or, if we want to save this to a variable to use later:
+
+```{r}
+mean_temp <- mean(bg_chem$CTD_Temperature)
+```
+
+You can also create basic plots using the list subset operator.
+
+```{r}
+plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
+```
+
+There are many more advancted tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course. 
+
+### Your Turn
+
+> Exercise: Spend a few minutes exploring this dataset. Try out different functions on columns using the list subset operator and experiment with different plots. 
 
 ## Troubleshooting
 
-Here are some additional things we didn't have time to discuss:
+Here are two common errors for new users:
 
-### I just entered a command and nothing's happening
+### I just entered a command and nothing is happening
 
 It may be because you didn't complete a command: is there a little `+` in your console? R is saying that it is waiting for you to finish. In the example below, I need to close that parenthesis.
 
@@ -410,12 +468,16 @@ It may be because you didn't complete a command: is there a little `+` in your c
 + 
 ```
 
+You can either just type the closing parentheses here and push return, or push the `esc` button twice.
 
-### How do I update RStudio?
+### R says my object is not found
 
-To see if you have the most current version of RStudio, go to the Help bar > Check for Updates. If there is an update available, you'll have the option to Quit and Download, which will take you to http://www.rstudio.com/download. When you download and install, choose to replace the previous version. 
+New users will frequently see errors that look like this: `Error in mean(myobject) : object 'myobject' not found`
 
-## Tips
+This means that you do not have an object called `myobject` saved in your environment. The common reasons for this are:
 
-<!---how to make comments --->
+- **typeo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
+- **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
+- **not executing the line in your RMarkdown**: remember that writing a line of code in RMarkdown is not the same as writing in the console, you have to execute the line of code using command + enter, running the chunk, or one of the other ways outlined in the RMarkdown section of this training
+
 
