@@ -262,7 +262,7 @@ Let's have a look at this file — it's not blank; there is some initial text is
 
 <br>
 
-Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMarkdown file. 
+Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Create a new folder for it somewhere that you will be able to find again (such as your Desktop or Documents), and name that folder something you'll remember (like `arctic_training_files`).
 
 <br>
 
@@ -370,18 +370,14 @@ The help for `read.csv` has a lot of information in it, as this function has a l
 
 Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file called "BGchem2008data.csv"
 
-Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder in your Documents or Desktop called arctic_training_files, and putting it there.
+Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder called `data` in your previously-created directory `arctic_training_files`, and putting the file there.
 
 ### Use a function to read a file into R
 
-Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In this case, we will specify what the file is using a path. Remember from the beginning that RStudio has told us where we are in the file system - the home directory.
-
-![](images/RStudio_IDE_homedir.png)
-
-We will specify where R should look for the file relative to this location. Assuming you have moved your file to a folder on your Desktop called arctic_training_files, your `read.csv` call will look like this:
+Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In RMarkdown, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to the location of the RMarkdown.** RStudio and RMarkdown have some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, your `read.csv` call will look like this:
 
 ```{r, eval = F}
-bg_chem <- read.csv("Desktop/arctic_training_files/BGchem2008data.csv")
+bg_chem <- read.csv("data/BGchem2008data.csv")
 ```
 
 You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
