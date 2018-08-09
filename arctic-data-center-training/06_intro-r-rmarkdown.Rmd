@@ -384,15 +384,11 @@ You should now have an object of the class `data.frame` in your environment call
 
 Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If you do not specify a `name = value` pair for that argument in your function call, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv` is `file`.
 
-You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "Desktop/arctic_training_files/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
+You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "data/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
 
 Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
 
 ```{r, eval = F}
-bg_chem <- read.csv("Desktop/arctic_training_files/BGchem2008data.csv", stringsAsFactors = FALSE)
-```
-
-```{r, eval = T, echo = F}
 bg_chem <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 
