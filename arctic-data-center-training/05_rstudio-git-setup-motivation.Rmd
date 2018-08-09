@@ -31,7 +31,7 @@ psychology [@open_science_collaboration_estimating_2015], among others.  For exa
 effect size has been shown to significantly decrease in repeated experiments in 
 psychology (\@ref(fig:effectsize)).
 
-```{r effectsize, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Effect size decreases in replicated experiments [@open_science_collaboration_estimating_2015].'}
+```{r effectsize4, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Effect size decreases in replicated experiments [@open_science_collaboration_estimating_2015].'}
 knitr::include_graphics("images/effect-size.png")
 ```
 
