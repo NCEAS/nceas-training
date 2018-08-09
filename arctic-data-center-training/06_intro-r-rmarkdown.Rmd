@@ -136,8 +136,6 @@ Implicit contract with the computer / scripting language: Computer will do tedio
 
 Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. 
 
-`r htmltools::img(src='img/practicalDev_googleErrorMessage.jpg', width=400)`
-
 <div style="width:400px">
 ![](images/practicalDev_googleErrorMessage.jpg)
 </div>
@@ -203,68 +201,10 @@ weight_kg <- 100
 
 What do you think is the current content of the object `weight_lb`? 126.5 or 220? Why?
 
-
-## R functions, help pages
-
-R has a mind-blowing collection of built-in functions that are used with the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. When you type a function like this, we say we are "calling the function". `function_name(argument1 = value1, argument2 = value2, ...)`. 
-
-
-
-Let's try using `seq()` which makes regular sequences of numbers and, while we're at it, demo more helpful features of RStudio.
-
-Type `se` and hit TAB. A pop up shows you possible completions. Specify `seq()` by typing more to disambiguate or using the up/down arrows to select. Notice the floating tool-tip-type help that pops up, reminding you of a function's arguments. If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. 
-
-Type the arguments `1, 10` and hit return. 
-```{r}
-seq(1, 10)
-```
-
-We could probably infer that the `seq()` function makes a sequence, but let's learn for sure. Type (and you can autocomplete) and let's explore the help page:
-
-```{r, eval=F}
-?seq 
-help(seq) # same as ?seq
-```
-
-The help page tells the name of the package in the top left, and broken down into sections:
-
- - Description: An extended description of what the function does.
- - Usage: The arguments of the function and their default values.
- - Arguments: An explanation of the data each argument is expecting.
- - Details: Any important details to be aware of.
- - Value: The data the function returns.
- - See Also: Any related functions you might find useful.
- - Examples: Some examples for how to use the function.
-
-```{r}
-seq(from = 1, to = 10) # same as seq(1, 10); R assumes by position
-seq(from = 1, to = 10, by = 2)
-```
-
-The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence `from = 1` that goes `to = 10`. Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. For functions I call often, I might use this resolve by position for the first
-argument or maybe the first two. After that, I always use `name = value`.
-
-The examples from the help pages can be copy-pasted into the console for you to understand what's going on. Remember we were talking about expecting there to be a function for something you want to do? Let's try it. 
-
-### Your turn
-
-> Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`,  `min()`, `max()`, `?mean()`, `?log()`).
-
-And there's also help for when you only sort of remember the function name: double-questionmark:
-```{r, eval=F}
-??install 
-```
-
-
-Not all functions have (or require) arguments:
-```{r}
-date()
-```
-
 ## Clearing the environment
 Now look at the objects in your environment (workspace) -- in the upper right pane. The workspace is where user-defined objects accumulate. 
 
-![](img/RStudio_IDE_env.png)
+![](images/RStudio_IDE_env.png)
 
 You can also get a listing of these objects with a few different R commands:
 
@@ -287,19 +227,19 @@ rm(list = ls())
 
 or click the broom in RStudio's Environment pane.
 
-### Your turn
-
-> Exercise: Clear your workspace, then create a few new variables. Create a variable that is the mean of a sequence of 1-20. What's a good name for your variable? Does it matter what your 'by' argument is? Why?
-
 ## RMarkdown
 
-Now we are going to also introduce RMarkdown. This is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the day. 
+Now we are going to also introduce RMarkdown. This is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the course. 
 
 An RMarkdown file will allow us to weave markdown text with chunks of R code to be evaluated and output content like tables and plots.
 
 File -> New File -> RMarkdown... -> Document of output format HTML, OK.
 
 `r img(src='img/rstudio_new-rmd-doc-html.png', width=300)`
+
+<div style="width:300px">
+![](images/rstudio_new-rmd-doc-html.png)
+</div>
 
 You can give it a Title like "My Project". Then click OK. 
 
@@ -309,7 +249,7 @@ Let's have a look at this file — it's not blank; there is some initial text is
 
 - There are white and grey sections. R code is in grey sections, and other text is in white. 
 
-![](img/rmarkdown.png)
+![](images/rmarkdown.png)
 
 <br>
 
@@ -371,7 +311,8 @@ Create a new chunk in your RMarkdown first in one of these ways:
 Now, let's write some R code. 
 
 ```
-x <- seq(1:15)
+x <- 4*3
+x
 ```
 
 Now, hitting return does not execute this command; remember, it's just a text file. To execute it, we need to get what we typed in the the R chunk (the grey R code) down into the console. How do we do it? There are several ways (let's do each of them):
@@ -387,62 +328,73 @@ Now, hitting return does not execute this command; remember, it's just a text fi
 
 Add a few more commands to your file from this morning. Execute them by trying the three ways above. Then, save your R Markdown file. 
 
-## RMarkdown video (1-minute)
 
-Let's watch this to demonstrate all the amazing things you can now do: 
+## R functions, help pages
 
-[What is RMarkdown?](https://vimeo.com/178485416)
+So far we've learned some of the basic syntax and concepts of R programming, how to navigate RStudio, and RMarkdown, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
 
-<!--- remove this stuff and instead set up Git/GitHub.
-## Working directory
+R has a mind-blowing collection of built-in functions that are used with the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. When you type a function like this, we say we are "calling the function". `function_name(argument1 = value1, argument2 = value2, ...)`. 
 
-Any process running on your computer has a notion of its "working directory". In R, this is where R will look, by default, for files you ask it to load. It is also where, by default, any files you write to disk will go. You have a sense of this because whenever you go to save a Word doc or download, it asks where. You often have to navigate to put it exactly where you want it. There are a few ways to check your working directory in RStudio.
+As our first function, we will introduce `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R, but we don't quite know how to use it. The help pages in RStudio will help us with this!
 
-You can explicitly check your working directory with:
-```{r, eval=FALSE}
-getwd()
-```
-It is also displayed at the top of the RStudio console.
+To access the help page for `read.csv`, enter the following into your console:
 
-As a beginning R user, it's OK let your home directory or any other weird directory on your computer be R's working directory. _Very soon_, I urge you to evolve to the next level, where you organize your analytical projects into directories and, when working on Project A, set R's working directory to Project A's directory.
-
-You can set R's working directory at the command line like so. You could also do this in a script.
-
-```{r eval = FALSE}
-setwd("~/myCoolProject")
+```{r}
+?read.csv
 ```
 
-But there's a better way. A way that also puts you on the path to managing your R work like an expert.
+The help pane will show up in the lower right hand corner of your RStudio.
 
-## RStudio projects
+You can see from this pane that the help page for this function is actually for a family of related functions that read in data. The help page tells the name of the package in the top left, and is broken down into sections:
 
-Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_. More here: [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+ - Description: An extended description of what the function does.
+ - Usage: The arguments of the function and their default values.
+ - Arguments: An explanation of the data each argument is expecting.
+ - Details: Any important details to be aware of.
+ - Value: The data the function returns.
+ - See Also: Any related functions you might find useful.
+ - Examples: Some examples for how to use the function.
 
-Let's make one to use for the rest of today. 
+The help for `read.csv` has a lot of information in it, as this function has a lot of arguments, but the first one seems pretty critical. We have to tell it what file to look for. Let's get a file!
 
-> Do this: File > New Project ... New Directory > Empty Project. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).
+Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file called "BGchem2008data.csv"
 
-I created a directory and, therefore RStudio project, called `data-carpentry` in a folder called `tmp` in my home directory, FYI.
-What do you notice about your RStudio pane? Look in the right corner--'data-carpentry'.
+Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder in your Documents or Desktop called arctic_training_files, and putting it there.
 
-Now check that the "home" directory for your project is the working directory of our current R process:
+Now we have to tell `read.csv` how to find it. We do this using the `file` argument which you can see in usage section in the help page. In this case, we will specify what the file is using a path. Remember from the beginning that RStudio has told us where we are in the file system - the home directory.
 
-```{r eval=FALSE}
-getwd()
-# "/Users/julialowndes/tmp/data-carpentry" 
+![](img/RStudio_IDE_homedir.png)
+
+We will specify where R should look for the file relative to this location. Assuming you have moved your file to a folder on your Desktop called arctic_training_files, your `read.csv` call will look like this:
+
+```{r, eval = F}
+bg_chem <- read.csv("Desktop/arctic_training_files/BGchem2008data.csv")
 ```
 
-**About paths**: The above is the absolute path: it starts at the `/Users` root and is specific to my computer (`julialowndes`) and where I saved it. So if I did an analysis with this filepath, it wouldn't work on your computer before you altered the filepath. 
+You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
 
-But with an RStudio project, your paths within this project can be relative, which means they *start* in the `data-carpentry` folder, wherever it is. So we can just use filepaths within our project from a relative place, and it can work on your computer or mine, without worrying about the absolute paths. (Analogy: I can give you directions from this building to the pub, since we're all here in this shared space already. I can't give you all directions from your home to this building and then the pub, because you all live in different places. But I can give directions relative to this building). 
+Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If not specified, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv` is `file`.
+
+You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "Desktop/arctic_training_files/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `skip`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
+
+### Your turn
+
+> Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`,  `min()`, `max()`, `?mean()`, `?log()`).
+
+And there's also help for when you only sort of remember the function name: double-questionmark:
+```{r, eval=F}
+??install 
+```
+
+Not all functions have (or require) arguments:
+```{r}
+date()
+```
 
 
+## Using `data.frame`s
 
-### You try
-Ask for help and recognize useful answers
- TODO 
 
---->
 
 
 ## Troubleshooting
