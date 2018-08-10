@@ -94,7 +94,7 @@ usually take one of two forms.  A *DOI* identifier is often assigned to the meta
 and becomes the publicly citable identifier for the package.  Each of the other files
 gets a global identifier, often a UUID that is globally unique.  In the example above,
 the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual
-files would have their own identfiers as well.
+files would have their own identifiers as well.
 
 ## DataONE Federation
 
@@ -136,7 +136,7 @@ scholarly data, so if you don't have one, you can create one when you are redire
 to ORCID from the *Sign In* button.
 
 ![](images/adc-banner.png)
-When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existin ORCID credentials, or create a new account.  ORCID provides multiple ways to login, including using your email address, institutional logins from many universities, and logins from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
+When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existing ORCID credentials, or create a new account.  ORCID provides multiple ways to login, including using your email address, institutional logins from many universities, and logins from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
 
 ![](images/orcid-login.png)
 
@@ -152,7 +152,7 @@ You can select multiple files at a time to efficiently upload many files.
 
 ![](images/editor-01.png)
 
-The files will upload showing a progress indictator.  You can continue editing 
+The files will upload showing a progress indicator.  You can continue editing 
 metadata while they upload.
 
 ![](images/editor-02.png)
@@ -189,8 +189,8 @@ helps link this dataset to their other scholarly works.
 
 The geospatial location that the data were collected is critical for discovery 
 and interpretation of the data.  Coordinates are entered in decimal degrees, and
-be sure to use negative values ofor West longitudes.  The editor allows you to 
-enter multiple locations, which you should do if you had discontiguous sampling
+be sure to use negative values for West longitudes.  The editor allows you to 
+enter multiple locations, which you should do if you had noncontiguous sampling
 locations.  This is particularly important if your sites are separated by large
 distances, so that spatial search will be more precise.
 
@@ -303,7 +303,7 @@ Et voilà!  A beatifully preserved data package!
 
 ## Publishing data from R
 
-Now lets see how to use the *dataone* and *datapack* R packages to upload data to DataONE
+Now let's see how to use the *dataone* and *datapack* R packages to upload data to DataONE
 member repositories like the [KNB Data Repository](https://knb.ecoinformatics.org) and the [Arctic Data Center](https://arcticdata.io).
 
 The *dataone* R package provides methods to enable R scripts to interact with DataONE to search for, download, upload and update data and metadata. The purpose of uploading data from R is to automate the repetitive tasks for large data sets with many files.  For small data sets, the web submission for will certainly be simpler.
