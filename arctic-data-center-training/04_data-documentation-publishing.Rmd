@@ -5,7 +5,7 @@
 In this lesson, you will learn:
 
 - About open data archives, especially the Arctic Data Center
-- What science metadata is and how it can be used
+- What science metadata are and how they can be used
 - How data and code can be documented and published in open data archives
     - Web-based submission
     - Submission using R
@@ -32,12 +32,12 @@ In this lesson, you will learn:
 
 Metadata are documentation describing the content, context, and structure of 
 data to enable future interpretation and reuse of the data.  Generally, metadata
-describe who collected the data, what data were collected, when and where it was 
-collected, and why it was collected.  
+describe who collected the data, what data were collected, when and where they were 
+collected, and why they were collected.  
 
 For consistency, metadata are typically structured following metadata content 
 standards such as the [Ecological Metadata Language (EML)](https://knb.ecoinformatics.org/software/eml/).
-For example, here's an excerpt of the metadata for a sockeye salmon data set:
+For example, here's an excerpt of the metadata for a sockeye salmon dataset:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -70,7 +70,7 @@ That same metadata document can be converted to HTML format and displayed in a m
 more readable form on the web: https://knb.ecoinformatics.org/#view/doi:10.5063/F1F18WN4
 
 ![](images/knb-metadata.png)
-And as you can see, the whole data set or its components can be downloaded and
+And as you can see, the whole dataset or its components can be downloaded and
 reused.
 
 Also note that the repository tracks how many times each file has been downloaded,
@@ -78,8 +78,8 @@ which gives great feedback to researchers on the activity for their published da
 
 ## Structure of a data package
 
-Note that the data set above lists a collection of files that are contained within
-the data set.  We define a *data package* as a scientifically useful collection of 
+Note that the dataset above lists a collection of files that are contained within
+the dataset.  We define a *data package* as a scientifically useful collection of 
 data and metadata that a researcher wants to preserve.  Sometimes a data package
 represents all of the data from a particular experiment, while at other times it
 might be all of the data from a grant, or on a topic, or associated with a paper.
@@ -140,7 +140,7 @@ When you sign in, you will be redirected to [orcid.org](https://orcid.org), wher
 
 ![](images/orcid-login.png)
 
-### Create and submit the data set
+### Create and submit the dataset
 
 After signing in, you can access the data submission form using the *Submit* button.
 Once on the form, upload your data files and follow the prompts to provide the 
@@ -226,7 +226,7 @@ are fundamentally important to reuse of the data.
 When finished, click the *Submit Dataset* button at the bottom.  
 If there are errors or missing fields, they will be highlighted.  
 Correct those, and then try submitting again.  When you are successful, you should
-see a large green banner with a link to the current data set view.  Click the `X` 
+see a large green banner with a link to the current dataset view.  Click the `X` 
 to close that banner, as we want to continue editing metadata.
 
 ![](images/editor-12.png)
@@ -247,7 +247,7 @@ to the filteredSpecies.csv file.  This starts building the provenance graph to
 explain the origin and history of each data object.
 
 ![](images/editor-13.png)
-The linkage to the source data set should appear.
+The linkage to the source dataset should appear.
 
 ![](images/editor-14.png)
 
@@ -306,9 +306,9 @@ Et voilà!  A beatifully preserved data package!
 Now let's see how to use the *dataone* and *datapack* R packages to upload data to DataONE
 member repositories like the [KNB Data Repository](https://knb.ecoinformatics.org) and the [Arctic Data Center](https://arcticdata.io).
 
-The *dataone* R package provides methods to enable R scripts to interact with DataONE to search for, download, upload and update data and metadata. The purpose of uploading data from R is to automate the repetitive tasks for large data sets with many files.  For small data sets, the web submission for will certainly be simpler.
+The *dataone* R package provides methods to enable R scripts to interact with DataONE to search for, download, upload and update data and metadata. The purpose of uploading data from R is to automate the repetitive tasks for large datasets with many files.  For small datasets, the web submission for will certainly be simpler.
 
-The *dataone* R package represents the set of files in a data set as a `datapack::DataPackage`.  We will create a `DataPackage` locally, and then upload it to a test version of the Arctic Data Center repository using `dataone`.
+The *dataone* R package represents the set of files in a dataset as a `datapack::DataPackage`.  We will create a `DataPackage` locally, and then upload it to a test version of the Arctic Data Center repository using `dataone`.
 
 ### Logging in
 Before uploading any data to a DataONE repository, you must login to get an *authentication token*, which is a character string used to identify yourself. This token can be retrieved by logging into the test repository and copying the token into your R session.
@@ -350,7 +350,7 @@ Datasets and metadata can be uploaded individually or as a collection. Such a co
 R objects or existing on a DataONE repository, will be informally referred to as a `package`. The steps necessary to prepare and upload a package to DataONE using the `uploadDataPackage` method 
 will be shown. A complete script that uses these steps is shown here.
 
-In the first section, we create a 'DataPackage as a container for our data and metadata and scripts.
+In the first section, we create a 'DataPackage as a container for our data, metadata, and scripts.
 It starts out as empty.
 
 ```{r data-package, eval=FALSE}
@@ -386,7 +386,7 @@ doc@dataset@otherEntity[[3]]@physical[[1]]@distribution[[1]]@online@url <-
 write_eml(doc, emlFile)
 ```
 
-Now we have a full metadata document ready be uploaded.  In the next section, we'll
+Now we have a full metadata document ready to be uploaded.  In the next section, we'll
 add the data files and metadata to a `DataPackage`, and then upload that to a
 test repository.
 
