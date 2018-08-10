@@ -105,7 +105,7 @@ data to one of its member repositories, and then to discover and download that
 data for reuse in synthetic analyses.
 
 DataONE can be searched on the web (https://search.dataone.org/), which effectively
-allows a single search to find data form the dozens of members of DataONE, rather
+allows a single search to find data from the dozens of members of DataONE, rather
 than visiting each of the currently 43 repositories one at a time.
 
 ![](images/DataONECNs.png)
@@ -227,7 +227,7 @@ When finished, click the *Submit Dataset* button at the bottom.
 If there are errors or missing fields, they will be highlighted.  
 Correct those, and then try submitting again.  When you are successful, you should
 see a large green banner with a link to the current dataset view.  Click the `X` 
-to close that banner, as we want to continue editing metadata.
+to close that banner, if you want to continue editing metadata.
 
 ![](images/editor-12.png)
 Success!
@@ -241,7 +241,7 @@ to produce final outputs.  In DataONE, we support structured descriptions of the
 relationships, so one can see the flow of data from raw data to derived to outputs.
 
 You add provenance by navigating to the data table descriptions, and selecting the 
-'Add` buttons to link the data and scripts that were used in your computational 
+`Add` buttons to link the data and scripts that were used in your computational 
 workflow.  On the left side, select the `Add` circle to add an input data source
 to the filteredSpecies.csv file.  This starts building the provenance graph to
 explain the origin and history of each data object.
@@ -258,8 +258,7 @@ between the data files by clicking on `Add` arrow and selecting the R script:
 ![](images/editor-16.png)
 ![](images/editor-17.png)
 The diagram now shows the relationships among the data files and the R script, so
-click **Submit** to save another version of the package, and clear the success
-dialog to continue editing metadata.
+click **Submit** to save another version of the package.
 
 ### File and variable level metadata 
 
