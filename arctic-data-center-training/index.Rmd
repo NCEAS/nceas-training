@@ -11,17 +11,19 @@ description: "description here"
 always_allow_html: yes
 ---
 
-<br>
-
 # Data Science Training for the Arctic Data Center
 
-[![arctic_data_logo](./arctic-data-center.jpg)](https://arcticdata.io)
-<br>
+[![arctic_data_logo](images/arctic-data-center.png)](https://arcticdata.io)
 
 The [Arctic Data Center](https://arcticdata.io) conducts training in data science and management,
 both of which are critical skills for stewardship of data, software, and other
 products of research that are preserved at the [Arctic Data Center](https://arcticdata.io).
 
+## Schedule
+
+```{r schedule, echo=FALSE, out.width = '100%', fig.align = 'center'}
+knitr::include_graphics("images/adc-schedule.png")
+```
 
 ### Acknowledgements
 Work on this package was supported by:
@@ -30,4 +32,7 @@ Work on this package was supported by:
 
 Additional support was provided for working group collaboration by the National Center for Ecological Analysis and Synthesis, a Center funded by the University of California, Santa Barbara, and the State of California.
 
-[![nceas_footer](https://www.nceas.ucsb.edu/files/newLogo_0.png)](http://www.nceas.ucsb.edu)
+```{r footer_logo, echo=FALSE, out.width = '100%', fig.align = 'center'}
+knitr::include_graphics("images/nceas-logo.png")
+```
+
