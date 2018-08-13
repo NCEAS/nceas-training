@@ -107,7 +107,7 @@ R.version$version.string
 
 ### RStudio Version
 
-First, lets make sure everyone's RStudio is up to date. Run the following in your RStudio console:
+We will be using RStudio version 1.1.447 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
 
 ```
 RStudio.Version()$version
@@ -132,26 +132,6 @@ If you haven't installed all of the packages, this will automatically start inst
 
 Next, create a new R Markdown (File -> New File -> R Markdown). If you have never made an R Markdown document before, a dialog box will pop up asking if you wish to install the required packages. Click yes.
 
-### Checking your package versions
-
-We'll be using the following package versions:
-    
-- devtools: version 1.13.5
-- dplyr: version 0.7.4
-- DT: version 0.4
-- ggplot2: version 2.2.1
-- ggpmisc: version 0.2.17
-- kableExtra: version 0.8.0
-- leaflet: version 2.0.0
-- remotes: version 1.1.1
-- readxl: version 1.1.0
-- tidyr: version 0.8.0
-
-Ideally, you should have the same versions installed. ...but as long as your versions are not too far off, you should be okay. To check your versions, you can run the following snippet:
-
-```r
-for (p in packages) {sprintf("%s: version %s", p, packageVersion(p)) %>% print()}
-```
 
 ## Setting up git
 
