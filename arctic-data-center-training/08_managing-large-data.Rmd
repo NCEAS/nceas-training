@@ -4,13 +4,10 @@
 
 In this lesson, you will learn:
 
-- Why something is important
-- About something that might be useful
-- How to ride a bike
-- How to paint a shed
+- How to package large data sets
+- How to use R to programatically upload large data sets
 
-
-# Data Packaging
+## Data Packages
 
 ```{r setup_packaging, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
