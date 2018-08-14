@@ -114,6 +114,13 @@ dframe <- read.csv(textConnection(csvtext), stringsAsFactors = FALSE)
 head(dframe)
 ```
 
+## Authentication
+Before uploading any data to a DataONE repository, you must login to get an *authentication token*, which is a character string used to identify yourself. This token can be retrieved by logging into the test repository and copying the token into your R session.
+
+We will be using a test server, so login and retrieve your token at https://test.arcticdata.io
+
+Once you are logged in, navigate to your Profile Settings, and locate the "Authentication Token" section, and then copy the token for R to your clipboard. Finally, paste the token into the R Console to register it as an option for this R session.  You are now logged in.  But note that you need to keep this token private; don't paste it into scripts or check it into Git, as it is just as sensitive as your password.
+
 
 ## Upload a single data file
 
@@ -181,7 +188,7 @@ my_metadata <- new("DataObject",
                    format = "eml://ecoinformatics.org/eml-2.1.1", 
                    filename = eml_path)
 
-my_object <- setPublicAccess(my_object) # Make it public readable!
+my_metadata <- setPublicAccess(my_metadata) # Make it public readable!
 
 my_object <- new("DataObject", 
                  filename = "./co2.csv",
@@ -189,8 +196,7 @@ my_object <- new("DataObject",
 
 my_object <- setPublicAccess(my_object) # Make it public readable!
 
-addData(my_package, my_metadata)
-addData(my_package, my_object, mo = my_metadata)
+my_package <- addMember(my_package, my_object, mo = my_metadata)
 ```
 
 ```{r}
