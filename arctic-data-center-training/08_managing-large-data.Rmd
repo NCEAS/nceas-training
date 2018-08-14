@@ -70,14 +70,14 @@ Everything one needs to read and understand that analysis is contained in those 
 But where did `bg_chem_url` come from?  I copied it from the [data set landing page](https://doi.org/doi:10.18739/A25T3FZ8X) on
 the Arctic Center repository.
 
-## Setup for uploading data and metadata
+## Setup for the dataone package
 
 The R `dataone` package offers some convenient ways to do this, particularly some custom R classes which encapsulate a lot of the complexity of Objects and Data Packages.
 
 First, let's install and load libraries needed for connecting to DataONE repositories:
 
 ```{r, eval = F}
-packages <- c( "dataone", "datapack", "EML")
+packages <- c( "datapack", "dataone", "EML")
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
 rm(packages) #remove variables from workspace
 ```
@@ -87,15 +87,40 @@ library(dataone)
 library(datapack)
 ```
 
-Here we use a `D1Client` which is another way of connecting to a Member Node:
+Here we use a `D1Client` which is one way of connecting to a repository:
 
+```{r}
+client <- D1Client("PROD", "urn:node:KNB")
+```
+
+and then we use that client object to access the entire `DataPackage`, which includes
+both the data from all of the data files as well as the metadata that describes
+the data.
+
+```{r}
+doi <- "doi:10.5063/F1Z036CP"
+client <- D1Client("PROD", "urn:node:KNB")
+doi <- "doi:10.5063/F1Z036CP"
+pkg <- getDataPackage(client, doi)
+```
+
+Now grab the data for the CSV file from that package:
+
+```{r}
+getIdentifiers(pkg)
+do <- getMember(pkg, getIdentifiers(pkg)[3])
+csvtext <- rawToChar(getData(do))
+dframe <- read.csv(textConnection(csvtext), stringsAsFactors = FALSE)
+head(dframe)
+```
+
+
+## Upload a single data file
+
+For uploading data, let's use a test repository:
 ```{r}
 client <- D1Client("STAGING", "urn:node:mnTestARCTIC")
 ```
-
-Alternatively, we could also create an `MNode` object directly.
-
-## Upload a single data file
 
 First let's make an example data file (CSV in this case) to upload:
 
