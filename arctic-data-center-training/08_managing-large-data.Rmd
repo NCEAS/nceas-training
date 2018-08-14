@@ -1,26 +1,86 @@
 # Data packaging and managing large data sets
 
-## Learning Objectives
-
-In this lesson, you will learn:
-
-- How to package large data sets
-- How to use R to programatically upload large data sets
-
-## Data Packages
-
 ```{r setup_packaging, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
-This document briefly covers two common tasks:
+## Learning Objectives
 
+In this lesson, you will learn:
+
+- Why one might want to use a repository for reproducible research
+- How to package large data sets
+- How to programatically access data from repositories
+- How to use R to programatically upload data sets to a repository
+
+This document briefly covers three common tasks:
+
+- Downloading and using data from the Arctic Data Center
 - Uploading a data file to the Arctic Data Center
 - Uploading an entire Data Package to the Arctic Data Center
 
+## Data Packages
+
+Within many repositories, including the Arctic Data Center, data sets are organized
+as collections of files grouped together into *data packages* that are meaningful for
+a particular scientific purpose.  For example, a data package might include:
+
+- the raw data from a research experiment
+- the raw data from one year of an observational monitoring program
+- derived data that was a cleaned and gridded version of an original raw source data set
+- the data inputs and output figures and data from a particular set of analyses for a paper
+
+![Data Package](images/data-package.png)
+
+## Reproducible workflows
+
+Data that are stored locally on your computer are not accessible to collaborators, 
+reviewers, or colleagues that might want to build upon your work.  In addition, local
+file systems generally do not have good mecahnisms for versioning data and providing
+reliable pointers to particular versions of a data set.  One convenient solution
+is to upload data packages to a versioned data repository like the Arctic Data Center,
+and then to use those online, versioned copies of your data directly in your 
+analytical code so that it is explictly using a versioned copy of a data file.
+
+There are several mechanisms for doing this, including:
+
+- directly access the file over web links using HTTP
+- use a helper library (`dataone`) that has functions for remotely accessing a data set
+
+In both of these cases, your code has direct references to the data using its unique, 
+global identifer.  This means that, anybody who has the code will be able to execute
+the code and it will directly access the data.  It also avoids the common problems
+that people have with arranging their data in different directory structures on their
+local disks, which can often prevent others from accessing your data.
+
+## Accessing and using data from a repository
+
+Let's start by accessing some data from the Arctic Data Center, loading it into 
+a data frame, and plotting that data.  This mini-workflow shows how powerful 
+it can be to combine archival repositories with scripted analysis:
+
+```{r}
+# Read and plot data from doi:10.18739/A25T3FZ8X
+bg_chem_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
+bg_chem = read.csv(bg_chem_url, stringsAsFactors = FALSE)
+plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
+```
+
+Everything one needs to read and understand that analysis is contained in those three lines of code. 
+But where did `bg_chem_url` come from?  I copied it from the [data set landing page](https://doi.org/doi:10.18739/A25T3FZ8X) on
+the Arctic Center repository.
+
+## Setup for uploading data and metadata
+
 The R `dataone` package offers some convenient ways to do this, particularly some custom R classes which encapsulate a lot of the complexity of Objects and Data Packages.
 
-First, let's load our usual libraries and connect to our Member Node:
+First, let's install and load libraries needed for connecting to DataONE repositories:
+
+```{r, eval = F}
+packages <- c( "dataone", "datapack", "EML")
+for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
+rm(packages) #remove variables from workspace
+```
 
 ```{r}
 library(dataone)
