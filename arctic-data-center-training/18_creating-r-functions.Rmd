@@ -32,7 +32,7 @@ gain:
 
 Imagine you have a bunch of data measured in Fahrenheit and you want to convert
 that for analytical purposes to Celsius.  You might have an R script
-that does this do you.
+that does this for you.
 
 ```{r}
 airtemps <- c(212, 30.3, 78, 32)
