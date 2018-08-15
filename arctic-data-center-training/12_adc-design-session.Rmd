@@ -9,4 +9,30 @@ researchers to design useful new dat management features, particularly:
 - Custom award and project pages for data collections
 
 
-Details coming soon...
+## Project view mockups
+
+Mockups allow us to envision a feature before we start the process of implementing
+it, and therefore let's us consider several design iterations before we invest in code
+development.  
+
+The goal of the Project Views feature for our data systems is to enable more custom views
+of collections of data along either disciplinary themes or organizational groupings
+such as research projects or lab groups.  Our initial design supports:
+
+- Custom project pages that can present:
+    - Specific collections of data that are filtered from the whole
+    - A project logo and high-level title
+    - Project descriptions, images, and results in markdown
+    - Custom filters for subsetting and finding data
+
+- [Project View mockups](https://projects.invisionapp.com/share/57NINXC8F4U#/screens/314362717)
+
+## Editor review
+
+Similarly, we are constantly evolving the design and features of our metadata editing
+editing system, MetacatUI.  In this session we will look at a new set of features
+for MetacatUI, and get feedback on what works and needs improvement.
+
+- [Metadata editor survey](https://goo.gl/forms/mfNOB3uzzBcKXecu2)
+
+- [MetacatUI feature list](https://github.com/NCEAS/metacatui/wiki/Feature-Ideas)
