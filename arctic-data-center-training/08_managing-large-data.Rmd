@@ -62,7 +62,7 @@ it can be to combine archival repositories with scripted analysis:
 ```{r}
 # Read and plot data from doi:10.18739/A25T3FZ8X
 bg_chem_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem = read.csv(bg_chem_url, stringsAsFactors = FALSE)
+bg_chem = read.csv(url(bg_chem_url), stringsAsFactors = FALSE)
 plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
 ```
 
@@ -98,8 +98,6 @@ both the data from all of the data files as well as the metadata that describes
 the data.
 
 ```{r}
-doi <- "doi:10.5063/F1Z036CP"
-client <- D1Client("PROD", "urn:node:KNB")
 doi <- "doi:10.5063/F1Z036CP"
 pkg <- getDataPackage(client, doi)
 ```
