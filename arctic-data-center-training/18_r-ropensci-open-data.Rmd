@@ -76,7 +76,7 @@ Let's go through a couple of packages sponsored by rOpenSci to demonstrate the p
 - Package: https://github.com/ropensci/rfishbase
 - The New RFishbase: https://cran.r-project.org/web/packages/rfishbase/vignettes/tutorial.html
 
-```{r}
+```{r, message = F, warning = F}
 install.packages("fansi") #string formatting package
 install.packages("rfishbase")
 ```
@@ -109,6 +109,7 @@ https://github.com/ropensci/rnoaa/tree/master/R
 
 ```{r, eval = F}
 install.packages("rnoaa")
+install.packages("ncdf4")
 ```
 
 ```{r, eval = F}
@@ -121,6 +122,7 @@ buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
 
 ```{r, eval = F}
 bd <- buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
+plot(bd$data$wind_spd)
 ```
 
 ## Summary
