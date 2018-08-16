@@ -92,6 +92,7 @@ You can load the data table directly from the KNB Data Repository using:
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/knb.92020.1"
 # data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 esc <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+head(esc)
 ```
 
 ### Plot median escapement
@@ -105,6 +106,8 @@ median_esc <- esc %>%
   summarize(escapement = sum(DailyCount)) %>% 
   group_by(Species) %>% 
   summarize(median_escapement = median(escapement))
+
+head(median_esc)
 ```
 
 That command used a lot of the dplyr commands that we've used, and some that are new.
