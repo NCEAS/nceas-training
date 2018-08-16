@@ -108,6 +108,10 @@ Access data like:
 https://github.com/ropensci/rnoaa/tree/master/R
 
 ```{r}
+install.packages("rnoaa")
+```
+
+```{r}
 library(rnoaa)
 
 # Go here: http://www.ndbc.noaa.gov/
