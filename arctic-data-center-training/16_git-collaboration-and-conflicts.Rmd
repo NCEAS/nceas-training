@@ -116,21 +116,17 @@ But that requires the commandline. If you want to resolve from RStudio, or if
 you want to pick and choose some of your changes and some of your collaborator's,
 then instead you can manually edit and fix the file.  When you `pull`ed the file
 with a conflict, git notices that there is a conflict and modifies the file to show
-both your own changes and your collaborator's changes in the file.  It delimits
+both your own changes and your collaborator's changes in the file.  It also shows the
+file in the Git tab with an orange `U` icon, which indicates that the file is `Unmerged`,
+and therefore awaiting you help to resolve the conflict. It delimits
 these blocks with a series of less than and greater than signs, so they are easy to find:
 
-```
-<<<<<<< HEAD
-The changes to the lines we made are shown here. (ours)
-=======
-The changes to the lines our collaborators made are below the divider. (theirs)
->>>>>>> [4305bce8d53e88959b0718354a6341869c05bdfc]
-```
+![](images/rstudio-merge-conflict.png)
 
 To resolve the conficts, simply find all of these blocks, and edit them so that
 the file looks how you want (either pick your lines, your collaborators lines,
 some combination, or something altogether new), and save. Be sure you removed the
-delimiter lines `<<<<<<< HEAD`, `=======`, and `>>>>>>> [4305bce8d53e88959b0718354a6341869c05bdfc]`.
+delimiter lines that started with `<<<<<<<`, `=======`, and `>>>>>>>`.
 
 Once you have made those changes, you simply add, commit, and push the files
 to resolve the conflict.
