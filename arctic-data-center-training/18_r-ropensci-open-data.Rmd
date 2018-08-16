@@ -107,11 +107,11 @@ Access data like:
 
 https://github.com/ropensci/rnoaa/tree/master/R
 
-```{r}
+```{r, eval = F}
 install.packages("rnoaa")
 ```
 
-```{r}
+```{r, eval = F}
 library(rnoaa)
 
 # Go here: http://www.ndbc.noaa.gov/
@@ -119,9 +119,8 @@ library(rnoaa)
 buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
 ```
 
-```{r}
+```{r, eval = F}
 bd <- buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
-plot(bd$data$wind_spd)
 ```
 
 ## Summary
