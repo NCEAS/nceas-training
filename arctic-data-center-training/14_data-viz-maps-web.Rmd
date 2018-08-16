@@ -86,12 +86,21 @@ suppressPackageStartupMessages({
 
 ### Load salmon escapement data
 
-You can load the data table directly from the KNB Data Repository using:
+You can load the data table directly from the KNB Data Repository, if it isn't
+already present on your local computer.  This technique 
 
 ```{r read_data}
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/knb.92020.1"
 # data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
-esc <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+esc <- tryCatch(
+    read.csv("data/escapement.csv", stringsAsFactors = FALSE),
+    error=function(cond) {
+        message(paste("Escapement file does not seem to exist, so get it from the KNB."))
+        esc <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+        return(esc)
+    }
+)
+
 head(esc)
 ```
 
@@ -158,7 +167,7 @@ locs <- locations %>% mutate(Longitude = abs(Longitude) * -1)
 
 leaflet(locs) %>% 
   addTiles() %>% 
-  addMarkers(~ Longitude, ~ Latitude, popup = ~ Location, icon = markerIcon)
+  addMarkers(~ Longitude, ~ Latitude, popup = ~ Location)
 ```
 
 
@@ -186,7 +195,7 @@ markerIcon <- makeIcon(
 and then we use that `markerIcon` explictly when we call leaflet to draw the map:
 
 ```{r fixed_map}
-leaflet(locations) %>% 
+leaflet(locs) %>% 
   addTiles() %>% 
   addMarkers(~ Longitude, ~ Latitude, popup = ~ Location, icon = markerIcon)
 ```
