@@ -92,7 +92,7 @@ In my head I hear, e.g., "x gets 12".
 
 All R statements where you create objects -- "assignments" -- have this form: `objectName <- value`.  
 
-I'll write it in the console with a hashtag `#`, which is the way R comments so it won't be evaluated. 
+I'll write it in the console with a hash `#`, which is the way R comments so it won't be evaluated. 
 ```{r eval = FALSE}
 ## objectName <- value
 
@@ -348,7 +348,7 @@ As our first function, we will introduce `read.csv`, which will be in the first 
 
 To access the help page for `read.csv`, enter the following into your console:
 
-```{r}
+```{r, eval = F}
 ?read.csv
 ```
 
@@ -388,7 +388,7 @@ You can always specify arguments in `name = value` form. But if you do not, R at
 
 Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
 
-```{r, eval = F}
+```{r}
 bg_chem <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 

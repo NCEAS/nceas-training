@@ -1,9 +1,5 @@
 # Data packaging and managing large data sets
 
-```{r setup_packaging, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-```
-
 ## Learning Objectives
 
 In this lesson, you will learn:
@@ -59,7 +55,7 @@ Let's start by accessing some data from the Arctic Data Center, loading it into
 a data frame, and plotting that data.  This mini-workflow shows how powerful 
 it can be to combine archival repositories with scripted analysis:
 
-```{r}
+```{r, eval = F}
 # Read and plot data from doi:10.18739/A25T3FZ8X
 bg_chem_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
 bg_chem = read.csv(url(bg_chem_url), stringsAsFactors = FALSE)
@@ -82,14 +78,14 @@ for (package in packages) { if (!(package %in% installed.packages())) { install.
 rm(packages) #remove variables from workspace
 ```
 
-```{r}
+```{r, eval = F}
 library(dataone)
 library(datapack)
 ```
 
 Here we use a `D1Client` which is one way of connecting to a repository:
 
-```{r}
+```{r, eval = F}
 client <- D1Client("PROD", "urn:node:KNB")
 ```
 
@@ -97,14 +93,14 @@ and then we use that client object to access the entire `DataPackage`, which inc
 both the data from all of the data files as well as the metadata that describes
 the data.
 
-```{r}
+```{r, eval = F}
 doi <- "doi:10.5063/F1Z036CP"
 pkg <- getDataPackage(client, doi)
 ```
 
 Now grab the data for the CSV file from that package:
 
-```{r}
+```{r, eval = F}
 getIdentifiers(pkg)
 do <- getMember(pkg, getIdentifiers(pkg)[3])
 csvtext <- rawToChar(getData(do))
@@ -123,20 +119,20 @@ Once you are logged in, navigate to your Profile Settings, and locate the "Authe
 ## Upload a single data file
 
 For uploading data, let's use a test repository:
-```{r}
+```{r, eval = F}
 client <- D1Client("STAGING", "urn:node:mnTestARCTIC")
 ```
 
 First let's make an example data file (CSV in this case) to upload:
 
-```{r}
+```{r, eval = F}
 data("co2") # Built-in dataset in R
 write.csv(co2, "./co2.csv")
 ```
 
 Every Object we upload then just needs a `DataObject` class instance for it:
 
-```{r}
+```{r, eval = F}
 my_object <- new("DataObject", 
                  filename = "./co2.csv",
                  format = "text/csv")
@@ -146,7 +142,7 @@ my_object <- setPublicAccess(my_object) # Make it public readable!
 
 And then we just need to upload it:
 
-```{r}
+```{r, eval = F}
 uploadDataObject(client, my_object)
 ```
 
@@ -155,7 +151,7 @@ uploadDataObject(client, my_object)
 The steps to upload an entire package aren't that much more complex.
 First, let's create an example EML file:
 
-```{r}
+```{r, eval = F}
 library(EML)
 
 title <- "Test dataset to show submitting via R client"
@@ -179,7 +175,7 @@ eml_validate(eml_path)
 
 And then we just use the `DataPackage` class:
 
-```{r}
+```{r, eval = F}
 my_package <- new("DataPackage")
 
 my_metadata <- new("DataObject", 
@@ -197,6 +193,6 @@ my_object <- setPublicAccess(my_object) # Make it public readable!
 my_package <- addMember(my_package, my_object, mo = my_metadata)
 ```
 
-```{r}
+```{r, eval = F}
 uploadDataPackage(client, my_package, public = TRUE)
 ```
