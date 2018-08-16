@@ -24,7 +24,7 @@ well due to its simplicity.
 
 ### Activity: Collaborating with a trusted colleague
 
-*Settings*. Working in pairs, and choose one person as the 'Owner' and one as the 'Collaborator'.
+*Settings*. Working in pairs, choose one person as the 'Owner' and one as the 'Collaborator'.
 Then, have the Owner visit their `arctic-training-repo` repository created earlier,
 and visit the *Settings* page, and select the *Collaborators* screen, and add
 the username of your Collaborator in the box.
@@ -63,7 +63,7 @@ in RStudio, and `pull` those changes down to their local copy.
 **Congrats, the owner now has your changes!**
 
 *Owner edits, commit, and push*. Next, the owner should do the same. Make changes to
-a file in the repsoitory, save it, pull to make sure no new changes have been made
+a file in the repository, save it, pull to make sure no new changes have been made
 while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 
 *Collaborator pull*.  The collaborator can now `pull` down those owner changes, 
@@ -71,24 +71,78 @@ and all copies are once again fully synced.  And you're off to collaborating.
 
 ## Merge conflicts
 
-TODO: describe merge conflicts
+A merge conflict occurs when both the owner and collaborator change the same
+lines in the same file without first pulling the changes that the other has made.
+This is most easily avoided by good communication about who is working on various
+sections of each file, and trying to avoid overlaps.  But sometimes it happens, 
+and *git* is there to warn you about potential problems.  And git will not allow
+you to overwrite one person's changes to a file with another's changes to the same
+file if they were based on the same version.
 
-## Workflows to avoid merge conflicts
-
-Pull -> Edit -> Add -> Pull -> Commit -> Push
-
-Pull before every commit, and commit ofen in small chunks.
-
-## Detecting a conflict
-
-When you haven't pulled recently, you can get conflicts if your local commits occurred
-from a version that was prior to the current version on the origin reppsitory.
+The main problem with merge conflicts is that, when the Owner and Collaborator
+both make changes to the same line of a file, git doesn't know whose changes
+take precedence.  You have to tell git whose changes to use for that line.
 
 ## How to resolve a conflict
 
+### Abort, abort, abort...
+
+Sometimes you just made a mistake.  When you get a merge conflict, the repository
+is placed in a 'Merging' state until you resolve it.  There's a commandline command
+to abort doing the merge altogether:
+
+```
+git merge --abort
+```
+
+Of course, after doing that you stull haven't synced with your collaborator's
+changes, so things are still unresolved.  But at least your repository is now
+usable on your local machine.
+
 ### Checkout
 
+The simplest way to resolve a conflict, given that you know whose version of the
+file you want to keep, is to use the commandline `git` program to tell git to
+use either *your* changes (the person doing the merge), or *their* changes (the other collaborator).
+
+- keep your collaborators file: `git checkout --theirs conflicted_file.Rmd`
+- keep your own file: `git checkout --ours conflicted_file.Rmd`
+
+Once you have run that command, then run `add`, `commit`, and `push` the changes as normal.
+
 ### Pull and edit the file
+
+But that requires the commandline. If you want to resolve from RStudio, or if 
+you want to pick and choose some of your changes and some of your collaborator's,
+then instead you can manually edit and fix the file.  When you `pull`ed the file
+with a conflict, git notices that there is a conflict and modifies the file to show
+both your own changes and your collaborator's changes in the file.  It delimits
+these blocks with a series of less than and greater than signs, so they are easy to find:
+
+```
+<<<<<<< HEAD
+The changes to the lines we made are shown here. (ours)
+=======
+The changes to the lines our collaborators made are below the divider. (theirs)
+>>>>>>> [4305bce8d53e88959b0718354a6341869c05bdfc]
+```
+
+To resolve the conficts, simply find all of these blocks, and edit them so that
+the file looks how you want (either pick your lines, your collaborators lines,
+some combination, or something altogether new), and save. Be sure you removed the
+delimiter lines `<<<<<<< HEAD`, `=======`, and `>>>>>>> [4305bce8d53e88959b0718354a6341869c05bdfc]`.
+
+Once you have made those changes, you simply add, commit, and push the files
+to resolve the conflict.
+
+## Workflows to avoid merge conflicts
+
+Communicate often.  Tell each other what you are working on.
+
+Pull -> Edit -> Add -> Pull -> Commit -> Push
+
+Pull before every commit, and commit often in small chunks.
+
 
 
 
