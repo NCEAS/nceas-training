@@ -1,0 +1,95 @@
+# Git: Collabotation and Conflict Management
+
+## Learning Objectives
+
+In this lesson, you will learn:
+
+- How to use Git and GitHub to collaborate with colleagues on code
+- What typically causes conflicts when collaborating
+- Workflows to avoid conflicts
+- How to resolve a conflict
+
+## Collaborating with Git
+
+Git is a great tool for working on your own, but even better for working with friends
+and colleagues.  Git allows you to work with confidence on your own local copy of files
+with the confidence that you will be able to successfully synchronize your changes
+with the changes made by others.
+
+The simplest way to collaborate with Git is to use a shared repository on a hosting
+service such as [GitHub](https://github.com), and use this shared repository as
+the mechanism to move changes from one collaborator to another.  While there are other
+more advanced ways to sync git repositories, this "hub and spoke" model works really 
+well due to its simplicity.
+
+### Activity: Collaborating with a trusted colleague
+
+*Settings*. Working in pairs, and choose one person as the 'Owner' and one as the 'Collaborator'.
+Then, have the Owner visit their `arctic-training-repo` repository created earlier,
+and visit the *Settings* page, and select the *Collaborators* screen, and add
+the username of your Collaborator in the box.
+
+![](images/github-collaborators.png)
+
+Once the collaborator has been added, they should check their email for an invitation
+from GitHub, and click on the acceptance link, which will enable them to collaborate
+onthe repository.
+
+*Collaborator clone*.  To be able to contribute to a repository, the collaborator
+must clone the repository from the Owner's github account. To do this, the Collaborator
+should visit the github page for the Owner's repository, and then copy the clone URL.
+In R Studio, the Collaborator will create a new project from version control by pasting
+this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
+
+*Collaborator Edits*. With a clone copied locally, the Collaborator can now make changes to the
+`index.Rmd` file in the repository, adding a line or statment somewhere noticeable
+near the top.  Save your changes.
+
+*Collaborator commit and push*.  To sync changes, the collaborator will need to add, commit, and
+push their changes to the Owner's repository.  But before doing so, its good practice
+to `pull` immediately before committing to ensure you have the most recent changes
+from the owner.  So, in R Studio's Git tab, first click the "Diff" button to
+open the git window, and then press the green "Pull" down arrow button.  This will
+fetch any recent changes from the origin repository and merge them.  Next, add
+the changed index.Rmd file to be committed by cicking the checkbox next to it, 
+type in a commit message, and click 'Commit.'  Once that finishes, then the collaborator can
+immediately click 'Push' to send the commits to the Owner's GitHub repository.
+
+![](images/rstudio-commit-push.png)
+
+*Owner pull*. Now, the owner can open their local working copy of the code
+in RStudio, and `pull` those changes down to their local copy.
+
+**Congrats, the owner now has your changes!**
+
+*Owner edits, commit, and push*. Next, the owner should do the same. Make changes to
+a file in the repsoitory, save it, pull to make sure no new changes have been made
+while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
+
+*Collaborator pull*.  The collaborator can now `pull` down those owner changes, 
+and all copies are once again fully synced.  And you're off to collaborating.
+
+## Merge conflicts
+
+TODO: describe merge conflicts
+
+## Workflows to avoid merge conflicts
+
+Pull -> Edit -> Add -> Pull -> Commit -> Push
+
+Pull before every commit, and commit ofen in small chunks.
+
+## Detecting a conflict
+
+When you haven't pulled recently, you can get conflicts if your local commits occurred
+from a version that was prior to the current version on the origin reppsitory.
+
+## How to resolve a conflict
+
+### Checkout
+
+### Pull and edit the file
+
+
+
+
