@@ -5,6 +5,6 @@ bookdown::gitbook:
       collapse: section
       before: |
         <li><a href="./">ADC Training</a></li>
-        <li><a href="/arctic-data-training/">← Back to main website</a></li>
+        <li><a href="/">← Back to main website</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
