@@ -1,0 +1,109 @@
+---
+title: "Data Packaging"
+author: "Bryce Mecum <mecum@nceas.ucsb.edu>"
+date: "7/31/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+This document briefly covers two common tasks:
+
+- Uploading a data file to the Arctic Data Center
+- Uploading an entire Data Package to the Arctic Data Center
+
+The R `dataone` package offers some convenient ways to do this, particularly some custom R classes which encapsulate a lot of the complexity of Objects and Data Packages.
+
+First, let's load our usual libraries and connect to our Member Node:
+
+```{r}
+library(dataone)
+library(datapack)
+```
+
+Here we use a `D1Client` which is another way of connecting to a Member Node:
+
+```{r}
+client <- D1Client("STAGING", "urn:node:mnTestARCTIC")
+```
+
+Alternatively, we could also create an `MNode` object directly.
+
+## Upload a single data file
+
+First let's make an example data file (CSV in this case) to upload:
+
+```{r}
+data("co2") # Built-in dataset in R
+write.csv(co2, "./co2.csv")
+```
+
+Every Object we upload then just needs a `DataObject` class instance for it:
+
+```{r}
+my_object <- new("DataObject", 
+                 filename = "./co2.csv",
+                 format = "text/csv")
+
+my_object <- setPublicAccess(my_object) # Make it public readable!
+```
+
+And then we just need to upload it:
+
+```{r}
+uploadDataObject(client, my_object)
+```
+
+## Upload a simple Data Package
+
+The steps to upload an entire package aren't that much more complex.
+First, let's create an example EML file:
+
+```{r}
+library(EML)
+
+title <- "Test dataset to show submitting via R client"
+me <- as.person("Bryce Mecum <mecum@nceas.ucsb.edu>")
+dataset <- new("dataset",
+               title = title,
+               creator = me,
+               contact = me)
+
+eml_pid <- paste0("urn:uuid", uuid::UUIDgenerate())
+
+eml <- new("eml",
+           packageId = eml_pid,
+           system = "uuid",
+           dataset = dataset)
+
+eml_path <- "~/my_eml.xml"
+write_eml(eml, eml_path)
+eml_validate(eml_path)
+```
+
+And then we just use the `DataPackage` class:
+
+```{r}
+my_package <- new("DataPackage")
+
+my_metadata <- new("DataObject", 
+                   format = "eml://ecoinformatics.org/eml-2.1.1", 
+                   filename = eml_path)
+
+my_object <- setPublicAccess(my_object) # Make it public readable!
+
+my_object <- new("DataObject", 
+                 filename = "./co2.csv",
+                 format = "text/csv")
+
+my_object <- setPublicAccess(my_object) # Make it public readable!
+
+addData(my_package, my_metadata)
+addData(my_package, my_object, mo = my_metadata)
+```
+
+```{r}
+uploadDataPackage(client, my_package, public = TRUE)
+```

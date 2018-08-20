@@ -1,0 +1,143 @@
+---
+title: "Programmatic DataONE Search & Download"
+author: "Bryce Mecum <mecum@nceas.ucsb.edu>"
+date: "7/31/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+The Arctic Data Center supports the DataONE API which means it lets us have programattic access to most aspects of the system:
+
+- Find data
+- Get data
+- Submit data
+
+Finding data through the DataONE API differs from searching directly through our website in that the DataONE API supports a much richer set of query options than our website.
+Like many DataONE member nodes, the Arctic Data Center runs a Solr index for easy querying which can be queried so long as you know how to use [Solr](http://lucene.apache.org/solr/) and where to point your query.
+You can use your web browser, curl, any Solr library you prefer or the `dataone` R package to query the Arctic Data Center.
+
+To get a list of fields you can query, visit:
+
+https://arcticdata.io/metacat/d1/mn/v2/query/solr
+
+(Either in your web browser or your programming language of choice)
+
+And to query the Solr endpoint, you can do something like this:
+
+https://arcticdata.io/metacat/d1/mn/v2/query/solr/?q=*.*
+
+which returns any Object stored in the index.
+
+## Query with R
+
+Let's see how the `dataone` package can be used to query and download data objects from the Arctic Data Center.
+
+First, load the `dataone` package:
+
+```{r}
+library(dataone)
+```
+
+Then we need to specify the Member Node we want to query (Arctic Data Center in this case):
+
+```{r}
+cn <- CNode("PROD")
+mn <- getMNode(cn, "urn:node:ARCTIC")
+```
+
+Every Solr query is made up of a set of parameters which we need to set up.
+An R `list` is one of the easiest ways to do this:
+
+```{r}
+params <- list(
+  "q" = "*:*",
+  "rows" = "5",
+  "fl" = "identifier,formatId"
+)
+```
+
+And then the query is run with the conventiently-named `query` function:
+
+```{r}
+query(mn, params, as = "data.frame")
+```
+
+By default, `query` returns a `list` but you can see in the above output and code that I specified that `query` should return a `data.frame` instead.
+
+## Find data on thawing and download it all
+
+Instead of simply querying the Arctic Data Center for data, perhaps we want to download the data we found.
+The `dataone` package supports this easily.
+
+Let's say we want to download data related to thaw depth.
+First, we generate and run a query for the five most recent datasets with 'thaw' in their title:
+
+```{r}
+params <- list(
+  "q" = "title:*thaw*+AND+formatType:METADATA+-obsoletedBy:*",
+  "rows" = "5",
+  "fl" = "identifier,title,resourceMap",
+  "sort" = "dateUploaded+desc"
+)
+results <- query(mn, params)
+results
+```
+
+How could we go about downloading the data in one of these datasets?
+Let's start with just one.
+
+The basic idea is that each dataset is contained within a resource map, which is the container for the metadata and its related data.
+When a data object is part of a resource map, it will have a `resourceMap` field set for it in the Solr index.
+We can query this like so:
+
+```{r}
+resource_map_pid <- results[[1]]$resourceMap[[1]]
+
+params <- list(
+  "q" = paste0('resourceMap:"', resource_map_pid, '"+AND+formatType:DATA+-obsoletedBy:*'),
+  "rows" = "1000",
+  "fl" = "identifier,formatId,fileName,dataUrl")
+
+just_data <- query(mn, params, as = "data.frame")
+just_data
+```
+
+Now that we know the PID of the data objects in this particular dataset, we just need one more line of code to actually download it:
+
+```{r}
+writeBin(getObject(mn, just_data[1,"identifier"]), just_data[1,"fileName"])
+```
+
+If we want to do this in bulk, we only need to use `for` loops or `apply` function calls to do what we did above but for each dataset, and for each data file in each dataset:
+
+```{r}
+lapply(results, function(dataset) {
+  cat(paste0("Downloading data for ", dataset$title, "\n"))
+  
+  params <- list("q" = paste0('resourceMap:"', dataset$resourceMap[[1]], '"+AND+formatType:DATA+-obsoletedBy:*'),
+                 "rows" = "1",
+                 "fl" = "identifier,formatId,fileName,dataUrl")
+  
+  just_data <- query(mn, params, as = "data.frame")
+  
+  if (nrow(just_data) == 0) {
+    return(list())
+  }
+  
+  paths <- lapply(seq_len(nrow(just_data)), function(i) {
+    cat(paste0("  Downloading data file ", just_data[i,"identifier"], "\n"))
+    
+    data_path <- tempfile()
+    writeBin(getObject(mn, just_data[i,"identifier"]), data_path)
+    
+    data_path
+  })
+  
+  cat("\n")
+  
+  paths
+})
+```
