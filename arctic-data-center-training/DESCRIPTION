@@ -1,0 +1,20 @@
+Package: placeholder
+Type: Book
+Title: Does not matter.
+Version: 0.0.1
+Imports: 
+    bookdown,
+    cowplot,
+    dataone,
+    datapack,
+    dplyr,
+    DT,
+    ggplot2,
+    ggpmisc,
+    gridExtra,
+    kableExtra,
+    knitr,
+    leaflet,
+    readxl,
+    redland
+Remotes: rstudio/bookdown
