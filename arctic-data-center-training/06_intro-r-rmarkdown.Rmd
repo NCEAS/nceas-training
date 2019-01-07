@@ -178,9 +178,24 @@ weight_kg <- 100
 
 What do you think is the current content of the object `weight_lb`? 126.5 or 220? Why?
 
+You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is the function `c()`, which stands for combine or concatenate.
+
+Here we will create a _vector_ of weights in kilograms, and convert them to pounds, saving the weight in pounds as a new object.
+
+```{r}
+weight_kg <- c(55, 25, 12)
+weight_kg
+```
+
+```{r}
+weight_lb <- weight_kg * 2.2
+weight_lb
+```
+
+
 ### Error messages are your friends
 
-Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
+Implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
 
 Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. 
 
@@ -342,19 +357,39 @@ Add a few more commands to your file. Execute them by trying the three ways abov
 
 So far we've learned some of the basic syntax and concepts of R programming, how to navigate RStudio, and RMarkdown, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
 
-R has a mind-blowing collection of built-in functions that are used with the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. When you type a function like this, we say we are "calling the function". `function_name(argument1 = value1, argument2 = value2, ...)`. 
+A function is a way to group a set of commands together to undertake a task in a reusable way. When a function is executed, it produces a return value. We often say that we are "calling" a function when it is executed. Functions can be user defined and saved to an object using the assignment operator, so you can write whatever functions you need, but R also has a mind-blowing collection of built-in functions ready to use. To start, we will be using some built in R functions.
 
-As our first function, we will introduce `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R, but we don't quite know how to use it yet. The help pages in RStudio will help us with this!
+All functions are called using the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. The pieces of information that the function needs to do its job are called arguments. So the syntax will look something like: `result_value <- function_name(argument1 = value1, argument2 = value2, ...)`. 
 
-To access the help page for `read.csv`, enter the following into your console:
+### A simple example
+
+To take a very simple example, let's look at the `mean()` function. As you might expect, this is a function that will take the mean of a set of numbers. Very convenient!
+
+Let's create our vector of weights again:
+
+```{r}
+weight_kg <- c(55, 25, 12)
+```
+
+and use the `mean` function to calculate the mean weight.
+
+```{r}
+mean(weight_kg)
+```
+
+### Getting help
+
+What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
+
+To access the help page for `mean`, enter the following into your console:
 
 ```{r, eval = F}
-?read.csv
+?mean
 ```
 
 The help pane will show up in the lower right hand corner of your RStudio.
 
-You can see from this pane that the help page for this function is actually for a family of related functions that read in data. The help page tells the name of the package in the top left, and is broken down into sections:
+The help page is broken down into sections:
 
  - Description: An extended description of what the function does.
  - Usage: The arguments of the function(s) and their default values.
@@ -364,15 +399,32 @@ You can see from this pane that the help page for this function is actually for 
  - See Also: Any related functions you might find useful.
  - Examples: Some examples for how to use the function.
 
-The help for `read.csv` has a lot of information in it, as this function has a lot of arguments, but the first one seems pretty critical. We have to tell it what file to look for. Let's get a file!
 
-### Download a file from the Arctic Data Center
+### Your turn
+
+> Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`,  `min()`, `max()`, `?log()`).
+
+And there's also help for when you only sort of remember the function name: double-questionmark:
+```{r, eval=F}
+??install 
+```
+
+Not all functions have (or require) arguments:
+```{r}
+date()
+```
+
+### Use a function to read a file into R
+
+So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
+
+Since this is our irst time using this function, first access the help page for `read.csv`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
+
+#### Download a file from the Arctic Data Center
 
 Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file called "BGchem2008data.csv"
 
 Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder called `data` in your previously-created directory `arctic_training_files`, and putting the file there.
-
-### Use a function to read a file into R
 
 Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In RMarkdown, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to the location of the RMarkdown.** RStudio and RMarkdown have some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, your `read.csv` call will look like this:
 
@@ -392,19 +444,6 @@ Many R users (including myself) will override the default `stringsAsFactors` arg
 bg_chem <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 
-### Your turn
-
-> Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`,  `min()`, `max()`, `?mean()`, `?log()`).
-
-And there's also help for when you only sort of remember the function name: double-questionmark:
-```{r, eval=F}
-??install 
-```
-
-Not all functions have (or require) arguments:
-```{r}
-date()
-```
 
 
 ## Using `data.frames`
