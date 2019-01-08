@@ -1,7 +1,5 @@
 # Open Data in R and ROpenSci
 
-This lesson was created by Bryce Mecum and Matt Jones.
-
 ## Learning Objectives
 
 In this lesson, you will:
@@ -70,32 +68,6 @@ rOpenSci addresses the issues raised in that top quote.
 
 Let's go through a couple of packages sponsored by rOpenSci to demonstrate the power of open data + APIs + R.
 
-### `rfishbase`: R interface to the fishbase.org database
-
-- Website: http://www.fishbase.org/search.php
-- Package: https://github.com/ropensci/rfishbase
-- The New RFishbase: https://cran.r-project.org/web/packages/rfishbase/vignettes/tutorial.html
-
-```{r, message = F, warning = F}
-install.packages("fansi") #string formatting package
-install.packages("rfishbase")
-```
-
-```{r}
-library(rfishbase)
-```
-
-```{r}
-fish <- c("Oreochromis niloticus", "Salmo trutta")
-fish <- validate_names(c("Oreochromis niloticus", "Salmo trutta"))
-fish <- species_list(Genus = "Labroides")
-fish
-```
-
-```{r}
-fish_common <- common_to_sci("trout")
-fish_common
-```
 ### `rnoaa`: R interface to many NOAA data APIs 
 
 Access data like:
@@ -105,29 +77,63 @@ Access data like:
 - Buoy data
 - Tons more!
 
-https://github.com/ropensci/rnoaa/tree/master/R
+[https://github.com/ropensci/rnoaa/](https://github.com/ropensci/rnoaa/)
 
 ```{r, eval = F}
-install.packages("rnoaa")
-install.packages("ncdf4")
+install.packages("rnoaa") # run once
 ```
 
 ```{r, eval = F}
 library(rnoaa)
+library(ggplot2)
+```
 
-# Go here: http://www.ndbc.noaa.gov/
-# Find a station ID, like https://www.ndbc.noaa.gov/station_page.php?station=46080
-buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
+Go here: [http://www.ndbc.noaa.gov/](http://www.ndbc.noaa.gov/)
+Find a station ID, like [https://www.ndbc.noaa.gov/station_page.php?station=46080](https://www.ndbc.noaa.gov/station_page.php?station=46080)
+
+```{r, eval = F}
+bd <- buoy(dataset = 'cwind', buoyid = 46080, year = 2018, datatype = "c")
+
+wind_speed <- data.frame(time = as.POSIXct(bd$data$time), speed = bd$data$wind_spd, stringsAsFactors = F)
 ```
 
 ```{r, eval = F}
-bd <- buoy(dataset = 'cwind', buoyid = 46080, year = 2016, datatype = "c")
-plot(bd$data$wind_spd)
+ggplot(wind_speed, aes(x = time, y = speed)) + 
+    geom_point() +
+    xlab("") +
+    ylab("Wind Speed (m/s)") +
+    ggtitle("2018 NOAA buoy observations near Kodiak, AK") +
+    theme_bw()
+```
+
+### `mapr`: Mapping Species Occurrence Data
+
+[https://github.com/ropensci/mapr](https://github.com/ropensci/mapr)
+
+```{r, eval = F}
+install.packages("mapr", dependencies = TRUE) # run once
+```
+
+```{r, eval = F}
+library(mapr)
+library(spocc)
+```
+
+Plot the locations of [GBIF](https://www.gbif.org/) species occurrence data for caribou and polar bears, with different colors for each species.
+
+```{r, eval = F}
+spp <- c('Rangifer tarandus', 'Ursus maritimus')
+dat <- occ(query = spp, from = 'gbif', has_coords = TRUE, limit = 500)
+```
+
+
+```{r, eval = F}
+map_leaflet(dat, size = 1, color = c("black", "red"), alpha = 1)
 ```
 
 ## Summary
 
-- Open data greatly assist in the data aquisition step in research
+- Open data greatly assist in the data acquisition step in research
 - Finding open data is still hard
 - R, via rOpenSci, has a lot of packages for accessing open data already available to you
 
