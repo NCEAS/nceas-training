@@ -12,9 +12,8 @@ The `devtools` and `roxygen` package makes creating and maintining a package to 
 ## Install and load packages
 
 ```{r, eval=FALSE}
-install.packages("devtools")
-library("devtools")
-devtools::install_github("klutometis/roxygen")
+library(devtools)
+# install.packages("roxygen2")
 library(roxygen2)
 ```
 
@@ -35,7 +34,7 @@ Title: Utility functions created by Matt Jones
 Version: 0.1
 Authors@R: "Matthew Jones <jones@nceas.ucsb.edu> [aut, cre]"
 Description: Package mytools contains a suite of utility functions useful whenever I need stuff to get done.
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.5.0)
 License: Apache License (== 2.0)
 LazyData: true
 ```
