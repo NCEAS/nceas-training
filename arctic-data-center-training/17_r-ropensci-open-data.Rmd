@@ -119,16 +119,16 @@ library(mapr)
 library(spocc)
 ```
 
-Plot the locations of [GBIF](https://www.gbif.org/) species occurrence data for caribou and polar bears, with different colors for each species.
+Plot the locations of [GBIF](https://www.gbif.org/) species occurrence data for grizzly and polar bears, with different colors for each species.
 
 ```{r, eval = F}
-spp <- c('Rangifer tarandus', 'Ursus maritimus')
-dat <- occ(query = spp, from = 'gbif', has_coords = TRUE, limit = 500)
+spp <- c('Ursus arctos', 'Ursus maritimus')
+dat <- occ(query = spp, from = 'gbif', has_coords = TRUE, limit = 1000)
 ```
 
 
 ```{r, eval = F}
-map_leaflet(dat, size = 1, color = c("black", "red"), alpha = 1)
+map_leaflet(dat, size = 1, color = c("brown", "gray"), alpha = 1)
 ```
 
 ## Summary
