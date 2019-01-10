@@ -17,7 +17,7 @@ So far in this course, we've introduced a small set of powerful tools for doing 
 - R and its many packages
 - RStudio
 - git
-- GiHub
+- GitHub
 - RMarkdown
 
 RMarkdown, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
@@ -63,10 +63,10 @@ We'll use the same git repository and RStudio Project as above, but we'll be add
 
 First, let's get some data. We'll re-use the salmon escapement data from the ADF&G OceanAK database:
 
-- Navigate to [Escapement Counts](https://knb.ecoinformatics.org/#view/urn:uuid:c14d3e59-e5e3-4696-996d-558446b577fd) (or visit the KNB and search for 'oceanak') and copy the Download URL for the `ADFG_firstAttempt_reformatted.csv` file
+- Navigate to [Escapement Counts](https://doi.org/10.5063/F1S46Q6M) (or visit the KNB and search for 'oceanak') and copy the Download URL for the `ADFG_firstAttempt_reformatted.csv` file
 - Download that file into R using `read.csv` to make the script portable
-- Calculate median annual escapement by species using the `dplyr` package
-- Make a bar plot of the median annual escapement by species using the `ggplot2` package
+- Calculate annual escapement by species and region using the `dplyr` package
+- Make a bar plot of the annual escapement by species using the `ggplot2` package
 - Display it in an interactive table with the `datatable` function from the `DT` package
 - And lastly, let's make an interactive, Google Maps-like map of the escapement sampling locations.
 
@@ -74,14 +74,12 @@ To do this, we'll use the [`leaflet`](https://rstudio.github.io/leaflet/) packag
 
 First, let's load the packages we'll need:
 
-```{r load_packages}
-suppressPackageStartupMessages({
+```{r load_packages, message = F, warning = F}
   library(leaflet)
   library(dplyr)
   library(tidyr)
   library(ggplot2)
   library(DT)
-})
 ```
 
 ### Load salmon escapement data
@@ -90,8 +88,8 @@ You can load the data table directly from the KNB Data Repository, if it isn't
 already present on your local computer.  This technique 
 
 ```{r read_data}
-data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/knb.92020.1"
-# data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
+data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
+
 esc <- tryCatch(
     read.csv("data/escapement.csv", stringsAsFactors = FALSE),
     error=function(cond) {
@@ -104,35 +102,66 @@ esc <- tryCatch(
 head(esc)
 ```
 
-### Plot median escapement
+### Static Plots
 
-Now that we have the data loaded, let's calculate median annual escapement by species:
+Now that we have the data loaded, let's calculate annual escapement by species and region:
 
 ```{r mean_esc}
-median_esc <- esc %>% 
+annual_esc <- esc %>% 
   separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>% 
-  group_by(Species, SASAP.Region, Year, Location) %>% 
+  mutate(Year = as.numeric(Year)) %>% 
+  group_by(Species, SASAP.Region, Year) %>% 
   summarize(escapement = sum(DailyCount)) %>% 
-  group_by(Species) %>% 
-  summarize(median_escapement = median(escapement))
+  filter(Species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
 
-head(median_esc)
+head(annual_esc)
 ```
 
 That command used a lot of the dplyr commands that we've used, and some that are new.
 The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns,
 and then we use `group_by` to indicate that we want to calculate our results for
-the unique combinations of species, region, year, and location.  We next use `summarize`
-to calculate an escapement value for each of these groups, which we then proceed to further 
-group by species to caluclate the median for each species.
+the unique combinations of species, region, and year.  We next use `summarize`
+to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
-Now, let's plot our results:
+Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* (set using `aes()`) and a *geometry* to create your plot. Additional geometries/aesthetics and theme elements can be added to a `ggplot` object using `+`.
 
 ```{r plot_esc}
-ggplot(median_esc, aes(Species, median_escapement)) +
-  geom_col() +
-  coord_flip()
+ggplot(annual_esc, aes(x = Species, y = escapement)) +
+  geom_col()
 ```
+
+`ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data, like the region.
+
+```{r}
+ggplot(annual_esc, aes(x = Species, y = escapement, fill = SASAP.Region)) +
+  geom_col()
+```
+
+Here is an example of a different aesthetic and geometry mapping we can create with this data. You can also add a title, adjust labels, and include a built in theme.
+
+```{r}
+ggplot(filter(annual_esc, SASAP.Region == "Kodiak"), aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    ylab("Escapement") +
+    ggtitle("Kodiak Salmon Escapement") +
+    theme_bw()
+
+```
+
+Note how I added a filter call in my `ggplot` function call to only plot data from Kodiak. You can easily create plots like this for every region using `facet_wrap`
+
+```{r}
+ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    facet_wrap(~SASAP.Region, scales = "free_y") +
+    ylab("Escapement") +
+    theme_bw()
+
+```
+
+### Interactive Maps
 
 Now let's convert the escapement data into a table of just the unique locations:
 
@@ -160,46 +189,4 @@ The `addTiles()` function gets a base layer of tiles from [OpenStreetMap](https:
 `addMarkers` use a bit of an odd syntax in that it looks kind of like `ggplot2` code but uses `~` before the column names.
 This is similar to how the `lm` function (and others) work but you'll have to make sure you type the `~` for your map to work.
 
-This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. ...and it makes a problem with these data much more obvious than in tabular form. Do you see all those points way over in Russia? This is an Alaskan data set. Those aren't supposed to be there. Can you guess why they're showing up over there? If you glance through the coordinates in the `locations` table above it should become obvious. Here's how to fix it:
-
-```{r fix_locations}
-locs <- locations %>% mutate(Longitude = abs(Longitude) * -1)
-
-leaflet(locs) %>% 
-  addTiles() %>% 
-  addMarkers(~ Longitude, ~ Latitude, popup = ~ Location)
-```
-
-
-
-### Missing map markers
-
-When you knit and view the results of this cell locally (on your own computer), you will see a map with icons marking the locations. However, sometimes when you push the html to GitHub and view your page there, you'll see a map with no icons. This appears to be due to a certificate issue with server that provides the leaflet icons. There is a workaround, but it adds several more lines of code.  
-
-First, we use `makeIcon` to create a local version of the icon symbols to be plotted on the map:
-
-```{r fix_icons}
-# Use a custom marker so Leaflet doesn't try to grab the marker images from 
-# its CDN (this was brought up in 
-# https://github.com/NCEAS/sasap-training/issues/22)
-markerIcon <- makeIcon(
-  iconUrl = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png",
-  iconWidth = 25, iconHeight = 41,
-  iconAnchorX = 12, iconAnchorY = 41,
-  shadowUrl = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png",
-  shadowWidth = 41, shadowHeight = 41,
-  shadowAnchorX = 13, shadowAnchorY = 41
-)
-```
-
-and then we use that `markerIcon` explictly when we call leaflet to draw the map:
-
-```{r fixed_map}
-leaflet(locs) %>% 
-  addTiles() %>% 
-  addMarkers(~ Longitude, ~ Latitude, popup = ~ Location, icon = markerIcon)
-```
-
-Nowwhen the map is committed and pushed to GitHub, the markers should be present.  This
-technique can also be used to create markers of shapes and sizes using images that
-you provide.
+Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
