@@ -81,6 +81,7 @@ Access data like:
 
 ```{r, eval = F}
 install.packages("rnoaa") # run once
+install.packages("ncdf4") # run once
 ```
 
 ```{r, eval = F}
@@ -123,7 +124,7 @@ Plot the locations of [GBIF](https://www.gbif.org/) species occurrence data for 
 
 ```{r, eval = F}
 spp <- c('Ursus arctos', 'Ursus maritimus')
-dat <- occ(query = spp, from = 'gbif', has_coords = TRUE, limit = 1000)
+dat <- occ(query = spp, from = 'gbif', has_coords = TRUE, limit = 500)
 ```
 
 
