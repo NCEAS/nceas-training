@@ -21,14 +21,14 @@ library(roxygen2)
 
 Thanks to the great [devtools](https://github.com/hadley/devtools) package, it only takes one function call to create the skeleton of an R package using `create()`.  Which eliminates pretty much all reasons for procrastination.  All you do is:
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 library("devtools")
 create("mytools")
 ```
 
 This will create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure).  The most important of which is the `DESCRIPTION` file, which provides metadata about your package. Edit the `DESCRIPTION` file to provide reasonable values for each of the fields. Information about choosing a LICENSE is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 Package: mytools
 Title: Utility functions created by Matt Jones
 Version: 0.1
@@ -102,7 +102,7 @@ environment_info <- function(msg) {
 
 Once your files are documented, you can then process the documentation using the `document()` function to generate the appropriate .Rd files that your package needs.
 
-```{r}
+```{r, eval = F}
 setwd("./mytools")
 document()
 # or document(".")
@@ -114,7 +114,7 @@ That's really it.  You now have a package that you can `check()` and `install()`
 
 Now that your package is built, you can check it for consistency and completeness using `check()`, and then you can install it locally using `install()`, which needs to be run from the parent directory of your module.
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 setwd("./mytools")
 check()
 setwd("..")
