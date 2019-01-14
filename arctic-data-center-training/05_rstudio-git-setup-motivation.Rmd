@@ -9,7 +9,6 @@ In this lesson, you will learn:
 - How to check to make sure your RStudio environment is set up properly for analysis
 - How to set up git
 
-
 ## Reproducible Research
 Reproducibility is the hallmark of science, which is based on empirical observations 
 coupled with explanatory models.  While reproducibility encompasses 
@@ -18,22 +17,6 @@ treatment of bias, in this course we will focus on **computational reproducibili
 the ability to document data, analyses, and models sufficiently for other researchers 
 to be able to understand and ideally re-execute the computations that led to 
 scientific results and conclusions.
-
-### The Reproducibility Crisis
-
-@ioannidis_why_2005 highlighted a growing crisis in reproducibility of science when 
-he wrote that "Most Research Findings Are False for Most Research Designs 
-and for Most Fields". Ioannidis outlined ways in which the research process
-has lead to inflated effect sizes and hypothesis tests that codify existing biases.
-Subsequent research has confirmed that reproducibility is low across many fields,
-including genetics [@ioannidis_repeatability_2009], ecology [@fraser_questionable_2018], and 
-psychology [@open_science_collaboration_estimating_2015], among others.  For example,
-effect size has been shown to significantly decrease in repeated experiments in 
-psychology (\@ref(fig:effectsize)).
-
-```{r effectsize4, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Effect size decreases in replicated experiments [@open_science_collaboration_estimating_2015].'}
-knitr::include_graphics("images/effect-size.png")
-```
 
 ### What is needed for computational reproducibility?
 
