@@ -2,9 +2,9 @@
 
 ## Why packages?
 
-Most R users are familiar with loading and utilizing packages in their work. And they know how rich CRAN is in providing for many conceivable needs.  Ironically, most have never created a package for their own work, and most think the process is too complicated.  It is not.  Creating packages serves two main use cases:
+Most R users are familiar with loading and utilizing packages in their work. And they know how rich CRAN is in providing for many conceivable needs.  Most people have never created a package for their own work, and most think the process is too complicated.  Really it's pretty straighforward and super useful in your personal work.  Creating packages serves two main use cases:
 
-- Mechanism to redistribute reusable code
+- Mechanism to redistribute reusable code (even if just for yourself)
 - Mechanism to reproducibly document analysis and models and their results
 
 The `devtools` and `roxygen` package makes creating and maintining a package to be a straightforward experience.
@@ -48,7 +48,7 @@ Imports:
     ggplot2
 ```
 
-The in the documentation for any package, add the following line:
+Then, in the documentation for any package, add the following line:
 
 ```
 #' @importFrom ggplot2 ggplot
@@ -62,11 +62,11 @@ If you need to use all (or most functions from a package)
 
 This will ensure that only the necessary functions and packages are downloaded and specific functions are referenced by NAMESPACE.
 
-For an example to poke around, see one of Karthik's packages: [https://github.com/ropensci/ecoengine](https://github.com/ropensci/ecoengine)
+For an example to poke around, see a package we wrote for analysis of ecological communities: [https://github.com/NCEAS/codyn](https://github.com/NCEAS/codyn)
 
 See how I listed an import: 
-1. https://github.com/ropensci/ecoengine/blob/master/DESCRIPTION#L25
-2. and specifically imported a function for a package: https://github.com/ropensci/ecoengine/blob/master/R/ee_observations.R#L36
+1. https://github.com/NCEAS/codyn/blob/master/DESCRIPTION#L32
+2. and specifically [imported two functions](https://github.com/NCEAS/codyn/blob/master/R/variance_ratio.R#L55) from the stats package using `@importFrom`
 
 ---
 
@@ -127,7 +127,12 @@ Your package is now available for use in your local environment.
 
 The simplest way to share your package with others is to upload it to a [GitHub repository](https://github.com), which allows others to install your package using the `install_github('mytools','github_username')` function from `devtools`.
 
-If your package might be broadly useful, also consider releasing it to CRAN, using the `release()` method from `devtools().
+If your package might be broadly useful, also consider releasing it to CRAN, using the `release()` method from `devtools(). Releasing a package to CRAN requires a significant amoutn of work to ensure it follows the standards set by the R community, but it is entirely tractable and a valuable contribution to the science community.  If you are considering releasing a package more broadly, you may find that the supportive community at [ROpenSci](https://ropensci.org) provides incredible help and valuable feeback through their onboarding process.
+
+## More reading
+
+- Hadly Wickham's awesome book: [R Packages](http://r-pkgs.had.co.nz/)
+- Thomas Westlake's blog [Writing an R package from scratch](https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/)
 
 
 
