@@ -39,8 +39,6 @@ This lesson is a combination of excellent lessons by others. Huge thanks to Juli
 - [R basics, workspace and working directory, RStudio projects](http://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html)
 - [Basic care and feeding of data in R](http://stat545-ubc.github.io/block006_care-feeding-data.html)
 
-
-
 RStudio has great resources as well: 
 
 - [webinars](https://www.rstudio.com/resources/webinars/) 
@@ -49,6 +47,14 @@ RStudio has great resources as well:
 Finally, Hadley Wickham's book R for Data Science is a great resource to get more in depth. 
 
 -[R for Data Science](http://r4ds.had.co.nz/)
+
+Other resources:
+
+- [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)
+- [Base R Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf)
+- [RMarkdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+- [MATLAB/R Translation Cheat Sheet](http://mathesaurus.sourceforge.net/octave-r.html)
+
 
 ## R at the console
 
@@ -487,7 +493,30 @@ There are many more advancted tools and functions in R that will enable you to m
 
 ## Troubleshooting
 
-Here are two common errors for new users:
+### My RMarkdown won't knit to PDF
+
+If you get an error when trying to knit to PDF that says your computer doesn't have a LaTeX installation, one of two things is likely happening:
+
+1. Your computer doesn't have LaTeX installed
+2. You have an installation of LaTeX but RStudio cannot find it (it is not on the path)
+
+If you already use LaTeX (like to write papers), you fall in the second category. Solving this requires directing RStudio to your installation - and isn't covered here.
+
+If you fall in the first category - you are sure you don't have LaTeX installed - can use the R package `tinytex` to easily get an installation recognized by RStudio, as long as you have administrative rights to your computer.
+
+To install `tinytex` run:
+
+```{r, eval = F}
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+If you get an error that looks like `destination /usr/local/bin not writable`, you need to give yourself permission to write to this directory (again, only possible if you have administrative rights). To do this, run this command in the terminal:
+
+
+    sudo chown -R `whoami`:admin /usr/local/bin
+
+and then try the above install instructions again. More information about `tinytex` can be found [here](https://yihui.name/tinytex/)
 
 ### I just entered a command and nothing is happening
 
@@ -510,4 +539,7 @@ This means that you do not have an object called `myobject` saved in your enviro
 - **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
 - **not executing the line in your RMarkdown**: remember that writing a line of code in RMarkdown is not the same as writing in the console, you have to execute the line of code using command + enter, running the chunk, or one of the other ways outlined in the RMarkdown section of this training
 
+## Literate Analysis
+
+RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. [Here](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) is an example of a real analysis workflow written using RMarkdown.
 
