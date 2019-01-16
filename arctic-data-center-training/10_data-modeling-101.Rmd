@@ -127,6 +127,7 @@ For the INNER join, the rows returned are all rows in A that have a matching row
 - No spaces
 
 - [Borer et al. 2009. **Some Simple Guidelines for Effective Data Management.** Bulletin of the Ecological Society of America.](http://matt.magisa.org/pubs/borer-esa-2009.pdf)
+- [White et al. 2013. **Nine simple ways to make it easier to (re)use your data.** Ideas in Ecology and Evolution 6.](https://doi.org/10.4033/iee.2013.6b.6.f)
 
 ## Data modeling exercise
 
@@ -152,12 +153,17 @@ datatable(region_defs)
 
 - Draw an ER model for the tables
   - Indicate the primary and foreign keys
+- Is the `catch` table in normal (aka tidy) form?
+  - If so, what single type of entity was observed?
+  - If not, how might you restructure the data table to make it tidy?
+    - Draw a new ER diatram showing this re-designed data structure
 
 ![](images/ERD_Relationship_Symbols_Quick_Reference-1.png)
 
 ## Related resources
 
 - [Borer et al. 2009. **Some Simple Guidelines for Effective Data Management.** Bulletin of the Ecological Society of America.](http://matt.magisa.org/pubs/borer-esa-2009.pdf)
+- [White et al. 2013. **Nine simple ways to make it easier to (re)use your data.** Ideas in Ecology and Evolution 6.](https://doi.org/10.4033/iee.2013.6b.6.f)
 - [Software Carpentry SQL tutorial](https://swcarpentry.github.io/sql-novice-survey/)
 - [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf)
 
