@@ -1,5 +1,13 @@
 # Creating R Packages
 
+## Learning Objectives
+
+In this lesson, you will learn:
+
+- The advantages of using R packages for organizing code
+- Simple techniques for creating R packages
+- Approaches to documenting code in packages
+
 ## Why packages?
 
 Most R users are familiar with loading and utilizing packages in their work. And they know how rich CRAN is in providing for many conceivable needs.  Most people have never created a package for their own work, and most think the process is too complicated.  Really it's pretty straighforward and super useful in your personal work.  Creating packages serves two main use cases:
@@ -7,26 +15,57 @@ Most R users are familiar with loading and utilizing packages in their work. And
 - Mechanism to redistribute reusable code (even if just for yourself)
 - Mechanism to reproducibly document analysis and models and their results
 
-The `devtools` and `roxygen` package makes creating and maintining a package to be a straightforward experience.
+At a minimum, you can easily produce a package for just your own useful code functions,
+which makes it easy to maintain and use utilities that span your own projects.
+
+The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a package to be a straightforward experience.
 
 ## Install and load packages
 
 ```{r, eval=FALSE}
 library(devtools)
+library(usethis)
 # install.packages("roxygen2")
 library(roxygen2)
 ```
 
-## Create a directory for the package
+## Create a basic package
 
-Thanks to the great [devtools](https://github.com/hadley/devtools) package, it only takes one function call to create the skeleton of an R package using `create()`.  Which eliminates pretty much all reasons for procrastination.  All you do is:
+Thanks to the great [usethis](https://github.com/r-lib/usethis) package, it only takes one function call to create the skeleton of an R package using `create_package()`.  Which eliminates pretty much all reasons for procrastination.  To create a package called
+`mytools`, all you do is:
 
 ```{r, eval=FALSE}
-library("devtools")
-create("mytools")
+setwd('..')
+create_package("mytools")
 ```
 
-This will create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure).  The most important of which is the `DESCRIPTION` file, which provides metadata about your package. Edit the `DESCRIPTION` file to provide reasonable values for each of the fields. Information about choosing a LICENSE is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
+    ✔ Setting active project to '/Users/jones/development/mytools'
+    ✔ Creating 'R/'
+    ✔ Creating 'man/'
+    ✔ Writing 'DESCRIPTION'
+    ✔ Writing 'NAMESPACE'
+    ✔ Writing 'mytools.Rproj'
+    ✔ Adding '.Rproj.user' to '.gitignore'
+    ✔ Adding '^mytools\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
+    ✔ Opening new project 'mytools' in RStudio
+
+This will create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure).  The most important of which is the `DESCRIPTION` file, which provides metadata about your package. Edit the `DESCRIPTION` file to provide reasonable values for each of the fields,
+including your own contact information. 
+
+Information about choosing a LICENSE is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
+The DESCRIPTION file expects the license to be chose from a predefined list, but
+you can use it's various utility methods for setting a specific license file, such
+as the `Apacxhe 2` license:
+
+```{r, eval=FALSE}
+use_apl2_license(name="Matthew Jones")
+```
+
+    ✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
+    ✔ Writing 'LICENSE.md'
+    ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+
+Once your license has been chosen, and you've edited your DESCRIPTION file with your contact information, a title, and a description, it will look like this:
 
 ```{r, eval=FALSE}
 Package: mytools
@@ -35,48 +74,27 @@ Version: 0.1
 Authors@R: "Matthew Jones <jones@nceas.ucsb.edu> [aut, cre]"
 Description: Package mytools contains a suite of utility functions useful whenever I need stuff to get done.
 Depends: R (>= 3.5.0)
-License: Apache License (== 2.0)
+License: Apache License (>= 2.0)
 LazyData: true
 ```
 
-For discussion on when to list a package under Imports or Depends, see [this discussion on StackOverflow](http://stackoverflow.com/questions/8637993/better-explanation-of-when-to-use-imports-depends). But in brief:
-
-Avoid depends as much as possible. It's basically like saying `library(other_package)` every time your package is loaded. This can lead to a large number of dependencies being installed each time. Instead, list a package under Imports like so:
-
-```
-Imports:
-    ggplot2
-```
-
-Then, in the documentation for any package, add the following line:
-
-```
-#' @importFrom ggplot2 ggplot
-```
-
-If you need to use all (or most functions from a package)
-
-```
-#' @import ggplot2
-```
-
-This will ensure that only the necessary functions and packages are downloaded and specific functions are referenced by NAMESPACE.
-
-For an example to poke around, see a package we wrote for analysis of ecological communities: [https://github.com/NCEAS/codyn](https://github.com/NCEAS/codyn)
-
-See how I listed an import: 
-1. https://github.com/NCEAS/codyn/blob/master/DESCRIPTION#L32
-2. and specifically [imported two functions](https://github.com/NCEAS/codyn/blob/master/R/variance_ratio.R#L55) from the stats package using `@importFrom`
-
----
 
 ## Add your code
 
-The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `info.R` that contains a function `environment_info()` that you might want to reuse. This one might leave something to be desired...
+The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `environemnt_info.R` that contains a function `environment_info()` that you might want to reuse. This one might leave something to be desired..., but you get the point... The
+`usethis::use_r()` function will help set up you files in the right places.  For example, running:
 
-```{r}
+```{r eval=FALSE}
+use_r("environment_info")
+```
+
+    ● Modify 'R/environment_info.R'
+
+creates the file `R/environment_info.R`, which you can then modify to add the implementation fo the following function:
+
+```{r eval=FALSE}
 environment_info <- function(msg) {
-    print("This should really do something useful!")
+    print(devtools::session_info())
     print(paste("Also print the incoming message: ", msg))
 }
 ```
@@ -95,7 +113,6 @@ You should provide documentation for each of your functions and classes.  This i
 #' @examples
 #' environment_info("Hi, what is your name?")
 environment_info <- function(msg) {
-    print("This should really do something useful!")
     print(paste("Also print the incoming message: ", msg))
 }
 ```
@@ -103,10 +120,15 @@ environment_info <- function(msg) {
 Once your files are documented, you can then process the documentation using the `document()` function to generate the appropriate .Rd files that your package needs.
 
 ```{r, eval = F}
-setwd("./mytools")
 document()
-# or document(".")
 ```
+
+Updating mytools documentation
+Updating roxygen version in /Users/jones/development/mytools/DESCRIPTION
+Writing NAMESPACE
+Loading mytools
+Writing NAMESPACE
+Writing environment_info.Rd
 
 That's really it.  You now have a package that you can `check()` and `install()` and `release()`.  See below for these helper utilities.
 
@@ -115,10 +137,8 @@ That's really it.  You now have a package that you can `check()` and `install()`
 Now that your package is built, you can check it for consistency and completeness using `check()`, and then you can install it locally using `install()`, which needs to be run from the parent directory of your module.
 
 ```{r, eval = FALSE}
-setwd("./mytools")
 check()
-setwd("..")
-install("mytools")
+install()
 ```
 
 Your package is now available for use in your local environment.
