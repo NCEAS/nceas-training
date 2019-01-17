@@ -26,13 +26,7 @@ In this lesson, we're going to take an existing GitHub repository and turn it in
 
 ## A Minimal Example
 
-- Create a new repository on GitHub
-- Initialize the repository on GitHub without any files in it
-- In RStudio,
-    - Create a new Project
-    - When creating, select the option to create from Version Control -> Git
-    - Enter your repository's clone URL in the Repository URL field and fill in the rest of the details
-- Add a new file at the top level called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.
+- In RStudio, create a new file at the top level of your git repository called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.
 - Open `index.Rmd` (if it isn't already open)
 - Press Knit
     - Observe the rendered output
@@ -130,7 +124,27 @@ ggplot(annual_esc, aes(x = Species, y = escapement)) +
   geom_col()
 ```
 
-`ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data, like the region.
+What if we want our bars to be blue instad of gray? You might think we could run this:
+
+```{r}
+ggplot(annual_esc, aes(x = Species, y = escapement, fill = "blue")) +
+  geom_col()
+```
+
+Why did that happen?
+
+Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our dataframe, and then mapped it to the `fill` aesthetic, which then chose the default fill color of red. 
+
+What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_bar` function, **outside** of the mapping aesthetics function call.
+
+```{r}
+ggplot(annual_esc, aes(x = Species, y = escapement)) +
+  geom_col(fill = "blue")
+```
+
+What if we did want to map the color of the bars to a variable, such as region.
+
+`ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data.
 
 ```{r}
 ggplot(annual_esc, aes(x = Species, y = escapement, fill = SASAP.Region)) +
