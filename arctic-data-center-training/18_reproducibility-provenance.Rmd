@@ -11,6 +11,15 @@ In this lesson, you will learn:
 
 This lesson will draw from existing materials:
 
-- [Accelerating synthesis science through reproducible science practices](2018-08-17-repro-sci.pdf)
-- [Reproducible papers with RMarkdown](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/reproducible-papers-with-rmd.html)
+- [Accelerating synthesis science through reproducible science practices](filess/2018-08-17-repro-sci.pdf)
 - [rrtools](https://github.com/benmarwick/rrtools)
+- [Reproducible papers with RMarkdown](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/reproducible-papers-with-rmd.html)
+- [Bibliography](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/references.bib)
+
+```{r}
+download.file(
+    url = "https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/references.bib", 
+    destfile = "references.bib", 
+    method="libcurl")
+```
+
