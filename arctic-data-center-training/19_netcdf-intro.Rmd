@@ -8,6 +8,10 @@ In this lesson, you will:
 - Wrangle the example data into a data frame
 - Make some plots
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+```
+
 ## Introduction
 
 NetCDF files are hierarchical data files that contain embedded metadata and allow for efficient extraction of data. They are particularly useful for storing large data, such as raster data and model outputs.
