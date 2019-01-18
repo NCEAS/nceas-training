@@ -32,7 +32,7 @@ Let's grab an example file. Download the .nc file from Fiamma Straneo. 2019. Tem
 First we open a connection to our NetCDF file using `nc_open`.
 
 ```{r}
-nc <- nc_open("materials/arctic-data-center-training/data/WG2013CTD.nc")
+nc <- nc_open("data/WG2013CTD.nc")
 ```
 
 You can print information about what is contained in the file using the `print` function on the `nc` object.
