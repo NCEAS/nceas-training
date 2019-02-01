@@ -118,26 +118,17 @@ The dataset and reference to the original source can be found at its public arch
 
 First, let's load `dplyr` and `tidyr`:
 
-```{r, eval=FALSE}
+```{r, message = F, warning = F}
 library(dplyr)
 library(tidyr)
-```
-
-```{r, include=FALSE}
-# This chunk looks like a duplicate of the above chunk but I did it this way
-# so the renderd output (above chunk) looks clean.
-suppressPackageStartupMessages({
-  library(dplyr)
-  library(tidyr)
-})
 ```
 
 Then let's read in the data and take a look at it:
 
 ```{r, cache=TRUE}
-catch_df <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
+catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
                     stringsAsFactors = FALSE)
-head(catch_df)
+head(catch_original)
 ```
 
 Note: I copied the URL from the Download button on https://knb.ecoinformatics.org/#view/df35b.304.2
@@ -179,12 +170,13 @@ RStudio has a keyboard shortcut for `%>%` : Ctrl + Shift + M (Windows), Cmd + Sh
 ## Selecting/removing columns: `select()`
 
 The first issue is the extra columns `All` and `notesRegCode`.
-Let's select only the columns we want:
+Let's select only the columns we want, and assign this to a variable called `catch_data`.
 
 ```{r}
-catch_df %>% 
-  select(Region, Year, Chinook, Sockeye, Coho, Pink, Chum) %>% 
-  head()
+catch_data <- catch_original %>% 
+  select(Region, Year, Chinook, Sockeye, Coho, Pink, Chum)
+
+head(catch_data)
 ```
 
 Much better!
@@ -192,16 +184,10 @@ Much better!
 `select` also allows you to say which columns you *don't* want, by passing unquoted column names preceded by minus (-) signs:
 
 ```{r}
-catch_df %>% 
-  select(-All, -notesRegCode) %>% 
-  head()
-```
-
-Let's save our changes by overwriting the `catch_df` variable:
-
-```{r}
-catch_df <- catch_df %>% 
+catch_data <- catch_original %>% 
   select(-All, -notesRegCode)
+
+head(catch_data)
 ```
 
 ## Changing shape: `gather()` and `spread()`
@@ -210,10 +196,10 @@ The next issue is that the data are in a wide format and, we want the data in a 
 `gather()` from the `tidyr` package helps us do just this conversion:
 
 ```{r}
-catch_df <- catch_df %>% 
+catch_long <- catch_data %>% 
   gather(species, catch, -Region, -Year)
 
-head(catch_df)
+head(catch_long)
 ```
 
 The syntax we used above for `gather()` might be a bit confusing so let's look at an annotated diagram:
@@ -224,9 +210,10 @@ The first two arguments to `gather()` are the names of new columns that will be 
 The opposite of `gather()`, `spread()`, works in a similar declarative fashion:
 
 ```{r}
-catch_df %>% 
-  spread(species, catch) %>% 
-  head()
+catch_wide <- catch_long %>% 
+  spread(species, catch)
+
+head(catch_wide)
 ```
 
 ## Renaming columns with `rename()`
@@ -237,19 +224,22 @@ If we look at [the metadata](https://knb.ecoinformatics.org/#view/df35b.304.2) w
 Let's first rename the `catch` column to be called `catch_thousands`:
 
 ```{r}
-catch_df <- catch_df %>% 
+catch_clean <- catch_long %>% 
   rename(catch_thousands = catch)
 
-head(catch_df)
+head(catch_clean)
 ```
 
 ## Adding columns: `mutate()`
 
-Now let's create a new column called `catch` with units of fish (instead of thousands of fish):
+Now let's create a new column called `catch` with units of fish (instead of thousands of fish). Note that here we have added to the expression we wrote above by adding another function call (`mutate`) to our expression. This takes advantage of the pipe operator by grouping together a similar set of statements, which all aim to clean up the `catch_long` `data.frame`.
 
 ```{r, eval=FALSE}
-catch_df <- catch_df %>%
+catch_clean <- catch_long %>% 
+  rename(catch_thousands = catch) %>%
   mutate(catch = catch_thousands * 1000)
+
+head(catch_clean)
 ```
 
 You'll notice that we get an error:
@@ -262,7 +252,7 @@ How could we find out?
 R provides a number of handy utility functions for quickly summarizing a large table:
 
 ```{r}
-summary(catch_df)
+summary(catch_clean)
 ```
 
 - **Exercise:** What are some other ways (functions) we could've found out what our problem was?
@@ -273,22 +263,22 @@ That seems wrong since catch should be whole numbers (in R, these show up as int
 Let's try to convert the values to integers and see what happens:
 
 ```{r}
-catch_integers <- as.integer(catch_df$catch_thousands)
+catch_integers <- as.integer(catch_clean$catch_thousands)
 ```
 
 We get an error "NAs introduced by coercion" which is R telling us that it couldn't convert every value to an integer and, for those values it couldn't convert, it put an `NA` in its place.
 This is behavior we commonly experience when cleaning datasets and it's important to have the skills to deal with it when it crops up.
-We can find out which values are NAs with a combination of `is.na()` and `which()`:
+We can find out which values are NAs with a combination of `is.na()` and `which()`, and save that to a variable called `i`.
 
 ```{r}
-which(is.na(catch_integers))
+i <- which(is.na(catch_integers))
+i
 ```
 
-It looks like the 401st value is the problem.
-Let's look at the 401s row of the `catch` data.frame:
+It looks like there is only one problem row, lets have a look at it:
 
 ```{r}
-catch_df[401,]
+catch_clean[i,]
 ```
 
 Well that's odd: The value in `catch_thousands` is `I` which is isn't even a number.
@@ -296,31 +286,41 @@ It turns out that this dataset is from a PDF which was automatically converted i
 Let's fix it:
 
 ```{r}
-catch_df <- catch_df %>%
-  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands),
-         catch_thousands = as.integer(catch_thousands))
+catch_clean <- catch_long %>% 
+  rename(catch_thousands = catch) %>%
+  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
+  mutate(catch_thousands = as.integer(catch_thousands))
+
+head(catch_clean)
 ```
 
 Note that, in the above pipeline call to `mutate()`, we mutate `catch_thousands` twice.
 This works because `mutate()` processes each of the mutations in a step-wise fashion so the results of one mutation are available for the next.
 
-Now let's try our conversion again:
+Now let's try our conversion again by adding it as another function call in our expression.
 
 ```{r}
-catch_df <- catch_df %>%
+catch_clean <- catch_long %>% 
+  rename(catch_thousands = catch) %>%
+  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
+  mutate(catch_thousands = as.integer(catch_thousands)) %>% 
   mutate(catch = catch_thousands * 1000)
 
-summary(catch_df)
+head(catch_clean)
 ```
 
 Looks good, no warnings!
 Now let's remove the `catch_thousands` column for now since we don't need it:
 
 ```{r}
-catch_df <- catch_df %>% 
-  select(-catch_thousands)
+catch_clean <- catch_long %>% 
+  rename(catch_thousands = catch) %>%
+  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
+  mutate(catch_thousands = as.integer(catch_thousands)) %>% 
+  mutate(catch = catch_thousands * 1000) %>% 
+  select(-catch_thousands)    
 
-head(catch_df)
+head(catch_clean)
 ```
 
 We're now ready to start analyzing the data.
@@ -330,9 +330,11 @@ We're now ready to start analyzing the data.
 As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarise()` functions:
 
 ```{r}
-catch_df %>% 
+mean_region <- catch_clean %>% 
   group_by(Region) %>%
   summarise(mean(catch))
+
+head(mean_region)
 ```
 
 - **Exercise:** Find another grouping and statistic to calculate for each group.
@@ -342,9 +344,11 @@ Another common use of `group_by()` followed by `summarize()` is to count the num
 We have to use a special function from `dplyr`, `n()`.
 
 ```{r}
-catch_df %>% 
+n_region <- catch_clean %>% 
   group_by(Region) %>%
   summarize(n = n())
+
+head(n_region)
 ```
 
 ## Filtering rows: `filter()`
@@ -355,9 +359,10 @@ It's similar to `subset()` from base R.
 Let's go back to our original `data.frame` and do some `filter()`ing:
 
 ```{r}
-catch_df %>% 
-  filter(Region == "SSE") %>% 
-  head() # head() Show just the first n (default:  6) rows
+SSE_catch <- catch_clean %>% 
+  filter(Region == "SSE")
+
+head(SSE_catch)
 ```
 
 - **Exercise:** Filter to just catches of over one million fish.
@@ -374,20 +379,24 @@ In my experience, I use `arrange()` in two common cases:
 Let's re-calculate mean catch by region, and then `arrange()` the output by mean catch:
 
 ```{r}
-catch_df %>% 
+mean_region <- catch_clean %>% 
   group_by(Region) %>% 
   summarise(mean_catch = mean(catch)) %>% 
   arrange(mean_catch)
+
+head(mean_region)
 ```
 
 The default sorting order of `arrange()` is to sort in ascending order.
 To reverse the sort order, wrap the column name inside the `desc()` function:
 
 ```{r}
-catch_df %>% 
+mean_region <- catch_clean %>% 
   group_by(Region) %>% 
   summarise(mean_catch = mean(catch)) %>% 
   arrange(desc(mean_catch))
+
+head(mean_region)
 ```
 
 ## Joins in dplyr
@@ -407,34 +416,38 @@ Let's look at a preview of what our join will do by looking at a simplified vers
 ![Visualisation of our `left_join`](images/left_join_catchdata.png)
 
 
-First, let's read in the region definitions data table.
+First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
 
 
 ```{r, cache=TRUE}
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"),
-                        stringsAsFactors = FALSE)
+region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1",
+                            method = "libcurl"),
+                        stringsAsFactors = FALSE) %>% 
+    select(code, mgmtArea)
+
+head(region_defs)
 ```
 
 
 If you examine the `region_defs` `data.frame`, you'll see that the column names don't exactly match the image above. If the names of the key columns are not the same, you can explicitly specify which are the key columns in the left and right side as shown below:
 
 ```{r}
-catch_df %>% 
-  group_by(Region) %>% 
-  summarise(total_catch = sum(catch)) %>% 
-  left_join(region_defs, by = c("Region" = "code"))
+catch_joined <- left_join(catch_clean, region_defs, by = c("Region" = "code"))
+
+head(catch_joined)
 ```
 
-Another way is to use `rename` to change the column name `code` to `Region` in the `region_defs` `data.frame`, and run the `left_join` this way:
+Notice that I have deviated from our usual pipe syntax (although it does work here!) because I prefer to see the `data.frames` that I am joining side by side in the syntax.
+
+Another way you can do this join is to use `rename` to change the column name `code` to `Region` in the `region_defs` `data.frame`, and run the `left_join` this way:
 
 ```{r, eval = F}
 region_defs <- region_defs %>% 
-  rename(Region = code, mgmtArea = Region_Name)
+  rename(Region = code, Region_Name = mgmtArea)
 
-catch_df %>% 
-  group_by(Region) %>% 
-  summarise(total_catch = sum(catch)) %>% 
-  left_join(region_defs, by = c("Region"))
+catch_joined <- left_join(catch_clean, region_defs, by = c("Region"))
+
+head(catch_joined)
 ```
 
 
@@ -491,17 +504,20 @@ We just ran through the various things we can do with `dplyr` and `tidyr` but if
 Let's look at that now:
 
 ```{r, catch=TRUE}
-catch_df <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
+catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
                   stringsAsFactors = FALSE)
 region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"),
-                        stringsAsFactors = FALSE)
+                        stringsAsFactors = FALSE) %>% 
+    select(code, mgmtArea)
 
-catch_df %>%
+mean_region <- catch_original %>%
   select(-All, -notesRegCode) %>% 
   gather(species, catch, -Region, -Year) %>%
   mutate(catch = ifelse(catch == "I", 1, catch)) %>% 
-  mutate(catch = as.integer(catch)) %>% 
+  mutate(catch = as.integer(catch)*1000) %>% 
   group_by(Region) %>% 
   summarize(mean_catch = mean(catch)) %>% 
   left_join(region_defs, by = c("Region" = "code"))
+
+head(mean_region)
 ```
