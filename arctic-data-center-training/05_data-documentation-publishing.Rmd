@@ -322,6 +322,9 @@ Once you are logged in, navigate to your Profile Settings, and locate the "Authe
 Finally, paste the token into the R Console to register it as an option for this R session.  You are now logged in.  But note that you need to keep this token private; don't paste it into scripts or check it into Git, as it is just as sensitive as your password.
 
 ### Modifying metadata
+
+Navigate to the demo data package here [https://test.arcticdata.io/view/urn:uuid:b8570c6f-e8c9-4e0e-ae7b-ee55faca5763](https://test.arcticdata.io/view/urn:uuid:b8570c6f-e8c9-4e0e-ae7b-ee55faca5763) and select "Download All". Unzip the downloaded file and navigate to `strix-pacitic-northwest.xml` within the `data` directory. This is the metadata file associated with this data package.
+
 Next, modify the metadata file associated with the package to set yourself as the owner.  This will help us differentiate the test data later.  Open the `strix-pacific-northwest.xml` file in RStudio, and change the `givenName` and `surName` fields at the top to your name.
 
 ```{r modify-eml, eval=FALSE}
