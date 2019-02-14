@@ -203,6 +203,27 @@ The `addTiles()` function gets a base layer of tiles from [OpenStreetMap](https:
 `addMarkers` use a bit of an odd syntax in that it looks kind of like `ggplot2` code but uses `~` before the column names.
 This is similar to how the `lm` function (and others) work but you'll have to make sure you type the `~` for your map to work.
 
+You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/#getcapabilities) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker.
+
+```{r}
+leaflet(locations) %>% 
+  addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?",
+              layers = 'GEBCO_LATEST',
+              attribution = "Imagery reproduced from the GEBCO_2014 Grid, version 20150318, www.gebco.net") %>%
+  addCircleMarkers(lng = ~Longitude,
+                   lat = ~Latitude,
+                   popup = ~ Location,
+                   radius = 5,
+                   # set fill properties
+                   fillColor = "salmon",
+                   fillOpacity = 1,
+                   # set stroke properties
+                   stroke = T,
+                   weight = 0.5,
+                   color = "white",
+                   opacity = 1)
+```
+
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
 
 ## Resources
