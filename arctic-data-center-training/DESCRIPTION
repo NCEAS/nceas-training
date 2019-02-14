@@ -9,6 +9,7 @@ Imports:
     datapack,
     dplyr,
     DT,
+    ggmap,
     ggplot2,
     ggpmisc,
     gridExtra,
@@ -17,5 +18,6 @@ Imports:
     leaflet,
     readxl,
     redland,
+    sf,
     htmlwidgets
 Remotes: rstudio/bookdown
