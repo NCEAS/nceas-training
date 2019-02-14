@@ -99,6 +99,18 @@ environment_info <- function(msg) {
 }
 ```
 
+If your R code depends on functions from another package, then you must declare so
+in the `Imports` list in the `DESCRIPTION` file for your package.  In our example
+above, we depend on the `devtools` package, and so we need to list it as a dependency.
+Once again, `usethis` provides a handy helper method:
+
+```{r eval=FALSE}
+usethis::use_package("devtools")
+```
+
+    ✔ Adding 'devtools' to Imports field in DESCRIPTION
+    ● Refer to functions with `devtools::fun()`
+
 ## Add documentation
 
 You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts.    Be sure to define the overall purpose of the function, and each of its parameters.
@@ -109,10 +121,12 @@ You should provide documentation for each of your functions and classes.  This i
 #' This function prints current environment information, and a message.
 #' @param msg The message that should be printed
 #' @keywords debugging
+#' @import devtools
 #' @export
 #' @examples
-#' environment_info("Hi, what is your name?")
+#' environment_info("This is an important message from your sponsor.")
 environment_info <- function(msg) {
+    print(devtools::session_info())
     print(paste("Also print the incoming message: ", msg))
 }
 ```
@@ -123,14 +137,65 @@ Once your files are documented, you can then process the documentation using the
 document()
 ```
 
-Updating mytools documentation
-Updating roxygen version in /Users/jones/development/mytools/DESCRIPTION
-Writing NAMESPACE
-Loading mytools
-Writing NAMESPACE
-Writing environment_info.Rd
+    Updating mytools documentation
+    Updating roxygen version in /Users/jones/development/mytools/DESCRIPTION
+    Writing NAMESPACE
+    Loading mytools
+    Writing NAMESPACE
+    Writing environment_info.Rd
 
 That's really it.  You now have a package that you can `check()` and `install()` and `release()`.  See below for these helper utilities.
+
+## Test your package
+
+You can tests your code using the `tetsthat` testing framework.  The `ussethis::use_testthat()` 
+function will set up your package for testing, and then you can use the `use_test()` function
+to setup individual test files.  For example, if you want to create tests of our
+environment_info functions, set it up like this:
+
+```{r eval = FALSE}
+usethis::use_testthat()
+```
+    ✔ Adding 'testthat' to Suggests field in DESCRIPTION
+    ✔ Creating 'tests/testthat/'
+    ✔ Writing 'tests/testthat.R'
+    
+```{r eval = FALSE}
+usethis::use_test("environment_info")
+```
+    ✔ Writing 'tests/testthat/test-environment_info.R'
+    ● Modify 'tests/testthat/test-environment_info.R'
+
+You can now add tests to the `test-environment_info.R`, and you can run all of the
+tests using `devtools::test()`.  For example, if you add a test to the `test-environment_info.R` file:
+
+```{r eval=FALSE}
+test_that("A message is present", {
+    capture.output(result <- environment_info("A unique message"))
+    expect_match(result, "A unique message")
+})
+```
+
+Then you can run the tests to be sure all of your functions are working using `devtools::test()`:
+
+```{r eval=FALSE}
+devtools::test()
+```
+
+    Loading mytools
+    Testing mytools
+    ✔ | OK F W S | Context
+    ✔ |  2       | test-environment_info [0.1 s]
+    
+    ══ Results ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+    Duration: 0.1 s
+    
+    OK:       2
+    Failed:   0
+    Warnings: 0
+    Skipped:  0
+
+Yay, all tests passed!
 
 ## Checking and installing your package
 
