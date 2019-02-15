@@ -42,6 +42,8 @@ In this tutorial, our goal is to use a shapefile of Alaska regions and data on p
 
 ## Reading a shapefile  
 
+All of the data used in this tutorial is available at [https://github.com/NCEAS/arctic-data-training](https://github.com/NCEAS/arctic-data-training), in the `materials/arctic-data-center-training/data/shapefiles` directory.
+
 Let's read in the region shapefile data. In this tutorial, we use a simplified version of this dataset: Jared Kibele and Jeanette Clark. 2018. State of Alaska's Salmon and People Regional Boundaries. Knowledge Network for Biocomplexity. doi:10.5063/F1125QWP.
 
 This simplified version is used in this tutorial to speed processing and plotting, and contains topological errors. See the [original](https://doi.org/10.5063/F1125QWP) to obtain the topologically correct version.
