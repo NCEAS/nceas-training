@@ -15,9 +15,7 @@ From the [**sf**](https://r-spatial.github.io/sf/articles/sf1.html) vignette:
 > Simple features or simple feature access refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the spatial geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
 
 
-```{r setup, include=FALSE, warning = F, message = F}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE)
-
+```{r, include=FALSE, warning = F, message = F}
 # install.packages('sf')
 library(sf)
 
