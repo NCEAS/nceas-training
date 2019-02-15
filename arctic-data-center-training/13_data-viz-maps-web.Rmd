@@ -74,6 +74,8 @@ First, let's load the packages we'll need:
   library(tidyr)
   library(ggplot2)
   library(DT)
+  library(sf)
+  library(ggmap)
 ```
 
 ### Load salmon escapement data
@@ -225,6 +227,60 @@ leaflet(locations) %>%
 ```
 
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
+
+
+## Static maps with geom_sf
+
+We can also create a similar static map using `ggplot` with the `geom_sf` geometry. To
+do so, first we need to transform our locations data frame into an `sf` object by
+providing the coordinate reference system (EPSG:4326 is the CRS for geocoordinates in WGS84).
+We also transform the points to `EPSG:3857` which is the CRS used for rendering 
+maps in Google Maps, Stamen, and OpenStreetMap, among others.
+
+```{r}
+locations_sf <- locations %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+locations_sf_3857 <- st_transform(locations_sf, 3857)
+```
+
+Next, let's grab a base map from the Stamen map tile server covering the region of interest.
+This includes a fix to transform the bounding box (which starts in `EPSSG:326`) to also be in the `EPSG:3857` CRS,
+which is the projection that the map raster is returned in from Stamen.
+
+```{r message=FALSE}
+# Define a function to fix the bbox to be in EPSG:3857
+# See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
+ggmap_bbox_to_3857 <- function(map) {
+  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- setNames(unlist(attr(map, "bb")), 
+                       c("ymin", "xmin", "ymax", "xmax"))
+  
+  # Coonvert the bbox to an sf polygon, transform it to 3857, 
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
+  
+  # Overwrite the bbox of the ggmap object with the transformed coordinates 
+  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
+  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
+  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
+  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
+  map
+}
+
+bbox <- c(-170, 52, -130, 64)   # This is roughly southern Alaska
+ak_map <- get_stamenmap(bbox, zoom = 4)
+ak_map_3857 <- ggmap_bbox_to_3857(ak_map)
+```
+
+ Finally, plot both the base raster map with the points overlayed, which is easy now
+ that everything is in the same projection (3857):
+
+```{r message=FALSE}
+ggmap(ak_map_3857) + 
+  geom_sf(data = locations_sf_3857, inherit.aes = FALSE)
+```
 
 ## Resources
 
