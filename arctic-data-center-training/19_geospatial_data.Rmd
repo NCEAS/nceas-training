@@ -14,10 +14,6 @@ From the [**sf**](https://r-spatial.github.io/sf/articles/sf1.html) vignette:
 
 > Simple features or simple feature access refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the spatial geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
 
-> The standard is widely implemented in spatial databases (such as PostGIS), commercial GIS (e.g., ESRI ArcGIS) and forms the vector data basis for libraries such as GDAL. A subset of simple features forms the GeoJSON standard.
-
-> R has well-supported classes for storing spatial data (sp) and interfacing to the above mentioned environments (rgdal, rgeos), but has so far lacked a complete implementation of simple features, making conversions at times convoluted, inefficient or incomplete. The package sf tries to fill this gap, and aims at succeeding sp in the long term.
-
 
 ```{r setup, include=FALSE, warning = F, message = F}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
@@ -43,6 +39,8 @@ Most of the functions in this package starts with prefix `st_` which stands for 
 In this tutorial, our goal is to use a shapefile of Alaska regions and data on population in Alaska by community to create a map that looks like this:
 
 ![](images/alaska_population.png)
+
+
 
 ## Reading a shapefile  
 
@@ -368,6 +366,8 @@ m
 
 There is a lot more functionality to `sf` including the ability to `intersect` polygons, calculate `distance`, create a `buffer`, and more. Here are some more great resources and tutorials for a deeper dive into this great package:
 
+
+[Raster analysis in R](http://jafflerbach.github.io/spatial-analysis-R/intro_spatial_data_R.html)
 [Spatial analysis in R with the sf package](https://cdn.rawgit.com/rhodyrstats/geospatial_with_sf/bc2b17cf/geospatial_with_sf.html)  
 [Intro to Spatial Analysis](https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#1)  
 [sf github repo](https://github.com/r-spatial/sf)    
