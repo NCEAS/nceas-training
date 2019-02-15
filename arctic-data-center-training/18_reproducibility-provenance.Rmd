@@ -19,3 +19,20 @@ This lesson will draw from existing materials:
 - [rrtools](https://github.com/benmarwick/rrtools)
 - [Reproducible papers with RMarkdown](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/reproducible-papers-with-rmd.html)
 
+To start a reproducible paper with `rrtools`, run:
+
+```{r eval=FALSE}
+devtools::install_github("benmarwick/rrtools")
+setwd("..")
+rrtools::use_compendium("arcticpaper")
+```
+
+Then, add some more structure to the package:
+
+```{r eval=FALSE}
+usethis::use_apl2_license(name="Matthew B. Jones")
+rrtools::use_readme_rmd()
+rrtools::use_analysis()
+```
+
+Now write a reproducible paper!
