@@ -75,7 +75,7 @@ First, let's load the packages we'll need:
   library(ggplot2)
   library(DT)
   library(sf)
-  library(ggmap)
+  library(ggmap) # devtools::install_github("dkahle/ggmap")
 ```
 
 ### Load salmon escapement data
@@ -246,6 +246,7 @@ locations_sf_3857 <- st_transform(locations_sf, 3857)
 Next, let's grab a base map from the Stamen map tile server covering the region of interest.
 This includes a fix to transform the bounding box (which starts in `EPSSG:326`) to also be in the `EPSG:3857` CRS,
 which is the projection that the map raster is returned in from Stamen.
+
 
 ```{r message=FALSE}
 # Define a function to fix the bbox to be in EPSG:3857
