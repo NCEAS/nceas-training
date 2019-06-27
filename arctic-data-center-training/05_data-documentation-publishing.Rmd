@@ -325,22 +325,20 @@ Finally, paste the token into the R Console to register it as an option for this
 
 Navigate to the demo data package here [https://test.arcticdata.io/view/urn:uuid:b8570c6f-e8c9-4e0e-ae7b-ee55faca5763](https://test.arcticdata.io/view/urn:uuid:b8570c6f-e8c9-4e0e-ae7b-ee55faca5763) and select "Download All". Unzip the downloaded file and navigate to `strix-pacitic-northwest.xml` within the `data` directory. This is the metadata file associated with this data package.
 
+
 Next, modify the metadata file associated with the package to set yourself as the owner.  This will help us differentiate the test data later.  Open the `strix-pacific-northwest.xml` file in RStudio, and change the `givenName` and `surName` fields at the top to your name.
 
 ```{r modify-eml, eval=FALSE}
-library(EML)
-source("misc/eml_helpers.R")
-
+library(EML) # requires package EML_2.0.0
 # Load the EML file into R
 emlFile <- "data/strix/strix-pacific-northwest.xml"
 doc <- read_eml(emlFile)
-
 # Change creator to us
-doc@dataset@creator <- c(eml_creator("Matthew", "Jones", email = "jones@nceas.ucsb.edu"))
-
+me <- list(individualName = list(givenName = "Matthew", surName = "Jones"), 
+           electronicMailAddress = "jones@nceas.ucsb.edu")
+doc$dataset$creator <- me
 # Change abstract to the better one we wrote
-doc@dataset@abstract <- as(set_TextType("data/strix/better-abstract.md"), "abstract")
-
+doc$dataset$abstract <- set_TextType("data/strix/better-abstract.md")
 # Save it back to the filesystem
 write_eml(doc, emlFile)
 ```
@@ -372,17 +370,16 @@ package, and add EML metadata that references those identifiers.
 sourceId <- paste0("urn:uuid:", uuid::UUIDgenerate())
 progId <- paste0("urn:uuid:", uuid::UUIDgenerate())
 outputId <- paste0("urn:uuid:", uuid::UUIDgenerate())
-doc@dataset@otherEntity[[1]]@id <- new("xml_attribute", sourceId)
-doc@dataset@otherEntity[[2]]@id <- new("xml_attribute", progId)
-doc@dataset@otherEntity[[3]]@id <- new("xml_attribute", outputId)
+doc$dataset$otherEntity[[1]]$id <- sourceId
+doc$dataset$otherEntity[[2]]$id <- progId
+doc$dataset$otherEntity[[3]]$id <- outputId
 repo_obj_service <- paste0(d1c@mn@endpoint, "/object/")
-doc@dataset@otherEntity[[1]]@physical[[1]]@distribution[[1]]@online@url <- 
-  new("url", paste0(repo_obj_service, sourceId))
-doc@dataset@otherEntity[[2]]@physical[[1]]@distribution[[1]]@online@url <- 
-  new("url", paste0(repo_obj_service, progId))
-doc@dataset@otherEntity[[3]]@physical[[1]]@distribution[[1]]@online@url <- 
-  new("url", paste0(repo_obj_service, outputId))
-
+doc$dataset$otherEntity[[1]]$physical$distribution$online$url <- 
+  paste0(repo_obj_service, sourceId)
+doc$dataset$otherEntity[[2]]$physical$distribution$online$url <- 
+  paste0(repo_obj_service, progId)
+doc$dataset$otherEntity[[3]]$physical$distribution$online$url <- 
+  paste0(repo_obj_service, outputId)
 write_eml(doc, emlFile)
 ```
 
