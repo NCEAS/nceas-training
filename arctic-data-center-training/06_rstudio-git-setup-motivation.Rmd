@@ -88,6 +88,54 @@ We will use R version 3.6.1, which you can download and install from [CRAN](http
 R.version$version.string
 ```
 
+#### Updating R
+
+If you already have R installed, but need to update, and don't want to lose your packages, these two R functions can help you. The first will save all of your packages to a file. The second loads the packages from the file and installs packages that are missing.
+
+Save this script to a file (eg `package_update.R`).
+
+```{r, eval = F}
+#' Save R packages to a file. Useful when updating R version
+#'
+#' @param path path to rda file to save packages to. eg: installed_old.rda
+save_packages <- function(path){
+    tmp <- installed.packages()
+    installedpkgs <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
+    save(installedpkgs, file = path)
+}
+
+#' Update packages from a file. Useful when updating R version
+#' 
+#' @param path path to rda file where packages were saved
+update_packages <- function(path){
+    tmp <- new.env()
+    installedpkgs <- load(file = path, envir = tmp)
+    installedpkgs <- tmp[[ls(tmp)[1]]]
+    tmp <- installed.packages()
+
+    installedpkgs.new <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
+    missing <- setdiff(installedpkgs, installedpkgs.new)
+    install.packages(missing)
+    update.packages()
+}
+```
+
+Source the file that you saved above (eg: `source(package_update.R)`). Then, run the `save_packages` function.
+
+```{r}
+save_packages("installed_old.rda")
+```
+
+Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R. 
+
+Source the R script that you saved above again, and then run:
+
+```{r}
+update_packages("installed_old.rda")
+```
+
+This should install all of your R packages that you had before you upgraded.
+
 ### RStudio Version
 
 We will be using RStudio version 1.2.500 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
