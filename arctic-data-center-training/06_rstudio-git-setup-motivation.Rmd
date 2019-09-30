@@ -122,7 +122,7 @@ update_packages <- function(path){
 
 Source the file that you saved above (eg: `source(package_update.R)`). Then, run the `save_packages` function.
 
-```{r}
+```{r, eval = F}
 save_packages("installed_old.rda")
 ```
 
@@ -130,7 +130,7 @@ Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest vers
 
 Source the R script that you saved above again, and then run:
 
-```{r}
+```{r, eval = F}
 update_packages("installed_old.rda")
 ```
 
