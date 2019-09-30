@@ -82,7 +82,7 @@ submitted might be `R2` in the graph above.
 
 ### R Version
 
-We will use R version 3.5.2, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
+We will use R version 3.6.1, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
 ```
 R.version$version.string
@@ -90,13 +90,13 @@ R.version$version.string
 
 ### RStudio Version
 
-We will be using RStudio version 1.1.463 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
+We will be using RStudio version 1.2.500 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
 
 ```
 RStudio.Version()$version
 ```
 
-If the output of this does not say `1.1.463`, you should update your RStudio. Do this by selecting Help -> Check for Updates and follow the prompts.
+If the output of this does not say `1.2.500`, you should update your RStudio. Do this by selecting Help -> Check for Updates and follow the prompts.
 
 ### Package installation
 
