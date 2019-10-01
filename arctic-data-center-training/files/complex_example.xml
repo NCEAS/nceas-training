@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1" packageId="urn:uuid:7c3663ca-0a18-4988-acc0-c2dcd0f7ffd1" xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1/ eml.xsd" system="urn:node:mnTestARCTIC">
+  <dataset>
+    <title>A more robust valid EML dataset</title>
+    <creator>
+      <individualName>
+        <givenName>Jeanette</givenName>
+        <surName>Clark</surName>
+      </individualName>
+      <organizationName>National Center for Ecological Analysis and Synthesis</organizationName>
+      <electronicMailAddress>jclark@nceas.ucsb.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-4703-1974</userId>
+    </creator>
+    <abstract>A brief but comprehensive description of the who, what, where, when, why, and how of my dataset.</abstract>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Alaska, United States</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-179.9</westBoundingCoordinate>
+          <eastBoundingCoordinate>-120</eastBoundingCoordinate>
+          <northBoundingCoordinate>75</northBoundingCoordinate>
+          <southBoundingCoordinate>55</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2001</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2010</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <contact>
+      <individualName>
+        <givenName>Jeanette</givenName>
+        <surName>Clark</surName>
+      </individualName>
+      <organizationName>National Center for Ecological Analysis and Synthesis</organizationName>
+      <electronicMailAddress>jclark@nceas.ucsb.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-4703-1974</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>Data Collection</title>
+            <para>
+    We collected some data and here is a description
+  </para>
+          </section>
+          <section>
+            <title>Data processing</title>
+            <para>
+    Here is how we processed the data
+  </para>
+          </section>
+        </description>
+      </methodStep>
+    </methods>
+    <dataTable>
+      <entityName>files/my-data.csv</entityName>
+      <entityDescription>Temperature data from in-situ loggers</entityDescription>
+      <physical>
+        <objectName>my-data.csv</objectName>
+        <size unit="bytes">45</size>
+        <authentication method="MD5">45af95e5f2e1346f05dbbff4abf03222</authentication>
+        <dataFormat>
+          <textFormat>
+            <recordDelimiter>&#13;
+</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>https://test.arcticdata.io/metacat/d1/mn/v2object/urn:uuid:2a43d7f6-7843-4505-9e3b-d16434a4a4aa</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>time</attributeName>
+          <attributeDefinition>time of measurement</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>HH:MM:SS</formatString>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>temperature</attributeName>
+          <attributeDefinition>measured temperature in degrees Celsius</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>site</attributeName>
+          <attributeDefinition>site identifier</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>site identifier</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+    </dataTable>
+    <otherEntity>
+      <entityName>files/datfiles_processing.R</entityName>
+      <entityDescription>Data processing script</entityDescription>
+      <physical>
+        <objectName>datfiles_processing.R</objectName>
+        <size unit="bytes">5625</size>
+        <authentication method="MD5">d9ab43704228e79934d5365fc9f77468</authentication>
+        <dataFormat>
+          <textFormat>
+            <recordDelimiter>
+</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>https://test.arcticdata.io/metacat/d1/mn/v2object/urn:uuid:fee29e22-3116-494b-817d-ea86d7038ed9</url>
+          </online>
+        </distribution>
+      </physical>
+      <entityType>script</entityType>
+    </otherEntity>
+  </dataset>
+</eml:eml>
