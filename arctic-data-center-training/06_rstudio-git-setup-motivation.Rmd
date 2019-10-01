@@ -152,7 +152,8 @@ Run the following lines to check that all of the packages we need for the traini
 
 ```{r, eval = F}
 
-packages <- c("devtools", "dplyr", "DT", "ggplot2", "leaflet", "roxygen2", "tidyr")
+packages <- c("devtools", "dplyr", "DT", "ggplot2", "leaflet", "roxygen2", "tidyr", 
+              "EML", "dataone", "datapack", "shinyjs")
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
 
 rm(packages) #remove variables from workspace
