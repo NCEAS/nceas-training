@@ -78,11 +78,11 @@ But this won't work on our wide data because `lm` needs `length` and `year` to b
 Or how would we make a separate plot for each year?
 We could call `plot` one time for each year but this is tedious if we have many years of data and hard to maintain as we add more years of data to our dataset.
 
-The `tidyr` package allows us to quickly switch between wide format and what is called tall format using the `gather` function:
+The `tidyr` package allows us to quickly switch between wide format and what is called tall format using the `pivot_longer` function:
 
 ```{r, eval=FALSE}
 site_data %>% 
-  gather(year, length, -site)
+  pivot_longer(-site, names_to = "year", values_to = "length")
 ```
 
 | site   | year | length |
@@ -105,8 +105,8 @@ In this lesson we're going to walk through the functions you'll most commonly us
     - `left_join()`
     - `rename()`
 - `tidyr`
-    - `gather()`
-    - `spread()`
+    - `pivot_longer()`
+    - `pivot_wider()`
     - `extract()`
     - `separate()`
 
@@ -190,137 +190,112 @@ catch_data <- catch_original %>%
 head(catch_data)
 ```
 
-## Changing shape: `gather()` and `spread()`
+## Quality Check
 
-The next issue is that the data are in a wide format and, we want the data in a tall format instead.
-`gather()` from the `tidyr` package helps us do just this conversion:
+Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `summary` function.
 
 ```{r}
-catch_long <- catch_data %>% 
-  gather(species, catch, -Region, -Year)
+summary(catch_data)
+```
+
+Notice something seems a bit off? The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
+
+## Changing column content: `mutate()`
+
+We can use the `mutate` function to change a column, or to create a new column. First Let's try to just convert the Chinook catch values to `numeric` type using the `as.numeric()` function, and overwrite the old Chinook column.
+
+```{r}
+catch_clean <- catch_data %>% 
+  mutate(Chinook = as.numeric(Chinook))
+
+head(catch_clean)
+```
+
+We get a warning "NAs introduced by coercion" which is R telling us that it couldn't convert every value to an integer and, for those values it couldn't convert, it put an `NA` in its place. This is behavior we commonly experience when cleaning datasets and it's important to have the skills to deal with it when it crops up.
+
+To investigate, let's isolate the issue. We can find out which values are NAs with a combination of `is.na()` and `which()`, and save that to a variable called `i`.
+
+```{r}
+i <- which(is.na(catch_clean$Chinook))
+i
+```
+
+It looks like there is only one problem row, lets have a look at it in the original data.
+
+```{r}
+catch_data[i,]
+```
+
+Well that's odd: The value in `catch_thousands` is `I`.
+It turns out that this dataset is from a PDF which was automatically converted into a CSV and this value of `I` is actually a 1.
+
+Let's fix it by incorporating the `ifelse` function to our `mutate` call, which will change the value of the `Chinook` column to 1 if the value is equal to I, otherwise it will leave the column as the same value.
+
+```{r}
+catch_clean <- catch_data %>% 
+  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>%
+  mutate(Chinook = as.integer(Chinook))
+
+head(catch_clean)
+```
+
+## Changing shape: `pivot_longer()` and `pivot_wider()`
+
+The next issue is that the data are in a wide format and, we want the data in a tall format instead.
+`pivot_longer()` from the `tidyr` package helps us do just this conversion:
+
+```{r}
+catch_long <- catch_clean %>% 
+  pivot_longer(cols = -c(Region, Year), names_to = "species", values_to = "catch")
 
 head(catch_long)
 ```
 
-The syntax we used above for `gather()` might be a bit confusing so let's look at an annotated diagram:
+The syntax we used above for `pivot_longer()` might be a bit confusing so let's walk though it.
 
-![annotated gather code](images/gather_annotated.png)
+The first argument to `pivot_longer` is the columns over which we are pivoting. You can select these by listing either the names of the columns you do want to pivot, or the names of the columns you are not pivoting over. The `names_to` argument takes the name of the column that you are creating from the column **names** you are pivoting over. The `values_to` argument takes the name of the column that you are creating from the **values** in the columns you are pivoting over.
 
-The first two arguments to `gather()` are the names of new columns that will be created and the other arguments with `-` symbols in front of them are columns to keep around in this process.
-The opposite of `gather()`, `spread()`, works in a similar declarative fashion:
+The opposite of `pivot_longer()`, `pivot_wider()`, works in a similar declarative fashion:
 
 ```{r}
 catch_wide <- catch_long %>% 
-  spread(species, catch)
+  pivot_wider(names_from = species, values_from = catch)
 
 head(catch_wide)
 ```
 
 ## Renaming columns with `rename()`
 
-If you scan through the data, you may notice the values in the `catch` column are very small (these are supposed to be annual catches).
-If we look at [the metadata](https://knb.ecoinformatics.org/#view/df35b.304.2) we can see that the `catch` column is in thousands of fish so let's convert it before moving on.
+If you scan through the data, you may notice the values in the `catch` column are very small (these are supposed to be annual catches). If we look at [the metadata](https://knb.ecoinformatics.org/#view/df35b.304.2) we can see that the `catch` column is in thousands of fish so let's convert it before moving on.
 
 Let's first rename the `catch` column to be called `catch_thousands`:
 
 ```{r}
-catch_clean <- catch_long %>% 
+catch_long <- catch_long %>% 
   rename(catch_thousands = catch)
 
-head(catch_clean)
+head(catch_long)
 ```
 
 ## Adding columns: `mutate()`
 
-Now let's create a new column called `catch` with units of fish (instead of thousands of fish). Note that here we have added to the expression we wrote above by adding another function call (`mutate`) to our expression. This takes advantage of the pipe operator by grouping together a similar set of statements, which all aim to clean up the `catch_long` `data.frame`.
+Now let's use `mutate` again to create a new column called `catch` with units of fish (instead of thousands of fish).
 
 ```{r, eval=FALSE}
-catch_clean <- catch_long %>% 
-  rename(catch_thousands = catch) %>%
+catch_long <- catch_long %>% 
   mutate(catch = catch_thousands * 1000)
 
-head(catch_clean)
+head(catch_long)
 ```
 
-You'll notice that we get an error:
-
-> Error in mutate_impl(.data, dots) : Evaluation error: non-numeric argument to binary operator.
-
-This is an extremely cryptic error -- what is it telling us?
-These kinds of errors can be very hard to diagnose, but maybe the `catch` column isn't quite what we are expecting.
-How could we find out?
-R provides a number of handy utility functions for quickly summarizing a large table:
+Now let's remove the `catch_thousands` column for now since we don't need it. Note that here we have added to the expression we wrote above by adding another function call (mutate) to our expression. This takes advantage of the pipe operator by grouping together a similar set of statements, which all aim to clean up the `catch_long` `data.frame`.
 
 ```{r}
-summary(catch_clean)
-```
-
-- **Exercise:** What are some other ways (functions) we could've found out what our problem was?
-
-Notice in the above output that the `catch_thousands` column shows up as `Class :character`.
-That seems wrong since catch should be whole numbers (in R, these show up as integers).
-
-Let's try to convert the values to integers and see what happens:
-
-```{r}
-catch_integers <- as.integer(catch_clean$catch_thousands)
-```
-
-We get an error "NAs introduced by coercion" which is R telling us that it couldn't convert every value to an integer and, for those values it couldn't convert, it put an `NA` in its place.
-This is behavior we commonly experience when cleaning datasets and it's important to have the skills to deal with it when it crops up.
-We can find out which values are NAs with a combination of `is.na()` and `which()`, and save that to a variable called `i`.
-
-```{r}
-i <- which(is.na(catch_integers))
-i
-```
-
-It looks like there is only one problem row, lets have a look at it:
-
-```{r}
-catch_clean[i,]
-```
-
-Well that's odd: The value in `catch_thousands` is `I` which is isn't even a number.
-It turns out that this dataset is from a PDF which was automatically converted into a CSV and this value of `I` is actually a 1.
-Let's fix it:
-
-```{r}
-catch_clean <- catch_long %>% 
-  rename(catch_thousands = catch) %>%
-  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
-  mutate(catch_thousands = as.integer(catch_thousands))
-
-head(catch_clean)
-```
-
-Note that, in the above pipeline call to `mutate()`, we mutate `catch_thousands` twice.
-This works because `mutate()` processes each of the mutations in a step-wise fashion so the results of one mutation are available for the next.
-
-Now let's try our conversion again by adding it as another function call in our expression.
-
-```{r}
-catch_clean <- catch_long %>% 
-  rename(catch_thousands = catch) %>%
-  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
-  mutate(catch_thousands = as.integer(catch_thousands)) %>% 
-  mutate(catch = catch_thousands * 1000)
-
-head(catch_clean)
-```
-
-Looks good, no warnings!
-Now let's remove the `catch_thousands` column for now since we don't need it:
-
-```{r}
-catch_clean <- catch_long %>% 
-  rename(catch_thousands = catch) %>%
-  mutate(catch_thousands = ifelse(catch_thousands == "I", 1, catch_thousands)) %>%
-  mutate(catch_thousands = as.integer(catch_thousands)) %>% 
+catch_long <- catch_long %>% 
   mutate(catch = catch_thousands * 1000) %>% 
-  select(-catch_thousands)    
+  select(-catch_thousands)
 
-head(catch_clean)
+head(catch_long)
 ```
 
 We're now ready to start analyzing the data.
@@ -330,9 +305,9 @@ We're now ready to start analyzing the data.
 As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarise()` functions:
 
 ```{r}
-mean_region <- catch_clean %>% 
+mean_region <- catch_long %>% 
   group_by(Region) %>%
-  summarise(mean(catch))
+  summarise(catch_mean = mean(catch))
 
 head(mean_region)
 ```
@@ -344,7 +319,7 @@ Another common use of `group_by()` followed by `summarize()` is to count the num
 We have to use a special function from `dplyr`, `n()`.
 
 ```{r}
-n_region <- catch_clean %>% 
+n_region <- catch_long %>% 
   group_by(Region) %>%
   summarize(n = n())
 
@@ -359,7 +334,7 @@ It's similar to `subset()` from base R.
 Let's go back to our original `data.frame` and do some `filter()`ing:
 
 ```{r}
-SSE_catch <- catch_clean %>% 
+SSE_catch <- catch_long %>% 
   filter(Region == "SSE")
 
 head(SSE_catch)
@@ -379,7 +354,7 @@ In my experience, I use `arrange()` in two common cases:
 Let's re-calculate mean catch by region, and then `arrange()` the output by mean catch:
 
 ```{r}
-mean_region <- catch_clean %>% 
+mean_region <- catch_long %>% 
   group_by(Region) %>% 
   summarise(mean_catch = mean(catch)) %>% 
   arrange(mean_catch)
@@ -391,7 +366,7 @@ The default sorting order of `arrange()` is to sort in ascending order.
 To reverse the sort order, wrap the column name inside the `desc()` function:
 
 ```{r}
-mean_region <- catch_clean %>% 
+mean_region <- catch_long %>% 
   group_by(Region) %>% 
   summarise(mean_catch = mean(catch)) %>% 
   arrange(desc(mean_catch))
@@ -432,7 +407,7 @@ head(region_defs)
 If you examine the `region_defs` `data.frame`, you'll see that the column names don't exactly match the image above. If the names of the key columns are not the same, you can explicitly specify which are the key columns in the left and right side as shown below:
 
 ```{r}
-catch_joined <- left_join(catch_clean, region_defs, by = c("Region" = "code"))
+catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
 
 head(catch_joined)
 ```
@@ -445,7 +420,7 @@ Another way you can do this join is to use `rename` to change the column name `c
 region_defs <- region_defs %>% 
   rename(Region = code, Region_Name = mgmtArea)
 
-catch_joined <- left_join(catch_clean, region_defs, by = c("Region"))
+catch_joined <- left_join(catch_long, region_defs, by = c("Region"))
 
 head(catch_joined)
 ```
@@ -512,9 +487,10 @@ region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/
 
 mean_region <- catch_original %>%
   select(-All, -notesRegCode) %>% 
-  gather(species, catch, -Region, -Year) %>%
-  mutate(catch = ifelse(catch == "I", 1, catch)) %>% 
-  mutate(catch = as.integer(catch)*1000) %>% 
+  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
+  mutate(Chinook = as.numeric(Chinook)) %>% 
+  pivot_longer(-c(Region, Year), names_to = "species", values_to = "catch") %>%
+  mutate(catch = catch*1000) %>% 
   group_by(Region) %>% 
   summarize(mean_catch = mean(catch)) %>% 
   left_join(region_defs, by = c("Region" = "code"))
