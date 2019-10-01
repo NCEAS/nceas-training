@@ -109,7 +109,7 @@ And finally, we add the time column to our matrix, gather over the depth columns
 ```{r}
 salinity_data <- salinity_data %>% 
     mutate(time = time) %>% 
-    gather(key = "depth", value = "salinity", -time) %>% 
+    pivot_longer(-c(time), names_to = "depth", values_to = "salinity") %>% 
     mutate(depth = as.numeric(depth))
 ```
 
