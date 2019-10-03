@@ -66,9 +66,9 @@ Let's look at a simplified version of the example above:
 </eml:eml>
 ```
 
-EML is written in XML (eXtensisble Markup Language). One of the key concepts in XML is the element. An XML element is everything that is encompassed by a start tag (`<...>`) and and end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific definition that is specified in the schema. The schema specifies not only the definitions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within the elements, and how the elements are organized.
+EML is written in XML (eXtensisble Markup Language). One of the key concepts in XML is the element. An XML element is everything that is encompassed by a start tag (`<...>`) and and end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific (case sensitive!) name and description that is specified in the schema. The description of the `surName` element is: "The surname field is used for the last name of the individual associated with the resource. This is typically the family name of an individual..." The schema specifies not only the names and descriptions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within elements, and how the elements are organized. An EML document is valid when it adheres to all of the requirements speficied in the schema.
 
-You'll notice that some elements, rather than having a simple value, instead contain other elements that are nexted within them. Let's look at `individualName`.
+You'll notice that some elements, rather than having a simple value, instead contain other elements that are nested within them. Let's look at `individualName`.
 
 ```xml
 <individualName>
@@ -77,15 +77,15 @@ You'll notice that some elements, rather than having a simple value, instead con
 </individualName>
 ```
 
-This element is a collection of other elements (sometimes referred to as child elements). In this example, it has a `givenName` and a `surName` child element. We can check the requirements of any particular element by looking at the [schema documents](https://eml.ecoinformatics.org/schema/).
+This element is a collection of other elements (sometimes referred to as child elements). In this example, the `individualName` element has a `givenName` and a `surName` child element. We can check the requirements of any particular element by looking at the [schema documents](https://eml.ecoinformatics.org/schema/), which includes some helpful diagrams.
 
 The diagram in the `individualName` [section](https://eml.ecoinformatics.org/schema/eml-party_xsd.html#ResponsibleParty_individualName) of the schema looks like this:
 
 ![](images/individualName_schema.png)
 
-This shows that within `individualName` there are 3 child elements: `salutation`, `givenName`, and `surName`. The yellow circle icon with stacked papers tells you that the elements come in series, so you can include one or more of the child elements (as opposed to a switch symbol, which means that  you choose one element from a list of options). The bold line tells you that `surName` is required.
+This shows that within `individualName` there are 3 possible child elements: `salutation`, `givenName`, and `surName`. The yellow circle icon with stacked papers tells you that the elements come in series, so you can include one or more of the child elements (as opposed to a switch symbol, which means that  you choose one element from a list of options). The bold line tells you that `surName` is required, and the `0..inf` indicates that you can include 0 or more `salultation` or `givenName` elements.
 
-So, to summarize, EML is written in XML. It consists of a series of nested elements. The element definitions, required elements, and structure are all defined by a schema. When you write EML, in order for it to be valid, your EML document must conform to the requirements given in the schema.
+So, to summarize, EML is the metadata standard used by the Arctic Data Center. It is written in XML, which consists of a series of nested elements. The element definitions, required elements, and structure are all defined by a schema. When you write EML, in order for it to be valid, your EML document must conform to the requirements given in the schema.
 
 ### Metadata in R: a simple example
 
