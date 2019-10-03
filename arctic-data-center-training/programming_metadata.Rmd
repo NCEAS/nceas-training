@@ -17,10 +17,10 @@ EML, the metadata standard that the Arctic Data Center uses, looks like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<eml:eml packageId="df35d.442.6" system="knb" 
+<eml:eml packageId="df35d.442.6" system="knb"
     xmlns:eml="eml://ecoinformatics.org/eml-2.1.1">
     <dataset>
-        <title>Improving Preseason Forecasts of Sockeye Salmon Runs through 
+        <title>Improving Preseason Forecasts of Sockeye Salmon Runs through
             Salmon Smolt Monitoring in Kenai River, Alaska: 2005 - 2007</title>
         <creator id="1385594069457">
             <individualName>
@@ -46,14 +46,14 @@ Earlier in this course we learned how to create an EML document like this using 
 
 When you create metadata using the web form, the form creates valid metadata for you. Valid, structured metadata is what enables computers to predictibaly parse the information in a metadata document, enabling search, display, and even meta-analysis. When we create metadata in R, there aren't as many user-friendly checks in place to ensure we create valid EML, so we need to understand the structure of the document more completely in order to make sure that it will be compatible with the Arctic Data Center.
 
-Let's look at a simplified version of the example above: 
+Let's look at a simplified version of the example above:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<eml:eml packageId="df35d.442.6" system="knb" 
+<eml:eml packageId="df35d.442.6" system="knb"
     xmlns:eml="eml://ecoinformatics.org/eml-2.1.1">
     <dataset>
-        <title>Improving Preseason Forecasts of Sockeye Salmon Runs through 
+        <title>Improving Preseason Forecasts of Sockeye Salmon Runs through
             Salmon Smolt Monitoring in Kenai River, Alaska: 2005 - 2007</title>
         <creator id="1385594069457">
             <individualName>
@@ -66,7 +66,7 @@ Let's look at a simplified version of the example above:
 </eml:eml>
 ```
 
-EML is written in XML (extendable markup language). One of the key features of XML is that it has elements. An XML element is everything that is encompassed by a start tag (`<...>`) and and end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific definition that is specified in the schema. The schema specifies not only the definitions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within the elements, and how the elements are organized.
+EML is written in XML (eXtensisble Markup Language). One of the key concepts in XML is the element. An XML element is everything that is encompassed by a start tag (`<...>`) and and end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific definition that is specified in the schema. The schema specifies not only the definitions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within the elements, and how the elements are organized.
 
 You'll notice that some elements, rather than having a simple value, instead contain other elements that are nexted within them. Let's look at `individualName`.
 
@@ -85,7 +85,7 @@ The diagram in the `individualName` [section](https://eml.ecoinformatics.org/sch
 
 This shows that within `individualName` there are 3 child elements: `salutation`, `givenName`, and `surName`. The yellow circle icon with stacked papers tells you that the elements come in series, so you can include one or more of the child elements (as opposed to a switch symbol, which means that  you choose one element from a list of options). The bold line tells you that `surName` is required.
 
-So, to summarize, EML is written in XML. It consists of a series of nested elements. The slement definitions, required elements, and structure are all defined by a schema. When you write EML, in order for it to be valid, your EML document must conform to the requirements given in the schema. 
+So, to summarize, EML is written in XML. It consists of a series of nested elements. The element definitions, required elements, and structure are all defined by a schema. When you write EML, in order for it to be valid, your EML document must conform to the requirements given in the schema.
 
 ### Metadata in R: a simple example
 
@@ -171,9 +171,9 @@ One of the hardest parts about creating EML in R is diagnosing validation errors
 ```{r}
 doc <- list(packageId = "dataset-1", system = "local",
             dataset = list(title = "A minimial valid EML dataset",
-                                  creator = eml$creator(individualName = me),
-                                  contact = eml$contact(individualName = me),
-                                  arbitrary = "This element isn't in the schema"))
+                           creator = eml$creator(individualName = me),
+                           contact = eml$contact(individualName = me),
+                           arbitrary = "This element isn't in the schema"))
 
 eml_validate(doc)
 ```
@@ -184,7 +184,7 @@ This error essentially says that the element `arbitrary` is not expected, and gi
 
 As you might imagine, creating a complete metadata record like what is shown on [this page](https://arcticdata.io/catalog/view/doi:10.18739/A26W9688B) would be pretty tedious if we did it just using the generic `list` or `eml$...` helpers, since the nesting structure can be very deep.
 
-The `EML` package has a set of higher level `set_...` helpers that create some of the more complex elements.
+The `EML` package has a set of higher level helper functions beginning with `set_` that create some of the more complex elements.
 
 To demonstrate the use of these we are going to create an EML document that contains the following information:
 
@@ -197,7 +197,7 @@ To demonstrate the use of these we are going to create an EML document that cont
 
 We will edit these elements using a mix of helpers and generic techniques.
 
-To get set up, navigate to [this dataset](https://test.arcticdata.io/view/urn:uuid:da8b9bfc-ddea-4af4-9680-c2dafe4a1225) and download the csv file and the R script. Put them in a directory called `files` that is a sub-directory of the location of this RMarkdown file.
+To get set up, navigate to [this dataset](https://test.arcticdata.io/view/urn:uuid:da8b9bfc-ddea-4af4-9680-c2dafe4a1225) and download the CSV file and the R script. Put them in a directory called `files` that is a sub-directory of the location of this RMarkdown file.
 
 #### Title, creator, contact
 
@@ -205,7 +205,7 @@ To start, lets create a basic EML skeleton using our example above, but with mor
 
 ```{r}
 # eml creator and contact have identical schema requirements (both fall under `responsibleParty`)
-me <- eml$creator(individualName = eml$individualName(givenName = "Jeanette", 
+me <- eml$creator(individualName = eml$individualName(givenName = "Jeanette",
                                                       surName = "Clark"),
                   organizationName = "National Center for Ecological Analysis and Synthesis",
                   electronicMailAddress = "jclark@nceas.ucsb.edu",
@@ -259,8 +259,8 @@ First, some high level information.
 
 ```{r}
 doc$dataset$otherEntity <- eml$otherEntity(entityName = "files/datfiles_processing.R",
-                                       entityDescription = "Data processing script",
-                                       entityType = "script")
+                                           entityDescription = "Data processing script",
+                                           entityType = "script")
 ```
 
 We can use the `set_physical` helper to set more specific information about the file, like its size, delimiter, and checksum. This function automatically detects fundamental characteristics about the file if you give it a path to your file on your system.
@@ -268,8 +268,6 @@ We can use the `set_physical` helper to set more specific information about the 
 ```{r}
 doc$dataset$otherEntity$physical <- set_physical("files/datfiles_processing.R")
 ```
-
-
 
 #### Data file: tabular
 
@@ -351,19 +349,23 @@ The *dataone* R package represents the set of files in a dataset as a `datapack:
 Before uploading any data to a DataONE repository, you must login to get an *authentication token*, which is a character string used to identify yourself. This token can be retrieved by logging into the test repository and copying the token into your R session.
 
 #### Obtain an ORCID
+
 ORCID is a researcher identifier that provides a common way to link your researcher identity to your articles and data.  An ORCID is to a researcher as a DOI is to a research article.  To obtain an ORCID, register at https://orcid.org.
 
 #### Log in to the test repository and copy your token
-We will be using a test server, so login and retrieve your token at https://test.arcticdata.io
+
+We will be using a test server, so login and retrieve your token at https://test.arcticdata.io.
 
 Once you are logged in, navigate to your Profile Settings, and locate the "Authentication Token" section, and then copy the token for R to your clipboard.
 
 ![](images/adc-authtoken.png)
+
 Finally, paste the token into the R Console to register it as an option for this R session.  You are now logged in.  But note that you need to keep this token private; don't paste it into scripts or check it into git, as it is just as sensitive as your password.
 
 ### Uploading A Package Using R with `uploadDataPackage`
-Datasets and metadata can be uploaded individually or as a collection. Such a collection, whether contained in local 
-R objects or existing on a DataONE repository, will be informally referred to as a `package`. The steps necessary to prepare and upload a package to DataONE using the `uploadDataPackage` method 
+
+Datasets and metadata can be uploaded individually or as a collection. Such a collection, whether contained in local
+R objects or existing on a DataONE repository, will be informally referred to as a `package`. The steps necessary to prepare and upload a package to DataONE using the `uploadDataPackage` method
 will be shown. A complete script that uses these steps is shown here.
 
 Load the libraries:
@@ -428,8 +430,8 @@ doc$dataset$dataTable$physical$distribution$online$url <- paste0(mn@endpoint,
                                                                  data_id)
 # set url for script
 doc$dataset$otherEntity$physical$distribution$online$url <- paste0(mn@endpoint,
-                                                                 "object/",
-                                                                 script_id)
+                                                                   "object/",
+                                                                   script_id)
 
 write_eml(doc, "files/complex_example.xml")
 ```
@@ -442,9 +444,9 @@ The `format` argument specifies the type of file, and should match one of the li
 
 ```{r}
 # Add the metadata document to the package
-metadataObj <- new("DataObject", 
+metadataObj <- new("DataObject",
                    id = metadata_id,
-                   format ="eml://ecoinformatics.org/eml-2.1.1", 
+                   format ="eml://ecoinformatics.org/eml-2.1.1",
                    filename = "files/complex_example.xml")
 
 dp <- addMember(dp, metadataObj)
@@ -457,7 +459,7 @@ We add the data file and the script similarly. The only difference is in the `ad
 # Add our data file to the package
 sourceObj <- new("DataObject",
                  id = data_id,
-                 format = "text/csv", 
+                 format = "text/csv",
                  filename = "files/my-data.csv")
 
 dp <- addMember(dp, sourceObj, mo = metadataObj)
@@ -467,7 +469,7 @@ dp <- addMember(dp, sourceObj, mo = metadataObj)
 # Add our script to the package
 scriptObj <- new("DataObject",
                  id = script_id,
-                 format = "application/R", 
+                 format = "application/R",
                  filename = "files/datfiles_processing.R")
 
 dp <- addMember(dp, scriptObj, mo = metadataObj)
@@ -477,14 +479,14 @@ dp
 You can give your colleague access to edit the data package using `addAccessRule`.
 
 ```{r}
-dp <- addAccessRule(dp, 
+dp <- addAccessRule(dp,
                     subject = "http://orcid.org/0000-0003-0077-4738",
                     permission = c("read","write"),
                     getIdentifiers(dp))
 
 ```
 
-You can also add provenance information that indicates the relationship between the csv and the R script.
+You can also add provenance information that indicates the relationship between the CSV and the R script.
 
 ```{r}
 dp <- describeWorkflow(dp, sources = sourceObj, program = scriptObj)
@@ -497,9 +499,6 @@ Finally, we upload the package to the test server for the Arctic Data Center.
 packageId <- uploadDataPackage(d1c, dp, public=TRUE, quiet=FALSE)
 ```
 
-
-
 You can now search for and view the package at https://test.arcticdata.io:
 
 ![](images/data-uploaded-simple.png)
-
