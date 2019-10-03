@@ -337,14 +337,22 @@ write_eml(doc, "files/complex_example.xml")
 
 ## Publish data to the Arctic Data Center test site
 
-### Setup
+### Setup and Introduction
 
 Now let's see how to use the *dataone* and *datapack* R packages to upload data to DataONE
 member repositories like the [KNB Data Repository](https://knb.ecoinformatics.org) and the [Arctic Data Center](https://arcticdata.io).
 
+#### The `dataone` package
+
 The *dataone* R package provides methods to enable R scripts to interact with DataONE to search for, download, upload and update data and metadata. The purpose of uploading data from R is to automate the repetitive tasks for large datasets with many files.  For small datasets, the web submission form will certainly be simpler.
 
-The *dataone* R package represents the set of files in a dataset as a `datapack::DataPackage`.  We will create a `DataPackage` locally, and then upload it to a test version of the Arctic Data Center repository using `dataone`.
+The `dataone` package interacts with two major parts of the DataONE infrastructure: Coordinating Nodes (or `cn`) and Member Nodes (or `mn`). Coordinating nodes maintain a complete catalog of all data and provide the core DataONE services, including search and discovery. The `cn` that is exposed through [search.dataone.org](https://search.dataone.org) is called the production (or `PROD`) `cn`. Member Nodes expose their data and metadata through a common set of interfaces and services. The Arctic Data Center is an `mn`. To post data to the Arctic Data Center, we need to interact with both the coordinating and member nodes.
+
+In addition to the production `cn`, there are also several test coordinating node environments, and corresponding test member node environments. In this tutorial, we will be posting data to the test Arctic Data Center environment.
+
+#### The `datapack` package
+
+The *datapack* R package represents the set of files in a dataset as a `datapack::DataPackage`. This `DataPackage` is just a special R object class that is specified in the `datapack` package. More broadly, remember that a data package consists of all of the objects (or files) in a dataset, such as scripts, tabular data files, and images, in addition to the metadata file that describes these files. `datapack` has some special ways to bundle all of these files in a way that makes sense, but from a computational perspective, every file associated with a data package (including the metadata file) is considered a "data object" in the package.  We will create a `DataPackage` locally, and then upload it to a test version of the Arctic Data Center repository using `dataone`.
 
 Before uploading any data to a DataONE repository, you must login to get an *authentication token*, which is a character string used to identify yourself. This token can be retrieved by logging into the test repository and copying the token into your R session.
 
@@ -364,9 +372,7 @@ Finally, paste the token into the R Console to register it as an option for this
 
 ### Uploading A Package Using R with `uploadDataPackage`
 
-Datasets and metadata can be uploaded individually or as a collection. Such a collection, whether contained in local
-R objects or existing on a DataONE repository, will be informally referred to as a `package`. The steps necessary to prepare and upload a package to DataONE using the `uploadDataPackage` method
-will be shown. A complete script that uses these steps is shown here.
+Datasets and metadata can be uploaded individually or as a collection. Such a collection, whether contained in local R objects or existing on a DataONE repository, will be informally referred to as a `package`.
 
 Load the libraries:
 
@@ -375,24 +381,23 @@ library(dataone)
 library(datapack)
 ```
 
-First we need to create an R object that describes where we will be uploading our dataset. We do this with the `dataone` function `D1Client` (DataONE client). The arguments for this function are a little opaque, but they basically describe the DataONE coordinating node (in this case a test node called STAGING) and the DataONE member node.
+First we need to create an R object that describes what coordinating and member nodes we will be uploading our dataset to. We do this with the `dataone` function `D1Client` (DataONE client). The first argument specifies the DataONE coordinating node (in this case a test node called STAGING) and the second specifices the member node.
 
-We'll also create an object that only references the member node, which is helpful for some functions.
+We'll also create an object that only represents the member node, which is helpful for some functions.
 
 ```{r}
-d1c <- D1Client("STAGING", "urn:node:mnTestARCTIC")
+d1c <- D1Client(cn = "STAGING", mn = "urn:node:mnTestARCTIC")
 mn <- d1c@mn
 ```
 
-Next, we create a `DataPackage` as a container for our data, metadata, and scripts.
-It starts out as empty.
+Next, we create a `DataPackage` as a container for our data, metadata, and scripts using the `new` function. This just creates an empty object with the class `DataPackage`
 
 ```{r}
 dp <- new("DataPackage")
 dp
 ```
 
-We then add a metadata file and data file to this package. First we generate some identifiers for the objects:
+We then need to add a metadata file and data file to this package. First we generate some identifiers for the objects:
 
 ```{r, eval = F}
 data_id <- generateIdentifier(mn, scheme = "uuid")
@@ -406,7 +411,9 @@ script_id <- "urn:uuid:fee29e22-3116-494b-817d-ea86d7038ed9"
 metadata_id <- "urn:uuid:7c3663ca-0a18-4988-acc0-c2dcd0f7ffd1"
 ```
 
-Now we need to modify our EML document to include these identifiers. First read in the EML.
+Now we need to modify our EML document to include these identifiers. This increases the accessibility of the files in our dataset.
+
+First read in the EML.
 
 ```{r}
 doc <- read_eml("files/complex_example.xml")
@@ -419,7 +426,7 @@ doc$packageId <- metadata_id
 doc$system <- mn@identifier
 ```
 
-Now let's put the data object identifier in the `dataTable` that we created as a distribution URL. All of the distribution URLs look something like this `https://test.arcticdata.io/metacat/d1/mn/v2/object/urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95`, where `https://test.arcticdata.io/metacat/d1/mn/v2/` is the member node end point, and `urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95` is the identifier.
+Now let's add a distribution URL to the `physical` section of our entity information. All of the distribution URLs look something like this `https://test.arcticdata.io/metacat/d1/mn/v2/object/urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95`, where `https://test.arcticdata.io/metacat/d1/mn/v2/` is the member node end point, and `urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95` is the identifier.
 
 We can easily construct this URL using the `paste0` function, and insert it into the `physical` section of the `dataTable` element.
 
@@ -436,9 +443,9 @@ doc$dataset$otherEntity$physical$distribution$online$url <- paste0(mn@endpoint,
 write_eml(doc, "files/complex_example.xml")
 ```
 
-Now we have a full metadata document ready to be uploaded. Now we can add our files to the `DataPackage`.
+Now we have a full metadata document ready to be uploaded. We now need to add our files to the `DataPackage`.
 
-First, let's create a new `DataObject`, which is a type of object class supported by `datapack`. Confusingly, both our metadata file and our data file will need to be added as a `DataObject`. In this case, `DataObject` just means any type of file in the data package, so that would include data files, the metadata files, scripts, figures, etc.
+First, let's create a new `DataObject`, which is another object class specific to `datapack`. Confusingly, our metadata file, data file, and script will all need to be added as a `DataObject`. Remember that technically all files in a package are considered data objects, not just the ones that we might traditionally think of as being "data".
 
 The `format` argument specifies the type of file, and should match one of the list of DataONE formatIds (listed in the Id field) [here](https://cn.dataone.org/cn/v2/formats).
 
@@ -448,12 +455,16 @@ metadataObj <- new("DataObject",
                    id = metadata_id,
                    format ="eml://ecoinformatics.org/eml-2.1.1",
                    filename = "files/complex_example.xml")
+```
 
+After creating the `DataObject` that represents the metadata file, we add it to the data package using `addMember`.
+
+```{r}
 dp <- addMember(dp, metadataObj)
 dp
 ```
 
-We add the data file and the script similarly. The only difference is in the `addMember` function we have to set the `mo` (metadata object) argument to the `DataObject` that represents the metadata file.
+We add the data file and the script similarly. The only difference is in the `addMember` function we have to set the `mo` (metadata object) argument equal to the `DataObject` that represents the metadata file.
 
 ```{r}
 # Add our data file to the package
@@ -486,7 +497,7 @@ dp <- addAccessRule(dp,
 
 ```
 
-You can also add provenance information that indicates the relationship between the CSV and the R script.
+You can also add provenance information that indicates the relationship between the CSV and the R script using the function `describeWorkflow`
 
 ```{r}
 dp <- describeWorkflow(dp, sources = sourceObj, program = scriptObj)
