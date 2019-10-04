@@ -535,7 +535,7 @@ New users will frequently see errors that look like this: `Error in mean(myobjec
 
 This means that you do not have an object called `myobject` saved in your environment. The common reasons for this are:
 
-- **typeo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
+- **typo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
 - **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
 - **not executing the line in your RMarkdown**: remember that writing a line of code in RMarkdown is not the same as writing in the console, you have to execute the line of code using command + enter, running the chunk, or one of the other ways outlined in the RMarkdown section of this training
 
