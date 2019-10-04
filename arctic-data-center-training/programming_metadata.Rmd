@@ -11,7 +11,7 @@ For datasets with a relatively small number of files that do not have many colum
 
 ## Creating Metadata
 
-### About EML
+### About Ecological Metadata Language (EML)
 
 EML, the metadata standard that the Arctic Data Center uses, looks like this:
 
@@ -66,7 +66,7 @@ Let's look at a simplified version of the example above:
 </eml:eml>
 ```
 
-EML is written in XML (eXtensisble Markup Language). One of the key concepts in XML is the element. An XML element is everything that is encompassed by a start tag (`<...>`) and and end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific (case sensitive!) name and description that is specified in the schema. The description of the `surName` element is: "The surname field is used for the last name of the individual associated with the resource. This is typically the family name of an individual..." The schema specifies not only the names and descriptions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within elements, and how the elements are organized. An EML document is valid when it adheres to all of the requirements speficied in the schema.
+EML is written in XML (eXtensisble Markup Language). One of the key concepts in XML is the element. An XML element is everything that is encompassed by a start tag (`<...>`) and an end tag (`</...>`). So, a simple element in the example above is `<surName>Willette</surName>`. The name of this element is `surName` and the value is simple text, "Willette". Each element in EML has a specific (case sensitive!) name and description that is specified in the schema. The description of the `surName` element is: "The surname field is used for the last name of the individual associated with the resource. This is typically the family name of an individual..." The EML schema specifies not only the names and descriptions of all EML elements, but also certain requirements, like which elements must be included, what type of values are allowed within elements, and how the elements are organized. An EML document is valid when it adheres to all of the requirements speficied in the EML schema.
 
 You'll notice that some elements, rather than having a simple value, instead contain other elements that are nested within them. Let's look at `individualName`.
 
@@ -89,9 +89,9 @@ So, to summarize, EML is the metadata standard used by the Arctic Data Center. I
 
 ### Metadata in R: a simple example
 
-Now, let's learn how the [EML package](https://github.com/ropensci/EML) can help us create EML.
+Now, let's learn how the [EML package](https://github.com/ropensci/EML) can help us create EML in R.
 
-First, load the EML package.
+First, load the EML package in R.
 
 ```{r, warning = F, message = F}
 library(EML)
@@ -118,7 +118,7 @@ me <- eml$individualName(givenName = "Jeanette",
 
 We can then use this object `me`, which represents the `individualName` element, and insert it into a larger EML document.
 
-At the top level of a complete EML document are the `packageId` and `system` elements. This is how your document can be uniquely identified within whatever system manages it. Nested within the top level is the `dataset` element. All EML documents must have, at a minimum, a `title`, `creator`, and `contact`, in addition to the `packageId` and `system`.
+At the top level of a complete EML document are the `packageId` and `system` elements. This is how your document can be uniquely identified within whatever system manages it,and typically contain the DOI (Digital Object Identifier) or other identifier for the dataset. Nested within the top level is the `dataset` element. All EML documents must have, at a minimum, a `title`, `creator`, and `contact`, in addition to the `packageId` and `system`.
 
 Let's create a minimal valid EML dataset, with an arbitrary `packageId` and `system`.
 
@@ -260,7 +260,7 @@ First, some high level information.
 ```{r}
 doc$dataset$otherEntity <- eml$otherEntity(entityName = "files/datfiles_processing.R",
                                            entityDescription = "Data processing script",
-                                           entityType = "script")
+                                           entityType = "application/R")
 ```
 
 We can use the `set_physical` helper to set more specific information about the file, like its size, delimiter, and checksum. This function automatically detects fundamental characteristics about the file if you give it a path to your file on your system.
@@ -386,7 +386,7 @@ First we need to create an R object that describes what coordinating and member 
 We'll also create an object that only represents the member node, which is helpful for some functions.
 
 ```{r}
-d1c <- D1Client(cn = "STAGING", mn = "urn:node:mnTestARCTIC")
+d1c <- D1Client("STAGING", "urn:node:mnTestARCTIC")
 mn <- d1c@mn
 ```
 
@@ -405,15 +405,9 @@ script_id <- generateIdentifier(mn, scheme = "uuid")
 metadata_id <- generateIdentifier(mn, scheme = "uuid")
 ```
 
-```{r, echo = F}
-data_id <- "urn:uuid:2a43d7f6-7843-4505-9e3b-d16434a4a4aa"
-script_id <- "urn:uuid:fee29e22-3116-494b-817d-ea86d7038ed9"
-metadata_id <- "urn:uuid:7c3663ca-0a18-4988-acc0-c2dcd0f7ffd1"
-```
-
 Now we need to modify our EML document to include these identifiers. This increases the accessibility of the files in our dataset.
 
-First read in the EML.
+First read in the EML that we created earlier.
 
 ```{r}
 doc <- read_eml("files/complex_example.xml")
@@ -426,7 +420,7 @@ doc$packageId <- metadata_id
 doc$system <- mn@identifier
 ```
 
-Now let's add a distribution URL to the `physical` section of our entity information. All of the distribution URLs look something like this `https://test.arcticdata.io/metacat/d1/mn/v2/object/urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95`, where `https://test.arcticdata.io/metacat/d1/mn/v2/` is the member node end point, and `urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95` is the identifier.
+Now let's add a distribution URL to the `physical` section of our entity information. All of the distribution URLs look something like this `https://test.arcticdata.io/metacat/d1/mn/v2/object/urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95`, where `https://test.arcticdata.io/metacat/d1/mn/v2/` is the member node end point, and `urn:uuid:A0cc95b46-a318-4dd1-8f8a-0e6c280e1d95` is the identifier of the object.
 
 We can easily construct this URL using the `paste0` function, and insert it into the `physical` section of the `dataTable` element.
 
