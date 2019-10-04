@@ -37,11 +37,9 @@ the provenance of scientific results (e.g., @hampton_tao_2015, @munafo_manifesto
 Scientific workflows encapsulate all of the steps from data acquisition, cleaning,
 transformation, integration, analysis, and visualization.  
 
-```{r workflow, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Scientific workflows and provenance capture the multiple steps needed to reproduce a scientific result from raw data.'}
-knitr::include_graphics("images/workflow.png")
-```
+![](images/workflow.png)
 
-Workflows can range in detail from simple flowcharts (\@ref(fig:workflow))
+Workflows can range in detail from simple flowcharts 
 to fully executable scripts. R scripts and python scripts are a textual form 
 of a workflow, and when researchers publish specific versions of the scripts and 
 data used in an analysis, it becomes far easier to repeat their computations and 
