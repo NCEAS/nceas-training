@@ -118,7 +118,7 @@ me <- eml$individualName(givenName = "Jeanette",
 
 We can then use this object `me`, which represents the `individualName` element, and insert it into a larger EML document.
 
-At the top level of a complete EML document are the `packageId` and `system` elements. This is how your document can be uniquely identified within whatever system manages it,and typically contain the DOI (Digital Object Identifier) or other identifier for the dataset. Nested within the top level is the `dataset` element. All EML documents must have, at a minimum, a `title`, `creator`, and `contact`, in addition to the `packageId` and `system`.
+At the top level of a complete EML document are the `packageId` and `system` elements. This is how your document can be uniquely identified within whatever system manages it. The `packageId` element typically contains the DOI (Digital Object Identifier) or other identifier for the dataset. Nested within the top level is the `dataset` element. All EML documents must have, at a minimum, a `title`, `creator`, and `contact`, in addition to the `packageId` and `system`.
 
 Let's create a minimal valid EML dataset, with an arbitrary `packageId` and `system`.
 
@@ -403,6 +403,14 @@ We then need to add a metadata file and data file to this package. First we gene
 data_id <- generateIdentifier(mn, scheme = "uuid")
 script_id <- generateIdentifier(mn, scheme = "uuid")
 metadata_id <- generateIdentifier(mn, scheme = "uuid")
+```
+
+```{r, echo = F}
+# these are example pids used only to render the bookdown document
+# they enable realistic output to be shown in the chunks below
+data_id <- "urn:uuid:2a43d7f6-7843-4505-9e3b-d16434a4a4aa"
+script_id <- "urn:uuid:fee29e22-3116-494b-817d-ea86d7038ed9"
+metadata_id <- "urn:uuid:7c3663ca-0a18-4988-acc0-c2dcd0f7ffd1"
 ```
 
 Now we need to modify our EML document to include these identifiers. This increases the accessibility of the files in our dataset.
