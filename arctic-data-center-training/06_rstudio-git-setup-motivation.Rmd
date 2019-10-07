@@ -149,9 +149,8 @@ If the output of this does not say `1.2.500`, you should update your RStudio. Do
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
 ```{r, eval = F}
+packages <- c("dataone", "datapack", "devtools", "dplyr", "DT", "EML", "ggplot2", "leaflet", "readxl", "roxygen2", "tidyr", "EML", "shinyjs", "sf")
 
-packages <- c("devtools", "dplyr", "DT", "ggplot2", "leaflet", "roxygen2", "tidyr", 
-              "EML", "dataone", "datapack", "shinyjs")
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
 
 rm(packages) #remove variables from workspace
