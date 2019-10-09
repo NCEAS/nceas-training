@@ -95,6 +95,7 @@ An Entity-Relationship model allows us to compactly draw the structure of the
 tables in a relational database, including the primary and foreign keys in the tables.
 
 ![](images/plotobs-diagram.png)
+
 In the above model, one can see that each site in the `SITES` table must have one
 or more observations in the `PLOTOBS` table, whereas each `PLOTOBS` has one and 
 only one `SITE`.
@@ -109,9 +110,16 @@ When conceptualizing merges, one can think of two tables, one on the *left* and
 one on the *right*. The most common (and often useful) join is when you merge the subset 
 of rows that have matches in both the left table and the right table: 
 this is called an *INNER JOIN*.  Other types of join are possible as well. 
-A *LEFT JOIN* takes all of the rows from the left table, and merges on the data from matching rows in the right table.  A *RIGHT JOIN* is the same, except that all of the rows from the right table are included with matching data from the left. Finally, a *FULL OUTER JOIN* includes all data from all rows in both tables (and is rarely practical).
+A *LEFT JOIN* takes all of the rows from the left table, and merges on the data from matching rows in the right table.  Keys that don't match from the left table are still provided with a missing value (na) from the right table.  A *RIGHT JOIN* is the same, except that all of the rows from the right table are included with matching data from the left, or a missing value. Finally, a *FULL OUTER JOIN* includes all data from all rows in both tables, and includes missing values wherever necessary.
+
+![](images/join-diagrams.png)
+
+Sometimes people represent these as Venn diagrams showing which parts of the left and
+right tables are included in the results for each join.  These however, miss part of the
+story related to where the missing value come from in each result.
 
 ![](images/sql-joins.png)
+
 In the figure above, the blue regions show the set of rows that are included in the result.
 For the INNER join, the rows returned are all rows in A that have a matching row in B.
 
