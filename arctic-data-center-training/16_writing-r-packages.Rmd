@@ -214,6 +214,11 @@ The simplest way to share your package with others is to upload it to a [GitHub 
 
 If your package might be broadly useful, also consider releasing it to CRAN, using the `release()` method from `devtools(). Releasing a package to CRAN requires a significant amoutn of work to ensure it follows the standards set by the R community, but it is entirely tractable and a valuable contribution to the science community.  If you are considering releasing a package more broadly, you may find that the supportive community at [ROpenSci](https://ropensci.org) provides incredible help and valuable feeback through their onboarding process.
 
+## Exercise
+
+Add temperature conversion functions with full documentation to your package, write tests to ensure the functions work properly, and then
+`document()`, `check()`, and `install()` the new version of the package. Don't forget to update the version number before you install!
+
 ## More reading
 
 - Hadley Wickham's awesome book: [R Packages](http://r-pkgs.had.co.nz/)
