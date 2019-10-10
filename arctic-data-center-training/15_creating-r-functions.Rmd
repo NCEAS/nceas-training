@@ -8,7 +8,7 @@ this lesson, we will review the advantages of coding with functions, practice
 by creating some functions and show how to call them, and then do some exercises
 to build other simple functions.
 
-## Leaning outcomes
+## Learning outcomes
 
 - Learn why we should write code in small functions
 - Write code for one or more functions
@@ -115,3 +115,20 @@ Note the use of the `@param` keyword to define the expectations of input data, a
 - Functions are useful to reduce redundancy, reuse code, and reduce errors
 - Build functions with the `function` function
 - Document functions with `roxygen2` comments
+
+
+## Spoiler -- the exercise answered. 
+
+Don't peek until you write your own...
+
+```{r}
+# Your code goes here
+celsius_to_fahr <- function(celsius) {
+    fahr <- (celsius*9/5)+32
+    return(fahr)
+}
+
+result <- celsius_to_fahr(celsius)
+airtemps == result
+```
+
