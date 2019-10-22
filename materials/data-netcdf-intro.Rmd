@@ -1,0 +1,143 @@
+# Using NetCDF files
+
+## Learning Objectives
+
+In this lesson, you will:
+
+- Learn to read data from a NetCDF file
+- Wrangle the example data into a data frame
+- Make some plots
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+```
+
+## Introduction
+
+NetCDF files are hierarchical data files that contain embedded metadata and allow for efficient extraction of data. They are particularly useful for storing large data, such as raster data and model outputs.
+
+This lesson draws from a previous lesson written by Leah Wasser, available [here](https://nceas.github.io/oss-lessons/spatial-data-gis-law/4-tues-spatial-analysis-in-r.html).
+
+This [R blog post](https://www.r-bloggers.com/a-netcdf-4-in-r-cheatsheet/) also contains some good introduction material.
+
+## Reading in data
+
+First let's load the `ncdf4` package
+
+```{r, warning = F, message = F}
+library(ncdf4)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+Let's grab an example file. Download the .nc file from Fiamma Straneo. 2019. Temperature and salinity profiles adjacent to a tidewater glacier in Sarqardleq Fjord, West Greenland, collected during July 2013. Arctic Data Center. doi:10.18739/A2B853H78. [http://doi.org/10.18739/A2B853H78](http://doi.org/10.18739/A2B853H78)
+
+First we open a connection to our NetCDF file using `nc_open`.
+
+```{r}
+nc <- nc_open("data/WG2013CTD.nc")
+```
+
+You can print information about what is contained in the file using the `print` function on the `nc` object.
+
+```{r}
+print(nc)
+```
+
+The netcdf file has a lot of information in the top level. You can navigate through the `nc` connection using the list selector operator. For example:
+
+```{r}
+nc$filename
+```
+
+You can return the names of the variables by using the `attributes` function on the `var` element within the `nc` object.
+
+```{r}
+vars <- attributes(nc$var)$names
+vars
+```
+
+Note that we haven't read in any data yet - we have only read in all of the **attributes**, which are all of the different fields used to store metadata.  
+
+You can retrieve individual variables by calling `ncvar_get`, and the variable by name.
+
+```{r}
+sal <- ncvar_get(nc, "sal")
+time_mat <- ncvar_get(nc, "time")
+```
+
+Note that if the file also has dimension variables, you can retrieve these values the same way as if they were variables.
+
+```{r}
+#examine dimension variable names
+names(nc$dim)
+```
+
+Read in the depth dimension variable.
+
+```{r}
+depth <- ncvar_get(nc, "z")
+```
+
+## Reshaping the data into a data.frame
+
+Depending on what your analysis goals are, you may want to convert your data into a `data.frame` structure. These data would work well in one since it is not a big dataset, and it is not gridded. Other dataset types, like gridded raster data, should be dealt with differently (such as using the `raster` package). 
+
+First, we might want to convert the MATLAB date-time number to a POSIXct number.
+
+```{r}
+time <- as.POSIXct((time_mat + 719529)*86400, origin = "1970-01-01", tz = "UTC")
+```
+
+Next we coerce the salinity matrix, which is represented with rows according to time and columns according to depth, into a data frame,
+
+```{r}
+# coerce matrix to data frame
+salinity_data <- as.data.frame(sal) 
+```
+
+We then assign column names to the character value of our depth vector.
+
+```{r}
+# name columns according to depth dimension
+names(salinity_data) <- as.character(depth) 
+```
+
+And finally, we add the time column to our matrix, gather over the depth columns, and turn the depth column back to a numeric value,
+
+```{r}
+salinity_data <- salinity_data %>% 
+    mutate(time = time) %>% 
+    gather(key = "depth", value = "salinity", -time) %>% 
+    mutate(depth = as.numeric(depth))
+```
+
+## Plotting
+
+First let's try to make a `raster` plot using `geom_raster`.
+
+```{r}
+ggplot(salinity_data, aes(x = time, y = depth, fill = salinity)) +
+    geom_raster() +
+    theme_bw() +
+    ylab("Depth (m)") +
+    xlab("") +
+    scale_fill_continuous(low = "gray", high = "red", name = "Salinity (psu)")
+```
+
+Turs out the data are fairly discontinuous, so we might want something like this instead, overlaying the profile data together.
+
+```{r}
+ggplot(salinity_data, aes(x = salinity,
+                          y = depth,
+                          group = time,
+                          color = time)) +
+    geom_line(size = .1) +
+    scale_y_reverse() +
+    theme_bw() +
+    ylab("Depth (m)") +
+    xlab("Salinity (psu)") +
+    theme(legend.title = element_blank())
+```
+
