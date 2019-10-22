@@ -1,10 +1,14 @@
-#OSX
+# OSX
 *.DS_Store
 
-#R
+# R
 .Rproj
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 .DS_Store
+
+# bookdown files
+*/_book/*
+*/_bookdown_files/*
