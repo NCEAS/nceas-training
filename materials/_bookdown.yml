@@ -1,2 +1,24 @@
 book_filename: "arctic-data-center-training"
 delete_merged_file: true
+output_dir: "_book"
+language:
+  ui:
+    chapter_name: ""
+rmd_files: ["index.Rmd",
+            "adc-intro-to-policies.Rmd",
+            "metadata-data-intro-best-practices.Rmd",
+            "collaboration-thinking-preferences.Rmd",
+            "metadata-adc-data-documentation-hands-on.Rmd",
+            "r-intro-rstudio-git-setup-motivation.Rmd",
+            "r-beginning-programming-with-rmarkdown.Rmd",
+            "git-intro.Rmd",
+            "git-collaboration-conflicts.Rmd",
+            "data-modeling.Rmd",
+            "data-cleaning-manipulation-tidyverse.Rmd",
+            "data-management-plans.Rmd",
+            "visualisation-ggplot-leaflet.Rmd",
+            "collaboration-social-data-policies.Rmd",
+            "r-creating-functions.Rmd",
+            "r-creating-packages.Rmd",
+            "metadata-programming-publishing.Rmd",
+            "provenance-reproducibility-datapaper.Rmd"]
