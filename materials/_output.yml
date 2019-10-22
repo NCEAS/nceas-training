@@ -3,5 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       collapse: section
+       before: |
+        <li><a href="/">← Back to main website</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
