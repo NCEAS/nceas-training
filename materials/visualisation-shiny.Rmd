@@ -1,11 +1,4 @@
----
-title: "Data Vizualization Part 2: Introduction to Shiny"
-author: "Bryce Mecum"
----
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
-```
+# Introduction to Shiny
 
 ## Overview
 
@@ -34,7 +27,7 @@ Steps:
         e.g. setwd("~/Documents/oss/oss2017data") 
         or whereever you were working
     - Click Create
-- Run through the steps we can use to create what's in [./idw_app.R](./idw_app.R)
+- Run through the steps we can use to create what's in [files/idw_app.R](files/idw_app.R)
 
 ## Resources
 
