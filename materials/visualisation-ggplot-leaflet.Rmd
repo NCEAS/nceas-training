@@ -1,70 +1,37 @@
-# Data visualization for web-based maps
+# Publication Graphics
 
 ## Learning Objectives
 
 In this lesson, you will learn:
 
-- How to use RMarkdown to build a web site
-- A quick overview of producing nice visualizations in R with `ggplot`
-- How to create interactive maps with `leaflet`
-- Publishing interactive maps using RMarkdown to make a GitHub web site
+- The basics of the `ggplot2` package to create static plots
+- How to use `ggplot2`'s theming abilities to create publication-grade graphics
+- The basics of the `leaflet` package to create interactive maps
 
-## Introduction
+## Overview
 
-Sharing your work with others in engaging ways is an important part of the scientific process.
-So far in this course, we've introduced a small set of powerful tools for doing open science:
+ggplot2 is a popular package for visualizing data in R.
+From the [home page](http://ggplot2.tidyverse.org/):
 
-- R and its many packages
-- RStudio
-- git
-- GitHub
-- RMarkdown
+> ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)).
+This lesson will introduce you to the basic components of working with ggplot2.
 
-RMarkdown, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
+### ggplot vs base vs lattice vs XYZ...
 
-In this lesson, we're going to take an existing GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
+R provides **many** ways to get your data into a plot.
+Three common ones are,
 
-## A Minimal Example
+- "base graphics" (`plot()`, `hist()`, etc`)
+- lattice
+- ggplot2
+All of them work!
+I use base graphics for simple, quick and dirty plots.
+I use ggplot2 for most everything else.
+ggplot2 excels at making complicated plots easy and easy plots simple enough.
 
-- In RStudio, create a new file at the top level of your git repository called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.
-- Open `index.Rmd` (if it isn't already open)
-- Press Knit
-    - Observe the rendered output
-    - Notice the new file in the same directory `index.html`. This is our RMarkdown file rendered as HTML (a web page)
-- Commit your changes (to both index.Rmd and index.html)
-- Open your web browser to the GitHub.com page for your repository
-- Go to Settings > GitHub Pages and turn on GitHub Pages for the `master` branch
 
-    Now, the rendered website version of your repo will show up at a special URL.
-    
-    GitHub Pages follows a convention like this:
-    
-     ```
-     https://{username}.github.io/{repository}/
-     https://mbjones.github.io/arctic-training-repo/
-     ```
-     
-    Note that it will no longer be at github.com but github.io. 
-     
-- Go to https://{username}.github.io/{repo_name}/ (Note the trailing `/`)
-    Observe the awesome rendered output
-    
-
-## A Less Minimal Example
-
-Now that we've seen how to create a web page from RMarkdown, let's create a website that uses some of the cool functionality available to us.
-We'll use the same git repository and RStudio Project as above, but we'll be adding some files to the repository and modifying `index.Rmd`.
-
-First, let's get some data. We'll re-use the salmon escapement data from the ADF&G OceanAK database:
-
-- Navigate to [Escapement Counts](https://doi.org/10.5063/F1S46Q6M) (or visit the KNB and search for 'oceanak') and copy the Download URL for the `ADFG_firstAttempt_reformatted.csv` file
-- Download that file into R using `read.csv` to make the script portable
-- Calculate annual escapement by species and region using the `dplyr` package
-- Make a bar plot of the annual escapement by species using the `ggplot2` package
-- Display it in an interactive table with the `datatable` function from the `DT` package
-- And lastly, let's make an interactive, Google Maps-like map of the escapement sampling locations.
-
-To do this, we'll use the [`leaflet`](https://rstudio.github.io/leaflet/) package to create an interactive map with markers for all the sampling locations:
+## Setup
 
 First, let's load the packages we'll need:
 
@@ -78,10 +45,11 @@ First, let's load the packages we'll need:
   library(ggmap) # devtools::install_github("dkahle/ggmap")
 ```
 
+
+
 ### Load salmon escapement data
 
-You can load the data table directly from the KNB Data Repository, if it isn't
-already present on your local computer.  This technique only downloads the file if you need it.
+You can load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
 ```{r read_data}
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
@@ -98,8 +66,6 @@ esc <- tryCatch(
 head(esc)
 ```
 
-### Static Plots
-
 Now that we have the data loaded, let's calculate annual escapement by species and region:
 
 ```{r mean_esc}
@@ -113,11 +79,12 @@ annual_esc <- esc %>%
 head(annual_esc)
 ```
 
-That command used a lot of the dplyr commands that we've used, and some that are new.
-The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns,
-and then we use `group_by` to indicate that we want to calculate our results for
-the unique combinations of species, region, and year.  We next use `summarize`
-to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+That command used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+
+
+## ggplot
+
+Every graphic you make in ggplot2 will have at least one aesthetic and at least one geom (layer). The aesthetic maps your data to your geometry (layer). Your geometry specifies the type of plot we're making (point, bar, etc.).
 
 Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* (set using `aes()`) and a *geometry* to create your plot. Additional geometries/aesthetics and theme elements can be added to a `ggplot` object using `+`.
 
@@ -177,7 +144,7 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
 
 ```
 
-### Interactive Maps
+## Leaflet
 
 Now let's convert the escapement data into a table of just the unique locations:
 
