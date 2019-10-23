@@ -8,7 +8,7 @@ In this lesson, you will learn:
 - How to acheive practical reproducibility
 - What are some best practices for data and metadata management
 
-Download slides: [Best Practices: Data and Metadata](03-best-practices-data-metadata.pdf)
+Download slides: [Best Practices: Data and Metadata](files/03-best-practices-data-metadata-min.pdf)
 
 ## Preserving computational workflows
 
@@ -24,7 +24,7 @@ All for `Future You`!  And your collaborators and colleagues across disciplines.
 knitr::include_graphics("images/comp-repro.png")
 ```
 
-While the [Arctic Data Center](https://arcticdata.io) and similar repositories do
+While the [Arctic Data Center](https://arcticdata.io), [Knowledge Network for Biocomplexity](https://knb.ecoinformatiocs.org) and similar repositories do
 focus on preserving data, we really set our sights much more broadly on preserving
 entire computational workflows that are instrumental to advances in science.  A 
 computational workflow represents the sequence of computational tasks that are
