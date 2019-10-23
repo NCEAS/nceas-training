@@ -40,13 +40,13 @@ In this lesson, we're going to take an existing GitHub repository and turn it in
 - Open your web browser to the GitHub.com page for your repository
 - Go to Settings > GitHub Pages and turn on GitHub Pages for the `master` branch
 
-    Now, the rendered website version of your repo will show up at a special URL.
+Now, the rendered website version of your repo will show up at a special URL.
     
-    GitHub Pages follows a convention like this:
+GitHub Pages follows a convention like this:
     
-     ![github pages url pattern](images/github_pages.png)
+![github pages url pattern](images/github_pages.png)
      
-    Note that it will no longer be at github.com but github.io
+Note that it will no longer be at github.com but github.io
      
 - Go to https://{username}.github.io/{repo_name}/ (Note the trailing `/`)
     Observe the awesome rendered output
