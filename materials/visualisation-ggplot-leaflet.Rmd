@@ -43,6 +43,7 @@ First, let's load the packages we'll need:
   library(DT)
   library(sf)
   library(ggmap) # devtools::install_github("dkahle/ggmap")
+  library(scales) # install.packages("scales")
 ```
 
 
@@ -51,7 +52,7 @@ First, let's load the packages we'll need:
 
 You can load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
-```{r read_data}
+```{r read_data, warning = F, message = F}
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 
 esc <- tryCatch(
@@ -82,9 +83,9 @@ head(annual_esc)
 That command used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
 
-## ggplot
+## Static figures using `ggplot2`
 
-Every graphic you make in ggplot2 will have at least one aesthetic and at least one geom (layer). The aesthetic maps your data to your geometry (layer). Your geometry specifies the type of plot we're making (point, bar, etc.).
+Every graphic you make in `ggplot2` will have at least one aesthetic and at least one geom (layer). The aesthetic maps your data to your geometry (layer). Your geometry specifies the type of plot we're making (point, bar, etc.).
 
 Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* (set using `aes()`) and a *geometry* to create your plot. Additional geometries/aesthetics and theme elements can be added to a `ggplot` object using `+`.
 
@@ -120,33 +121,114 @@ ggplot(annual_esc, aes(x = Species, y = escapement, fill = SASAP.Region)) +
   geom_col()
 ```
 
-Here is an example of a different aesthetic and geometry mapping we can create with this data. You can also add a title, adjust labels, and include a built in theme.
+Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into the first argument of the `ggplot` function using the `%>%` operator.
+
+Let's look at an example using a different geometry. Here, we use the pipe operator to pass in a filtered version of `annual_esc`, and make a line plot with points at each observation.
 
 ```{r}
-ggplot(filter(annual_esc, SASAP.Region == "Kodiak"), aes(x = Year, y = escapement, color = Species)) + 
+annual_esc %>% 
+  filter(SASAP.Region == "Kodiak") %>% 
+ggplot(aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point()
+```
+
+This can certainly be convenient, especially for cases like the above, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
+
+### Setting ggplot themes
+
+Now let's work on making this plot look a bit nicer. Add a title using `ggtitle()`, adjust labels using `ylab()`, and include a built in theme using `theme_bw()`. There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
+
+For clarity in the next section, I'll save the filtered version of the annual escapement `data.frame` to it's own object.
+
+```{r}
+kodiak_esc <- annual_esc %>% 
+  filter(SASAP.Region == "Kodiak")
+```
+
+
+```{r}
+ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
     geom_line() +
     geom_point() +
     ylab("Escapement") +
     ggtitle("Kodiak Salmon Escapement") +
     theme_bw()
-
 ```
 
-Note how I added a filter call in my `ggplot` function call to only plot data from Kodiak. You can easily create plots like this for every region using `facet_wrap`
+You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. The built in theme functions change the default settings for many elements that can also be changed invididually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just google "ggplot cheatsheet" and find one you like.
+
+Let's look at an example of a `theme` call, where we change the position of our plot above from the right side to the bottom, and remove the title from the legend.
 
 ```{r}
+ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    ylab("Escapement") +
+    ggtitle("Kodiak Salmon Escapement") +
+    theme_bw() +
+    theme(legend.position = "bottom", legend.title = element_blank())
+```
+
+
+Note that the `theme()` call needs to come after any built in themes like `theme_bw()` are used. Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
+
+You can also save the result of a series of `theme()` function calls to an object to use on multiple plots. This prevents needing to copy paste the same lines over and over again!
+
+```{r}
+my_theme <- theme_bw() + 
+  theme(legend.position = "bottom", legend.title = element_blank())
+```
+
+```{r}
+ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    ylab("Escapement") +
+    ggtitle("Kodiak Salmon Escapement") +
+    my_theme
+```
+
+### Smarter tick labels using `scales`
+
+Fixing tick labels in `ggplot` can be really hard! The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
+
+The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
+
+```{r}
+ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    scale_y_continuous(labels = comma) +
+    ylab("Escapement") +
+    ggtitle("Kodiak Salmon Escapement") +
+    my_theme
+```
+
+### Creating multiple plots
+
+What if we wanted to generate a plot for every region? A fast way to do this uses the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
+
+The default behaviour of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots. Here, we free the y scale. You can also specify the number of columns using the `n_col` argument.
+
+```{r, fig.height = 7, fig.width = 6}
 ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) + 
     geom_line() +
     geom_point() +
-    facet_wrap(~SASAP.Region, scales = "free_y") +
+    scale_y_continuous(labels = comma) +
+    facet_wrap(~SASAP.Region, scales = "free_y", ncol = 2) +
     ylab("Escapement") +
-    theme_bw()
-
+    my_theme
 ```
 
-## Leaflet
+## Interactive visualization using `leaflet` and `DT`
 
-Now let's convert the escapement data into a table of just the unique locations:
+### Tables
+
+Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website created earlier in the week during [this lesson](publishing-analyses-to-the-web.html).
+
+First let's show an interactive table of unique sampling locations using `DT`.
+Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
 
 ```{r uniq_locations}
 locations <- esc %>% 
@@ -154,25 +236,25 @@ locations <- esc %>%
   drop_na()
 ```
 
-And display it as an interactive table:
+And display it as an interactive table using `datatable()` from the `DT` package.
 
 ```{r display_locations}
 datatable(locations)
 ```
 
-Then making a leaflet map is (generally) only a couple of lines of code:
+### Maps
+
+Similar to `ggplot2`, you can make a basic `leaflet` map using just a couple lines of code. Note that unlike `ggplot2`, the `leaflet` package uses pipe operators (`%>%`) and not the additive operator (`+`).
+
+The `addTiles()` function without arguments will add base tiles to your map from [OpenStreetMap](https://www.openstreetmap.org/). `addMarkers()` will add a marker at each location specified by the latitude and longitude arguments. Note that the `~` symbol is used here to model the coordinates to the map (similar to `facet_wrap` in ggplot).
 
 ```{r simple_map}
 leaflet(locations) %>% 
   addTiles() %>% 
-  addMarkers(~ Longitude, ~ Latitude, popup = ~ Location)
+  addMarkers(lng = ~Longitude, lat = ~Latitude, popup = ~ Location)
 ```
 
-The `addTiles()` function gets a base layer of tiles from [OpenStreetMap](https://www.openstreetmap.org/) which is an open alternative to Google Maps.
-`addMarkers` use a bit of an odd syntax in that it looks kind of like `ggplot2` code but uses `~` before the column names.
-This is similar to how the `lm` function (and others) work but you'll have to make sure you type the `~` for your map to work.
-
-You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/#getcapabilities) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker.
+You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/#getcapabilities) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments..
 
 ```{r}
 leaflet(locations) %>% 
@@ -195,60 +277,6 @@ leaflet(locations) %>%
 
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
 
-
-## Static maps with geom_sf
-
-We can also create a similar static map using `ggplot` with the `geom_sf` geometry. To
-do so, first we need to transform our locations data frame into an `sf` object by
-providing the coordinate reference system (EPSG:4326 is the CRS for geocoordinates in WGS84).
-We also transform the points to `EPSG:3857` which is the CRS used for rendering 
-maps in Google Maps, Stamen, and OpenStreetMap, among others.
-
-```{r}
-locations_sf <- locations %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
-locations_sf_3857 <- st_transform(locations_sf, 3857)
-```
-
-Next, let's grab a base map from the Stamen map tile server covering the region of interest.
-This includes a fix to transform the bounding box (which starts in `EPSSG:326`) to also be in the `EPSG:3857` CRS,
-which is the projection that the map raster is returned in from Stamen.
-
-
-```{r message=FALSE}
-# Define a function to fix the bbox to be in EPSG:3857
-# See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
-ggmap_bbox_to_3857 <- function(map) {
-  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
-  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
-  # and set the names to what sf::st_bbox expects:
-  map_bbox <- setNames(unlist(attr(map, "bb")), 
-                       c("ymin", "xmin", "ymax", "xmax"))
-  
-  # Coonvert the bbox to an sf polygon, transform it to 3857, 
-  # and convert back to a bbox (convoluted, but it works)
-  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
-  
-  # Overwrite the bbox of the ggmap object with the transformed coordinates 
-  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
-  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
-  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
-  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
-  map
-}
-
-bbox <- c(-170, 52, -130, 64)   # This is roughly southern Alaska
-ak_map <- get_stamenmap(bbox, zoom = 4)
-ak_map_3857 <- ggmap_bbox_to_3857(ak_map)
-```
-
- Finally, plot both the base raster map with the points overlayed, which is easy now
- that everything is in the same projection (3857):
-
-```{r message=FALSE}
-ggmap(ak_map_3857) + 
-  geom_sf(data = locations_sf_3857, inherit.aes = FALSE)
-```
 
 ## Resources
 
