@@ -4,12 +4,10 @@ Title: Does not matter.
 Version: 0.0.1
 Imports: 
     bookdown,
-    cowplot,
     dataone,
     datapack,
     dplyr,
     DT,
-    EML,
     ggmap,
     ggplot2,
     ggpmisc,
@@ -17,8 +15,8 @@ Imports:
     kableExtra,
     knitr,
     leaflet,
-    readxl,
-    redland,
     sf,
+    scales,
+    tidyr,
     htmlwidgets
 Remotes: rstudio/bookdown
