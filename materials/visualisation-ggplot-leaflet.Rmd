@@ -52,7 +52,7 @@ First, let's load the packages we'll need:
 
 You can load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
-```{r read_data, warning = F, message = F}
+```{r read_data, warning = F, message = F, eval = F}
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 
 esc <- tryCatch(
@@ -66,6 +66,11 @@ esc <- tryCatch(
 
 head(esc)
 ```
+
+```{r, echo = F}
+esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e", stringsAsFactors = F)
+```
+
 
 Now that we have the data loaded, let's calculate annual escapement by species and region:
 
