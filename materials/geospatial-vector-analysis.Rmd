@@ -15,17 +15,6 @@ From the [**sf**](https://r-spatial.github.io/sf/articles/sf1.html) vignette:
 > Simple features or simple feature access refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the spatial geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
 
 
-```{r, include=FALSE, warning = F, message = F}
-# install.packages('sf')
-library(sf)
-
-library(dplyr)
-library(ggplot2)
-library(leaflet)
-library(scales)
-```
-
-
 The **sf** package is an R implementation of [Simple Features](https://en.wikipedia.org/wiki/Simple_Features). This package incorporates:  
 
 - a new spatial data class system in R  
@@ -38,6 +27,11 @@ In this tutorial, our goal is to use a shapefile of Alaska regions and data on p
 
 ![](images/alaska_population.png)
 
+The data we will be using to create the map are:
+
+* Alaska regional boundaries
+* Community locations and population
+* Alaksa rivers
 
 
 ## Reading a shapefile  
@@ -47,6 +41,17 @@ All of the data used in this tutorial are simplified versions of real datasets a
 For convience, I've hosted a zipped copy of all of the files on our test site. Please go to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) and download the zip folder. Put it in a sub-directory of your git repository and unzip it. You also will likely want to add that directory to your .gitignore file.
 
 The first file we will use is a shapefile of regional boundaries in alaska derived from: Jared Kibele and Jeanette Clark. 2018. State of Alaska's Salmon and People Regional Boundaries. Knowledge Network for Biocomplexity. [doi:10.5063/F1125QWP](https://doi.org/10.5063/F1125QWP).
+
+First load the libraries
+
+```{r, warning = F, message = F}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggmap)
+```
 
 Read in the data and look at a plot of it.
 
@@ -296,7 +301,7 @@ ggplot() +
 
 The `ggmap` package has some functions that can render base maps (as raster objects) from open tile servers like Google Maps, Stamen, OpenStreetMap, and others.
 
-We'll need to transform our region shapefile with population data to `EPSG:3857` which is the CRS used for rendering maps in Google Maps, Stamen, and OpenStreetMap, among others.
+We'll need to transform our shapefile with population data by community to `EPSG:3857` which is the CRS used for rendering maps in Google Maps, Stamen, and OpenStreetMap, among others.
 
 ```{r}
 pop_3857 <- pop_3338 %>%
