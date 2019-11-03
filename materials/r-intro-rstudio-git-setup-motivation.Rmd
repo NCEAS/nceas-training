@@ -82,7 +82,7 @@ submitted might be `R2` in the graph above.
 
 We will use R version 3.6.1, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
-```{r rversion}
+```{r rversion, eval=FALSE}
 R.version$version.string
 ```
 
@@ -90,7 +90,7 @@ R.version$version.string
 
 We will be using RStudio version 1.2.500 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
 
-```{r rstudio-version}
+```{r rstudio-version, eval=FALSE}
 RStudio.Version()$version
 ```
 
@@ -100,7 +100,7 @@ If the output of this does not say `1.2.500` or higher, you should update your R
 
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
-```{r, eval = FALSE}
+```{r package-install, eval = FALSE}
 packages <- c("DT", "dataone", "datapack", "devtools", "dplyr", "EML", "ggmap", "ggplot2", "leaflet", "readxl", "tidyr", "scales", "sf", "rmarkdown", "roxygen2", "usethis", "broom", "captioner")
 
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
@@ -123,13 +123,13 @@ Before using git, you need to tell it who you are, also known as setting the glo
 
 A terminal tab should now be open where your console usually is. To set the global options, type the following into the command prompt, with your actual name, and press enter:
 
-```{sh}
+```{sh git-name, eval=FALSE}
 git config --global user.name "Matt Jones"
 ```
 
 Next, enter the following line, with the email address you used when you created your account on github.com:
 
-```{sh}
+```{sh git-email, eval=FALSE}
 git config --global user.email "gitcode@magisa.org"
 ```
 
@@ -137,7 +137,7 @@ Note that these lines need to be run one at a time.
 
 Finally, check to make sure everything looks correct by entering this line, which will return the options that you have set.
 
-```{sh}
+```{sh git-list, eval=FALSE}
 git config --global user.name
 git config --global user.email
 ```
