@@ -543,3 +543,17 @@ This means that you do not have an object called `myobject` saved in your enviro
 
 RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. [Here](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) is an example of a real analysis workflow written using RMarkdown.
 
+## Exercise
+
+Create an RMarkdown document with some of your own data. If you don't have a good dataset handy, use the example dataset here:
+
+[Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+
+Your document should contain the following sections:
+
+* Introduction to your dataset
+    * Include an external link
+* Simple analysis
+* Presentation of a result
+    * A plot
+    * In-line description of results
