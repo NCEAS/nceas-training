@@ -44,16 +44,26 @@ Both the basic metadata (such as title and researcher contact information) and c
 ![](images/DMPSimpleRules.png)
 The article [Ten Simple Rules for Creating a Good Data Management Plan](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525) is a great resource for thinking about writing a data management plan and the information you should include within the plan. The ten simple rules are:
 
-1) Determine the research sponsor requirements
-2) Identify the data to be collected
-3) Define how the data will be organized
-4) Explain how the data will be documented
-5) Describe how quality data will be assured
-6) Present a sound storage & preservation strategy
-7) Define the project’s data policies
-8) Describe how the data will be disseminated
-9) Assign roles & responsibilities
-10) Prepare a realistic budget
+**1) Determine the research sponsor requirements**
+If you are writing your DMP in association with a proposal submission, your funding body will likely have sepcific requirements for your DMP. If for your own research planning, if may be useful to refer to a generic plan or one form a funder aligned with your domain. 
+**2) Identify the data to be collected**
+Consider the types, sourcess, volume, and data and file formats. 
+**3) Define how the data will be organized**
+Will you store you data in excel spreadsheets? csv format? Are your data in a database structure?
+**4) Explain how the data will be documented**
+Metadata!! What standard will your be using? How will you create your metadata? 
+**5) Describe how quality data will be assured**
+What methods or approaches will be take to assure data quality? Training activities, instrument calibration and verification tests, double-blind data entry, and statistical and visualization approaches to error detection?
+**6) Present a sound storage & preservation strategy**
+How long will the data be accessible? How will data be stored and protected during the project? How will data be preserved and made available for future use? This is where you would include information on the reporitory that will preserve your data.
+**7) Define the project’s data policies**
+What are your icensing and data sharing arrangements? Do you have any human subject or other sensitive data that requires special consideration?
+**8) Describe how the data will be disseminated**
+More active, robust and preferred approaches include: (1) publishing the data in an open repository or archive; (2) submitting the data as appendices or supplements to journal articles; and (3) publishing the data, metadata, and relevant code as a “data paper”.
+**9) Assign roles and responsibilities**
+Roles may include data collection, data entry, QA/QC, metadata creation and management, backup, data preparation and submission to an archive, and systems administration. 
+**10) Prepare a realistic budget**
+Review your plan and make sure that there are lines in the budget to support the people that manage the data as well as pay for the requisite hardware, software etc. 
 
 ## NSF DMP requirements
 
