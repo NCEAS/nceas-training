@@ -28,9 +28,9 @@ Planning data management in advance povides a number of benefits to the research
 
 ## How to Plan
 
-1) As indicated above, engaging your team is a benefit of data management planning. You will benefit from everyone’s expertise that will be involved in the data collection and processing of your research data. Therefore, **plan in collaboration** with these individuals. 
-2) Make sure to **plan from the start** to avoid confusion, data loss, and increase efficiency. With DMPs a requirement of funding agencies, it is nearly always neccesary to plan from the start but the same should apply to research that is being undertaken outside of a specific funded proposal.
-3) Make sure to **utilize resources** that are available to assist you in helping to write a good DMP. These might include your institutional library or organization data manager, online resources and resources or educaiton materials such as these.
+1) As indicated above, engaging your team is a benefit of data management planning. Collaborators involved in the data collection and processing of your research data bring diverse expertise. Therefore, **plan in collaboration** with these individuals. 
+2) Make sure to **plan from the start** to avoid confusion, data loss, and increase efficiency. Given DMPs are a requirement of funding agencies, it is nearly always neccesary to plan from the start. However, the same should apply to research that is being undertaken outside of a specific funded proposal.
+3) Make sure to **utilize resources** that are available to assist you in helping to write a good DMP. These might include your institutional library or organization data manager, online resources or education materials such as these.
 4) **Use tools** available to you; you don’t have to reinvent the wheel.
 5) **Revise your plan** as situations change and you potentially adapt/alter your project. Like your research projects, data management plans are not static, they require changes and updates throughout the research project process.
 
@@ -38,17 +38,17 @@ Planning data management in advance povides a number of benefits to the research
 
 If you are writing a data management plan as part of a solicitation proposal, the funding agency will have guidelines for the information they want to be provided in the plan. A good plan will provide information on the study design; data to be collected; metadata; policies for access, sharing & reuse; long-term storage & data management; and budget. 
 
-*A note on Metadata: *
-Both the basic metadata (such as title and researcher contact information) and comprehensive metadata (such as complete methods of data collection) is critical for accurate interpretation and understanding. The full definitions of variables, especially units, inside each dataset are also critical, as they relate to the methods used for creation. Knowing certain blocking or grouping methods, for example, would be necessary to understand studies for proper comparisons and synthesis. 
+*A note on Metadata:*
+Both basic metadata (such as title and researcher contact information) and comprehensive metadata (such as complete methods of data collection) are critical for accurate interpretation and understanding. The full definitions of variables, especially units, inside each dataset are also critical as they relate to the methods used for creation. Knowing certain blocking or grouping methods, for example, would be necessary to understand studies for proper comparisons and synthesis. 
 
 ![](images/DMPSimpleRules.png)
 The article [Ten Simple Rules for Creating a Good Data Management Plan](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004525) is a great resource for thinking about writing a data management plan and the information you should include within the plan. The ten simple rules are:
 
 **1. Determine the research sponsor requirements**  
-If you are writing your DMP in association with a proposal submission, your funding body will likely have specific requirements for your DMP. If for your own research planning, if may be useful to refer to a generic plan or one from a funder aligned with your domain. 
+If you are writing your DMP in association with a proposal submission, your funding body will likely have specific requirements for your DMP. If you are creating a DMP for your own research purposes, it may be useful to refer to a generic plan or one from a funder aligned with your domain. 
 
 **2. Identify the data to be collected**  
-Consider the types, sourcess, volume, and data and file formats. 
+Consider the types, sources, volume, and data and file formats. 
 
 **3. Define how the data will be organized**  
 Will you store you data in excel spreadsheets? csv format? Are your data in a database structure?
@@ -57,16 +57,16 @@ Will you store you data in excel spreadsheets? csv format? Are your data in a da
 Metadata!! What standard will your be using? How will you create your metadata? 
 
 **5. Describe how quality data will be assured**  
-What methods or approaches will be take to assure data quality? Training activities, instrument calibration and verification tests, double-blind data entry, and statistical and visualization approaches to error detection?
+What methods or approaches will be taken to assure data quality? Training activities, instrument calibration, verification tests, double-blind data entry, statistical and visual interpretation are all approaches to error detection.
 
 **6. Present a sound storage & preservation strategy**  
-How long will the data be accessible? How will data be stored and protected during the project? How will data be preserved and made available for future use? This is where you would include information on the reporitory that will preserve your data.
+How long will the data be accessible? How will data be stored and protected during the project? How will data be preserved and made available for future use? This is where you would include information on the repository that will preserve your data.
 
 **7. Define the project’s data policies**  
-What are your icensing and data sharing arrangements? Do you have any human subject or other sensitive data that requires special consideration?
+What are your licensing and data sharing arrangements? Do you have any human subject or other sensitive data that requires special consideration?
 
 **8. Describe how the data will be disseminated**  
-More active, robust and preferred approaches include: (1) publishing the data in an open repository or archive; (2) submitting the data as appendices or supplements to journal articles; and (3) publishing the data, metadata, and relevant code as a “data paper”.
+More active, robust and preferred approaches include: (1) publishing the data in an open repository or archive; (2) publishing the data, metadata, and relevant code as a “data paper”.
 
 **9. Assign roles and responsibilities**  
 Roles may include data collection, data entry, QA/QC, metadata creation and management, backup, data preparation and submission to an archive, and systems administration. 
@@ -76,20 +76,25 @@ Review your plan and make sure that there are lines in the budget to support the
 
 ## NSF DMP requirements
 
-In the 2014 Proposal Preparation Instructions, Section J ['Special Information and Supplementary Documentation'](https://www.nsf.gov/pubs/policydocs/pappguide/nsf14001/gpg_2.jsp#IIC2j) NSF put foward the baseline requirements for a data management plan. In addition, there are specific divison and program requirements that provide additional detail. If you are working on a research project with funding that does not require a data management plan, or are developing a plan for unfunded research, the NSF generic requirements are a good sewt of guidelines to follow.
+In the 2014 Proposal Preparation Instructions, Section J ['Special Information and Supplementary Documentation'](https://www.nsf.gov/pubs/policydocs/pappguide/nsf14001/gpg_2.jsp#IIC2j) NSF put foward the baseline requirements for a data management plan. In addition, there are specific divison and program requirements that provide additional detail. If you are working on a research project with funding that does not require a data management plan, or are developing a plan for unfunded research, the NSF generic requirements are a good set of guidelines to follow.
 
 **Five Sections of the NSF DMP Requirements**
 
-1) Products of research
+**1. Products of research**  
 Types of data, samples, physical collections, software, curriculum materials, other materials produced during project
-2) Data formats and standards
-Standards to be used for data and metadata format and content (for initial data collection, as well as subsequent storage and processing)
-3) Policies for access and sharing
+
+**2. Data formats and standards**  
+Standards to be used for data and metadata format and content (for initial data collection, as well as subsequent storageand processing)
+
+**3. Policies for access and sharing**  
 Provisions for appropriate protection of privacy, confidentiality, security, intellectual property, or other rights or requirements
-4) Policies and provisions for re-use
+
+**4. Policies and provisions for re-use**  
 Including re-distribution and the production of derivatives
-5) Archiving of data
+
+**5. Archiving of data**  
 Plans for archiving data, samples, research products and for preservation of access
+
 
 ## Tools in Support of Creating a DMP
 
@@ -107,7 +112,7 @@ Click 'get Started' to login. You will have three options. Options 1 and 2 apply
 
 ![](images/DMP_2.png)
 
-Once logged in you will be taken to your DMP dashboard. Her you will find a list of all the plans that are affiliated with your account.
+Once logged in you will be taken to your DMP dashboard. Here you will find a list of all the plans that are affiliated with your account.
 
 ![](images/DMP_3.png)
 
@@ -119,25 +124,25 @@ The first is the list of Funder Requirements. This details the full set of funde
 
 ![](images/DMP_5.png)
 
-Another place to discover example plans is under the 'Public Plans' section (Learn>Public Plans). Any plan submitted by a user that was marked as public can be found here. No information is provided on whether these plans were associated with a funded proposal, nor any evaliaiton of the plan quality. However, they are useful to review if writing a DMP for the first time.
+Another place to discover example plans is under the 'Public Plans' section (Learn>Public Plans). Any plan submitted by a user that was marked as public can be found here. No information is provided on whether these plans were associated with a funded proposal, nor any evaluation of the plan quality. However, they are useful to review if writing a DMP for the first time.
 
 ![](images/DMP_6.png)
 
-OK, back to your dashboard. To creat a new plan, simply click 'Create Plan' on the right. You may also click on your second tab in the dashboard, they go to the same location. 
+OK, back to your dashboard. To create a new plan, simply click the 'Create Plan' button on the right. You may also click on the words "Create Plan' aover the horizontal line, they go to the same location. 
 
 ![](images/DMP_3.png)
 
-You are now in the DMP Tool editor which quides you through a series of quesitons in order to complete the plan. The first questions connect your plan to your institution and ensure the correct template is being used.
+You are now in the DMP Tool editor which guides you through a series of questions in order to complete the plan. The first questions connect your plan to your institution and ensure the correct template is being used.
 
 ![](images/DMP_7.png)
 
-For the purposes of this workshop, when completing the title, also check the box next to it indicating that this plan is a test. This ensures that the plan does not get included in the DMPTool reporting metrics. The boxes for research organization and funding agency will prompt you for organizational affiliations - for you and for the template. If there are multiple plan templates for a given funding agency, another box will pop up asking you to select a template from teh drop-down list. For this workshop, we are going to us the NSF: Generic template.
+For the purposes of this workshop, when completing the title, also check the box next to it indicating that this plan is a test. This ensures that the plan does not get included in the DMPTool reporting metrics. The boxes for research organization and funding agency will prompt you for affiliations. If there are multiple plan templates for a given funding agency, another box will pop up asking you to select a template from the drop-down list. For this workshop, we are going to use the NSF: Generic template.
 
 ![](images/DMP_8.png)
 
-Click 'Create Plan'. This will take you into the template adn you will see five tabs - Project Details, Plan Overview, Write Plan, Share and Download. We will work through these now.
+Click 'Create Plan'. This will take you into the template and you will see five tabs - Project Details, Plan Overview, Write Plan, Share and Download. We will work through these now.
 
-**Project Details:**  Here we can provide more information about the project, for example, and abstract or funder grant number. As with all other fields throughout the tool, required answers are indicated by an asterisk. Note that you can add your ORCiD here. Since you would have logged in with your institution, or created a specific DMPTool account, this field has not been filled automatically.
+**Project Details:**  Here we can provide more information about the project. For example, an abstract or funder grant number. As with all other fields throughout the tool, required answers are indicated by an asterisk. Note that you can add your ORCiD here. Since you would have logged in with your institutional ID, or created a specific DMPTool account, this field has not been filled automatically.
 
 ![](images/DMP_10.png)
 
@@ -150,15 +155,16 @@ You will also notice on the right hand side that you have the option to include 
 ![](images/DMP_11.png)
 
 
-**Write Plan:**  We now see those same five sections as expandable options. These are titles as before and the numbers in parentheses indicate how many questions are contained within the section and how many have been answered. because we are just beginning, the first number in each case is 0.
+**Write Plan:**  We now see those same five sections as expandable options. These are titled as before and the numbers in parentheses indicate how many questions are contained within each section and how many of those questions have been answered. Because we are just beginning, the first number in each case is 0.
+
 ![](images/DMP_12.png)
 
-I want to highlight that this page will look different according to the tewmplate that you are using. Different funding agencies / divisions / programs have different requirements for the data management plan. Therefore the template within the DMPTool may have more sections and more questions within each section.  We are working through a simple, generic example. Below is an example for creating a DMP using the NSF Polar Programs Arctic Section template.
+I want to highlight that this page will look different according to the template that you are using. Different funding agencies / divisions / programs have different requirements for the data management plan. Therefore the template within the DMPTool may have more sections and more questions within each section.  We are working through a simple, generic example. Below is an example for creating a DMP using the NSF Polar Programs Arctic Section template.
 
 ![](images/DMP_13.png)
 
-Back to the NSF Generic template.
-Clicking on any of + symbol within the boxes will expand to show the editing pane. You will see the full question with a text box below. On the right hand side is a box containing guidance. The tabs here represent the organizations that were selected under the **Project Details** step. They provide links to useful information and guidance.
+Back to the NSF Generic template.  
+Clicking on any + symbol within the boxes will expand to show the editing pane. You will see the full question with a text box below. On the right hand side is a box containing guidance. The tabs here represent the organizations that were selected under the **Project Details** step. They provide links to useful information and guidance.
 
 ![](images/DMP_15.png)
 
@@ -167,34 +173,34 @@ Depending on the template that has been selected, there might also be an 'exampl
 
 You will also notice a box for comments on the right hand side. In a moment you will see how collaboration can be managed. However, if you have shared your plan with others, this is where you will be able to see their comments.
 
-There is no requirement for you to answer all quesitons in one sitting. Completing the plan can require information gathering from multiple sources. Saving the plan at this point does not submit the plan, it simply saves your edits and you can move between sections in any order by expanding the relevant pane.  
+There is no requirement for you to answer all questions in one sitting. Completing the plan can require information gathering from multiple sources. Saving the plan at this point does not submit the plan, it simply saves your edits and you can move between sections in any order by expanding the relevant pane.  
 
 ![](images/DMP_16.png)
 
 **Share:** Whether you have completed the first draft or not, you may choose to share your plan with others. The 'Share' tab lets you set up visibility preferences and manage collaboration. Under visibility you may opt for:
 - Public: Your plan will be viewable by anyone visiting the site under Learn>Public Plans
-- Organization: If you have logged in through an institutional ID others logging in through your institution can also view your plan
-- Private: The plan can only be viewed by you and those your permit. The institutional administrator of the DMPtool account will also be able to view your plan. Typically this is a data librarian and their contact information will be at the top right of the webpage, under your institutional logo.
+- Organization: If you have logged in through an institutional ID, others logging in through the same institution can also view your plan
+- Private: The plan can only be viewed by you and those you permit. The institutional administrator of the DMPtool account will also be able to view your plan. Typically this is a data librarian and their contact information will be at the top right of the webpage, under your institutional logo.
 
-*Note:* You will notcie that these options are not available to you as you step through this exercise. This is because your plan is a 'test' plan and so will not be posted to the website or managed in the same way. You can go back to your dashboard and unselect 'test' at any point if your test evolves into a real plan.
+*Note:* You will notice that the above options are not available to you as you step through this exercise. This is because your plan is a 'test' plan and so will not be posted to the website or managed in the same way. You can go back to your dashboard and unselect 'test' at any point if your test evolves into a real plan.
 
 For a private plan you can assign collaborators to three different roles:
-- Co-owner: The collaborator can edit project details, change visibility, and add collaborators. They have the same prividelges as you.
+- Co-owner: The collaborator can edit project details, change visibility, and add collaborators. They have the same privilidges as you.
 - Editor: The collaborator can comment and make changes. Comments will appear in the tab indicated above.
 - Read only: The collaborator can view and comment, but not make changes.
 
-The advantage of collaborating through the tool vs sending emails back and forth is that the tool reflects the most current version at all times; it increases efficiency and keep all commentary together.
+The advantage of collaborating through the tool vs sending emails back and forth is that the tool reflects the most current version at all times, it increases efficiency and keeps all commentary together.
 
 ![](images/DMP_17.png)
 
-**Download:** Here you can set your preferences for downloading your plan. *The DMPTool does not submit your plan to your funding agency* and so many researchers choose to download in text or docx formats so that they can make formatting edits to align with the rest of their proposal and meet page length limits. You can do some of this formatting in advance using the options in this tab. Any plans that are shared publically are shared in PDF format and include the project details coversheet.
+**Download:** Here you can set your preferences for downloading your plan. *The DMPTool does not submit your plan to your funding agency* and so many researchers choose to download in text or docx formats so that they can make formatting edits to align with the rest of their proposal and meet page length requirements. You can do some of this formatting in advance using the options in this tab. Any plans that are shared publicly are shared in PDF format and include the project details coversheet by default.
 
 ![](images/DMP_18.png)
 
-Below shows the base template for downloading your plan - with no content incldued to date. You can choose to omit unanswered quesitons.
+Below shows the base template for downloading your plan (with no content incldued to date). You can choose to omit unanswered quesitons.
 
 ![](images/DMP_19.png)
 
-Finally, you can make changes to your plan at any point by returning to the dashboard. Here you can remove your plan from test status by unchecking the green box, and Edit, Share, Download, Copy or Remove you plan using the options in the drop down under 'Actions'.
+Finally, you can make changes to your plan at any point by returning to the dashboard. Here you can remove your plan from test status by unchecking the green box. You can also Edit, Share, Download, Copy or Remove your plan using the options in the drop down under 'Actions'.
 
 ![](images/DMP_20.png)
