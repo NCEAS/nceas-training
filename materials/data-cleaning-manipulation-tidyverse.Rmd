@@ -433,19 +433,21 @@ Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, 
 ## `separate()` and `unite()`
 
 `separate()` and its complement, `unite()` allow us to easily split a single column into numerous (or numerous into a single).
-This can come in really handle when we have a date column and we want to group by year or month.
-Let's make a new `data.frame` with fake data to illustrate this:
+
+This can come in really handle when we need to split a column into two pieces by a consistent separator (like a dash). 
+
+Let's make a new `data.frame` with fake data to illustrate this. Here we have a set of site identification codes. with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
 
 ```{r}
-dates_df <- data.frame(date = c("5/24/1930",
-                                "5/25/1930",
-                                "5/26/1930",
-                                "5/27/1930",
-                                "5/28/1930"),
+sites_df <- data.frame(site = c("HAW-101",
+                                "HAW-103",
+                                "OAH-320",
+                                "OAH-219",
+                                "MAI-039"),
                        stringsAsFactors = FALSE)
 
-dates_df %>% 
-  separate(date, c("month", "day", "year"), "/")
+sites_df %>% 
+  separate(site, c("island", "site_number"), "-")
 ```
 
 - **Exercise:** Split the `city` column in the following `data.frame` into `city` and `state_code` columns:
@@ -459,12 +461,22 @@ cities_df <- data.frame(city = c("Juneau AK",
 # Write your solution here
 ```
 
-`unite()` does just the reverse of `separate()`:
+`unite()` does just the reverse of `separate()`. If we have a data.frame that contains columns for year, month, and day, we might want to unite these into a single date column.
 
 ```{r}
+dates_df <- data.frame(year = c("1930",
+                                "1930",
+                                "1930"),
+                       month = c("12",
+                                "12",
+                                "12"),
+                       day = c("14",
+                               "15",
+                               "16"),
+                       stringsAsFactors = FALSE)
+
 dates_df %>% 
-  separate(date, c("month", "day", "year"), "/") %>% 
-  unite(date, month, day, year, sep = "/")
+  unite(date, year, month, day, sep = "-")
 ```
 
 - **Exercise:** Use `unite()` on your solution above to combine the `cities_df` back to its original form with just one column, `city`:
