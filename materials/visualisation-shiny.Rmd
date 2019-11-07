@@ -1,33 +1,103 @@
 # Introduction to Shiny
 
+## Learning Objectives
+
+In this lesson we will:
+
+- review the capabilities in Shiny applications
+- leanr about the basic layout for Shiny interfaces
+- learn about the server component for Shiny applications
+- build a simple shiny application for interactive plotting
+
 ## Overview
 
-Shiny is an R package for creating interactive data visualization explorations that you and your colleagues can visit in their web browser without installing anything.
-The convenience this affords is priceless when we want to share and let others explore our data and analyses.
+[Shiny](http://shiny.rstudio.com/) is an R package for creating interactive data visualizations embedded in a web application that you and your colleagues can view with just a web browser. Shiny apps are relatively easy to construct, and provide interactive features for letting others share and explore data and analyses.
 
-There are some really great examples of what Shiny can do on their webite like [this one](http://shiny.rstudio.com/gallery/movie-explorer.html).
+There are some really great examples of what Shiny can do on the RStudio webite like [this one exploring movie metadata](https://shiny.rstudio.com/gallery/movie-explorer.html). A more scientific example is a tool from the SASAP project exploring [proposal data from the Alaska Board of Fisheries](https://sasap-data.shinyapps.io/board_of_fisheries/).
+
+```{r shinyapp_sasap, echo=FALSE}
+knitr::include_graphics("images/shiny-sasap-app.png")
+```
+
+Most any kind of analysis and visualization that you can do in R can be turned into a useful interactive visualization for the web that lets people explore your data more intuitively  But, a Shiny application is not the best way to preserve or archive your data.  Instead, for preservation use a repository that is archival in its mission like the [KNB Data Repository](https://knb.ecoinformatics.org), [Zenodo](https://zenodo.org), or [Dryad](https://datadryad.org). This will assign a citable identfier to the specific version of your data, which you can then read in an interactive visualiztion with Shiny.
+
+For example, the data for the Alaska Board of Fisheries application is published on the KNB and is citable as:
+
+Meagan Krupa, Molly Cunfer, and Jeanette Clark. 2017. Alaska Board of Fisheries Proposals 1959-2016. Knowledge Network for Biocomplexity. [doi:10.5063/F1QN652R](https://doi.org/10.5063/F1QN652R). 
+
+While that is the best citation and archival location of the dataset, using Shiny, one can also provide an easy-to-use exploratory web application that you use to make your point that directly loads the data from the archival site.  For example, the Board of Fisheries application above lets people who are not inherently familiar with the data to generate graphs showing the relationships between the variables in the dataset.
 
 ## Lesson
 
-We're going to create a simple shiny app with two sliders so we can interactively control inputs to an R function.
-This extends our work done earlier in this course so we're going to start where we left off with our inverse distance weighting exercise and turn the static plot we made at the end into an interactive graphic.
+We're going to create a simple shiny app with two sliders so we can interactively control inputs to an R function.  These sliders will allow us to interactively control a plot.
 
-Steps:
-
-- Get students to reorient themselves to the data from tuesday
-
-    Link is https://figshare.com/articles/OSS_data_-_2017_monday/5136289
+### Create a sample shiny application
 - File > New > Shiny Web App...
 - Set some fields:
-    ![creating a new Shiny app with RStudio](images/shiny-new-app.png)
-    
+![creating a new Shiny app with RStudio](images/shiny-new-app.png)
     - Name it "myapp" or something else
     - Select "Single File"
-    - Choose to create it where we were working yesterday:
-        e.g. setwd("~/Documents/oss/oss2017data") 
-        or whereever you were working
+    - Choose to create it in a new folder called 'shiny-demo'
     - Click Create
-- Run through the steps we can use to create what's in [files/idw_app.R](files/idw_app.R)
+
+RStudio will create a new file called `app.R` that contains the Shiny application.  
+Run it by choosing `Run App` from the RStudio editor header bar.  This will bring up
+the default demo Shiny application, which plots a histogram and lets you control
+the number of bins in the plot.
+
+![](images/shiny-default-app.png)
+
+## Source code for the application
+
+```{r shinyapp_source, eval=FALSE}
+library(shiny)
+library(ggplot2)
+
+# Load our data
+# Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. 
+# [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. 
+# doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file 
+# called "BGchem2008data.csv"
+# The data URL is: 
+data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
+bg_chem <- read.csv(data_url, stringsAsFactors = FALSE)
+#bg_chem <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Water biogeochemistry"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("mindepth", "Min depth:", min = 0, max = 500, value = 0),
+            sliderInput("maxdepth", "Max depth:", min = 1, max = 500, value = 50)
+        ),
+
+        # Show a plot of the generated scatterplot
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+
+        ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
+            geom_point(colour="red", size=4) +
+            xlim(input$mindepth,input$maxdepth) +
+            theme_light()
+    })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
 
 ## Resources
 
