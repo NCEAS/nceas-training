@@ -309,7 +309,7 @@ pop_3857 <- pop_3338 %>%
 ```
 
 Next, let's grab a base map from the Stamen map tile server covering the region of interest.
-First we include a function that transforms the bounding box (which starts in `EPSSG:326`) to also be in the `EPSG:3857` CRS, which is the projection that the map raster is returned in from Stamen. This is an issue with `ggmap` described in more detail [here](https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208)
+First we include a function that transforms the bounding box (which starts in `EPSG:4326`) to also be in the `EPSG:3857` CRS, which is the projection that the map raster is returned in from Stamen. This is an issue with `ggmap` described in more detail [here](https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208)
 
 
 ```{r message=FALSE}
