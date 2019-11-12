@@ -1,5 +1,9 @@
 # Introduction to Shiny
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ## Learning Objectives
 
 In this lesson we will:
@@ -79,7 +83,7 @@ a function of `CTD_Depth`.  We do so by switching out the histogram code for a s
 ```{r server_chunk, eval=FALSE}
 server <- function(input, output) {
 
-    output$distPlot <- renderPlot({
+    output$depthPlot <- renderPlot({
 
         ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
             geom_point(colour="red", size=4) +
@@ -178,9 +182,134 @@ application is running in your local RStudio instance).  Other times, the `ui` r
 the web browser on one computer, while the `server` runs on a remote computer somewhere
 else on the Internet (e.g., if the application is deployed to a web server).
 
+## Extending the user interface with dynamic plots
+
+If you want to display more than one plot in your application, and provide
+a different set of controls for each plot, the current layout would be too simple.
+Next we will extend the application to break the page up into vertical sections, and
+add a new plot in which the user can choose which variables are plotted.  The current
+layout is set up such that the `FluidPage` contains the title element, and then
+a `sidebarLayout`, which is divided horizontally into a `sidebarPanel` and a 
+`mainPanel`.
+
+![](images/shiny-layout-1.png)
+
+### Vertical layout
+
+To extend the layout, we will first nest the existing `sidebarLayout` in a new
+`verticalLayout`, which simply flows components down the page vertically.  Then
+we will add a new `sidebarLayout` to contain the bottom controls and graph.
+
+![](images/shiny-layout-2.png)
+
+This mechanism of alternately nesting vertical and horizontal panels can be used 
+to segment the screen into boxes with rules about how each of the panels is resized,
+and how the content flows when the browser window is resized.  The `sidebarLayout`
+works to keep the sidebar about 1/3 of the box, and the main panel about 2/3, which 
+is a good proportion for our controls and plots.  Add the verticalLayout, and the
+second sidebarLayout for the second plot as follows:
+
+```{r shiny_vertical, eval=FALSE}
+    verticalLayout(
+        # Sidebar with a slider input for depth axis
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("depth",
+                            "Depth:",
+                            min = 1,
+                            max = 500,
+                            value = c(1, 100))
+            ),
+            # Show a plot of the generated distribution
+            mainPanel(
+               plotOutput("depthPlot")
+            )
+        ),
+
+        tags$hr(),
+
+        sidebarLayout(
+            sidebarPanel(
+                selectInput("x_variable", "X Variable", cols, selected = "CTD_Salinity"),
+                selectInput("y_variable", "Y Variable", cols, selected = "d18O"),
+                selectInput("color_variable", "Color", cols, selected = "P")
+            ),
+
+            # Show a plot with configurable axes
+            mainPanel(
+                plotOutput("varPlot")
+            )
+        ),
+        tags$hr()
+```
+
+Note that the second `sidebarPanel` uses three `selectInput` elements to provide dropdown
+menus with the variable columns (`cols`) from our data frame.  To manage that, we need to
+first set up the cols variable, which we do by selecting only the numeric variables
+from the `bg_chem` data frame, and then saving the name in a variable:
+
+```{r shiny_cols_2, eval=FALSE, echo=TRUE}
+bg_chem <- read.csv(url(data_url, method="libcurl"), stringsAsFactors = FALSE) %>%
+    select(-Date, -Time, -Station)
+cols <- names(bg_chem)
+```
+
+Don't forget to add `library(dplyr)` to the library imports at the top.
+
+### Add the dynamic plot
+
+Because we named the second plot `varPlot` in our UI section, we now need to modify
+the server to produce this plot.  Its very similar to the first plot, but this time
+we want to use the selected vsriables from the user controls to choose which
+variables are plotted. These variable names from the `$input` are character
+strings, and so would not be recognized as symbols in the `aes` mapping in ggplot.
+Instead, we can use `aes_string()` to provide character names for the variables to
+be used in the mappings.
+
+```{r shiny_aes_string, eval=FALSE, echo=TRUE}
+    output$varPlot <- renderPlot({
+        ggplot(bg_chem, mapping = aes_string(x = input$x_variable,
+                                             y = input$y_variable,
+                                             color = input$color_variable)) +
+            geom_point(size=4) +
+            scale_color_gradient2(low="midnightblue", 
+                                  mid="white", 
+                                  high="firebrick", 
+                                  midpoint = mean(bg_chem[,input$color_variable])) +
+            theme_light()
+```
+
+Notice that we also use `scale_color_gradient2` to set up a continuous color 
+scale that uses the mean of the chosen color variable as the midpoint of the 
+color ramp, which makes the display balance nicely.
+
+### Finishing touches: data citation
+
+Citing the data that we used for this application is the right thing to do, and easy.
+You can add arbitrary HTML to the layout using utility functions in the `tags` list.
+
+```{r shiny_citation, eval=FALSE}
+    # Application title
+    titlePanel("Water biogeochemistry"),
+    p("Data for this application are from: "),
+    tags$ul(
+        tags$li("Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center.",
+                tags$a("doi:10.18739/A25T3FZ8X", href="http://doi.org/10.18739/A25T3FZ8X")
+        )
+    ),
+    tags$br(),
+    tags$hr(),
+```
+
+
+The final application shows the data citation, the depth plot, and the 
+configurable scatterplot in three distinct panels.
+
+![](images/shiny-bgchem-app.png)
+
 ## Publishing Shiny applications
 
-Once you've finished your app, you'll want to share it with others. TO do so, you need to
+Once you've finished your app, you'll want to share it with others. To do so, you need to
 publish it to a server that is set up to [handle Shiny apps](https://shiny.rstudio.com/deploy/).  
 Your main choices are:
 
@@ -224,113 +353,95 @@ the tidyverse for writing your interactive applications.
 ## Full source code for the final application
 
 ```{r shinyapp_source, eval=FALSE}
+#
+# This is a demonstration Shiny web application showing how to build a simple
+# data exploration application.
+#
 library(shiny)
 library(ggplot2)
+library(dplyr)
+library(tidyr)
 
-# Load our data from http://doi.org/10.18739/A25T3FZ8X, and download the first csv file 
-# called "BGchem2008data.csv". The data URL is: 
+# Load data from Arctic Data Center
 data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(data_url, stringsAsFactors = FALSE)
-#bg_chem <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+bg_chem <- read.csv(url(data_url, method="libcurl"), stringsAsFactors = FALSE) %>%
+    select(-Date, -Time, -Station)
+cols <- names(bg_chem)
 
-# Define UI for application that draws a histogram
+# Define UI for application that draws two scatter plots
 ui <- fluidPage(
 
     # Application title
     titlePanel("Water biogeochemistry"),
+    p("Data for this application are from: "),
+    tags$ul(
+        tags$li("Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center.",
+                tags$a("doi:10.18739/A25T3FZ8X", href="http://doi.org/10.18739/A25T3FZ8X")
+        )
+    ),
+    tags$br(),
+    tags$hr(),
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("depth", "Depth:", min = 0, max = 500, value = c(0,100))
+    verticalLayout(
+        # Sidebar with a slider input for depth axis
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("depth",
+                            "Depth:",
+                            min = 1,
+                            max = 500,
+                            value = c(1, 100))
+            ),
+            # Show a plot of the generated distribution
+            mainPanel(
+               plotOutput("depthPlot")
+            )
         ),
 
-        # Show a plot of the generated scatterplot
-        mainPanel(
-           plotOutput("distPlot")
-        )
+        tags$hr(),
+        
+        # Sidebar with a select inputs to choose variables to plot
+        sidebarLayout(
+            sidebarPanel(
+                selectInput("x_variable", "X Variable", cols, selected = "CTD_Salinity"),
+                selectInput("y_variable", "Y Variable", cols, selected = "d18O"),
+                selectInput("color_variable", "Color", cols, selected = "P")
+            ),
+
+            # Show a plot with configurable axes
+            mainPanel(
+                plotOutput("varPlot")
+            )
+        ),
+        tags$hr()
     )
 )
 
-# Define server logic for rendering a scatterplot
+# Define server logic required to draw both plots
 server <- function(input, output) {
 
-    output$distPlot <- renderPlot({
-
-        ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
-            geom_point(colour="red", size=4) +
+    output$depthPlot <- renderPlot({
+       ggplot(bg_chem, mapping = aes(x = CTD_Depth, y = CTD_Salinity)) +
+            geom_point(size=4, color="firebrick") +
             xlim(input$depth[1],input$depth[2]) +
+            theme_light()
+    })
+
+    output$varPlot <- renderPlot({
+        ggplot(bg_chem, mapping = aes_string(x = input$x_variable,
+                                             y = input$y_variable,
+                                             color = input$color_variable)) +
+            geom_point(size=4) +
+            scale_color_gradient2(low="midnightblue", 
+                                  mid="white", 
+                                  high="firebrick", 
+                                  midpoint = mean(bg_chem[,input$color_variable])) +
             theme_light()
     })
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
-```
-
-## A more complex example
-
-```{r}
-library(shiny)
-library(ggplot2)
-
-# load data from ADC
-data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(data_url, stringsAsFactors = FALSE)
-
-# select the continuous variables we can use in the plot
-var_names <- names(bg_chem)
-var_names_input <- var_names[-which(var_names %in% c("Time", "Date", "Station"))]
-
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Biochemistry Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            selectInput("x_var",
-                        "X axis",
-                        choices = var_names_input),
-            selectInput("y_var",
-                        "Y axis",
-                        choices = var_names_input),
-            selectInput("color_var",
-                        "Color",
-                        choices = var_names_input)),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
-    )
-)
-
-# Define server logic required to draw a histogram
-server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        
-       ggplot(bg_chem, mapping = aes_string(x = input$x_var,
-                                            y = input$y_var,
-                                            color = input$color_var)) +
-            geom_point(size = 5) +
-            theme_bw() +
-            # set custom blue/white/red color gradient
-            scale_color_gradient2(low="blue", mid="white", high="red", midpoint = mean(bg_chem[,input$color_var])) +
-            # dynamically set labels
-            xlab(gsub("CTD_", " ", input$x_var)) +
-            ylab(gsub("CTD_", " ", input$y_var)) +
-            labs(color = gsub("CTD_", " ", input$color_var))
-        
-    })
-}
-
-# Run the application 
-shinyApp(ui = ui, server = server)
-
 ```
 
 
