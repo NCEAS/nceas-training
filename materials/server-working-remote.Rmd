@@ -12,11 +12,27 @@ In this lesson, you will learn:
 
 ## Why working on a remote machine?
 
-Often the main motivation is to **scale your analysis beyond what a personal computer can handle**. R being pretty memory intensive, moving to a server often provides you more RAM and thus allows to load larger data in R without the need of slicing your data into chunks.
+Often the main motivation is to **scale your analysis beyond what a personal computer can handle**. R being pretty memory intensive, moving to a server often provides you more RAM and thus allows to load larger data in R without the need of slicing your data into chunks. But there are also other advantages, here are the main for scientits:
+* **Power**: More *CPUs/Cores* (24/32/48), More RAM (256/384GB) 
+* **Capacity**: More *disk space* and generally* faster storage* (in highly optimized RAID arrays)
+* **Security**: Data are spread across *multiple drives* and have nightly *backups*
+* **Collaboration**: *shared folders* for code, data, and other materials; same *software versions*
 
-### Working group / Collaborative setup
 
-But there are other reasons of particular importance in a collaborative set up, such as a working group:
+### NCEAS analytical server
+
+ - **88 logical cores** (vCPUs) / 44 physical cores with hyperthreading
+ - **3.6 GHz Turbo** / 2.6 GHz minimum
+ - **512 GB** 2133 MHz ECC DDR4 memory
+ - **48 TB fast storage** array (RAID10 with 800GB SSD cache)
+ - **Nightly Backups**
+
+=> For more info about Aurora: [https://help.nceas.ucsb.edu/high\_performance\_computing](https://help.nceas.ucsb.edu/high_performance_computing)
+
+
+### Working Group / Collaborative setup
+
+There are additional reasons of particular importance in a collaborative set up, such as a working group:
 - **Centralizing data management**: As you know synthesis science is data intensive and often require to deal with a large number of heterogeneous data files. It can be complicated to make sure every collaborators as access to all the data they need. It is even harder to ensure that the exact same version of the data is used by everyone. Moving your workflow to a server, will allow to have only one copy of the data that you can share with all your collaborators. Even better, since everyone can access the same data, everybody will have the exact same path in their script!!
 - **Make sure your files are backed up**: Generally , server are managed by a System administrator. This person is in charge of keeping the server up-to-date, secure from malwares and set up back up strategies to ensure all the files on the server are backed up. When using cloud solutions, you should always check if a back up plan is available for the resources your using.
 
