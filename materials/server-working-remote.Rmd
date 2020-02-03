@@ -1,0 +1,78 @@
+# Working on a Remote Machine
+
+## Learning Objectives
+
+In this lesson, you will learn:
+
+- How to connect to a remote server 
+- Get familiar with RStudio server
+- Linux
+- Moving files to and from the server
+
+
+## Why working on a remote machine?
+
+Often the main motivation is to **scale your analysis beyond what a personal computer can handle**. R being pretty memory intensive, moving to a server often provides you more RAM and thus allows to load larger data in R without the need of slicing your data into chunks.
+
+### Working group / Collaborative setup
+
+But there are other reasons of particular importance in a collaborative set up, such as a working group:
+- **Centralizing data management**: As you know synthesis science is data intensive and often require to deal with a large number of heterogeneous data files. It can be complicated to make sure every collaborators as access to all the data they need. It is even harder to ensure that the exact same version of the data is used by everyone. Moving your workflow to a server, will allow to have only one copy of the data that you can share with all your collaborators. Even better, since everyone can access the same data, everybody will have the exact same path in their script!!
+- **Make sure your files are backed up**: Generally , server are managed by a System administrator. This person is in charge of keeping the server up-to-date, secure from malwares and set up back up strategies to ensure all the files on the server are backed up. When using cloud solutions, you should always check if a back up plan is available for the resources your using.
+
+
+### What does working on a remote server means?
+
+What does it mean for your workflow? The good news is that RStudio Server makes it very easy for RStudio users to start using a server for their analysis. The main changes are  about:
+- File management: you will need to learn to move files (incluing your R scripts) to the server
+- Package installation: You can still install the R packages you need under your user (with some limitations). However some R packages will be already installed at the server level.
+
+
+## RStudio Server
+
+From an user perspective, RStudio Server is your familiar RStudio interface in your web browser. The big difference however is that with RStudio Server the computation will be running on the remote machine instead of your local personal computer. This also means that **the files you are seeing through the RStudio Server interface are located on the remote machine. And this also include your R packages!!!** This remote file management is the main change you will have to adopt in your workflow. 
+
+To help with remote files management, the RStudio Server interface as few additional features that we will be discussing in the following sections.
+
+
+
+## Collaborative Workflow
+
+### Using git and GitHub for Codes
+
+### Using Shared Folders for Data Sets
+
+
+## What is Linux?
+
+### Getting around the File system
+
+### Uploading files to the Server
+
+### Downloading files from the Server
+
+
+
+
+
+
+
+
+
+
+Source the file that you saved above (e.g.: `source(package_update.R)`). Then, run the `save_packages` function.
+
+```{r, eval = F}
+save_packages("installed.rda")
+```
+
+Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R. 
+
+Source the R script that you saved above again, and then run:
+
+```{r, eval = F}
+update_packages("installed.rda")
+```
+
+This should install all of your R packages that you had before you upgraded.
+
