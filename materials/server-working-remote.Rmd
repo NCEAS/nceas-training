@@ -46,9 +46,26 @@ What does it mean for your workflow? The good news is that RStudio Server makes 
 
 ## RStudio Server
 
+```{r RStudio Server, echo=FALSE, out.width='50%', fig.align="center", fig.cap="RStudio server IDE"}
+  knitr::include_graphics("images/RStudio-server-ide.png")
+```
+
+
 From an user perspective, RStudio Server is your familiar RStudio interface in your web browser. The big difference however is that with RStudio Server the computation will be running on the remote machine instead of your local personal computer. This also means that **the files you are seeing through the RStudio Server interface are located on the remote machine. And this also include your R packages!!!** This remote file management is the main change you will have to adopt in your workflow. 
 
 To help with remote files management, the RStudio Server interface as few additional features that we will be discussing in the following sections.
+
+### Connecting to NCEAS Analytical Server
+
+1. Got to: <https://aurora.nceas.ucsb.edu/> 
+
+2. Select `Login to RStudio Server`
+
+3. Enter your credentials
+
+4. You are in!
+
+
 
 
 
@@ -66,29 +83,4 @@ To help with remote files management, the RStudio Server interface as few additi
 ### Uploading files to the Server
 
 ### Downloading files from the Server
-
-
-
-
-
-
-
-
-
-
-Source the file that you saved above (e.g.: `source(package_update.R)`). Then, run the `save_packages` function.
-
-```{r, eval = F}
-save_packages("installed.rda")
-```
-
-Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R. 
-
-Source the R script that you saved above again, and then run:
-
-```{r, eval = F}
-update_packages("installed.rda")
-```
-
-This should install all of your R packages that you had before you upgraded.
 
