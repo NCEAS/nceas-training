@@ -80,11 +80,13 @@ submitted might be `R2` in the graph above.
 
 ### R Version
 
-We will use R version 3.6.1, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
+We will use R version 3.6.2, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
 ```{r rversion, eval=FALSE}
 R.version$version.string
 ```
+
+If you have R version 3.6.1 that will likely work fine as well.
 
 ### RStudio Version
 
@@ -104,9 +106,10 @@ Run the following lines to check that all of the packages we need for the traini
 packages <- c("dplyr", "tidyr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner")
 
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
-
 rm(packages) #remove variable from workspace
 
+# Now upgrade any out-of-date packages
+update.packages(ask=FALSE)
 ```
 
 If you haven't installed all of the packages, this will automatically start installing them. If they are installed, it won't do anything.
@@ -121,7 +124,15 @@ If you haven't already, go to [github.com](http://github.com) and create an acco
 
 Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
 
-A terminal tab should now be open where your console usually is. To set the global options, type the following into the command prompt, with your actual name, and press enter:
+A terminal tab should now be open where your console usually is. 
+
+To see if you aleady have your name and email options set, use this command from the terminal:
+
+```{sh git-config, eval=FALSE}
+git config --global --list | grep user
+```
+
+To set the global options, type the following into the command prompt, with your actual name, and press enter:
 
 ```{sh git-name, eval=FALSE}
 git config --global user.name "Matt Jones"
@@ -135,7 +146,7 @@ git config --global user.email "gitcode@magisa.org"
 
 Note that these lines need to be run one at a time.
 
-Finally, check to make sure everything looks correct by entering this line, which will return the options that you have set.
+Finally, check to make sure everything looks correct by entering these commands, which will return the options that you have set.
 
 ```{sh git-list, eval=FALSE}
 git config --global user.name
@@ -144,11 +155,11 @@ git config --global user.email
 
 ### Note for Windows Users
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senerios, the git executable may not be available to the default terminal type.
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senerios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendixe). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
 
 In addition, some versions of windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
 
-### Updating a previous R installation
+## Updating a previous R installation
 
 **This is useful for users who already have R with some packages installed and need to upgrade R, but don't want to lose packages.** If you have never installed R or any R packages before, you can skip this section.
 
@@ -178,7 +189,7 @@ update_packages <- function(path){
     installedpkgs.new <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
     missing <- setdiff(installedpkgs, installedpkgs.new)
     install.packages(missing)
-    update.packages()
+    update.packages(ask=FALSE)
 }
 ```
 
@@ -190,7 +201,7 @@ save_packages("installed.rda")
 
 Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R. 
 
-Source the R script that you saved above again, and then run:
+Source the R script that you saved above again (eg: `source(package_update.R)`), and then run:
 
 ```{r, eval = F}
 update_packages("installed.rda")
