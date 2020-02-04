@@ -45,8 +45,51 @@ exactly what changed.
 
 In this exercise, work in pairs.  Each pair should create a `fork` of their partner's
 training repository, and then clone that onto their local machine.  Then they can make changes
-that forked repository, and, from the GitHub interface, create a pull request that the
-owner can incorporate.
+to that forked repository, and, from the GitHub interface, create a pull request that the
+owner can incorporate. We'll walk through the process from both the owner and the collaborator's
+perspectives.  In the following example, `mbjones` will be the repository owner, and `metamattj`
+will be the collaborator.
+
+1. *Change settings (Owner)*: Edit the github settings file for your `training-test` repository, and ensure that the collaborator does not have editing permission.  Also, be sure that all changes in your repository are committed and pushed to the `origin` server.
+
+2. *Fork (Collaborator)*: Visit the GitHub page for the owner's GitHub repository on which you'd like
+to make changes, and click the `Fork` button.  This will create a clone of that repository in your
+own GitHub account.  You will be able to make changes to this forked copy of the repository, but 
+you will not be able to make direct changes to the owner's copy. After you have forked the repository,
+visit your GitHub page for your forked repository, copy the url, and create a new RStudio project
+using that repository url.
+
+![](images/git-pr-02-forked-repo.png)
+
+3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
+file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
+has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:master.` 
+
+![](images/git-pr-03-fork-changed.png)
+
+4. *Create Pull Request (Collaborator)*: At this point, click the aptly named `Pull Request` button to create a pull request which will be used to ask that the *owner* pull in your changes to their copy.
+
+![](images/git-pr-04-config-pr.png)
+
+When you click `Create pull request`, provide a brief summary of the request, and a more detailed message to start a conversation about what you are requesting. It's helpful to be polite and concise while providing adequate context for your request. This will start a conversation with the owner in which you can discuss your changes, they can easily review the changes, and they can ask for further changes before the accept and pull them in.  The owner of the repository is in control and determines if and when the changes are merged.
+
+![](images/git-pr-05-create-pr.png)
+
+5. The owner will get an email notification that the Pull Request was created, and can see the PR listed in their `Pull requests` tab of their repsoitory.
+
+![](images/git-pr-06-pr-list.png)
+
+The owner can now initiate a conversation about the change, requesting further changes. The interface indicates whether there are any conflicts with the changes, and if not, gives the owner the option to `Merge pull request`.
+
+![](images/git-pr-07-pr-view.png)
+
+Once the owner thinks the changes look good, they can click the `Merge pull request` button to accept the changes and pull them into their repository copy. Edit the message, and then click `Confirm merge`.
+
+![](images/git-pr-08-pr-merge.png)
+
+Congratulations, the PR request has now been merged into the owner's copy, and has been closed with a note indicating that the changes have been made.
+
+![](images/git-pr-09-merged.png)
 
 ## Branches and tags
 
