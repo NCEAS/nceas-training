@@ -163,6 +163,18 @@ location:
 
 ## Working locally with Git via RStudio
 
+For convenience, it would be nice to be able to edit the files locally on our
+computer using RStudio rather than working on the GitHub website. We can do this
+by using the `clone` command to copy the repository from GitHub to our local computer,
+which then allows us to `push` changes up to GitHub and `pull` down any changes that 
+have occurred.
+
+![](images/github-workflows-owner.png)
+
+We refer to the remote copy of the repository that is on GitHub as the `origin`
+repository (the one that we cloned from), and the copy on our local computer as
+the `local` copy.
+
 RStudio knows how to work with files under version control with Git, but only if
 you are working within an RStudio project folder.  In this next section, we will
 clone the repository that you created on GitHub into a local repository as an 

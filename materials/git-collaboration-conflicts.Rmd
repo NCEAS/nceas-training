@@ -22,6 +22,12 @@ the mechanism to move changes from one collaborator to another.  While there are
 more advanced ways to sync git repositories, this "hub and spoke" model works really 
 well due to its simplicity.
 
+In this model, the collaborator will `clone` a copy of the owner's repository from
+GitHub, and the owner will grant them collaborator status, enabling the collaborator
+to directly pull and push from the owner's GitHub repository.
+
+![](images/github-workflows-collab.png)
+
 ### Activity: Collaborating with a trusted colleague
 
 *Settings*. Working in pairs, choose one person as the 'Owner' and one as the 'Collaborator'.
