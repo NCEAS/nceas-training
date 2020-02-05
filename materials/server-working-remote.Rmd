@@ -30,7 +30,7 @@ Often the main motivation is to **scale your analysis beyond what a personal com
 _=> For more info about Aurora: [https://help.nceas.ucsb.edu/high\_performance\_computing](https://help.nceas.ucsb.edu/high_performance_computing)_
 
 
-### Working Group / Collaborative setup
+### Working Group / Collaborative Setup
 
 There are additional reasons of particular importance in a collaborative set up, such as a working group:
 - **Centralizing data management**: As you know synthesis science is data intensive and often require to deal with a large number of heterogeneous data files. It can be complicated to make sure every collaborators as access to all the data they need. It is even harder to ensure that the exact same version of the data is used by everyone. Moving your workflow to a server, will allow to have only one copy of the data that you can share with all your collaborators. Even better, since everyone can access the same data, everybody will have the exact same path in their script!!
@@ -55,6 +55,7 @@ From an user perspective, _RStudio Server is your familiar RStudio interface in 
 
 To help with remote files management, the RStudio Server interface as few additional features that we will be discussing in the following sections.
 
+
 ### Connecting to NCEAS Analytical Server
 
 1. Got to: <https://aurora.nceas.ucsb.edu/> 
@@ -67,14 +68,5 @@ To help with remote files management, the RStudio Server interface as few additi
 
 
 
-## `ssh`
 
-
-## What is Linux?
-
-### Getting around the File system
-
-### Uploading files to the Server
-
-### Downloading files from the Server
 
