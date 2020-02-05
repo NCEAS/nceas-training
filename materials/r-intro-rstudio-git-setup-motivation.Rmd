@@ -61,7 +61,7 @@ changes to files.  And yet, often all we use to track all these changes are dupl
 You might think there is a better way, and you'd be right: __version control__.
 
 Version control systems help you track all of the changes to your files, without
-the spaghetti mess that ensues from simple file renaming.  In version control systems
+the spaghetti mess that ensues from simple file renaming and duplication.  In version control systems
 like `git`, the system tracks not just the name of the file, but also its contents,
 so that when contents change, it can tell you which pieces went where.  It tracks
 which version of a file a new version came from.  So its easy to draw a graph
@@ -78,14 +78,19 @@ to a set of files exactly as they were when you tagged them.  For example, the
 exact versions of data, code, and narrative that were used when a manuscript was 
 submitted might be `R2` in the graph above.
 
+These versions a tight together as an history that you can navigate to go back to any specific version of a file. A more concrete example will be an R script. After implementing several modifications, you realize that your code is not working anymore, with version control you can go back to the previous version that used to work. 
+
 
 ## Collaborative Research
 
-Most of the envrionemental sciences research is done in a collaborative set up. This especially true in the synthesis working group model that NCEAS has been using and refining over the years. These groups of experts with different background, tools and methods, have to collaborate together and build on others work, paticularly data.
+Most of the environmental sciences research is done in a collaborative set up. This especially true with the synthesis working group model that NCEAS has been using and refining over the years. These groups of experts with different background, tools and methods, have to collaborate together and build on others work (particularly data).
 
-In this tight collaborative setup, we recommend to manage your data and codes using the following approach to amange your collaboration on an server / remote machine.
+In this tight collaborative setup involving people from many different institutions, we recommend to manage your data and codes on a unique server / remote machine using the following strategies to centralize and share your work.
 
 ### Using Shared Folders for Data Sets
 
+To centralize the management of you data, we recommend to set up shared folder (or also named directories) on the server and give access to all the members of your group. This will prevent the duplication of data and reduce the risk of people working on different versions of your data sets. Regarding your input data, we recommend to write protect them, so nobody can overwrite your original data on accident. For output data, you can develop different strategies. Note it is often useful to see the outputs data more as a secondary product of a specific version of your code. In other words, you should be always able to reproduce a specific results if you go back to the corresponding version of your code.
 
 ### Using git and GitHub for Codes
+
+For code sharing, we recommend a different setup than the one for data. Your scripts should be stored under your personal folder on the server and you should not be sharing this folder with others. You should rely on a version control system to version and share your code. This will allow to manage more efficiently potential conflict between different versions of the same script. In this workshop, we will use git a version control system and relying on the service GitHub to share or code. T
