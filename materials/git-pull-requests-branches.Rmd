@@ -101,7 +101,17 @@ new merge commit in the Owner's repository that is not present in either of the
 collaborator's repositories.  To fix that, 
 one needs to pull changes from the `upstream` repository into the collaborator's local
 repository, and then push those changes from that local repository to the collaborator's
-`origin` repository.  At this point, the collaborator is fully up to date.
+`origin` repository.
+
+To add a reference to the `upstream` remote (the repository you made your fork from), in the terminal, run:
+
+`git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
+
+Then to pull from the master branch of the `upstream` repository, in the terminal, run: 
+
+`git pull upstream master`
+
+At this point, the collaborator is fully up to date.
 
 ![](images/github-workflows-upstream.png)
 
