@@ -51,7 +51,7 @@ What does it mean for your workflow? The good news is that RStudio Server makes 
 ```
 
 
-From an user perspective, RStudio Server is your familiar RStudio interface in your web browser. The big difference however is that with RStudio Server the computation will be running on the remote machine instead of your local personal computer. This also means that **the files you are seeing through the RStudio Server interface are located on the remote machine. And this also include your R packages!!!** This remote file management is the main change you will have to adopt in your workflow. 
+From an user perspective, _RStudio Server is your familiar RStudio interface in your web browser_. The big difference however is that with RStudio Server the computation will be running on the remote machine instead of your local personal computer. This also means that **the files you are seeing through the RStudio Server interface are located on the remote machine. And this also include your R packages!!!** This remote file management is the main change you will have to adopt in your workflow. 
 
 To help with remote files management, the RStudio Server interface as few additional features that we will be discussing in the following sections.
 
