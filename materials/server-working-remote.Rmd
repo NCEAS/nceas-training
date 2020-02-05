@@ -27,7 +27,7 @@ Often the main motivation is to **scale your analysis beyond what a personal com
  - **48 TB fast storage** array (RAID10 with 800GB SSD cache)
  - **Nightly Backups**
 
-=> For more info about Aurora: [https://help.nceas.ucsb.edu/high\_performance\_computing](https://help.nceas.ucsb.edu/high_performance_computing)
+_=> For more info about Aurora: [https://help.nceas.ucsb.edu/high\_performance\_computing](https://help.nceas.ucsb.edu/high_performance_computing)_
 
 
 ### Working Group / Collaborative setup
@@ -46,7 +46,7 @@ What does it mean for your workflow? The good news is that RStudio Server makes 
 
 ## RStudio Server
 
-```{r RStudio Server, echo=FALSE, out.width='50%', fig.align="center", fig.cap="RStudio server IDE"}
+```{r RStudio Server, echo=FALSE, out.width='90%', fig.align="center", fig.subcap=="RStudio server IDE"}
   knitr::include_graphics("images/RStudio-server-ide.png")
 ```
 
