@@ -5,7 +5,9 @@ language:
   ui:
     chapter_name: ""
 rmd_files: ["index.Rmd",
-            "r-intro-rstudio-git-setup-motivation.Rmd",
+            "motivation.Rmd",
+            "server-working-remote.Rmd",
+            "r-rstudio-setup.Rmd",
             "r-beginning-programming-with-rmarkdown.Rmd",
             "git-intro.Rmd",
             "git-collaboration-conflicts.Rmd",
