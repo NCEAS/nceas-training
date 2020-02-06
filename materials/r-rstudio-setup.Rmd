@@ -90,6 +90,18 @@ Problem with any of those steps? Check out Jenny Brian [Happy git trouble shooti
 
 ### Other thoughts
 
+#### Linking git and RStudio
+
+In most of the cases, RStudio should automatically detect `git` when it is installed on your computer. The best way to check this is to go to the `Tools` menu `-> Global Option`s and click on `git/SVN`
+
+If `git` is properly setup, the window should look like this:
+
+<img style="align: left;width: 450px;" src=images/rstudio-git.png />
+
+Click `OK`. 
+
+_Note:_ if `git` was not enabled, you might be asked to restart RStudio to enable it.
+
 #### Note for Windows Users
 
 If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senarios, the git executable may not be available to the default terminal type.
