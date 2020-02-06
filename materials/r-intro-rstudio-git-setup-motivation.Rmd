@@ -103,7 +103,7 @@ If the output of this does not say `1.2.500` or higher, you should update your R
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
 ```{r package-install, eval = FALSE}
-packages <- c("dplyr", "tidyr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner")
+packages <- c("dplyr", "tidyr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner", "MASS", "doParallel", "foreach", "parallel")
 
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
 rm(packages) #remove variable from workspace

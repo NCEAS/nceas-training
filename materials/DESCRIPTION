@@ -1,7 +1,7 @@
 Package: placeholder
 Type: Book
 Title: Does not matter.
-Version: 0.0.1
+Version: 0.0.2
 Imports: 
     bookdown,
     datapack,
@@ -18,5 +18,9 @@ Imports:
     sf,
     scales,
     tidyr,
-    htmlwidgets
+    htmlwidgets,
+    MASS,
+    doParallel,
+    foreach,
+    parallel
 Remotes: rstudio/bookdown
