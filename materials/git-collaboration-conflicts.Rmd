@@ -33,16 +33,16 @@ the username of your Collaborator in the box.
 
 Once the collaborator has been added, they should check their email for an invitation
 from GitHub, and click on the acceptance link, which will enable them to collaborate
-onthe repository.
+on the repository.
 
 *Collaborator clone*.  To be able to contribute to a repository, the collaborator
-must clone the repository from the Owner's github account. To do this, the Collaborator
-should visit the github page for the Owner's repository, and then copy the clone URL.
+must clone the repository from the Owner's GitHub account. To do this, the Collaborator
+should visit the GitHub page for the Owner's repository, and then copy the clone URL.
 In R Studio, the Collaborator will create a new project from version control by pasting
 this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
 
 *Collaborator Edits*. With a clone copied locally, the Collaborator can now make changes to the
-`index.Rmd` file in the repository, adding a line or statment somewhere noticeable
+`index.Rmd` file in the repository, adding a line or statement somewhere noticeable
 near the top.  Save your changes.
 
 *Collaborator commit and push*.  To sync changes, the collaborator will need to add, commit, and
@@ -51,7 +51,7 @@ to `pull` immediately before committing to ensure you have the most recent chang
 from the owner.  So, in R Studio's Git tab, first click the "Diff" button to
 open the git window, and then press the green "Pull" down arrow button.  This will
 fetch any recent changes from the origin repository and merge them.  Next, add
-the changed index.Rmd file to be committed by cicking the checkbox next to it, 
+the changed index.Rmd file to be committed by cocking the check box next to it, 
 type in a commit message, and click 'Commit.'  Once that finishes, then the collaborator can
 immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
@@ -88,21 +88,21 @@ take precedence.  You have to tell git whose changes to use for that line.
 ### Abort, abort, abort...
 
 Sometimes you just made a mistake.  When you get a merge conflict, the repository
-is placed in a 'Merging' state until you resolve it.  There's a commandline command
+is placed in a 'Merging' state until you resolve it.  There's a command line command
 to abort doing the merge altogether:
 
 ```
 git merge --abort
 ```
 
-Of course, after doing that you stull haven't synced with your collaborator's
+Of course, after doing that you still haven't synced with your collaborator's
 changes, so things are still unresolved.  But at least your repository is now
 usable on your local machine.
 
 ### Checkout
 
 The simplest way to resolve a conflict, given that you know whose version of the
-file you want to keep, is to use the commandline `git` program to tell git to
+file you want to keep, is to use the command line `git` program to tell git to
 use either *your* changes (the person doing the merge), or *their* changes (the other collaborator).
 
 - keep your collaborators file: `git checkout --theirs conflicted_file.Rmd`
@@ -112,7 +112,7 @@ Once you have run that command, then run `add`, `commit`, and `push` the changes
 
 ### Pull and edit the file
 
-But that requires the commandline. If you want to resolve from RStudio, or if 
+But that requires the command line. If you want to resolve from RStudio, or if 
 you want to pick and choose some of your changes and some of your collaborator's,
 then instead you can manually edit and fix the file.  When you `pull`ed the file
 with a conflict, git notices that there is a conflict and modifies the file to show
@@ -123,7 +123,7 @@ these blocks with a series of less than and greater than signs, so they are easy
 
 ![](images/rstudio-merge-conflict.png)
 
-To resolve the conficts, simply find all of these blocks, and edit them so that
+To resolve the conflicts, simply find all of these blocks, and edit them so that
 the file looks how you want (either pick your lines, your collaborators lines,
 some combination, or something altogether new), and save. Be sure you removed the
 delimiter lines that started with `<<<<<<<`, `=======`, and `>>>>>>>`.
@@ -142,9 +142,9 @@ Pull before every commit, and commit often in small chunks.
 
 ## Other Collaborative Workflows with `GitHub`
 
-In our exercise we experience a workflow that is suitable for a small team working together on a project. However if the frequency of the merge conflicts increase, it is the sign that you might want o use another type of workflow involving branches and pull requests. Branches in git enable you to create a separate and siloed version of the content of your repository. You can work on this branch / copy without discrupting the work of others. When you are done, you can ask to merge back your branches to the orginal version via a pull request. 
+In our exercise we experience a workflow that is suitable for a small team working together on a project. However if the frequency of the merge conflicts increase, it is the sign that you might want o use another type of workflow involving branches and pull requests. Branches in git enable you to create a separate and siloed version of the content of your repository. You can work on this branch / copy without disrupting the work of others. When you are done, you can ask to merge back your branches to the original version via a pull request. 
 
-Sometimes, you want external people to the project to be able to contribute. However if you would like to control more what they are contributing, you can use this type of workflow where you will have to review and accept every changes that are submitted by this externa collaborator. A **fork** is a **copy of a repository** that will be stored under your user account. Forking a repository allows you to freely experiment with changes without affecting the original project. We can create a fork on Github by clicking the "fork" button in the top right corner of our repository webpage.
+Sometimes, you want external people to the project to be able to contribute. However if you would like to control more what they are contributing, you can use this type of workflow where you will have to review and accept every changes that are submitted by this external collaborator. A **fork** is a **copy of a repository** that will be stored under your user account. Forking a repository allows you to freely experiment with changes without affecting the original project. We can create a fork on GitHub by clicking the "fork" button in the top right corner of our repository webpage.
 ![](images/github-fork.png) 
 
 
@@ -198,7 +198,7 @@ knitr::include_graphics("images/rstudio-git-branch-new.png")
 
 Congratulations you just created your first branch! 
 
-Let us check on Github:
+Let us check on GitHub:
 
 ```{r RStudio github new branch, out.width='45%', fig.align='center', echo = FALSE}
 knitr::include_graphics("images/github-new-branch.png")
@@ -210,7 +210,7 @@ As you can see, now there are two branches on our remote repository:
 
 ### Using a branch
 
-Here there is nothing new. The workflow is exactly the same as we did before, execepts our commit will be created on the `test` branch instead of the master branch.
+Here there is nothing new. The workflow is exactly the same as we did before, excepts our commit will be created on the `test` branch instead of the master branch.
 
 
 
