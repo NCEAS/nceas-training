@@ -155,157 +155,202 @@ it will display the set of changes made in that particular commit.
 
 In the next section we'll use the GitHub URL for the GitHub repository you created 
 to `clone` the repository onto your local machine so that you can edit the files 
-in RStudio.  To do so, start by copying the GitHub URL, which represents the repository
-location:
+in RStudio.  
 
-![](images/sasap-test-clone-url.png)
+## Getting a Local Copy of a Repository
 
+The next step is going to **get a local copy of this repository to your personal computer**. In git jargon, creating an exact copy of a repository on your local computer is called **cloning**.
 
+RStudio can help us to clone a repository. *Since `RStudio Projects` also work at the folder/directory level, it is the "unit" that is going to be used to link a repository to RStudio.*
 
-## Working locally with Git via RStudio
+1. You can create a new `RStudio Project` from the upper-right corner of the RStudio IDE window, choosing *New Project*  
+```{r RStudio project, out.width='30%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-project.png")
+```
+2. Choose *Version Control*  
+```{r RStudio project version control panel, out.width='50%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-project-version-control.png")
+```
+3. Select `git`
+4. Go back to your web browser and from the GitHub repository page click on the green `clone or download` button and copy the URL to your repository.  
+_Note_: The URL should start with "https\://". If it starts with "git\@github.com", click "Use HTTPS" above the URL.
+![](images/github-get-url.png)
+5. Paste this URL in the first box and leave the second box empty. Finally select a location on your HD where the repository will be cloned to.
+```{r RStudio project git panel, out.width='50%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-project-clone.png")
+```
+6. Click `Create Project`
+![](images/rstudio-cloned-repo.png)
 
-RStudio knows how to work with files under version control with Git, but only if
-you are working within an RStudio project folder.  In this next section, we will
-clone the repository that you created on GitHub into a local repository as an 
-RStudio project.  Here's what we're going to do:
+<br>
 
-- Create the new project
-- Inspect the Git tab and version history
-- Commit a change to the README.md file
-- Commit the changes that RStudio made
-- Inspect the version history
-- Add and commit an Rmd file
-- Push these changes to GitHub
-- View the change history on GitHub
+** => Congratulations!! you have cloned the repository to your computer and created a RStudio project out of it.**
 
-__Create a New Project.__ Start by creating a *New Project...* in R Studio, select the *Version Control* 
-option, and paste the GitHub URL that you copied into the field for the 
-remote repository *Repository URL*.  While you can name the local copy of the 
-repository anything, its typical to use the same name as the GitHub repository to
-maintain the correspondence.  You can choose any folder for your local copy, in
-my case I used my standard `development` folder.
-
-![](images/rstudio-clone-repo.png)
-Once you hit `Create Project, a new RStudio windo will open with all of the files
-from the remote repository copied locally.  Depending on how your version of RStudio
-is configured, the location and size of the panes may differ, but they should all
-be present, including a *Git* tab and the normal *Files* tab listing the files that 
-had been created in the remote repository.
-
-![](images/rstudio-sasap-test.png)
-You'll note that there is one new file `sasap-test.Rproj`, and three files that we
-created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
-
-In the *Git* tab, you'll note that two files are listed.  This is the status pane
-that shows the current modification status of all of the files in the repository.
-In this case, the `.gitignore` file is listed as *M* for Modified, and `sasap-test.Rproj` 
-is listed with a *? ?* to indicate that the file is untracked.  This means that
-git has not stored any versions of this file, and knows nothing about the file.
-As you make version control decisions in RStudio, these icons will change to reflect
-the current version status of each of the files.
-
-__Inspect the history.__ For now, let's click on the *History* button in the Git tab, which will show the
-log of changes that occurred, and will be identical to what we viewed on GitHub.
-By clicking on each row of the history, you can see exactly what was added and
-changed in each of the two commits in this repository.
-
-![](images/rstudio-history-1.png)
-__Commit a README.md change.__ Next let's make a change to the README.md file
-in RStudio. Add a new section, with a markdown block like this:
-
-<pre><code>
+```{r Cloned repository, fig.align='center', echo = FALSE}
+knitr::include_graphics("images/repo-cloned.png")
+```
 
 
-## Git from RStudio
+<br>
 
-From within RStudio, we can perform the same versioning actions that we can
-in GitHub, and much more.  Plus, we have the natural advantages of the 
-programming IDE with code completion and other features to make our work
-easier.
+You can also use your computer file browser to look at the files in the repository. You have two files:
 
-- Add files to version control
-- Commit changes
-- Push commits to GitHub
-</code></pre>
+- The `my-repo-name.Rproj` file for the RStudio Project you just created. Note that because we left the second box empty on step 5, the name of the repository was used to name the RStudio project. This file will be what you open to begin working on your R and RMarkdown scripts. The `Rproj` file will save your settings and open tabs when you close the project, and will restore these settings the next time you open it. 
+- The `README.md` file that was automatically generated by GitHub when creating the repository
 
-Once you save, you'll immediately see the *README.md* file show up in the Git
-tab, marks as a modification.  You can select the file in the Git tab, and click
-*Diff* to see the differences that you saved (but which are not yet committed to
-your local repository).
+```{r Finder files view, out.width='50%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/repo-finder-view.png")
+```
 
-![](images/rstudio-status-pane.png)
+If you look again at your repository page on GitHub you will noticed that the `.Rproj` file is not there. It is because this file was created by RStudio on your local machine and you have not yet tried to synchronize the files between your local copy and the one in the cloud (remote copy in git jargon). Note also that the `.gitignore` file is not showing up in the Finder view. It is because files with a name starting with a dot are considered "hidden". By default most of OS will not show those files. However if you use the `Files` panel in RStudio, you can see the `.gitignore` file.
 
-And here's what the newly made changes look like compared to the original file.
-New lines are highlighted in green, while removed lines are in red.
+```{r rstudio files view, out.width='50%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-files-view.png")
+```
 
-![](images/rstudio-diff.png)
-__Commit the RStudio changes.__
+We are going to edit the `README.md` file, adding more information about the repository (purpose of the this file). You can directly edit this file in RStudio. You can open the file by clicking on its name from the `Files` tab in the lower-right panel.
 
-To commit the changes you made to the README.md file, check the *Staged*
-checkbox next to the file (which tells Git which changes you want included in
-the commit), then provide a descriptive Commit message, and then click *Commit*.
 
-![](images/rstudio-commit-1.png)
+## Tracking File Changes with `git` 
 
-Note that some of the changes in the repository, namely `.gitignore` and 
-`sasap-test.Rproj` are still listed as having not been committed.  This means
-there are still pending changes to the repository.  You can also see the note
-that says:
+### Basic Workflow Overview
 
-<code>Your branch is ahead of 'origin/master' by 1 commit.</code>
+<img style="float: right;width: 300px;" src="images/git_workflow_general.png">
 
-This means that we have committed 1 change in the local repository, but that 
-commit has not yet been pushed up to the `origin` repository, where `origin`
-is the typical name for our remote repository on GitHub.  So, let's commit the
-remaining project files by staging them and adding a commit message.
+1. You modify files in your working directory and save them as usual
 
-![](images/rstudio-commit-2.png)
+2. You **add** snapshots of your changed files to your staging area
 
-When finished, you'll see that no changes remain in the *Git* tab, and the repository
-is clean.  
+3. You do a **commit**, which takes the files as they are in the staging area and permanently stores them as snapshots to your Git directory.
 
-__Inspect the history.__ Note that the message now says:
 
-<code>Your branch is ahead of 'origin/master' by 2 commits.</code>
+We can make an analogy with taking a family picture, where each family member would represent a file.
 
-These 2 commits are the two we just made, and have not yet been pushed to GitHub.
-By clicking on the *History* button, we can see that there are now a total of
-four commits in the local repository (while there had only been two on GitHub).
+- **Add**ing files (to the staging area), is like deciding which family member(s) are going to be on your next picture
+- **Commit**ting is like taking the picture
 
-![](images/rstudio-history-2.png)
+These 2-step process enables you to flexibly group files into a specific commit.
 
-__Push these changes to GitHub.__ Now that everything has been changed as desired
-locally, you can *push* the changes to GitHub using the *Push* button.  This will
-prompt you for your GitHub username and password, and upload the changes, leaving
-your repository in a totally clean and synchronized state.  When finished, looking
-at the history shows all four commits, including the two that were done on GitHub
-and the two that were done locally on RStudio.  
+These steps are repeated for every version you want to keep (every time you would like to use `save as`). Every time you commit, you create a new snapshot, you add the new version of the file to the git database, while keeping all the previous versions in the database. It creates an history of the content of your repository that is like a graph that you can navigate:
 
-![](images/rstudio-history-3.png)
-And note that the labels indicate that both the local repository (`HEAD`) and the
-remote repository (`origin/HEAD`) are pointing at the same version in the history.
-So, if we go look at the commit history on GitHub, all the commits will be shown
-there as well.
+<img style="align: left;width: 200px;" src=images/version-graph_mattJones.png />
 
-![](images/github-history.png)
+### Using git from Rstudio
 
-## On good commit messages
+#### Tracking changes
 
-Clearly, good documentation of what you've done is critical to making the version
-history of your repository meaningful and helpful.  Its tempting to skip the 
-commit message altogether, or to add some stock blurd like 'Updates'.  Its better
-to use messages that will be helpful to your future self in deducing not just what
-you did, but why you did it.  Also, commit messaged are best understood if they
-follow the active verb convention.  For example, you can see that my commit
-messages all started with a past tense verb, and then explained what was changed.
+RStudio provides a great interface to git helping you navigating the git workflow and getting information about the state of your repository through nice icons and visualizations of the information.
 
-While some of the changes we illustrated here were simple and so easily explained
-in a short phrase, for more complext changes, its best to provide a more complete
-message.  The convention, however, is to always have a short, terse first sentence, 
-followed by a more verbose explanation of the details and rationale for the change.
-This keeps the high level details readable in the version log.  I can't count the
-number of times I've looked at the commit log from 2, 3, or 10 years prior and
-been so grateful for diligence of my past self and collaborators.
+If you click on the `Git` tab in your RStudio upper-right panel, you should see the following information
+
+```{r RStudio git pane, out.width='60%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-panel.png")
+```
+The RStudio Git pane lists every file that’s been added, modified or deleted. The icon describes the change:
+
+```{r RStudio git icons, out.width='80%', fig.align='left', fig.cap="from R packages, H. Wickham", echo = FALSE}
+knitr::include_graphics("images/rstudio-git-icons.png")
+```
+
+In our case, it means that:
+
+- the `.gitignore`file has been modified since the last commit
+- the  `.Rproj` file has never been tracked by `git`  (remember RStudio just created this project file for us)
+
+Note also that the `README.md` file is not listed, but it exists (see `Files`pane). It is because files with no modifications since last commit are not listed. 
+
+GitHub has created the `.gitignore` file for us and we have not modified it since. So why is it listed as modified? We can check this by clicking on the `Diff` button (upper-left on the Git pane).
+
+```{r RStudio git diff, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-diff.png")
+```
+
+We can see that a new line (in green) has been added at the end of the `.gitignore` file. In fact, RStudio did that when creating the project to make sure that some temporary files are not tracked by git.
+
+Let us improve the content of the `README.md` file  as below to make it more descriptive.
+
+```{r RStudio readme, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-readme.png")
+```
+
+As soon as you saved your changes, you should see the `README.md` file listed as modified in the git pane.
+
+```{r RStudio git pane mod, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-panel-modified.png")
+```
+
+Let us look at the diff of the `README.md` file. As you can see, the original lines are in red, in other words for git those lines have been deleted. The new lines that we just typed are in green, which indicates that these lines have been added for git. Note the line numbers in the left margin that help you to track which line have been removed and added.
+
+
+```{r RStudio git diff readme, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-diff-readme.png")
+```
+
+#### Keeping Changes as Snapshots
+
+Now we would like to save a snapshot of this version of the `README.md` file. Here are the steps we will need to do:
+
+1. Add the file to the next commit by checking the box in front of the file name in the git pane.  
+Note that the icon `M` will move to the left to show you that this file is now staged to be part of the next commit
+2. Commit:
+    a. Click the `Commit` button at the top of the git pane
+    b. Write a short but descriptive commit message in the new window
+    c. Click on the he `Commit` button to save this version of the file in the git database
+    d. Close the windows to get back to the main RStudio window
+
+```{r RStudio git first commit, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-first-commit.png")
+```
+
+
+Once done, add both the `.gitignore` and the `myfirst-repo.Rproj` and commit those files together.
+
+<img style="align: left;width: 35px;" src=images/tip.png /> Note that the icons at the top of the git pane have been organized in sequence from left to right to match the git workflow.
+
+#### Good Commit Message Tips
+
+Clearly, good documentation of what you’ve done is critical to making the version history of your repository meaningful and helpful. Its tempting to skip the commit message altogether, or to add some stock blurd like ‘Updates’. Its better to use messages that will be helpful to your future self in deducing not just what you did, but why you did it. Also, commit messages are best understood if they follow the active verb convention. For example, you can see that my commit messages all started with a past tense verb, and then explained what was changed.
+
+While some of the changes we illustrated here were simple and easily explained in a short phrase, for more complex changes, its best to provide a more complete message. The convention, however, is to always have a short, terse first sentence, followed by a more verbose explanation of the details and rationale for the change. This keeps the high level details readable in the version log. I can’t count the number of times I’ve looked at the commit log from 2, 3, or 10 years prior and been so grateful for diligence of my past self and collaborators.
+
+### Looking at the Repository History
+
+We have done 2 new commits at this point. Let us look at the commit timeline we have created so far. You can click on the `Clock` icon at the top to visualize the history.
+
+```{r RStudio git history, out.width='70%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-history.png")
+```
+
+You can see that there has been 3 commits so far. The first one has been done by GitHub when we created the repository and the 2 commits we just did. The most recent commit is at the top.
+
+
+### Sending changes back to GitHub
+
+Now that we have created these two commits on our local machine, our local version of the repository is different from the version on GitHub. RStudio communicate this information to you. If you look below the icons on the git pane, you will see the warning message: "Your branch is ahead of 'origin/master' by two commits". This can be translated as you have two additional commits on your local machine that you never shared back to the remote repository on GitHub. Open your favorite web browser and look at the content of your repository on GitHub. You will see the old version of the `README.md` and `.gitignore` file and no trace of the `.Rproj` file.
+
+```{r RStudio git 2 local commits, fig.align='center', echo = FALSE}
+knitr::include_graphics("images/repo-not-synched.png")
+```
+
+There are two git commands to exchange between a local and remote versions of a repository:
+- `pull`: git will get the latest remote version and try to merge it with your local version
+- `push`: git will send your local version to the remote version of the repository (in our case GitHub)
+
+Before sending your local version to the remote, you should always get the latest remote version first. In other words, you should pull first and push second. This is the way git protects the remote version against incompatibilities with the local version. You always deal with potential problems on your local machine. Therefore your sequence will always be:
+
+1. `pull`
+2. `push`
+
+Of course RStudio have icons for that on top of the git pane, with the blue arrow down being for `pull` and the green arrow up being for `push`. Remember the icons are organized in sequence!
+
+Let us do the pull and push to synchronized the remote repositories. We have now synchronized the local (our computer) and remote (on GitHub) versions of our repository.
+
+```{r RStudio git, repo in sync, fig.align='center', echo = FALSE}
+knitr::include_graphics("images/repo-synched.png")
+```
+
+You can now look at the page of your repository on GitHub, you should see 3 files with the exact same version that you have on your local!
+
 
 ## Collaboration and conflict free workflows
 
