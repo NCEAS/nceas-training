@@ -25,11 +25,9 @@ If the output of this does not say `1.2.500` or higher, you should update your R
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
 ```{r package-install, eval = FALSE}
-packages <- c("DT", "dataone", "datapack", "devtools", "dplyr", "EML", "ggmap", "ggplot2", "leaflet", "readxl", "tidyr", "scales", "sf", "rmarkdown", "roxygen2", "usethis", "broom", "captioner")
+packages <- c("DT", "devtools", "tidyverse", "ggmap", "ggplot2", "leaflet", "readxl", "tidyr", "scales", "sf", "raster", "rmarkdown", "roxygen2", "broom", "captioner")
 
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
-
-rm(packages) #remove variable from workspace
 
 ```
 
@@ -132,7 +130,7 @@ update_packages <- function(path){
 }
 ```
 
-Source the file that you saved above (eg: `source(package_update.R)`). Then, run the `save_packages` function.
+Source the file that you saved above (e.g.: `source(package_update.R)`). Then, run the `save_packages` function.
 
 ```{r, eval = F}
 save_packages("installed.rda")
