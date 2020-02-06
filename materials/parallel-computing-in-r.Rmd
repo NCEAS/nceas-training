@@ -1,15 +1,17 @@
 ---
-title: "Quick Intro to Parallel Computing in R"
+title: "Additional Resources: Parallel Computing in R"
 author: "Matt Jones"
 date: "7/25/2017"
 output: html_document
 ---
 
+# Additional Resources: Parallel Computing in R
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Learning Outcomes
+## Learning Outcomes
 
 - Understand what parallel computing is and when it may be useful
 - Understand how parallelism can work
@@ -17,9 +19,9 @@ knitr::opts_chunk$set(echo = TRUE)
 - Understand and use the `parallel` package multicore functions
 - Understand and use the `foreach` package functions
 
-# Introduction
+## Introduction
 
-Processing large amounts of data with complex models can be time consuming.  New types of sensing means the scale of data collection today is massive. And modeled outputs can be large as well.For example, here's a 2 TB (that's Terabyte) set of modeled output data from Ofir Levy et al. 2016 that models 15 environmental variables at hourly time scales for hundreds of years across a regular grid spanning a good chunk of North America:
+Processing large amounts of data with complex models can be time consuming.  New types of sensing means the scale of data collection today is massive. And modeled outputs can be large as well. For example, here's a 2 TB (that's Terabyte) set of modeled output data from [Ofir Levy et al. 2016](https://doi.org/10.5063/F1Z899CZ) that models 15 environmental variables at hourly time scales for hundreds of years across a regular grid spanning a good chunk of North America:
 
 ![Levy et al. 2016. doi:10.5063/F1Z899CZ](images/levy-map.png)
 
@@ -30,7 +32,7 @@ Alternatively, think of remote sensing data.  Processing airborne hyperspectral 
 ![NEON Data Cube](images/DataCube.png)
 
 
-# Why parallelism?
+## Why parallelism?
 
 Much R code runs fast and fine on a single processor.  But at times, computations
 can be:
@@ -42,10 +44,11 @@ can be:
 
 To help with **cpu-bound** computations, one can take advantage of modern processor architectures that provide multiple cores on a single processor, and thereby enable multiple computations to take place at the same time. In addition, some machines ship with multiple processors, allowing large computations to occur across the entire cluster of those computers. Plus, these machines also have large amounts of memory to avoid **memory-bound** computing jobs.
 
-# Processors (CPUs) and Cores
+## Processors (CPUs) and Cores
 
 A modern CPU (Central Processing Unit) is at the heart of every computer.  While
-traditional computers had a single CPU, modern computers can ship with mutliple processors, which in turn can each contain multiple cores.  These processors and 
+traditional computers had a single CPU, modern computers can ship with mutliple 
+processors, which in turn can each contain multiple cores.  These processors and 
 cores are available to perform computations.
 
 A computer with one processor may still have 4 cores (quad-core), allowing 4 computations
@@ -94,7 +97,7 @@ However, maybe one of these NSF-sponsored high performance computing clusters (H
 
 Note that these clusters have multiple nodes (hosts), and each host has multiple cores. So this is really multiple computers clustered together to act in a coordinated fashion, but each node runs its own copy of the operating system, and is in many ways independent of the other nodes in the cluster.  One way to use such a cluster would be to use just one of the nodes, and use a multi-core approach to parallelization to use all of the cores on that single machine.  But to truly make use of the whole cluster, one must use parallelization tools that let us spread out our computations across multiple host nodes in the cluster.
 
-# When to parallelize
+## When to parallelize
 
 It's not as simple as it may seem. While in theory each added processor would linearly increase the throughput of a computation, there is overhead that reduces that efficiency.  For example, the code and, importantly, the data need to be copied to each additional CPU, and this takes time and bandwidth.  Plus, new processes and/or threads need to be created by the operating system, which also takes time.  This overhead reduces the efficiency enough that realistic performance gains are much less than theoretical, and usually do not scale linearly as a function of processing power. For example, if the time that a computation takes is short, then the overhead of setting up these additional resources may actually overwhelm any advantages of the additional processing power, and the computation could potentially take longer!
 
@@ -125,7 +128,7 @@ ggplot(cpu_perf, aes(cpus, speedup, color=prop)) +
 
 So, its important to evaluate the computational efficiency of requests, and work to ensure that additional compute resources brought to bear will pay off in terms of increased work being done.  With that, let's do some parallel computing...
 
-# Loops and repetitive tasks using lapply
+## Loops and repetitive tasks using lapply
 
 When you have a list of repetitive tasks, you may be able to speed it up by adding more computing power.  If each task is completely independent of the others, then it is a prime candidate for executing those tasks in parallel, each on its own core.  For example, let's build a simple loop that uses sample with replacement to do a bootstrap analysis.  In this case, we select `Sepal.Length` and `Species` from the `iris` dataset, subset it to 100 observations, and then iterate across 10,000 trials, each time resampling the observations with replacement.  We then run a logistic regression fitting species as a function of length, and record the coefficients for each trial to be returned. 
 
@@ -162,7 +165,7 @@ system.time({
 })
 ```
 
-# Approaches to parallelization
+## Approaches to parallelization
 When parallelizing jobs, one can:
 
 - Use the multiple cores on a local computer through `mclapply`
@@ -171,7 +174,7 @@ When parallelizing jobs, one can:
     - In this approach, one has to manually copy data and code to each cluster member using `clusterExport`
     - This is extra work, but sometimes gaining access to a large cluster is worth it
   
-# Parallelize using: mclapply
+## Parallelize using: mclapply
 
 The `parallel` library can be used to send tasks (encoded as function calls) to each of the processing cores on your machine in parallel.  This is done by using the `parallel::mclapply` function, which is analogous to `lapply`, but distributes the tasks to multiple processors. `mclapply` gathers up the responses from each of these function calls, and returns a list of responses that is the same length as the list or vector of input data (one return per input item).
 
@@ -208,7 +211,7 @@ system.time({
 })
 ```
 
-# Parallelize using: foreach and doParallel
+## Parallelize using: foreach and doParallel
 
 The normal `for` loop in R looks like:
 
@@ -277,11 +280,11 @@ stopImplicitCluster()
 ```
 
 
-# Summary
+## Summary
 
 In this lesson, we showed examples of computing tasks that are likely limited by the number of CPU cores that can be applied, and we reviewed the architecture of computers to understand the relationship between CPU processors and cores.  Next, we reviewed the way in which traditional `for` loops in R can be rewritten as functions that are applied to a list serially using `lapply`, and then how the `parallel` package `mclapply` function can be substituted in order to utilize multiple cores on the local computer to speed up computations. Finally, we installed and reviewed the use of the `foreach` package with the `%dopar` operator to accomplish a similar parallelization using multiple cores.
 
-# Readings and tutorials
+## Readings and tutorials
 
 - [Multicore Data Science with R and Python](https://blog.dominodatalab.com/multicore-data-science-r-python/)
 - [Beyond Single-Core R](https://ljdursi.github.io/beyond-single-core-R/#/) by Jonoathan Dursi (also see [GitHub repo for slide source](https://github.com/ljdursi/beyond-single-core-R))
