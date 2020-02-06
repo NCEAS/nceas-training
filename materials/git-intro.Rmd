@@ -1,5 +1,5 @@
 
-# Version Control With git and GitHub
+# Version Control with git and GitHub
 
 ## Learning Objectives
 
@@ -11,7 +11,7 @@ In this lesson, you will learn:
 - How to structure your commits so your changes are clear to others
 - How to write effective commit messages
 
-## The problem with filenames
+## The problem with "save_as"
 
 ![](images/phd_comics_final.png)
 
@@ -23,111 +23,111 @@ changes to files.  And yet, all we use to track this are simplistic *filenames*.
 You might think there is a better way, and you'd be right: __version control__.
 
 Version control systems help you track all of the changes to your files, without
-the spaghetti mess that ensues from simple file renaming.  In version control systems
-like `git`, the system tracks not just the name of the file, but also its contents,
-so that when contents change, it can tell you which pieces went where.  It tracks
-which version of a file a new version came from.  So its easy to draw a graph
-showing all of the versions of a file, like this one:
+the spaghetti mess that ensues from simple file renaming.  In other words, version control is a system that helps you to manage the different versions of your files in an organized manner. It will help you to never have to duplicate files using `save as` as a way to keep different versions of a file (see below). Version control help you to create a timeline of snapshots containing the different versions of a file. At any point in time, you will be able to roll back to a specific version. Bonus: you can add a short description (commit message) to remember what each specific version is about.
 
-![](images/version-graph.png)
-
-Version control systems assign an identifier to every version of every file, and 
-track their relationships. They also allow branches in those versions, and merging
-those branches back into the main line of work.  They also support having 
-*multiple copies* on multiple computers for backup, and for collaboration.
-And finally, they let you tag particular versions, such that it is easy to return 
-to a set of files exactly as they were when you tagged them.  For example, the 
-exact versions of data, code, and narrative that were used when a manuscript was originally 
-submitted might be `eco-ms-1` in the graph above, and then when it was revised and resubmitted,
-it was done with tag `eco-ms-2`.  A different paper was started and submitted with tag `dens-ms-1`, showing that you can be working on multiple manuscripts with closely related but not identical sets of code and data being used for each, and keep track of it all.
-
-## Version control and Collaboration using Git and GitHub
-
-First, just what are `git` and GitHub?
+## What is the difference between `git` and `GitHub`?
 
 - __git__: version control software used to track files in a folder (a repository)
     - git creates the versioned history of a repository
 - __GitHub__: web site that allows users to store their git repositories and share them with others
 
-![](images/vc-local-github.png)
 
-## Let's look at a GitHub repository
+## git <img style="float: right;width: 100px;" src="images/git_icon.png">
+
+This training material focuses on the code versioning system called `Git`. Note that there are others, such as `Mercurial` or `svn` for example.
+
+Git is a *free* and *open source* distributed *version control system*. It has many functionalities and was originally geared towards software development and production environment. In fact, Git was initially designed and developed in 2005 by Linux kernel developers (including Linus Torvalds) to track the development of the Linux kernel. Here is a [fun video](https://www.youtube.com/watch?v=4XpnKHJAok8) of Linus Torvalds touting Git to Google. 
+
+### How does it work?
+
+Git can be enabled on a specific folder/directory on your file system to version files within that directory (including sub-directories). In git (and other version control systems) terms, this “tracked folder” is called a **repository** (which formally is a specific data structure storing versioning information).
+
+### What git is not
+
+- **Git is not a backup per se**
+- Git is not good at versioning large files (there are workarounds) => not meant for data
+
+
+
+## First Repository
+
+Git can be enabled on a specific folder/directory on your file system to version files within that directory (including sub-directories). In git (and other version control systems) terms, this “tracked folder” is called a **repository** (which formally is a specific data structure storing versioning information).
+
+Although there many ways to start a new repository, [GitHub](https://github.com/) (or any other cloud solutions, such as [GitLab](https://about.gitlab.com/)) provide among the most convenient way of starting a repository.
+
+<img style="float: right;width: 100px;" src="images/github-logo.png">
+
+### GitHub  
+
+Let's distinguish between git and GitHub:
+
+- __git__: version control software used to track files in a folder (a repository)
+    - git creates the versioned history of a repository
+- __GitHub__: web site that allows users to store their git repositories and share them with others
+	
+**GitHub is a company that hosts git repositories online** and provides several collaboration features (among which `forking`). GitHub fosters a great user community and has built a nice web interface to git, also adding great visualization/rendering capacities of your data.
+
+- **GitHub.com**: <https://github.com>
+- **A user account**: <https://github.com/brunj7>
+- **An organization account**: <https://github.com/nceas>
+- **NCEAS GitHub instance**: <https://github.nceas.ucsb.edu/> 
+
+### Let's look at a repository on GitHub
 
 This screen shows the copy of a repository stored on GitHub,
-with its list of files, when the files and directories were last modified, 
-and some information on who made the most recent changes.  
+with its <span style="color:red">list of files</span>, <span style="color:green">when the files and directories were last modified</span>, 
+and <span style="color:blue">some information on who made the most recent changes.</span>  
 
-![](images/ss3sim-github.png)
+![](images/ss3sim-github_colored.png)
 If we drill into the 
-"commits" for the repository, we can see the history of changes made to all of 
+"<span style="color:orange">commits</span>" for the repository, we can see the history of changes made to all of 
 the files.  Looks like `kellijohnson` and `seananderson` were fixing things in
 June and July:
 
-![](images/ss3sim-commits.png)
+![](images/ss3sim-commits_colored.png)
 
 And finally, if we drill into the changes made on June 13, we can see exactly what
 was changed in each file:
 
 ![](images/ss3sim-diff.png)
-Tracking these changes, how they relate to released versions of software and files
-is exactly what Git and GitHub are good for.  And we will show how they can really 
+Tracking these changes, and seeing how they relate to released versions of software and files
+is exactly what Git and GitHub are good for. We will show how they can really 
 be effective for tracking versions of scientific code, figures, and manuscripts
 to accomplish a reproducible workflow.
 
-## The Git lifecycle
 
-As a git user, you'll need to understand the basic concepts associated with versioned
-sets of changes, and how they are stored and moved across repositories.  Any given
-git repository can be cloned so that it exist both locally, and remotely.  But each of
-these cloned repositories is simply a copy of all of the files and change history
-for those files, stored in git's particular format.  For our purposes, we can consider
-a git repository just a folder with a bunch of additional version-related metadata.
+### Creating a Repository on GitHub
 
-In a local git-enabled folder, the folder contains a workspace containing the 
-current version of all files in the repository. These working files are linked to
-a hidden folder containing the 'Local repository', which contains all of the other
-changes made to the files, along with the version metadata.
+We are going to create a new repository on your GitHub account. If you do not have an account yet, it is free to create one here: https://github.com/join?source=header-home
 
-So, when working with files using git, you can use git commands to indicate specifically
-which changes to the local working files should be staged for versioning 
-(using the `git add` command), and when to record those changes as a version in
-the local repository (using the command `git commit`).
+To create a new repository follow these steps:
 
-The remaining concepts are involved in synchronizing the changes in your local 
-repository with changes in a remote repository.  The `git push` command is used to
-send local changes up to a remote repository (possibly on GitHub), and the `git pull`
-command is used to fetch changes from a remote repository and merge them into the
-local repository.
+- Click on ![image alt text](images/github-create.png)
+- Enter a descriptive name for your new repository, `myfirst-repo`  
+(avoid upper case and use `-` instead of spaces or `_`)
+- Write a 1-sentence description about the repository content
+- Choose **"Public"** (as of January 2019, GitHub now offers unlimited free private repositories with a maximum of 3 collaborators)
+- Check **"Initialize this repository with a README"**
+- Add a `.gitignore` file (optional). As the name suggest, the gitignore file is used to specify the file format that git should not track. GitHub offers pre-written gitignore files for commodity
+- Add a license file (optional) 
 
-![](images/git-flowchart.png)
 
-- `git clone`: to copy a whole remote repository to local
-- `git add` (stage): notify git to track particular changes
-- `git commit`: store those changes as a version
-- `git pull`: merge changes from a remote repository to our local repository
-- `git push`: copy changes from our local repository to a remote repository
-- `git status`: determine the state of all files in the local repository
-- `git log`: print the history of changes in a repository
+![](images/github-create-repo.png)
 
-Those seven commands are the majority of what you need to successfully use git.  
-But this is all super abstract, so let's explore with some real examples.
 
-## Create a remote repository on GitHub
+<img style="align: left;width: 35px;" src=images/tip.png /> Here is a website to look for more pre-written`.gitignore` files: <https://github.com/github/gitignore>
 
-Let's start by creating a repository on GitHub, then we'll edit some files.
+<br>
 
-- Log into [GitHub](https://github.com)
-- Click the New repository button
-- Name it `training-test`
-- Create a README.md
-- Set the LICENSE to Apache 2.0
-- Add a .gitignore file for `R`
+**=> Here it is, you now have a repository in the cloud!!** 
 
-![](images/new-repo-github.png)
-You've now created your first repository! It has a couple of files that GitHub created
-for you, like the README.md file, and the LICENSE file, and the .gitignore file.
+<img style="align: left;width: 350px;" src=images/github_cloud_with_repo.png /> 
 
-![](images/sasap-test-repo.png)
+<br>
+
+
+
+### First commit
 
 For simple changes to text files, you can make edits right in the GitHub web interface.  For example,
 navigate to the `README.md` file in the file listing, and edit it by clicking on the *pencil* icon.
@@ -142,14 +142,15 @@ Congratulations, you've now authored your first versioned commit.  If you naviga
 the GitHub page for the repository, you'll see your commit listed there, as well as the
 rendered README.md file.
 
-![](images/sasap-test-displayed.png)
+![](images/github-create-repo.png)
+
 Let's point out a few things about this window.  It represents a view of the repository
 that you created, showing all of the files in the repository so far.  For each file,
 it shows when the file was last modified, and the commit message that was used to last
 change each file.  This is why it is important to write good, descriptive commit
 messages.  In addition, the blue header above the file listing shows the most recent
 commit, along with its commit message, and its SHA identifer.  That SHA identifier is
-the key to this set of versioned changes.  If you click on the SHA identifier (*810f314*), 
+the key to this set of versioned changes.  If you click on the SHA identifier (*ad96b85*), 
 it will display the set of changes made in that particular commit.
 
 In the next section we'll use the GitHub URL for the GitHub repository you created 
@@ -213,6 +214,8 @@ __Commit a README.md change.__ Next let's make a change to the README.md file
 in RStudio. Add a new section, with a markdown block like this:
 
 <pre><code>
+
+
 ## Git from RStudio
 
 From within RStudio, we can perform the same versioning actions that we can
@@ -333,7 +336,7 @@ repository, build a basic structure for the file, and then save it.
 
 Next, stage and commit the file locally, and push it up to GitHub.
 
-## Advanced topics
+## Advanced topics 
 
 There's a lot we haven't covered in this brief tutorial.  There are some great
 and much longer tutorials that cover advanced topics, such as:
@@ -346,8 +349,41 @@ and much longer tutorials that cover advanced topics, such as:
 - GitHub Issues and why they are useful
 - and much, much more
 
-- [Try Git](https://try.github.io) is a great interactive tutorial
+
+## References
+
+## Using RStudio:
+
+- Happy Git and GitHub for the useR: http://happygitwithr.com/
+- R packages - Git and GitHub: http://r-pkgs.had.co.nz/git.html#git-init
+ 
+### Mainly from the command line:
+
+- Interactive git 101: [https://try.github.io/](https://try.github.io/)
+- Very good tutorial about git: [https://www.atlassian.com/git/tutorials/what-is-version-control](https://www.atlassian.com/git/tutorials/what-is-version-control)
 - Software Carpentry [Version Control with Git](http://swcarpentry.github.io/git-novice/)
-- Codecademy [Learn Git](https://www.codecademy.com/learn/learn-git) (some paid)
+- Git tutorial geared towards scientists: [http://nyuccl.org/pages/gittutorial/](http://nyuccl.org/pages/gittutorial/)
+- Short intro to git basics: [https://github.com/mbjones/gitbasics](https://github.com/mbjones/gitbasics)
+- Git documentation about the basics: [http://gitref.org/basic/](http://gitref.org/basic/)
+- Git documentation - the basics: [https://git-scm.com/book/en/v2/Getting-Started-Git-Basics](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
+- Git terminology: [https://www.atlassian.com/git/glossary/terminology](https://www.atlassian.com/git/glossary/terminology)
+- In trouble, guide to know what to do: [http://justinhileman.info/article/git-pretty/git-pretty.png](http://justinhileman.info/article/git-pretty/git-pretty.png)
+- Want to undo something? <https://github.com/blog/2019-how-to-undo-almost-anything-with-git> 
+- Git terminology: <https://www.atlassian.com/git/glossary/terminology>
+- 8 tips to work better with git: <https://about.gitlab.com/2015/02/19/8-tips-to-help-you-work-better-with-git/>
+- GitPro book (2nd edition): <https://git-scm.com/book/en/v2>
 
 
+### GitHub Workflow
+
+- GitHub:
+   - guides on how to use GitHub: [https://guides.github.com/](https://guides.github.com/)
+   - GitHub from RStudio: [http://r-pkgs.had.co.nz/git.html#git-pull](http://r-pkgs.had.co.nz/git.html#git-pull)
+- Forking:
+   - [https://help.github.com/articles/fork-a-repo/](https://help.github.com/articles/fork-a-repo/)
+   - [https://guides.github.com/activities/forking/](https://guides.github.com/activities/forking/)
+- Comparison of git repository host services: <https://www.git-tower.com/blog/git-hosting-services-compared/>
+- Branches
+   - interactive tutorial on branches: <http://learngitbranching.js.org/>
+   - using git in a collaborative environment: <https://www.atlassian.com/git/tutorials/comparing-workflows/centralized-workflow>
+ 
