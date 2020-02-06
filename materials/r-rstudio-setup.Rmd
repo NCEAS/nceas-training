@@ -65,13 +65,39 @@ git config --global user.name
 git config --global user.email
 ```
 
-### Note for Windows Users
+#### Optional
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senerios, the git executable may not be available to the default terminal type.
+Check that everything is correct: 
 
-In addition, some versions of windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
+```{bash git config list, eval=FALSE}
+git config --global --list
+```
 
-### Updating a previous R installation
+Modify everything at the same time:
+
+```{bash git config edit, eval=FALSE}
+git config --global --edit
+```
+
+Set your text editor: 
+
+```{bash git config editor, eval=FALSE}
+git config --system core.editor nano
+```
+
+Here [`nano`](https://www.nano-editor.org) is used as example; you can choose most of the text editor you might have installed on your computer (atom, sublime, notepad++ ...).
+
+Problem with any of those steps? Check out Jenny Brian [Happy git trouble shooting section](http://happygitwithr.com/troubleshooting.html){target="_blank"}
+
+### Other thoughts
+
+#### Note for Windows Users
+
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senarios, the git executable may not be available to the default terminal type.
+
+In addition, some versions of Windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
+
+#### Updating a previous R installation
 
 **This is useful for users who already have R with some packages installed and need to upgrade R, but don't want to lose packages.** If you have never installed R or any R packages before, you can skip this section.
 
