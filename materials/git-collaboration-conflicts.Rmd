@@ -140,6 +140,77 @@ Pull -> Edit -> Add -> Pull -> Commit -> Push
 Pull before every commit, and commit often in small chunks.
 
 
+## Other Collaborative Workflows with `GitHub`
+
+In our exercise we experience a workflow that is suitable for a small team working together on a project. However if the frequency of the merge conflicts increase, it is the sign that you might want o use another type of workflow involving branches and pull requests. Branches in git enable you to create a separate and siloed version of the content of your repository. You can work on this branch / copy without discrupting the work of others. When you are done, you can ask to merge back your branches to the orginal version via a pull request. 
+
+Sometimes, you want external people to the project to be able to contribute. However if you would like to control more what they are contributing, you can use this type of workflow where you will have to review and accept every changes that are submitted by this externa collaborator. A **fork** is a **copy of a repository** that will be stored under your user account. Forking a repository allows you to freely experiment with changes without affecting the original project. We can create a fork on Github by clicking the "fork" button in the top right corner of our repository webpage.
+![](images/github-fork.png) 
+
+
+### Collaborating through Forking, aka the GitHub workflow
+  
+Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+
+When you are satisfied with your work, you can initiate a ***Pull Request*** to initiate discussion about your modifications and requesting to integrate your changes to the main repository. Your commit history allows the original repository administrators to see exactly what changes would be merged if they accept your request. Do this by going to the original repository and clicking the "New pull request" button![](images/github-pull-request.png)  
+  
+Next, click "compare across forks", and use the dropdown menus to select your fork as the "head fork" and the original repository as the "base fork".![](images/github-compare-forks.png)  
+  
+Then type a title and description for the changes you would like to make. By using GitHub's `@mention` syntax in your Pull Request message, you can ask for feedback from specific people or teams.
+
+This workflow is recommended when you do not have push/write access to a repository, such as contributing to a open source software or R package, or if you are heavily changing a project.
+
+### Collaborating through write / push access
+
+When you collaborate closely and actively with colleagues, you do not want necessarily to have to review all their changes through pull requests. You can then give them write access (`git push`) to your repository to allow them to directly edit and contribute to its content. This is the workflow we will recommend to use within your working group.
+
+You still add collaborators with write access to the repository, like we did previously. The new part of the workflow is the use of branches
+
+#### Branches
+
+![adapted from https://www.atlassian.com/git/tutorials/git-merge](images/atlassian_branches_sketch.png)
+
+What are branches?  Well in fact nothing new, as the `master` is a branch. A branch represents an independent line of development, parallel to the master (branch). 
+
+Why should you use branches? For 2 main reasons:
+
+* We want the master to only keep a version of the code that is working
+* We want to version the code we are developing to add/test new features (for now we mostly talk about feature branch) in our script without altering the version on the master.
+
+## Working with branches
+
+### Creating a new branch
+
+In RStudio, you can create a branch using the git tab. 
+
+1. Click on the branch button
+```{r RStudio git pane branch, out.width='60%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-branch-create.png")
+```
+2. Fill the branch name in the new branch window; in this example, we are going to use `test` for the name; leave the other options as default and click create 
+```{r RStudio git new branch window, out.width='40%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-branch-test.png")
+```
+3. you will be directly creating a local and remote branch and switch to it 
+```{r RStudio git new branch, out.width='62%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/rstudio-git-branch-new.png")
+```
+
+Congratulations you just created your first branch! 
+
+Let us check on Github:
+
+```{r RStudio github new branch, out.width='45%', fig.align='center', echo = FALSE}
+knitr::include_graphics("images/github-new-branch.png")
+```
+
+As you can see, now there are two branches on our remote repository: 
+- master
+- test
+
+### Using a branch
+
+Here there is nothing new. The workflow is exactly the same as we did before, execepts our commit will be created on the `test` branch instead of the master branch.
 
 
 
