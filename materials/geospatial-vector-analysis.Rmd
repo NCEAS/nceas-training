@@ -38,7 +38,16 @@ The data we will be using to create the map are:
 
 All of the data used in this tutorial are simplified versions of real datasets available on the KNB. I've simplified the original high-resolution geospatial datasets to ease the processing burden on your computers while learning how to do the analysis. These simplified versions of the datasets may contain topological errors. The original version of the datasets are indicated throughout the chapter.
 
-For convience, I've hosted a zipped copy of all of the files on our test site. Please go to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) and download the zip folder. Put it in a sub-directory of your git repository and unzip it. You also will likely want to add that directory to your .gitignore file.
+### Setup
+
+For convience, I've hosted a zipped copy of all of the files on our test site. 
+
+Follow these steps to get ready for the next exercise:
+
+1. Navigate to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) and download the zip folder.
+2. Unzip the file and move the folder created to the top level of your git repository.
+3. Open your .gititnore file and add that directory to the list of things to ignore.
+4. Save and commit the changes to your .gitignore.
 
 The first file we will use is a shapefile of regional boundaries in alaska derived from: Jared Kibele and Jeanette Clark. 2018. State of Alaska's Salmon and People Regional Boundaries. Knowledge Network for Biocomplexity. [doi:10.5063/F1125QWP](https://doi.org/10.5063/F1125QWP).
 

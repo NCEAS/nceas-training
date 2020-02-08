@@ -112,7 +112,6 @@ In this lesson we're going to walk through the functions you'll most commonly us
 
 ## Setup
 
-Let's start going over the most common functions you'll use from the `dplyr` package.
 To demonstrate, we'll be working with a tidied up version of a dataset from ADF&G containing commercial catch data from 1878-1997.
 The dataset and reference to the original source can be found at its public archive: https://knb.ecoinformatics.org/#view/df35b.304.2.
 
@@ -123,7 +122,14 @@ library(dplyr)
 library(tidyr)
 ```
 
-Then let's read in the data and take a look at it:
+Now follow these steps:
+
+1. Navigate to the salmon catch dataset: https://knb.ecoinformatics.org/#view/df35b.304.2
+2. Right click the "download" button for the file "byerlySalmonByRegion.csv"
+3. Select "copy link address" from the dropdown menu
+4. Paste the URL into a `read.csv` call like below
+      * note that windows users also need to use the `url` function here with `method = "libcurl"`
+
 
 ```{r, cache=TRUE}
 catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
@@ -131,7 +137,7 @@ catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/obje
 head(catch_original)
 ```
 
-Note: I copied the URL from the Download button on https://knb.ecoinformatics.org/#view/df35b.304.2
+
 
 This dataset is relatively clean and easy to interpret as-is.
 But while it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.

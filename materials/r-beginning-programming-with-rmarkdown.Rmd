@@ -428,9 +428,11 @@ Since this is our irst time using this function, first access the help page for 
 
 #### Download a file from the Arctic Data Center
 
-Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and download the first csv file called "BGchem2008data.csv"
+Follow these steps to get set up for the next exercise:
 
-Move this file from your Downloads folder into a place you can more easily find it. I recommend creating a folder called `data` in your previously-created directory `arctic_training_files`, and putting the file there.
+1. Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+2. Download the first csv file called "BGchem2008data.csv" by clicking the "download" button next to the file.
+3. Move this file from your `Downloads` folder into a place you can more easily find it. Eg: a folder called `data` in your previously-created directory `arctic_training_files`.
 
 Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In RMarkdown, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to the location of the RMarkdown.** RStudio and RMarkdown have some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, your `read.csv` call will look like this:
 

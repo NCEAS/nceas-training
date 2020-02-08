@@ -59,12 +59,15 @@ aspects of the plot to be interactively changed.
 
 ### Load data for the example
 
-Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. 
-[Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. 
-doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X), and copy the URL for the first csv file 
-called "BGchem2008data.csv"
+Follow these steps to get set up for the next exercise:
 
-The data can be read into the application using `read.csv()`.  The data contains chemistry measurements at various times and stations.
+1. Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. 
+[Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. 
+doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+2. Right click the download button next to the file "BGChem2008data.csv" and select "copy link addres.s"
+3. Read the data into the application using `read.csv` 
+
+The data contains chemistry measurements at various times and stations.
 
 ```{r load_bgchem}
 data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
