@@ -91,7 +91,7 @@ my_results = my_function_name(1,2)
 my_results = my_function_name(argument2=2, argument1=1)
 ```
 
-#### Challenge
+### Challenge
 
 
 1. Write a function that computes the percentage of a number: `n*p/100`
@@ -237,11 +237,13 @@ test
 - http://stackoverflow.com/questions/17253545/scripting-language-vs-programming-language
 - More advanced information about scope and closure in R: https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/
 
-### R styling
+R styling:
+
 - [A good overview by H. Wickham](https://style.tidyverse.org/functions.htmll) of the best practices regarding best syntax to us in R from Hadley Wickham.
 - Standardized comments: https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html
 
-### Python styling
+Python styling:
+
 - [the Hitchhiker's guide](http://docs.python-guide.org/en/latest/writing/style/)
 - try this from the Python console: 
 
