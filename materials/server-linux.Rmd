@@ -159,7 +159,7 @@ $ find . -size +1G -ls
 
 * Process management
     * Like Windows Task Manager, OSX Activity Monitor
-    * `top`, `ps`, `jobs`
+    * `top`, `ps`, `jobs` (hit `q` to get out!)
     * `kill` to delete an unwanted job or process
 * Foreground and background: `&`
 
