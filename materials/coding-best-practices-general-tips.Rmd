@@ -24,7 +24,7 @@ A script can be divided into several sections. Each scripting language has its o
 
 From the top to the bottom of your script:
 
->- Comment explaining the **purpose of the script**
+- Comment explaining the **purpose of the script**
 - **Attribution**: authors, contributors, date of last update, contact info
 - Import of **external modules** / packages
 - **Constant** definitions
@@ -101,9 +101,10 @@ my_results = my_function_name(argument2=2, argument1=1)
 5. Find potential values that could make the function to crash and add necessary error handling
 6. Comment your functions
 
-\newpage
+\pagebreak
 
 #### Example challenge solutions in R
+
 ```r
 # function to calculate n*p/some ratio factor
 percent_function <- function(n,p,ratio_factor) {
