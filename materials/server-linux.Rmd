@@ -1,6 +1,9 @@
 
 # All about the *NIX
 
+
+## Introduction to UNIX and its siblings
+
 UNIX
  :  Originally developed at AT&T Bell Labs circa 1970. Has
      experienced a [long, multi-branched
@@ -10,10 +13,9 @@ POSIX (Portable Operating System Interface)
  :  a set of specifications of what an OS needs to qualify as "a Unix", to enhance interoperability among all the "Unix" variants
 
 
-## Various Unices
+### Various Unices
 
-![The unix family tree](images/400px-Unix_history.svg.png
-    "http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Unix_history.svg/1000px-Unix_history.svg.png")
+![The unix family tree](images/unix-history-simple.png)
 
 * OS X
  :  [is a Unix](http://unix.stackexchange.com/questions/1489/is-mac-os-x-unix)!
@@ -22,7 +24,7 @@ POSIX (Portable Operating System Interface)
       regarded as [functionally Unix](http://en.wikipedia.org/wiki/Unix-like)
       
 
-## Some Unix hallmarks
+### Some Unix hallmarks
 
 * Supports multi-users, multi-processes
 * Highly modular: many small tools that do one thing well, and can be combined
@@ -31,12 +33,11 @@ POSIX (Portable Operating System Interface)
 * Main OS on which Internet was built
 
     
-## The Command Line Interface (CLI) provides a direct way to interact with the Operating System, by typing in commands. 
+## The Command Line Interface (CLI)
 
-![Command Line](images/aurora_schild.png)
+The CLI provides a direct way to interact with the Operating System, by typing in commands. 
 
-
-## Why the CLI is worth learning
+### Why the CLI is worth learning
 
 * Typically much more extensive access to features, commands, options
 * Command statements can be written down, saved (scripts!)
@@ -44,7 +45,7 @@ POSIX (Portable Operating System Interface)
 * Much "cheaper" to do work on a remote system (no need to
       transmit all the graphical stuff over the network)
       
-## Connecting to a remote server via `ssh`
+### Connecting to a remote server via `ssh`
 
 From the gitbash (MS Windows) or the terminal (Mac) type:
 
@@ -64,19 +65,30 @@ ssh brun@aurora.nceas.ucsb.edu
 In this case, you will be only asked for your password as you already specified which user you want to connect with.
 
 
+### Navigating and managing files/directories in *NIX
+
+* `pwd`: Know where you are
+* `ls`: List the content of the directory
+* `cd`: Go inside a directory
+* `~` : Home directory
+* `.` : Here (current directory)
+* `..`: Up one level (upper driectory)
 
 
-## Navigating and managing files/directories in *NIX
-
-* `pwd`, `ls`, `cd`
-* `~`, `.`, `..`
 * go to my "Home" directory:  `cd ~`
 * go up one directory level: `cd ..`
-* `mkdir`, `cp`, `mv`
-* `rm`, `rmdir`
+* list the content: `ls`
+* list the content showing hidden files: `ls -a`  note that `-a` is referred as an option (modifies the command)
+ 
+More files/directories manipulations:
+
+* `mkdir`: Create a directory
+* `cp`: Copy a file
+* `mv`: Move a file
+* `rm` /`rmdir`: Remove a file / directory  **use those carefully, there is no return / Trash!! **
 
 
-## Permissions
+### Permissions
 
 ![File permissions](images/UnixFileLongFormat.png)
 
@@ -97,10 +109,7 @@ In this case, you will be only asked for your password as you already specified 
 * Clear contents in terminal window: `clear`
 
 
-## Getting help
-
-![I will ask for help before my problems get out of control](images/asking-for-help.jpg
-    "http://www.socialconfidencecenter.com/wp-content/uploads/2012/11/asking-for-help.jpg")  
+### Getting help
 
 * `<command> -h`, `<command> --help`
 * `man`, `info`, `apropos`, `whereis`
@@ -130,89 +139,77 @@ In this case, you will be only asked for your password as you already specified 
 * Re-run last command that started with 'c': `!c`
 
 
-## Unix systems are multi-user
-* Who else is logged into this machine?  `who`
-* Who is logged into "this shell"?  `whoami`
-
-## What about "space"
-* How much storage is available on this system?  `df -h`
-* How much storage am "I" using overall?  `du -hs`
-* How much storage am "I" using, by subdirectory?  `du -h`
-
-<!--
-```bash
-$ sudo vi /etc/postgresql/9.1/main/postgresql.conf
-```
--->
-
-## find
-
-![Search for stuff](images/rover.gif
-  "http://4.bp.blogspot.com/_jTQNmLGBIFU/RwZN0Kv3ZYI/AAAAAAAAAvI/ubSNKrTgpms/s400/rover.gif")
-
-### Like Rover, the Windows search dog. But more useful.
-
-## find
+### find
 
 ### Show me my pdfs!
 
 ```bash
-$ find . -iname '*.pdf'
+$ find . -iname '*.Rmd'
 ```
 
-### Which files are larger than 10GB?
+### Which files are larger than 1GB?
 
 ```bash
-$ find . -size +10G -ls
+$ find . -size +1G -ls
 ```
 
-## A sampling of simple commands for dealing with files
 
-* `wc` count lines, words, and/or characters
-* `diff` compare two files for differences
-* `sort` sort lines in a file
-* `uniq` report or filter out repeated lines in a file
- 
 
-## Get into the flow, with pipes 
-
-![`stdin`, `stdout`, `stderr`](images/pipe_split.png
-    "http://www.ucblueash.edu/thomas/Intro_Unix_Text/Images/pipe_split.png")
-
-```bash
-$ ls *.jpg | wc -l
-$ ls *.jpg | wc -l > jpegcount.txt
-$ diff <(sort file1.txt) <(sort file2.txt)
-$ ls foo 2>/dev/null
-```
-* note use of `*` as character wildcard for zero or more matches (same in Mac and Windows); `%` is equivalent wildcard match in SQL queries
-* `?` matches single character; `_` is SQL query equivalent
-
-## Getting things done
+### Getting things done
 
 * Process management
     * Like Windows Task Manager, OSX Activity Monitor
     * `top`, `ps`, `jobs`
     * `kill` to delete an unwanted job or process
 * Foreground and background: `&`
-* Stay persistent with `Byobu`: to keep your session live even if you disconnect, type this once logged in the server:  ```byobu-enable```
+
+### What about "space"
+* How much storage is available on this system?  `df -h`
+* How much storage am "I" using overall?  `du -hs <folder>`
+* How much storage am "I" using, by subdirectory?  `du -h <folder>`
 
 
-## Optional:
+## Advance Topics:
 
-## Text editing
+### Unix systems are multi-user
+* Who else is logged into this machine?  `who`
+* Who is logged into "this shell"?  `whoami`
 
-### (Text rules!)
+### A sampling of simple commands for dealing with files
 
-### Some editors
+* `wc` count lines, words, and/or characters
+* `diff` compare two files for differences
+* `sort` sort lines in a file
+* `uniq` report or filter out repeated lines in a file
+
+### Get into the flow, with pipes 
+
+![`stdin`, `stdout`, `stderr`](images/pipe_split.png
+    "http://www.ucblueash.edu/thomas/Intro_Unix_Text/Images/pipe_split.png")
+
+```bash
+$ ls *.png | wc -l
+$ ls *.png | wc -l > pngcount.txt
+$ diff <(sort file1.txt) <(sort file2.txt)
+$ ls foo 2>/dev/null
+```
+* note use of `*` as character wildcard for zero or more matches (same in Mac and Windows); `%` is equivalent wildcard match in SQL queries
+* `?` matches single character; `_` is SQL query equivalent
+
+
+### Text editing
+
+#### Some editors
 
 * `vim`
 * `emacs`
 * `nano`
 
-### `$ nano .bashrc`
+```bash
+$ nano .bashrc
+```
 
-## Let's look at our text file
+#### Let's look at our text file
 
 * `cat` print file(s)
 * `head` print first few lines of file(s)
@@ -258,85 +255,73 @@ $ shild@aurora:~/data$ head -3 env.csv | od -cx
 
 
 
-## Create custom commands with "alias"
+### Create custom commands with "alias"
 alias lwc='ls *.jpg | wc -l'
 
 You can create a number of custom aliases that are available whenever you login, by putting commands such as the above in your shell start-up file, e.g. `.bashrc`
 
 
-## A sampling of more advanced utilities
+### A sampling of more advanced utilities
 
 * `grep` search files for text
 * `sed` filter and transform text
 * `find` advanced search for files/directories
 
-## grep
 
-![The file pattern searcher](images/needle_in_a_haystack-300x223.jpg
-   "http://ubuntuservergui.com/wp-content/uploads/2011/04/needle_in_a_haystack-300x223.jpg")
+#### grep
 
-## grep
-
-### Show all lines containing "bug" in my R scripts
+Show all lines containing "bug" in my R scripts
 
 ```bash
 $ grep bug *.R
 ```
 
-### Now count the number of occurrences per file
+Now count the number of occurrences per file
 
 ```bash
 $ grep -c bug *.R
 ```
 
-### Print the names of files that contain bug
+Print the names of files that contain bug
 
 ```bash
 $ grep -l bug *.R
 ```
 
-### Print the lines of files that __don't__ contain bug
+Print the lines of files that __don't__ contain bug
 
 ```bash
 $ grep -v bug *.R
 ```
 
-### Print "hidden" dot-files in current directory
+Print "hidden" dot-files in current directory
 ```
 $ ls -a | grep '^\.'   
 ```
-## sed
+#### sed
 
-![The high tech filter](images/chromeblack-faucet-filter.jpg
-  "http://www.greenliness.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/h/chromeblack-faucet-filter.jpg")
-
-## sed
-
-### Remove all lines containing "bug"!
+Remove all lines containing "bug"!
 
 ```bash
 $ sed '/bug/d' myscript.R
 ```
 
-### Call them buglets, not bugs!
+Call them buglets, not bugs!
 
 ```bash
 $ sed 's/bug/buglet/g' myscript.R
 ```
 
-### Actually, only do this on lines starting with #
+Actually, only do this on lines starting with #
 
 ```bash
 $ sed '/#/ s/bug/buglet/g' myscript.R
 ```
-
-
-    
----
-## Above are just a few of the most useful Linux & Unix commands based on our experience.  
-###There are many more, and they comprise a ***rich*** set, that will serve you for years. They can be used in combination, and run from scripts.  They can empower you when using high-end analytical servers, or doing repetitive tasks!    
+   
 
 ## Online resources
+
+Above are just a few of the most useful Linux & Unix commands based on our experience.  There are many more, and they comprise a ***rich*** set, that will serve you for years. They can be used in combination, and run from scripts.  They can empower you when using high-end analytical servers, or doing repetitive tasks!
 
 * http://linuxcommand.org/
 * http://www.linfo.org/command_line_lesson_1.html
