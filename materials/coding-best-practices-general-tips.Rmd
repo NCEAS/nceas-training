@@ -91,7 +91,7 @@ my_results = my_function_name(1,2)
 my_results = my_function_name(argument2=2, argument1=1)
 ```
 
-#### ![challenge](images/challengeproblemred_scribble.png) Challenge
+#### Challenge
 
 
 1. Write a function that computes the percentage of a number: `n*p/100`
@@ -162,43 +162,39 @@ Variables that are defined inside a function body have a local scope, and those 
 
 This means that local variables can be only be accessed inside the function in which they are declared. Thus, any ordinary assignments done within the function are local and temporary and are lost after exit from the function; whereas global variables can be accessed throughout the program body by all functions.
 
-### ![challenge](images/challengeproblemred_scribble.png) Challenge
+### Challenge
 
 Try to predict what will be outputted by the following:
 
-```r
+```{r scope 1}
 foo <- function() {
     bar <- 1
 }
 
 ```
 
-```r
+```{r scope 2}
 bar <- 2
 foo <- function() {
     bar <- 1
 }
-
 ```
-### ![challenge](images/challengeproblemred_scribble.png) Challenge
-```r
+
+```{r scope 3}
 foo <- function() {
     bar <<- 1  #hein?!
 }
-
 ```
 
 Although `<<-` is a specificity of R, the general concept of global and local scope is valid for Python and others.
 
 
 ### One last one
-```r
+```{r scope 4}
 foo <- function() {
     bar <- bar + 1
 }
 ```
-
-
 
 
 **This also means that there is one more reason to use functions!! All the temporary variables you define in a function are automatically deleted when you exit the function, freeing up the computer memory.**
@@ -206,7 +202,7 @@ foo <- function() {
 
 ## Note about loading libraries in R
 
->- First: is a package a library? 
+- First: is a package a library? 
 - Not until it is installed on your system using (install.packages("this_awsome_package_I_need")! see [here](http://www.r-bloggers.com/packages-v-libraries-in-r/) for more details.
 
 ### Namespace
@@ -224,7 +220,7 @@ library(dplyr)
 
 
 
-### ![challenge](images/challengeproblemred_scribble.png) Challenge
+### Challenge
 
 1. What does it means?
 2. Does the order you use to load library matter in R?
