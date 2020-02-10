@@ -116,21 +116,21 @@ This means that local variables can be only be accessed inside the function in w
 
 Try to predict what will be outputted by the following:
 
-```{r scope 1}
+```{r scope 1, eval=FALSE}
 foo <- function() {
     bar <- 1
 }
 
 ```
 
-```{r scope 2}
+```{r scope 2, eval=FALSE}
 bar <- 2
 foo <- function() {
     bar <- 1
 }
 ```
 
-```{r scope 3}
+```{r scope 3, eval=FALSE}
 foo <- function() {
     bar <<- 1  #hein?!
 }
@@ -140,7 +140,7 @@ Although `<<-` is a specificity of R, the general concept of global and local sc
 
 
 ### One last one
-```{r scope 4}
+```{r scope 4, eval=FALSE}
 foo <- function() {
     bar <- bar + 1
 }
