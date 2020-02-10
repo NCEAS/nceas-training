@@ -7,14 +7,14 @@ date: "June, 2016"
 output: ioslides_presentation
 ---
 
-Coding best practices and tips
-===============================
+# Coding best practices and tips
+
 
 ## Scripting languages
 
 Compared to other programming languages (such as C), scripting languages are not required to be compiled to be executable. One consequence is that generally scripts will execute more slowly than a compiled executable because they need an interpreter. However, the more natural language oriented syntax makes them easier to learn and use.
 
-## Don't start coding without planning!
+### Don't start coding without planning!
 
 It is important to stress that scientists write scripts to help them to investigate scientific question(s). Therefore it is important that scripting does not drive our analysis and thinking. We strongly recommend you take the time to plan the steps you need to accomplish to conduct your analysis. Developing a **scientific workflow** of your analyis will then allow you to develop a **pseudo code** that will help you to narrow down the tasks that need to be accomplished to move forward your analaysis.
 
@@ -31,17 +31,14 @@ From the top to the bottom of your script:
 - **Function** definitions (respecting the order in which they are called)
 - **Main code** calling the different functions
 
-## Few important principles
+### Few important principles
 
->- **Comment your code**. It will allow you to document what your code does both for your collaborators and your future self
+- **Comment your code**. It will allow you to document what your code does both for your collaborators and your future self
 - **Use variables and constants** instead of hard links
 - Choose **intuitives names for your variables and functions**, not generic. If you store a list of files, do not use `x` for the variable name, use instead `files`. Even better use `input_files` if you are listing the files you are importing.
 - Be consistent in terms of style you use to name your variables, functions, ...
 - **Keep it simple (KISS)**. Do not create overly complicated statements. Implement your tasks in several simple lines instead of embedding a lot of executions in one complicated line. It will save you time while debugging and make your code more readable to others
-
-## Few important principles
-
->- **Go modular**! Break down tasks into small code fragments such as functions. It will make your code reusable for you and others (if well documented). Keep functions simple; they should only implement one or few (related) tasks
+- **Go modular**! Break down tasks into small code fragments such as functions. It will make your code reusable for you and others (if well documented). Keep functions simple; they should only implement one or few (related) tasks
 - **Don't Repeat Yourself (DRY)**. If you start copy/pasting part of your code changing few parameters => write a function and call it several times with different parameters. Add flow control such as loops and conditions. It will be easier to debug, change and maintain
 - **Test your code**. Test your code against values you would expect or computed with another software. Try hedge cases, such as NA, negative values, .... and try to handle errors in your code
 - **Iterate with small steps**, implement few changes at a time to your code. Test, fix and move forward!
@@ -55,7 +52,8 @@ One of the fundamental ways of making your code modular and reusable is to creat
 
 It is important to note that the statements in a function definition are NOT executed as the interpreter first passes over the lines. The function needs to be CALLED for these statements to be exectuted. In other words, if you have a bug in your function statements, but your main code never calls this function, the script will run just fine. Only when you call the function you will discover the problem. Keep that in my mind while debugging.
 
-## R function definition
+### R function definition
+
 ```r
 my_function_name <- function(argument1, argument2, opt_arg=default_value) {
     statements
@@ -64,7 +62,8 @@ my_function_name <- function(argument1, argument2, opt_arg=default_value) {
 ```
 Note it is specific to R that functions are defined using the regular assignment operator `<-`.
 
-## Python function definition
+#### Python function definition
+
 ```python
 
 def my_function_name(argument1, argument2, optional_arg=default_value):
@@ -73,9 +72,10 @@ def my_function_name(argument1, argument2, optional_arg=default_value):
 ```
 Python uses the `def` keyword to signal the definiton of a function
 
-## Calling a function
+### Calling a function
 
-### R
+#### R
+
 ```r
 my_results <- my_function_name(1,2)
 
@@ -83,7 +83,7 @@ my_results <- my_function_name(1,2)
 my_results <- my_function_name(argument2=2, argument1=1)
 ```
 
-### Python
+#### Python
 ```python
 my_results = my_function_name(1,2)
 
@@ -91,7 +91,7 @@ my_results = my_function_name(1,2)
 my_results = my_function_name(argument2=2, argument1=1)
 ```
 
-## ![challenge](images/challengeproblemred_scribble.png) Challenge
+#### ![challenge](images/challengeproblemred_scribble.png) Challenge
 
 
 1. Write a function that computes the percentage of a number: `n*p/100`
@@ -101,7 +101,9 @@ my_results = my_function_name(argument2=2, argument1=1)
 5. Find potential values that could make the function to crash and add necessary error handling
 6. Comment your functions
 
-## Example challenge solution in R
+\newpage
+
+#### Example challenge solutions in R
 ```r
 # function to calculate n*p/some ratio factor
 percent_function <- function(n,p,ratio_factor) {
@@ -117,7 +119,7 @@ test
 0.1
 ```
 
-## Second function task
+##### Second function task
 ```r
 # function to calculate a^2-b^2
 a2b2_function <- function(a,b) {
@@ -133,7 +135,7 @@ test
 5
 ```
 
-## Third function task
+##### Third function task
 ```r
 # function to calculate sqrt(a^2-b^2)
 sqrt_a2b2_function <- function(a,b) {
@@ -160,7 +162,7 @@ Variables that are defined inside a function body have a local scope, and those 
 
 This means that local variables can be only be accessed inside the function in which they are declared. Thus, any ordinary assignments done within the function are local and temporary and are lost after exit from the function; whereas global variables can be accessed throughout the program body by all functions.
 
-## ![challenge](images/challengeproblemred_scribble.png) Challenge
+### ![challenge](images/challengeproblemred_scribble.png) Challenge
 
 Try to predict what will be outputted by the following:
 
@@ -168,8 +170,7 @@ Try to predict what will be outputted by the following:
 foo <- function() {
     bar <- 1
 }
-foo()
-bar
+
 ```
 
 ```r
@@ -177,38 +178,30 @@ bar <- 2
 foo <- function() {
     bar <- 1
 }
-foo()
-bar
+
 ```
-## ![challenge](images/challengeproblemred_scribble.png) Challenge
+### ![challenge](images/challengeproblemred_scribble.png) Challenge
 ```r
 foo <- function() {
     bar <<- 1  #hein?!
 }
-foo()
-bar
-```
-## One last one:
 
-```r
-bar <- "global"
-foo <- function(){
-    bar <- "in foo"
-    baz <- function(){
-        bar <- "in baz - before <<-"
-        bar <<- "in baz - after <<-"
-        print(bar)
-    }
-    print(bar)
-    baz()
-    print(bar)
-}
 ```
+
 Although `<<-` is a specificity of R, the general concept of global and local scope is valid for Python and others.
 
-## Local Scope
 
-This also means that there is one more reason to use functions!! All the temporary variables you define in a function are automatically deleted when you exit the function, freeing up the computer memory.
+### One last one
+```r
+foo <- function() {
+    bar <- bar + 1
+}
+```
+
+
+
+
+**This also means that there is one more reason to use functions!! All the temporary variables you define in a function are automatically deleted when you exit the function, freeing up the computer memory.**
 
 
 ## Note about loading libraries in R
@@ -216,31 +209,22 @@ This also means that there is one more reason to use functions!! All the tempora
 >- First: is a package a library? 
 - Not until it is installed on your system using (install.packages("this_awsome_package_I_need")! see [here](http://www.r-bloggers.com/packages-v-libraries-in-r/) for more details.
 
-## Namespace
+### Namespace
 
 In R you use the command `library(mypackage)` to load a library. Each library has its own `namespace`. 
 
 For example, if you use `dplyr::union` *dplyr* is the **namespace** and *union* is the **function**. Namespace attribution is a great way to be sure that functions from different packages sharing the same name will not overwrite each other.
 
-## Namespace
 
 However when you load a library, you might have noticed/ignored similar messages:
 
-```r
+```{r namespace example}
 library(dplyr)
-
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
 ```
 
-## ![challenge](images/challengeproblemred_scribble.png) Challenge
+
+
+### ![challenge](images/challengeproblemred_scribble.png) Challenge
 
 1. What does it means?
 2. Does the order you use to load library matter in R?
@@ -249,15 +233,13 @@ The following objects are masked from ‘package:base’:
 
 ## References
 
-- Introduction to Software Engineering by Jason Coposky: https://github.com/NCEAS/training/blob/master/2014-oss/day-09/IntroductionToSoftwareClass.pdf
-- Functional programming in R: http://adv-r.had.co.nz/Functional-programming.html#functional-programming
-- Scoping in R: http://adv-r.had.co.nz/Functions.html
+- Functional programming in R: https://adv-r.hadley.nz/fp.html
 - https://www.quora.com/What-is-the-difference-between-programming-languages-markup-languages-and-scripting-languages
 - http://stackoverflow.com/questions/17253545/scripting-language-vs-programming-language
 - More advanced information about scope and closure in R: https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/
 
 ### R styling
-- [A good overview by H. Wickham](http://adv-r.had.co.nz/Style.html) of the best practices regarding best syntax to us in R from Hadley Wickham.
+- [A good overview by H. Wickham](https://style.tidyverse.org/functions.htmll) of the best practices regarding best syntax to us in R from Hadley Wickham.
 - Standardized comments: https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html
 
 ### Python styling
