@@ -88,9 +88,9 @@ Here [`nano`](https://www.nano-editor.org) is used as example; you can choose mo
 
 Problem with any of those steps? Check out Jenny Bryan [Happy git trouble shooting section](http://happygitwithr.com/troubleshooting.html){target="_blank"}
 
-### Other thoughts
+## Other thoughts
 
-#### Linking git and RStudio
+### Linking git and RStudio
 
 In most of the cases, RStudio should automatically detect `git` when it is installed on your computer. The best way to check this is to go to the `Tools` menu `-> Global Option`s and click on `git/SVN`
 
@@ -102,13 +102,13 @@ Click `OK`.
 
 _Note:_ if `git` was not enabled, you might be asked to restart RStudio to enable it.
 
-#### Note for Windows Users
+### Note for Windows Users
 
 If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senarios, the git executable may not be available to the default terminal type.
 
 In addition, some versions of Windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
 
-#### Updating a previous R installation
+### Updating a previous R installation
 
 **This is useful for users who already have R with some packages installed and need to upgrade R, but don't want to lose packages.** If you have never installed R or any R packages before, you can skip this section.
 
