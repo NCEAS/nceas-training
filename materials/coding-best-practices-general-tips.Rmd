@@ -101,58 +101,7 @@ my_results = my_function_name(argument2=2, argument1=1)
 5. Find potential values that could make the function to crash and add necessary error handling
 6. Comment your functions
 
-\pagebreak
 
-#### Example challenge solutions in R
-
-```r
-# function to calculate n*p/some ratio factor
-percent_function <- function(n,p,ratio_factor) {
-  #n <- first value
-  #p <- second value
-  #ratio_factor <- denominator; value by which n*p is divided
-  pct <- (n*p)/ratio_factor
-  return(pct)
-}
-# test function
-test <- percent_function(n=10,p=10,ratio_factor=1000)
-test
-0.1
-```
-
-##### Second function task
-```r
-# function to calculate a^2-b^2
-a2b2_function <- function(a,b) {
-  #a <- first value
-  #b <- second value
-  a2b2 <- a^2 - b^2
-  return(a2b2)
-}
-
-# test function
-test <- a2b2_function(a=3,b=2)
-test
-5
-```
-
-##### Third function task
-```r
-# function to calculate sqrt(a^2-b^2)
-sqrt_a2b2_function <- function(a,b) {
-  #a <- first value
-  #b <- second value
-  a2b2 <- a^2 - b^2
-  squared <- sqrt(a2b2)
-  return(squared)
-  #produces NaN if b^2 < a^2
-}
-
-# test function
-test <- sqrt_a2b2_function(a=3,b=2)
-test
-2.236068
-```
 
 
 ## Scope: Global vs. Local Environment
@@ -227,6 +176,59 @@ library(dplyr)
 2. Does the order you use to load library matter in R?
 3. How can you check what you are using?
 
+
+## Solutions to function challenge
+
+### First function task
+
+```r
+# function to calculate n*p/some ratio factor
+percent_function <- function(n,p,ratio_factor) {
+  #n <- first value
+  #p <- second value
+  #ratio_factor <- denominator; value by which n*p is divided
+  pct <- (n*p)/ratio_factor
+  return(pct)
+}
+# test function
+test <- percent_function(n=10,p=10,ratio_factor=1000)
+test
+0.1
+```
+
+### Second function task
+```r
+# function to calculate a^2-b^2
+a2b2_function <- function(a,b) {
+  #a <- first value
+  #b <- second value
+  a2b2 <- a^2 - b^2
+  return(a2b2)
+}
+
+# test function
+test <- a2b2_function(a=3,b=2)
+test
+5
+```
+
+### Third function task
+```r
+# function to calculate sqrt(a^2-b^2)
+sqrt_a2b2_function <- function(a,b) {
+  #a <- first value
+  #b <- second value
+  a2b2 <- a^2 - b^2
+  squared <- sqrt(a2b2)
+  return(squared)
+  #produces NaN if b^2 < a^2
+}
+
+# test function
+test <- sqrt_a2b2_function(a=3,b=2)
+test
+2.236068
+```
 
 ## References
 
