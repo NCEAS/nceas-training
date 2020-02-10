@@ -25,24 +25,26 @@ You might think there is a better way, and you'd be right: __version control__.
 Version control systems help you track all of the changes to your files, without
 the spaghetti mess that ensues from simple file renaming.  In other words, version control is a system that helps you to manage the different versions of your files in an organized manner. It will help you to never have to duplicate files using `save as` as a way to keep different versions of a file (see below). Version control help you to create a timeline of snapshots containing the different versions of a file. At any point in time, you will be able to roll back to a specific version. Bonus: you can add a short description (commit message) to remember what each specific version is about.
 
-## What is the difference between `git` and `GitHub`?
+**What is the difference between `git` and `GitHub`?**
 
 - __git__: version control software used to track files in a folder (a repository)
     - git creates the versioned history of a repository
 - __GitHub__: web site that allows users to store their git repositories and share them with others
 
 
-## git <img style="float: right;width: 100px;" src="images/git_icon.png">
+## git
+
+ <img style="float: right;width: 100px;" src="images/git_icon.png">
 
 This training material focuses on the code versioning system called `Git`. Note that there are others, such as `Mercurial` or `svn` for example.
 
 Git is a *free* and *open source* distributed *version control system*. It has many functionalities and was originally geared towards software development and production environment. In fact, Git was initially designed and developed in 2005 by Linux kernel developers (including Linus Torvalds) to track the development of the Linux kernel. Here is a [fun video](https://www.youtube.com/watch?v=4XpnKHJAok8) of Linus Torvalds touting Git to Google. 
 
-### How does it work?
+**How does it work?**
 
 Git can be enabled on a specific folder/directory on your file system to version files within that directory (including sub-directories). In git (and other version control systems) terms, this “tracked folder” is called a **repository** (which formally is a specific data structure storing versioning information).
 
-### What git is not
+**What git is not:**
 
 - **Git is not a backup per se**
 - Git is not good at versioning large files (there are workarounds) => not meant for data
@@ -58,12 +60,6 @@ Although there many ways to start a new repository, [GitHub](https://github.com/
 <img style="float: right;width: 100px;" src="images/github-logo.png">
 
 ### GitHub  
-
-Let's distinguish between git and GitHub:
-
-- __git__: version control software used to track files in a folder (a repository)
-    - git creates the versioned history of a repository
-- __GitHub__: web site that allows users to store their git repositories and share them with others
 	
 **GitHub is a company that hosts git repositories online** and provides several collaboration features (among which `forking`). GitHub fosters a great user community and has built a nice web interface to git, also adding great visualization/rendering capacities of your data.
 
@@ -79,6 +75,7 @@ with its <span style="color:red">list of files</span>, <span style="color:green"
 and <span style="color:blue">some information on who made the most recent changes.</span>  
 
 ![](images/ss3sim-github_colored.png)
+
 If we drill into the 
 "<span style="color:orange">commits</span>" for the repository, we can see the history of changes made to all of 
 the files.  Looks like `kellijohnson` and `seananderson` were fixing things in
@@ -103,7 +100,7 @@ We are going to create a new repository on your GitHub account. If you do not ha
 To create a new repository follow these steps:
 
 - Click on ![](images/github-create.png)
-- Enter a descriptive name for your new repository, `training-repo`  
+- Enter a descriptive name for your new repository, **`training-repo`**
 (avoid upper case and use `-` instead of spaces or `_`)
 - Write a 1-sentence description about the repository content
 - Choose **"Public"** (as of January 2019, GitHub now offers unlimited free private repositories with a maximum of 3 collaborators)
@@ -377,7 +374,7 @@ You can minimize conflicts by:
 
 ## Exercise
 
-Use RStudio to add a new RMarkdown file to your `training-test`
+Use RStudio to add a new RMarkdown file to your `training-repo`
 repository, build a basic structure for the file, and then save it.
 
 Next, stage and commit the file locally, and push it up to GitHub.
@@ -398,12 +395,12 @@ and much longer tutorials that cover advanced topics, such as:
 
 ## References
 
-## Using RStudio:
+Using RStudio:
 
 - Happy Git and GitHub for the useR: http://happygitwithr.com/
 - R packages - Git and GitHub: http://r-pkgs.had.co.nz/git.html#git-init
  
-### Mainly from the command line:
+Mainly from the command line:
 
 - Interactive git 101: [https://try.github.io/](https://try.github.io/)
 - Very good tutorial about git: [https://www.atlassian.com/git/tutorials/what-is-version-control](https://www.atlassian.com/git/tutorials/what-is-version-control)
@@ -420,7 +417,7 @@ and much longer tutorials that cover advanced topics, such as:
 - GitPro book (2nd edition): <https://git-scm.com/book/en/v2>
 
 
-### GitHub Workflow
+GitHub Workflow
 
 - GitHub:
    - guides on how to use GitHub: [https://guides.github.com/](https://guides.github.com/)
