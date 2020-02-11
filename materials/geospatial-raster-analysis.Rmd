@@ -1,0 +1,58 @@
+# Raster
+
+## Learning Objectives
+
+In this lesson, you will learn:
+
+- How to use the `raster` package to import geospatial data
+- how to combine raster and vector to conduct geospatial analysis in `R`
+
+## Introduction
+
+We just have seen how to conduct spatial analysis in R using **vector** data. There is a second categories of geospatial data: **raster** data.
+
+![](images/raster-vs-vector.png)
+
+
+In a nutshell, raster data is a matrix of cells (or pixels) organized into rows and columns. Each cell / pixels stores a value. Satellite imagery, aerial imagery and radar from Earth Observation Systems are a great source of environmental data. 
+
+![](images/raster-cell.png)
+
+As discussed in the previous section, raster will have a Coordinate Reference System (CRS) defining the mathematical formula used to used to define the position of the raster pixels on earth. Few extra terms you might hear when talking about raster: 
+
+- The **spatial resolution** of a raster refers to the size of a pixel. It is often defined as one number (e.g. 30m) assuming the pixels are squares; However it is not a requirement and pixels can be rectangular (have edges of different length).
+- The **extent** of a raster refers to the area on Earth that is covered by the entire raster. It be defined in many ways, but it will often be defined using a specific corner, the pixel size, and the number of pixels along the x and y dimensions.
+- The number of *bands* of a raster refers to a set of images over the same area but with value corresponding to different "bands" of the electromagnetic spectrum. For example, a typical RGB image will be made of 3: Red, Green, Blue. Often you want to stack those images to conduct an analysis as the area of observation matched perfectly. Satellite and other sensors can of course capture information far beyond the visible part of the electromagnetic spectrum.
+
+
+![](images/rgb-stack.png)
+
+
+### Raster File Formats
+
+As vector data, raster data comes in various file formats:
+
+#### `TIFF/GeoTIFF`
+
+`TIFF/GeoTIFF` are probably the most common raster formats. GeoTIFFs consist of one file with a specific header that encapsulates the geospatial information. There is a second way to add geospatial information to a TIFF file by adding an extra "world" file `.tfw` with the same name as the TIFF file. This `.tfw` is a simple text file that defines various parameters to define the raster geospatial information.
+
+#### `IMG`
+
+This is a proprietary form from the remote sensing software ERDAS Imagine. It has the advantage to be able to store multiple bands in one file and also to have great compression capacity.
+
+#### `NetCDF`
+
+The Network Common Data Form, or netCDF, is an interface to a library of data access functions for storing and retrieving data in the form of arrays. A Subset of this format, the Hierarchical data format (HDF4 or HDF5), is a format that is often used by satellite imagery data providers. Through its great handling of multidimensional data, it can be used to store both space and time information.
+
+
+One word on ESRI geospatial database storing raster data: it is unfortunately to sue R to read this data format. **R relies on open source libraries to import and process geospatial data** (GDAL, GEOS, PROJ, ...), and ESRI has not yet opened this data format to those libraries.
+
+
+## The `raster` Package
+
+the raster package is THE package in R to import and process raster data.
+
+
+
+
+
