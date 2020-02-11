@@ -45,14 +45,55 @@ This is a proprietary form from the remote sensing software ERDAS Imagine. It ha
 The Network Common Data Form, or netCDF, is an interface to a library of data access functions for storing and retrieving data in the form of arrays. A Subset of this format, the Hierarchical data format (HDF4 or HDF5), is a format that is often used by satellite imagery data providers. Through its great handling of multidimensional data, it can be used to store both space and time information.
 
 
-One word on ESRI geospatial database storing raster data: it is unfortunately to sue R to read this data format. **R relies on open source libraries to import and process geospatial data** (GDAL, GEOS, PROJ, ...), and ESRI has not yet opened this data format to those libraries.
+One word on ESRI geospatial database storing raster data: it is unfortunately to sue R to read this data format. **R relies on [open source libraries](https://www.osgeo.org/choose-a-project/development/libraries/) to import and process geospatial data** (GDAL, GEOS, PROJ, ...), and ESRI has not yet opened this data format to those libraries.
 
 
 ## The `raster` Package
 
-the raster package is THE package in R to import and process raster data.
+The raster package is THE package in R to import and process raster data. It can handle many of the formats mentioned above and more.
+
+To import a raster in R, you will use the `raster` function for a single band raster. For multi-band raster, you can use the `brick()` function instead.
+
+For this example, we are going to read a land cover map of Alaska from the The Multi-Resolution Land Characteristics ([MRLC](https://www.mrlc.gov)) consortium.
+
+This file being quite large (~8GB), we have already downloaded it in a shared directory on the server. Let us read this raster into R.
+
+```{r raster import}
+library(raster)
+# 
+# lc <- raster("/home/shares/scientist/sasap-biophys/HabitatMetrics/Landcover2010/NA_NALCMS_LC_30m_3338_SASAP_clip.tif")
+lc <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_1_15_15.img")
+
+lc
+```
+
+```{r}
+plot(lc)
+```
+Actually because the `img` format can handle categorical data and attach extra information, we can get the  colors as specified byt the data creator. Now we know it is a Land cover map, thus the color corraspog to a specific category. How can we fgure it out? 
+1. seraching metadata from the data provider: https://www.mrlc.gov/data/legends/national-land-cover-database-2011-nlcd2011-legend
+2. the raster object in R use a S4 formats that allows it to store specific information into slots. You can access thse slots using the `@`
+
+```{r}
+lc@data
+
+```
 
 
 
+
+```{r}
+lc_3338 <- projectRaster(lc, crs=st_crs(ak_regions_3338), method = 'n)
+```
+
+
+
+
+
+
+## References
+
+
+[Raster analysis in R](http://jafflerbach.github.io/spatial-analysis-R/intro_spatial_data_R.html) 
 
 

@@ -257,7 +257,7 @@ plot(pop_mgmt_3338["total_pop"])
 Save the spatial object to disk using `write_sf()` and specifying the filename. Writing your file with the extension .shp will assume an ESRI driver [driver](http://www.gdal.org/ogr_formats.html), but there are many other format options available.
 
 ```{r plot, eval = F}
-write_sf(pop_region_3338, "shapefiles/ak_regions_population.shp", delete_layer = TRUE)
+write_sf(pop_region_3338, "data/shapefiles/ak_regions_population.shp", delete_layer = TRUE)
 ```
 
 ## Visualize with ggplot
@@ -447,11 +447,11 @@ m
 There is a lot more functionality to `sf` including the ability to `intersect` polygons, calculate `distance`, create a `buffer`, and more. Here are some more great resources and tutorials for a deeper dive into this great package:
 
 
-[Raster analysis in R](http://jafflerbach.github.io/spatial-analysis-R/intro_spatial_data_R.html)  
 [Spatial analysis in R with the sf package](https://cdn.rawgit.com/rhodyrstats/geospatial_with_sf/bc2b17cf/geospatial_with_sf.html)  
 [Intro to Spatial Analysis](https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#1)  
 [sf github repo](https://github.com/r-spatial/sf)    
 [Tidy spatial data in R: using dplyr, tidyr, and ggplot2 with sf](http://strimas.com/r/tidy-sf/)    
-[mapping-fall-foliage-with-sf](https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/)    
+[mapping-fall-foliage-with-sf](https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/)
+[Geocomputation with R](https://geocompr.robinlovelace.net/)
 
 
