@@ -59,7 +59,8 @@ For this example, we are going to read a land cover map of Alaska from the The M
 The original file was quite large quite large (~8GB), so we have already resampled to a lower spatial resolution of 50m and saved it in a shared directory on the server. 
 
 ```{r raster import}
-suppressPackageStartupMessages(library(tidyverse))
+library(dplyr)
+library(rgdal)
 library(sf)
 library(raster)
 library(ggplot2)
