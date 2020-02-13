@@ -56,37 +56,230 @@ To import a raster in R, you will use the `raster` function for a single band ra
 
 For this example, we are going to read a land cover map of Alaska from the The Multi-Resolution Land Characteristics ([MRLC](https://www.mrlc.gov)) consortium.
 
-This file being quite large (~8GB), we have already downloaded it in a shared directory on the server. Let us read this raster into R.
+The original file was quite large quite large (~8GB), so we have already resampled to a lower spatial resolution of 50m and saved it in a shared directory on the server. 
 
 ```{r raster import}
+suppressPackageStartupMessages(library(tidyverse))
+library(sf)
 library(raster)
-# 
-# lc <- raster("/home/shares/scientist/sasap-biophys/HabitatMetrics/Landcover2010/NA_NALCMS_LC_30m_3338_SASAP_clip.tif")
+library(ggplot2)
+
+
+
+# House keeping to setup data from the last chapter
+ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
+
+ak_regions_3338 <- ak_regions %>%
+  st_transform(crs = 3338)
+
+pop <- read.csv("data/shapefiles/alaska_population.csv")
+
+pop_4326 <- st_as_sf(pop, 
+                  coords = c('lng', 'lat'),
+                  crs = 4326,
+                  remove = F)
+
+pop_3338 <- st_transform(pop_4326, crs = 3338)
+
+pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
+```
+
+Let us now read this raster into R:
+
+```{r}
+lc_3338 <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_50m_3338.tif")
+
+lc_3338
+```
+
+It is always good to check if everything aligns well:
+
+```{r message=FALSE, warning=FALSE}
+plot(lc_3338)
+plot(pop_3338, add=TRUE)
+```
+### Extracting information from raster
+
+OK, everything looks good. Now we want to find the most frequent land cover within a radius of 500m. To do so we can use the `extract` function. This function can handle, the buffering and even have a modal function that will let us find the mode.
+
+```{r}
+# Compute the most frequent land cover type around the population
+raster_points <- extract(lc_3338, pop_3338, buffer=500, fun=modal)
+
+# Add those values to our data
+pop_joined$land_cover <- raster_points
+```
+Note that I am using `500` for the buffer radius because we know the unit is meter from the projection definition: `crs        : +proj=aea +lat_0=50 +lon_0=-154 +lat_1=55 +lat_2=65 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 **+units=m**`.
+
+
+At this point, we only have the values for this raster and do not know yet what are the corresponding land covers. Luckily we can look at the metadata here: https://www.mrlc.gov/data/legends/national-land-cover-database-2011-nlcd2011-legend
+
+This not a super friendly format. We have already processed this information (see the end of this chapter to learn how) and stored it in a csv:
+
+```{r}
+# Read the land cover legend
+Legend_lc <- read_csv("data/legend_ak_nlcd_2011.csv")
+Legend_lc
+```
+
+Now we can join this information to our main data frame and since the categories are pretty detailed, we will also aggregate them to a coarser level of information:
+
+```{r}
+# First let's drop the column we do not need
+lc_cat <- Legend_lc %>%
+  dplyr::select(ID,Land.Cover.Type)
+
+# It is a lot of categories, let us consolidate this
+lc_cat <- lc_cat %>%
+  mutate(main_lc = ifelse(ID %in% 40:49, "Forest",
+                              ifelse(ID %in% 20:29, "Urban",
+                                     ifelse(ID %in% 50:59, "Shrub",
+                                             ifelse(ID %in% 70:79, "Grass",
+                                                     ifelse(ID %in% 80:89, "Crops",
+                                                             ifelse(ID %in% 90:99, "Wetland", Land.Cover.Type)
+                                                             )
+                                                     )
+                                             )
+                                     )
+                              )
+  )
+
+
+# Join the LC categories to the population data
+pop_3338_cover <- left_join(pop_joined, lc_cat, by=c("land_cover"="ID")) 
+```
+
+### Plotting
+
+```{r}
+# Transforming the RGB color code into hex code
+Legend_lc <- Legend_lc %>% 
+  mutate(color_hex = rgb(Red, Green, Blue, max=255))
+
+# Matching the consolidated categories with colors
+Legend_lc_main <- left_join(Legend_lc, lc_cat, by=c("ID", "Land.Cover.Type"))
+
+# Keeping the last color of the groups
+pal <- Legend_lc_main %>% 
+  group_by(main_lc) %>% 
+  slice(n()) %>% # Keeping the last color of the groups
+  ungroup %>% 
+  arrange(ID) %>%
+  dplyr::select(color_hex)
+
+
+# Adding the color codes to the dataset
+pal_color <- data.frame("main_lc"=unique(lc_cat$main_lc), 
+                           "color_hex"=pal, 
+                        stringsAsFactors = FALSE)
+
+pop_3338_cover_hex <- left_join(pop_3338_cover, pal_color, by="main_lc")
+
+# Getting the colors in the right order
+final_pal <- pop_3338_cover_hex %>% arrange(main_lc) %>% pull(color_hex) %>% unique()
+
+
+# Plot by region
+ggplot(pop_3338_cover, aes(region, population, fill = main_lc)) +
+    geom_col() +
+    scale_fill_manual(values = final_pal) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    ggtitle("Land cover type by region and population")
+```
+
+```{r}
+ggplot() +
+    geom_sf(data = ak_regions_3338, aes(), color = "black") +
+    geom_sf(data = pop_3338_cover, aes(color = main_lc,
+                                       size = population)) +
+    scale_size_continuous(guide = F) +
+    scale_color_manual(values = final_pal) +
+    theme_bw() +
+    theme(legend.position = "bottom")
+```
+
+### Calculation with raster
+
+A Very useful function of the `raster` package is the function `calc`. As the name suggest this function helps you to do computation on raster. Continuing our example above, we want to compute a percentage of area that is forest.
+
+The first step will be to create a binary mask for forest. The way `calc` works is that you need to create a function to be applied to the raster using `calc`
+
+```{r}
+# Function to create a binary mask for forest 
+forest_masker <- function(x){
+  x[x<40 | x>49] <- 0
+  x[x>=40 & x<=49] <- 1
+  x
+}
+
+```
+
+Now we can use the `calc` function to apply this function to every pixels:
+```{r}
+forested <- calc(lc_3338, forest_masker)
+forested
+```
+
+As previously,  we can now use the `extract` function to count the number of forested pixels:
+```{r}
+forested_count <- extract(forested, pop_3338, buffer=500, fun=sum)
+```
+
+Adding the values back to the main data set:
+```{r}
+pop_3338_cover$forest_cov <- 100 * forested_count / (20*20)
+pop_3338_cover
+```
+
+Plotting the percentage of forested area in the 1km2 surround of the population centers:
+```{r}
+ggplot() +
+    geom_sf(data = ak_regions_3338, aes(), color = "black") +
+    geom_sf(data = pop_3338_cover, aes(color = forest_cov,
+                                       size = population)) +
+    scale_size_continuous(guide = F) +
+    scale_colour_gradient(low="red", high = "green") +
+    theme_bw() +
+    theme(legend.position = "bottom")
+```
+
+
+
+## Other Thoughts
+
+### Raster processing can be slow
+
+Processing raster in R is not fast and raster processing can become quickly a processing involving large data.  This is especially true when reprojecting large raster. It is therefore also good to learn how to use other tools to do such tasks. `gdal` at the command line is a great one. 
+
+It is also very important to process raster the correct way. Before starting the processing of large raster, we strongly recommend you read this information: https://rspatial.org/raster/appendix1.html
+
+### Preprocessing we did
+
+Actually because the original Land Cover raster was using a `img` format, it was possible to store more information then the pixel values. This format can handle categorical data and attach extra information, we can get the colors as specified by the data creator as well as the categories corresponding to a specific values. The the raster object in R use a S4 format that allows it to store specific information into slots. You can access these slots using the `@`. Here how we created the legend csv file you used: 
+
+```{r eval=FALSE}
+
+# Read teh original raster
 lc <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_1_15_15.img")
 
-lc
+# Look at the table attached
+lc@data@attributes
+
+# Remove the value without any pixel
+legend_lc <- lc@data@attributes[[1]] %>%
+  filter(COUNT!=0) %>% 
+  dplyr::select(-Opacity)
+
+# Write the csv
+write_csv(legend_lc, "/home/shares/scientist/ds-workshop/legend_ak_nlcd_2011.csv")
 ```
 
-```{r}
-plot(lc)
+This is how we reprojected to original data and resampled it to a 50m resolution instead of the 30m. Note that the use the Nearest Neighbor method `ngb` to compute the new raster as this algorithm keeps the original values
+
+```{r eval=FALSE}
+lc_3338 <- projectRaster(lc, crs=crs(ak_regions_3338), res=50, method = 'ngb', filename="/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_50m_3338.tif")
 ```
-Actually because the `img` format can handle categorical data and attach extra information, we can get the  colors as specified byt the data creator. Now we know it is a Land cover map, thus the color corraspog to a specific category. How can we fgure it out? 
-1. seraching metadata from the data provider: https://www.mrlc.gov/data/legends/national-land-cover-database-2011-nlcd2011-legend
-2. the raster object in R use a S4 formats that allows it to store specific information into slots. You can access thse slots using the `@`
-
-```{r}
-lc@data
-
-```
-
-
-
-
-```{r}
-lc_3338 <- projectRaster(lc, crs=st_crs(ak_regions_3338), method = 'n)
-```
-
-
 
 
 
@@ -94,6 +287,7 @@ lc_3338 <- projectRaster(lc, crs=st_crs(ak_regions_3338), method = 'n)
 ## References
 
 
+[Modern Geospatial Data Analysis in R](http://files.zevross.com/workshops/spatial/slides/html/0-deck-list.html)
+[Geocomputation with R](https://geocompr.robinlovelace.net/)
 [Raster analysis in R](http://jafflerbach.github.io/spatial-analysis-R/intro_spatial_data_R.html) 
-
-
+[Spatial data science](https://rspatial.org/raster/spatial/index.html)
