@@ -60,7 +60,6 @@ The original file was quite large quite large (~8GB), so we have already resampl
 
 ```{r raster import}
 library(dplyr)
-library(rgdal)
 library(sf)
 library(raster)
 library(ggplot2)
