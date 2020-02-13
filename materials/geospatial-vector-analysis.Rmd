@@ -38,7 +38,18 @@ The data we will be using to create the map are:
 
 All of the data used in this tutorial are simplified versions of real datasets available on the KNB. I've simplified the original high-resolution geospatial datasets to ease the processing burden on your computers while learning how to do the analysis. These simplified versions of the datasets may contain topological errors. The original version of the datasets are indicated throughout the chapter.
 
-For convience, I've hosted a zipped copy of all of the files on our test site. Please go to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) and download the zip folder. Put it in a sub-directory of your git repository and unzip it. You also will likely want to add that directory to your .gitignore file.
+### Setup
+
+For convience, I've hosted a zipped copy of all of the files on our test site. 
+
+* Go to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d), right click the download button, and select copy link address  
+* From the terminal, make and navigate to a directory called `data` in your project directory   
+    *  `mkdir data`, `cd data`  
+* Use `wget` to download the zip into the data directory  
+    *  `wget -O data.zip https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58`  
+* Unzip the file using `unzip`  
+    *  `unzip data.zip`  
+
 
 The first file we will use is a shapefile of regional boundaries in alaska derived from: Jared Kibele and Jeanette Clark. 2018. State of Alaska's Salmon and People Regional Boundaries. Knowledge Network for Biocomplexity. [doi:10.5063/F1125QWP](https://doi.org/10.5063/F1125QWP).
 
