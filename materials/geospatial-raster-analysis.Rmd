@@ -67,7 +67,6 @@ library(ggplot2)
 library(curl)
 
 
-
 # House keeping to setup data from the last chapter
 ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
 
