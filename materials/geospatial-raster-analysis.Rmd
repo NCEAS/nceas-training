@@ -64,6 +64,7 @@ library(sf)
 library(raster)
 library(ggplot2)
 library(curl)
+library(scales)
 
 
 # House keeping to setup data from the last chapter
@@ -138,12 +139,8 @@ Legend_lc
 Now we can join this information to our main data frame and since the categories are pretty detailed, we will also aggregate them to a coarser level of information:
 
 ```{r}
-# First let's drop the column we do not need
-lc_cat <- Legend_lc %>%
-  dplyr::select(ID,Land.Cover.Type)
-
 # It is a lot of categories, let us consolidate this
-lc_cat <- lc_cat %>%
+Legend_lc <- Legend_lc %>%
   mutate(main_lc = ifelse(ID %in% 40:49, "Forest",
                               ifelse(ID %in% 20:29, "Urban",
                                      ifelse(ID %in% 50:59, "Shrub",
@@ -159,57 +156,47 @@ lc_cat <- lc_cat %>%
 
 
 # Join the LC categories to the population data
-pop_3338_cover <- left_join(pop_joined, lc_cat, by=c("land_cover"="ID")) 
+pop_3338_cover <- left_join(pop_joined, Legend_lc, by=c("land_cover"="ID")) %>% 
+  dplyr::select(-Red, -Green, -Blue, -Land.Cover.Type)
 ```
 
 ### Plotting
 
 ```{r}
-# Transforming the RGB color code into hex code
-Legend_lc <- Legend_lc %>% 
-  mutate(color_hex = rgb(Red, Green, Blue, max=255))
-
-# Matching the consolidated categories with colors
-Legend_lc_main <- left_join(Legend_lc, lc_cat, by=c("ID", "Land.Cover.Type"))
-
-# Keeping the last color of the groups
-pal <- Legend_lc_main %>% 
+# Create color palette by keeping last color of each group
+pal <- Legend_lc %>% 
   group_by(main_lc) %>% 
   slice(n()) %>% # Keeping the last color of the groups
   ungroup %>% 
   arrange(ID) %>%
-  dplyr::select(color_hex)
+  mutate(color_hex = rgb(Red, Green, Blue, max = 255)) %>% 
+  dplyr::select(main_lc, color_hex)
 
-
-# Adding the color codes to the dataset
-pal_color <- data.frame("main_lc"=unique(lc_cat$main_lc), 
-                           "color_hex"=pal, 
-                        stringsAsFactors = FALSE)
-
-pop_3338_cover_hex <- left_join(pop_3338_cover, pal_color, by="main_lc")
-
-# Getting the colors in the right order
-final_pal <- pop_3338_cover_hex %>% arrange(main_lc) %>% pull(color_hex) %>% unique()
+# turn pallete into a list for plotting
+pal_list <- pal$color_hex
+names(pal_list) <- pal$main_lc
 
 
 # Plot by region
 ggplot(pop_3338_cover, aes(region, population, fill = main_lc)) +
     geom_col() +
-    scale_fill_manual(values = final_pal) +
+    scale_y_continuous(labels = comma) +
+    scale_fill_manual(values = pal_list) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-    ggtitle("Land cover type by region and population")
+    ggtitle("Land cover type by region and population") +
+    labs(fill = "", y = "Population", x = "")
 ```
 
 ```{r}
 ggplot() +
     geom_sf(data = ak_regions_3338, aes(), color = "black") +
     geom_sf(data = pop_3338_cover, aes(color = main_lc,
-                                       size = population)) +
+                                       size = population), show.legend = "point") +
     scale_size_continuous(guide = F) +
-    scale_color_manual(values = final_pal) +
+    scale_color_manual(values = pal_list) +
     theme_bw() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom", legend.title = element_blank())
 ```
 
 ### Calculation with raster
