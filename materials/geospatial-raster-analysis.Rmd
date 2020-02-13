@@ -131,7 +131,7 @@ This not a super friendly format. We have already processed this information (se
 
 ```{r}
 # Read the land cover legend
-Legend_lc <- read_csv("data/legend_ak_nlcd_2011.csv")
+Legend_lc <- read.csv("data/legend_ak_nlcd_2011.csv", stringsAsFactors = FALSE)
 Legend_lc
 ```
 
