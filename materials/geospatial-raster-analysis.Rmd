@@ -130,9 +130,15 @@ At this point, we only have the values for this raster and do not know yet what 
 
 This not a super friendly format. We have already processed this information (see the end of this chapter to learn how) and stored it in a csv:
 
-```{r}
+```{r, echo = F}
+Legend_lc <- read.csv("/home/shares/scientist/ds-workshop/legend_ak_nlcd_2011.csv", stringsAsFactors = FALSE)
+legend_lc
+```
+
+
+```{r, eval = F}
 # Read the land cover legend
-Legend_lc <- read.csv("data/legend_ak_nlcd_2011.csv", stringsAsFactors = FALSE)
+Legend_lc <- read.csv("/home/shares/scientist/ds-workshop/legend_ak_nlcd_2011.csv", stringsAsFactors = FALSE)
 Legend_lc
 ```
 
@@ -239,9 +245,10 @@ ggplot() +
     geom_sf(data = pop_3338_cover, aes(color = forest_cov,
                                        size = population)) +
     scale_size_continuous(guide = F) +
-    scale_colour_gradient(low="red", high = "green") +
+    scale_colour_gradient(low="khaki", high = "dark green") +
     theme_bw() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom") +
+    labs(color = "Percent Forest Cover")
 ```
 
 
