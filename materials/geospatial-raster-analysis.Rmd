@@ -63,6 +63,7 @@ suppressPackageStartupMessages(library(tidyverse))
 library(sf)
 library(raster)
 library(ggplot2)
+library(curl)
 
 
 
@@ -86,9 +87,22 @@ pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
 
 Let us now read this raster into R:
 
-```{r}
+```{r , eval=FALSE}
 lc_3338 <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_50m_3338.tif")
+```
 
+
+```{r, echo=FALSE}
+# lc_3338 <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_50m_3338.tif")
+
+tmp <- tempfile()
+curl_download("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A7326c060-0576-4865-879e-93731a189845",
+              tmp)
+lc_3338 <- raster(tmp)
+```
+
+Look at the raster:
+```{r}
 lc_3338
 ```
 
