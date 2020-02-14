@@ -28,7 +28,7 @@ From the top to the bottom of your script:
 - **Use variables and constants** instead of hard links
 - Choose **intuitives names for your variables and functions**, not generic. If you store a list of files, do not use `x` for the variable name, use instead `files`. Even better use `input_files` if you are listing the files you are importing.
 - Be consistent in terms of style you use to name your variables, functions, ...
-- **Keep it simple (KISS)**. Do not create overly complicated statements. Implement your tasks in several simple lines instead of embedding a lot of executions in one complicated line. It will save you time while debugging and make your code more readable to others
+- **keep it simple, stupid (KISS)**. Do not create overly complicated statements. Implement your tasks in several simple lines instead of embedding a lot of executions in one complicated line. It will save you time while debugging and make your code more readable to others
 - **Go modular**! Break down tasks into small code fragments such as functions. It will make your code reusable for you and others (if well documented). Keep functions simple; they should only implement one or few (related) tasks
 - **Don't Repeat Yourself (DRY)**. If you start copy/pasting part of your code changing few parameters => write a function and call it several times with different parameters. Add flow control such as loops and conditions. It will be easier to debug, change and maintain
 - **Test your code**. Test your code against values you would expect or computed with another software. Try hedge cases, such as NA, negative values, .... and try to handle errors in your code
