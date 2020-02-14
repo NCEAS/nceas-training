@@ -1,0 +1,55 @@
+# Finding help 
+
+
+## From within R
+
+* `?...`, `help(...)` : help for a specific function (you know the name of it)
+* `??...`, `help.search(...)` (or `help.search(...,agrep=FALSE)` to avoid partial matching): includes packages and partial matching
+
+
+## Task views
+
+* Task views (or [this view](http://www.maths.lancs.ac.uk/~rowlings/R/TaskViews/) )
+    * [Environmetrics](http://cran.r-project.org/web/views/Environmetrics.html)
+    * [Phylogeny/comparative methods](http://cran.r-project.org/web/views/Phylogenetics.html)
+    * [High-performance](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
+    * [Spatial](http://cran.r-project.org/web/views/Spatial.html)
+    
+    
+## Solving an error
+
+There are 2 big categories of errors:
+
+1. The code will not run (aka R is complaining) 
+2. The code is running, but the results are erroneous (the hardest one to solve)
+
+### Do it yourself
+
+Few strategies:
+
+- try to reproduce the problem
+- break it down to narrow the problematic piece of code (the [degugger](https://adv-r.hadley.nz/debugging.html) can help you)
+- try with a fake data set 
+
+### Search Forums, blogs, ...
+* Google :)
+* StackExchange <https://stackexchange.com/> and the more know StackOverflow <https://stackoverflow.com/>
+* RStudio  <https://education.rstudio.com/> and its community website <https://community.rstudio.com/>
+* RopenSci <https://ropensci.org/about/>
+* r-bloggers
+* Twitter: #rstats
+
+
+### Posting a question
+
+It is recommended to provide a reproducible example when posting a question on forum. There is a great R package to help you to do so `reprex`: https://reprex.tidyverse.org/
+
+Most of the time, creating a reproducible example on a data sample
+
+## Communities
+* Friends and colleagues
+* Local user groups: [R User Groups](https://www.r-consortium.org/projects/r-user-group-support-program), [R-ladies](https://rladies.org/) on Meetup
+* Universities (e.g. [Software Carpentry workshops](https://software-carpentry.org/))
+
+
+
