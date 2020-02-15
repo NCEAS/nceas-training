@@ -175,7 +175,7 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
 ```
 
 
-Note that the `theme()` call needs to come after any built in themes like `theme_bw()` are used. Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
+**Note that the `theme()` call needs to come after any built in themes like `theme_bw()` are used.** Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
 
 You can also save the result of a series of `theme()` function calls to an object to use on multiple plots. This prevents needing to copy paste the same lines over and over again!
 
@@ -224,6 +224,33 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
     ylab("Escapement") +
     my_theme
 ```
+
+### Several plots, one figure
+
+Sometimes you want to  combine separate ggplots into the same Figure. The `patchwork` package helps you to do this in a very easy manner: 
+
+```{r}
+# install.packages("patchwork")
+library(patchwork)
+
+# Plot 1
+p1 <- ggplot(annual_esc, aes(x = Species, y = escapement)) +
+  geom_col() + 
+  my_theme
+
+# Plo2
+p2 <- ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+    geom_line() +
+    geom_point() +
+    ylab("Escapement") +
+    ggtitle("Kodiak Salmon Escapement") +
+    my_theme
+
+# Put the plots to gether in one figure
+p1 + p2
+```
+
+
 
 ## Interactive visualization using `leaflet` and `DT`
 
