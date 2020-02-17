@@ -1,5 +1,5 @@
 
-# All about the *NIX
+# Linux and the Command Line
 
 
 ## Introduction to UNIX and its siblings
@@ -65,7 +65,12 @@ ssh brun@aurora.nceas.ucsb.edu
 In this case, you will be only asked for your password as you already specified which user you want to connect with.
 
 
-### Navigating and managing files/directories in *NIX
+** You can also use the terminal from RStudio!!**
+
+![](images/rstudio-terminal.png)
+
+
+## Navigating and managing files/directories in *NIX
 
 * `pwd`: Know where you are
 * `ls`: List the content of the directory
@@ -85,15 +90,132 @@ More files/directories manipulations:
 * `mkdir`: Create a directory
 * `cp`: Copy a file
 * `mv`: Move a file
-* `rm` /`rmdir`: Remove a file / directory  **use those carefully, there is no return / Trash!! **
-
+* `rm` /`rmdir`: Remove a file / directory  **use those carefully, there is no return / Trash!!**
 
 ### Permissions
 
 ![File permissions](images/UnixFileLongFormat.png)
 
-### All files have permissions and ownership
+### Exercise
 
+Navigate to the repo we created and inspect its content using the CLI
+
+**Note: typing is not your thing? the `<tab>` key is your friend!** One hit it will autocomplete the file/directory/path name for you. If there are many options, hit it twice to see the options.
+
+## General command syntax
+
+* `$ command [options] [arguments]`
+
+where `command` must be an _executable_ file on your `PATH`
+* `echo $PATH`
+
+and `options` can usually take two forms
+* short form: `-a`
+* long form: `--all`
+
+You can combine the options:
+
+```{bash}
+ls -ltrh
+```
+
+What do these options do?
+
+```{bash}
+man ls
+```
+
+### find
+
+Show me my Rmarkdown files!
+
+```bash
+find . -iname '*.Rmd'
+```
+
+Which files are larger than 1GB?
+
+```bash
+find . -size +1G
+```
+With more details about the files:
+
+```bash
+find . -size +1G -ls
+```
+
+## Getting things done
+
+### Some useful, special commands using the Control key
+
+* Cancel (abort) a command: `Ctrl-c`
+* Stop (suspend) a command: `Ctrl-z`
+* `Ctrl-z` can be used to suspend, then background a process
+
+
+### Process management
+
+* Like Windows Task Manager, OSX Activity Monitor
+* **`top`**, `ps`, `jobs` (hit `q` to get out!)
+* `kill` to delete an unwanted job or process
+* Foreground and background: `&`
+
+
+### What about "space"
+
+* How much storage is available on this system?  `df -h`
+* How much storage am "I" using overall?  `du -hs <folder>`
+* How much storage am "I" using, by subdirectory?  `du -h <folder>`
+
+
+## Uploading Files
+
+You have several options to upload files to the server. Some are more convenient if you have few files, like RStusio interface, some are more built for uploading a lot of files at one, like specific software... and you guessed it the CLI!
+
+### RStudio
+
+You can only upload one file at the time (you can zip a folder to trick it).
+
+![](images/rstudio-upload.png)
+
+### sFTP Software
+
+An efficient protocole to upload files is FTP (File Transfer Protocol). The `s` stands for secured. Any software supporting those protocoles will work to transfer files. 
+
+We recommend the following free software:
+
+- Mac users: [cyberduck]( https://cyberduck.io)
+- Windows: [WinSCP](https://winscp.net/eng/index.php)
+
+![](images/server-cyberduck.png)
+
+### `scp`
+
+The `scp` command is another convenient way to transfer a single file or directory using the CLI. You can run it from Aurora or from your local computer. Here is the basic syntax:
+
+```
+scp </source/path> <hostname:/destination/path>
+```
+
+Here is an example of my uploading the file `10min-loop.R` to Aurora from my laptop. The destination directory on Aurora is `/home/brun/github_com/NCEAS/nceas-training/materials/files`:
+
+![](images/server-scp.png)
+
+## Advanced Topics:
+
+### Unix systems are multi-user
+* Who else is logged into this machine?  `who`
+* Who is logged into "this shell"?  `whoami`
+
+### A sampling of simple commands for dealing with files
+
+* `wc` count lines, words, and/or characters
+* `diff` compare two files for differences
+* `sort` sort lines in a file
+* `uniq` report or filter out repeated lines in a file
+
+
+### All files have permissions and ownership
 
 * Change permissions: `chmod`
 * Change ownership: `chown`
@@ -115,72 +237,15 @@ More files/directories manipulations:
 * `man`, `info`, `apropos`, `whereis`
 * Search the web!
 
-## General command syntax
-
-* `$ command [options] [arguments]`
-
-### where `command` must be an _executable_ file on your `PATH`
-* `echo $PATH`
-
-### and `options` can usually take two forms
-* short form: `-h`
-* long form: `--help`
-
-### some useful, special commands using the Control key
-* Cancel (abort) a command: `Ctrl-c`
-* Stop (suspend) a command: `Ctrl-z`
-* `Ctrl-z` can be used to suspend, then background a process
 
 ### History
+
 * See your command history:  `history`
 * Re-run last command:  `!!`  (pronounced "bang-bang")
 * Re-run 32th command: `!32`
 * Re-run 5th from last command: `!-5`
 * Re-run last command that started with 'c': `!c`
 
-
-### find
-
-### Show me my pdfs!
-
-```bash
-$ find . -iname '*.Rmd'
-```
-
-### Which files are larger than 1GB?
-
-```bash
-$ find . -size +1G -ls
-```
-
-
-
-### Getting things done
-
-* Process management
-    * Like Windows Task Manager, OSX Activity Monitor
-    * `top`, `ps`, `jobs` (hit `q` to get out!)
-    * `kill` to delete an unwanted job or process
-* Foreground and background: `&`
-
-### What about "space"
-* How much storage is available on this system?  `df -h`
-* How much storage am "I" using overall?  `du -hs <folder>`
-* How much storage am "I" using, by subdirectory?  `du -h <folder>`
-
-
-## Advance Topics:
-
-### Unix systems are multi-user
-* Who else is logged into this machine?  `who`
-* Who is logged into "this shell"?  `whoami`
-
-### A sampling of simple commands for dealing with files
-
-* `wc` count lines, words, and/or characters
-* `diff` compare two files for differences
-* `sort` sort lines in a file
-* `uniq` report or filter out repeated lines in a file
 
 ### Get into the flow, with pipes 
 
