@@ -104,9 +104,9 @@ _Note:_ if `git` was not enabled, you might be asked to restart RStudio to enabl
 
 ### Note for Windows Users
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senarios, the git executable may not be available to the default terminal type.
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type.
 
-In addition, some versions of Windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
+In addition, some versions of Windows have difficulties with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
 
 ### Updating a previous R installation
 
@@ -114,7 +114,7 @@ In addition, some versions of Windows have difficults with the command line if y
 
 If you already have R installed, but need to update, and don't want to lose your packages, these two R functions can help you. The first will save all of your packages to a file. The second loads the packages from the file and installs packages that are missing.
 
-Save this script to a file (eg `package_update.R`).
+Save this script to a file (e.g. `package_update.R`).
 
 ```{r, eval = F}
 #' Save R packages to a file. Useful when updating R version
