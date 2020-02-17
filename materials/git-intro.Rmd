@@ -112,13 +112,13 @@ To create a new repository follow these steps:
 ![](images/github-create-repo.png)
 
 
-<img style="align: left;width: 35px;" src=images/tip.png /> Here is a website to look for more pre-written`.gitignore` files: <https://github.com/github/gitignore>
+**Here is a website to look for more pre-written`.gitignore` files: <https://github.com/github/gitignore>**
 
 <br>
 
 **=> Here it is, you now have a repository in the cloud!!** 
 
-<img style="align: left;width: 350px;" src=images/github-cloud-with-repo.png /> 
+![](images/github-cloud-with-repo.png)
 
 <br>
 
@@ -182,7 +182,7 @@ knitr::include_graphics("images/rstudio-project-clone.png")
 
 <br>
 
-** => Congratulations!! you have cloned the repository to your computer and created a RStudio project out of it.**
+**=> Congratulations!! you have cloned the repository to your computer and created a RStudio project out of it.**
 
 ```{r Cloned repository, fig.align='center', echo = FALSE}
 knitr::include_graphics("images/repo-cloned.png")
@@ -231,9 +231,9 @@ These 2-step process enables you to flexibly group files into a specific commit.
 
 These steps are repeated for every version you want to keep (every time you would like to use `save as`). Every time you commit, you create a new snapshot, you add the new version of the file to the git database, while keeping all the previous versions in the database. It creates an history of the content of your repository that is like a graph that you can navigate:
 
-<img style="align: left;width: 200px;" src=images/version-graph_mattJones.png />
+![](images/version-graph_mattJones.png)
 
-### Using git from Rstudio
+### Using git from RStudio
 
 #### Tracking changes
 
@@ -246,7 +246,7 @@ knitr::include_graphics("images/rstudio-git-panel.png")
 ```
 The RStudio Git pane lists every file that’s been added, modified or deleted. The icon describes the change:
 
-```{r RStudio git icons, out.width='80%', fig.align='left', fig.cap="from R packages, H. Wickham", echo = FALSE}
+```{r RStudio git icons, out.width='80%', fig.align='left', echo = FALSE}
 knitr::include_graphics("images/rstudio-git-icons.png")
 ```
 
@@ -303,11 +303,11 @@ knitr::include_graphics("images/rstudio-git-first-commit.png")
 
 Once done, add both the `.gitignore` and the `training-repo.Rproj` and commit those files together.
 
-<img style="align: left;width: 35px;" src=images/tip.png /> Note that the icons at the top of the git pane have been organized in sequence from left to right to match the git workflow.
+**Note that the icons at the top of the git pane have been organized in sequence from left to right to match the git workflow.**
 
 #### Good Commit Message Tips
 
-Clearly, good documentation of what you’ve done is critical to making the version history of your repository meaningful and helpful. Its tempting to skip the commit message altogether, or to add some stock blurd like ‘Updates’. Its better to use messages that will be helpful to your future self in deducing not just what you did, but why you did it. Also, commit messages are best understood if they follow the active verb convention. For example, you can see that my commit messages all started with a past tense verb, and then explained what was changed.
+Clearly, good documentation of what you’ve done is critical to making the version history of your repository meaningful and helpful. Its tempting to skip the commit message altogether, or to add some stock blurb like ‘Updates’. Its better to use messages that will be helpful to your future self in deducing not just what you did, but why you did it. Also, commit messages are best understood if they follow the active verb convention. For example, you can see that my commit messages all started with a past tense verb, and then explained what was changed.
 
 While some of the changes we illustrated here were simple and easily explained in a short phrase, for more complex changes, its best to provide a more complete message. The convention, however, is to always have a short, terse first sentence, followed by a more verbose explanation of the details and rationale for the change. This keeps the high level details readable in the version log. I can’t count the number of times I’ve looked at the commit log from 2, 3, or 10 years prior and been so grateful for diligence of my past self and collaborators.
 
@@ -375,7 +375,7 @@ You can minimize conflicts by:
 ## Exercise
 
 Use RStudio to add a new RMarkdown file to your `training-repo`
-repository, build a basic structure for the file, and then save it.
+repository, add some code, and then save it.
 
 Next, stage and commit the file locally, and push it up to GitHub.
 
