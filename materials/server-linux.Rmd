@@ -77,7 +77,7 @@ In this case, you will be only asked for your password as you already specified 
 * `cd`: Go inside a directory
 * `~` : Home directory
 * `.` : Here (current directory)
-* `..`: Up one level (upper driectory)
+* `..`: Up one level (upper directory)
 
 
 * go to my "Home" directory:  `cd ~`
@@ -100,7 +100,7 @@ More files/directories manipulations:
 
 Navigate to the repo we created and inspect its content using the CLI
 
-**Note: typing is not your thing? the `<tab>` key is your friend!** One hit it will autocomplete the file/directory/path name for you. If there are many options, hit it twice to see the options.
+**Note: typing is not your thing? the `<tab>` key is your friend!** One hit it will auto-complete the file/directory/path name for you. If there are many options, hit it twice to see the options.
 
 ## General command syntax
 
@@ -170,7 +170,7 @@ find . -size +1G -ls
 
 ## Uploading Files
 
-You have several options to upload files to the server. Some are more convenient if you have few files, like RStusio interface, some are more built for uploading a lot of files at one, like specific software... and you guessed it the CLI!
+You have several options to upload files to the server. Some are more convenient if you have few files, like RStudio interface, some are more built for uploading a lot of files at one, like specific software... and you guessed it the CLI!
 
 ### RStudio
 
@@ -180,7 +180,7 @@ You can only upload one file at the time (you can zip a folder to trick it).
 
 ### sFTP Software
 
-An efficient protocole to upload files is FTP (File Transfer Protocol). The `s` stands for secured. Any software supporting those protocoles will work to transfer files. 
+An efficient protocol to upload files is FTP (File Transfer Protocol). The `s` stands for secured. Any software supporting those protocols will work to transfer files. 
 
 We recommend the following free software:
 
