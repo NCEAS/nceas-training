@@ -193,13 +193,13 @@ We recommend the following free software:
 
 The `scp` command is another convenient way to transfer a single file or directory using the CLI. You can run it from Aurora or from your local computer. Here is the basic syntax:
 
-```{bash}
+```
 scp </source/path> <hostname:/path/to/destination/>
 ```
 
 Here is an example of my uploading the file `10min-loop.R` to Aurora from my laptop. The destination directory on Aurora is `/home/brun/github_com/NCEAS/nceas-training/materials/files`:
 
-```{bash}
+```
 scp 10min-loop.R brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-training/materials/files
 ```
 
@@ -208,14 +208,14 @@ scp 10min-loop.R brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-tr
 
 If you want to upload an entire folder, you can add the `-r` option to the command. The general syntax is:
 
-```{bash}
+```
 scp -r /path/to/source-folder user@server:/path/to/destination-folder/
 ```
 
 
 Here is an example uploading all the images in the `myplot` folder 
 
-```{bash}
+```
 scp -r myplots brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-training/materials/images
 ```
 
@@ -290,7 +290,7 @@ $ ls foo 2>/dev/null
 * `emacs`
 * `nano`
 
-```bash
+```
 $ nano .bashrc
 ```
 
