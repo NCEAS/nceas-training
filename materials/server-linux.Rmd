@@ -115,13 +115,13 @@ and `options` can usually take two forms
 
 You can combine the options:
 
-```{bash}
+```bash
 ls -ltrh
 ```
 
 What do these options do?
 
-```{bash}
+```bash
 man ls
 ```
 
@@ -170,11 +170,11 @@ find . -size +1G -ls
 
 ## Uploading Files
 
-You have several options to upload files to the server. Some are more convenient if you have few files, like RStudio interface, some are more built for uploading a lot of files at one, like specific software... and you guessed it the CLI!
+You have several options to upload files to the server. Some are more convenient if you have few files, like RStudio interface, some are more built for uploading a lot of files at one, like specific software... and you guessed it the CLI :)
 
 ### RStudio
 
-You can only upload one file at the time (you can zip a folder to trick it).
+You can only upload one file at the time (you can zip a folder to trick it):
 
 ![](images/rstudio-upload.png)
 
@@ -199,7 +199,7 @@ scp </source/path> <hostname:/path/to/destination/>
 
 Here is an example of my uploading the file `10min-loop.R` to Aurora from my laptop. The destination directory on Aurora is `/home/brun/github_com/NCEAS/nceas-training/materials/files`:
 
-```
+```bash
 scp 10min-loop.R brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-training/materials/files
 ```
 
@@ -208,14 +208,14 @@ scp 10min-loop.R brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-tr
 
 If you want to upload an entire folder, you can add the `-r` option to the command. The general syntax is:
 
-```
+```bash
 scp -r /path/to/source-folder user@server:/path/to/destination-folder/
 ```
 
 
 Here is an example uploading all the images in the `myplot` folder 
 
-```
+```bash
 scp -r myplots brun@aurora.nceas.ucsb.edu:/home/brun/github_com/NCEAS/nceas-training/materials/images
 ```
 
