@@ -231,8 +231,6 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
 Sometimes you want to  combine separate ggplots into the same Figure. The `patchwork` package helps you to do this in a very easy manner: 
 
 ```{r}
-# install.packages("patchwork")
-library(patchwork)
 
 # Plot 1
 p1 <- ggplot(annual_esc, aes(x = Species, y = escapement)) +
