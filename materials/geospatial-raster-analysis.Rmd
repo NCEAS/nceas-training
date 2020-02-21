@@ -248,7 +248,7 @@ copper_pop_3338 <- pop_3338_cover %>%
   filter(region == "Copper River")
 
 # Use those locations to extract the number of pixels wth forest
-forested_count <- extract(forested, copper_pop_3338, buffer=500, fun=sum)
+forested_count <- extract(copper_forested, copper_pop_3338, buffer=500, fun=sum)
 ```
 
 Adding the values back to the main data set:
