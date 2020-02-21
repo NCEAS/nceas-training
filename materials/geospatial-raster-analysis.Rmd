@@ -67,7 +67,7 @@ library(curl)
 library(scales)
 
 
-# House keeping to setup data from the last chapter
+# House keeping to setup data from the vector chapter
 ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
 
 ak_regions_3338 <- ak_regions %>%
@@ -287,7 +287,7 @@ Actually because the original Land Cover raster was using a `img` format, it was
 ```{r eval=FALSE}
 
 # Read the original raster
-lc <- raster("/home/shares/scientist/ds-workshop/ak_nlcd_2011_landcover_1_15_15.img")
+lc <- raster("/home/shares/scientist/ds-workshop/LC30/ak_nlcd_2011_landcover_1_15_15.img")
 
 # Look at the table attached
 lc@data@attributes
