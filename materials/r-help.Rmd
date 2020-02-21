@@ -15,8 +15,17 @@
     * [High-performance](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
     * [Spatial](http://cran.r-project.org/web/views/Spatial.html)
     
-    
-## Solving  errors
+
+## RStudio Website
+
+- Cheat Sheets: https://rstudio.com/resources/cheatsheets/   (Also from RStudio IDE -> Help -> Cheatsheets)
+- Books: https://rstudio.com/resources/books/
+- Webinar series: https://resources.rstudio.com/
+
+
+
+
+## Solving  problems
 
 There are 2 big categories of errors:
 
@@ -29,23 +38,24 @@ Few strategies:
 
 - try to reproduce the problem
 - break it down to narrow the problematic piece of code (the [degugger](https://adv-r.hadley.nz/debugging.html) can help you)
-- try with a fake data set 
+- try with a small sample dataset
+- try with a test dataset you built to test edge cases
 
 ### Search Forums, blogs, ...
 
 * Google :)
-* StackExchange <https://stackexchange.com/> and the more know StackOverflow <https://stackoverflow.com/>
+* StackExchange <https://stackexchange.com/> and the more known StackOverflow <https://stackoverflow.com/>
 * RStudio  <https://education.rstudio.com/> and its community website <https://community.rstudio.com/>
 * RopenSci <https://ropensci.org/about/>
 * r-bloggers
-* Twitter: #rstats
+* Twitter: `#rstats`
 
 
 ### Posting a question
 
-It is recommended to provide a reproducible example when posting a question on forum. There is a great R package to help you to do so `reprex`: https://reprex.tidyverse.org/
+It is recommended to provide a reproducible example when posting a question on a forum. [`reprex`](https://reprex.tidyverse.org/) is a great R package to help you to do so. 
 
-Most of the time, creating a reproducible example on a data sample
+**Most of the time, creating a reproducible example on a data sample will help you to solve your problem on your own**
 
 ## Communities
 
@@ -53,5 +63,12 @@ Most of the time, creating a reproducible example on a data sample
 * Local user groups: [R User Groups](https://www.r-consortium.org/projects/r-user-group-support-program), [R-ladies](https://rladies.org/) on Meetup
 * Universities (e.g. [Software Carpentry workshops](https://software-carpentry.org/))
 
+## NCEAS
 
+NCEAS computing team is here to advise and support your working group!
 
+For data science questions: SciComp@nceas.ucsb.edu
+
+For technical questions: help@nceas.ucsb.edu
+
+For KNB questions: knb-help@nceas.ucsb.edu
