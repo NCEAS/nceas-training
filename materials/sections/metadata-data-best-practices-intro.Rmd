@@ -1,6 +1,6 @@
-# Best Practices: Data and Metadata
+## Best Practices: Data and Metadata
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -10,7 +10,7 @@ In this lesson, you will learn:
 
 Download slides: [Best Practices: Data and Metadata](files/metadata-data-best-practices.pdf)
 
-## Preserving computational workflows
+### Preserving computational workflows
 
 Preservation enables:
 
@@ -47,7 +47,7 @@ of the second and subsequent workflows.
 knitr::include_graphics("images/comp-workflow-2.png")
 ```
 
-## Best Practices: Overview
+### Best Practices: Overview
 
 - Who Must Submit?
 - Organizing Data
@@ -63,19 +63,4 @@ knitr::include_graphics("images/comp-workflow-2.png")
 knitr::include_graphics("images/fjord.png")
 ```
 
-## Organizing Data: Best Practices
 
-Both [@borer_simple_2009] and [@white_nine_2013] provide some practical guidelines
-for organizing and structuring data.  Critical aspects of their recommendations
-include:
-
-- Write scripts for all data manipulation
-    - Uncorrected raw data file
-    - Document processing in scripts
-- Design to add rows, not columns
-    - Each column one variable
-    - Each row one observation
-- Use nonproprietary file formats
-    - Descriptive names, no spaces
-    - Header line
-    

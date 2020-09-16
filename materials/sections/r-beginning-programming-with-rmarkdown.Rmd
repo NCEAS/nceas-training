@@ -1,6 +1,6 @@
-# Introduction to R and RMarkdown
+## Introduction to R and RMarkdown
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson we will:
 
@@ -10,7 +10,7 @@ In this lesson we will:
 - be introduced to built-in R functions
 - learn to use the help pages
 
-## Introduction and Motivation
+### Introduction and Motivation
 
 There is a vibrant community out there that is collectively developing increasingly easy to use and powerful open source programming tools. The changing landscape of programming is making learning how to code easier than it ever has been. Incorporating programming into analysis workflows not only makes science more efficient, but also more computationally reproducible. In this course, we will use the programming language R, and the accompanying integrated development environment (IDE) RStudio. R is a great language to learn for data-oriented programming because it is widely adopted, user-friendly, and (most importantly) open source!
 
@@ -24,7 +24,7 @@ While language is a familiar concept, programming languages are in a different c
 
 
 
-### Resources
+#### Resources
 
 This lesson is a combination of excellent lessons by others. Huge thanks to Julie Lowndes for writing most of this content and letting us build on her material, which in turn was built on Jenny Bryan's materials. I definitely recommend reading through the original lessons and using them as reference:   
 
@@ -56,7 +56,7 @@ Other resources:
 - [MATLAB/R Translation Cheat Sheet](http://mathesaurus.sourceforge.net/octave-r.html)
 
 
-## R at the console
+### R at the console
 
 Launch RStudio/R.
 
@@ -199,7 +199,7 @@ weight_lb
 ```
 
 
-### Error messages are your friends
+#### Error messages are your friends
 
 Implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
 
@@ -211,7 +211,7 @@ Remember that this is a language, not unsimilar to English! There are times you 
 
 And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
 
-### Logical operators and expressions
+#### Logical operators and expressions
 
 A moment about **logical operators and expressions**. We can ask questions about the objects we just made. 
 
@@ -233,7 +233,7 @@ Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates
 RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, Alt+Shift+K brings up a keyboard shortcut reference card.
 
 
-### Clearing the environment
+#### Clearing the environment
 Now look at the objects in your environment (workspace) -- in the upper right pane. The workspace is where user-defined objects accumulate. 
 
 ![](images/RStudio_IDE_env.png)
@@ -259,7 +259,7 @@ rm(list = ls())
 
 or click the broom in RStudio's Environment pane.
 
-## RMarkdown
+### RMarkdown
 
 Now that we know some basic R syntax, let's learn a little about RMarkdown. You will drive yourself crazy (and fail to generate a reproducible workflow!) running code directly in the console. RMarkdown is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the course. 
 
@@ -319,14 +319,14 @@ There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/M
 
 Learn more: http://rmarkdown.rstudio.com/
 
-### Your Turn
+#### Your Turn
 
 1. In Markdown, Write some italic text, and make a numbered list. And add a few subheaders.
 Use the Markdown Quick Reference (in the menu bar: Help > Markdown Quick Reference). 
 1. Reknit your html file. 
 
 
-### Code chunks
+#### Code chunks
 
 OK. Now let's practice with some of those commands.
 
@@ -354,12 +354,12 @@ Now, hitting return does not execute this command; remember, it's just a text fi
     c. keyboard shortcut: command-return
 1. click the green arrow at the right of the code chunk
 
-### Your turn
+#### Your turn
 
 Add a few more commands to your file. Execute them by trying the three ways above. Then, save your R Markdown file. 
 
 
-## R functions, help pages
+### R functions, help pages
 
 So far we've learned some of the basic syntax and concepts of R programming, how to navigate RStudio, and RMarkdown, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
 
@@ -367,7 +367,7 @@ A function is a way to group a set of commands together to undertake a task in a
 
 All functions are called using the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. The pieces of information that the function needs to do its job are called arguments. So the syntax will look something like: `result_value <- function_name(argument1 = value1, argument2 = value2, ...)`. 
 
-### A simple example
+#### A simple example
 
 To take a very simple example, let's look at the `mean()` function. As you might expect, this is a function that will take the mean of a set of numbers. Very convenient!
 
@@ -383,7 +383,7 @@ and use the `mean` function to calculate the mean weight.
 mean(weight_kg)
 ```
 
-### Getting help
+#### Getting help
 
 What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
 
@@ -406,7 +406,7 @@ The help page is broken down into sections:
  - Examples: Some examples for how to use the function.
 
 
-### Your turn
+#### Your turn
 
 > Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`,  `min()`, `max()`, `?log()`).
 
@@ -420,13 +420,13 @@ Not all functions have (or require) arguments:
 date()
 ```
 
-### Use a function to read a file into R
+#### Use a function to read a file into R
 
 So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
 
 Since this is our irst time using this function, first access the help page for `read.csv`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
 
-#### Download a file from the Arctic Data Center
+##### Download a file from the Arctic Data Center
 
 Follow these steps to get set up for the next exercise:
 
@@ -454,7 +454,7 @@ bg_chem <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 
 
 
-## Using `data.frames`
+### Using `data.frames`
 
 A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv`, the object `bg_chem` that we created is a `data.frame`. There are a a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
@@ -489,11 +489,11 @@ plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
 
 There are many more advancted tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course. 
 
-### Your Turn
+#### Your Turn
 
 > Exercise: Spend a few minutes exploring this dataset. Try out different functions on columns using the list subset operator and experiment with different plots. 
 
-## Troubleshooting
+### Troubleshooting
 
 ### My RMarkdown won't knit to PDF
 
@@ -520,7 +520,7 @@ If you get an error that looks like `destination /usr/local/bin not writable`, y
 
 and then try the above install instructions again. More information about `tinytex` can be found [here](https://yihui.name/tinytex/)
 
-### I just entered a command and nothing is happening
+#### I just entered a command and nothing is happening
 
 It may be because you didn't complete a command: is there a little `+` in your console? R is saying that it is waiting for you to finish. In the example below, I need to close that parenthesis.
 
@@ -531,7 +531,7 @@ It may be because you didn't complete a command: is there a little `+` in your c
 
 You can either just type the closing parentheses here and push return, or push the `esc` button twice.
 
-### R says my object is not found
+#### R says my object is not found
 
 New users will frequently see errors that look like this: `Error in mean(myobject) : object 'myobject' not found`
 
@@ -541,11 +541,11 @@ This means that you do not have an object called `myobject` saved in your enviro
 - **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
 - **not executing the line in your RMarkdown**: remember that writing a line of code in RMarkdown is not the same as writing in the console, you have to execute the line of code using command + enter, running the chunk, or one of the other ways outlined in the RMarkdown section of this training
 
-## Literate Analysis
+### Literate Analysis
 
 RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. [Here](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) is an example of a real analysis workflow written using RMarkdown.
 
-## Exercise
+### Exercise
 
 Create an RMarkdown document with some of your own data. If you don't have a good dataset handy, use the example dataset here:
 
