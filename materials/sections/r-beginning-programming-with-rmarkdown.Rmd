@@ -56,7 +56,7 @@ Other resources:
 
 Launch RStudio/R.
 
-![](images/RStudio_IDE.png)
+![](../images/RStudio_IDE.png)
 
 Notice the default panes:
 
@@ -70,7 +70,7 @@ An important first question: **where are we?**
 
 If you've just opened RStudio for the first time, you'll be in your Home directory. This is noted by the `~/` at the top of the console. You can see too that the Files pane in the lower right shows what is in the Home directory where you are. You can navigate around within that Files pane and explore, but note that you won't change where you are: even as you click through you'll still be Home: `~/`.
 
-![](images/RStudio_IDE_homedir.png)
+![](../images/RStudio_IDE_homedir.png)
 
 OK let's go into the Console, where we interact with the live R process.
 
@@ -197,7 +197,7 @@ Implicit contract with the computer/scripting language: Computer will do tedious
 Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean.
 
 ::: {style="width:400px"}
-![](images/practicalDev_googleErrorMessage.jpg)
+![](../images/practicalDev_googleErrorMessage.jpg)
 :::
 
 And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
@@ -225,7 +225,7 @@ weight_kg != 5
 
 Now look at the objects in your environment (workspace) -- in the upper right pane. The workspace is where user-defined objects accumulate.
 
-![](images/RStudio_IDE_env.png)
+![](../images/RStudio_IDE_env.png)
 
 You can also get a listing of these objects with a few different R commands:
 
@@ -257,7 +257,7 @@ An RMarkdown file will allow us to weave markdown text with chunks of R code to 
 File -\> New File -\> RMarkdown... -\> Document of output format HTML, OK.
 
 ::: {style="width:300px"}
-![](images/rstudio_new-rmd-doc-html.png)
+![](../images/rstudio_new-rmd-doc-html.png)
 :::
 
 You can give it a Title like "My Project". Then click OK.
@@ -268,7 +268,7 @@ Let's have a look at this file --- it's not blank; there is some initial text is
 
 -   There are white and grey sections. R code is in grey sections, and other text is in white.
 
-![](images/rmarkdown.png)
+![](../images/rmarkdown.png)
 
 <br>
 
@@ -276,7 +276,7 @@ Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMark
 
 <br>
 
-![](images/rmarkdown_side_by_side.png)
+![](../images/rmarkdown_side_by_side.png)
 
 What do you notice between the two?
 
