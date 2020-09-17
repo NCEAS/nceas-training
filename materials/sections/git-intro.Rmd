@@ -1,7 +1,7 @@
 
-# Version Control With git and GitHub
+## Version Control With git and GitHub
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -11,9 +11,9 @@ In this lesson, you will learn:
 - How to structure your commits so your changes are clear to others
 - How to write effective commit messages
 
-## The problem with filenames
+### The problem with filenames
 
-![](images/phd_comics_final.png)
+![](../images/phd_comics_final.png)
 
 Every file in the scientific process changes.  Manuscripts are edited.
 Figures get revised.  Code gets fixed when problems are discovered.  Data files
@@ -29,7 +29,7 @@ so that when contents change, it can tell you which pieces went where.  It track
 which version of a file a new version came from.  So its easy to draw a graph
 showing all of the versions of a file, like this one:
 
-![](images/version-graph.png)
+![](../images/version-graph.png)
 
 Version control systems assign an identifier to every version of every file, and 
 track their relationships. They also allow branches in those versions, and merging
@@ -41,7 +41,7 @@ exact versions of data, code, and narrative that were used when a manuscript was
 submitted might be `eco-ms-1` in the graph above, and then when it was revised and resubmitted,
 it was done with tag `eco-ms-2`.  A different paper was started and submitted with tag `dens-ms-1`, showing that you can be working on multiple manuscripts with closely related but not identical sets of code and data being used for each, and keep track of it all.
 
-## Version control and Collaboration using Git and GitHub
+### Version control and Collaboration using Git and GitHub
 
 First, just what are `git` and GitHub?
 
@@ -49,32 +49,32 @@ First, just what are `git` and GitHub?
     - git creates the versioned history of a repository
 - __GitHub__: web site that allows users to store their git repositories and share them with others
 
-![](images/vc-local-github.png)
+![](../images/vc-local-github.png)
 
-## Let's look at a GitHub repository
+### Let's look at a GitHub repository
 
 This screen shows the copy of a repository stored on GitHub,
 with its list of files, when the files and directories were last modified, 
 and some information on who made the most recent changes.  
 
-![](images/ss3sim-github.png)
+![](../images/ss3sim-github.png)
 If we drill into the 
 "commits" for the repository, we can see the history of changes made to all of 
 the files.  Looks like `kellijohnson` and `seananderson` were fixing things in
 June and July:
 
-![](images/ss3sim-commits.png)
+![](../images/ss3sim-commits.png)
 
 And finally, if we drill into the changes made on June 13, we can see exactly what
 was changed in each file:
 
-![](images/ss3sim-diff.png)
+![](../images/ss3sim-diff.png)
 Tracking these changes, how they relate to released versions of software and files
 is exactly what Git and GitHub are good for.  And we will show how they can really 
 be effective for tracking versions of scientific code, figures, and manuscripts
 to accomplish a reproducible workflow.
 
-## The Git lifecycle
+### The Git lifecycle
 
 As a git user, you'll need to understand the basic concepts associated with versioned
 sets of changes, and how they are stored and moved across repositories.  Any given
@@ -99,7 +99,7 @@ send local changes up to a remote repository (possibly on GitHub), and the `git 
 command is used to fetch changes from a remote repository and merge them into the
 local repository.
 
-![](images/git-flowchart.png)
+![](../images/git-flowchart.png)
 
 - `git clone`: to copy a whole remote repository to local
 - `git add` (stage): notify git to track particular changes
@@ -112,7 +112,7 @@ local repository.
 Those seven commands are the majority of what you need to successfully use git.  
 But this is all super abstract, so let's explore with some real examples.
 
-## Create a remote repository on GitHub
+### Create a remote repository on GitHub
 
 Let's start by creating a repository on GitHub, then we'll edit some files.
 
@@ -123,26 +123,26 @@ Let's start by creating a repository on GitHub, then we'll edit some files.
 - Set the LICENSE to Apache 2.0
 - Add a .gitignore file for `R`
 
-![](images/new-repo-github.png)
+![](../images/new-repo-github.png)
 You've now created your first repository! It has a couple of files that GitHub created
 for you, like the README.md file, and the LICENSE file, and the .gitignore file.
 
-![](images/sasap-test-repo.png)
+![](../images/sasap-test-repo.png)
 
 For simple changes to text files, you can make edits right in the GitHub web interface.  For example,
 navigate to the `README.md` file in the file listing, and edit it by clicking on the *pencil* icon.
 This is a regular Markdown file, so you can just add text, and when done, add a commit message, and 
 hit the `Commit changes` button.  
 
-![](images/sasap-test-edit.png)
+![](../images/sasap-test-edit.png)
 
-![](images/sasap-test-commit.png)
+![](../images/sasap-test-commit.png)
 
 Congratulations, you've now authored your first versioned commit.  If you navigate back to 
 the GitHub page for the repository, you'll see your commit listed there, as well as the
 rendered README.md file.
 
-![](images/sasap-test-displayed.png)
+![](../images/sasap-test-displayed.png)
 Let's point out a few things about this window.  It represents a view of the repository
 that you created, showing all of the files in the repository so far.  For each file,
 it shows when the file was last modified, and the commit message that was used to last
@@ -157,11 +157,11 @@ to `clone` the repository onto your local machine so that you can edit the files
 in RStudio.  To do so, start by copying the GitHub URL, which represents the repository
 location:
 
-![](images/sasap-test-clone-url.png)
+![](../images/sasap-test-clone-url.png)
 
 
 
-## Working locally with Git via RStudio
+### Working locally with Git via RStudio
 
 For convenience, it would be nice to be able to edit the files locally on our
 computer using RStudio rather than working on the GitHub website. We can do this
@@ -169,7 +169,7 @@ by using the `clone` command to copy the repository from GitHub to our local com
 which then allows us to `push` changes up to GitHub and `pull` down any changes that 
 have occurred.
 
-![](images/github-workflows-owner.png)
+![](../images/github-workflows-owner.png)
 
 We refer to the remote copy of the repository that is on GitHub as the `origin`
 repository (the one that we cloned from), and the copy on our local computer as
@@ -196,14 +196,14 @@ repository anything, its typical to use the same name as the GitHub repository t
 maintain the correspondence.  You can choose any folder for your local copy, in
 my case I used my standard `development` folder.
 
-![](images/rstudio-clone-repo.png)
+![](../images/rstudio-clone-repo.png)
 Once you hit `Create Project, a new RStudio windo will open with all of the files
 from the remote repository copied locally.  Depending on how your version of RStudio
 is configured, the location and size of the panes may differ, but they should all
 be present, including a *Git* tab and the normal *Files* tab listing the files that 
 had been created in the remote repository.
 
-![](images/rstudio-sasap-test.png)
+![](../images/rstudio-sasap-test.png)
 You'll note that there is one new file `sasap-test.Rproj`, and three files that we
 created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
 
@@ -220,12 +220,12 @@ log of changes that occurred, and will be identical to what we viewed on GitHub.
 By clicking on each row of the history, you can see exactly what was added and
 changed in each of the two commits in this repository.
 
-![](images/rstudio-history-1.png)
+![](../images/rstudio-history-1.png)
 __Commit a README.md change.__ Next let's make a change to the README.md file
 in RStudio. Add a new section, with a markdown block like this:
 
 <pre><code>
-## Git from RStudio
+### Git from RStudio
 
 From within RStudio, we can perform the same versioning actions that we can
 in GitHub, and much more.  Plus, we have the natural advantages of the 
@@ -242,19 +242,19 @@ tab, marks as a modification.  You can select the file in the Git tab, and click
 *Diff* to see the differences that you saved (but which are not yet committed to
 your local repository).
 
-![](images/rstudio-status-pane.png)
+![](../images/rstudio-status-pane.png)
 
 And here's what the newly made changes look like compared to the original file.
 New lines are highlighted in green, while removed lines are in red.
 
-![](images/rstudio-diff.png)
+![](../images/rstudio-diff.png)
 __Commit the RStudio changes.__
 
 To commit the changes you made to the README.md file, check the *Staged*
 checkbox next to the file (which tells Git which changes you want included in
 the commit), then provide a descriptive Commit message, and then click *Commit*.
 
-![](images/rstudio-commit-1.png)
+![](../images/rstudio-commit-1.png)
 
 Note that some of the changes in the repository, namely `.gitignore` and 
 `sasap-test.Rproj` are still listed as having not been committed.  This means
@@ -268,7 +268,7 @@ commit has not yet been pushed up to the `origin` repository, where `origin`
 is the typical name for our remote repository on GitHub.  So, let's commit the
 remaining project files by staging them and adding a commit message.
 
-![](images/rstudio-commit-2.png)
+![](../images/rstudio-commit-2.png)
 
 When finished, you'll see that no changes remain in the *Git* tab, and the repository
 is clean.  
@@ -281,7 +281,7 @@ These 2 commits are the two we just made, and have not yet been pushed to GitHub
 By clicking on the *History* button, we can see that there are now a total of
 four commits in the local repository (while there had only been two on GitHub).
 
-![](images/rstudio-history-2.png)
+![](../images/rstudio-history-2.png)
 
 __Push these changes to GitHub.__ Now that everything has been changed as desired
 locally, you can *push* the changes to GitHub using the *Push* button.  This will
@@ -290,15 +290,15 @@ your repository in a totally clean and synchronized state.  When finished, looki
 at the history shows all four commits, including the two that were done on GitHub
 and the two that were done locally on RStudio.  
 
-![](images/rstudio-history-3.png)
+![](../images/rstudio-history-3.png)
 And note that the labels indicate that both the local repository (`HEAD`) and the
 remote repository (`origin/HEAD`) are pointing at the same version in the history.
 So, if we go look at the commit history on GitHub, all the commits will be shown
 there as well.
 
-![](images/github-history.png)
+![](../images/github-history.png)
 
-## On good commit messages
+### On good commit messages
 
 Clearly, good documentation of what you've done is critical to making the version
 history of your repository meaningful and helpful.  Its tempting to skip the 
@@ -316,7 +316,7 @@ This keeps the high level details readable in the version log.  I can't count th
 number of times I've looked at the commit log from 2, 3, or 10 years prior and
 been so grateful for diligence of my past self and collaborators.
 
-## Collaboration and conflict free workflows
+### Collaboration and conflict free workflows
 
 Up to now, we have been focused on using Git and GitHub for yourself, which is a 
 great use. But equally powerful is to share a GitHib repository with other
@@ -338,14 +338,14 @@ You can minimize conflicts by:
 - Coordinate with your collaborators on who is touching which files
   + You still need to comunicate to collaborate
 
-## Exercise
+### Exercise
 
 Use RStudio to add a new RMarkdown file to your `training-test`
 repository, build a basic structure for the file, and then save it.
 
 Next, stage and commit the file locally, and push it up to GitHub.
 
-## Advanced topics
+### Advanced topics
 
 There's a lot we haven't covered in this brief tutorial.  There are some great
 and much longer tutorials that cover advanced topics, such as:

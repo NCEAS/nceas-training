@@ -1,12 +1,12 @@
-# Publishing Analyses to the Web
+## Publishing Analyses to the Web
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
 - How to use git, GitHub (+Pages), and (R)Markdown to publish an analysis to the web
 
-## Introduction
+### Introduction
 
 Sharing your work with others in engaging ways is an important part of the scientific process.
 So far in this course, we've introduced a small set of powerful tools for doing open science:
@@ -21,7 +21,7 @@ RMarkdown, in particular, is amazingly powerful for creating scientific reports 
 
 In this lesson, we're going to take an existing GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
 
-## A Minimal Example
+### A Minimal Example
 
 - Use your existing `nceas-training` repository if you have one
     - If not, Create a new repository on GitHub
@@ -44,7 +44,7 @@ Now, the rendered website version of your repo will show up at a special URL.
     
 GitHub Pages follows a convention like this:
     
-![github pages url pattern](images/github_pages.png)
+![github pages url pattern](../images/github_pages.png)
      
 Note that it will no longer be at github.com but github.io
      
@@ -59,7 +59,7 @@ Now that we've successfully published a web page from an RMarkdown document, let
 - Commit, push
 - Go back to https://{username}.github.io/{repo_name}/
 
-## Exercise: Sharing your work
+### Exercise: Sharing your work
 
 RMarkdown web pages are a great way to share work in progress with your colleagues.  To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed.  You can also include multiple pages and build a simple web site for walking through your work that is accessible to people who aren't all set up to open your content in R.  In this exercise, we'll publish another RMarkdown page, and create a table of contents on the main page to guide people to the main page.
 

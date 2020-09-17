@@ -1,6 +1,6 @@
-# Publication Graphics
+## Publication Graphics
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -8,7 +8,7 @@ In this lesson, you will learn:
 - How to use `ggplot2`'s theming abilities to create publication-grade graphics
 - The basics of the `leaflet` package to create interactive maps
 
-## Overview
+### Overview
 
 ggplot2 is a popular package for visualizing data in R.
 From the [home page](http://ggplot2.tidyverse.org/):
@@ -17,7 +17,7 @@ From the [home page](http://ggplot2.tidyverse.org/):
 It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)).
 This lesson will introduce you to the basic components of working with ggplot2.
 
-### ggplot vs base vs lattice vs XYZ...
+#### ggplot vs base vs lattice vs XYZ...
 
 R provides **many** ways to get your data into a plot.
 Three common ones are,
@@ -31,7 +31,7 @@ I use ggplot2 for most everything else.
 ggplot2 excels at making complicated plots easy and easy plots simple enough.
 
 
-## Setup
+### Setup
 
 First, let's load the packages we'll need:
 
@@ -46,7 +46,7 @@ First, let's load the packages we'll need:
 
 
 
-### Load salmon escapement data
+#### Load salmon escapement data
 
 You can load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
@@ -86,7 +86,7 @@ head(annual_esc)
 That command used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
 
-## Static figures using `ggplot2`
+### Static figures using `ggplot2`
 
 Every graphic you make in `ggplot2` will have at least one aesthetic and at least one geom (layer). The aesthetic maps your data to your geometry (layer). Your geometry specifies the type of plot we're making (point, bar, etc.).
 
@@ -192,7 +192,7 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     my_theme
 ```
 
-### Smarter tick labels using `scales`
+#### Smarter tick labels using `scales`
 
 Fixing tick labels in `ggplot` can be really hard! The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
 
@@ -208,7 +208,7 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     my_theme
 ```
 
-### Creating multiple plots
+#### Creating multiple plots
 
 What if we wanted to generate a plot for every region? A fast way to do this uses the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
 
@@ -224,9 +224,9 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
     my_theme
 ```
 
-## Interactive visualization using `leaflet` and `DT`
+### Interactive visualization using `leaflet` and `DT`
 
-### Tables
+#### Tables
 
 Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website created earlier in the week during [this lesson](publishing-analyses-to-the-web.html).
 
@@ -245,7 +245,7 @@ And display it as an interactive table using `datatable()` from the `DT` package
 datatable(locations)
 ```
 
-### Maps
+#### Maps
 
 Similar to `ggplot2`, you can make a basic `leaflet` map using just a couple lines of code. Note that unlike `ggplot2`, the `leaflet` package uses pipe operators (`%>%`) and not the additive operator (`+`).
 
@@ -281,6 +281,6 @@ leaflet(locations) %>%
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
 
 
-## Resources
+### Resources
 
 - Lisa Charlotte Rost. (2018) [Why not to use two axes, and what to use instead: The case against dual axis charts](https://blog.datawrapper.de/dualaxis/)
