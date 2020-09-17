@@ -1,13 +1,13 @@
-# Hands On: Clean and Integrate Datasets
+## Hands On: Clean and Integrate Datasets
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will:
 
 - Clean and integrate two datasets using dplyr and tidyr
 - Make use of previously-learned knowledge of dplyr and tidyr
 
-## Outline
+### Outline
 
 In this one block, you will load data from the following two datasets into R,
 
@@ -25,7 +25,7 @@ I suggest two strategies:
 2. Use the official [dplyr documentation](http://dplyr.tidyverse.org/)
 3. Once you know what function to use, use R's built-in help by prepending a `?` to the function name and running that (e.g., run `?select` to get help on the `select` function)
 
-## High-level steps
+### High-level steps
 
 The goal here is for you to have to come up with the functions to do the analysis with minimal guidance.
 This is supposed to be hard.
@@ -65,7 +65,7 @@ Note: This need not be the exaxct order your code is written in.
     - Make a table listing annual total escapements and whether they were in the escapement goal range or not
     - Calculate the proportion of years, for each stock, total escapement was within the escapement goal range
 
-### Visual schematic of steps
+#### Visual schematic of steps
 
 Make this:
 
@@ -113,7 +113,7 @@ Igushik River  2015     651172 150000  400000       FALSE
 Igushik River  2016     469230 150000  400000       FALSE
 ```
 
-## Full solution
+### Full solution
 
 Warning: Spoilers!
 

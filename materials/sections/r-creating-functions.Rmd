@@ -1,4 +1,4 @@
-# Creating R Functions
+## Creating R Functions
 
 Many people write R code as a single, continuous stream of commands, often drawn
 from the R Console itself and simply pasted into a script.  While any script 
@@ -8,13 +8,13 @@ this lesson, we will review the advantages of coding with functions, practice
 by creating some functions and show how to call them, and then do some exercises
 to build other simple functions.
 
-## Learning outcomes
+### Learning outcomes
 
 - Learn why we should write code in small functions
 - Write code for one or more functions
 - Document functions to improve understanding and code communication
 
-## Why functions?
+### Why functions?
 
 In a word:
 
@@ -28,7 +28,7 @@ gain:
 - Improved error testing
 
 
-## Temperature conversion
+### Temperature conversion
 
 Imagine you have a bunch of data measured in Fahrenheit and you want to convert
 that for analytical purposes to Celsius.  You might have an R script
@@ -44,7 +44,7 @@ celsius3 <- (airtemps[3]-32)*5/9
 Note the duplicated code, where the same formula is repeated three times.  This
 code would be both more compact and more reliable if we didn't repeat ourselves.
 
-## Creating a function
+### Creating a function
 
 Functions in R are a mechanism to process some input and return a value.  Similarly
 to other variables, functions can be assigned to a variable so that they can be used
@@ -76,7 +76,7 @@ celsius
 
 This takes a vector of temperatures in fahrenheit, and returns a vector of temperatures in celsius.
 
-## Exercise
+### Exercise
 
 Now, create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in celsius as input, and returns the data converted to fahrenheit.  Then use that formula to convert the `celsius` vector back into a vector of fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct.
 
@@ -86,7 +86,7 @@ Now, create a function named `celsius_to_fahr` that does the reverse, it takes t
 
 Did you encounter any issues with rounding or precision?
 
-## Documenting R functions
+### Documenting R functions
 
 Functions need documentation so that we can communicate what they do, and why.  The `roxygen2` package provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
@@ -110,14 +110,14 @@ fahr_to_celsius <- function(fahr) {
 
 Note the use of the `@param` keyword to define the expectations of input data, and the `@return` keyword for defining the value that is returned from the function.  The `@examples` function is useful as a reminder as to how to use the function.  Finally, the `@export` keyword indicates that, if this function were added to a package, then the function should be available to other code and packages to utilize.
 
-## Summary
+### Summary
 
 - Functions are useful to reduce redundancy, reuse code, and reduce errors
 - Build functions with the `function` function
 - Document functions with `roxygen2` comments
 
 
-## Spoiler -- the exercise answered. 
+### Spoiler -- the exercise answered. 
 
 Don't peek until you write your own...
 
