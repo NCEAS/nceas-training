@@ -23,11 +23,11 @@ Before we dive in deeper, let's look at an example of what literate analysis wit
 
 Here are some things to notice about this document, which assembles a set of similar data sources on salmon brood tables with different formatting into a single data source.
 
--  It introduces the data sources using in-line images, links, interactive tables, and interactive maps.
--  An example of document formatting using R is shown.
--  The document executes a set of formatting scripts in a directory to generate a single merged file.
--  Some simple quality checks are performed (and their output shown) on the merged data.
--  Simple analysis and plots are shown.
+-   It introduces the data sources using in-line images, links, interactive tables, and interactive maps.
+-   An example of document formatting using R is shown.
+-   The document executes a set of formatting scripts in a directory to generate a single merged file.
+-   Some simple quality checks are performed (and their output shown) on the merged data.
+-   Simple analysis and plots are shown.
 
 In addition to achieving literate analysis, this document also represents a **reproducible analysis.** Because the entire merging and quality control of the data is done using the R code in the RMarkdown, if a new data source and formatting script are added, the document can be run all at once with a single click to re-generate the quality control, plots, and analysis of the updated data.
 
@@ -35,19 +35,17 @@ RMarkdown is an amazing tool to use for collaborative research, so we will spend
 
 ### Setup
 
-File -\> New File -\> RMarkdown... -\> Document of output format HTML, OK.
+Open a new RMarkdown file using the following prompts:
 
-::: {style="width:300px"}
-![](../images/rstudio_new-rmd-doc-html.png)
-:::
+File -\> New File -\> RMarkdown
 
-You can give it a Title like "My Project". Then click OK.
+A popup window will appear. You can just click the OK button here, or give your file a new title if you wish. Leave the output format as HTML.
 
-### RMarkdown syntax
+### Basic RMarkdown syntax
 
-OK, first off: by opening a file, we are seeing the 4th pane of the RStudio console, which is essentially a text editor. This lets us organize our files within RStudio instead of having a bunch of different windows open.
+The first thing to notice is that by opening a file, we are seeing the 4th pane of the RStudio console, which is essentially a text editor. This lets us organize our files within RStudio instead of having a bunch of different windows open.
 
-Let's have a look at this file --- it's not blank; there is some initial text is already provided for you. Notice a few things about it:
+Let's have a look at this file --- it's not blank; there is some initial text already provided for you. Notice a few things about it:
 
 -   There are white and grey sections. R code is in grey sections, and other text is in white.
 
@@ -71,7 +69,7 @@ More details...
 
 This RMarkdown file has 2 different languages within it: **R** and **Markdown**.
 
-We don't know that much R yet, but you can see that we are taking a summary of some data called 'cars', and then plotting. There's a lot more to learn about R, and we'll get into it for the next few days.
+You can see that we are taking a summary of some data called 'cars', and then plotting. There's a lot more to learn about R, and we'll get into it for the next few days.
 
 The second language is Markdown. This is a formatting language for plain text, and there are only about 15 rules to know.
 
@@ -82,10 +80,10 @@ Notice the syntax for:
 
 There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet) to get you started, and here is one built into RStudio: Go to Help \> Markdown Quick Reference <br /> <br />
 
-**Important**: note that the hashtag `#` is used differently in Markdown and in R:
+**Important**: note that the hash symbol `#` is used differently in Markdown and in R:
 
--   in R, a hashtag indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style.
--   in Markdown, a hashtag indicates a level of a header. And the number you use matters: `#` is a "level one header", meaning the biggest font and the top of the hierarchy. `###` is a level three header, and will show up nested below the `#` and `##` headers.
+-   in R, a hash indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style.
+-   in Markdown, a hash indicates a level of a header. And the number you use matters: `#` is a "level one header", meaning the biggest font and the top of the hierarchy. `###` is a level three header, and will show up nested below the `#` and `##` headers.
 
 Learn more: <http://rmarkdown.rstudio.com/>
 
@@ -94,15 +92,16 @@ Learn more: <http://rmarkdown.rstudio.com/>
 1.  In Markdown, Write some italic text, and make a numbered list. And add a few subheaders. Use the Markdown Quick Reference (in the menu bar: Help \> Markdown Quick Reference).
 2.  Reknit your html file.
 
-#### Code chunks
+### Code chunks
 
-OK. Now let's practice with some of those commands.
+OK. Now let's practice with some of those commands. Delete all of the text in your RMarkdown except for the stuff in the first few rows that it formatted differently. That section is the header, which is formatted using a syntax called YAML.
 
-Create a new chunk in your RMarkdown first in one of these ways:
+Create a new chunk in your RMarkdown in one of these ways:
 
 -   click "Insert \> R" at the top of the editor pane
 -   type by hand \`\`\`{r} \`\`\`
--   if you haven't deleted a chunk that came with the new file, edit that one
+-   using the keyboard shortcut Command + Option + i (for windows, Ctrl + alt + i)
+
 
 Now, let's write some R code.
 
@@ -123,7 +122,9 @@ Now, hitting return does not execute this command; remember, it's just a text fi
 
 #### Your turn
 
-Add a few more commands to your file. Execute them by trying the three ways above. Then, save your R Markdown file.
+Add a few more commands to your code chunk. Execute them by trying the three ways above. 
+
+Question: What is the difference between running code using the green arrow in the chunk and the command-return keyboard shortcut?
 
 ### Troubleshooting
 
