@@ -1,4 +1,4 @@
-## Introduction to R and RMarkdown
+## Introduction to R
 
 ### Learning Objectives
 
@@ -6,7 +6,6 @@ In this lesson we will:
 
 -   get oriented to the RStudio interface
 -   work with R in the console
--   explore RMarkdown
 -   be introduced to built-in R functions
 -   learn to use the help pages
 
@@ -33,23 +32,18 @@ This lesson is a combination of excellent lessons by others. Huge thanks to Juli
 
 [Jenny Bryan's lectures from STAT545 at UBC](https://stat545-ubc.github.io/)
 
--   [R basics, workspace and working directory, RStudio projects](http://stat545-ubc.github.io/block002_hello-r-workspace-wd-project.html)
--   [Basic care and feeding of data in R](http://stat545-ubc.github.io/block006_care-feeding-data.html)
+Here are some other resources that we like for learning R:
 
-RStudio has great resources as well:
+- Learn R in the console with [swirl](https://swirlstats.com/)
+- The [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry's R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course
+- The Stat 545 [course materials](https://stat545.com/r-basics.html)
+- The QCBS [Introduction to R](https://qcbs.ca/wiki/r) lesson (in French)
 
--   [webinars](https://www.rstudio.com/resources/webinars/)
--   [cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
-
-Finally, Hadley Wickham's book R for Data Science is a great resource to get more in depth.
-
-\-[R for Data Science](http://r4ds.had.co.nz/)
 
 Other resources:
 
 -   [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)
 -   [Base R Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf)
--   [RMarkdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 -   [MATLAB/R Translation Cheat Sheet](http://mathesaurus.sourceforge.net/octave-r.html)
 
 ### R at the console
@@ -248,103 +242,10 @@ rm(list = ls())
 
 or click the broom in RStudio's Environment pane.
 
-### RMarkdown
-
-Now that we know some basic R syntax, let's learn a little about RMarkdown. You will drive yourself crazy (and fail to generate a reproducible workflow!) running code directly in the console. RMarkdown is really key for collaborative research, so we're going to get started with it early and then use it for the rest of the course.
-
-An RMarkdown file will allow us to weave markdown text with chunks of R code to be evaluated and output content like tables and plots.
-
-File -\> New File -\> RMarkdown... -\> Document of output format HTML, OK.
-
-::: {style="width:300px"}
-![](../images/rstudio_new-rmd-doc-html.png)
-:::
-
-You can give it a Title like "My Project". Then click OK.
-
-OK, first off: by opening a file, we are seeing the 4th pane of the RStudio console, which is essentially a text editor. This lets us organize our files within RStudio instead of having a bunch of different windows open.
-
-Let's have a look at this file --- it's not blank; there is some initial text is already provided for you. Notice a few things about it:
-
--   There are white and grey sections. R code is in grey sections, and other text is in white.
-
-![](../images/rmarkdown.png)
-
-<br>
-
-Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Create a new folder for it somewhere that you will be able to find again (such as your Desktop or Documents), and name that folder something you'll remember (like `arctic_training_files`).
-
-<br>
-
-![](../images/rmarkdown_side_by_side.png)
-
-What do you notice between the two?
-
-Notice how the grey **R code chunks** are surrounded by 3 backticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`.
-
-Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo=FALSE`.
-
-More details...
-
-This RMarkdown file has 2 different languages within it: **R** and **Markdown**.
-
-We don't know that much R yet, but you can see that we are taking a summary of some data called 'cars', and then plotting. There's a lot more to learn about R, and we'll get into it for the next few days.
-
-The second language is Markdown. This is a formatting language for plain text, and there are only about 15 rules to know.
-
-Notice the syntax for:
-
--   **headers** get rendered at multiple levels: `#`, `##`
--   **bold**: `**word**`
-
-There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet) to get you started, and here is one built into RStudio: Go to Help \> Markdown Quick Reference <br /> <br />
-
-**Important**: note that the hashtag `#` is used differently in Markdown and in R:
-
--   in R, a hashtag indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style.
--   in Markdown, a hashtag indicates a level of a header. And the number you use matters: `#` is a "level one header", meaning the biggest font and the top of the hierarchy. `###` is a level three header, and will show up nested below the `#` and `##` headers.
-
-Learn more: <http://rmarkdown.rstudio.com/>
-
-#### Your Turn
-
-1.  In Markdown, Write some italic text, and make a numbered list. And add a few subheaders. Use the Markdown Quick Reference (in the menu bar: Help \> Markdown Quick Reference).
-2.  Reknit your html file.
-
-#### Code chunks
-
-OK. Now let's practice with some of those commands.
-
-Create a new chunk in your RMarkdown first in one of these ways:
-
--   click "Insert \> R" at the top of the editor pane
--   type by hand \`\`\`{r} \`\`\`
--   if you haven't deleted a chunk that came with the new file, edit that one
-
-Now, let's write some R code.
-
-    x <- 4*3
-    x
-
-Now, hitting return does not execute this command; remember, it's just a text file. To execute it, we need to get what we typed in the the R chunk (the grey R code) down into the console. How do we do it? There are several ways (let's do each of them):
-
-1.  copy-paste this line into the console.
-
-2.  select the line (or simply put the cursor there), and click 'Run'. This is available from
-
-    a.  the bar above the file (green arrow)
-    b.  the menu bar: Code \> Run Selected Line(s)
-    c.  keyboard shortcut: command-return
-
-3.  click the green arrow at the right of the code chunk
-
-#### Your turn
-
-Add a few more commands to your file. Execute them by trying the three ways above. Then, save your R Markdown file.
 
 ### R functions, help pages
 
-So far we've learned some of the basic syntax and concepts of R programming, how to navigate RStudio, and RMarkdown, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
+So far we've learned some of the basic syntax and concepts of R programming, and how to navigate RStudio, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
 
 A function is a way to group a set of commands together to undertake a task in a reusable way. When a function is executed, it produces a return value. We often say that we are "calling" a function when it is executed. Functions can be user defined and saved to an object using the assignment operator, so you can write whatever functions you need, but R also has a mind-blowing collection of built-in functions ready to use. To start, we will be using some built in R functions.
 
@@ -408,7 +309,7 @@ date()
 
 So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
 
-Since this is our irst time using this function, first access the help page for `read.csv`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
+Since this is our first time using this function, first access the help page for `read.csv`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
 
 ##### Download a file from the Arctic Data Center
 
@@ -418,10 +319,10 @@ Follow these steps to get set up for the next exercise:
 2.  Download the first csv file called "BGchem2008data.csv" by clicking the "download" button next to the file.
 3.  Move this file from your `Downloads` folder into a place you can more easily find it. Eg: a folder called `data` in your previously-created directory `arctic_training_files`.
 
-Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In RMarkdown, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to the location of the RMarkdown.** RStudio and RMarkdown have some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, your `read.csv` call will look like this:
+Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, and your working directory is your home directory (`~/`) your `read.csv` call will look like this:
 
 ```{r, eval = F}
-bg_chem <- read.csv("../data/BGchem2008data.csv")
+bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv")
 ```
 
 You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
@@ -432,7 +333,11 @@ You can always specify arguments in `name = value` form. But if you do not, R at
 
 Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
 
-```{r}
+```{r, eval = F}
+bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv", stringsAsFactors = FALSE)
+```
+
+```{r, echo = F}
 bg_chem <- read.csv("../data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 
@@ -475,31 +380,6 @@ There are many more advancted tools and functions in R that will enable you to m
 
 > Exercise: Spend a few minutes exploring this dataset. Try out different functions on columns using the list subset operator and experiment with different plots.
 
-### Troubleshooting
-
-### My RMarkdown won't knit to PDF
-
-If you get an error when trying to knit to PDF that says your computer doesn't have a LaTeX installation, one of two things is likely happening:
-
-1.  Your computer doesn't have LaTeX installed
-2.  You have an installation of LaTeX but RStudio cannot find it (it is not on the path)
-
-If you already use LaTeX (like to write papers), you fall in the second category. Solving this requires directing RStudio to your installation - and isn't covered here.
-
-If you fall in the first category - you are sure you don't have LaTeX installed - can use the R package `tinytex` to easily get an installation recognized by RStudio, as long as you have administrative rights to your computer.
-
-To install `tinytex` run:
-
-```{r, eval = F}
-install.packages("tinytex")
-tinytex::install_tinytex()
-```
-
-If you get an error that looks like `destination /usr/local/bin not writable`, you need to give yourself permission to write to this directory (again, only possible if you have administrative rights). To do this, run this command in the terminal:
-
-    sudo chown -R `whoami`:admin /usr/local/bin
-
-and then try the above install instructions again. More information about `tinytex` can be found [here](https://yihui.name/tinytex/)
 
 #### I just entered a command and nothing is happening
 
@@ -520,27 +400,7 @@ This means that you do not have an object called `myobject` saved in your enviro
 
 -   **typo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
 -   **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
--   **not executing the line in your RMarkdown**: remember that writing a line of code in RMarkdown is not the same as writing in the console, you have to execute the line of code using command + enter, running the chunk, or one of the other ways outlined in the RMarkdown section of this training
+-   **not executing the line in your script**: remember that writing a line of code in a script or RMarkdown document is not the same as writing in the console, you have to execute the line of code using command + enter or using one of the several ways in the RStudio graphical user interface.
 
-### Literate Analysis
 
-RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. [Here](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) is an example of a real analysis workflow written using RMarkdown.
 
-### Exercise
-
-Create an RMarkdown document with some of your own data. If you don't have a good dataset handy, use the example dataset here:
-
-[Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
-
-Your document should contain the following sections:
-
--   Introduction to your dataset
-
-    -   Include an external link
-
--   Simple analysis
-
--   Presentation of a result
-
-    -   A plot
-    -   In-line description of results
