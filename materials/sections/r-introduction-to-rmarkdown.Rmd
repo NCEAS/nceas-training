@@ -49,7 +49,7 @@ Let's have a look at this file --- it's not blank; there is some initial text al
 
 -   There are white and grey sections. R code is in grey sections, and other text is in white.
 
-![](../images/rmarkdown.png)
+![](images/rmarkdown.png)
 
 <br>
 
@@ -57,7 +57,7 @@ Let's go ahead and "Knit HTML" by clicking the blue yarn at the top of the RMark
 
 <br>
 
-![](../images/rmarkdown_side_by_side.png)
+![](images/rmarkdown_side_by_side.png)
 
 What do you notice between the two?
 
@@ -238,6 +238,8 @@ Why not use `read.csv` from base R? We chose to show `read_csv` from the `readr`
 #### Calculate Summary Statistics
 
 As our "analysis" we are going to calculate some very simple summary statistics and generate a single plot.
+
+Create a new R chunk, and use it to calculate the mean nitrate (NO3), nitrite (NO2), ammonium (NH4), and phosphate (P) measured. Save these mean values as new variables.
 
 
 ### Troubleshooting
