@@ -266,7 +266,7 @@ ratio <- (nitrate + nitrite + amm)/phos
 
 You can access this variable in your Markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single backtick \`, the letter "r", whatever your simple R command is - here we will use `round(ratio)` to print the calculated ratio, and a closing backtick \`. So: \` `r round(ratio)` \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task. The text as it looks in your RMrakdown will look like this:
 
-The Redfield ratio for this dataset is approximately \`r round(ratio)\`.
+The Redfield ratio for this dataset is approximately \`r `round(ratio)`\`.
 
 And the rendered text like this:
 
