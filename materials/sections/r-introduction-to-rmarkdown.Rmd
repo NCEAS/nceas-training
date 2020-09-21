@@ -237,10 +237,35 @@ Why not use `read.csv` from base R? We chose to show `read_csv` from the `readr`
 
 #### Calculate Summary Statistics
 
-As our "analysis" we are going to calculate some very simple summary statistics and generate a single plot.
+As our "analysis" we are going to calculate some very simple summary statistics and generate a single plot. We will be examining the ratio of nitrogen to phospate atoms measured to see how closely the data match the redfield ratio, which is the consistent 16:1 ratio of nitrogen to phosphorous atoms found in marine phytoplanton.
 
-Create a new R chunk, and use it to calculate the mean nitrate (NO3), nitrite (NO2), ammonium (NH4), and phosphate (P) measured. Save these mean values as new variables.
+Create a new top level header called "Analysis". Under this header, create a new R chunk, and use it to calculate the mean nitrate (NO3), nitrite (NO2), ammonium (NH4), and phosphorous (P) measured. Save these mean values as new variables with easily understandable names, and write a (brief) description of your operation using markdown in your analysis section.
 
+```{r}
+nitrate <- mean(bg_chem$NO3)
+nitrite <- mean(bg_chem$NO2)
+amm <- mean(bg_chem$NH4)
+phos <- mean(bg_chem$P)
+```
+
+In another chunk, use those variables to calculate the nitrogen:phosphate ratio.
+
+```{r}
+ratio <- (nitrate + nitrite + amm)/phos
+```
+
+You can access this variable in your Markdown text by using R in-line in your text. The syntax to call R in-line is a single backtick \`, the letter "r", whatever your simple R command is - here we will use `round(ratio)` to print the calculated ratio, and a closing backtick \`. So: \` r `round(ratio)` \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task. The result will look like this:
+
+The Redfield ratio for this dataset is approximately `r round(ratio)`.
+
+We can also create a simple plot using base R that plots the ratio of the individual measurements, as opposed to looking at mean ratio.
+
+```{r}
+plot(bg_chem$P, bg_chem$NO2 + bg_chem$NO3 + bg_chem$NH4)
+```
+##### Challenge {.exercise -#challenge}
+
+Decide whether or not you want the code to show up in your knitted document along with the plot, and implement your decision as a chunk option.
 
 ### Troubleshooting
 
