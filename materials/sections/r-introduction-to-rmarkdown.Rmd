@@ -33,7 +33,7 @@ In addition to achieving literate analysis, this document also represents a **re
 
 RMarkdown is an amazing tool to use for collaborative research, so we will spend some time learning it well now, and use it through the rest of the course.
 
-### Setup
+#### Setup
 
 Open a new RMarkdown file using the following prompts:
 
@@ -63,7 +63,7 @@ What do you notice between the two?
 
 Notice how the grey **R code chunks** are surrounded by 3 backticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`.
 
-Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo=FALSE`.
+Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo = FALSE`. RMarkdown has lots of chunk options, including ones that allow for code to be run but not shown (`echo = FALSE`), code to be shown but not run (`eval = FALSE`), code to be run, but results not shown (`results = 'hide'`), or any combination of those.
 
 More details...
 
@@ -87,16 +87,22 @@ There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/M
 
 Learn more: <http://rmarkdown.rstudio.com/>
 
-#### Your Turn
+#### Challenge {.exercise}
 
 1.  In Markdown, Write some italic text, and make a numbered list. And add a few subheaders. Use the Markdown Quick Reference (in the menu bar: Help \> Markdown Quick Reference).
 2.  Reknit your html file.
 
 ### Code chunks
 
-OK. Now let's practice with some of those commands. Delete all of the text in your RMarkdown except for the stuff in the first few rows that it formatted differently. That section is the header, which is formatted using a syntax called YAML.
+First, do what I do every time I open a new RMarkdown: delete everything below the "setup chunk" (line 10). The setup chunk is the one that looks like this: 
 
-Create a new chunk in your RMarkdown in one of these ways:
+```
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a very useful chunk that will set the default R chunk options for your entire document. I like keeping it in my document so that I can easily modify default chunk options based on the audience for my RMarkdown. For example, if I know my document is going to be a report for a non-technical audience, I might set `echo = FALSE` in my setup chunk, that way all of the text, plots, and tables appear in the knitted document. The code is still run, but doesn't display in the final document.
+
+OK. Now let's practice with some R chunks. You can Create a new chunk in your RMarkdown in one of these ways:
 
 -   click "Insert \> R" at the top of the editor pane
 -   type by hand \`\`\`{r} \`\`\`
@@ -110,7 +116,7 @@ Now, let's write some R code.
 
 Now, hitting return does not execute this command; remember, it's just a text file. To execute it, we need to get what we typed in the the R chunk (the grey R code) down into the console. How do we do it? There are several ways (let's do each of them):
 
-1.  copy-paste this line into the console.
+1.  copy-paste this line into the console (generally not recommended as a primary method)
 
 2.  select the line (or simply put the cursor there), and click 'Run'. This is available from
 
@@ -120,11 +126,119 @@ Now, hitting return does not execute this command; remember, it's just a text fi
 
 3.  click the green arrow at the right of the code chunk
 
-#### Your turn
+#### Challenge {.exercise}
 
 Add a few more commands to your code chunk. Execute them by trying the three ways above. 
 
-Question: What is the difference between running code using the green arrow in the chunk and the command-return keyboard shortcut?
+**Question**: What is the difference between running code using the green arrow in the chunk and the command-return keyboard shortcut?
+
+
+### Literate analysis practice
+
+Now that we have gone over the basics, let's go a little deeper by building a simple, small RMarkdown document that represents a literate analysis.
+
+#### Setup
+
+- Navigate to the following dataset: [https://doi.org/10.18739/A25T3FZ8X](https://doi.org/10.18739/A25T3FZ8X)
+- Download the file "BGchem2008data.csv"
+- Move the downloaded file from your Downloads directory into the *same* directory you have saved this file (eg: arctic-training-files).
+
+#### Introduction to the dataset
+
+Since this is a literate analysis, one of the things we will need to do in order to explain our analysis is explain, at least briefly, what the dataset is and where it came from. With that in mind do the following exercise:
+
+##### Challenge {.exercise}
+
+Write an introduction section in Markdown, below your setup chunk, that includes the following items:
+
+- Top level introduction header
+- Sentence or two about the dataset, including a citation (it can be plain text)
+- Hyperlink to the dataset
+
+#### Read in the data
+
+To read the data into our environment, we will use a function from the `readr` package. R packages are the building blocks of computational reproducibility in R. Each package contains a set of related functions that enable you to more easily do a task or set of tasks in R. There are thousands of community-maintained packages out there for just about every imaginable use of R - including many that you have probably never thought of!
+
+To install a package, we use the syntax `install.packages('packge_name')`. A package only needs to be installed once, so this code can be run directly in the console if needed. To use a package in our analysis, we need to load it into our environment using `library(package_name)`. Loading the library is a key part of the reproducible aspect of our Rmarkdown, so we will include it as an R chunk. It is generally good practice to include all of your `library` calls in a single, dedicated R chunk near the top of your document. This lets collaborators know what packages they might need to install before they start running your code.
+
+You should have already installed `readr` as part of the setup for this course, so add a new R chunk below your setup chunk that calls the `readr` library. It should look like this:
+
+```{r}
+library(readr)
+```
+
+
+Now, below the introduction that you wrote, add a chunk that uses the `read_csv` function to read in your data file.
+
+##### About RMarkdown paths {-#about-rmarkdown-paths}
+
+In computing, a path specifies the unique location of a file on the filesystem. A path can come in one of two forms: absolute or relative. **Absolute** paths start at the very top of your file system, and work their way down the directory tree to the file. **Relative** paths start at an arbitrary point in the file system. In R, this point is set by your working directory. 
+
+RMarkdown has a special way of handling relative paths that can be very handy. When working in an RMarkdown document, R will set all paths relative **to the location of the RMarkdown file.** This way, you don't have to worry about setting a working directory, or changing your colleagues absolute path structure with the correct user name, etc. If your RMarkdown is stored near where the data it analyses are stored (good practice, generally), setting paths becomes much easier!
+
+If you saved your "BGchem2008data.csv" data file in the same location as your Rmd, you can just write the following to read it in. The help page (`?read_csv`, in the console) for this function tells you that the first argument should be a pointer to the file.
+
+```{r, eval = F}
+bg_chem <- read_csv("BGchem2008data.csv")
+```
+
+```
+Parsed with column specification:
+cols(
+  Date = col_date(format = ""),
+  Time = col_datetime(format = ""),
+  Station = col_character(),
+  Latitude = col_double(),
+  Longitude = col_double(),
+  Target_Depth = col_double(),
+  CTD_Depth = col_double(),
+  CTD_Salinity = col_double(),
+  CTD_Temperature = col_double(),
+  Bottle_Salinity = col_double(),
+  d18O = col_double(),
+  Ba = col_double(),
+  Si = col_double(),
+  NO3 = col_double(),
+  NO2 = col_double(),
+  NH4 = col_double(),
+  P = col_double(),
+  TA = col_double(),
+  O2 = col_double()
+)
+Warning messages:
+1: In get_engine(options$engine) :
+  Unknown language engine 'markdown' (must be registered via knit_engines$set()).
+2: Problem with `mutate()` input `Lower`.
+ℹ NAs introduced by coercion
+ℹ Input `Lower` is `as.integer(Lower)`. 
+3: In mask$eval_all_mutate(dots[[i]]) : NAs introduced by coercion
+```
+
+```{r echo=F, message=FALSE, warning=FALSE}
+bg_chem <- read_csv("../data/BGchem2008data.csv")
+```
+
+If you run this line in your RMarkdown document, you should see the `bg_chem` object populate in your environment pane. It also spits out lots of text explaining what types the function parsed each column into. This text is important, and should be examined, but we might not want it in our final document. 
+
+##### Challenge {.exercise}
+
+Use one of two methods to figure out how to suppress **warning** and **message** text in your chunk output:
+
+1. The gear icon in the chunk, next to the play button
+2. The [RMarkdown quick reference](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+#### Aside {-#aside}
+
+Why not use `read.csv` from base R? We chose to show `read_csv` from the `readr` package for a few reasons. One is to introduce the concept of packages and showing how to load them, but `read_csv` has several advantages over `read.csv`.
+
+- more reasonable function defaults (no stringsAsFactors!)
+- smarter column type parsing, especially for dates
+- it is **much** faster than `read.csv`, which is helpful for large files
+
+#### Calculate Summary Statistics
+
+As our "analysis" we are going to calculate some very simple summary statistics and generate a single plot.
+
 
 ### Troubleshooting
 
