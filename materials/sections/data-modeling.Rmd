@@ -61,7 +61,7 @@ Columns correspond to **variables**. If you look down a column, and see that mul
 
 #### Marginal sums and statistics {-}
 
-Marginal sums and statistics also are not considered tidy, ad they are not the same type of observation as the other rows. Instead, they are a combination of observations.
+Marginal sums and statistics also are not considered tidy, and they are not the same type of observation as the other rows. Instead, they are a combination of observations.
 
 ![](images/excel-org-05.png)
 
@@ -95,7 +95,7 @@ People often refer to this as *wide* format, because the observations are spread
 -   All columns pertain to the same observed entity (e.g., row)
 -   Each column represents either an identifying variable or a measured variable
 
-#### Challenge {-}
+#### Challenge {- .exercise}
 
 Try to answer the following questions:
 
@@ -111,7 +111,7 @@ If we use these questions to tidy our data, we should end up with:
 - one column for each measured variable
 - additional columns for identifying variables (such as site ID)
 
-Here is what our tidy data looks like:
+Here is what our tidy data look like:
 
 ![](images/tables-norm.png)
 
@@ -150,7 +150,7 @@ The `site` column is the *primary key* of that table because it uniquely identif
 
 ![](images/tables-keys.png)
 
-### Entity-Relationship Model (ER)
+#### Entity-Relationship Model (ER) {-}
 
 An Entity-Relationship model allows us to compactly draw the structure of the tables in a relational database, including the primary and foreign keys in the tables.
 
@@ -158,7 +158,7 @@ An Entity-Relationship model allows us to compactly draw the structure of the ta
 
 In the above model, one can see that each site in the `SITES` table must have one or more observations in the `PLOTOBS` table, whereas each `PLOTOBS` has one and only one `SITE`.
 
-### Merging data
+#### Merging data {-}
 
 Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other.
 
@@ -193,6 +193,8 @@ region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/
 datatable(region_defs)
 ```
 
+#### Challenge {- .exercise}
+
 -   Draw an ER model for the tables
 
     -   Indicate the primary and foreign keys
@@ -207,7 +209,7 @@ datatable(region_defs)
 
 ![](images/ERD_Relationship_Symbols_Quick_Reference-1.png)
 
-### Related resources
+### Resources
 
 -   [Borer et al. 2009. **Some Simple Guidelines for Effective Data Management.** Bulletin of the Ecological Society of America.](http://matt.magisa.org/pubs/borer-esa-2009.pdf)
 -   [White et al. 2013. **Nine simple ways to make it easier to (re)use your data.** Ideas in Ecology and Evolution 6.](https://doi.org/10.4033/iee.2013.6b.6.f)
