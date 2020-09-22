@@ -53,7 +53,7 @@ Let's have a look at this file --- it's not blank; there is some initial text al
 
 <br>
 
-Let's go ahead and "Knit" the document by clicking the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Create a new folder for it somewhere that you will be able to find again (such as your Desktop or Documents), and name that folder something you'll remember (like `arctic_training_files`).
+Let's go ahead and "Knit" the document by clicking the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Save it in the top level of your home directory on the server, and name it something that you will remember (like `rmarkdown-intro.Rmd`).
 
 <br>
 
@@ -61,7 +61,7 @@ Let's go ahead and "Knit" the document by clicking the blue yarn at the top of t
 
 What do you notice between the two?
 
-First, the knit process produced a second file (an HTML file) that popped up in a second window. You'll also see this file in your `arctic_training_files` directory with the same name as your Rmd, but with the html extension. In it's simplest format, RMarkdown files come in pairs - the RMarkdown file, and its rendered version. In this case, we are knitting, or rendering, the file into HTML. You can also knit to PDF or Word files.
+First, the knit process produced a second file (an HTML file) that popped up in a second window. You'll also see this file in your directory with the same name as your Rmd, but with the html extension. In it's simplest format, RMarkdown files come in pairs - the RMarkdown file, and its rendered version. In this case, we are knitting, or rendering, the file into HTML. You can also knit to PDF or Word files.
 
 Notice how the grey **R code chunks** are surrounded by 3 backticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`. The label next to the letter r in the code chunk syntax is a chunk label - this can help you navigate your RMarkdown document using the dropdown menu at the bottom of the editor pane.
 
@@ -135,7 +135,8 @@ Now that we have gone over the basics, let's go a little deeper by building a si
 
 - Navigate to the following dataset: [https://doi.org/10.18739/A25T3FZ8X](https://doi.org/10.18739/A25T3FZ8X)
 - Download the file "BGchem2008data.csv"
-- Move the downloaded file from your Downloads directory into the *same* directory you have saved this file (eg: `arctic-training-files`).
+- Click the "Upload" button in your RStudio server file browser.
+- In the dialog box, make sure the destination directory is the **same** directory where your RMarkdown file is saved (likely your home directory), click "choose file," and locate the BGchem2008data.csv file. Press "ok" to upload the file.
 
 #### Developing code in RMarkdown
 
