@@ -136,10 +136,15 @@ for you, like the README.md file, and the LICENSE file, and the .gitignore file.
 
 ![](images/sasap-test-repo.png)
 
-For simple changes to text files, you can make edits right in the GitHub web interface.  For example,
-navigate to the `README.md` file in the file listing, and edit it by clicking on the *pencil* icon.
-This is a regular Markdown file, so you can just add text, and when done, add a commit message, and 
+For simple changes to text files, you can make edits right in the GitHub web interface.
+
+#### Challenge {- .exercise}
+
+Navigate to the `README.md` file in the file listing, and edit it by clicking on the *pencil* icon.
+This is a regular Markdown file, so you can just add markdown text. When done, add a commit message, and 
 hit the `Commit changes` button.  
+
+#### {-}
 
 ![](images/sasap-test-edit.png)
 
@@ -237,24 +242,18 @@ changed in each of the two commits in this repository.
 
 ![](images/rstudio-history-1.png)
 
-__Commit a README.md change.__ Next let's make a change to the README.md file
-in RStudio. Add a new section, with a markdown block like this:
 
-<pre><code>
-#### Git from RStudio {-}
+#### Challenge {- .exercise}
 
-From within RStudio, we can perform the same versioning actions that we can
-in GitHub, and much more.  Plus, we have the natural advantages of the 
-programming IDE with code completion and other features to make our work
-easier.
+__Commit a README.md change.__ Next let's make a change to the README.md file, this time from RStudio.
+in RStudio.
 
-- Add files to version control
-- Commit changes
-- Push commits to GitHub
-</code></pre>
+Add a new section to your markdown using a header, and under it include a list three advantages to using git.
+
+#### {-}
 
 Once you save, you'll immediately see the *README.md* file show up in the Git
-tab, marks as a modification.  You can select the file in the Git tab, and click
+tab, marked as a modification.  You can select the file in the Git tab, and click
 *Diff* to see the differences that you saved (but which are not yet committed to
 your local repository).
 
@@ -307,6 +306,7 @@ at the history shows all four commits, including the two that were done on GitHu
 and the two that were done locally on RStudio.  
 
 ![](images/rstudio-history-3.png)
+
 And note that the labels indicate that both the local repository (`HEAD`) and the
 remote repository (`origin/HEAD`) are pointing at the same version in the history.
 So, if we go look at the commit history on GitHub, all the commits will be shown
@@ -314,11 +314,13 @@ there as well.
 
 ![](images/github-history.png)
 
-#### On good commit messages {- .aside}
+#### Aside {- .aside}
+
+**What should I write in my commit message?**
 
 Clearly, good documentation of what you've done is critical to making the version
 history of your repository meaningful and helpful.  Its tempting to skip the 
-commit message altogether, or to add some stock blurb like 'Updates'.  Its better
+commit message altogether, or to add some stock blurb like 'Updates'.  It's better
 to use messages that will be helpful to your future self in deducing not just what
 you did, but why you did it.  Also, commit messaged are best understood if they
 follow the active verb convention.  For example, you can see that my commit
@@ -352,7 +354,7 @@ You can minimize conflicts by:
   + Ensures that you have the most recent changes
   + But you may have to fix your code if conflict would have occurred
 - Coordinate with your collaborators on who is touching which files
-  + You still need to comunicate to collaborate
+  + You still need to communicate to collaborate
 
 #### Challenge {- .exercise}
 
