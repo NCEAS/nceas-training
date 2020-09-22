@@ -19,7 +19,7 @@ Analyses take many shapes, but they often conform to what is known as the Split-
 -   **Apply:** Calculate some summary statistic on each group (e.g. mean total length by year)
 -   **Combine:** Combine the groups back together into a single table
 
-![Figure 1: diagram of the split apply combine strategy](../images/split-apply-combine-diagram.png)
+![Figure 1: diagram of the split apply combine strategy](images/split-apply-combine-diagram.png)
 
 As shown above (Figure 1), our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
 
@@ -102,18 +102,53 @@ In this lesson we're going to walk through the functions you'll most commonly us
     -   `extract()`
     -   `separate()`
 
-### Setup
+
+
+### Data Cleaning Basics
 
 To demonstrate, we'll be working with a tidied up version of a dataset from ADF&G containing commercial catch data from 1878-1997. The dataset and reference to the original source can be found at its public archive: <https://knb.ecoinformatics.org/#view/df35b.304.2>.
 
-First, let's load `dplyr` and `tidyr`:
+First, open a new RMarkdown document. Delete everything below the setup chunk, and add a library chunk that calls `dplyr`, `tidyr`, and `readr`:
 
 ```{r, message = F, warning = F}
 library(dplyr)
 library(tidyr)
+library(readr)
 ```
 
-Now follow these steps:
+#### Aside {- .aside}
+
+**A note on loading packages.**
+
+You may have noticed the following warning messages pop up when you ran your library chunk.
+
+```
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+```
+
+These are important warnings. They are letting you know that certain functions from the `stats` and `base` packages (which are loaded by default when you start R) are masked by *different functions* with the same name in the `dplyr` package. It turns out, the order that you load the packages in matters. Since we loaded `dplyr` after `stats`, R will assume that if you call `filter`, you mean the `dplyr` version unless you specify otherwise.
+
+Being specific about which version of `filter`, for example, you call is easy. To explicitly call a function by its unambiguous name, you use the syntax `package_name::function_name(...)`. So, if I wanted to call the `stats` version of `filter` in this Rmarkdown document, I would use the syntax `stats::filter(...)`.
+
+#### {-}
+
+#### Challenge {- .exercise}
+
+The warnings above are important, but we might not want them in our final document. After you have read them, adjust the chunk settings on your library chunk to suppress warnings and messages.
+
+#### {-}
+
+Now that we have learned a little mini-lesson on functions, let's get the data that we are going to use for this lesson.
+
+#### Setup {- .exercise}
 
 1.  Navigate to the salmon catch dataset: <https://knb.ecoinformatics.org/#view/df35b.304.2>
 
@@ -121,19 +156,34 @@ Now follow these steps:
 
 3.  Select "copy link address" from the dropdown menu
 
-4.  Paste the URL into a `read.csv` call like below
+4.  Paste the URL into a `read_csv` call like below
 
-    -   note that windows users also need to use the `url` function here with `method = "libcurl"`
+    -   note that windows users who want to use this method locally also need to use the `url` function here with the argument `method = "libcurl"`
+    
 
-```{r, cache=TRUE}
-catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
-                    stringsAsFactors = FALSE)
-head(catch_original)
+#### {-}
+
+The code chunk you use to read in the data should look something like this:
+
+```{r, cache=TRUE, message = F}
+catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
 This dataset is relatively clean and easy to interpret as-is. But while it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
 
-### About the pipe (`%>%`) operator
+#### Challenge {- .exercise}
+
+Before we get too much further, spend a minute or two outlining your RMarkdown document so that it includes the following sections and steps:
+
+- Data Sources
+  - read in the data
+- Clean and Reshape data
+  - remove unnecessary columns
+  - check column typing
+  - reshape data
+- Join to Regions dataset
+
+#### About the pipe (`%>%`) operator {-}
 
 Before we jump into learning `tidyr` and `dplyr`, we first need to explain the `%>%`.
 
@@ -160,7 +210,7 @@ The benefits to using pipes are that you don't have to keep track of (or overwri
 
 RStudio has a keyboard shortcut for `%>%` : Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac).
 
-### Selecting/removing columns: `select()`
+#### Selecting/removing columns: `select()` {-}
 
 The first issue is the extra columns `All` and `notesRegCode`. Let's select only the columns we want, and assign this to a variable called `catch_data`.
 
@@ -182,7 +232,7 @@ catch_data <- catch_original %>%
 head(catch_data)
 ```
 
-### Quality Check
+#### Quality Check {-}
 
 Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `summary` function.
 
@@ -192,7 +242,7 @@ summary(catch_data)
 
 Notice something seems a bit off? The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
 
-### Changing column content: `mutate()`
+#### Changing column content: `mutate()` {-}
 
 We can use the `mutate` function to change a column, or to create a new column. First Let's try to just convert the Chinook catch values to `numeric` type using the `as.numeric()` function, and overwrite the old Chinook column.
 
@@ -230,7 +280,7 @@ catch_clean <- catch_data %>%
 head(catch_clean)
 ```
 
-### Changing shape: `pivot_longer()` and `pivot_wider()`
+#### Changing shape: `pivot_longer()` and `pivot_wider()` {-}
 
 The next issue is that the data are in a wide format and, we want the data in a tall format instead. `pivot_longer()` from the `tidyr` package helps us do just this conversion:
 
@@ -254,7 +304,7 @@ catch_wide <- catch_long %>%
 head(catch_wide)
 ```
 
-### Renaming columns with `rename()`
+#### Renaming columns with `rename()` {-}
 
 If you scan through the data, you may notice the values in the `catch` column are very small (these are supposed to be annual catches). If we look at [the metadata](https://knb.ecoinformatics.org/#view/df35b.304.2) we can see that the `catch` column is in thousands of fish so let's convert it before moving on.
 
@@ -267,7 +317,7 @@ catch_long <- catch_long %>%
 head(catch_long)
 ```
 
-### Adding columns: `mutate()`
+#### Adding columns: `mutate()` {-}
 
 Now let's use `mutate` again to create a new column called `catch` with units of fish (instead of thousands of fish).
 
@@ -290,7 +340,7 @@ head(catch_long)
 
 We're now ready to start analyzing the data.
 
-### `group_by` and `summarise`
+#### `group_by` and `summarise` {-}
 
 As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarise()` functions:
 
@@ -315,7 +365,7 @@ n_region <- catch_long %>%
 head(n_region)
 ```
 
-### Filtering rows: `filter()`
+#### Filtering rows: `filter()` {-}
 
 `filter()` is the verb we use to filter our `data.frame` to rows matching some condition. It's similar to `subset()` from base R.
 
@@ -331,7 +381,7 @@ head(SSE_catch)
 -   **Exercise:** Filter to just catches of over one million fish.
 -   **Exercise:** Filter to just SSE Chinook
 
-### Sorting your data: `arrange()`
+#### Sorting your data: `arrange()` {-}
 
 `arrange()` is how we sort the rows of a `data.frame`. In my experience, I use `arrange()` in two common cases:
 
@@ -370,7 +420,7 @@ The dataset we're working with, <https://knb.ecoinformatics.org/#view/df35b.304.
 
 Let's look at a preview of what our join will do by looking at a simplified version of our data:
 
-![Visualisation of our `left_join`](../images/left_join_catchdata.png)
+![Visualisation of our `left_join`](images/left_join_catchdata.png)
 
 First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
 
@@ -406,7 +456,7 @@ head(catch_joined)
 
 Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just left\_join.
 
-### `separate()` and `unite()`
+#### `separate()` and `unite()` {-}
 
 `separate()` and its complement, `unite()` allow us to easily split a single column into numerous (or numerous into a single).
 
@@ -461,7 +511,7 @@ dates_df %>%
 # Write your solution here
 ```
 
-### Summary
+#### Summary {-}
 
 We just ran through the various things we can do with `dplyr` and `tidyr` but if you're wondering how this might look in a real analysis. Let's look at that now:
 
