@@ -1,6 +1,6 @@
-# RStudio and Git/GitHub Setup and Motivation
+## RStudio and Git/GitHub Setup and Motivation
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -9,7 +9,8 @@ In this lesson, you will learn:
 - How to check to make sure your RStudio environment is set up properly for analysis
 - How to set up git
 
-## Reproducible Research
+### Introduction to reproducible research
+
 Reproducibility is the hallmark of science, which is based on empirical observations 
 coupled with explanatory models.  While reproducibility encompasses 
 the full science lifecycle, and includes issues such as methodological consistency and
@@ -18,7 +19,7 @@ the ability to document data, analyses, and models sufficiently for other resear
 to be able to understand and ideally re-execute the computations that led to 
 scientific results and conclusions.
 
-### What is needed for computational reproducibility?
+#### What is needed for computational reproducibility? {-}
 
 The first step towards addressing these issues is to be able to evaluate the data,
 analyses, and models on which conclusions are drawn.  Under current practice, 
@@ -32,7 +33,7 @@ reproducibility through open science approaches, including straightforward steps
 for archiving data and code openly along with the scientific workflows describing 
 the provenance of scientific results (e.g., @hampton_tao_2015, @munafo_manifesto_2017).
 
-### Conceptualizing workflows
+#### Conceptualizing workflows {-}
 
 Scientific workflows encapsulate all of the steps from data acquisition, cleaning,
 transformation, integration, analysis, and visualization.  
@@ -45,52 +46,29 @@ of a workflow, and when researchers publish specific versions of the scripts and
 data used in an analysis, it becomes far easier to repeat their computations and 
 understand the provenance of their conclusions.
 
-## Why use git?
+### Logging into the RStudio server
 
-### The problem with filenames
+To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remove server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
-![](images/phd_comics_final.png)
+Here are the instructions for logging in and getting set up.
 
-Every file in the scientific process changes.  Manuscripts are edited.
-Figures get revised.  Code gets fixed when problems are discovered.  Data files
-get combined together, then errors are fixed, and then they are split and 
-combined again. In the course of a single analysis, one can expect thousands of
-changes to files.  And yet, all we use to track this are simplistic *filenames*.  
-You might think there is a better way, and you'd be right: __version control__.
+### Setting up the R environment on your local computer
 
-Version control systems help you track all of the changes to your files, without
-the spaghetti mess that ensues from simple file renaming.  In version control systems
-like `git`, the system tracks not just the name of the file, but also its contents,
-so that when contents change, it can tell you which pieces went where.  It tracks
-which version of a file a new version came from.  So its easy to draw a graph
-showing all of the versions of a file, like this one:
+Even though we have you working on a remote server, we still recommend that you set up your own computer with the following software so that you are ready to take the tools you learn in the course into your daily work.
 
-![](images/version-graph.png)
+#### R Version {-}
 
-Version control systems assign an identifier to every version of every file, and 
-track their relationships. They also allow branches in those versions, and merging
-those branches back into the main line of work.  They also support having 
-*multiple copies* on multiple computers for backup, and for collaboration.
-And finally, they let you tag particular versions, such that it is easy to return 
-to a set of files exactly as they were when you tagged them.  For example, the 
-exact versions of data, code, and narrative that were used when a manuscript was 
-submitted might be `R2` in the graph above.
-
-## Checking the RStudio environment
-
-### R Version
-
-We will use R version 3.6.2, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
+We will use R version 4.0.2, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
 ```{r rversion, eval=FALSE}
 R.version$version.string
 ```
 
-If you have R version 3.6.1 that will likely work fine as well.
+If you have R version 4.0.0 that will likely work fine as well.
 
-### RStudio Version
+#### RStudio Version {-}
 
-We will be using RStudio version 1.2.500 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
+We will be using RStudio version 1.3.1000 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
 
 ```{r rstudio-version, eval=FALSE}
 RStudio.Version()$version
@@ -98,12 +76,12 @@ RStudio.Version()$version
 
 If the output of this does not say `1.2.500` or higher, you should update your RStudio. Do this by selecting Help -> Check for Updates and follow the prompts.
 
-### Package installation
+#### Package installation {-}
 
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
 ```{r package-install, eval = FALSE}
-packages <- c("dplyr", "tidyr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner", "MASS", "doParallel", "foreach", "parallel")
+packages <- c("dplyr", "tidyr", "readr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner", "MASS")
 
 for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
 rm(packages) #remove variable from workspace
@@ -118,7 +96,7 @@ Next, create a new R Markdown (File -> New File -> R Markdown). If you have neve
 
 At this point, RStudio and R should be all set up.
 
-## Setting up git
+#### Setting up git {-}
 
 If you haven't already, go to [github.com](http://github.com) and create an account. If you haven't downloaded git already, you can download it [here](https://git-scm.com/downloads).
 
@@ -153,13 +131,13 @@ git config --global user.name
 git config --global user.email
 ```
 
-### Note for Windows Users
+##### Note for Windows Users {-}
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install senerios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendixe). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendixe). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
 
-In addition, some versions of windows have difficults with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
+In addition, some versions of windows have difficulty with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
 
-## Updating a previous R installation
+#### Updating a previous R installation {-}
 
 **This is useful for users who already have R with some packages installed and need to upgrade R, but don't want to lose packages.** If you have never installed R or any R packages before, you can skip this section.
 
