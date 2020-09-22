@@ -169,7 +169,7 @@ Now that we have outlined our document, we can start writing code! To read the d
 
 To install a package, we use the syntax `install.packages('packge_name')`. A package only needs to be installed once, so this code can be run directly in the console if needed. To use a package in our analysis, we need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. Loading the package is a key part of the reproducible aspect of our Rmarkdown, so we will include it as an R chunk. It is generally good practice to include all of your `library` calls in a single, dedicated R chunk near the top of your document. This lets collaborators know what packages they might need to install before they start running your code.
 
-You should have already installed `readr` as part of the setup for this course, so add a new R chunk below your setup chunk that calls the `readr` library. It should look like this:
+You should have already installed `readr` as part of the setup for this course, so add a new R chunk below your setup chunk that calls the `readr` library, and run it. It should look like this:
 
 ```{r}
 library(readr)
@@ -326,7 +326,7 @@ The Knit button is rather special - it doesn't just run all of the code in your 
 
 To further clarify the point on environments, perform the following steps:
 
-4. Select from the "Run" menu (top right of Rmarkdown editor) "Restart R and run all chunks"
+4. Select from the "Run" menu (top right of Rmarkdown editor) "Run All"
 5. Observe all of the variables in your environment.
 
 #### Aside {- .aside}
