@@ -9,7 +9,7 @@ In this lesson, you will learn:
 - Workflows to avoid conflicts
 - How to resolve a conflict
 
-### Collaborating with Git
+### Introduction
 
 Git is a great tool for working on your own, but even better for working with friends
 and colleagues.  Git allows you to work with confidence on your own local copy of files
@@ -26,20 +26,20 @@ In this model, the collaborator will `clone` a copy of the owner's repository fr
 GitHub, and the owner will grant them collaborator status, enabling the collaborator
 to directly pull and push from the owner's GitHub repository.
 
-![](../images/github-workflows-collab.png)
+![](images/github-workflows-collab.png)
 
-#### Activity: Collaborating with a trusted colleague
+### Activity: Collaborating with a trusted colleague
 
 *Settings*. Working in pairs, choose one person as the 'Owner' and one as the 'Collaborator'.
-Then, have the Owner visit their `arctic-training-repo` repository created earlier,
+Then, have the Owner visit their `training-test` repository created earlier,
 and visit the *Settings* page, and select the *Collaborators* screen, and add
 the username of your Collaborator in the box.
 
-![](../images/github-collaborators.png)
+![](images/github-collaborators.png)
 
 Once the collaborator has been added, they should check their email for an invitation
 from GitHub, and click on the acceptance link, which will enable them to collaborate
-onthe repository.
+on the repository.
 
 *Collaborator clone*.  To be able to contribute to a repository, the collaborator
 must clone the repository from the Owner's github account. To do this, the Collaborator
@@ -61,7 +61,7 @@ the changed index.Rmd file to be committed by cicking the checkbox next to it,
 type in a commit message, and click 'Commit.'  Once that finishes, then the collaborator can
 immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
-![](../images/rstudio-commit-push.png)
+![](images/rstudio-commit-push.png)
 
 *Owner pull*. Now, the owner can open their local working copy of the code
 in RStudio, and `pull` those changes down to their local copy.
@@ -91,7 +91,7 @@ take precedence.  You have to tell git whose changes to use for that line.
 
 ### How to resolve a conflict
 
-#### Abort, abort, abort...
+#### Abort, abort, abort... {-}
 
 Sometimes you just made a mistake.  When you get a merge conflict, the repository
 is placed in a 'Merging' state until you resolve it.  There's a commandline command
@@ -105,7 +105,7 @@ Of course, after doing that you stull haven't synced with your collaborator's
 changes, so things are still unresolved.  But at least your repository is now
 usable on your local machine.
 
-#### Checkout
+#### Checkout {-}
 
 The simplest way to resolve a conflict, given that you know whose version of the
 file you want to keep, is to use the commandline `git` program to tell git to
@@ -116,7 +116,7 @@ use either *your* changes (the person doing the merge), or *their* changes (the 
 
 Once you have run that command, then run `add`, `commit`, and `push` the changes as normal.
 
-#### Pull and edit the file
+#### Pull and edit the file {-}
 
 But that requires the commandline. If you want to resolve from RStudio, or if 
 you want to pick and choose some of your changes and some of your collaborator's,
@@ -127,7 +127,7 @@ file in the Git tab with an orange `U` icon, which indicates that the file is `U
 and therefore awaiting you help to resolve the conflict. It delimits
 these blocks with a series of less than and greater than signs, so they are easy to find:
 
-![](../images/rstudio-merge-conflict.png)
+![](images/rstudio-merge-conflict.png)
 
 To resolve the conficts, simply find all of these blocks, and edit them so that
 the file looks how you want (either pick your lines, your collaborators lines,
