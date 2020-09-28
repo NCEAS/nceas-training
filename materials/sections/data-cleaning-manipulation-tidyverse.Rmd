@@ -157,8 +157,6 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 3.  Select "copy link address" from the dropdown menu
 
 4.  Paste the URL into a `read_csv` call like below
-
-    -   note that windows users who want to use this method locally also need to use the `url` function here with the argument `method = "libcurl"`
     
 
 #### {-}
@@ -168,6 +166,17 @@ The code chunk you use to read in the data should look something like this:
 ```{r, cache=TRUE, message = F}
 catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
+
+
+#### Aside {- .aside}
+
+Note that windows users who want to use this method locally also need to use the `url` function here with the argument `method = "libcurl"` as below:
+
+```{r, eval = F}
+catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
+```
+
+#### {-}
 
 This dataset is relatively clean and easy to interpret as-is. But while it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
 
@@ -240,7 +249,14 @@ Now that we have the data we are interested in using, we should do a little qual
 summary(catch_data)
 ```
 
-Notice something seems a bit off? The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
+
+#### Challenge {- .exercise}
+
+Notice the output of the `summary` function call. Does anything seem amiss with this dataset that might warrant fixing?
+
+#### {-}
+
+**Answer:** The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
 
 #### Changing column content: `mutate()` {-}
 
@@ -317,6 +333,18 @@ catch_long <- catch_long %>%
 head(catch_long)
 ```
 
+#### Aside {- .aside}
+
+Many people use the base R function `names` to rename columns, often in combination with column indexing that relies on columns being in a particular order. Column indexing is often also used to select columns instead of the `select` function from `dplyr`. Although these methods both work just fine, they do have one major drawback: in most implementations they rely on you knowing exactly the column order your data is in.
+
+To illustrate why your knowledge of column order isn't reliable enough for these operations, considering the following scenario:
+
+Your colleague emails you letting you know that she has an updated version of the conductivity-temperature-depth data from this year's research cruise, and sends it along. Excited, you re-run your scripts that use this data for your phytoplankton research. You run the script and suddenly all of your numbers seem off. You spend hours trying to figure out what is going on.
+
+Unbeknownst to you, your colleagues bought a new sensor this year that measures dissolved oxygen. Because of the new variables in the dataset, the column order is different. Your script which previously renamed the 4th column, `SAL_PSU` to `salinity` now renames the 4th column, `O2_MGpL` to `salinity`. No wonder your results looked so weird, good thing you caught it!
+
+If you had written your code so that it doesn't rely on column order, but instead renames columns using the `rename` function, the code would have run just fine (assuming the name of the original salinity column didn't change, in which case the code would have errored in an obvious way). This is an example of a defensive coding strategy, where you try to anticipate issues before they arise, and write your code in such a way as to keep the issues from happening.
+
 #### Adding columns: `mutate()` {-}
 
 Now let's use `mutate` again to create a new column called `catch` with units of fish (instead of thousands of fish).
@@ -352,9 +380,6 @@ mean_region <- catch_long %>%
 head(mean_region)
 ```
 
--   **Exercise:** Find another grouping and statistic to calculate for each group.
--   **Exercise:** Find out if you can group by multiple variables.
-
 Another common use of `group_by()` followed by `summarize()` is to count the number of rows in each group. We have to use a special function from `dplyr`, `n()`.
 
 ```{r}
@@ -364,6 +389,12 @@ n_region <- catch_long %>%
 
 head(n_region)
 ```
+
+#### Challenge {- .exercise}
+
+- Find another grouping and statistic to calculate for each group.
+- Find out if you can group by multiple variables.
+
 
 #### Filtering rows: `filter()` {-}
 
@@ -378,8 +409,10 @@ SSE_catch <- catch_long %>%
 head(SSE_catch)
 ```
 
--   **Exercise:** Filter to just catches of over one million fish.
--   **Exercise:** Filter to just SSE Chinook
+#### Challenge {- .exercise}
+
+-   Filter to just catches of over one million fish.
+-   Filter to just Chinook from the SSE region
 
 #### Sorting your data: `arrange()` {-}
 
@@ -425,9 +458,7 @@ Let's look at a preview of what our join will do by looking at a simplified vers
 First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
 
 ```{r, cache=TRUE}
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1",
-                            method = "libcurl"),
-                        stringsAsFactors = FALSE) %>% 
+region_defs <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
     select(code, mgmtArea)
 
 head(region_defs)
