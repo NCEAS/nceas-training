@@ -8,8 +8,6 @@ In this lesson, you will learn:
 - How to acheive practical reproducibility
 - What are some best practices for data and metadata management
 
-Download slides: [Best Practices: Data and Metadata](../files/metadata-data-best-practices.pdf)
-
 ### Preserving computational workflows
 
 Preservation enables:
@@ -18,7 +16,7 @@ Preservation enables:
 - Evaluation
 - Reuse
 
-All for `Future You`!  And your collaborators and colleagues across disciplines.
+All for `Future You` and your collaborators and colleagues across disciplines.
 
 ```{r components01, echo=FALSE, out.width = '50%', fig.align = 'center', fig.cap = 'Scientific products that need to be preserved from computational workflows include data, software, metadata, and other products like graphs and figures.'}
 knitr::include_graphics("../images/comp-repro.png")
@@ -47,9 +45,15 @@ of the second and subsequent workflows.
 knitr::include_graphics("../images/comp-workflow-2.png")
 ```
 
+Practical reproducibility looks like:
+
+- Preserving the data
+- Preserving the software workflow
+- Documenting what you did
+- Describing how to interpret it all
+
 ### Best Practices: Overview
 
-- Who Must Submit?
 - Organizing Data
 - File Formats
 - Large Data Packages
@@ -57,6 +61,107 @@ knitr::include_graphics("../images/comp-workflow-2.png")
 - Data Identifiers
 - Provenance
 - Licensing and Distribution
+
+The data life cycle has 8 stages: Plan, Collect, Assure, Describe, Preserve, Discover, Integrate, and Analyze. The following best practices help at every stage.
+
+#### Organizing Data
+
+We'll spend an entire lesson later on that's dedicated to organizing your data in a tidy and effective manner, but first, let's focus on the benefits on having "clean" data and complete metadata.
+
+- Decreases errors from redundant updates
+- Enforces data integrity
+- Helps you and future researchers to handle large, complex datasets
+- Enables powerful search filtering
+
+Much has been written on effective data management to enable reuse. The following two papers offer words of wisdom:
+
+[**Some simple guidelines for effective data management.**](https://doi.org/10.1890/0012-9623-90.2.205) Borer et al. 2009. Bulletin of the Ecological Society of America. 
+
+[**Nine simple ways to make it easier to (re)use your data.**](https://doi.org/10.4033/iee.2013.6b.6.f) White et al. 2013. Ideas in Ecology and Evolution 6. 
+
+In brief, some of the best practices to follow are:
+
+- Have scripts for all data manipulation that start with the uncorrected raw data file and clean the data programmatically before analysis.
+- Design your tables to add rows, not columns. A column should be only one variable and a row should be only one observation.
+- Include header lines in your tables
+- Use non-proprietary file formats (ie, open source) with descriptive file names without spaces.
+
+Non-proprietary file formats are essential to ensure that your data can still be machine readable long into the future. Open formats include text files and binary formats such as NetCDF.
+
+Common switches:
+- Microsoft Excel (.xlsx) files - export to text (.txt) or comma separated values (.csv)
+- GIS files - export to ESRI shapefiles (.shp)
+- MATLAB/IDL - export to NetCDF
+
+When you have or are going to generate large data packages (in the terabytes or larger), it's important to establish a relationship with the data center early on. The data center can help come up with a strategy to tile data structures by subset, such as by spatial region, by temporal window, or by measured variable. They can also help with choosing an efficient tool to store the data (ie NetCDF or HDF), which is a compact data format that helps parallel read and write libraries of data.
+
+#### Metadata Guidelines
+
+Metadata (data about data) is an important part of the data life cycle because it enables data reuse long after the original collection.
+Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files? 
+
+The goal is to have enough information for the researcher to **understand** the data, **interpret** the data, and then **re-use** the data in another study.
+
+Another way to think about it is to answer the following questions with the documentation:
+- What was measured?
+- Who measured it?
+- When was it measured?
+- Where was it measured?
+- How was it measured? 
+- How is the data structured?
+- Why was the data collected?
+- Who should get credit for this data (researcher AND funding agency)?
+- How can this data be reused (licensing)?
+
+*Bibliographic Details*
+
+The details that will help your data be cited correctly are:
+- a **global identifier** like a digital object identifier (DOI);
+- a **descriptive title** that includes information about the topic, the geographic location, the dates, and if applicable, the scale of the data
+- a **descriptive abstract** that serves as a brief overview off the specific contents and purpose of the data package
+- **funding information** like the award number and the sponsor;
+- the **people and organizations** like the creator of the dataset (ie who should be cited), the person to contact about the dataset (if different than the creator), and the contributors to the dataset
+
+*Discovery Details*
+
+The details that will help your data be discovered correctly are:
+- the **geospatial coverage** of the data, including the field and laboratory sampling locations, place names and precise coordinates;
+- the **temporal coverage** of the data, including when the measurements were made and what time period (ie the calendar time or the geologic time) the measurements apply to; 
+- the **taxonomic coverage** of the data, including what species were measured and what taxonomy standards and procedures were followed; as well as
+- **any other contextual information** as needed.
+
+*Interpretation Details*
+
+The details that will help your data be interpreted correctly are:
+- the **collection methods** for both field and laboratory data;
+- the full **experimental and project design** as well as how the data in the dataset fits into the overall project;
+- the **processing methods** for both field and laboratory samples IN FULL;
+- all **sample quality control** procedures;
+- the **provenance** information to support your analysis and modelling methods;
+- information about the **hardware and software** used to process your data, including the make, model, and version; and
+- the **computing quality control** procedures like any testing or code review.
+
+*Data Structure and Contents*
+
+Well constructed metadata also includes information about the data structure and contents. Everything needs a description: the data model, the data objects (like tables, images, matricies, spatial layers, etc), and the variables all need to be described so that there is no room for misinterpretation.
+
+Variable information includes the definition of a variable, a standardized unit of measurement, definitions of any coded values (such as 0 = not collected), and any missing values (such as 999 = NA).
+
+Not only is this information helpful to you and any other researcher in the future using your data, but it is also helpful to search engines. The [semantics](https://arcticdata.io/semantic-annotations/) of your dataset are crucial to ensure your data is both discoverable by others and interoperable (that is, reusable).
+
+For example, if you were to search for the character string `carbon dioxide flux` in the general search box at the Arctic Data Center, not all relevant results will be shown due to varying vocabulary conventions (ie, `CO2 flux` instead of `carbon dioxide flux`) across disciplines — only datasets containing the exact words `carbon dioxide flux` are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it `CO2 flux` WOULD be included in that search.
+
+*Rights and Attribution*
+
+Correctly assigning a way for your datasets to be cited and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
+- the **citation format** to be used when giving credit for the data;
+- the **attribution expectations** for the dataset;
+- the **reuse rights**, which describe who may use the data and for what purpose;
+- the **redistribution rights**, which describe who may copy and redistribute the metadata and the data; and
+- the **legal terms and conditions** like how the data are licensed for reuse.
+
+So, how do you organize all this information? There are a number of **metadata standards** (think, templates) that you could use, including the [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/), [Geospatial Metadata Standards like ISO 19115 and ISO 19139](https://www.fgdc.gov/metadata/iso-standards), the [Biological Data Profile (BDP)](https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf), [Dublin Core](https://dublincore.org/), [Darwin Core](https://dwc.tdwg.org/), [PREMIS](https://www.loc.gov/standards/premis/), the [Metadata Encoding and Transmission Standard (METS)](http://www.loc.gov/standards/mets/), and the list goes on and on. The Arctic Data Center runs on EML.
+
 
 
 ```{r fjord, echo=FALSE, out.width = '100%', fig.align = 'center'}
