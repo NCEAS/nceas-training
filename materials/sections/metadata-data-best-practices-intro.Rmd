@@ -29,8 +29,8 @@ The next sections will outline best practices for how to make those four compone
 - Provenance
 - Licensing and Distribution
 
-```{r data-life-cycle, echo=FALSE, eval=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'The data life cycle. Source: DataONE'}
-knitr::include_graphics("../images/data-life-cycle.png")
+```{r data-life-cycle, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'The data life cycle. Source: DataONE'}
+knitr::include_graphics("images/DLC.png")
 ```
 
 The data life cycle has 8 stages: Plan, Collect, Assure, Describe, Preserve, Discover, Integrate, and Analyze. The following best practices help at every stage.
@@ -58,8 +58,8 @@ In brief, some of the best practices to follow are:
 
 Non-proprietary file formats are essential to ensure that your data can still be machine readable long into the future. Open formats include text files and binary formats such as NetCDF.
 
-```{r open-formats, eval=FALSE, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Some examples of open file formats.'}
-knitr::include_graphics("../images/open-formats.png")
+```{r open-formats, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Some examples of open file formats.'}
+knitr::include_graphics("images/open-formats.png")
 ```
 
 Common switches:
@@ -130,6 +130,10 @@ Not only is this information helpful to you and any other researcher in the futu
 
 For example, if you were to search for the character string `carbon dioxide flux` in the general search box at the Arctic Data Center, not all relevant results will be shown due to varying vocabulary conventions (ie, `CO2 flux` instead of `carbon dioxide flux`) across disciplines — only datasets containing the exact words `carbon dioxide flux` are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it `CO2 flux` WOULD be included in that search.
 
+```{r semantic-search, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = '(left) Demonstrates a typical search for “carbon dioxide flux”, yielding 20 datasets. (right) Illustrates an annotated search for “carbon dioxide flux”, yielding 29 datasets. Note that if you were to interact with the site and explore the results of the figure on the right, the dataset in red of Figure 3 will not appear in the typical search for “carbon dioxide flux.”'}
+knitr::include_graphics("images/semantic-search.png")
+```
+
 *Rights and Attribution*
 
 Correctly assigning a way for your datasets to be cited and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
@@ -146,9 +150,23 @@ So, how do you organize all this information? There are a number of **metadata s
 
 Many journals require a DOI - a digital object identifier - be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
 
-At the Arctic Data Center, we assign a DOI to each published dataset. But, sometimes datasets needs to be updated. Each version of a dataset published with the Arctic Data Center has a unique identifier associated with it. Researchers should cite the exact version of the dataset that they used in their analysis, even if there is a newer version of the dataset available. When there is a newer version available, that will be clearly marked on the original dataset page with a yellow banner indicating as such.
+At the Arctic Data Center, we assign a DOI to each published dataset. But, sometimes datasets need to be updated. Each version of a dataset published with the Arctic Data Center has a unique identifier associated with it. Researchers should cite the exact version of the dataset that they used in their analysis, even if there is a newer version of the dataset available. When there is a newer version available, that will be clearly marked on the original dataset page with a yellow banner indicating as such.
 
-Having the data identified in this manner allows us to accurately track the dataset usage metrics. The Arctic Data Center tracks the number of citations, the number of downloads, and the number of views of each dataset in the catalog. We filter out most views by internet bots and repeat views within a small time window in order to make these metrics COUNTER compliant. COUNTER is a standard that libraries and repositories use to provide users with consistent, credible, and comparable usage data. 
+```{r newer-version, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'What the dataset landing page will look like when a newer dataset exists.'}
+knitr::include_graphics("images/newer-version.png")
+```
+
+Having the data identified in this manner allows us to accurately track the dataset usage metrics. The Arctic Data Center tracks the number of citations, the number of downloads, and the number of views of each dataset in the catalog. 
+
+```{r dataset-metrics, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'An example dataset showing the citations collected, as well as the tabs showing downloads and views.'}
+knitr::include_graphics("images/dataset-metrics.png")
+```
+
+We filter out most views by internet bots and repeat views within a small time window in order to make these metrics COUNTER compliant. COUNTER is a standard that libraries and repositories use to provide users with consistent, credible, and comparable usage data. 
+
+```{r dataset-downloads, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'An example dataset showing the downloads over time.'}
+knitr::include_graphics("images/dataset-downloads.png")
+```
 
 ### Data Citation
 
@@ -156,16 +174,25 @@ Researchers should get in the habit of citing the data that they use - even if i
 
 We recently implemented this “Register Citation” feature to allow researchers to register known citations to their datasets. Researchers may register a citation for any occasions where they know a certain publication uses or refers to a certain dataset, and the citation will be viewable on the dataset profile within 24 hours. 
 
-We encourage you to make this part of your workflow.
+To register a citation, navigate to the dataset using the DOI and click on the citations tab. Once there, this dialog box will pop up and you'll be able to register the citation with us.
+
+```{r register-citation, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Register citation button on an Arctic Data Center dataset.'}
+knitr::include_graphics("images/register-citation.png")
+```
+
+Click that button and you'll see a very simple form asking for the DOI of the paper and if the paper **CITES** the dataset (that is, the dataset is explicitly mentioned somewhere in the text) or **USES** the dataset (that is, uses the dataset but doesn't formally cite it).
+
+```{r register-citation2, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Register citation form.'}
+knitr::include_graphics("images/register-citation2.png")
+```
+
+We encourage you to make this part of your workflow, and for you to let your colleagues know about it too!
 
 ### Provanance & Preserving Computational Workflows
 
-In an effort to make data more reproducible, datasets also support provenance tracking. With provenance tracking, users of the Arctic Data Center can see exactly what datasets led to what product, using the particular script that the researcher ran.
-
-This is a useful tool to make data more compliant with the [FAIR](https://www.go-fair.org/fair-principles/) principles. In addition to making data more reproducible, it is also useful for building on the work of others; you can produce similar visualizations for another location, for example, using the same code.
 
 ```{r components01, echo=FALSE, out.width = '50%', fig.align = 'center', fig.cap = 'Scientific products that need to be preserved from computational workflows include data, software, metadata, and other products like graphs and figures.'}
-knitr::include_graphics("../images/comp-repro.png")
+knitr::include_graphics("images/comp-repro.png")
 ```
 
 While the [Arctic Data Center](https://arcticdata.io), [Knowledge Network for Biocomplexity](https://knb.ecoinformatiocs.org), and similar repositories do
@@ -176,7 +203,7 @@ performed from raw data acquisition through data quality control, integration,
 analysis, modeling, and visualization.
 
 ```{r compworkflow01, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Computational steps can be organized as a workflow streaming raw data through to derived products.'}
-knitr::include_graphics("../images/comp-workflow-1.png")
+knitr::include_graphics("images/comp-workflow-1.png")
 ```
 
 In addition, these workflows are often not executed all at once, but rather are
@@ -188,12 +215,21 @@ distinct data packages, with the output of the first workflow becoming the input
 of the second and subsequent workflows.
 
 ```{r compworkflow02, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'Computational workflows can be archived and preserved in multiple data packages that are linked by their shared components, in this case an intermediate data file.'}
-knitr::include_graphics("../images/comp-workflow-2.png")
+knitr::include_graphics("images/comp-workflow-2.png")
 ```
 
+In an effort to make data more reproducible, datasets also support provenance tracking. With provenance tracking, users of the Arctic Data Center can see exactly what datasets led to what product, using the particular script or workflow that the researcher used.
+
+```{r provenance, echo=FALSE, out.width = '100%', fig.align = 'center', fig.cap = 'This data table in the middle has four sources of raw data on the left, and is used to create the two visualizations on the left.'}
+knitr::include_graphics("images/provenance.png")
+```
+
+This is a useful tool to make data more compliant with the [FAIR](https://www.go-fair.org/fair-principles/) principles. In addition to making data more reproducible, it is also useful for building on the work of others; you can produce similar visualizations for another location, for example, using the same code.
+
+RMarkdown itself can be used as a provenance tool, as well - by starting with the raw data and cleaning it programmatically, rather than manually, you preserve the steps that you went through and your workflow is reproducible.
 
 ```{r fjord, echo=FALSE, out.width = '100%', fig.align = 'center'}
-knitr::include_graphics("../images/fjord.png")
+knitr::include_graphics("images/fjord.png")
 ```
 
 
