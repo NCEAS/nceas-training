@@ -16,13 +16,14 @@ In this lesson, you will learn:
 ### Data repositories: built for data (and code)
 
 - GitHub is not an archival location
-- Dedicated data repositories: KNB, Arctic Data Center, tDAR, EDI, Zenodo
+- Examples of dedicated data repositories: KNB, Arctic Data Center, tDAR, EDI, Zenodo
   + Rich metadata
   + Archival in their mission
   + Certification for repositories: https://www.coretrustseal.org/
 - Data papers, e.g., Scientific Data
 - List of data repositories: http://re3data.org
-
+  + Repository finder tool: https://repositoryfinder.datacite.org/
+  
 ![](images/RepoLogos.png)
 
 
@@ -68,7 +69,7 @@ That same metadata document can be converted to HTML format and displayed in a m
 more readable form on the web: https://knb.ecoinformatics.org/#view/doi:10.5063/F1F18WN4
 
 ![](images/knb-metadata.png)
-And as you can see, the whole dataset or its components can be downloaded and
+And, as you can see, the whole dataset or its components can be downloaded and
 reused.
 
 Also note that the repository tracks how many times each file has been downloaded,
@@ -86,13 +87,14 @@ software files, and other scientific products such as graphs and images, all tie
 together with a descriptive metadata document.
 
 ![](images/data-package.png)
+
 These data repositories all assign a unique identifier to every version of every
 data file, similarly to how it works with source code commits in GitHub.  Those identifiers
 usually take one of two forms.  A *DOI* identifier is often assigned to the metadata
 and becomes the publicly citable identifier for the package.  Each of the other files
 gets a global identifier, often a UUID that is globally unique.  In the example above,
 the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual
-files would have their own identifiers as well.
+files have their own identifiers as well.
 
 ### DataONE Federation
 
@@ -104,7 +106,7 @@ data for reuse in synthetic analyses.
 
 DataONE can be searched on the web (https://search.dataone.org/), which effectively
 allows a single search to find data from the dozens of members of DataONE, rather
-than visiting each of the currently 43 repositories one at a time.
+than visiting each of the (currently 44!) repositories one at a time.
 
 ![](images/DataONECNs.png)
 
@@ -129,12 +131,12 @@ Grab both CSV files, and the R script, and store them in a convenient folder.
 #### Login via ORCID
 
 We will walk through web submission on https://demo.arcticdata.io, and start 
-by logging in with an ORCID account. ORCID provides a common account for sharing
+by logging in with an ORCID account. [ORCID](https://orcid.org/) provides a common account for sharing
 scholarly data, so if you don't have one, you can create one when you are redirected
 to ORCID from the *Sign In* button.
 
 ![](images/adc-banner.png)
-When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existing ORCID credentials, or create a new account.  ORCID provides multiple ways to login, including using your email address, institutional logins from many universities, and logins from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
+When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existing ORCID credentials or create a new account.  ORCID provides multiple ways to login, including using your email address, an institutional login from many universities, and/or a login from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
 
 ![](images/orcid-login.png)
 
@@ -161,8 +163,11 @@ This includes a descriptive title, abstract, and keywords.
 
 ![](images/editor-03.png)
 ![](images/editor-04.png)
-And you also must enter a funding award number and choose a license.  The funding field will 
-search for an NSF award identifier based on words in its title or the number itself.
+You also must enter a funding award number and choose a license.  The funding field will 
+search for an NSF award identifier based on words in its title or the number itself. The licensing options are CC-0 and CC-BY, which both allow your data to be downloaded and re-used by other researchers.
+
+- CC-0 Public Domain Dedication: “...can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.”
+- CC-BY: Attribution 4.0 International License: “...free to...copy,...redistribute,...remix, transform, and build upon the material for any purpose, even commercially,...[but] must give appropriate credit, provide a link to the license, and indicate if changes were made.”
 
 ![](images/editor-05.png)
 ![](images/editor-06.png)
@@ -176,9 +181,9 @@ the product.  Enter information for the following people:
 - Creators - **all the people who should be in the citation for the dataset**
 - Contacts - one is required, but defaults to the first Creator if omitted
 - Principal Investigators
-- and any other that are relevant
+- Any others that are relevant
 
-For each, please strive to provide their [ORCID](https://orcid.org) identifier, which
+For each, please provide their [ORCID](https://orcid.org) identifier, which
 helps link this dataset to their other scholarly works.
 
 ![](images/editor-07.png)
@@ -212,8 +217,8 @@ data apply.  Again, use multiple date ranges if your sampling was discontinuous.
 ##### Methods
 
 Methods are critical to accurate interpretation and reuse of your data.  The editor 
-allows you to add multiple different methods sections, include details of 
-sampling methods, experimental design, quality assurance procedures, and computational
+allows you to add multiple different methods sections, so that you can include details of 
+sampling methods, experimental design, quality assurance procedures, and/or computational
 techniques and software.  Please be complete with your methods sections, as they
 are fundamentally important to reuse of the data.
 
@@ -222,17 +227,19 @@ are fundamentally important to reuse of the data.
 ##### Save a first version with **Submit**
 
 When finished, click the *Submit Dataset* button at the bottom.  
+
 If there are errors or missing fields, they will be highlighted.  
+
 Correct those, and then try submitting again.  When you are successful, you should
 see a large green banner with a link to the current dataset view.  Click the `X` 
-to close that banner, if you want to continue editing metadata.
+to close that banner if you want to continue editing metadata.
 
 ![](images/editor-12.png)
 Success!
 
 #### File and variable level metadata 
 
-The final major section of metadata concerns the structure and contents
+The final major section of metadata concerns the structure and content
 of your data files. In this case, provide the names and descriptions of
 the data contained in each file, as well as details of their internal structure.
 
@@ -256,8 +263,8 @@ information, including:
 You'll need to add these definitions for every variable (column) in 
 the file. When done, click **Done**.
 ![](images/editor-22.png)
-Now the list of data files will show a green checkbox indicating that you have
-full described that file's internal structure.  Proceed with the other CSV
+Now, the list of data files will show a green checkbox indicating that you have
+fully described that file's internal structure.  Proceed with the other CSV
 files, and then click **Submit Dataset** to save all of these changes.
 
 ![](images/editor-23.png)
@@ -267,15 +274,15 @@ you find any errors, simply click **Edit** again to make changes.
 
 #### Add workflow provenance
 
-Understanding the relationships between files in a package is critically important,
+Understanding the relationships between files (aka *provenance*) in a package is critically important,
 especially as the number of files grows.  Raw data are transformed and integrated
-to produce derived data, that are often then used in analysis and visualization code
-to produce final outputs.  In DataONE, we support structured descriptions of these
-relationships, so one can see the flow of data from raw data to derived to outputs.
+to produce derived data, which are often then used in analysis and visualization code
+to produce final outputs.  In the DataONE network, we support structured descriptions of these
+relationships, so researchers can see the flow of data from raw data to derived to outputs.
 
-You add provenance by navigating to the data table descriptions, and selecting the 
+You add provenance by navigating to the data table descriptions and selecting the 
 `Add` buttons to link the data and scripts that were used in your computational 
-workflow.  On the left side, select the `Add` circle to add an input data source
+workflow.  On the left side, select the `Add` circle to add an **input** data source
 to the filteredSpecies.csv file.  This starts building the provenance graph to
 explain the origin and history of each data object.
 
