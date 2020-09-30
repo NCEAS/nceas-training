@@ -66,7 +66,7 @@ Read in the data and look at a plot of it.
 
 ```{r read_shp_sf}
 ## Read in shapefile using sf
-ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
+ak_regions <- read_sf("../datashapefiles/ak_regions_simp.shp")
 
 plot(ak_regions)  
 ```
@@ -170,7 +170,7 @@ We have some population data, but it gives the number of people by city, not by 
 First, read in the population data as a regular `data.frame`. This data is derived from: Jeanette Clark, Sharis Ochs, Derek Strong, and National Historic Geographic Information System. 2018. Languages used in Alaskan households, 1990-2015. Knowledge Network for Biocomplexity. [doi:10.5063/F11G0JHX](https://doi.org/10.5063/F11G0JHX). Unnecessary columns were removed and the most recent year of data was selected.
 
 ```{r}
-pop <- read.csv("data/shapefiles/alaska_population.csv")
+pop <- read.csv("../datashapefiles/alaska_population.csv")
 ```
 
 The `st_join` function is a spatial left join. The arguments for both the left and right tables are objects of class `sf` which means we will first need to turn our population `data.frame` with latitude and longitude coordinates into an `sf` object. 
@@ -289,7 +289,7 @@ We can also plot multiple shapefiles in the same plot. Say if we want to visuali
 The rivers shapefile is a simplified version of Jared Kibele and Jeanette Clark. Rivers of Alaska grouped by SASAP region, 2018. Knowledge Network for Biocomplexity. doi:10.5063/F1SJ1HVW.
 
 ```{r}
-rivers_3338 <- read_sf("data/shapefiles/ak_rivers_simp.shp")
+rivers_3338 <- read_sf("../datashapefiles/ak_rivers_simp.shp")
 st_crs(rivers_3338)
 ```
 
