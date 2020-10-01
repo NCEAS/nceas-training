@@ -17,7 +17,7 @@ From the [home page](http://ggplot2.tidyverse.org/):
 It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)).
 This lesson will introduce you to the basic components of working with ggplot2.
 
-#### ggplot vs base vs lattice vs XYZ...
+#### ggplot vs base vs lattice vs XYZ... {-}
 
 R provides **many** ways to get your data into a plot.
 Three common ones are,
@@ -31,7 +31,9 @@ I use ggplot2 for most everything else.
 ggplot2 excels at making complicated plots easy and easy plots simple enough.
 
 
-### Setup
+#### Setup {- .setup}
+
+Open a new RMarkdown document and remove the filler text.
 
 First, let's load the packages we'll need:
 
@@ -45,10 +47,7 @@ First, let's load the packages we'll need:
 ```
 
 
-
-#### Load salmon escapement data
-
-You can load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
+Load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
 ```{r read_data, warning = F, message = F, eval = F}
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
@@ -69,8 +68,14 @@ head(esc)
 esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e", stringsAsFactors = F)
 ```
 
+#### Challenge {- .exercise}
 
-Now that we have the data loaded, let's calculate annual escapement by species and region:
+Now that we have the data loaded, use your `dplyr` and `tidyr` skills to calculate annual escapement by species and region.
+
+#### {-}
+
+
+Here is the solution:
 
 ```{r mean_esc}
 annual_esc <- esc %>% 
@@ -124,6 +129,10 @@ ggplot(annual_esc, aes(x = Species, y = escapement, fill = SASAP.Region)) +
   geom_col()
 ```
 
+#### Aside {- .aside}
+
+**`ggplot2` and the pipe operator**
+
 Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into the first argument of the `ggplot` function using the `%>%` operator.
 
 Let's look at an example using a different geometry. Here, we use the pipe operator to pass in a filtered version of `annual_esc`, and make a line plot with points at each observation.
@@ -138,7 +147,7 @@ ggplot(aes(x = Year, y = escapement, color = Species)) +
 
 This can certainly be convenient, especially for cases like the above, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
 
-### Setting ggplot themes
+#### Setting ggplot themes {-}
 
 Now let's work on making this plot look a bit nicer. Add a title using `ggtitle()`, adjust labels using `ylab()`, and include a built in theme using `theme_bw()`. There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
 
@@ -159,7 +168,15 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     theme_bw()
 ```
 
-You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. The built in theme functions change the default settings for many elements that can also be changed invididually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just google "ggplot cheatsheet" and find one you like.
+You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package.
+
+#### Challenge {- .exercise}
+
+Use the RStudio autocomplete, the `ggplot2` documentation, a cheatsheet, or good old google to find other built in themes. Pick out your favorite one and add it to your plot.
+
+#### {-}
+
+The built in theme functions change the default settings for many elements that can also be changed invididually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just google "ggplot cheatsheet" and find one you like.
 
 Let's look at an example of a `theme` call, where we change the position of our plot above from the right side to the bottom, and remove the title from the legend.
 
@@ -192,9 +209,13 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     my_theme
 ```
 
-#### Smarter tick labels using `scales`
+#### Challenge {- .exercise}
 
-Fixing tick labels in `ggplot` can be really hard! The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
+Using whatever method you like, figure out how to rotate the x-axis tick labels to a 45 degree angle.
+
+#### Smarter tick labels using `scales` {-}
+
+Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
 
 The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
@@ -208,7 +229,7 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     my_theme
 ```
 
-#### Creating multiple plots
+#### Creating multiple plots {-}
 
 What if we wanted to generate a plot for every region? A fast way to do this uses the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
 
@@ -226,7 +247,7 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
 
 ### Interactive visualization using `leaflet` and `DT`
 
-#### Tables
+#### Tables {-}
 
 Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website created earlier in the week during [this lesson](publishing-analyses-to-the-web.html).
 
@@ -245,7 +266,7 @@ And display it as an interactive table using `datatable()` from the `DT` package
 datatable(locations)
 ```
 
-#### Maps
+#### Maps {-}
 
 Similar to `ggplot2`, you can make a basic `leaflet` map using just a couple lines of code. Note that unlike `ggplot2`, the `leaflet` package uses pipe operators (`%>%`) and not the additive operator (`+`).
 
