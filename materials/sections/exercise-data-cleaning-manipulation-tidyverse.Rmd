@@ -110,7 +110,7 @@ You will likely at some point realize that the function we asked you to write is
 
 
 
-```{r, warning = FALSE, echo = FALSE}
+```{r, warning = FALSE, message = FALSE}
 library(rvest)
 library(readr)
 library(dplyr)
@@ -196,13 +196,13 @@ pred_clean <- assign_species_name(pred, species) %>%
     filter(!is.na(common_name))
 ```
 
-```{r}
+```{r, warning = F}
 ggplot(egg_clean, aes(x = year, y = mean_volume, color = common_name)) +
     geom_point() +
     geom_line()
 ```
 
-```{r}
+```{r, warning = F}
 ggplot(pred_clean, aes(x = year, y = total_count, fill = common_name)) +
     geom_col()
 ```
