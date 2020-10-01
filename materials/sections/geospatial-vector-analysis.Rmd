@@ -1,6 +1,6 @@
-# Spatial vector analysis using `sf`
+## Spatial vector analysis using `sf`
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -8,7 +8,7 @@ In this lesson, you will learn:
 - Static mapping with ggplot
 - interactive mapping with `leaflet`
 
-## Introduction
+### Introduction
 
 From the [**sf**](https://r-spatial.github.io/sf/articles/sf1.html) vignette:
 
@@ -34,11 +34,11 @@ The data we will be using to create the map are:
 * Alaksa rivers
 
 
-## Reading a shapefile  
+### Reading a shapefile  
 
 All of the data used in this tutorial are simplified versions of real datasets available on the KNB. I've simplified the original high-resolution geospatial datasets to ease the processing burden on your computers while learning how to do the analysis. These simplified versions of the datasets may contain topological errors. The original version of the datasets are indicated throughout the chapter.
 
-### Setup
+#### Setup
 
 For convience, I've hosted a zipped copy of all of the files on our test site. 
 
@@ -85,7 +85,7 @@ Since our shapefile object has the `data.frame` class, viewing the contents of t
 head(ak_regions)
 ```
 
-### Coordinate Reference System
+#### Coordinate Reference System
 
 Every `sf` object needs a coordinate reference system (or `crs`) defined in order to work with it correctly. A coordinate reference system contains both a datum and a projection. The datum is how you georeference your points (in 3 dimensions!) onto a spheroid. The projection is how these points are mathematically transformed to represent the georeferenced point on a flat piece of paper. All coordinate reference systems require a datum. However, some coordinate reference systems are "unprojected" (also called geographic coordinate systems). Coordinates in latitude/longitude use a geographic (unprojected) coordinate system. One of the most commonly used geographic coordinate systems is WGS 1984.
 
@@ -119,7 +119,7 @@ plot(ak_regions_3338)
 
 Much better!
 
-### Attributes
+#### Attributes
 
 **sf** objects can be used as a regular `data.frame` object in many operations. We already saw the results of `plot` and `head`. Here are a couple more:
 
@@ -135,7 +135,7 @@ ncol(ak_regions_3338)
 summary(ak_regions_3338)
 ```
 
-## `sf` & the Tidyverse
+### `sf` & the Tidyverse
 
 Since `sf` objects are dataframes, they play nicely with packages in the tidyverse. Here are a couple of simple examples:
 
@@ -156,7 +156,7 @@ ak_regions_3338 %>%
 ```
 
 
-### Joins
+#### Joins
 
 You can also use the `sf` package to create spatial joins, useful for when you want to utilize two datasets together. As an example, let's ask a question: **how many people live in each of these Alaska regions?**
 
@@ -212,7 +212,7 @@ pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
 head(pop_joined)
 ```
 
-### Group and summarize
+#### Group and summarize
 
 Next we compute the total population for each region. In this case, we want to do a `group_by` and `summarise` as this were a regular `data.frame` - otherwise all of our point geometries would be included in the aggreation, which is not what we want. Our goal is just to get the total population by region. We remove the sticky geometry using `as.data.frame`, on the advice of the `sf::tidyverse` help page.
 
@@ -261,7 +261,7 @@ pop_mgmt_3338 <- pop_region_3338 %>%
 plot(pop_mgmt_3338["total_pop"])
 ```
 
-### Save
+#### Save
 
 Save the spatial object to disk using `write_sf()` and specifying the filename. Writing your file with the extension .shp will assume an ESRI driver [driver](http://www.gdal.org/ogr_formats.html), but there are many other format options available.
 
@@ -269,7 +269,7 @@ Save the spatial object to disk using `write_sf()` and specifying the filename. 
 write_sf(pop_region_3338, "shapefiles/ak_regions_population.shp", delete_layer = TRUE)
 ```
 
-## Visualize with ggplot
+### Visualize with ggplot
 
 `ggplot2` now has integrated functionality to plot sf objects using `geom_sf()`.
 
@@ -306,7 +306,7 @@ ggplot() +
   scale_fill_continuous(low = "khaki", high =  "firebrick", labels = comma)
 ```
 
-## Incorporate base maps into static maps using `ggmap`
+### Incorporate base maps into static maps using `ggmap`
 
 The `ggmap` package has some functions that can render base maps (as raster objects) from open tile servers like Google Maps, Stamen, OpenStreetMap, and others.
 
@@ -362,7 +362,7 @@ ggmap(ak_map_3857) +
 
 
 
-## Visualize `sf` objects with leaflet
+### Visualize `sf` objects with leaflet
 
 We can also make an interactive map from our data above using `leaflet`. 
 
