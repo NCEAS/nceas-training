@@ -224,7 +224,7 @@ Calculate total number of predators across all species by year.
 ```{r}
 pred_total <- pred_species %>% 
     group_by(year) %>% 
-    summarise(pred_count = sum(count, na.rm = T), .groups = "drop")
+    summarise(pred_count = sum(pred_count, na.rm = T), .groups = "drop")
 ```
 
 Join egg predation data to total predator data.
