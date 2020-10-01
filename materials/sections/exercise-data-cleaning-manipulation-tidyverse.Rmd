@@ -15,8 +15,8 @@ In this session, you will load data from the following dataset:
 
 Using our knowledge of R, we are going to try to answer the following two questions:
 
--   What species of shorebird has the largest eggs and has this changed through time?
 -   What species of predator is the most abundant and has this changed through time?
+-   Does the number of eggs predated increase with the total number of predators for all species laying nests?
 
 One of the features if this dataset is that it has many files with similar formatting, most of which contain the column `species` which is comprised of the [Bird Banding Laboratory species codes](https://www.pwrc.usgs.gov/bbl/manual/speclist.cfm). These four letter codes aren't very intuitive to most people, so one of the things we will do is write a function that can be used on any file in this dataset that contains a species code.
 
@@ -24,27 +24,23 @@ One of the features if this dataset is that it has many files with similar forma
 
 The goal here is for you to have to come up with the functions to do the analysis with minimal guidance. This is supposed to be challenging if you are new to dplyr/tidyr. Below is a set of high-level steps you can follow to answer our research question. After the list is a schematic of the steps in table form which I expect will be useful in guiding your code.
 
-1.  Load the species table using the code in the Setup block below
+1.  Load the species table using the code in the Setup block below.
 
-2.  Read the following two files into your environment
+2.  Read the following two files into your environment.
 
-    -   Utqiagvik\_egg\_measurements.csv
     -   Utqiagvik\_predator\_surveys.csv
+    -   Utqiagvik_nest_data.csv
 
 3.  Write a function that will translate species codes into common names.
 
     -   **Hint**: The fastest way to do this involves adding a column to the `data.frame`. Your function will have two arguments
     -   **Optional Extra Challenge**: For a little extra challenge, try to incorporate an `if` statement that looks for `NA` values in the common name field you are adding. What other conditionals might you include to make your function smarter?
 
-4.  Calculate mean egg volume by year and species
+4.  Calculate total number of predators by year and species, and plot the result.
 
-    -   for simplicity, use the formula that assumes the egg is a symmetrical ellipsioid: $V = 4/3{\pi}L(W/2)^2$
+5.  Calculate total number of eggs predated by year and species.
 
-5.  Plot mean egg volume by year and species
-
-6.  Calculate total number of predators by year and species
-
-7.  Plot total predators by year and species
+6.  Calculate total number of predators by year, join to summarized egg predation table, and plot the result.
 
 #### Setup {.unnumbered .setup}
 
@@ -77,21 +73,25 @@ species <- tbls[[1]] %>%
 
 Make this:
 
-    year common_name            mean_volume
-    2003 American Golden-Plover      60426
-    2003 Dunlin                      24702
-    2003 Long-billed Dowitcher       43824
-    2003 Pectoral Sandpiper          27369
-
-and then make this:
-
-    year common_name        total_count
+    year common_name         pred_count
     2003 Glaucous Gull               54
     2003 Parasitic Jaeger             2
     2003 Pomarine Jaeger              6
     2004 Glaucous Gull               69
     2004 Long-tailed Jaeger          13
-    
+
+And then make this:
+
+```
+common_name             year total_predated pred_count
+American Golden-Plover  2003              4         62
+American Golden-Plover  2004             22         93
+American Golden-Plover  2005              0         72
+American Golden-Plover  2006              0        193
+American Golden-Plover  2007             12        154
+American Golden-Plover  2008             22        328
+American Golden-Plover  2009             92        443
+```
 
 #### Aside {- .aside}
 
@@ -100,7 +100,7 @@ and then make this:
 You will likely at some point realize that the function we asked you to write is pretty simple. The code can in fact be accomplished in a single line. So why write your own function for this? There are a couple of answers. The first and most obvious is that we want to you practice writing function syntax with simple examples. But there are other reasons why this operation might benefit from a function:
 
 * Follow the DRY principles!
-    - If you find yourself doing the same cleaning steps on many of your data files, those operations are good candidates for functions. This falls into that category, since we need to do the same transformation on both of the files we use here, and if we incorporated more files from this dataset it would come in even more use.
+    - If you find yourself doing the same cleaning steps on many of your data files, over and over again, those operations are good candidates for functions. This falls into that category, since we need to do the same transformation on both of the files we use here, and if we incorporated more files from this dataset it would come in even more use.
 * Add custom warnings and quality control.
     - Functions allow you to incorporate quality control through conditional statements coupled with warnings. Instead of checking for NA's or duplicated rows after you run a join, you can check within the function and return a warning if any are found.
 * Check your function input more carefully
@@ -108,7 +108,7 @@ You will likely at some point realize that the function we asked you to write is
 
 ### Full solution. Warning, spoilers ahead!
 
-
+Load in the libraries and the species table, as described above.
 
 ```{r, warning = FALSE, message = FALSE}
 library(rvest)
@@ -130,11 +130,15 @@ species <- tbls[[1]] %>%
     mutate(alpha_code = tolower(alpha_code))
 ```
 
-```{r, warning=F, message=F}
-egg <- read.csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A4b219711-2282-420a-b1d6-1893fe4a74a6")
+Read in the two data files.
 
-pred <- read.csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
+```{r, warning=F, message=F}
+pred <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
+
+nests <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A982bd2fc-4edf-4da7-96ef-0d11b853102d")
 ```
+
+Define a function to join the species table to an arbirary table with a species column in this dataset. Note that this version has some extra conditionals for the optional challenge.
 
 ```{r}
 #' Function to add common name to data.frame according to the BBL list of species codes
@@ -181,30 +185,61 @@ assign_species_name <- function(df, species){
 }
 ```
 
+#### Question 1: What species of predator is the most abundant and has this changed through time? {-}
+
+Calculate the number of each species by year. Species counts with no common name are removed after examining the data and determining that the species code in these cases was "none", as in, no predators were observed that day.
+
 ```{r}
-egg_clean <- assign_species_name(egg, species) %>% 
-    mutate(volume = 4/3 * pi * length * (width/2)^2) %>% 
+pred_species <- assign_species_name(pred, species) %>% 
     group_by(year, common_name) %>% 
-    summarise(mean_volume = mean(volume), .groups = "drop") %>% 
+    summarise(pred_count = sum(count, na.rm = T), .groups = "drop") %>% 
     filter(!is.na(common_name))
 ```
 
+Plot the result.
+
 ```{r}
-pred_clean <- assign_species_name(pred, species) %>% 
-    group_by(year, common_name) %>% 
-    summarise(total_count = sum(count), .groups = "drop") %>% 
-    filter(!is.na(common_name))
+ggplot(pred_species, aes(x = year, y = pred_count, color = common_name)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", y = "Number of Predators", color = "Species") +
+  theme_bw()
 ```
 
-```{r, warning = F}
-ggplot(egg_clean, aes(x = year, y = mean_volume, color = common_name)) +
+
+#### Question 2: Does the number of eggs predated increase with the total number of predators for all species laying nests? {-}
+
+Calculate the number of eggs predated by year and species. Species with no common name were examined, and found to have missing values in the species code as well. This is likely a data entry error that should be examined more closely, but for simplicity here we can drop these rows.
+
+```{r}
+nests_species <- assign_species_name(nests, species) %>% 
+  group_by(common_name, year) %>% 
+  summarise(total_predated = sum(number_eggs_predated, na.rm = T),
+            .groups = "drop") %>% 
+  filter(!is.na(common_name))
+```
+
+Calculate total number of predators across all species by year.
+
+```{r}
+pred_total <- pred_species %>% 
+    group_by(year) %>% 
+    summarise(pred_count = sum(count, na.rm = T), .groups = "drop")
+```
+
+Join egg predation data to total predator data.
+
+```{r}
+nest_pred <- left_join(nests_species, pred_total, by = "year")
+```
+
+Plot the number of eggs predated by total predators, faceted over species.
+
+```{r, warning = F, fig.height = 13, fig.width = 5}
+ggplot(nest_pred, aes(x = pred_count, y = total_predated)) +
     geom_point() +
-    geom_line()
+    facet_wrap(~common_name, scales = "free_y", ncol = 2) +
+    labs(x = "Number of Predators", y = "Number of Eggs Predated") +
+    theme_bw()
 ```
-
-```{r, warning = F}
-ggplot(pred_clean, aes(x = year, y = total_count, fill = common_name)) +
-    geom_col()
-```
-
 
