@@ -204,16 +204,14 @@ RStudio project.  Here's what we're going to do:
 
 #### Setup {- .setup}
 
-__Create a New Project.__ Start by creating a *New Project...* in R Studio, select the *Version Control* 
-option, and paste the GitHub URL that you copied into the field for the 
+In the File menu, select "New Project." In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the 
 remote repository *Repository URL*.  While you can name the local copy of the 
 repository anything, it's typical to use the same name as the GitHub repository to
-maintain the correspondence.  You can choose any folder for your local copy, in
-my case I used my standard `development` folder.
+maintain the correspondence. 
 
-#### {-}
 
 ![](images/rstudio-clone-repo.png)
+#### {-}
 
 Once you hit `Create Project, a new RStudio window will open with all of the files
 from the remote repository copied locally.  Depending on how your version of RStudio
@@ -246,7 +244,6 @@ changed in each of the two commits in this repository.
 #### Challenge {- .exercise}
 
 __Commit a README.md change.__ Next let's make a change to the README.md file, this time from RStudio.
-in RStudio.
 
 Add a new section to your markdown using a header, and under it include a list three advantages to using git.
 
@@ -334,7 +331,7 @@ This keeps the high level details readable in the version log.  I can't count th
 number of times I've looked at the commit log from 2, 3, or 10 years prior and
 been so grateful for diligence of my past self and collaborators.
 
-### Collaboration and conflict free workflows
+#### Collaboration and conflict free workflows {-}
 
 Up to now, we have been focused on using Git and GitHub for yourself, which is a 
 great use. But equally powerful is to share a GitHub repository with other
@@ -362,7 +359,7 @@ Now you have two projects set up in your RStudio environment, `training_{USERNAM
 
 First, switch to your `training_{USERNAME}` project using the RStudio project switcher. The project switcher is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`training_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
 
-![](images/RStudio_project_switcher.png)
+![](images/RStudio-project-switcher.png)
 
 Next, from the Tools menu, select "Project Options." In the dialog that pops up, select "Git/SVN" from the menu on the left. In the dropdown at the top of this page, select "Git" and click "Yes" in the confirmation box. Click "Yes" again to restart RStudio.
 
