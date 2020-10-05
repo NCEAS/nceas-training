@@ -50,7 +50,37 @@ understand the provenance of their conclusions.
 
 To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remove server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
-Here are the instructions for logging in and getting set up.
+Here are the instructions for logging in and getting set up:
+
+#### Setup {- .setup}
+
+
+#### {-}
+
+In this workshop, we are going to be using R projects to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
+
+We are going to be doing nearly all of the work in this course in one project. Our version of RStudio server allows you to share projects with others. Sharing your project with the instructors of the course will allow for them to jump into your session and type along with you, should you encounter an error you cannot fix.
+
+#### Setup {- .setup}
+
+In your RStudio server session, follow these steps to set up your shared project:
+
+* In the "File" menu, select "New Project"
+* Click "New Directory"
+* Click "New Project"
+* Under "Directory name" type: `training_{USERNAME}`, eg: `training_jclark`
+* Leave "Create Project as subdirectory of:" set to `~`
+* Click "Create Project"
+
+Your Rstudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name if your project (eg: `training_clark`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
+
+* jclark
+* jones
+* mecum
+* jasminelai
+* slaughter
+
+Once those names show up in the list, click "OK".
 
 ### Setting up the R environment on your local computer
 
