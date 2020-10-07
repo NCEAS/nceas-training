@@ -166,7 +166,7 @@ Having the data identified in this manner allows us to accurately track the data
 We filter out most views by internet bots and repeat views within a small time window in order to make these metrics COUNTER compliant. COUNTER is a standard that libraries and repositories use to provide users with consistent, credible, and comparable usage data. 
 
 
-![](images/dataset-downloads.png)
+![](images/arctic-data-center/ADC-datacatalog2.png)
 
 
 ### Data Citation
@@ -175,20 +175,14 @@ Researchers should get in the habit of citing the data that they use - even if i
 
 We recently implemented this “Register Citation” feature to allow researchers to register known citations to their datasets. Researchers may register a citation for any occasions where they know a certain publication uses or refers to a certain dataset, and the citation will be viewable on the dataset profile within 24 hours. 
 
-To register a citation, navigate to the dataset using the DOI and click on the citations tab. Once there, this dialog box will pop up and you'll be able to register the citation with us.
+To register a citation, navigate to the dataset using the DOI and click on the citations tab. Once there, this dialog box will pop up and you'll be able to register the citation with us. Click that button and you'll see a very simple form asking for the DOI of the paper and if the paper **CITES** the dataset (that is, the dataset is explicitly mentioned somewhere in the text) or **USES** the dataset (that is, uses the dataset but doesn't formally cite it).
 
 
 ![](images/register-citation.png)
 
-
-Click that button and you'll see a very simple form asking for the DOI of the paper and if the paper **CITES** the dataset (that is, the dataset is explicitly mentioned somewhere in the text) or **USES** the dataset (that is, uses the dataset but doesn't formally cite it).
-
-![](images/register-citation2.png)
-
 We encourage you to make this part of your workflow, and for you to let your colleagues know about it too!
 
 ### Provanance & Preserving Computational Workflows
-
 
 ![](images/comp-repro.png)
 
@@ -219,8 +213,6 @@ This is a useful tool to make data more compliant with the [FAIR](https://www.go
 
 RMarkdown itself can be used as a provenance tool, as well - by starting with the raw data and cleaning it programmatically, rather than manually, you preserve the steps that you went through and your workflow is reproducible.
 
-```{r fjord, echo=FALSE, out.width = '100%', fig.align = 'center'}
-knitr::include_graphics("../images/fjord.png")
-```
+![](images/fjord.png)
 
 
