@@ -156,7 +156,7 @@ An Entity-Relationship model allows us to compactly draw the structure of the ta
 
 ![](images/plotobs-diagram.png)
 
-In the above model, one can see that each site in the `SITES` table must have one or more observations in the `PLOTOBS` table, whereas each `PLOTOBS` has one and only one `SITE`.
+In the above model, one can see that each site in the sites observations table must have one or more observations in the species observations table, whereas each species opservation has one and only one site.
 
 #### Merging data {-}
 
