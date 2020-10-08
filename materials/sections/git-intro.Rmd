@@ -211,6 +211,8 @@ maintain the correspondence.
 
 
 ![](images/rstudio-clone-repo.png)
+
+
 #### {-}
 
 Once you hit `Create Project, a new RStudio window will open with all of the files
@@ -358,7 +360,7 @@ Now you have two projects set up in your RStudio environment, `training_{USERNAM
 
 First, switch to your `training_{USERNAME}` project using the RStudio project switcher. The project switcher is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`training_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
 
-![](images/RStudio-project-switcher.png)
+![](images/Rstudio-project-switcher.png)
 
 Next, from the Tools menu, select "Project Options." In the dialog that pops up, select "Git/SVN" from the menu on the left. In the dropdown at the top of this page, select "Git" and click "Yes" in the confirmation box. Click "Yes" again to restart RStudio.
 
