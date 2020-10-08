@@ -268,8 +268,7 @@ the commit), then provide a descriptive Commit message, and then click *Commit*.
 
 ![](images/rstudio-commit-1.png)
 
-Note that some of the changes in the repository, namely `.gitignore` and 
-`training-test.Rproj` are still listed as having not been committed.  This means
+Note that some of the changes in the repository, namely `training-test.Rproj` are still listed as having not been committed.  This means
 there are still pending changes to the repository.  You can also see the note
 that says:
 
