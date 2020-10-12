@@ -69,7 +69,7 @@ Once you have an RMarkdown created, `Knit` the document which will create the HT
 
 Now, return to editing your `index.Rmd` file from the beginning of this lesson.  The index file represents the 'default' file for a web site, and is returned whenever you visit the web site but don't specify an explicit file to be returned.  Let's modify the index page, adding a bulleted list, and in that list, include a link to the new markdown page that we created:
 
-```{markdown mdexample, eval=FALSE}
+```
 ## Analysis plan
 
 - [Data Cleaning](data-cleaning.html)
