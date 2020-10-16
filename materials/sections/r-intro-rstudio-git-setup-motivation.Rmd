@@ -81,11 +81,46 @@ Your Rstudio should now open your project. To share your project with the instru
 * jones
 * mecum
 * jasminelai
-* erinmcclean
+* erinmclean
 * scsik
 * cwbeltz
 
 Once those names show up in the list, click "OK".
+
+#### Setting up git {-}
+
+If you haven't already, go to [github.com](http://github.com) and create an account. If you haven't downloaded git already, you can download it [here](https://git-scm.com/downloads).
+
+Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
+
+A terminal tab should now be open where your console usually is. 
+
+To see if you aleady have your name and email options set, use this command from the terminal:
+
+```{sh git-config, eval=FALSE}
+git config --global --list | grep user
+```
+
+To set the global options, type the following into the command prompt, with your actual name, and press enter:
+
+```{sh git-name, eval=FALSE}
+git config --global user.name "Matt Jones"
+```
+
+Next, enter the following line, with the email address you used when you created your account on github.com:
+
+```{sh git-email, eval=FALSE}
+git config --global user.email "gitcode@magisa.org"
+```
+
+Note that these lines need to be run one at a time.
+
+Finally, check to make sure everything looks correct by entering these commands, which will return the options that you have set.
+
+```{sh git-list, eval=FALSE}
+git config --global user.name
+git config --global user.email
+```
 
 ### Setting up the R environment on your local computer
 
@@ -132,6 +167,8 @@ Next, create a new R Markdown (File -> New File -> R Markdown). If you have neve
 At this point, RStudio and R should be all set up.
 
 #### Setting up git {-}
+
+Note that this section is repeated from above. Every time you set up git on a new computer, these steps are required.
 
 If you haven't already, go to [github.com](http://github.com) and create an account. If you haven't downloaded git already, you can download it [here](https://git-scm.com/downloads).
 
