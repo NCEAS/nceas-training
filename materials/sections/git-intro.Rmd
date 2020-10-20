@@ -1,7 +1,5 @@
 
-## Version Control With git and GitHub
-
-### Learning Objectives
+## Learning Objectives
 
 In this lesson, you will learn:
 
@@ -11,7 +9,7 @@ In this lesson, you will learn:
 - How to structure your commits so your changes are clear to others
 - How to write effective commit messages
 
-### Introduction to git
+## Introduction to git
 
 ![](images/phd_comics_final.png)
 
@@ -41,7 +39,7 @@ exact versions of data, code, and narrative that were used when a manuscript was
 submitted might be `eco-ms-1` in the graph above, and then when it was revised and resubmitted,
 it was done with tag `eco-ms-2`.  A different paper was started and submitted with tag `dens-ms-1`, showing that you can be working on multiple manuscripts with closely related but not identical sets of code and data being used for each, and keep track of it all.
 
-####  Version control and Collaboration using Git and GitHub {-}
+###  Version control and Collaboration using Git and GitHub {-}
 
 First, just what are `git` and GitHub?
 
@@ -51,7 +49,7 @@ First, just what are `git` and GitHub?
 
 ![](images/vc-local-github.png)
 
-#### Let's look at a GitHub repository {-}
+### Let's look at a GitHub repository {-}
 
 This screen shows the copy of a repository stored on GitHub,
 with its list of files, when the files and directories were last modified, 
@@ -74,7 +72,7 @@ is exactly what Git and GitHub are good for.  And we will show how they can real
 be effective for tracking versions of scientific code, figures, and manuscripts
 to accomplish a reproducible workflow.
 
-#### The Git lifecycle {-}
+### The Git lifecycle {-}
 
 As a git user, you'll need to understand the basic concepts associated with versioned
 sets of changes, and how they are stored and moved across repositories.  Any given
@@ -112,11 +110,11 @@ local repository.
 Those seven commands are the majority of what you need to successfully use git.  
 But this is all super abstract, so let's explore with some real examples.
 
-### Create a remote repository on GitHub
+## Create a remote repository on GitHub
 
 Let's start by creating a repository on GitHub, then we'll edit some files.
 
-#### Setup {- .setup}
+### Setup {- .setup}
 
 - Log into [GitHub](https://github.com)
 - Click the New repository button
@@ -125,7 +123,7 @@ Let's start by creating a repository on GitHub, then we'll edit some files.
 - Set the LICENSE to Apache 2.0
 - Add a .gitignore file for `R`
 
-#### {-}
+### {-}
 
 If you were successful, it should look something like this:
 
@@ -138,13 +136,13 @@ for you, like the README.md file, and the LICENSE file, and the .gitignore file.
 
 For simple changes to text files, you can make edits right in the GitHub web interface.
 
-#### Challenge {- .exercise}
+### Challenge {- .exercise}
 
 Navigate to the `README.md` file in the file listing, and edit it by clicking on the *pencil* icon.
 This is a regular Markdown file, so you can just add markdown text. When done, add a commit message, and 
 hit the `Commit changes` button.  
 
-#### {-}
+### {-}
 
 ![](images/github-test-edit.png)
 
@@ -174,7 +172,7 @@ location:
 
 
 
-### Working locally with Git via RStudio
+## Working locally with Git via RStudio
 
 For convenience, it would be nice to be able to edit the files locally on our
 computer using RStudio rather than working on the GitHub website. We can do this
@@ -202,7 +200,7 @@ RStudio project.  Here's what we're going to do:
 - Push these changes to GitHub
 - View the change history on GitHub
 
-#### Setup {- .setup}
+### Setup {- .setup}
 
 In the File menu, select "New Project." In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the 
 remote repository *Repository URL*.  While you can name the local copy of the 
@@ -213,7 +211,7 @@ maintain the correspondence.
 ![](images/rstudio-clone-repo.png)
 
 
-#### {-}
+### {-}
 
 Once you hit `Create Project, a new RStudio window will open with all of the files
 from the remote repository copied locally.  Depending on how your version of RStudio
@@ -243,13 +241,13 @@ changed in each of the two commits in this repository.
 ![](images/rstudio-history-1.png)
 
 
-#### Challenge {- .exercise}
+### Challenge {- .exercise}
 
 __Commit a README.md change.__ Next let's make a change to the README.md file, this time from RStudio.
 
 Add a new section to your markdown using a header, and under it include a list three advantages to using git.
 
-#### {-}
+### {-}
 
 Once you save, you'll immediately see the *README.md* file show up in the Git
 tab, marked as a modification.  You can select the file in the Git tab, and click
@@ -312,7 +310,7 @@ there as well.
 
 ![](images/github-history.png)
 
-#### Aside {- .aside}
+### Aside {- .aside}
 
 **What should I write in my commit message?**
 
@@ -332,7 +330,7 @@ This keeps the high level details readable in the version log.  I can't count th
 number of times I've looked at the commit log from 2, 3, or 10 years prior and
 been so grateful for diligence of my past self and collaborators.
 
-#### Collaboration and conflict free workflows {-}
+### Collaboration and conflict free workflows {-}
 
 Up to now, we have been focused on using Git and GitHub for yourself, which is a 
 great use. But equally powerful is to share a GitHub repository with other
@@ -354,7 +352,7 @@ You can minimize conflicts by:
 - Coordinate with your collaborators on who is touching which files
   + You still need to communicate to collaborate
 
-### Setting up git on an existing project 
+## Setting up git on an existing project 
 
 Now you have two projects set up in your RStudio environment, `training_{USERNAME}` and `training_test`. We set you up with the `training_test` project since we think it is an easy way to introduce you to git, but more commonly researchers will have an existing directory of code that they then want to make a git repository out of. For the last exercise of this session, we will do this with your `training_{USERNAME}` project.
 
@@ -366,11 +364,11 @@ Next, from the Tools menu, select "Project Options." In the dialog that pops up,
 
 When RStudio restarts, you should have a git tab, with two untracked files (.gitignore and training_{USERNAME}.Rproj). 
 
-#### Challenge {- .exercise}
+### Challenge {- .exercise}
 
 Add and commit these two files to your git repository
 
-#### {-}
+### {-}
 
 Now we have your local repository all set up. You can make as many commits as you want on this repository, and it will likely still be helpful to you, but the power in git and GitHub is really in collaboration. As discussed, GitHub facilitates this, so let's get this repository on GitHub.
 
@@ -415,15 +413,15 @@ The code that you copied and pasted did three things:
 
 If you go back to your browser and refresh your GitHub repository page, you should now see your files appear. 
 
-#### Challenge {- .exercise}
+### Challenge {- .exercise}
 
 On your repository page, GitHub has a button that will help you add a readme file. Click the "Add a README" button and use markdown syntax to create a simple readme. Commit the changes to your repository.
 
 Go to your local repository (in RStudio) and pull the changes you made.
 
+### {-}
 
-
-### Go Further
+## Go Further
 
 There's a lot we haven't covered in this brief tutorial.  There are some great
 and much longer tutorials that cover advanced topics, such as:

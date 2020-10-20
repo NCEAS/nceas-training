@@ -1,6 +1,4 @@
-## Git: Collaboration and Conflict Management
-
-### Learning Objectives
+## Learning Objectives
 
 In this lesson, you will learn:
 
@@ -9,7 +7,7 @@ In this lesson, you will learn:
 - Workflows to avoid conflicts
 - How to resolve a conflict
 
-### Introduction
+## Introduction
 
 Git is a great tool for working on your own, but even better for working with friends
 and colleagues.  Git allows you to work with confidence on your own local copy of files
@@ -28,11 +26,11 @@ to directly pull and push from the owner's GitHub repository.
 
 ![](images/github-workflows-collab.png)
 
-### Activity: Collaborating with a trusted colleague
+## Activity: Collaborating with a trusted colleague
 
 We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
 
-#### Setup {- .setup}
+### Setup {- .setup}
 
 - We will break you into pairs, so choose one person as the `Owner` and one as the `Collaborator`
 - Log into [GitHub](https://github.com) as the `Owner
@@ -48,7 +46,7 @@ Once the collaborator has been added, they should check their email for an invit
 from GitHub, and click on the acceptance link, which will enable them to collaborate
 on the repository.
 
-#### {-}
+### {-}
 
 *Collaborator clone*.  To be able to contribute to a repository, the collaborator
 must clone the repository from the Owner's github account. To do this, the Collaborator
@@ -84,7 +82,7 @@ while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 *Collaborator pull*.  The collaborator can now `pull` down those owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
-### Merge conflicts
+## Merge conflicts
 
 A merge conflict occurs when both the owner and collaborator change the same
 lines in the same file without first pulling the changes that the other has made.
@@ -98,9 +96,9 @@ The main problem with merge conflicts is that, when the Owner and Collaborator
 both make changes to the same line of a file, git doesn't know whose changes
 take precedence.  You have to tell git whose changes to use for that line.
 
-### How to resolve a conflict
+## How to resolve a conflict
 
-#### Abort, abort, abort... {-}
+### Abort, abort, abort... {-}
 
 Sometimes you just made a mistake.  When you get a merge conflict, the repository
 is placed in a 'Merging' state until you resolve it.  There's a commandline command
@@ -114,7 +112,7 @@ Of course, after doing that you stull haven't synced with your collaborator's
 changes, so things are still unresolved.  But at least your repository is now
 usable on your local machine.
 
-#### Checkout {-}
+### Checkout {-}
 
 The simplest way to resolve a conflict, given that you know whose version of the
 file you want to keep, is to use the commandline `git` program to tell git to
@@ -125,7 +123,7 @@ use either *your* changes (the person doing the merge), or *their* changes (the 
 
 Once you have run that command, then run `add`, `commit`, and `push` the changes as normal.
 
-#### Pull and edit the file {-}
+### Pull and edit the file {-}
 
 But that requires the commandline. If you want to resolve from RStudio, or if 
 you want to pick and choose some of your changes and some of your collaborator's,
@@ -146,7 +144,7 @@ delimiter lines that started with `<<<<<<<`, `=======`, and `>>>>>>>`.
 Once you have made those changes, you simply add, commit, and push the files
 to resolve the conflict.
 
-### Workflows to avoid merge conflicts
+## Workflows to avoid merge conflicts
 
 Communicate often.  Tell each other what you are working on.
 
