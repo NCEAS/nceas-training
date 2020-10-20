@@ -26,7 +26,7 @@ to directly pull and push from the owner's GitHub repository.
 
 ![](images/github-workflows-collab.png)
 
-## Activity: Collaborating with a trusted colleague
+## Collaborating with a trusted colleague **without conflicts**
 
 We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
 
@@ -48,17 +48,27 @@ on the repository.
 
 ### {-}
 
-*Collaborator clone*.  To be able to contribute to a repository, the collaborator
-must clone the repository from the Owner's github account. To do this, the Collaborator
+We will start by having the collaborator make some changes and share those with the Owner without generating any conflicts, In an ideal world, this would be the normal workflow. Here are the typical steps.
+
+### Step 1: Collaborator clone
+
+To be able to contribute to a repository, the collaborator
+must clone the repository from the **Owner's** github account. To do this, the Collaborator
 should visit the github page for the Owner's repository, and then copy the clone URL.
 In R Studio, the Collaborator will create a new project from version control by pasting
 this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
 
-*Collaborator Edits*. With a clone copied locally, the Collaborator can now make changes to the
+![](images/github-clone-url-owner.png)
+
+### Step 2: Collaborator Edits
+
+With a clone copied locally, the Collaborator can now make changes to the
 `index.Rmd` file in the repository, adding a line or statment somewhere noticeable
 near the top.  Save your changes.
 
-*Collaborator commit and push*.  To sync changes, the collaborator will need to add, commit, and
+### Step 3: Collaborator commit and push
+
+To sync changes, the collaborator will need to add, commit, and
 push their changes to the Owner's repository.  But before doing so, its good practice
 to `pull` immediately before committing to ensure you have the most recent changes
 from the owner.  So, in R Studio's Git tab, first click the "Diff" button to
@@ -70,19 +80,43 @@ immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
 ![](images/rstudio-commit-push.png)
 
-*Owner pull*. Now, the owner can open their local working copy of the code
+### Step 4: Owner pull
+
+Now, the owner can open their local working copy of the code
 in RStudio, and `pull` those changes down to their local copy.
 
 **Congrats, the owner now has your changes!**
 
-*Owner edits, commit, and push*. Next, the owner should do the same. Make changes to
+### Step 5: Owner edits, commit, and push
+
+Next, the owner should do the same. Make changes to
 a file in the repository, save it, pull to make sure no new changes have been made
 while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 
-*Collaborator pull*.  The collaborator can now `pull` down those owner changes, 
+### Step 6: Collaborator pull
+
+The collaborator can now `pull` down those owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
+
+### Challenge {- .exercise}
+
+Now that the instructors have demonstrated this conflict-free process, break into 
+pairs and try the same with your partner. Start by designating one person as the `Owner` and one as the `Collborator`, and then repeat the steps described above:
+
+- Step 0: Setup permissions for your collaborator
+- Step 1: Collaborator clones the Owner repository
+- Step 2: Collaborator Edits the README file
+- Step 3: Collaborator commits and pushes the file to GitHub
+- Step 4: Owner pulls the changes that the Collaborator made
+- Step 5: Owner edits, commits, and pushes some new changes
+- Step 6: Collaborator pulls the owners changes from GitHub
+
+
+### {-}
+
 ## Merge conflicts
+
 
 A merge conflict occurs when both the owner and collaborator change the same
 lines in the same file without first pulling the changes that the other has made.
