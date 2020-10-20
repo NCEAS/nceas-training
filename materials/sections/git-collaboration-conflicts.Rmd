@@ -115,8 +115,15 @@ pairs and try the same with your partner. Start by designating one person as the
 
 ### {-}
 
+[![XKCD 1597](https://imgs.xkcd.com/comics/git.png)](https://xkcd.com/1597/)
+
+
 ## Merge conflicts
 
+So things can go wrong, which usually starts with a **merge conflict**, due to 
+both collaborators making incompatible changes to a file. While the error messages
+from merge conflicts can be daunting, getting things back to a normal state can be
+straightforward once you've got an idea where the problem lies.
 
 A merge conflict occurs when both the owner and collaborator change the same
 lines in the same file without first pulling the changes that the other has made.
