@@ -410,8 +410,8 @@ In the prompt, paste the code that you copied from the GitHub page and press ret
 The code that you copied and pasted did three things:
 
 * added the GitHub repository as the remote repository
-* created a default branch called "main"
-* pushed the main branch to the remote
+* renamed the default branch to `main`
+* pushed the `main` branch to the remote GitHub repository
 
 If you go back to your browser and refresh your GitHub repository page, you should now see your files appear. 
 
