@@ -187,15 +187,144 @@ delimiter lines that started with `<<<<<<<`, `=======`, and `>>>>>>>`.
 Once you have made those changes, you simply add, commit, and push the files
 to resolve the conflict.
 
+### Producing and resolving merge conflicts
+
+To illustrate this process, we're going to carefully create a merge conflict step 
+by step, show how to resolve it, and show how to see the results of the successful 
+merge after it is complete. First, we will walk through the exercise to demonstrate 
+the issues.
+
+#### Owner and collaborator ensure all changes are updated
+
+First, start the exercise by ensuring that both the Owner and Collaborator have all
+of the changes synced to their local copies of the Owner's repositoriy in RStudio. 
+This includes doing a `git pull` to ensure that you have all changes local, and 
+make sure that the Git tab in RStudio doesn't show any changes needing to be committed.
+
+#### Owner makes a change and commits
+
+From that clean slate, the Owner first modifies and commits a small change inlcuding their
+name on a specific line of the README.md file (we will change line 4). Work to only change
+that one line, and add your username to the line in some form and commit the changes 
+(but DO NOT push). We are now in the situation where the owner has unpushed changes that
+the collaborator can not yet see.
+
+#### Collaborator makes a change and commits **on the same line**
+
+Now the collaborator also makes changes to the same (line 4) of the README.md file 
+in their RStudio copy of the project, adding their name to the line. They then commit.
+At this point, both the owner and collaborator have committed changes based on 
+their shared version of the README.md file, but neither has tried to share their changes
+via GitHub.
+
+#### Collaborator pushes the file to GitHub
+
+Sharing starts when the Collaborator pushes their changes to the GitHub repo, which 
+updates GitHub to their version of the file. The owner is now one revision behind,
+but doesn't yet know it.
+
+#### Owner pushes their changes and gets an error
+
+At this point, the owner tries to push their change to the repository, which triggers
+an error from GitHub. While the error message is long, it basically tells you everything 
+needed (that the owner's repository doesn't reflect the changes on GitHub, and that they
+need to *pull* before they can push).
+
+![](images/git-conflict-01-push-error.png)
+
+#### Owner pulls from GitHub to get Collaborator changes
+
+Doing what the message says, the Owner pulls the changes from GitHub, and gets
+another, different error message. In this case, it indicates that there is a merge 
+conflict because of the conflicting lines.
+
+![](images/git-conflict-02-pull-error.png)
+
+In the Git pane of RStudio, the file is also flagged with an orange 'U', which stands
+for an unresolved merge conflict.
+
+![](images/git-conflict-03-conflict.png)
+
+#### Owner edits the file to resolve the conflict
+
+To resolve the conflict, the Owner now needs to edit the file. Again, as indicated above,
+git has flagged the locations in the file where a conflict occcurred 
+with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, merging whatever
+changes are appropriate until the conflicting lines read how they should, and eliminate
+all of the marker lines with with `<<<<<<<`, `=======`, and `>>>>>>>`.
+
+![](images/git-conflict-04-conflict-tags.png)
+
+Of course, for scripts and programs, resolving the changes means more than just 
+merging the text -- whoever is doing the merging should make sure that the code 
+runs properly and none of the logic of the program has been broken.
+
+![](images/git-conflict-05-resolved-file.png)
+
+#### Owner commits the resolved changes
+
+From this point forward, things proceed as normal. The owner first 'Adds' the file
+changes to be made, which changes the orange `U` to a blue `M` for modified, and then
+commits the changes locally. The owner now has a resolved version of the file on their
+system.
+
+![](images/git-conflict-06-commit-resolved.png)
+
+#### Owner pushes the resolved changes to GitHub
+
+Have the Owner push the changes, and it should replicate the changes to GitHub without error.
+
+![](images/git-conflict-07-push-resolved.png)
+
+#### Collaborator pulls the resolved changes from GitHub
+
+Finally, the Collaborator can pull from GitHub to get the changes the owner made.
+
+#### Both can view commit history
+
+When either the Collaborator or the Owner view the history, the conflict, associated 
+branch, and the merged changes are clearly visible in the history. 
+
+![](images/git-conflict-08-history.png)
+
+### Merge Conflict Challenge {- .exercise}
+
+Now it's your turn. In pairs, intentionally create a merge conflict, and then go 
+through the steps needed to resolve the issues and continue developing with the 
+merged files. See the sections above for help with each of these steps:
+
+- Step 0: Owner and collaborator ensure all changes are updated
+- Step 1: Owner makes a change and commits
+- Step 2: Collaborator makes a change and commits **on the same line**
+- Step 3: Collaborator pushes the file to GitHub
+- Step 4: Owner pushes their changes and gets an error
+- Step 5: Owner pulls from GitHub to get Collaborator changes
+- Step 6: Owner edits the file to resolve the conflict
+- Step 7: Owner commits the resolved changes
+- Step 8: Owner pushes the resolved changes to GitHub
+- Step 9: Collaborator pulls the resolved changes from GitHub
+- Step 10: Both can view commit history
+
+### {-}
+
 ## Workflows to avoid merge conflicts
 
-Communicate often.  Tell each other what you are working on.
+Some basic rules of thumb can avoid the vast majority of merge conflicts, saving 
+a lot of time and frustration. These are words our teams live by:
 
-Pull -> Edit -> Add -> Pull -> Commit -> Push
+- Communicate often
+- Tell each other what you are working on
+- Pull immediately before you commit or push
+- Commit often in small chunks.
 
-Pull before every commit, and commit often in small chunks.
+A good workflow is encapsulated as follows:
 
+```Pull -> Edit -> Add -> Pull -> Commit -> Push```
 
-
-
-
+Always start your working sessions with a pull to get any outstanding changes, then
+start doing your editing and work. Stage your changes, but before you commit, Pull
+again to see if any new changes have arrived. If so, they should merge in easily 
+if you are working in different parts of the program. You can then Commit and 
+immediately Push your changes safely. Good luck, and try to not get frustrated. Once
+you figure out how to handle merge conflicts, they can be avoided or dispatched 
+when they occur, but it does take a bit of practice.
