@@ -30,9 +30,16 @@ to directly pull and push from the owner's GitHub repository.
 
 ### Activity: Collaborating with a trusted colleague
 
-*Settings*. Working in pairs, choose one person as the 'Owner' and one as the 'Collaborator'.
-Then, have the Owner visit their `training-test` repository created earlier,
-and visit the *Settings* page, and select the *Collaborators* screen, and add
+We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
+
+#### Setup {- .setup}
+
+- We will break you into pairs, so choose one person as the `Owner` and one as the `Collaborator`
+- Log into [GitHub](https://github.com) as the `Owner
+- Navigate to the `Owner`'s training repository (e.g., `training_jones`)
+
+Then, have the Owner visit their training repository created earlier,
+and visit the *Settings* page, and select the *Manage access* screen, and add
 the username of your Collaborator in the box.
 
 ![](images/github-collaborators.png)
@@ -40,6 +47,8 @@ the username of your Collaborator in the box.
 Once the collaborator has been added, they should check their email for an invitation
 from GitHub, and click on the acceptance link, which will enable them to collaborate
 on the repository.
+
+#### {-}
 
 *Collaborator clone*.  To be able to contribute to a repository, the collaborator
 must clone the repository from the Owner's github account. To do this, the Collaborator
