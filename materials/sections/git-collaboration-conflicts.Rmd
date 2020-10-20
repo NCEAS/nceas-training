@@ -133,6 +133,8 @@ and *git* is there to warn you about potential problems.  And git will not allow
 you to overwrite one person's changes to a file with another's changes to the same
 file if they were based on the same version.
 
+![](images/git-conflict-00-lines-changed.png)
+
 The main problem with merge conflicts is that, when the Owner and Collaborator
 both make changes to the same line of a file, git doesn't know whose changes
 take precedence.  You have to tell git whose changes to use for that line.
