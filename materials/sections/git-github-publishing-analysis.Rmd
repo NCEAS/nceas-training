@@ -23,13 +23,7 @@ In this lesson, we're going to take an existing GitHub repository and turn it in
 
 ### A Minimal Example
 
-- Use your existing `nceas-training` repository if you have one
-    - If not, Create a new repository on GitHub
-    - Initialize the repository on GitHub without any files in it
-    - In RStudio,
-        - Create a new Project
-        - When creating, select the option to create from Version Control -> Git
-        - Enter your repository's clone URL in the Repository URL field and fill in the rest of the details
+- Use your existing `training_username` repository
 - Add a new file at the top level called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.  Be sure to use the exact capitalization (lower case 'index') as different operating systems handle capitalization differently and it can interfere with loading your web page later.
 - Open `index.Rmd` (if it isn't already open)
 - Press Knit
