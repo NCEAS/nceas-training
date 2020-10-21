@@ -44,7 +44,7 @@ Now, the rendered website version of your repo will show up at a special URL.
     
 GitHub Pages follows a convention like this:
     
-![github pages url pattern](../images/github_pages.png)
+![github pages url pattern](images/github_pages.png)
      
 Note that it will no longer be at github.com but github.io
      
@@ -81,9 +81,8 @@ Now, return to editing your `index.Rmd` file from the beginning of this lesson. 
 
 Commit and push the web page to GitHub.  Now when you visit your web site, you'll see the table of contents, and can navigate to the new data cleaning page.
 
-```{r weboutput, echo=FALSE, out.width = '50%', fig.align = 'left'}
-knitr::include_graphics("../images/git-index-page.png")
-```
+![](images/git-index-page.png)
+
 
 
 
