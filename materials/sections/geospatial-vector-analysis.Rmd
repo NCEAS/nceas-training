@@ -67,7 +67,7 @@ library(ggmap)
 
 Read in the data and look at a plot of it.
 
-```{r read_shp_sf, eval = F}
+```{r, eval = F}
 ## Read in shapefile using sf
 ak_regions <- read_sf("shapefiles/ak_regions_simp.shp")
 
