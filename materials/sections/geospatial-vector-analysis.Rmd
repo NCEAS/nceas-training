@@ -45,7 +45,8 @@ For convience, I've hosted a zipped copy of all of the files on our test site.
 Follow these steps to get ready for the next exercise:
 
 1. Navigate to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) and download the zip folder.
-2. Unzip the file and move the folder created to the top level of your git repository.
+2. Create a new folder in your training_username project called "shapefiles"
+3. Click the "upload" button on RStudio server, and upload the file to the shapefiles directory
 3. Open your .gititnore file and add that directory to the list of things to ignore.
 4. Save and commit the changes to your .gitignore.
 
@@ -66,7 +67,14 @@ library(ggmap)
 
 Read in the data and look at a plot of it.
 
-```{r read_shp_sf}
+```{r read_shp_sf, eval = F}
+## Read in shapefile using sf
+ak_regions <- read_sf("shapefiles/ak_regions_simp.shp")
+
+plot(ak_regions)  
+```
+
+```{r read_shp_sf, echo = F}
 ## Read in shapefile using sf
 ak_regions <- read_sf("../data/shapefiles/ak_regions_simp.shp")
 
@@ -166,7 +174,11 @@ We have some population data, but it gives the number of people by city, not by 
 
 First, read in the population data as a regular `data.frame`. This data is derived from: Jeanette Clark, Sharis Ochs, Derek Strong, and National Historic Geographic Information System. 2018. Languages used in Alaskan households, 1990-2015. Knowledge Network for Biocomplexity. [doi:10.5063/F11G0JHX](https://doi.org/10.5063/F11G0JHX). Unnecessary columns were removed and the most recent year of data was selected.
 
-```{r}
+```{r, eval = F}
+pop <- read.csv("shapefiles/alaska_population.csv")
+```
+
+```{r, echo = F}
 pop <- read.csv("../data/shapefiles/alaska_population.csv")
 ```
 
@@ -289,7 +301,13 @@ We can also plot multiple shapefiles in the same plot. Say if we want to visuali
 
 The rivers shapefile is a simplified version of Jared Kibele and Jeanette Clark. Rivers of Alaska grouped by SASAP region, 2018. Knowledge Network for Biocomplexity. doi:10.5063/F1SJ1HVW.
 
-```{r}
+```{r, eval = F}
+rivers_3338 <- read_sf("shapefiles/ak_rivers_simp.shp")
+st_crs(rivers_3338)
+```
+
+
+```{r, echo = F}
 rivers_3338 <- read_sf("../data/shapefiles/ak_rivers_simp.shp")
 st_crs(rivers_3338)
 ```
