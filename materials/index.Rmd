@@ -1,6 +1,6 @@
 --- 
-title: "Arctic Data Center Training"
-date: "October 19-23, 2020"
+title: "Reproducible Research Techniques for Synthesis"
+date: "November 12-13, 16-18, 2020"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -11,19 +11,10 @@ description: ""
 always_allow_html: yes
 ---
 
-# Data Science Training for the Arctic Data Center {-#data-science-training-for-the-arctic-data-center}
-
-[![arctic_data_logo](images/arctic-data-center.png)](https://arcticdata.io)
-
-The [Arctic Data Center](https://arcticdata.io) conducts training in data science and management,
-both of which are critical skills for stewardship of data, software, and other
-products of research that are preserved at the [Arctic Data Center](https://arcticdata.io).
+# Reproducible Research Techniques for Synthesis
 
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-
-
-Citation: Jones, Matthew B., Amber E. Budden, Bryce Mecum, Jeanette Clark, Julien Brun, Julie Lowndes, and Erin McLean. 2020. _Data Science Training for Arctic Researchers_. Arctic Data Center. [doi:10.18739/A24746R2N](https://doi.org/10.18739/A24746R2N)
+The research landscape is changing. Researchers are increasingly engaging in collaboration across networks; open science includes not just open publication but also open data, software, and workflows; and technology is evolving in support of this new paradigm. This five-day workshop is designed to help researchers stay abreast of current best practices and initiatives and get started on acquiring good data science skills to maximize their productivity, share their data with the scientific community effectively and efficiently, and benefit from the re-use of their data by others.
 
 ## Schedule
 
@@ -32,13 +23,20 @@ knitr::include_graphics("images/schedule.png")
 ```
 
 ### Code of Conduct
-- [Arctic Data Center Code of Conduct](https://docs.google.com/document/d/1-eVjnwyLBAfg_f4DRIUVWnLeekgrzrz9wgbhnpOmuVE/edit)
+
+Please note that by participating in an NCEAS activity you agree to abide by our [Code of Conduct](https://www.nceas.ucsb.edu/files/NCEAS_Code-of-Conduct_2019.pdf)
+
+
+
+```{r footer_logo, echo=FALSE, out.width = '100%', fig.align = 'center'}
+knitr::include_graphics("images/nceas-logo.png")
+```
 
 ### Logistics
 
 #### Overview
 
-Welcome to the Arctic Data Center Data Science Training. In previous years, we have been able to run this course on site as a 5-day intensive training between 8:00 am and 5:00 pm. Participants traveled to NCEAS in Santa Barbara and we asked that participants were as engaged as possible during the instructional period. Although we have had to switch to a remote training model due to COVID-19, we ask participants for the same level of commitment in this remote setting, while understanding that some conflicts are unavoidable.
+Welcome to the NCEAS Reproducible Research Techniques for Synthesis short course. In previous years, we have been able to run this course on site as a 5-day intensive training between 8:00 am and 5:00 pm. Participants traveled to NCEAS in Santa Barbara and we asked that participants were as engaged as possible during the instructional period. Although we have had to switch to a remote training model due to COVID-19, we ask participants for the same level of commitment in this remote setting, while understanding that some conflicts are unavoidable.
 
 We will be using the following tools to facilitate this training:
 
@@ -98,9 +96,6 @@ When you have detailed questions or need one on one coding assistance, we have t
 To facilitate a lively and interactive learning environment, we'll be calling on folks to share their code and to answer various questions posed by the instructor. It's completely okay to say "Pass" or "I Don't Know" - this is a supportive learning environment and we will all learn from each other. The instructors will be able to see your code as you go to help you if you get stuck, and the lead instructor may share participants' code to show a successful example or illustrate a teaching moment.
 
 ### Acknowledgements
-Work on this package was supported by:
-
-- [NSF award #1546024](http://www.nsf.gov/awardsearch/showAward?AWD_ID=1546024) to M. B. Jones, S. Baker-Yeboah, A. Budden, J. Dozier, and M. Schildhauer
 
 Additional support was provided for working group collaboration by the National Center for Ecological Analysis and Synthesis, a Center funded by the University of California, Santa Barbara, and the State of California.
 
