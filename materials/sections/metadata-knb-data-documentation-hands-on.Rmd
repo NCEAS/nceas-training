@@ -1,6 +1,6 @@
-# Data Documentation and Publishing 
+## Data Documentation and Publishing 
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -8,11 +8,11 @@ In this lesson, you will learn:
 - What science metadata is and how it can be used
 - How data and code can be documented and published in open data archives
 
-## Data sharing and preservation
+### Data sharing and preservation
 
 ![](images/WhyManage.png)
 
-## Data repositories: built for data (and code)
+### Data repositories: built for data (and code)
 
 - GitHub is not an archival location
 - Dedicated data repositories: KNB, Arctic Data Center, Zenodo, FigShare
@@ -23,7 +23,7 @@ In this lesson, you will learn:
 
 ![](images/RepoLogos.png)
 
-## Metadata
+### Metadata
 
 Metadata are documentation describing the content, context, and structure of 
 data to enable future interpretation and reuse of the data.  Generally, metadata
@@ -71,7 +71,7 @@ reused.
 Also note that the repository tracks how many times each file has been downloaded,
 which gives great feedback to researchers on the activity for their published data.
 
-## Structure of a data package
+### Structure of a data package
 
 Note that the data set above lists a collection of files that are contained within
 the data set.  We define a *data package* as a scientifically useful collection of 
@@ -90,7 +90,7 @@ and becomes the publicly citable identifier for the package.  Each of the other 
 gets an internal identifier, often a UUID that is globally unique.  In the example above,
 the package can be cited with the DOI `doi:10.5063/F1F18WN4`.
 
-## DataONE Federation
+### DataONE Federation
 
 DataONE is a federation of dozens of data repositories that work together to make their 
 systems interoperable and to provide a single unified search system that spans
@@ -105,14 +105,14 @@ than visiting each of the currently 43 repositories one at a time.
 ![](images/DataONECNs.png)
 
 
-## Publishing data from the web
+### Publishing data from the web {-}
 
 Each data repository tends to have its own mechanism for submitting data and
 providing metadata.  With repositories like the KNB Data Repository and the
 Arctic Data Center, we provide some easy to use web forms for editing and submitting
 a data package.  Let's walk through a web submission to see what you might expect.
 
-### Download the data to be used for the tutorial
+#### Download the data to be used for the tutorial {- .setup}
 
 I've already uploaded the test data package, and so you can access the data here:
 
@@ -121,8 +121,8 @@ I've already uploaded the test data package, and so you can access the data here
 Grab both CSV files, and the R script, and store them in a convenient folder.
 
 ![](images/hatfield-knb-01.png)
-
-### Login via ORCID
+ 
+#### Login via ORCID {-}
 
 We will walk through web submission on https://demo.nceas.ucsb.edu, and start 
 by logging in with an ORCID account. ORCID provides a common account for sharing
@@ -137,13 +137,13 @@ When you sign in, you will be redirected to [orcid.org](https://orcid.org), wher
 
 
 
-### Create and submit the data set
+#### Create and submit the data set {-}
 
 After signing in, you can access the data submission form using the *Submit* button.
 Once on the form, upload your data files and follow the prompts to provide the 
 required metadata. Required sections are listed with a red asterisk.
 
-#### Click **Add Files** to choose the data files for your package
+##### Click **Add Files** to choose the data files for your package {-}
 
 You can select multiple files at a time to efficiently upload many files.
 
@@ -155,7 +155,7 @@ metadata while they upload.
 
 ![](images/editor-knb-02.png)
 
-#### Enter Overview information
+##### Enter Overview information {-}
 
 This includes a descriptive title, abstract, and keywords.
 
@@ -177,7 +177,7 @@ Selecting a distribution license - either [CC-0](https://creativecommons.org/pub
 
 ![](images/editor-knb-05.png)
 
-#### People Information
+##### People Information {-}
 
 Information about the people associated with the dataset is essential to provide 
 credit through citation and to help people understand who made contributions to
@@ -193,14 +193,14 @@ helps link this dataset to their other scholarly works.
 
 ![](images/editor-knb-06.png)
 
-#### Temporal Information
+##### Temporal Information
 
 Add the temporal coverage of the data, which represents the time period to which
 data apply. 
 
 ![](images/editor-knb-09.png)
 
-#### Location Information
+##### Location Information {-}
 
 The geospatial location that the data were collected is critical for discovery 
 and interpretation of the data.  Coordinates are entered in decimal degrees, and
@@ -221,7 +221,7 @@ place name, ordered from the local to global. For example:
 
 
 
-#### Methods
+##### Methods {-}
 
 Methods are critical to accurate interpretation and reuse of your data.  The editor 
 allows you to add multiple different methods sections, include details of 
@@ -231,7 +231,7 @@ are fundamentally important to reuse of the data.
 
 ![](images/editor-knb-10.png)
 
-#### Save a first version with **Submit**
+##### Save a first version with **Submit** {-}
 
 When finished, click the *Submit Dataset* button at the bottom.  
 If there are errors or missing fields, they will be highlighted.  
@@ -243,7 +243,7 @@ to close that banner, if you want to continue editing metadata.
 
 Success!
 
-### File and variable level metadata 
+#### File and variable level metadata {-}
 
 The final major section of metadata concerns the structure and contents
 of your data files. In this case, provide the names and descriptions of
@@ -291,7 +291,7 @@ After you get the green success message, you can visit your
 dataset and review all of the information that you provided. If
 you find any errors, simply click **Edit** again to make changes.
 
-### Add workflow provenance
+#### Add workflow provenance {-}
 
 Understanding the relationships between files in a package is critically important,
 especially as the number of files grows.  Raw data are transformed and integrated
