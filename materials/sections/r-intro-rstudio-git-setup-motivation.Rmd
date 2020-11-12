@@ -4,8 +4,8 @@
 
 In this lesson, you will learn:
 
-- What computational reproducibility is and why it is useful
-- How version control can increase computational reproducibility
+- Why reproducibility in research is useful
+- What is meant by computational reproducibility
 - How to check to make sure your RStudio environment is set up properly for analysis
 - How to set up git
 
@@ -22,19 +22,19 @@ During this course you will learn about some of the challenges that can be encou
 #### Why is reproducible research important? {-}
 Working in a reproducible manner builds efficiencies into your own research practices. The ability to automate processes and rerun analyses as you collect more data, or share your full workflow (including data, code and products) with colleagues, will accelerate the pace of your research and collaborations. However, beyond these direct benefits, reproducible research builds trust in science with the public, policy makers and others.  
 
-![](images/Smith-et-al.jpg)
+![](images/Smith-et-al.png)
 
 What data were used in this study? What methods applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? 
 
 Are the results reproducible?
 
-![](images/Ioannidis.jpg)
+![](images/OSC.png)
 
 Ionnidis (2005) contends that "Most research findings are false for most research designs and for most fields", and a study of replicability in psychology experiments found that "Most replication effects were smaller than the original results" (Open Science Collaboration, 2015).
 
-![](images/NCA.jpg)
+![](images/NCA.png)
 
-In the case of 'climategate', it took three years, and over 300 personnel, to be gather the necessary provenance information in order to document how results, figures and other outputs were derived from input sources. Time and effort that could have been significantly reduced with appropriate documentation and reproducible practices. Moving forward, through reproducible research training, practices, and infrastructure, the need to manually chase this information will be reduced enabling replication studies and great trust in science.
+In the case of 'climategate', it took three years, and over 300 personnel, to gather the necessary provenance information in order to document how results, figures and other outputs were derived from input sources. Time and effort that could have been significantly reduced with appropriate documentation and reproducible practices. Moving forward, through reproducible research training, practices, and infrastructure, the need to manually chase this information will be reduced enabling replication studies and great trust in science.
 
 
 #### Computational reproducibility {-}
@@ -70,16 +70,17 @@ understand the provenance of their conclusions.
 #### Summary
 
 Computational reproducibility provides:
-* transparency by capturing and communicating scientific workflows
-* research to stand on the shoulders of giants (build on work that came before)
-* credit for secondary usage and supports easy attribution
-* increased trust in science
 
-We can achive practical reproducibility by:
-* preserving the data
-* preserving the software workflow
-* providing documentation for processes
-* describing how to interpret all parts
+- transparency by capturing and communicating scientific workflows
+- research to stand on the shoulders of giants (build on work that came before)
+- credit for secondary usage and supports easy attribution
+- increased trust in science
+
+We can achieve practical reproducibility by:
+- preserving the data
+- preserving the software workflow
+- providing documentation for processes
+- describing how to interpret all products
 
 
 ### Logging into the RStudio server
