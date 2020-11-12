@@ -76,11 +76,16 @@ Computational reproducibility provides:
 - credit for secondary usage and supports easy attribution
 - increased trust in science
 
-We can achieve practical reproducibility by:
-- preserving the data
-- preserving the software workflow
-- providing documentation for processes
-- describing how to interpret all products
+Preserving computational workflows enables understanding, evaluation, and reuse for the benefit of *future you* and your collaborators and colleagues **across disciplines**.
+
+Reproducibility means different things to different researchers. For our purposes, practical reproducibility looks like:
+
+- Preserving the data
+- Preserving the software workflow
+- Documenting what you did
+- Describing how to interpret it all
+
+During this course will outline best practices for how to make those four components happen.
 
 
 ### Logging into the RStudio server

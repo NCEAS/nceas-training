@@ -4,22 +4,16 @@
 
 In this lesson, you will learn:
 
-- Why preserving computational workflows is important
 - How to acheive practical reproducibility
-- What are some best practices for data and metadata management
+- Some best practices for data and metadata management
 
-Preserving computational workflows enables understanding, evaluation, and reuse for the benefit of *future you* and your collaborators and colleagues **across disciplines**.
-
-Reproducibility means different things to different researchers. For our purposes, practical reproducibility looks like:
-
-- Preserving the data
-- Preserving the software workflow
-- Documenting what you did
-- Describing how to interpret it all
-
-The next sections will outline best practices for how to make those four components happen.
 
 ### Best Practices: Overview
+
+![](images/DLC.png)
+
+
+The data life cycle has 8 stages: Plan, Collect, Assure, Describe, Preserve, Discover, Integrate, and Analyze. In this section we will cover the following best practices that can help across all stages of the data life cycle:
 
 - Organizing Data
 - File Formats
@@ -28,11 +22,6 @@ The next sections will outline best practices for how to make those four compone
 - Data Identifiers
 - Provenance
 - Licensing and Distribution
-
-![](images/DLC.png)
-
-
-The data life cycle has 8 stages: Plan, Collect, Assure, Describe, Preserve, Discover, Integrate, and Analyze. The following best practices help at every stage.
 
 #### Organizing Data
 
