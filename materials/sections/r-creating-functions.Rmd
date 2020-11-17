@@ -153,8 +153,12 @@ convert_temps <- function(fahr) {
 }
 
 temps_df <- data.frame(convert_temps(seq(-100,100,10)))
+```
+
+```{r, echo = FALSE}
 datatable(temps_df)
 ```
+
 
 Once we have a dataset like that, we might want to plot it. One thing that we do 
 repeatedly is set a consistent set of display elements for creating graphs and plots.
