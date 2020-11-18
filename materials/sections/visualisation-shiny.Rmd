@@ -19,9 +19,9 @@ In this lesson we will:
 
 There are some really great examples of what Shiny can do on the RStudio webite like [this one exploring movie metadata](https://shiny.rstudio.com/gallery/movie-explorer.html). A more scientific example is a tool from the SASAP project exploring [proposal data from the Alaska Board of Fisheries](https://sasap-data.shinyapps.io/board_of_fisheries/).
 
-```{r shinyapp_sasap, echo=FALSE}
-knitr::include_graphics("images/shiny-sasap-app.png")
-```
+
+![](images/shiny-sasap-app.png)
+
 
 Most any kind of analysis and visualization that you can do in R can be turned into a useful interactive visualization for the web that lets people explore your data more intuitively  But, a Shiny application is not the best way to preserve or archive your data.  Instead, for preservation use a repository that is archival in its mission like the [KNB Data Repository](https://knb.ecoinformatics.org), [Zenodo](https://zenodo.org), or [Dryad](https://datadryad.org). This will assign a citable identfier to the specific version of your data, which you can then read in an interactive visualiztion with Shiny.
 
