@@ -18,24 +18,12 @@ knitr::opts_chunk$set(fig.path = 'figures/', echo = FALSE, warning = FALSE, mess
 library(ggplot2)
 library(knitr)
 library(broom)
-library(captioner)
 ```
 
 ```{r dataloading, echo=FALSE, message=FALSE, results='hide'}
 # Data we need later on
 data(diamonds)
 head(diamonds)
-```
-
-```{r figcaps, echo=FALSE, message=FALSE, results='hide'}
-# Figure and table caption setup
-tbl_caps <- captioner(prefix = "Table")
-tbl_caps("themodel", "This is a broomed linear model summary table.")
-cap_themodel <- tbl_caps("themodel")
-
-fig_caps <- captioner(prefix = "Figure")
-fig_caps("pricevscarat", "The relationship between price and carat for the diamonds dataset.")
-cap_pricevscarat <- fig_caps("pricevscarat")
 ```
 
 # Abstract
@@ -113,7 +101,7 @@ And then we just place that in our `.bibtex` file.
 
 The plot we made was really great (Figure 1).
 
-```{r pricevscarat, echo=FALSE, fig.cap=cap_pricevscarat, fig.width=8, fig.height=4, fig.align='center', cache=TRUE}
+```{r pricevscarat, echo=FALSE, fig.cap="The relationship between price and carat for the diamonds dataset.", fig.width=8, fig.height=4, fig.align='center', cache=TRUE}
 ggplot(diamonds, aes(carat, price, color = clarity)) + 
   geom_point() +
   labs(x = "Carat", y = "Price")
@@ -123,7 +111,7 @@ But the model was even better:
 
 ```{r themodel, echo=FALSE}
 mod <- lm(price ~ carat, diamonds)
-kable(tidy(mod), digits = 2, caption = cap_themodel)
+kable(tidy(mod), digits = 2, caption = "This is a broomed linear model summary table.")
 ```
 
 We were delighted to find that the slope parameter was `r round(mod$coefficients["carat"][[1]], 2)`.
