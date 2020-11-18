@@ -1,10 +1,10 @@
-# Introduction to Shiny
+## Introduction to Shiny
 
 ```{r shinysetup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson we will:
 
@@ -13,7 +13,7 @@ In this lesson we will:
 - learn about the server component for Shiny applications
 - build a simple shiny application for interactive plotting
 
-## Overview
+### Overview
 
 [Shiny](http://shiny.rstudio.com/) is an R package for creating interactive data visualizations embedded in a web application that you and your colleagues can view with just a web browser. Shiny apps are relatively easy to construct, and provide interactive features for letting others share and explore data and analyses.
 
@@ -33,7 +33,7 @@ While that is the best citation and archival location of the dataset, using Shin
 
 We're going to create a simple shiny app with two sliders so we can interactively control inputs to an R function.  These sliders will allow us to interactively control a plot.
 
-## Create a sample shiny application
+### Create a sample shiny application
 
 - File > New > Shiny Web App...
 - Set some fields:
@@ -52,12 +52,12 @@ the number of bins in the plot.
 
 Note that you can drag the slider to change the number of bins in the histogram.
 
-## Interactive scatterplots
+### Interactive scatterplots
 
 Let's modify this application to plot water biogeochemistry data in a scatterplot, and allow
 aspects of the plot to be interactively changed.
 
-### Load data for the example
+#### Load data for the example
 
 Follow these steps to get set up for the next exercise:
 
@@ -78,7 +78,7 @@ bg_chem <- read.csv(data_url, stringsAsFactors = FALSE)
 names(bg_chem)
 ```
 
-### Add a simple scatterplot using ggplot
+#### Add a simple scatterplot using ggplot
 
 A number of chemistry parameters are sensitive to depth, so let's start by plotting `CTD_Salinitiy` as
 a function of `CTD_Depth`.  We do so by switching out the histogram code for a simple ggplot, like so:
@@ -102,7 +102,7 @@ In a Shiny application, the `server` function provides the part of the applicati
 that creates our interactive components, and returns them to the user interface (`ui`)
 to be displayed on the page.
 
-### Add sliders to set the min depth and max depth for the X axis
+#### Add sliders to set the min depth and max depth for the X axis
 
 To make the plot interactive, first we need to modify our user interface to include
 widgits that we'll use to control the plot.  Specifically, we will add a new slider
@@ -120,7 +120,7 @@ the `maxdepth` parameter.  To do so, modify the `sidebarPanel()` call to include
 If you reload the app, you'll see two new sliders, but if you change them, they don't
 make any changes to the plot. Let's fix that.
 
-### Connect the slider values to the plot
+#### Connect the slider values to the plot
 
 Finally, to make the plot interactive, we can use the `input` and `output` variables
 that are passed into the `server` function to access the current values of the sliders.
@@ -142,7 +142,7 @@ min and max of the Depth axis.
 
 Looks so shiny!
 
-### Negative depths?
+#### Negative depths?
 
 What happens if a clever user sets the minimum for the X axis at a greater value than the maximum?
 You'll see that the direction of the X axis becomes reversed, and the plotted points display right
@@ -171,7 +171,7 @@ second is the max value on the slider.
 
 ![](images/shiny-bgchem-2.png)
 
-## Shiny architecture
+### Shiny architecture
 
 A Shiny application consists of two functions, the `ui` and the `server`.  The `ui`
 function is responsible for drawing the web page, while the `server` is responsible 
@@ -185,7 +185,7 @@ application is running in your local RStudio instance).  Other times, the `ui` r
 the web browser on one computer, while the `server` runs on a remote computer somewhere
 else on the Internet (e.g., if the application is deployed to a web server).
 
-## Extending the user interface with dynamic plots
+### Extending the user interface with dynamic plots
 
 If you want to display more than one plot in your application, and provide
 a different set of controls for each plot, the current layout would be too simple.
@@ -197,7 +197,7 @@ a `sidebarLayout`, which is divided horizontally into a `sidebarPanel` and a
 
 ![](images/shiny-layout-1.png)
 
-### Vertical layout
+#### Vertical layout
 
 To extend the layout, we will first nest the existing `sidebarLayout` in a new
 `verticalLayout`, which simply flows components down the page vertically.  Then
@@ -259,7 +259,7 @@ cols <- names(bg_chem)
 
 Don't forget to add `library(dplyr)` to the library imports at the top.
 
-### Add the dynamic plot
+#### Add the dynamic plot
 
 Because we named the second plot `varPlot` in our UI section, we now need to modify
 the server to produce this plot.  Its very similar to the first plot, but this time
@@ -310,7 +310,7 @@ configurable scatterplot in three distinct panels.
 
 ![](images/shiny-bgchem-app.png)
 
-## Publishing Shiny applications
+### Publishing Shiny applications
 
 Once you've finished your app, you'll want to share it with others. To do so, you need to
 publish it to a server that is set up to [handle Shiny apps](https://shiny.rstudio.com/deploy/).  
@@ -330,7 +330,7 @@ Your main choices are:
       
 A comparison of [publishing features](https://rstudio.com/products/shiny/shiny-server/) is available from RStudio.
 
-### Publishing to shinyapps.io
+#### Publishing to shinyapps.io
 
 The easiest path is to create an account on shinyapps.io, and then configure RStudio to
 use that account for publishing.  Instructions for enabling your local RStudio to publish
@@ -343,7 +343,7 @@ application window in RStudio, and your app will be live before you know it!
 
 ![](images/shiny-publish.png)
 
-## Summary
+### Summary
 
 Shiny is a fantastic way to quickly and efficiently provide data exploration for your
 data and code.  We highly recommend it for its interactivity, but an archival-quality
@@ -448,7 +448,7 @@ shinyApp(ui = ui, server = server)
 ```
 
 
-## Resources
+### Resources
 
 - [Main Shiny site](http://shiny.rstudio.com/)
 - [Official Shiny Tutorial](http://shiny.rstudio.com/tutorial/)
