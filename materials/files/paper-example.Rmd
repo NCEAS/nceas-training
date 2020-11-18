@@ -15,11 +15,10 @@ bibliography: references.bib
 knitr::opts_chunk$set(fig.path = 'figures/', echo = FALSE, warning = FALSE, message = FALSE)
 
 # Packages we need later on
-  library(ggplot2)
-  library(knitr)
-  library(broom)
-  library(captioner)
-
+library(ggplot2)
+library(knitr)
+library(broom)
+library(captioner)
 ```
 
 ```{r dataloading, echo=FALSE, message=FALSE, results='hide'}
