@@ -11,7 +11,7 @@ In this lesson, you will learn:
 
 A great overview of this approach to reproducible papers comes from:
 
-- Ben Marwick, Carl Boettiger & Lincoln Mullen (2018) **Packaging Data Analytical Work Reproducibly Using R (and Friends)**, The American Statistician, 72:1, 80-88, [doi:10.1080/00031305.2017.1375986](https://doi.org/10.1080/00031305.2017.1375986)
+> Ben Marwick, Carl Boettiger & Lincoln Mullen (2018) **Packaging Data Analytical Work Reproducibly Using R (and Friends)**, The American Statistician, 72:1, 80-88, [doi:10.1080/00031305.2017.1375986](https://doi.org/10.1080/00031305.2017.1375986)
 
 This lesson will draw from existing materials:
 
@@ -19,20 +19,94 @@ This lesson will draw from existing materials:
 - [rrtools](https://github.com/benmarwick/rrtools)
 - [Reproducible papers with RMarkdown](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/reproducible-papers-with-rmd.html)
 
+The key idea in Marwick et al. (2018) is that of the "research compendium": A single container for not just the journal article associated with your research but also the underlying analysis, data, and even the required software environment required to reproduce your work.
+Research compendia make it easy for researchers to do their work but also for others to inspect or even reproduce the work because all necessary materials are readily at hand due to being kept in one place.
+Rather than a constrained set of rules, the research compendium is a scaffold upon which to conduct reproducible research using open science tools such as:
+
+- [R](https://www.r-project.org/)
+- [RMarkdown](https://rmarkdown.rstudio.com/)
+- [git](https://git-scm.com/) and [GitHub](https://github.com)
+
+Fortunately for us, Ben Marwick (and others) have written an R package called [rrtools](https://github.com/benmarwick/rrtools) that helps us create a research compendium from scratch.
+
 To start a reproducible paper with `rrtools`, run:
 
 ```{r eval=FALSE}
 devtools::install_github("benmarwick/rrtools")
 setwd("..")
-rrtools::use_compendium("arcticpaper")
+rrtools::use_compendium("mypaper")
 ```
 
-Then, add some more structure to the package:
+You should see output similar to the below:
+
+```
+> rrtools::use_compendium("mypaper")
+The directory mypaper has been created.
+✓ Setting active project to '/Users/bryce/mypaper'
+✓ Creating 'R/'
+✓ Writing 'DESCRIPTION'
+Package: mypaper
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+✓ Writing 'NAMESPACE'
+✓ Writing 'mypaper.Rproj'
+✓ Adding '.Rproj.user' to '.gitignore'
+✓ Adding '^mypaper\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
+✓ Setting active project to '<no active project>'
+✓ The package mypaper has been created
+✓ Now opening the new compendium...
+✓ Done. The working directory is currently /Users/bryce
+
+Next, you need to:  ↓ ↓ ↓ 
+● Edit the DESCRIPTION file
+● Use other 'rrtools' functions to add components to the compendium
+```
+
+`rrtools` has created the beginnings of a research compendium for us.
+At this point, it looks mostly the same as an R package.
+That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package.
+And this means our research compendium will be easy to install, just like an R package.
+
+Before we get to writing our reproducible paper, let's fill in some more structure.
+Let's:
+
+1. Add a license (always a good idea)
+1. Set up a README file in the RMarkdown format
+1. Create an `analysis` folder to hold our reproducible paper
 
 ```{r eval=FALSE}
-usethis::use_apl2_license(name="Matthew B. Jones")
+usethis::use_apl2_license(name="Your Name") # Change this
 rrtools::use_readme_rmd()
 rrtools::use_analysis()
 ```
 
-Now write a reproducible paper!
+At this point, we're ready to start writing the paper.
+To follow the structure `rrtools` has put in place for us, here are some pointers:
+
+- Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
+- Add any citations to `./analysis/paper/references.bib`
+- Add any longer R scripts that don't fit in your paper in an `R` folder at the top level
+- Add raw data to `./data/raw_data`
+- Write out any derived data (generated in `paper.Rmd`) to `./data/derived_data`
+- Write out any figures in `./analysis/figures`
+
+It would also be a good idea to initialize this folder as a git repo for maximum reproducibility:
+
+```{r init-git, eval=FALSE}
+usethis::use_git()
+```
+
+After that, push a copy up to [GitHub](https://github.com).
+
+Hopefully, now that you've created a research compendium with `rrtools`, you can imagine how a pre-defined structure like the one `rrtools` creates might help you organize your reproducible research and also make it easier for others to understand your work.
+
+For a more complete example than the one we built above, take a look at [benmarwick/teaching-replication-in-archaeology](https://github.com/benmarwick/teaching-replication-in-archaeology).
