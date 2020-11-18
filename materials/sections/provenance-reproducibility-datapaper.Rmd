@@ -112,7 +112,9 @@ Hopefully, now that you've created a research compendium with `rrtools`, you can
 
 For a more complete example than the one we built above, take a look at [benmarwick/teaching-replication-in-archaeology](https://github.com/benmarwick/teaching-replication-in-archaeology).
 
-#### Feedback! {- .exercise}
+#### Feedback!
+
+#### Survey request {- .exercise}
 
 Please provide us with anonymous feedback via the Survey below.
 
@@ -170,6 +172,7 @@ Computational provenance refers to the origin and processing history of data inc
 
 ![](images/Prov-History.png)
 
+
 At DataONE we facilitate reproducible science through provenance by: 
 
 - Tracking **data derivation** history
@@ -178,23 +181,27 @@ At DataONE we facilitate reproducible science through provenance by:
 - Preserving and documenting software **workflows**
 - Linking all of these to **publications**
 
+
 **Introducing [Prov-ONE](http://purl.dataone.org/provone-v1-dev)**, an extension of W3C PROV
 
 ![](images/Prov_ONE.png)
 
-ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **Data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
+ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
+
 
 ![](images/data-package.png)
 
 You will recall the example presented of data from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), where we showed the six step workflow comprising four source data files and two output visualizations. 
 
+
 ![](images/comp-workflow-1.png)
+
 
 ![](images/provenance.png)
 
 This screenshot of the dataset page shows how DataONE renders the Prov-ONE model information as part of our interactive user interface.
 
-#### Data Citation  {-}
+### Data Citation  {-}
 
 Data citation best practices are focused on providing credit where credit is due and indexing and exposing data citations across international repository networks. In 2014, Force 11 established a [Joint Declaration of Data Citation Principles](https://doi.org/10.25490/a97f-egyk) that includes:
 
@@ -216,13 +223,13 @@ We want to move towards a model such that when a user cites a research publicati
 - What was **derived** from it
 - **Who to credit** down the attribution stack
 
-![](images/Transitive_Credit.png)
+![](images/Transitive-Credit.png)
 
 This is transitive credit. And it changes the way in which we think about science communication and traditional publications. 
 
 ![](images/Living-paper.png)
 
-#### The 5th Generation  {-}
+### The 5th Generation  {-}
 
 **Whole Tale** simplifies computational reproducibility. It enables researchers to easily package and share 'tales'. Tales are executable research objects captured in a standards-based tale format complete with metadata. They can contain:
 
@@ -239,13 +246,17 @@ By combining data, code and the compute environment, tales allow researchers to:
 - achieve computational reproducibility 
 - “set the default to reproducible.”
 
-They also empowers users to verify and extend results with different data, methods, and environments. You can browse existing tales, run and interact with published tales and create new tales via the [Whole Tale Dashboard](https://dashboard.wholetale.org/browse). 
+They also empower users to verify and extend results with different data, methods, and environments. You can browse existing tales, run and interact with published tales and create new tales via the [Whole Tale Dashboard](https://dashboard.wholetale.org/browse). 
 
 ![](images/Tale-browser.png)
 
 By integrating with DataONE and Dataverse, Whole Tale includes over 90 major research repositories from which a user can select datasets to make those datasets the starting point of an interactive data exploration and analysis inside of one of the Whole Tale environments. Within DataONE, we are adding functionality to work with data in the Whole Tale environment directly from the dataset landing page.
 
-![](images/WT-integration.png)
+![](images/WT-Integration.png)
+
 
 ![](images/Publish-Tale.png)
 Full circle reproducibility can be achieved by publishing data, code AND the environment.
+
+
+
