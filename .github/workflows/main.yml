@@ -13,5 +13,5 @@ jobs:
       - uses: joelwmale/webhook-action@master
         with:
           url: https://api.travis-ci.com/repo/NCEAS%2Frepro-research-course/requests
-          headers: '{"Content-Type":"application/json", "Accept":"application/json", "Travis-API-Version":"3", "Authorization":${{ secrets.TRAVIS }}}'
+          headers: '{"Content-Type":"application/json", "Accept":"application/json", "Travis-API-Version":"3", "Authorization":"token ${{ secrets.TRAVIS }}"}'
           body: '{"request": {"branch":"master"}}'
