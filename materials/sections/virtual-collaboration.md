@@ -19,9 +19,16 @@ In virtual meetings it is critical to set an inclusive tone from the very beginn
 
 **Welcome.** Schedule time at the very beginning to welcome folks, announce the meeting goals, and explain how to participate via community norms and software. Community norms for participation can be stated by summarizing the code of conduct and outlining shared expectations for the meeting. Participating with software can include tips about how to unmute microphones, use the chat, and write in a shared document. A good strategy to help earn buy-in and participation is to begin with a short roll call and icebreaker question that makes folks less anonymous and buffers time to accommodate connectivity issues.
 
-**Agenda.** All meetings should have an agenda, the detail of which should match the weight of the meeting to maximize the time invested by all participants. When convening folks that don’t often meet, having a detailed agenda with specific minutes allotted to different topics (including the welcome!) is key. It should be designed to structure productive conversations while also providing enough flexibility to explore additional topics and strengthen relationships. If possible, the agenda should be shared ahead of time. If it’s a regular meeting, use the same document for each convening, putting the most recent date at the top of the document and take advantage of headers and table of contents to reduce scrolling. For low-key meetings with close collaborators, a time-allotting agenda might be less necessary but having clear shared expectations of process and outcomes can still be important. 
+<br> 
 
-TODO Figure: example agenda
+<center>
+  <a><img src="/images/openscapes-coc.png" width="500px"></a>
+  <figcaption> An example code of conduct from [openscapes.org/code-of-conduct](https://openscapes.org/code-of-conduct)</figcaption>
+</center>
+
+<br> 
+
+**Agenda.** All meetings should have an agenda, the detail of which should match the weight of the meeting to maximize the time invested by all participants. When convening folks that don’t often meet, having a detailed agenda with specific minutes allotted to different topics (including the welcome!) is key. It should be designed to structure productive conversations while also providing enough flexibility to explore additional topics and strengthen relationships. If possible, the agenda should be shared ahead of time. If it’s a regular meeting, use the same document for each convening, putting the most recent date at the top of the document and take advantage of headers and table of contents to reduce scrolling. For low-key meetings with close collaborators, a time-allotting agenda might be less necessary but having clear shared expectations of process and outcomes can still be important. 
 
 **Multiple communication channels.** Having multiple communication channels for folks to "speak up" during the meeting is important for underrepresented minorities, students, and early career people, as well as international or multi-lingual participants. Having multiple communication channels provides ways for folks to connect and catch up if folks join the call late or drop off due to connectivity issues. If you're using a shared document, writing feedback instead of verbalizing it can save time and also be used for side and asynchronous conversations.
 
@@ -34,6 +41,15 @@ Documenting topics covered and decisions made during meetings is critical for re
 
 **Meeting notes.** Since people can log off from meetings with different perceptions and expectations, documentation can help keep people on the same page. Plus, documentation helps folks revisit ideas and action items, whether they were present at that meeting or not. Write meeting notes in a document—preferably in the agenda document mentioned above.
 
+<br> 
+
+<center>
+  <a><img src="/images/nceas-agenda-example.png" width="500px"></a>
+  <figcaption> Example of agenda and meeting notes from [NCEAS training modules](https://www.openscapes.org/blog/2020/05/04/kickstarting-collab-remotely/) </figcaption>
+</center>
+
+<br> 
+
 **Collaborative software.** Use collaborative document software such as Google Docs so that folks can take live notes together. Invite and teach participants how to contribute, and give them opportunities to get into the rhythm early on. For example, a written roll call at the beginning of the meeting invites people to be hands-on and can serve as a time buffer as folks arrive at the start.
 
 **Shared effort.** Co-creating shared notes helps keep participants actively engaged. It also will result in a record of the meeting that is less brittle than anything produced by a single designated note-taker and will include more voices. Folks can contribute in many ways (including adding links, comments, +1's to affirm others' ideas, and emojis to provide quick emotion and color). Further, people can contribute to shared documents live during a meeting or asynchronously before and afterward. 
@@ -43,7 +59,16 @@ Documenting topics covered and decisions made during meetings is critical for re
 
 Having appropriate communication channels for meetings is important because it can provide resilience when connections are dropped or links are requested. 
 
-**Provide orientation.** Being deliberate about the tools you choose includes thinking about what tools they might already use and how to orient folks to this software. The tools you choose may require additional time – and empathy – to help everyone feel comfortable using the technology. Providing useful tips can help new and seasoned users alike improve their virtual experiences as versions update, for example “you can change your preferences so the video conferencing software doesn’t default to full-screen when someone screenshares: Preferences > Screen Share> Enter full screen when a participant shares screen > uncheck”.
+**Provide orientation.** Being deliberate about the tools you choose includes thinking about what tools they might already use and how to orient folks to this software. The tools you choose may require additional time – and empathy – to help everyone feel comfortable using the technology. Providing useful tips can help new and seasoned users alike improve their virtual experiences as versions update, for example “you can change your preferences so the video conferencing software doesn’t default to full-screen when someone screenshares: Preferences > Screen Share> Enter full screen when a participant shares screen > select your choice”.
+
+<br> 
+
+<center>
+  <a><img src="/images/zoom-screenshare-settings.png" width="500px"></a>
+  <figcaption> Example of Zoom screenshare settings in v5.4.4. Preferences > Screenshare </figcaption>
+</center>
+
+<br> 
 
 **Video conferencing.** Video conferencing software allows participants to engage with "faces on." This is a nice norm to set to build engagement and camaraderie, and some software settings allow you to display 49 or more participant videos at once. When using video software it is important to state that it is fine to participate without enabling video for any reason, including bandwidth or privacy issues. Virtual backgrounds can be an option to increase privacy when having videos on.
 
