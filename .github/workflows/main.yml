@@ -1,0 +1,17 @@
+# Webook to build course website
+
+name: webhook
+on:
+  # Triggers the workflow on push events for all branchese
+  push:
+    branches: [ '**' ]
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - uses: joelwmale/webhook-action@master
+        with:
+          url: https://api.travis-ci.com/repo/NCEAS%2Frepro-research-course/requests
+          headers: '{"Content-Type":"application/json", "Accept":"application/json", "Travis-API-Version":"3", "Authorization":"token ${{ secrets.TRAVIS }}"}'
+          body: '{"request": {"branch":"master"}}'
