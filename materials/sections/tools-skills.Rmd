@@ -17,7 +17,8 @@ During your postdoctoral project(s), you will be working most likely work with c
 *   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
 For asynchronous communication,  we recommend setting up a **mailing list** (e.g. Google Groups) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
 For faster communication, while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, `Slack` has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
-_Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.
+_Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.   \
+See the Virtual Collaboration section to learn more about virtual meetings and how to run them efficiently.
 *   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for Github issues as an example). In the Data Science training part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
 
 **Few criteria to ask yourself to help to pick the right tool:**
@@ -64,17 +65,17 @@ Try to avoid having data sets spread among laptops or other personal computers; 
     8. But don’t forget Humans need to read file names too 😉
 
 
-**Example**
+**Example:**
 
 Which filename would be the most useful?
 
-1. 06-2020-08-sensor2-plot1.csv
-2. 2020-05-08_light-sensor-1_plot-1.csv 
-3. Measurement 1.csv 
+1. `06-2020-08-sensor2-plot1.csv`
+2. `2020-05-08_light-sensor-1_plot-1.csv` 
+3. `Measurement 1.csv`
 
-Answer: II The date will sort the file in order by default and the consistent usage of `-` and `_` will let you break the filename into useful information.
+Answer: `2020-05-08_light-sensor-1_plot-1.csv` because the date will sort the file in order by default and the consistent usage of `-` and `_` will let you break the filename into useful information.
 
-The most important is to be consistent among collaborators and over time. To know more about this topic, here is a  good [reference](https://speakerdeck.com/jennybc/how-to-name-files) on this topic from Jenny Bryan (RStudio).
+The most important is to be **_consistent_** among collaborators and over time. To know more about this topic, here is a  good [reference](https://speakerdeck.com/jennybc/how-to-name-files) on this topic from Jenny Bryan (RStudio).
 
 
 ### Scientific programming for reproducible research
