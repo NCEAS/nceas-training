@@ -4,7 +4,7 @@
 
 There are many reasons why it is essential to make your science reproducible. We will refer you to the references at the end of this section to learn more about open and reproducible science and how the necessity of openness is a cornerstone of the integrity and efficacy of the scientific research process. You will learn more about the tools and techniques you can use to make your data analysis in the Data Science section of this book, here we are introducing an overview of skills and tools that will enable you to collaborate in a reproducible manner. 
 
-In this section, we are focusing on providing an overview of why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger datasets, and better collaborate by receiving feedback and contributions from others, as well as enable your future self to reuse and build on your own work.
+In this section, we are focusing on providing an overview of why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger data sets, and better collaborate by receiving feedback and contributions from others, as well as enable your future self to reuse and build on your own work.
 
 
 ### Collaborative tools 
@@ -19,7 +19,7 @@ For asynchronous communication,  we recommend setting up a **mailing list** (e.g
 For faster communication, while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, `Slack` has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
 _Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.   \
 See the Virtual Collaboration section to learn more about virtual meetings and how to run them efficiently.
-*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for Github issues as an example). In the Data Science training part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
+*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for GitHub issues as an example). In the Data Science training part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
 
 **Few criteria to ask yourself to help to pick the right tool:**
 
@@ -42,7 +42,7 @@ We thus strongly recommend planning ahead and develop a** Data Management Plan**
 *   At the end of your project, where do you plan to archive your products (data produced, codes, ...)?
 You will learn more about data repository and the archiving your products later in the Book
 
-```{r data-life-cycle, out.width='80%', fig.align="center", fig.cap="Credits: DataONE data management; Friedrich Recknagel and William K. Michener. “Ecological Informatics”, 2017)", echo=FALSE}
+```{r data-life-cycle, out.width='90%', fig.align="center", fig.cap="Credits: DataONE data management; Friedrich Recknagel and William K. Michener. “Ecological Informatics”, 2017)", echo=FALSE, fig}
   knitr::include_graphics(here::here("images","tools-skills-datalifecycle.png"))
 ```
 
@@ -54,15 +54,15 @@ A few more thoughts related to managing data in a collaborative setup:
 Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and can become a nightmare to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management and making sure that all your collaborators access the same version of the data sets using the same path.
 2. Develop naming conventions \
  For files and folder:
-    1. Avoid spaces (use underscores or dashes)
-    2. Avoid punctuation or special characters
-    3. Try to leverage alphabetical order (e.g. start with dates: 2020-05-08)
-    4. Use descriptive naming (metadata)
-    5. Use folders to structure/organize content
-    6. Keep it simple
+    a. Avoid spaces (use underscores or dashes)
+    b. Avoid punctuation or special characters
+    c. Try to leverage alphabetical order (e.g. start with dates: 2020-05-08)
+    d. Use descriptive naming (metadata)
+    e. Use folders to structure/organize content
+    f. Keep it simple
 3. Make it programmatically useful 
-    7. Useful to select files (Wildcard *, regular expression)
-    8. But don’t forget Humans need to read file names too
+    a. Useful to select files (Wildcard *, regular expression)
+    b. But don’t forget Humans need to read file names too
 
 
 **Example:**
@@ -80,10 +80,10 @@ The most important is to be **_consistent_** among collaborators and over time. 
 
 ### Scientific programming for reproducible research
 
-To make your data-riven research reproducible, it is important to develop analytical workflows that will be relying on programming to accomplish the different tasks necessary to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as R and Python, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leverage to conduct analysis and modeling. The Data Science Section of this onboarding document will introduce you to how to use R and other tools to develop such a workflow.
+To make your data-riven research reproducible, it is important to develop scientific workflows that will be relying on programming to accomplish the different tasks necessary to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as R and Python, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leverage to conduct analysis and modeling. The Data Science Section of this onboarding document will introduce you to how to use R and other tools to develop such a workflow.
 
 
-```{r tidy-workflow, out.width='60%', fig.align="center", fig.cap="Workflow example using the `tidyverse`. Note the program box around the workflow and the iterative nature of the analytical process described. _Source: R for Data Science <https://r4ds.had.co.nz/>_",echo=FALSE}
+```{r tidy-workflow, out.width='80%', fig.align="center", fig.cap="Workflow example using the `tidyverse`. Note the program box around the workflow and the iterative nature of the analytical process described. _Source: R for Data Science <https://r4ds.had.co.nz/>_",echo=FALSE}
   knitr::include_graphics(here::here("images","tidy-workflow.png"))
 ```
 
