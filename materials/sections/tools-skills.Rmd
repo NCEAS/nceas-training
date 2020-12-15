@@ -1,11 +1,11 @@
-## Skills and Tools for Reproducible and Collaborative Data Science
+## Skills and Tools for Reproducible and Collaborative Data-driven Science
 
 ### Making your work reproducible
-
 
 There are many reasons why it is essential to make your science reproducible. We will refer you to the references at the end of this section to learn more about open and reproducible science and how the necessity of openness is a cornerstone of the integrity and efficacy of the scientific research process. You will learn more about the tools and techniques you can use to make your data analysis in the Data Science section of this book, here we are introducing an overview of skills and tools that will enable you to collaborate in a reproducible manner. 
 
 In this section, we are focusing on providing an overview of why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger datasets, and better collaborate by receiving feedback and contributions from others, as well as enable your future self to reuse and build on your own work.
+
 
 ### Collaborative tools 
 
@@ -13,14 +13,12 @@ In this section, we are focusing on providing an overview of why making your wor
 
 During your postdoctoral project(s), you will be working most likely work with collaborators who will be part of multiple organizations. And since you are coming from different institutions, you will therefore most likely using different tools that others might not have access to. The overarching goal is to _centralize the information to make it easy for you and others to find everything in one place quickly. _Here are a few tools we think will be essential to foster your collaboration as a distributed team:
 
-
-
-*   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your group will gather and create. This is meant to be a solution that everyone on the team (independent of their institution) can access.
-*   **Team Communication**: The tools you will be using will depend on how you are collaborating in a synchronous manner or not (see Chapter on Virtual collaboration for more).  \
-For asynchronous communication,  we recommend setting up a mailing list (e.g. Google Groups) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox. \
-For faster communication, while working at the same time, chat rooms have proven to be a very efficient way to exchange ideas quickly and answer questions in a collaborative way. As an example of potential tools, [Slack](https://slack.com/) has become a very popular tool as it is pretty easy to learn (see [here]([https://slack.com/resources/slack-101/what-is-slack](https://slack.com/resources/slack-101/what-is-slack))  for an introduction_) \
+*   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your group will gather and create. This is meant to be a solution that everyone on the team (independent of their institution) can access. Each solution as its pros and cons and mostly it will depend what your collaborators are used to. It seem Google Drive has a large user base and can be setup with very open saring settings. It can be useful if you are collaborating across institutions. See [here](https://docs.google.com/document/d/1gemd7IB5OKVPnrTIaXECYKeMoNJ6MGUNSh1ehB8Frsk/edit) NCEAS' recommendations to its working groups on best practices on how to use Google Drive.
+*   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
+For asynchronous communication,  we recommend setting up a mailing list (e.g. Google Groups) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
+For faster communication, while working at the same time, chat rooms have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, Slack has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction) \
 _Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.
-*   **Coding together**: We recommend using version control tools such as git and GitHub (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for Github issues as an example).[ In the Data Science training part of this onboarding Book, you will have a comprehensive introduction to those tools and how to best use them.](https://nceas.github.io/training-git-intro/getting-started-with-git-rstudio.html)
+*   **Coding together**: We recommend using version control tools such as git and GitHub (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for Github issues as an example). In the Data Science training part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
 
 **Few criteria to ask yourself to help to pick the right tool:**
 
@@ -28,13 +26,12 @@ _Meetings, in-person or virtual, will also be an important way to communicate an
 *   What team practices should you set on how to use these tools? Example: sharing a new document -- prefer adding documents to the shared drive and send the link rather than sending it as an attachment
 *   Allow flexibility: acknowledge the technological level varies among collaborators. Empower them by showing them how to best use these tools rather than doing it for them!
 
-### **Data managment**
+
+### Data Management
 
 You are starting at the right place since you will be working with NEON data. NEON data sets are well documented, archived, and made publicly available in a curated data repository (https://data.neonscience.org/). However, you might have to combine this data with other types of data that might be less documented and harder to discover or obtain.
 
 We thus strongly recommend planning ahead and develop a** Data Management Plan** as you are starting your project. This will help you to plan for:
-
-
 
 *   What are the various steps you need to go through before you can start your analysis?
 *   How much data are you going to collect, aggregate?
@@ -47,8 +44,6 @@ Add image of the DataOne data cycle
 DataONE has developed several great [documents](https://dataoneorg.github.io/Education/) to help scientists with their data management. Here is the document we recommend to help you to get started: https://dataoneorg.github.io/Education/bp_step/plan/
 
 A few more thoughts related to managing data in a collaborative setup:
-
-
 
 1. Centralize the management of your data \
 Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and can become a nightmare to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management and making sure that all your collaborators access the same version of the data sets using the same path.
@@ -65,7 +60,7 @@ Try to avoid having data sets spread among laptops or other personal computers; 
     8. But don’t forget Humans need to read file names too 😉
 
 
-**Quick example**
+**Example**
 
 Which filename would be the most useful?
 
