@@ -15,7 +15,7 @@ During your postdoctoral project(s), you will be working most likely work with c
 
 *   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your group will gather and create. This is meant to be a solution that everyone on the team (independently of their institution) can access. Each solution as its pros and cons and mostly it will depend what your collaborators and yourself are used to. From our experience at NCEASE, Google Drive has a large user base and can be setup with very open sharing settings. This can be useful if you are collaborating across institutions. See [here](https://docs.google.com/document/d/1gemd7IB5OKVPnrTIaXECYKeMoNJ6MGUNSh1ehB8Frsk/edit) for NCEAS' recommendations on how to use `Google Drive` in a collaborative setup.
 *   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
-For asynchronous communication,  we recommend setting up a **mailing list** (e.g. Google Groups) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
+For asynchronous communication,  we recommend setting up a **mailing list** (e.g. `Google Groups`) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
 For faster communication, while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, `Slack` has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
 _Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.   \
 See the Virtual Collaboration section to learn more about virtual meetings and how to run them efficiently.
@@ -62,7 +62,7 @@ Try to avoid having data sets spread among laptops or other personal computers; 
     6. Keep it simple
 3. Make it programmatically useful 
     7. Useful to select files (Wildcard *, regular expression)
-    8. But don’t forget Humans need to read file names too 😉
+    8. But don’t forget Humans need to read file names too
 
 
 **Example:**
@@ -87,7 +87,7 @@ To make your data-riven research reproducible, it is important to develop analyt
   knitr::include_graphics(here::here("images","tidy-workflow.png"))
 ```
 
-We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scaling you can accomplish in your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ((see Reinhart and Rogof example)[http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf]), hard to track, and difficult to scale to larger data. In addition, auto-formatting (number, date, character, ...) can introduce modifications to your data ((One in five genetics papers contains errors thanks to Microsoft Excel)[https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel]).
+We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scaling you can accomplish in your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ([see Reinhart and Rogof example](http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf), hard to track, and difficult to scale to larger data. In addition, auto-formatting (number, date, character, ...) can introduce modifications to your data ([One in five genetics papers contains errors thanks to Microsoft Excel](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel).
 
 
 #### Scripting languages
@@ -124,7 +124,7 @@ This will allow you to inform your collaborators (but also your future self!) ab
 *   Test your code. Test your code against values you would expect or computed with another software. Try hedge cases, such as NA, negative values, …. 
 *   Iterate with small steps, implement few changes at a time to your code. Test, fix, and move forward!
 
-We hope this overview section has piqued your interest to learn more about practices and tools for reproducible and collaborative research. 
+We hope this overview section has raised your interest to learn more about practices and tools for reproducible and collaborative research. 
 
 
 ### References
