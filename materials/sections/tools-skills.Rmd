@@ -11,7 +11,7 @@ In this section, we are focusing on providing an overview of why making your wor
 
 **Goal**: create a **_space for you to collaborate_** and **_centralize the information_** of your projects 
 
-During your postdoctoral project(s), you will be working most likely work with collaborators who will be part of multiple organizations. And since you are coming from different institutions, you will therefore most likely using different tools that others might not have access to. The overarching goal is to _centralize the information to make it easy for you and others to find everything in one place quickly. _Here are a few tools we think will be essential to foster your collaboration as a distributed team:
+During your postdoctoral project(s), you will be working most likely work with collaborators who will be part of multiple organizations. And since you are coming from different institutions, you will therefore most likely using different tools that others might not have access to. The overarching goal is to centralize the information to make it easy for you and others to find everything in one place quickly. Here are a few tools we think will be essential to foster your collaboration as a distributed team:
 
 *   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your group will gather and create. This is meant to be a solution that everyone on the team (independently of their institution) can access. Each solution as its pros and cons and mostly it will depend what your collaborators and yourself are used to. From our experience at NCEASE, Google Drive has a large user base and can be setup with very open sharing settings. This can be useful if you are collaborating across institutions. See [here](https://docs.google.com/document/d/1gemd7IB5OKVPnrTIaXECYKeMoNJ6MGUNSh1ehB8Frsk/edit) for NCEAS' recommendations on how to use `Google Drive` in a collaborative setup.
 *   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
@@ -42,7 +42,7 @@ We thus strongly recommend planning ahead and develop a** Data Management Plan**
 *   At the end of your project, where do you plan to archive your products (data produced, codes, ...)?
 You will learn more about data repository and the archiving your products later in the Book
 
-```{r data-life-cycle, out.width='90%', fig.align="center", fig.cap="Credits: DataONE data management; Friedrich Recknagel and William K. Michener. “Ecological Informatics”, 2017)", echo=FALSE, fig}
+```{r data-life-cycle, out.width='90%', fig.align="center", fig.cap='Credits: DataONE data management; Friedrich Recknagel and William K. Michener. "Ecological Informatics", 2017)', echo=FALSE}
   knitr::include_graphics(here::here("images","tools-skills-datalifecycle.png"))
 ```
 
