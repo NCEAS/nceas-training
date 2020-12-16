@@ -17,9 +17,8 @@ During your postdoctoral project(s), you will be working most likely work with c
 *   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
 For asynchronous communication,  we recommend setting up a **mailing list** (e.g. `Google Groups`) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
 For faster communication, while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, `Slack` has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
-_Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to make them efficient.   \
-See the Virtual Collaboration section to learn more about virtual meetings and how to run them efficiently.
-*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as GitLab) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs and discuss changes (see [here](https://guides.github.com/features/issues/) for GitHub issues as an example). In the Data Science training part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
+Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to run them efficiently.   \
+*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as `GitLab`) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs, as well as discuss modifications to your code (see [here](https://guides.github.com/features/issues/) for GitHub issues, as an example). In the Data Science part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
 
 **Few criteria to ask yourself to help to pick the right tool:**
 
@@ -30,19 +29,19 @@ See the Virtual Collaboration section to learn more about virtual meetings and h
 
 ### Data Management
 
-You are starting at the right place since you will be working with NEON data. NEON data sets are well documented, archived, and made publicly available in a curated data repository (https://data.neonscience.org/). However, you might have to combine this data with other types of data that might be less documented and harder to discover or obtain.
+You are starting at the right place as you will be working with NEON data! NEON data sets are well documented, archived, and made publicly available in a curated data repository (https://data.neonscience.org/). However, you might have to combine this data with other types of data that could be less documented and harder to discover or obtain.
 
-We thus strongly recommend planning ahead and develop a** Data Management Plan** as you are starting your project. This will help you to plan for:
+We thus strongly recommend planning ahead and develop a **Data Management Plan** as you are starting your project. This will help you to plan for:
 
-*   What are the various steps you need to go through before you can start your analysis?
-*   How much data are you going to collect, aggregate?
+*   What are the various steps needed before you can start your analysis?
+*   How much data will need to be collected and aggregated together?
 *   Who is going to do what?
 *   Estimate how long it will take to organize and process the data (tip: double your estimate and you will be still underestimating; [Hofstadter's law]([https://en.m.wikipedia.org/wiki/Hofstadter%27s_law](https://en.m.wikipedia.org/wiki/Hofstadter%27s_law)))
-*   Are there any legal constraints associated with acquiring, using, and sharing project data? E.g. survey data
-*   At the end of your project, where do you plan to archive your products (data produced, codes, ...)?
-You will learn more about data repository and the archiving your products later in the Book
+*   Are there any legal constraints associated with acquiring, using, and sharing project data? E.g. survey data involving personal information
+*   At the end of your project, where would your products (data produced, codes, ...) be archived?
+You will learn more about data repository and the archiving your products later in this book
 
-```{r data-life-cycle, out.width='90%', fig.align="center", fig.cap='Credits: DataONE data management; Friedrich Recknagel and William K. Michener. "Ecological Informatics", 2017)', echo=FALSE}
+```{r data-life-cycle, out.width='90%', fig.align="center", fig.cap='Credits: DataONE data management; Friedrich Recknagel and William K. Michener. "Ecological Informatics", 2017', echo=FALSE}
   knitr::include_graphics(here::here("images","tools-skills-datalifecycle.png"))
 ```
 
@@ -51,7 +50,7 @@ DataONE has developed several great [documents](https://dataoneorg.github.io/Edu
 A few more thoughts related to managing data in a collaborative setup:
 
 1. Centralize the management of your data \
-Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and can become a nightmare to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management and making sure that all your collaborators access the same version of the data sets using the same path.
+Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and can become a nightmare to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management. This will also make sure that all your collaborators will be able to access the same version of the data using the same path.
 2. Develop naming conventions \
  For files and folder:
     a. Avoid spaces (use underscores or dashes)
@@ -75,28 +74,28 @@ Which filename would be the most useful?
 
 Answer: `2020-05-08_light-sensor-1_plot-1.csv` because the date will sort the file in order by default and the consistent usage of `-` and `_` will let you break the filename into useful information.
 
-The most important is to be **_consistent_** among collaborators and over time. To know more about this topic, here is a  good [reference](https://speakerdeck.com/jennybc/how-to-name-files) on this topic from Jenny Bryan (RStudio).
+The most important is to be **_consistent_** among collaborators and over time. To know more about this topic, here is a good [reference](https://speakerdeck.com/jennybc/how-to-name-files) from Jenny Bryan (RStudio).
 
 
 ### Scientific programming for reproducible research
 
-To make your data-riven research reproducible, it is important to develop scientific workflows that will be relying on programming to accomplish the different tasks necessary to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as R and Python, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leverage to conduct analysis and modeling. The Data Science Section of this onboarding document will introduce you to how to use R and other tools to develop such a workflow.
+To make your data-riven research reproducible, it is important to develop scientific workflows that will be relying on programming to accomplish the necessary tasks to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as R and Python, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leveraged to conduct analysis and modeling. The Data Science Section of this onboarding document will introduce you to how to use `R` and other tools to develop such a workflow.
 
 
 ```{r tidy-workflow, out.width='80%', fig.align="center", fig.cap="Workflow example using the `tidyverse`. Note the program box around the workflow and the iterative nature of the analytical process described. _Source: R for Data Science <https://r4ds.had.co.nz/>_",echo=FALSE}
   knitr::include_graphics(here::here("images","tidy-workflow.png"))
 ```
 
-We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scaling you can accomplish in your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ([see Reinhart and Rogof example](http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf), hard to track, and difficult to scale to larger data. In addition, auto-formatting (number, date, character, ...) can introduce modifications to your data ([One in five genetics papers contains errors thanks to Microsoft Excel](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel).
+We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scaling you can accomplish in your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ([see Reinhart and Rogof example](http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf).  It is also difficult to track changes and to scale your analysis. In addition, auto-formatting (number, date, character, ...) can silently introduce modifications to your data ([One in five genetics papers contains errors thanks to Microsoft Excel](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel).
 
 
 #### Scripting languages
 
-Compared to other programming languages (such as C), scripting languages are not required to be compiled to be executable. One consequence is that, generally, scripts will execute more slowly than a compiled executable program, because they need an interpreter. However, their more natural language oriented syntax makes scripting easier to learn and use.
+Compared to other programming languages (such as `C`, `fortran`, ...), scripting languages are not required to be compiled to be executable. One consequence is that, generally, scripts will execute more slowly than a compiled executable program, because they need an interpreter. However, the more natural language oriented syntax of scripts make them easier to learn and use. In addition, numerous libraries are available to streamline scientific analysis.
 
 **Don’t start coding without planning!**
 
-It is important to stress that scientists write scripts to help them to investigate scientific question(s). Therefore it is important that scripting does not drive our analysis and thinking. We strongly recommend you take the time to plan the steps you need to accomplish to conduct your analysis. Developing a scientific workflow of your analysis will then allow you to develop a pseudo-code that will help you to narrow down the tasks that need to be accomplished to move forward your analysis.
+It is important to stress that scientists write scripts to help them to investigate scientific question(s). Therefore scripting should not drive our analysis and thinking. We strongly recommend you take the time to plan ahead all the steps you need to conduct your analysis. Developing such a scientific workflow will help you to narrow down the tasks that are needed to move forward your analysis.
 
 **Structure of a script**
 
@@ -117,14 +116,14 @@ From the top to the bottom of your script:
 This will allow you to inform your collaborators (but also your future self!) about the tasks your script accomplishes 
 *   Use variables and constants instead of repeating values in different places of the code. This will let you update those values more easily
 *   Choose descriptive names for your variables and functions, not generic ones. If you store a list of files, do not use `x` for the variable name, use instead `files`. Even better use `input_files` if you are listing the files you are importing.
-*   Be consistent in terms of style (`input_files`, `inputFiles`, …) used to name variables and functions. Just pick one and stick to it!
+*   Be consistent in terms of style (`input_files`, `inputFiles`,...) used to name variables and functions. Just pick one and stick to it!
 *   `keep it simple, stupid` ([KISS](https://en.wikipedia.org/wiki/KISS_principle)). Do not create overly complicated or nested statements. Break your tasks in several simple lines of code instead of embedding a lot of executions in one (complicated line). It will save you time while debugging and make your code more readable to others
-*   Go modular! Break down tasks into small code fragments such as functions. It will make your code reusable for you and others (if well documented :) ). Keep functions simple; they should only implement one or few (related) tasks
-*   Don’t Repeat Yourself ([DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)). If you start copy/pasting part of your code changing a few parameters => write a function and call it several times with different parameters. Add flow control such as loops and conditions. It will be easier to debug, change and maintain
+*   Go modular! Break down tasks into small code fragments such as functions or code chunks. It will make your code reusable for you and others (if well documented ). Keep functions simple; they should only implement one or few (related) tasks
+*   `Don’t Repeat Yourself` ([DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)). If you start copy/pasting part of your code changing a few parameters => write a function and call it several times with different parameters. Add flow control such as loops and conditions. It will be easier to debug, change and maintain
 *   Test your code. Test your code against values you would expect or computed with another software. Try hedge cases, such as NA, negative values, …. 
 *   Iterate with small steps, implement few changes at a time to your code. Test, fix, and move forward!
 
-We hope this overview section has raised your interest to learn more about practices and tools for reproducible and collaborative research. 
+We hope this overview section has raised your interest in learning more about data science practices and tools for reproducible and collaborative research. The Data Science section of this onboarding material will introduce you to use the `R` programming language to develop scientific reproducible research.
 
 
 ### References
