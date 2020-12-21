@@ -1,4 +1,6 @@
-## Learning Objectives
+## Git Collaboration and Conflict Management
+
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -7,7 +9,7 @@ In this lesson, you will learn:
 - Workflows to avoid conflicts
 - How to resolve a conflict
 
-## Introduction
+### Introduction
 
 Git is a great tool for working on your own, but even better for working with friends
 and colleagues.  Git allows you to work with confidence on your own local copy of files
@@ -26,11 +28,11 @@ to directly pull and push from the owner's GitHub repository.
 
 ![](images/github-workflows-collab.png)
 
-## Collaborating with a trusted colleague **without conflicts**
+### Collaborating with a trusted colleague **without conflicts**
 
 We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
 
-### Setup {- .setup}
+#### Setup {- .setup}
 
 - We will break you into pairs, so choose one person as the `Owner` and one as the `Collaborator`
 - Log into [GitHub](https://github.com) as the `Owner
@@ -46,11 +48,11 @@ Once the collaborator has been added, they should check their email for an invit
 from GitHub, and click on the acceptance link, which will enable them to collaborate
 on the repository.
 
-### {-}
+#### {-}
 
 We will start by having the collaborator make some changes and share those with the Owner without generating any conflicts, In an ideal world, this would be the normal workflow. Here are the typical steps.
 
-### Step 1: Collaborator clone
+#### Step 1: Collaborator clone
 
 To be able to contribute to a repository, the collaborator
 must clone the repository from the **Owner's** github account. To do this, the Collaborator
@@ -60,13 +62,13 @@ this clone URL into the appropriate dialog (see the earlier chapter introducing 
 
 ![](images/github-clone-url-owner.png)
 
-### Step 2: Collaborator Edits
+#### Step 2: Collaborator Edits
 
 With a clone copied locally, the Collaborator can now make changes to the
 `index.Rmd` file in the repository, adding a line or statment somewhere noticeable
 near the top.  Save your changes.
 
-### Step 3: Collaborator commit and push
+#### Step 3: Collaborator commit and push
 
 To sync changes, the collaborator will need to add, commit, and
 push their changes to the Owner's repository.  But before doing so, its good practice
@@ -80,26 +82,26 @@ immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
 ![](images/rstudio-commit-push.png)
 
-### Step 4: Owner pull
+#### Step 4: Owner pull
 
 Now, the owner can open their local working copy of the code
 in RStudio, and `pull` those changes down to their local copy.
 
 **Congrats, the owner now has your changes!**
 
-### Step 5: Owner edits, commit, and push
+#### Step 5: Owner edits, commit, and push
 
 Next, the owner should do the same. Make changes to
 a file in the repository, save it, pull to make sure no new changes have been made
 while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 
-### Step 6: Collaborator pull
+#### Step 6: Collaborator pull
 
 The collaborator can now `pull` down those owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
 
-### Challenge {- .exercise}
+#### Challenge {- .exercise}
 
 Now that the instructors have demonstrated this conflict-free process, break into 
 pairs and try the same with your partner. Start by designating one person as the `Owner` and one as the `Collborator`, and then repeat the steps described above:
@@ -113,12 +115,12 @@ pairs and try the same with your partner. Start by designating one person as the
 - Step 6: Collaborator pulls the owners changes from GitHub
 
 
-### {-}
+#### {-}
 
 [![XKCD 1597](https://imgs.xkcd.com/comics/git.png)](https://xkcd.com/1597/)
 
 
-## Merge conflicts
+### Merge conflicts
 
 So things can go wrong, which usually starts with a **merge conflict**, due to 
 both collaborators making incompatible changes to a file. While the error messages
@@ -139,9 +141,9 @@ The main problem with merge conflicts is that, when the Owner and Collaborator
 both make changes to the same line of a file, git doesn't know whose changes
 take precedence.  You have to tell git whose changes to use for that line.
 
-## How to resolve a conflict
+### How to resolve a conflict
 
-### Abort, abort, abort... {-}
+#### Abort, abort, abort... {-}
 
 Sometimes you just made a mistake.  When you get a merge conflict, the repository
 is placed in a 'Merging' state until you resolve it.  There's a commandline command
@@ -155,7 +157,7 @@ Of course, after doing that you stull haven't synced with your collaborator's
 changes, so things are still unresolved.  But at least your repository is now
 usable on your local machine.
 
-### Checkout {-}
+#### Checkout {-}
 
 The simplest way to resolve a conflict, given that you know whose version of the
 file you want to keep, is to use the commandline `git` program to tell git to
@@ -166,7 +168,7 @@ use either *your* changes (the person doing the merge), or *their* changes (the 
 
 Once you have run that command, then run `add`, `commit`, and `push` the changes as normal.
 
-### Pull and edit the file {-}
+#### Pull and edit the file {-}
 
 But that requires the commandline. If you want to resolve from RStudio, or if 
 you want to pick and choose some of your changes and some of your collaborator's,
@@ -187,21 +189,21 @@ delimiter lines that started with `<<<<<<<`, `=======`, and `>>>>>>>`.
 Once you have made those changes, you simply add, commit, and push the files
 to resolve the conflict.
 
-### Producing and resolving merge conflicts
+#### Producing and resolving merge conflicts
 
 To illustrate this process, we're going to carefully create a merge conflict step 
 by step, show how to resolve it, and show how to see the results of the successful 
 merge after it is complete. First, we will walk through the exercise to demonstrate 
 the issues.
 
-#### Owner and collaborator ensure all changes are updated
+##### Owner and collaborator ensure all changes are updated
 
 First, start the exercise by ensuring that both the Owner and Collaborator have all
 of the changes synced to their local copies of the Owner's repositoriy in RStudio. 
 This includes doing a `git pull` to ensure that you have all changes local, and 
 make sure that the Git tab in RStudio doesn't show any changes needing to be committed.
 
-#### Owner makes a change and commits
+##### Owner makes a change and commits
 
 From that clean slate, the Owner first modifies and commits a small change inlcuding their
 name on a specific line of the README.md file (we will change line 4). Work to only change
@@ -209,7 +211,7 @@ that one line, and add your username to the line in some form and commit the cha
 (but DO NOT push). We are now in the situation where the owner has unpushed changes that
 the collaborator can not yet see.
 
-#### Collaborator makes a change and commits **on the same line**
+##### Collaborator makes a change and commits **on the same line**
 
 Now the collaborator also makes changes to the same (line 4) of the README.md file 
 in their RStudio copy of the project, adding their name to the line. They then commit.
@@ -217,13 +219,13 @@ At this point, both the owner and collaborator have committed changes based on
 their shared version of the README.md file, but neither has tried to share their changes
 via GitHub.
 
-#### Collaborator pushes the file to GitHub
+##### Collaborator pushes the file to GitHub
 
 Sharing starts when the Collaborator pushes their changes to the GitHub repo, which 
 updates GitHub to their version of the file. The owner is now one revision behind,
 but doesn't yet know it.
 
-#### Owner pushes their changes and gets an error
+##### Owner pushes their changes and gets an error
 
 At this point, the owner tries to push their change to the repository, which triggers
 an error from GitHub. While the error message is long, it basically tells you everything 
@@ -232,7 +234,7 @@ need to *pull* before they can push).
 
 ![](images/git-conflict-01-push-error.png)
 
-#### Owner pulls from GitHub to get Collaborator changes
+##### Owner pulls from GitHub to get Collaborator changes
 
 Doing what the message says, the Owner pulls the changes from GitHub, and gets
 another, different error message. In this case, it indicates that there is a merge 
@@ -245,7 +247,7 @@ for an unresolved merge conflict.
 
 ![](images/git-conflict-03-conflict.png)
 
-#### Owner edits the file to resolve the conflict
+##### Owner edits the file to resolve the conflict
 
 To resolve the conflict, the Owner now needs to edit the file. Again, as indicated above,
 git has flagged the locations in the file where a conflict occcurred 
@@ -261,7 +263,7 @@ runs properly and none of the logic of the program has been broken.
 
 ![](images/git-conflict-05-resolved-file.png)
 
-#### Owner commits the resolved changes
+##### Owner commits the resolved changes
 
 From this point forward, things proceed as normal. The owner first 'Adds' the file
 changes to be made, which changes the orange `U` to a blue `M` for modified, and then
@@ -270,24 +272,24 @@ system.
 
 ![](images/git-conflict-06-commit-resolved.png)
 
-#### Owner pushes the resolved changes to GitHub
+##### Owner pushes the resolved changes to GitHub
 
 Have the Owner push the changes, and it should replicate the changes to GitHub without error.
 
 ![](images/git-conflict-07-push-resolved.png)
 
-#### Collaborator pulls the resolved changes from GitHub
+##### Collaborator pulls the resolved changes from GitHub
 
 Finally, the Collaborator can pull from GitHub to get the changes the owner made.
 
-#### Both can view commit history
+##### Both can view commit history
 
 When either the Collaborator or the Owner view the history, the conflict, associated 
 branch, and the merged changes are clearly visible in the history. 
 
 ![](images/git-conflict-08-history.png)
 
-### Merge Conflict Challenge {- .exercise}
+#### Merge Conflict Challenge {- .exercise}
 
 Now it's your turn. In pairs, intentionally create a merge conflict, and then go 
 through the steps needed to resolve the issues and continue developing with the 
@@ -305,9 +307,9 @@ merged files. See the sections above for help with each of these steps:
 - Step 9: Collaborator pulls the resolved changes from GitHub
 - Step 10: Both can view commit history
 
-### {-}
+#### {-}
 
-## Workflows to avoid merge conflicts
+### Workflows to avoid merge conflicts
 
 Some basic rules of thumb can avoid the vast majority of merge conflicts, saving 
 a lot of time and frustration. These are words our teams live by:

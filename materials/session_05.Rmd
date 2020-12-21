@@ -1,48 +1,75 @@
-# Section 5: Reproducible Research Techniques - Data Training Sessionb
+# Section 5: Reproducible Research Techniques - Data Training
 
 ```{r, child = 'sections/r-intro-rstudio-git-setup-motivation.Rmd'}
 ```
 
+---
+
 ```{r, child = 'sections/metadata-data-best-practices-intro.Rmd'}
 ```
+
+---
 
 ```{r, child = 'sections/metadata-knb-data-documentation-hands-on.Rmd'}
 ```
 
-```{r, child = 'sections/git-intro.Rmd'}
-```
+---
 
 ```{r, child = 'sections/r-introduction-to-rmarkdown.Rmd'}
 ```
 
+---
+
+```{r, child = 'sections/git-intro.Rmd'}
+```
+
+---
+
 ```{r, child = 'sections/git-collaboration-conflicts.Rmd'}
 ```
+
+---
 
 ```{r, child = 'sections/data-modeling.Rmd'}
 ```
 
-```{r, child = 'sections/data-cleaning-manipulation-tidyverse.Rmd'}
-```
+---
 
 ```{r, child = 'sections/data-cleaning-manipulation-tidyverse.Rmd'}
 ```
+
+---
+
+```{r, child = 'sections/git-github-publishing-analysis.Rmd'}
+```
+
+---
 
 ```{r, child = 'sections/r-creating-functions.Rmd'}
 ```
 
+---
+
 ```{r, child = 'sections/r-creating-packages.Rmd'}
 ```
+
+---
 
 ```{r, child = 'sections/d1-creating-data-portals.Rmd'}
 ```
 
+---
+
 ```{r, child = 'sections/exercise-data-cleaning-manipulation-tidyverse.Rmd'}
 ```
+
+---
 
 ```{r, child = 'sections/geospatial-vector-analysis.Rmd'}
 ```
 
-# Session X: Reproducibility and Provenance
+---
 
 ```{r, child = 'sections/provenance-reproducibility-datapaper.Rmd'}
 ```
+
