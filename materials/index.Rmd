@@ -19,9 +19,9 @@ The research landscape is changing. Researchers are increasingly engaging in col
 
 ## About this resource
 
-This resource is provided as a self guided onboarding document that new postdocs should work through in the first weeks of joining NEON. The information contained in this document builds on the experience of ecological reserchers, traininers, developers and information managers in collaborative, reproducoible reseaech practices and infrastructure. 
+This resource is provided as a self guided onboarding document that new postdocs should work through in the first weeks of joining NEON. The information contained in this document builds on the experience of ecological reserchers, traininers, developers and information managers in collaborative, reproducoible research practices and infrastructure. 
 
-When working through the technical training piece you will be using the following software. Please be sure these are all installed on your laptop. 
+When working through Section 5: Reproducible Research Techniques, you will be using the following software. Please be sure these are all installed on your laptop. 
 
 - R (version 3.6.2+)
 - RStudio (version 1.2.5019+) 
@@ -33,13 +33,17 @@ Please make sure to create a GitHub account if you do not already have one.
 
 This resource assumes a base level of experience using R for scientific and statistical analyses. However, we realize that not everyone will be at the same place in terms of familiarity with the tools we’ll be using. If you’d like to brush up on your R skills, check out this list of resources we like:
 
-The Introduction to R lesson in Data Carpentry’s R for data analysis course.
-The QCBS Introduction to R lesson
-RStudio’s R Programming page
+- The [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry’s R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course.
+- The Stat 545 [course materials](https://stat545.com/r-basics.html)
+- The QCBS [Introduction to R](https://qcbs.ca/wiki/r) lesson (French and English)
+- RStudio’s [R education](https://education.rstudio.com/learn/) page
+- Learn R in the console with [swirl](https://swirlstats.com/)
 
 ## Acknowledgements
 
-Support for the development of this resource was provided by an award from NEON to the National Center for Ecological Analysis and Synthesis.
+Support for the development of this resource was provided by an award from NEON to the National Center for Ecological Analysis and Synthesis. 
+
+Individual units were created by (in alphabetical order): Julien Brun, Amber Budden, Jeanette Clark, Matt Jones, Carrie Kappel, Erin McLean, Bryce Mecum, Julie Stewart Lowndes, Geoff Willard. 
 
 ```{r, echo=FALSE, out.width = '100%', fig.align = 'center'}
 knitr::include_graphics("images/NEON_NCEAS_LOGO.jpg")
