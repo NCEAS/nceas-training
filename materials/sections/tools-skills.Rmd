@@ -1,42 +1,40 @@
 ## Skills and Tools for Reproducible and Team Science
 
-### Making your work reproducible
+### why collaborating in a reproducible manner
 
-There are many reasons why it is essential to make your science reproducible. We will refer you to the references at the end of this section to learn more about open and reproducible science and how the necessity of openness is a cornerstone of the integrity and efficacy of the scientific research process. You will learn more about the tools and techniques you can use to make your data analysis in the Data Science section of this book, here we are introducing an overview of skills and tools that will enable you to collaborate in a reproducible manner. 
-
-In this section, we are focusing on providing an overview of why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger data sets, and better collaborate by receiving feedback and contributions from others, as well as enable your future self to reuse and build on your own work.
+This section is an overview of skills and tools that will enable you to collaborate in a reproducible manner. There are many reasons why it is essential to make your science reproducible and how the necessity of openness is a cornerstone of the integrity and efficacy of the scientific research process. Here we will be focusing on why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger data sets, and better collaborate by receiving feedback and contributions from others, as well as enable your "future self" to reuse and build on your own work. Some of the concepts will be further discussed in the [Reproducible Research Techniques][Section 5: Reproducible Research Techniques - Data Training] of this book, where you will learn more about the tools and techniques you can use to make your data analysis reproducible.
 
 
 ### Collaborative tools 
 
-**Goal**: create a **_space for you to collaborate_** and **_centralize the information_** of your projects 
+**Goal**: to create a **_space for you to collaborate_** and **_centralize the information_** of your projects.
 
-During your postdoctoral project(s), you will be working most likely work with collaborators who will be part of multiple organizations. And since you are coming from different institutions, you will therefore most likely using different tools that others might not have access to. The overarching goal is to centralize the information to make it easy for you and others to find everything in one place quickly. Here are a few tools we think will be essential to foster your collaboration as a distributed team:
+During your postdoctoral project(s), you will likely be working with collaborators from various organizations. These collaborators will most likely be using a variety of tools to do their work that not everybody might have necessarily access to, making it difficult to share information. It is thus important from the beginning of the project to think about how the information will be shared efficiently among the team members and how to centralize this information. Here are a few tools we think will be essential to foster your collaboration as a distributed team:
 
-*   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your group will gather and create. This is meant to be a solution that everyone on the team (independently of their institution) can access. Each solution as its pros and cons and mostly it will depend what your collaborators and yourself are used to. From our experience at NCEASE, Google Drive has a large user base and can be setup with very open sharing settings. This can be useful if you are collaborating across institutions. See [here](https://docs.google.com/document/d/1gemd7IB5OKVPnrTIaXECYKeMoNJ6MGUNSh1ehB8Frsk/edit) for NCEAS' recommendations on how to use `Google Drive` in a collaborative setup.
-*   **Team Communication**: The tools you will be using will depend on how you are collaborating synchronously or not (see Chapter on Virtual collaboration for more).  \
-For asynchronous communication,  we recommend setting up a **mailing list** (e.g. `Google Groups`) that allows you to reach all working group participants at once. We recommend adding a specific tag to the subject line of the mailing list to enable team members to set up filters for your project in their inbox.
-For faster communication, while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively way. As an example of potential tools, `Slack` has become a very popular tool as it is pretty easy to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
-Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the Collaboration section of this book to learn more about how to run them efficiently.   \
-*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as `GitLab`) to share code. This is a great way to share and document your work for your collaborators, including your future self. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions.  Note that those tools also have features to enable communication and track features and bugs, as well as discuss modifications to your code (see [here](https://guides.github.com/features/issues/) for GitHub issues, as an example). In the Data Science part of this onboarding material, you will have a comprehensive introduction to those tools and how to best use them.
+*   **Document sharing**: we recommend setting up a shared drive (e.g., Box, Google Drive, ...) where you can centralize the documents that your team will gather and create. This is meant to be a solution that everyone on the team (independently of their institution) can access. Each solution as its pros and cons and the decision should be based on the solution your collaborators and yourself are comfortable with, as well as making sure that everyone on the team will be able to access it. From our experience at NCEASE, Google Drive has a large user base and can be setup with very open sharing settings. This can be useful if you are collaborating across institutions. See [here](https://docs.google.com/document/d/1gemd7IB5OKVPnrTIaXECYKeMoNJ6MGUNSh1ehB8Frsk/edit) for NCEAS' recommendations on how to use `Google Drive` in a collaborative setup.
+*   **Team Communication**: The tools used to communicate between team members will be function of how you are collaborating: synchronously or asynchronously (see Section on [Virtual collaboration][Synchronous and asynchronous] for more on this).  \
+For asynchronous communication, we recommend setting up a **mailing list** (e.g. `Google Groups`) that let you reach all team members at once. We recommend adding a specific tag to the subject line of the mailing list to enable collaborators to set up filters for your project in their inbox.
+For faster communication while working at the same time, **chat rooms** have proven to be a very efficient way to exchange ideas quickly and answer questions collaboratively. As an example of potential tools, `Slack` has become a very popular tool that is pretty intuitive to learn (see [here](https://slack.com/resources/slack-101/what-is-slack) for an introduction). \
+Meetings, in-person or virtual, will also be an important way to communicate and work with your collaborators. Please refer to the [Virtual Collaboration][Virtual Collaboration] section of this book to learn more about how to run them efficiently.   \
+*   **Coding together**: We recommend using version control tools such as `git` and `GitHub` (or similar such as `GitLab`) to share code. Those tools are designed to track changes and who has implemented them. It creates a history of changes that you can navigate back to retrieve previous versions. This is a great way to share and to document your work. Note that those tools also have features to discuss modifications to your code, such as new features or bugs. See [here](https://guides.github.com/features/issues/) for GitHub issues, as an example. There is a comprehensive introduction to `git` and `GitHub` and how to best use them in the [Data Science][Section 5: Reproducible Research Techniques - Data Training] chapter of this onboarding material.
 
 **Few criteria to ask yourself to help to pick the right tool:**
 
-*   Can everybody have access to this tool? This should overrule the "best" tool   _=> this will maximize adoption_
+*   Can everybody have access to this tool? This should overrule the "best" tool _=> maximize adoption_
 *   What team practices should you set on how to use these tools? Example: sharing a new document -- prefer adding documents to the shared drive and send the link rather than sending it as an attachment
-*   Allow flexibility: acknowledge the technological level varies among collaborators. Empower them by showing them how to best use these tools rather than doing it for them!
+*   Allow flexibility -- acknowledge the technological level varies among collaborators. Empower them by showing them how to best use these tools rather than doing it for them!
 
 
 ### Data Management
 
-You are starting at the right place as you will be working with NEON data! NEON data sets are well documented, archived, and made publicly available in a curated data repository (https://data.neonscience.org/). However, you might have to combine this data with other types of data that could be less documented and harder to discover or obtain.
+You are starting at the right place as you will be working with NEON data! NEON data sets are well documented, archived, and made publicly available in a curated data repository (https://data.neonscience.org/). However, you might have to combine NEON data with other ancillary data sets that could be less documented and harder to discover or obtain.
 
 We thus strongly recommend planning ahead and develop a **Data Management Plan** as you are starting your project. This will help you to plan for:
 
 *   What are the various steps needed before you can start your analysis?
-*   How much data will need to be collected and aggregated together?
+*   How much data will be collected and aggregated together?
 *   Who is going to do what?
-*   Estimate how long it will take to organize and process the data (tip: double your estimate and you will be still underestimating; [Hofstadter's law]([https://en.m.wikipedia.org/wiki/Hofstadter%27s_law](https://en.m.wikipedia.org/wiki/Hofstadter%27s_law)))
+*   Estimate how long it will take to organize and process the data (tip: it is frequent to underestimate the time needed to accomplish complex tasks; [Hofstadter's law]([https://en.m.wikipedia.org/wiki/Hofstadter%27s_law](https://en.m.wikipedia.org/wiki/Hofstadter%27s_law)))
 *   Are there any legal constraints associated with acquiring, using, and sharing project data? E.g. survey data involving personal information
 *   At the end of your project, where would your products (data produced, codes, ...) be archived?
 You will learn more about data repository and the archiving your products later in this book
@@ -45,12 +43,12 @@ You will learn more about data repository and the archiving your products later 
   knitr::include_graphics(here::here("images","tools-skills-datalifecycle.png"))
 ```
 
-DataONE has developed several great [documents](https://dataoneorg.github.io/Education/) to help scientists with their data management. Here is the document we recommend to help you to get started: https://dataoneorg.github.io/Education/bp_step/plan/
+DataONE has developed several great [ressources](https://dataoneorg.github.io/Education/) to help scientists with their data management. Here is the document we recommend to help you to get started: https://dataoneorg.github.io/Education/bp_step/plan/
 
 A few more thoughts related to managing data in a collaborative setup:
 
 1. Centralize the management of your data \
-Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and can become a nightmare to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management. This will also make sure that all your collaborators will be able to access the same version of the data using the same path.
+Try to avoid having data sets spread among laptops or other personal computers; this makes it difficult for other team members to redo a particular analysis and it can become difficult to know which version of the data was used for a specific analysis.  We recommend asking your institution if there are servers or cloud services available to you and use those tools to centralize your data management. This will also make sure that all your collaborators will be able to access the same version of the data using the same path.
 2. Develop naming conventions \
  For files and folder:
     a. Avoid spaces (use underscores or dashes)
@@ -60,7 +58,7 @@ Try to avoid having data sets spread among laptops or other personal computers; 
     e. Use folders to structure/organize content
     f. Keep it simple
 3. Make it programmatically useful 
-    a. Useful to select files (Wildcard *, regular expression)
+    a. Useful to select files (Wildcard `*`, regular expression)
     b. But don’t forget Humans need to read file names too
 
 
@@ -72,21 +70,21 @@ Which filename would be the most useful?
 2. `2020-05-08_light-sensor-1_plot-1.csv` 
 3. `Measurement 1.csv`
 
-Answer: `2020-05-08_light-sensor-1_plot-1.csv` because the date will sort the file in order by default and the consistent usage of `-` and `_` will let you break the filename into useful information.
+Answer: `2020-05-08_light-sensor-1_plot-1.csv` because the date will sort the file in order by default and the consistent usage of `-` and `_` will let you split the filename into useful information.
 
-The most important is to be **_consistent_** among collaborators and over time. To know more about this topic, here is a good [reference](https://speakerdeck.com/jennybc/how-to-name-files) from Jenny Bryan (RStudio).
+The most important for filenames is to be **_consistent_** among collaborators and over time. To know more about this topic, here is a good [reference](https://speakerdeck.com/jennybc/how-to-name-files) from Jenny Bryan (RStudio).
 
 
 ### Scientific programming for reproducible research
 
-To make your data-riven research reproducible, it is important to develop scientific workflows that will be relying on programming to accomplish the necessary tasks to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as R and Python, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leveraged to conduct analysis and modeling. The Data Science Section of this onboarding document will introduce you to how to use `R` and other tools to develop such a workflow.
+To make your data-riven research reproducible, it is important to develop scientific workflows that will be relying on programming to accomplish the necessary tasks to go from the raw data to the results (figures, new data, publications, ...) of your analysis. Scripting languages, even better open ones such as `R` and `python`, are well-suited for scientists to develop reproducible scientific workflows. Those scripting languages provide a large ecosystem of libraries (also referred to as packages or modules) that are ready to be leveraged to conduct analysis and modeling. The [Reproducible Research Techniques][Section 5: Reproducible Research Techniques - Data Training] section of this onboarding document will introduce how to use `R` to develop such workflows.
 
 
 ```{r tidy-workflow, out.width='80%', fig.align="center", fig.cap="Workflow example using the `tidyverse`. Note the program box around the workflow and the iterative nature of the analytical process described. _Source: R for Data Science <https://r4ds.had.co.nz/>_",echo=FALSE}
   knitr::include_graphics(here::here("images","tidy-workflow.png"))
 ```
 
-We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scaling you can accomplish in your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ([see Reinhart and Rogof example](http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf).  It is also difficult to track changes and to scale your analysis. In addition, auto-formatting (number, date, character, ...) can silently introduce modifications to your data ([One in five genetics papers contains errors thanks to Microsoft Excel](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel).
+We recommend shying away from spreadsheets as an analytical tool, as well as Graphical User Interfaces (GUI) where you need to click on buttons to do your analysis. Although convenient for data exploration, GUI will limit the reproducibility and the scalability of your analysis as human intervention is needed at every step. Spreadsheets can be useful to store tabular data, but it is recommended to script their analysis, as copy-pasting and references to cells are prone to mistake ([see Reinhart and Rogof example](http://www.peri.umass.edu/fileadmin/pdf/working_papers/working_papers_301-350/WP322.pdf). It is also very difficult to track changes and to scale your analysis using spreadsheets. In addition, auto-formatting (number, date, character, ...) can silently introduce modifications to your data (e.g. [One in five genetics papers contains errors thanks to Microsoft Excel](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel).
 
 
 #### Scripting languages
@@ -99,7 +97,7 @@ It is important to stress that scientists write scripts to help them to investig
 
 **Structure of a script**
 
-A script can be divided into several sections. Each scripting language has its own syntax and style, but these main components are generally accepted:
+A script can be divided into several main sections. Each scripting language has its own syntax and style, but these main components are generally accepted:
 
 From the top to the bottom of your script:
 
@@ -118,12 +116,12 @@ This will allow you to inform your collaborators (but also your future self!) ab
 *   Choose descriptive names for your variables and functions, not generic ones. If you store a list of files, do not use `x` for the variable name, use instead `files`. Even better use `input_files` if you are listing the files you are importing.
 *   Be consistent in terms of style (`input_files`, `inputFiles`,...) used to name variables and functions. Just pick one and stick to it!
 *   `keep it simple, stupid` ([KISS](https://en.wikipedia.org/wiki/KISS_principle)). Do not create overly complicated or nested statements. Break your tasks in several simple lines of code instead of embedding a lot of executions in one (complicated line). It will save you time while debugging and make your code more readable to others
-*   Go modular! Break down tasks into small code fragments such as functions or code chunks. It will make your code reusable for you and others (if well documented ). Keep functions simple; they should only implement one or few (related) tasks
+*   Go modular! Break down tasks into small code fragments such as functions or code chunks. It will make your code reusable for you and others (if well documented). Keep functions simple; they should only implement one or few (related) tasks
 *   `Don’t Repeat Yourself` ([DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)). If you start copy/pasting part of your code changing a few parameters => write a function and call it several times with different parameters. Add flow control such as loops and conditions. It will be easier to debug, change and maintain
 *   Test your code. Test your code against values you would expect or computed with another software. Try hedge cases, such as NA, negative values, …. 
 *   Iterate with small steps, implement few changes at a time to your code. Test, fix, and move forward!
 
-We hope this overview section has raised your interest in learning more about data science practices and tools for reproducible and collaborative research. The Data Science section of this onboarding material will introduce you to use the `R` programming language to develop scientific reproducible research.
+We hope this overview section about scientific programming has raised your interest in learning more about best practices and tools for developing reproducible workflows using scripting languages. As mentioned above, the [Reproducible Research Techniques][Section 5: Reproducible Research Techniques - Data Training] chapter of this onboarding material will go into more details about the `R` programming language and how it can be leveraged to produce data-driven and reproducible research.
 
 
 ### Further reading
