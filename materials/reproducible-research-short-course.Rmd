@@ -1,3 +1,64 @@
+--- 
+title: "NEON Onboarding Materials"
+date: "Published December 2020"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+always_allow_html: yes
+---
+
+# Overview {-}
+
+Placeholder
+
+
+## Rationale {-}
+## About this resource {-}
+## Acknowledgements {-}
+
+<!--chapter:end:index.Rmd-->
+
+# Working at NEON
+
+```{r, child = 'sections/working-at-neon.Rmd'}
+```
+
+<!--chapter:end:session_01.Rmd-->
+
+# Preparing for Success
+
+```{r, child = 'sections/individual-development-plan.Rmd'}
+```
+
+<!--chapter:end:session_02.Rmd-->
+
+
+# Team Science
+
+Placeholder
+
+
+## Collaboration Practices
+
+<!--chapter:end:session_03.Rmd-->
+
+# Communicating Your Research
+
+```{r, child = 'sections/communication.Rmd'}
+```
+
+---
+
+```{r, child = 'sections/collaboration-social-data-policies.Rmd'}
+```
+
+
+<!--chapter:end:session_04.Rmd-->
+
 # Reproducible Research Techniques - Data Training
 
 ```{r, child = 'sections/data-management-plans-reduced.Rmd'}
@@ -77,4 +138,7 @@
 
 ```{r, child = 'sections/provenance-reproducibility-datapaper.Rmd'}
 ```
+
+
+<!--chapter:end:session_05.Rmd-->
 
