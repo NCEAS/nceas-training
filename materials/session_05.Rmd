@@ -1,4 +1,9 @@
-# Section 5: Reproducible Research Techniques - Data Training
+# Reproducible Research Techniques - Data Training
+
+```{r, child = 'sections/data-management-plans-reduced.Rmd'}
+```
+
+---
 
 ```{r, child = 'sections/r-intro-rstudio-git-setup-motivation.Rmd'}
 ```
