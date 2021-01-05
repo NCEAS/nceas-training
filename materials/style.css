@@ -12,12 +12,16 @@ pre {
 pre code {
   white-space: inherit;
 }
+.highlight {
+  background-color: #f7e1bc;
+  padding: 1em;
+}
 .exercise {
-  background-color: #97f7ee;
+  background-color: #d8f2e1;
   padding: 1em;
 }
 .setup {
-  background-color: #73ffbc;
+  background-color: #c0caf0;
   padding: 1em;
 }
 .aside {
