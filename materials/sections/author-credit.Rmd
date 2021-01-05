@@ -4,7 +4,7 @@ Navigating issues of intellectual property and credit can be a challenge, partic
 
 The “Publication” section of the [Ecological Society of America’s Code of Ethics](https://www.esa.org/about/code-of-ethics/) is a useful starting point for discussions about co-authorship, as are the [International Committee of Medical Journal Editors guidelines](http://www.icmje.org/recommendations/browse/roles-and-responsibilities/defining-the-role-of-authors-and-contributors.html) for authorship and contribution. You should also check guidelines published by the journal(s) to which you anticipate submitting your work.
 
-For collaborative research projects, develop an [authorship agreement](http://training.arcticdata.io/2020-10-arctic/files/template-authorship-policy-ADC-training.docx) for your group early in the project and refer to it for each product. This authorship agreement from the Arctic Data Center provides a useful template. Some key questions to consider as you are working with your team to develop the agreement:
+For collaborative research projects, develop an authorship agreement for your group early in the project and refer to it for each product. This example [authorship agreement](http://training.arcticdata.io/2020-10-arctic/files/template-authorship-policy-ADC-training.docx) from the Arctic Data Center provides a useful template. It builds from information contained within [Weltzin et al (2006)](https://core.ac.uk/download/pdf/215745938.pdf) and provides a rubric for inclusion of individuals as authors. Your collaborative team may not choose to adopt the agreement in the current form, however it will prompt thought and discussion in advance of developing a consensus. Some key questions to consider as you are working with your team to develop the agreement:
 
 - What roles do we anticipate contributors will play? e.g., the CASRAI CRediT project identifies 14 distinct roles: 
     - Conceptualization
@@ -34,4 +34,26 @@ For collaborative research projects, develop an [authorship agreement](http://tr
 
 ### Data Policies
 
-Learn more about [data management planning](https://dataoneorg.github.io/Education/bp_step/plan/) and other [data management skills](https://dataoneorg.github.io/Education/) via DataOne and check out this [example data policy](http://training.arcticdata.io/2020-10-arctic/files/template-data-policy-ADC-training.docx) from the Arctic Data Center.
+As with authorship agreements, it is valuable to establish a shared agreement around handling of data when embarking on collaborative projects. Data collected as part of a funded research activity will typically have been managed as part of the Data Management Plan (DMP) associated with that project. However, collaborative research brings together data from across research projects with different data management plans and can include publicly accessible data from repositories where no management plan is available. For these reasons, a discussion and agreement around the handling of data brought into and resulting from the collaboration is warranted. Management of new data may benefit from going through a data management planning process, and this is covered further in section 6. Below we discuss example data agreements.
+
+The example data policy [template](http://training.arcticdata.io/2020-10-arctic/files/template-data-policy-ADC-training.docx) provided by the Arctic Data Center addresses three categories of data. 
+
+- Individual data not in the public domain
+- Individual data with public access
+- Derived data resulting from the project
+
+For the first category, the agreement considers conditions under which those data may be used and permissions associated with use. It also addresses access and sharing. In the case of individual, publicly accessible data, the agreement stipulates that the team will abide by the attribution and usage policies that the data were published under, noting how those requirements we met. In the case of derived data, the agreement reads similar to a DMP with consideration of making the data public; management, documentation and archiving; pre-publication sharing; and public sharing and attribution. As research data objects receive a persistent identifier (PID), often a DOI, there are citable objects and consideration should be given to authorship of data, as with articles.
+
+The following [example lab policy](https://github.com/temporalecologylab/labgit/blob/master/datacodemgmt/tempeco_DMP.pdf) from the [Wolkovich Lab](http://temporalecology.org/) combines data management practices with authorship guidelines and data sharing agreements. It provides a lot of detail about how this lab approaches data use, attribution and authorship. For example:
+
+**Section 6:**
+*If you agree to take on existing data you cannot offer co-authorship for use of the data unless four criteria are met:
+
+- The co-author agrees to (and does) make substantial intellectual contribution to the work, which includes the reading and editing of all manuscripts on which you are a co-author through the submission-for-publication stage. This includes helping with interpretation of the data, system, study questions.
+- Agreement of co-authorship is made at the start of the project.
+- Agreement is approved of by Lizzie.
+- All data-sharers are given an equal opportunity at authorship. It is not allowed to offer or give authorship to one data-sharer unless all other data-sharers are offered an equal opportunity at authorship—this includes data that are publicly-available, meaning if you offer authorship to one data-sharer and were planning to use publicly-available data you must reach out to the owner of the publicly-available data and strongly offer equivalent authorship as offered to the other data-sharer. As an example, if five people share data freely with you for a meta-analysis and and a sixth wants authorship you either must strongly offer equivalent authorship to all five or deny authorship to the sixth person. Note that the above requirements must also be met in this situation. If one or more datasets are more central or critical to a paper to warrant selective authorship this must be discussed and approved by Lizzie (and has not, to date, occurred within the lab).*
+
+<iframe width="560" height="725" src="/files/tempeco_DMP-2.pdf" frameborder="0" allowfullscreen></iframe>
+
+This policy is communicated with all incoming lab members, from undergraduate to postdocs and visiting researchers and is shared here with permission from Elizabeth Wolkovich.
