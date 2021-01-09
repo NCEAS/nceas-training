@@ -1,6 +1,6 @@
 ## Skills and Tools for Reproducible and Team Science
 
-### why collaborating in a reproducible manner
+### Why collaborating in a reproducible manner
 
 This section is an overview of skills and tools that will enable you to collaborate in a reproducible manner. There are many reasons why it is essential to make your science reproducible and how the necessity of openness is a cornerstone of the integrity and efficacy of the scientific research process. Here we will be focusing on why making your work reproducible will empower you to iterate quickly, integrate new information more easily, scale your analysis to larger data sets, and better collaborate by receiving feedback and contributions from others, as well as enable your "future self" to reuse and build from your own work. Some of the concepts will be further discussed in the [Reproducible Research Techniques][Section 5: Reproducible Research Techniques - Data Training] chapter of this book, where you will learn more about the tools and techniques you can use to make your data analysis reproducible.
 
@@ -43,7 +43,7 @@ You will learn more about data repository and the archiving your products later 
   knitr::include_graphics(here::here("images","tools-skills-datalifecycle.png"))
 ```
 
-DataONE has developed several great [ressources](https://dataoneorg.github.io/Education/) to help scientists with their data management. Here is the document we recommend to help you to get started: https://dataoneorg.github.io/Education/bp_step/plan/
+DataONE has developed several great [resources](https://dataoneorg.github.io/Education/) to help scientists with their data management. Here is the document we recommend to help you to get started: https://dataoneorg.github.io/Education/bp_step/plan/
 
 A few more thoughts related to managing data in a collaborative setup:
 
