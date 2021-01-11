@@ -50,7 +50,7 @@ Other resources:
 
 Launch RStudio/R.
 
-![](../images/RStudio_IDE.png)
+![](/images/RStudio_IDE.png)
 
 Notice the default panes:
 
@@ -64,7 +64,7 @@ An important first question: **where are we?**
 
 If you've just opened RStudio for the first time, you'll be in your Home directory. This is noted by the `~/` at the top of the console. You can see too that the Files pane in the lower right shows what is in the Home directory where you are. You can navigate around within that Files pane and explore, but note that you won't change where you are: even as you click through you'll still be Home: `~/`.
 
-![](../images/RStudio_IDE_homedir.png)
+![](/images/RStudio_IDE_homedir.png)
 
 OK let's go into the Console, where we interact with the live R process.
 
@@ -191,7 +191,7 @@ Implicit contract with the computer/scripting language: Computer will do tedious
 Remember that this is a language, not unsimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean.
 
 ::: {style="width:400px"}
-![](../images/practicalDev_googleErrorMessage.jpg)
+![](/images/practicalDev_googleErrorMessage.jpg)
 :::
 
 And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
@@ -219,7 +219,7 @@ weight_kg != 5
 
 Now look at the objects in your environment (workspace) -- in the upper right pane. The workspace is where user-defined objects accumulate.
 
-![](../images/RStudio_IDE_env.png)
+![](/images/RStudio_IDE_env.png)
 
 You can also get a listing of these objects with a few different R commands:
 
@@ -291,7 +291,7 @@ The help page is broken down into sections:
 
 #### Your turn
 
-> Exercise: Talk to your neighbor(s) and look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`, `min()`, `max()`, `?log()`).
+> Exercise: Look up the help file for a function that you know or expect to exist. Here are some ideas: `?getwd()`, `?plot()`, `min()`, `max()`, `?log()`).
 
 And there's also help for when you only sort of remember the function name: double-questionmark:
 
@@ -304,103 +304,4 @@ Not all functions have (or require) arguments:
 ```{r}
 date()
 ```
-
-#### Use a function to read a file into R
-
-So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
-
-Since this is our first time using this function, first access the help page for `read.csv`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
-
-##### Download a file from the Arctic Data Center
-
-Follow these steps to get set up for the next exercise:
-
-1.  Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
-2.  Download the first csv file called "BGchem2008data.csv" by clicking the "download" button next to the file.
-3.  Move this file from your `Downloads` folder into a place you can more easily find it. Eg: a folder called `data` in your previously-created directory `arctic_training_files`.
-
-Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `arctic_training_files` called `data`, and your working directory is your home directory (`~/`) your `read.csv` call will look like this:
-
-```{r, eval = F}
-bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv")
-```
-
-You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
-
-Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If you do not specify a `name = value` pair for that argument in your function call, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv` is `file`.
-
-You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "data/BGchem2008data.csv"`, since file is the first argument. If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. For functions I call often, I use this resolve by position for the first argument or maybe the first two. After that, I always use `name = value`.
-
-Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
-
-```{r, eval = F}
-bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv", stringsAsFactors = FALSE)
-```
-
-```{r, echo = F}
-bg_chem <- read.csv("../data/BGchem2008data.csv", stringsAsFactors = FALSE)
-```
-
-### Using `data.frames`
-
-A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv`, the object `bg_chem` that we created is a `data.frame`. There are a a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
-
--   click on the word `bg_chem` in the environment pane
--   click on the arrow next to `bg_chem` in the environment pane
--   execute `head(bg_chem)` in the console
--   execute `View(bg_chem)` in the console
-
-Usually we will want to run functions on individual columns in a `data.frame`. To call a specific column, we use the list subset operator `$`. Say you want to look at the first few rows of the `Date` column only. This would do the trick:
-
-```{r}
-head(bg_chem$Date)
-```
-
-How about calculating the mean temperature of all the CTD samples?
-
-```{r}
-mean(bg_chem$CTD_Temperature)
-```
-
-Or, if we want to save this to a variable to use later:
-
-```{r}
-mean_temp <- mean(bg_chem$CTD_Temperature)
-```
-
-You can also create basic plots using the list subset operator.
-
-```{r}
-plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
-```
-
-There are many more advancted tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course.
-
-#### Your Turn
-
-> Exercise: Spend a few minutes exploring this dataset. Try out different functions on columns using the list subset operator and experiment with different plots.
-
-
-#### I just entered a command and nothing is happening
-
-It may be because you didn't complete a command: is there a little `+` in your console? R is saying that it is waiting for you to finish. In the example below, I need to close that parenthesis.
-
-```{r, eval=FALSE}
-> x <- seq(1, 10
-+ 
-```
-
-You can either just type the closing parentheses here and push return, or push the `esc` button twice.
-
-#### R says my object is not found
-
-New users will frequently see errors that look like this: `Error in mean(myobject) : object 'myobject' not found`
-
-This means that you do not have an object called `myobject` saved in your environment. The common reasons for this are:
-
--   **typo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
--   **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
--   **not executing the line in your script**: remember that writing a line of code in a script or RMarkdown document is not the same as writing in the console, you have to execute the line of code using command + enter or using one of the several ways in the RStudio graphical user interface.
-
-
 

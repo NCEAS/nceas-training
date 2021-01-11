@@ -15,7 +15,7 @@ In this lesson, you will learn:
 ### Data repositories: built for data (and code)
 
 - GitHub is not an archival location
-- Dedicated data repositories: KNB, Arctic Data Center, Zenodo, FigShare
+- Dedicated data repositories: NEON, KNB, Arctic Data Center, Zenodo, FigShare
   + Rich metadata
   + Archival in their mission
 - Data papers, e.g., Scientific Data
@@ -105,12 +105,18 @@ than visiting each of the currently 43 repositories one at a time.
 ![](images/DataONECNs.png)
 
 
-### Publishing data from the web {-}
+### Publishing data to NEON {-}
 
 Each data repository tends to have its own mechanism for submitting data and
-providing metadata.  With repositories like the KNB Data Repository and the
-Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package.  Let's walk through a web submission to see what you might expect.
+providing metadata.  At NEON, you will be required to published data to the [NEON Data Portal](https://data.neonscience.org/data-products/explore) or to an external data repository for specialized data (see [externally hosted data](https://www.neonscience.org/data-samples/data-management/externally-hosted-data)).  
+
+Full information on data processing, data management and product release can be found in the online [NEON Data Management](https://www.neonscience.org/data-samples/data-management) documentation. Below is an overview of the data processing pipeline for observational data. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/82-scTZsyeY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Web based publishing at the KNB {-}
+
+There's a broad range of data repositories designed to meet different or specific needs of the researcher community. They may be domain specific, designed to support specialized data, or directly associated with an organization or agency.  The Knowledge Network for Biocomplexity is an open data repository hosted by NCEAS that preserves a broad cross section of ecological data.  The KNB provides simple web based data package editing and submission forms and the **OPTIONAL** unit below provides an example of the data submission process for another ecological data repository outside the NEON Data Portal.
 
 #### Download the data to be used for the tutorial {- .setup}
 

@@ -88,82 +88,9 @@ Reproducibility means different things to different researchers. For our purpose
 During this course will outline best practices for how to make those four components happen.
 
 
-### Logging into the RStudio server
-
-To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remove server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
-
-Here are the instructions for logging in and getting set up:
-
-#### Setup {- .setup}
-
-You should have received an email prompting you to change your password for your server account. If you did not, please let one of the helpers know on Slack.
-
-If you were able to successfully change your password, you can log in at: [https://included-crab.nceas.ucsb.edu/](https://included-crab.nceas.ucsb.edu/)
-
-#### {-}
-
-In this workshop, we are going to be using R projects to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
-
-We are going to be doing nearly all of the work in this course in one project. Our version of RStudio server allows you to share projects with others. Sharing your project with the instructors of the course will allow for them to jump into your session and type along with you, should you encounter an error you cannot fix.
-
-#### Setup {- .setup}
-
-In your RStudio server session, follow these steps to set up your shared project:
-
-* In the "File" menu, select "New Project"
-* Click "New Directory"
-* Click "New Project"
-* Under "Directory name" type: `training_{USERNAME}`, eg: `training_jclark`
-* Leave "Create Project as subdirectory of:" set to `~`
-* Click "Create Project"
-
-Your Rstudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name if your project (eg: `training_clark`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
-
-* jclark
-* mecum
-* jasminelai
-* aebudden
-
-Once those names show up in the list, click "OK".
-
-#### Setting up git {-}
-
-If you haven't already, go to [github.com](http://github.com) and create an account.
-
-Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
-
-A terminal tab should now be open where your console usually is. 
-
-To see if you aleady have your name and email options set, use this command from the terminal:
-
-```{sh git-config, eval=FALSE}
-git config --global --list | grep user
-```
-
-To set the global options, type the following into the command prompt, with your actual name, and press enter:
-
-```{sh git-name, eval=FALSE}
-git config --global user.name "Matt Jones"
-```
-
-Next, enter the following line, with the email address you used when you created your account on github.com:
-
-```{sh git-email, eval=FALSE}
-git config --global user.email "gitcode@magisa.org"
-```
-
-Note that these lines need to be run one at a time.
-
-Finally, check to make sure everything looks correct by entering these commands, which will return the options that you have set.
-
-```{sh git-list, eval=FALSE}
-git config --global user.name
-git config --global user.email
-```
-
 ### Setting up the R environment on your local computer
 
-Even though we have you working on a remote server, we still recommend that you set up your own computer with the following software so that you are ready to take the tools you learn in the course into your daily work.
+To get started on the rest of this course, you will need to set up your own computer with the following software so that you can step through the exercises and are ready to take the tools you learn in the course into your daily work.
 
 #### R Version {-}
 
@@ -204,6 +131,41 @@ If you haven't installed all of the packages, this will automatically start inst
 Next, create a new R Markdown (File -> New File -> R Markdown). If you have never made an R Markdown document before, a dialog box will pop up asking if you wish to install the required packages. Click yes.
 
 At this point, RStudio and R should be all set up.
+
+#### Setting up git {-}
+
+If you haven't already, go to [github.com](http://github.com) and create an account.
+
+Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
+
+A terminal tab should now be open where your console usually is. 
+
+To see if you aleady have your name and email options set, use this command from the terminal:
+
+```{sh git-config, eval=FALSE}
+git config --global --list | grep user
+```
+
+To set the global options, type the following into the command prompt, with your actual name, and press enter:
+
+```{sh git-name, eval=FALSE}
+git config --global user.name "Matt Jones"
+```
+
+Next, enter the following line, with the email address you used when you created your account on github.com:
+
+```{sh git-email, eval=FALSE}
+git config --global user.email "gitcode@magisa.org"
+```
+
+Note that these lines need to be run one at a time.
+
+Finally, check to make sure everything looks correct by entering these commands, which will return the options that you have set.
+
+```{sh git-list, eval=FALSE}
+git config --global user.name
+git config --global user.email
+```
 
 #### Setting up git locally {-}
 
