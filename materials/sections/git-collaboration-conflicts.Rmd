@@ -30,11 +30,11 @@ to directly pull and push from the owner's GitHub repository.
 
 ### Collaborating with a trusted colleague **without conflicts**
 
-We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
+We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their repository. We start by giving that person access to our GitHub repository.
 
 #### Setup {- .setup}
 
-- We will break you into pairs, so choose one person as the `Owner` and one as the `Collaborator`
+- Find a partner, and choose one person as the `Owner` and one as the `Collaborator`
 - Log into [GitHub](https://github.com) as the `Owner
 - Navigate to the `Owner`'s training repository (e.g., `training_jones`)
 
@@ -103,8 +103,7 @@ and all copies are once again fully synced.  And you're off to collaborating.
 
 #### Challenge {- .exercise}
 
-Now that the instructors have demonstrated this conflict-free process, break into 
-pairs and try the same with your partner. Start by designating one person as the `Owner` and one as the `Collborator`, and then repeat the steps described above:
+Try the same steps with your partner. Start by designating one person as the `Owner` and one as the `Collborator`, and then repeat the steps described above:
 
 - Step 0: Setup permissions for your collaborator
 - Step 1: Collaborator clones the Owner repository
@@ -291,7 +290,7 @@ branch, and the merged changes are clearly visible in the history.
 
 #### Merge Conflict Challenge {- .exercise}
 
-Now it's your turn. In pairs, intentionally create a merge conflict, and then go 
+Now it's your turn. With your partner, intentionally create a merge conflict, and then go 
 through the steps needed to resolve the issues and continue developing with the 
 merged files. See the sections above for help with each of these steps:
 
