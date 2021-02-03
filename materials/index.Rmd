@@ -1,6 +1,6 @@
 --- 
 title: "Reproducible Research Techniques for Synthesis"
-date: "November 12-13, 16-18, 2020"
+date: "February 24-25, March 1-3, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -102,3 +102,13 @@ Additional support was provided for working group collaboration by the Long Term
 ```{r, echo=FALSE, out.width = '100%', fig.align = 'center'}
 knitr::include_graphics("images/nceas-logo.png")
 ```
+
+### About this book
+
+These written materials are the result of a continuous effort at NCEAS to help researchers make their work more transparent and reproducible. This work began in the early 2000's, and reflects the expertise and diligence of many, many individuals. The primary authors are listed in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+
+Citation: Jones, Matthew B., Amber E. Budden, Bryce Mecum, S. Jeanette Clark, Julien Brun, Julie Lowndes, and Erin McLean. 2021. Reproducible Research Techniques for Synthesis. NCEAS Learning Hub.
+
+Additional contributors: Ben Bolker, Stephanie Hampton, Samanta Katz, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Leah Wasser. 
