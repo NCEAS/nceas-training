@@ -20,24 +20,91 @@ combined again. In the course of a single analysis, one can expect thousands of
 changes to files.  And yet, all we use to track this are simplistic *filenames*.  
 You might think there is a better way, and you'd be right: __version control__.
 
-Version control systems help you track all of the changes to your files, without
-the spaghetti mess that ensues from simple file renaming.  In version control systems
-like `git`, the system tracks not just the name of the file, but also its contents,
-so that when contents change, it can tell you which pieces went where.  It tracks
-which version of a file a new version came from.  So its easy to draw a graph
-showing all of the versions of a file, like this one:
+### A Motivating Example
 
-![](images/version-graph.png)
+Before diving into the details of git and how to use it, let's start with a motivating example that's representative of the types of problems git can help us solve.
 
-Version control systems assign an identifier to every version of every file, and 
-track their relationships. They also allow branches in those versions, and merging
-those branches back into the main line of work.  They also support having 
-*multiple copies* on multiple computers for backup, and for collaboration.
-And finally, they let you tag particular versions, such that it is easy to return 
-to a set of files exactly as they were when you tagged them.  For example, the 
-exact versions of data, code, and narrative that were used when a manuscript was originally 
-submitted might be `eco-ms-1` in the graph above, and then when it was revised and resubmitted,
-it was done with tag `eco-ms-2`.  A different paper was started and submitted with tag `dens-ms-1`, showing that you can be working on multiple manuscripts with closely related but not identical sets of code and data being used for each, and keep track of it all.
+Say, for example, you're working on an analysis in R and you've got it into a state you're pretty happy with.
+We'll call this version 1:
+
+![](images/git-intro-slide01.png)
+
+You come into the office the following day and you have an email from your boss, "Hey, you know what this model needs?"
+
+![](images/git-intro-slide02.png)
+
+You're not entirely sure what she means but you figure there's only one thing she could be talking about: more cowbell.
+So you add it to the model in order to really explore the space.
+
+But you're worried about losing track of the old model so, instead of editing the code in place, you comment out the old code and put as serious a warning as you can muster in a comment above it.
+
+![](images/git-intro-slide03.png)
+
+Commenting out code you don't want to lose is something probably all of us have done at one point or another but it's really hard to understand why you did this when you come back years later or you when you send your script to a colleague.
+Luckily, there's a better way: Version control.
+Instead of commenting out the old code, we can change the code in place and tell git to _commit_ our change.
+So now we have two distinct versions of our analysis and we can always see what the previous version(s) look like.
+
+![](images/git-intro-slide04.png)
+
+You may have noticed something else in the diagram above: Not only can we save a new version of our analysis, we can also write as much text as we like about the change in the _commit message_.
+In addition to the commit message, git also tracks who, when, and where the change was made.
+
+Imagine that some time has gone by and you've _committed_ a third version of your analysis, version 3, and a colleague emails with an idea: What if you used machine learning instead?
+
+![](images/git-intro-slide05.png)
+
+Maybe you're not so sure the idea will work out and this is where a tool like git shines.
+Without a tool like git, we might copy `analysis.R` to another file called `analysis-ml.R` which might end up having mostly the same code except for a few lines.
+This isn't particularly problematic until you want to make a change to a bit of shared code and now you have to make changes in two files, if you even remember to.
+
+Instead, with git, we can start a _branch_.
+Branches allow us to confidently experiment on our code, all while leaving the old code in tact and recoverable.
+
+![](images/git-intro-slide06.png)
+
+So you've been working in a branch and have made a few commits on it and your boss emails again asking you to update the model in some way.
+If you weren't using a tool like git, you might panic at this point because you've rewritten much of your analysis to use a different method but your boss wants change to the old method.
+
+![](images/git-intro-slide07.png)
+
+But with git and branches, we can continue developing our main analysis at the same time as we are working on any experimental branches.
+Branches are great for experiments but also great for organizing your work generally.
+
+![](images/git-intro-slide08.png)
+
+After all that hard work on the machine learning experiment, you and your colleague could decide to scrap it.
+It's perfectly fine to leave branches around and switch back to the main line of development but we can also delete them to tidy up.
+
+![](images/git-intro-slide09.png)
+
+If, instead, you and your colleague had decided you liked the machine learning experiment, you could also _merge_ the branch with your main development line.
+Merging branches is analogous to accepting a change in Word's Track Changes feature but way more powerful and useful.
+
+![](images/git-intro-slide10.png)
+
+A key takeaway here is that git can drastically increase your confidence and willingness to make changes to your code and help you avoid problems down the road.
+Analysis rarely follows a linear path and we need a tool that respects this.
+
+![](images/git-intro-slide11.png)
+
+Finally, imagine that, years later, your colleauge asks you to make sure the model you reported in a paper you published together was actually the one you used.
+Another really powerful feature of git is _tags_ which allow us to record a particular state of our analysis with a meaningful name.
+In this case, we are lucky because we tagged the version of our code we used to run the analysis.
+Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
+
+#### Summary
+
+With git, we can:
+
+- Avoid using cryptic filenames and comments to keep track of our work
+- Describe our changes with as much information as we like so it's easier to understand why our code changed (commits)
+- Work on multiple, simultaneous development (branches) of our code at the same time and, optionally, merge them together
+- Go back in time to look at (and even run) older versions of our code
+- Tag specific versions of our code as meaningful (tags)
+
+And, as we'll see below, git has one extra superpower available to us: It's distributed.
+Multiple people can work on the same analysis at the same time on their own computer and everyone's changes can eventually merged together.
 
 ###  Version control and Collaboration using Git and GitHub {-}
 
