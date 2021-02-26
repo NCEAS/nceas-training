@@ -88,7 +88,7 @@ Analysis rarely follows a linear path and we need a tool that respects this.
 
 ![](images/git-intro-slide11.png)
 
-Finally, imagine that, years later, your colleauge asks you to make sure the model you reported in a paper you published together was actually the one you used.
+Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used.
 Another really powerful feature of git is _tags_ which allow us to record a particular state of our analysis with a meaningful name.
 In this case, we are lucky because we tagged the version of our code we used to run the analysis.
 Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
