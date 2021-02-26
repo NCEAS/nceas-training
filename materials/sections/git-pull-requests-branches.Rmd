@@ -1,10 +1,10 @@
-# Collaborating using Git
+## Collaborating using Git
 
 ```{r gitcollab_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -15,7 +15,7 @@ In this lesson, you will learn:
 - How to use a branch to organize code
 - What is a __tag__ in git and how is it useful for collaboration?
 
-## Pull requests
+### Pull requests
 
 We've shown in other chapters how to directly collaborate on a repository with
 colleagues by granting them `write` privileges as a collaborator to your repository.
@@ -46,7 +46,7 @@ Pull requests are a mechanism for someone that has a forked copy of a repository
 to **request** that the original owner review and pull in their changes.  This 
 allows them to collaborate, but keeps the owner in control of exactly what changed.
 
-## Exercise: Create and merge pull requests
+### Exercise: Create and merge pull requests
 
 In this exercise, work in pairs.  Each pair should create a `fork` of their partner's
 training repository, and then clone that onto their local machine.  Then they can make changes
@@ -115,7 +115,7 @@ At this point, the collaborator is fully up to date.
 
 ![](images/github-workflows-upstream.png)
 
-## Branches
+### Branches
 
 Branches are a mechanism to isolate a set of changes in their own thread, allowing multiple 
 types of work to happen in parallel on a repository at the same time.  These are most often
@@ -131,7 +131,7 @@ There are many mechanisms to create branches.  The one we will try is
 through RStudio, in which we use the branch dialog to create and switch 
 between branches.
 
-### Exercise:
+#### Exercise:
 
 Create a new branch in your training repository called `exp-1`, and then make 
 changes to the RMarkdown files in the directory.  Commit and push those changes
@@ -139,5 +139,5 @@ to the branch.  Now you can switch between branches using the github interface.
 
 ![](images/git-branch-create.png)
 
-## Tags
+
 
