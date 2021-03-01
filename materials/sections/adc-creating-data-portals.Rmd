@@ -20,17 +20,11 @@ To see an example of what portals could look like, please view the [Toolik Field
 
 ### Portal Main Components
 
-Portals have five components: an about page, a settings page, a data page, a metrics page, and customizable free-form pages.
-
-#### About Page
-
-This page is the first page users will see after initially creating a new portal, and it is highly recommended that users use this feature to create a description for their portal. Add a picture of your logo, a title and description of your portal, and freeform text using the markdown editor.
-
-![](images/arctic-data-center/ADC-settingspage.png)
+Portals have four components: a settings page, a data page, a metrics page, and customizable free-form pages.
 
 #### Settings Tab
 
-On the settings tab, users can give the portal a title and assign it a unique url; also referred to as a **portal identifier**. Users can add a general description of the portal, upload an icon photo for their data, and upload icon photos from any partner organizations that have contributed to the data. These partner icons will appear in the footer banner on every page in a portal, likewise your portal icon will appear in the header banner.
+This page is the first page users will see after initially creating a new portal, and it is highly recommended that users use this feature to create a description for their portal.  On the settings tab, users can give the portal a title and assign it a unique url; also referred to as a **portal identifier**. Users can add a general description of the portal, upload an icon photo for their data, and upload icon photos from any partner organizations that have contributed to the data. These partner icons will appear in the footer banner on every page in a portal, likewise your portal icon will appear in the header banner.
 
 ![](images/arctic-data-center/ADC-settingspage.png)
 
@@ -60,7 +54,7 @@ Please contact Arctic Data Center's support team at [support\@arcticdata.io](mai
 
 #### Freeform Pages
 
-Freeform pages are an optional function provided by Arctic Data Center portals. Here, users can add as much supplementary information as needed using markdown.
+Freeform pages are an optional function provided by Arctic Data Center portals. Here, users can add as much supplementary information as needed using markdown. It is highly recommended that at least one of the pages you create is an "About" page. On that page, you could add a picture of your logo, a title and description of your portal, and freeform text using the markdown editor.
 
 ##### Example Freeform Pages
 
@@ -94,7 +88,7 @@ On your profile settings page, select 'My Portals'. After the page loads select 
 
 #### Portal About and Settings Page
 
-In a new edit session, the first thing you'll see is the about page where you'll be able to add details about your project page.
+In a new edit session, the first thing you'll see is the settings page where you'll be able to add details about your project page.
 
 On the settings tab, you'll set the basic elements of your portal:
 
@@ -116,21 +110,18 @@ Adding collaborators to help you create your portal is as straightforward as cop
 
 ### Adding Data to Portals
 
-**Please see this tutorial video for a walkthrough on using portal search filters:[Adding Datasets by Search Query](https://arcticdata.io/data-portals/#instructional-videos-identifier)**
+**Please see this tutorial video for a walkthrough on using portal search filters: [Adding Datasets by Search Query](https://arcticdata.io/data-portals/#instructional-videos-identifier)**
 
-Navigate to the 'Data' tab. Here you will see a list of all the datasets in the Arctic Data Center. In order to populate a portal with the data packages applicable to your needs, narrow the search results using the filters on the left side of the page. When you've selected the data you want, hit the green save button in the bottom right.
+Navigate to the 'Data' tab. Here you will see a list of all the datasets in the Arctic Data Center. In order to populate a portal with the data packages applicable to your needs, narrow the search results using the rule options on the top of the page. You can create a rule with any of the metadata fields that the Arctic Data Center supports, and customize that rule by selecting an operator (like equals, does not equal, or is greater than) the value you select.
 
-![](images/arctic-data-center/ADC-addingdata.png)
+![](images/arctic-data-center/ADC-newaddingdata.png)
+![](images/arctic-data-center/ADC-newaddingdata2.png)
 
-The portal search feature has the following filters available:
+You can create more than one rule, and use the selctor at the top to stipulate whether you want your portal to follow ALL of the rules you've specified or ANY of the rules.
 
--   **Search**: A general search feature that will return data packages with the entered term in the package metadata
--   **Creator**: We recommend searching by last names for more accurate results.
--   **Publish Year**: Use either the sliding scale or enter start and end years manually
--   **Year of Data Coverage**: Searches for data packages with temporal coverages within the selected date range. As with the Publish Year search, use either the sliding scale or enter manually
--   **Identifier**: Searches for all or part of the DOI (digital object identifier) associated with the dataset
--   **Taxon**: Searches for any taxonomic rank specified by the submitter
--   **Location**: This filter will search within the data packages' geographic description field, meaning that you can search by both name or type of location (eg. United States or forest)
+![](images/arctic-data-center/ADC-newaddingdata3.png)
+
+When you've selected the data you want, hit the green save button in the bottom right.
 
 If you need assistance assembling portal data using a complex query, please contact the [Arctic Data Center Support Team](mailto:support@arcticdata.io).
 
@@ -154,7 +145,7 @@ To add a freeform page to a portal, select the '+' tab next to the data and metr
 
 Easily customize your banner with a unique image, title, and page description. To change the name of the tab, click on the arrow in the 'Untitled' tab and select 'Rename' from the dropdown list.
 
-![](images/arctic-data-center/ADC-designff.png)
+![](images/arctic-data-center/ADC-newdesignff.png)
 
 Below the banner, there is a markdown text box with some examples on how to use the markdown formatting directives to customize the text display. There is also a formatting header at the top to assist if you're unfamiliar with markdown. As you write, toggle through the Edit and Preview modes in the markdown text box to make sure your information is displaying as intended. Portals are flexible and can accommodate as many additional freeform pages as needed.
 
