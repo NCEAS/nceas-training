@@ -15,8 +15,11 @@ Most R users are familiar with loading and utilizing packages in their work. And
 - Mechanism to redistribute reusable code (even if just for yourself)
 - Mechanism to reproducibly document analysis and models and their results
 
-At a minimum, you can easily produce a package for just your own useful code functions,
-which makes it easy to maintain and use utilities that span your own projects.
+Even if you don't plan on writing a package with such broad appeal such as, say, `ggplot2` or `dplyr`, you still might consider creating a package to contain:
+
+- Useful utility functions you write i.e. a [Personal Package](https://hilaryparker.com/2013/04/03/personal-r-packages/). Having a place to put these functions makes it much easier to find and use them later.
+- A set of shared routines for your lab or research group, making it easier to remain consistent within your team and also to save time.
+- The analysis accompanying a thesis or manuscript, making it all that much easier for others to reproduce your results.
 
 The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a package to be a straightforward experience.
 
@@ -120,10 +123,13 @@ You should provide documentation for each of your functions and classes.  This i
 #' A function to print information about the current environment.
 #'
 #' This function prints current environment information, and a message.
+#'
 #' @param msg The message that should be printed
+#'
 #' @keywords debugging
-#' @import devtools
+#'
 #' @export
+#'
 #' @examples
 #' environment_info("This is an important message from your sponsor.")
 environment_info <- function(msg) {
