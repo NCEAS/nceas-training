@@ -33,7 +33,7 @@ Fortunately for us, Ben Marwick (and others) have written an R package called [r
 To start a reproducible paper with `rrtools`, run:
 
 ```{r eval=FALSE}
-removes::install_github("benmarwick/rrtools")
+remotes::install_github("benmarwick/rrtools")
 rrtools::use_compendium("mypaper")
 ```
 
