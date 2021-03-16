@@ -16,7 +16,7 @@ Portals allow users to bundle supplementary information about their group, data,
 
 Researchers can also use portals to compare their public data packages and highlight and share them with other teams, as well as the broader research audience.
 
-To see an example of what portals could look like, please view the [Toolik Field Station's portal](https://search.dataone.org/portals/toolik/About).
+To see some example of what portals could look like, view the [Toolik Field Station](https://search.dataone.org/portals/toolik/About), [Ecoblender Lab](https://search.dataone.org/portals/ecoblender/Data) and [SASAP](https://search.dataone.org/portals/SASAP/Data) portals.
 
 ### Portal Main Components
 
@@ -114,19 +114,15 @@ Adding collaborators to help you create your portal is as straightforward as cop
 
 *[Video tutorials](https://arcticdata.io/data-portals/#instructional-videos-identifier) on using portal search filters from the Arctic Data Center*
 
-Navigate to the 'Data' tab. Here you will see a list of all the datasets across the DataONE network. In order to populate a portal with the data packages applicable to your needs, narrow the search results using the filters on the left side of the page. When you've selected the data you want, hit the yellow save button in the bottom right.
+Navigate to the 'Data' tab. In order to populate a portal with the data packages applicable to your needs, you will need to define the search results using the rule options on the top of the page. You can create a rule with any of the metadata fields that DataONE supports, and customize that rule by selecting an operator (like equals, does not equal, or is greater than) the value you select.
 
-![](images/d1-addingdata.png)
+![](images/d1-newaddingdata.png)
+![](images/d1-newaddingdata2.png)
 
-The portal search feature has the following filters available:
+You can create more than one rule, and use the selctor at the top to stipulate whether you want your portal to follow ALL of the rules you've specified or ANY of the rules.
 
--   **Search**: A general search feature that will return data packages with the entered term in the package metadata
--   **Creator**: We recommend searching by last names for more accurate results.
--   **Publish Year**: Use either the sliding scale or enter start and end years manually
--   **Year of Data Coverage**: Searches for data packages with temporal coverages within the selected date range. As with the Publish Year search, use either the sliding scale or enter manually
--   **Identifier**: Searches for all or part of the DOI (digital object identifier) associated with the dataset
--   **Taxon**: Searches for any taxonomic rank specified by the submitter
--   **Location**: This filter will search within the data packages' geographic description field, meaning that you can search by both name or type of location (eg. United States or forest)
+![](images/d1-newaddingdata3.png)
+When you've selected the data you want, hit the green save button in the bottom right.
 
 If you need assistance assembling portal data using a complex query, please contact the [DataONE Support Team](mailto:support@dataone.org).
 
@@ -201,6 +197,16 @@ In order to share a published portal, users can simply direct recipients to thei
 To view or edit your portal identifier, go into edit mode in your portal. In the settings page, your portal URL will be the first item on the page.
 
 ![](images/d1-url.png)
+
+### Challenge {- .exercise}
+
+Develop a portal within DataONE, pulling together data related to your research, a topic of interest, or products from a research group or organization. 
+
+- Build a data query to create a meaningful subset of the DataONE collection
+- Use your markdown skills to create an informative About page
+- Consider adding links and embedding images or figures from publicly accessible datasets. 
+
+### {-}
 
 ### Tutorial Videos
 

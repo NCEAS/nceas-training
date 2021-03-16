@@ -32,7 +32,7 @@ In this lesson, we're going to take an existing GitHub repository and turn it in
     - This is our RMarkdown file rendered as HTML (a web page)
 - Commit your changes (to both index.Rmd and index.html) and push to GitHub
 - Open your web browser to the GitHub.com page for your repository
-- Go to Settings > GitHub Pages and turn on GitHub Pages for the `master` branch
+- Go to Settings > GitHub Pages and turn on GitHub Pages for the `main` branch
 
 Now, the rendered website version of your repo will show up at a special URL.
     
@@ -57,7 +57,7 @@ Now that we've successfully published a web page from an RMarkdown document, let
 
 RMarkdown web pages are a great way to share work in progress with your colleagues.  To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed.  You can also include multiple pages and build a simple web site for walking through your work that is accessible to people who aren't all set up to open your content in R.  In this exercise, we'll publish another RMarkdown page, and create a table of contents on the main page to guide people to the main page.
 
-First, in your trainnig repository, create a new RMarkdown file that describes some piece of your work and note the name.  I'll use an RMarkdown named `data-cleaning.Rmd`.
+First, in your training repository, create a new RMarkdown file that describes some piece of your work and note the name.  I'll use an RMarkdown named `data-cleaning.Rmd`.
 
 Once you have an RMarkdown created, `Knit` the document which will create the HTML version of the file, which in this case will be named `data-cleaning.html`.  
 

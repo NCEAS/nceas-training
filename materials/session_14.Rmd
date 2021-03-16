@@ -6,5 +6,12 @@
 
 # Extra Resources
 
+```{r, child = 'sections/r-beginning-programming.Rmd'}
+```
+
+
 ```{r, child = 'sections/visualisation-shiny.Rmd'}
+```
+
+```{r, child = 'sections/git-pull-requests-branches.Rmd'}
 ```

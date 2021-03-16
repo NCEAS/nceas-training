@@ -25,6 +25,7 @@ Three common ones are,
 - "base graphics" (`plot()`, `hist()`, etc`)
 - lattice
 - ggplot2
+
 All of them work!
 I use base graphics for simple, quick and dirty plots.
 I use ggplot2 for most everything else.
@@ -53,10 +54,10 @@ Load the data table directly from the KNB Data Repository, if it isn't already p
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 
 esc <- tryCatch(
-    read.csv("data/escapement.csv", stringsAsFactors = FALSE),
+    read.csv("data/escapement.csv"),
     error=function(cond) {
         message(paste("Escapement file does not seem to exist, so get it from the KNB."))
-        esc <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+        esc <- read.csv(url(data_url, method = "libcurl"))
         return(esc)
     }
 )
@@ -65,12 +66,14 @@ head(esc)
 ```
 
 ```{r, echo = F}
-esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e", stringsAsFactors = F)
+esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
 #### Challenge {- .exercise}
 
 Now that we have the data loaded, use your `dplyr` and `tidyr` skills to calculate annual escapement by species and region.
+
+Hint: try to use `separate` to extract the year, month, and day from the date column.
 
 #### {-}
 
@@ -228,6 +231,16 @@ ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) +
     ggtitle("Kodiak Salmon Escapement") +
     my_theme
 ```
+
+#### Saving plots
+
+Saving plots using ggplot is easy! The `ggsave` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc.
+
+```{r, eval = F}
+ggsave("kodiak_esc.png", width = 3, height = 3, units = "in")
+```
+
+
 
 #### Creating multiple plots {-}
 

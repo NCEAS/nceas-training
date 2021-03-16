@@ -1,10 +1,10 @@
-# Collaborating using Git
+## Collaborating using Git
 
 ```{r gitcollab_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -15,7 +15,7 @@ In this lesson, you will learn:
 - How to use a branch to organize code
 - What is a __tag__ in git and how is it useful for collaboration?
 
-## Pull requests
+### Pull requests
 
 We've shown in other chapters how to directly collaborate on a repository with
 colleagues by granting them `write` privileges as a collaborator to your repository.
@@ -46,7 +46,7 @@ Pull requests are a mechanism for someone that has a forked copy of a repository
 to **request** that the original owner review and pull in their changes.  This 
 allows them to collaborate, but keeps the owner in control of exactly what changed.
 
-## Exercise: Create and merge pull requests
+### Exercise: Create and merge pull requests
 
 In this exercise, work in pairs.  Each pair should create a `fork` of their partner's
 training repository, and then clone that onto their local machine.  Then they can make changes
@@ -68,7 +68,7 @@ using that repository url.
 
 3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
 file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
-has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:master.` 
+has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
 
 ![](images/git-pr-03-fork-changed.png)
 
@@ -107,15 +107,15 @@ To add a reference to the `upstream` remote (the repository you made your fork f
 
 `git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
 
-Then to pull from the master branch of the `upstream` repository, in the terminal, run: 
+Then to pull from the main branch of the `upstream` repository, in the terminal, run: 
 
-`git pull upstream master`
+`git pull upstream main`
 
 At this point, the collaborator is fully up to date.
 
 ![](images/github-workflows-upstream.png)
 
-## Branches
+### Branches
 
 Branches are a mechanism to isolate a set of changes in their own thread, allowing multiple 
 types of work to happen in parallel on a repository at the same time.  These are most often
@@ -125,13 +125,13 @@ to the main branch of development:
 
 ![](images/version-graph.png)
 
-The default branch in almost all repositories is called `master`, and it is the
+The default branch in almost all repositories is called `main`, and it is the
 branch that is typically shown in the GitHub interface and elsewhere.
 There are many mechanisms to create branches.  The one we will try is 
 through RStudio, in which we use the branch dialog to create and switch 
 between branches.
 
-### Exercise:
+#### Exercise:
 
 Create a new branch in your training repository called `exp-1`, and then make 
 changes to the RMarkdown files in the directory.  Commit and push those changes
@@ -139,5 +139,5 @@ to the branch.  Now you can switch between branches using the github interface.
 
 ![](images/git-branch-create.png)
 
-## Tags
+
 

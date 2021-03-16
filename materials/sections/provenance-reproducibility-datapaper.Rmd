@@ -33,8 +33,7 @@ Fortunately for us, Ben Marwick (and others) have written an R package called [r
 To start a reproducible paper with `rrtools`, run:
 
 ```{r eval=FALSE}
-devtools::install_github("benmarwick/rrtools")
-setwd("..")
+remotes::install_github("benmarwick/rrtools")
 rrtools::use_compendium("mypaper")
 ```
 
@@ -118,11 +117,11 @@ For a more complete example than the one we built above, take a look at [benmarw
 
 Please provide us with anonymous feedback via the Survey below.
 
-[Reproducible Research for Synthesis Short Course Feedback](https://survey.az1.qualtrics.com/jfe/form/SV_08poSsACzYyVLQ9)
+[Reproducible Research for Synthesis Short Course Feedback](https://survey.az1.qualtrics.com/jfe/form/SV_5BkSwAVqbbvI9VA)
 
 We are also collecting participant demographics, but separate from the feedback survey to preserve anonymity.
 
-[Reproducible Research for Synthesis Short Course Participant Demographics](https://survey.az1.qualtrics.com/jfe/form/SV_6rsC0BnzJ3XfCrX)
+[Reproducible Research for Synthesis Short Course Participant Demographics](https://survey.az1.qualtrics.com/jfe/form/SV_bkqlAiziG79jcGi)
 
 
 #### Reproducibility and Provenance

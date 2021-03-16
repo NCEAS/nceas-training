@@ -75,7 +75,7 @@ When data are "denormalized" it means that observations about different entities
 
 In the above example, each row has measurements about both the site at which observations occurred, as well as observations of two individuals of possibly different species found at that site. This is *not normalized* data.
 
-People often refer to this as *wide* format, because the observations are spread across a wide number of columns. Note that, should one encounter a new species in the survey, we wold have to add new columns to the table. This is difficult to analyze, understand, and maintain.
+People often refer to this as *wide* format, because the observations are spread across a wide number of columns. Note that, should one encounter a new species in the survey, we would have to add new columns to the table. This is difficult to analyze, understand, and maintain.
 
 #### Tabular data {-}
 
@@ -186,22 +186,20 @@ To demonstrate, we'll be working with a tidied up version of a dataset from ADF&
 
 ```{r catch, cache=TRUE, echo=FALSE}
 library(DT)
-catch <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
-                  stringsAsFactors = FALSE)
-datatable(catch)
+catch <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
+datatable(catch, rownames = FALSE)
 ```
 
 And here's the `region_defs` table:
 
 ```{r regions, cache=TRUE, echo=FALSE}
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"),
-                        stringsAsFactors = FALSE)
-datatable(region_defs)
+region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"))
+datatable(region_defs, rownames = FALSE)
 ```
 
 #### Challenge {- .exercise}
 
-Using the Excalidraw live session your instructor starts, work through the following tasks:
+Using the Invision live session your instructor starts, work through the following tasks:
 
 -   Draw an ER model for the tables
 
@@ -213,7 +211,7 @@ Using the Excalidraw live session your instructor starts, work through the follo
 
     -   If not, how might you restructure the data table to make it tidy?
 
-        -   Draw a new ER diatram showing this re-designed data structure
+        -   Draw a new ER diagram showing this re-designed data structure
 
 ![](images/ERD_Relationship_Symbols_Quick_Reference-1.png)
 
