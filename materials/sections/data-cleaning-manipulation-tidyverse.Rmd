@@ -286,12 +286,11 @@ catch_data[i,]
 
 Well that's odd: The value in `catch_thousands` is `I`. It turns out that this dataset is from a PDF which was automatically converted into a CSV and this value of `I` is actually a 1.
 
-Let's fix it by incorporating the `ifelse` function to our `mutate` call, which will change the value of the `Chinook` column to 1 if the value is equal to I, otherwise it will leave the column as the same value.
+Let's fix it by incorporating the `ifelse` function to our `mutate` call, which will change the value of the `Chinook` column to 1 if the value is equal to I, otherwise it will use `as.numeric` to turn the character representations of numbers into numeric typed values.
 
 ```{r}
 catch_clean <- catch_data %>% 
-  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>%
-  mutate(Chinook = as.integer(Chinook))
+  mutate(Chinook = if_else(Chinook == "I", 1, as.numeric(Chinook)))
 
 head(catch_clean)
 ```
@@ -455,7 +454,7 @@ Let's look at a preview of what our join will do by looking at a simplified vers
 
 ![Visualisation of our `left_join`](images/left_join_catchdata.png)
 
-First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
+First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read_csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
 
 ```{r, cache=TRUE}
 region_defs <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
