@@ -68,7 +68,7 @@ using that repository url.
 
 3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
 file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
-has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:master.` 
+has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
 
 ![](images/git-pr-03-fork-changed.png)
 
@@ -107,9 +107,9 @@ To add a reference to the `upstream` remote (the repository you made your fork f
 
 `git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
 
-Then to pull from the master branch of the `upstream` repository, in the terminal, run: 
+Then to pull from the main branch of the `upstream` repository, in the terminal, run: 
 
-`git pull upstream master`
+`git pull upstream main`
 
 At this point, the collaborator is fully up to date.
 
@@ -125,7 +125,7 @@ to the main branch of development:
 
 ![](images/version-graph.png)
 
-The default branch in almost all repositories is called `master`, and it is the
+The default branch in almost all repositories is called `main`, and it is the
 branch that is typically shown in the GitHub interface and elsewhere.
 There are many mechanisms to create branches.  The one we will try is 
 through RStudio, in which we use the branch dialog to create and switch 
