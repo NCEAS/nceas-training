@@ -500,8 +500,7 @@ sites_df <- data.frame(site = c("HAW-101",
                                 "HAW-103",
                                 "OAH-320",
                                 "OAH-219",
-                                "MAI-039"),
-                       stringsAsFactors = FALSE)
+                                "MAI-039"))
 
 sites_df %>% 
   separate(site, c("island", "site_number"), "-")
@@ -512,8 +511,7 @@ sites_df %>%
 ```{r}
 cities_df <- data.frame(city = c("Juneau AK", 
                                  "Sitka AK", 
-                                 "Anchorage AK"),
-                        stringsAsFactors = FALSE)
+                                 "Anchorage AK"))
 
 # Write your solution here
 ```
@@ -529,8 +527,7 @@ dates_df <- data.frame(year = c("1930",
                                 "12"),
                        day = c("14",
                                "15",
-                               "16"),
-                       stringsAsFactors = FALSE)
+                               "16"))
 
 dates_df %>% 
   unite(date, year, month, day, sep = "-")
@@ -547,10 +544,8 @@ dates_df %>%
 We just ran through the various things we can do with `dplyr` and `tidyr` but if you're wondering how this might look in a real analysis. Let's look at that now:
 
 ```{r, catch=TRUE}
-catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
-                  stringsAsFactors = FALSE)
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"),
-                        stringsAsFactors = FALSE) %>% 
+catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
+region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl")) %>% 
     select(code, mgmtArea)
 
 mean_region <- catch_original %>%

@@ -186,16 +186,14 @@ To demonstrate, we'll be working with a tidied up version of a dataset from ADF&
 
 ```{r catch, cache=TRUE, echo=FALSE}
 library(DT)
-catch <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"),
-                  stringsAsFactors = FALSE)
+catch <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
 datatable(catch, rownames = FALSE)
 ```
 
 And here's the `region_defs` table:
 
 ```{r regions, cache=TRUE, echo=FALSE}
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"),
-                        stringsAsFactors = FALSE)
+region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl"))
 datatable(region_defs, rownames = FALSE)
 ```
 

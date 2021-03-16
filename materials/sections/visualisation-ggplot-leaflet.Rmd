@@ -53,10 +53,10 @@ Load the data table directly from the KNB Data Repository, if it isn't already p
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 
 esc <- tryCatch(
-    read.csv("data/escapement.csv", stringsAsFactors = FALSE),
+    read.csv("data/escapement.csv"),
     error=function(cond) {
         message(paste("Escapement file does not seem to exist, so get it from the KNB."))
-        esc <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+        esc <- read.csv(url(data_url, method = "libcurl"))
         return(esc)
     }
 )
@@ -65,7 +65,7 @@ head(esc)
 ```
 
 ```{r, echo = F}
-esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e", stringsAsFactors = F)
+esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
 #### Challenge {- .exercise}

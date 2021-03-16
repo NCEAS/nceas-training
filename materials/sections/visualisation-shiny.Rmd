@@ -71,10 +71,10 @@ The data contains chemistry measurements at various times and stations.
 
 ```{r load_bgchem}
 data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(data_url, stringsAsFactors = FALSE)
+bg_chem <- read.csv(data_url)
 
 # Sometimes you need to wrap the web address in url() on some platforms
-#bg_chem <- read.csv(url(data_url, method = "libcurl"), stringsAsFactors = FALSE)
+#bg_chem <- read.csv(url(data_url, method = "libcurl"))
 names(bg_chem)
 ```
 
@@ -252,7 +252,7 @@ first set up the cols variable, which we do by selecting only the numeric variab
 from the `bg_chem` data frame, and then saving the name in a variable:
 
 ```{r shiny_cols_2, eval=FALSE, echo=TRUE}
-bg_chem <- read.csv(url(data_url, method="libcurl"), stringsAsFactors = FALSE) %>%
+bg_chem <- read.csv(url(data_url, method="libcurl")) %>%
     select(-Date, -Time, -Station)
 cols <- names(bg_chem)
 ```
@@ -367,7 +367,7 @@ library(tidyr)
 
 # Load data from Arctic Data Center
 data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(url(data_url, method="libcurl"), stringsAsFactors = FALSE) %>%
+bg_chem <- read.csv(url(data_url, method="libcurl")) %>%
     select(-Date, -Time, -Station)
 cols <- names(bg_chem)
 
