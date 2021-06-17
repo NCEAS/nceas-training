@@ -10,7 +10,7 @@
 
 ### Introduction
 
-Scientific research, and especially scientific synthesis, requires extensive computing, which typically involves creation of hudreds or thousands of data files, analytical processes, and many products such as graphs, model outputs, maps, images, and more.  Managing this complexity is often really hard, and researchers can easily lose track of just what they did, when, and why.  Thus, traditional approaches to managing the research process often fail the reproducibility test, as even the original investigators can't repeat their initial process.
+Scientific research, and especially scientific synthesis, requires extensive computing, which typically involves creation of hundreds or thousands of data files, analytic processes, and many products such as graphs, model outputs, maps, images, and more.  Managing this complexity is often really hard, and researchers can easily lose track of just what they did, when, and why.  Thus, traditional approaches to managing the research process often fail the reproducibility test, as even the original investigators can't repeat their initial process.
 
 Thus, the __command line__.  The command-line provides two major advantages to the researcher:
 
@@ -92,8 +92,7 @@ GUIs can be impressive, but CLIs help you get things done.
 
 ### Files and directories
 
-In the following code examples, you need to type the command, but not include 
-the command prompt (e.g., `jclark@included-crab:~$`) which just shows that the computer is ready to accept a command.
+In the following code examples, you need to type the command, but not include the command prompt (e.g., `jclark@included-crab:~$`) which just shows that the computer is ready to accept a command.
 
 We'll start by:
 
@@ -136,8 +135,7 @@ jclark@included-crab:~/oss$ tree
 jclark@included-crab:~/oss$
 ```
 
-Now, let's create another directory with two files so that we can demonstrate
-removing files and directories.
+Now, let's create another directory with two files so that we can demonstrate removing files and directories.
 
 - create another two directories named `sites` and `lakes` using `mkdir`
 - create 3 files in each directory using `echo`
