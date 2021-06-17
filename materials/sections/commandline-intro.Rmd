@@ -51,8 +51,7 @@ In this lesson, you will learn the power of the command line. But, you will  und
 * OS X
  :  [is a Unix](http://unix.stackexchange.com/questions/1489/is-mac-os-x-unix)!
 * Linux
- :  is _not_ fully compliant, but certainly can be
-      regarded as [functionally Unix](http://en.wikipedia.org/wiki/Unix-like)
+ :  is _not_ fully compliant, but certainly can be regarded as [functionally Unix](http://en.wikipedia.org/wiki/Unix-like)
 
 #### Some Unix hallmarks {-}
 
@@ -76,8 +75,7 @@ GUIs can be impressive, but CLIs help you get things done.
 * Typically much more extensive access to features, commands, options
 * Command statements can be written down, saved (scripts!)
 * Easier automation
-* Much "cheaper" to do work on a remote system (no need to
-      transmit all the graphical stuff over the network)
+* Much "cheaper" to do work on a remote system (no need to transmit all the graphical stuff over the network)
 
 #### Setup {- .setup}
 
@@ -189,10 +187,7 @@ data  lakes  README.md
 jclark@included-crab:~/oss$
 ```
 
-Note the use of the single dot `.` and the double dot `..` symbols in these
-commands.  A single dot `.` represents the current directory, and a double dot `..`
-represents the parent directory.  One can also use the tilde symbol `~` to represent
-the your home directory, which is main directory where your files will reside.
+Note the use of the single dot `.` and the double dot `..` symbols in these commands.  A single dot `.` represents the current directory, and a double dot `..` represents the parent directory.  One can also use the tilde symbol `~` to represent the your home directory, which is main directory where your files will reside.
 
 #### Let's look at our text file {-}
 
@@ -255,9 +250,7 @@ You can interpret the permissions as follows:
 * Change permissions: `chmod`, using for example `chmod o+r README.md`
 * Change ownership: `chown`
 
-To see someone else's files, they have to permit you to have the proper permissions.
-For example, you can examine the contents of one of my data files using the full
-path to the file, as long as you have the needed file permissions:
+To see someone else's files, they have to permit you to have the proper permissions. For example, you can examine the contents of one of my data files using the full path to the file, as long as you have the needed file permissions:
 
 ```
 jclark@included-crab:~/oss$ cat ~jones/oss/lakes/LakeMary.md 
@@ -292,8 +285,7 @@ and `options` can usually take two forms
 
 To make it easier to follow the remaining commands, lets use git to make a copy of the lessons repository.
 
-Go find the git URL of the repository we want to clone.  First, go to the GitHub 
-repository page and copy the repository clone URL:
+Go find the git URL of the repository we want to clone.  First, go to the GitHub repository page and copy the repository clone URL:
 
 https://github.com/NCEAS/nceas-training
 
@@ -326,10 +318,7 @@ jclark@included-crab:~/oss/nceas-training/materials/data$
 
 ### Some editors {-}
 
-There are many text editors available for Unix systems. `nano` is one that is
-simple and fairly easy to learn, so we'll use that when needed, but most people
-prefer `vim` or `emacs` which are much more powerful but also harder to learn.
-If you use the commandline, I recommend learning one of them thoroughly.
+There are many text editors available for Unix systems. `nano` is one that is simple and fairly easy to learn, so we'll use that when needed, but most people prefer `vim` or `emacs` which are much more powerful but also harder to learn. If you use the commandline, I recommend learning one of them thoroughly.
 
 - `vim`
 - `emacs`
