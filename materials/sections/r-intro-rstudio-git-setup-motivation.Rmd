@@ -134,17 +134,13 @@ Before using git, you need to tell it who you are, also known as setting the glo
 
 A terminal tab should now be open where your console usually is. 
 
-To see if you aleady have your name and email options set, use this command from the terminal:
-
-```{sh git-config, eval=FALSE}
-git config --global --list | grep user
-```
-
 To set the global options, type the following into the command prompt, with your actual name, and press enter:
 
 ```{sh git-name, eval=FALSE}
 git config --global user.name "Matt Jones"
 ```
+
+Note that if it ran successfully, it will look like nothing happened. We will check at the end to makre sure it worked.
 
 Next, enter the following line, with the email address you used when you created your account on github.com:
 
