@@ -393,6 +393,9 @@ n_region <- catch_long %>%
 head(n_region)
 ```
 
+#### Aside {- .aside}
+If you are finding that you are reaching for this combination of `group_by()`, `summarise()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
+
 #### Challenge {- .exercise}
 
 - Find another grouping and statistic to calculate for each group.
