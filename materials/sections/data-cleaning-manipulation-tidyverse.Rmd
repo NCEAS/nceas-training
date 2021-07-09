@@ -277,7 +277,6 @@ We get a warning "NAs introduced by coercion" which is R telling us that it coul
 To investigate, let's isolate the issue. We can find out which values are NAs with a combination of `is.na()` and `which()`, and save that to a variable called `i`.
 
 ```{r}
-
 i <- which(is.na(catch_clean$Chinook))
 i
 ```
