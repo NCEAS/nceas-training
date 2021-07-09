@@ -243,16 +243,16 @@ head(catch_data)
 
 #### Quality Check {-}
 
-Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `summary` function.
+Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `glimpse` function.
 
 ```{r}
-summary(catch_data)
+glimpse(catch_data)
 ```
 
 
 #### Challenge {- .exercise}
 
-Notice the output of the `summary` function call. Does anything seem amiss with this dataset that might warrant fixing?
+Notice the output of the `glimpse` function call. Does anything seem amiss with this dataset that might warrant fixing?
 
 #### {-}
 
