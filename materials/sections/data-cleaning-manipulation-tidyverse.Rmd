@@ -400,25 +400,6 @@ If you are finding that you are reaching for this combination of `group_by()`, `
 - Find another grouping and statistic to calculate for each group.
 - Find out if you can group by multiple variables.
 
-
-#### Filtering rows: `filter()` {-}
-
-`filter()` is the verb we use to filter our `data.frame` to rows matching some condition. It's similar to `subset()` from base R.
-
-Let's go back to our original `data.frame` and do some `filter()`ing:
-
-```{r}
-SSE_catch <- catch_long %>% 
-  filter(Region == "SSE")
-
-head(SSE_catch)
-```
-
-#### Challenge {- .exercise}
-
--   Filter to just catches of over one million fish.
--   Filter to just Chinook from the SSE region
-
 #### Sorting your data: `arrange()` {-}
 
 `arrange()` is how we sort the rows of a `data.frame`. In my experience, I use `arrange()` in two common cases:
@@ -447,6 +428,25 @@ mean_region <- catch_long %>%
 
 head(mean_region)
 ```
+
+
+#### Filtering rows: `filter()` {-}
+
+`filter()` is the verb we use to filter our `data.frame` to rows matching some condition. It's similar to `subset()` from base R.
+
+Let's go back to our original `data.frame` and do some `filter()`ing:
+
+```{r}
+SSE_catch <- catch_long %>% 
+  filter(Region == "SSE")
+
+head(SSE_catch)
+```
+
+#### Challenge {- .exercise}
+
+-   Filter to just catches of over one million fish.
+-   Filter to just Chinook from the SSE region
 
 ### Joins in dplyr
 
