@@ -99,7 +99,7 @@ In this lesson we're going to walk through the functions you'll most commonly us
 
     -   `pivot_longer()`
     -   `pivot_wider()`
-    -   `extract()`
+    -   `unite()`
     -   `separate()`
 
 
@@ -243,20 +243,23 @@ head(catch_data)
 
 #### Quality Check {-}
 
-Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `summary` function.
+Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `glimpse` function.
 
 ```{r}
-summary(catch_data)
+glimpse(catch_data)
 ```
 
 
 #### Challenge {- .exercise}
 
-Notice the output of the `summary` function call. Does anything seem amiss with this dataset that might warrant fixing?
+Notice the output of the `glimpse` function call. Does anything seem amiss with this dataset that might warrant fixing?
 
 #### {-}
 
-**Answer:** The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
+<details>
+  <summary>**Answer:**</summary>
+  The Chinook catch data are `character` class. Let's fix it using the function `mutate` before moving on.
+</details>
 
 #### Changing column content: `mutate()` {-}
 
@@ -388,6 +391,9 @@ n_region <- catch_long %>%
 
 head(n_region)
 ```
+
+#### Aside {- .aside}
+If you are finding that you are reaching for this combination of `group_by()`, `summarise()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 
 #### Challenge {- .exercise}
 
