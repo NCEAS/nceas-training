@@ -251,9 +251,11 @@ Use one of two methods to figure out how to suppress **warning** and **message**
 
 We chose to show `read_csv` from the `readr` package for a few reasons. One is to introduce the concept of packages and showing how to load them, but `read_csv` has several advantages over `read.csv`.
 
--   more reasonable function defaults (no stringsAsFactors!)
 -   smarter column type parsing, especially for dates
 -   it is **much** faster than `read.csv`, which is helpful for large files
+-   leaves column names as is
+
+See the most up to date comparisons on the [readr package site](https://readr.tidyverse.org/#alternatives)
 
 #### Calculate Summary Statistics
 
