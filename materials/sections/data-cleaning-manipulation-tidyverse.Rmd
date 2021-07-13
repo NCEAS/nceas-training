@@ -186,10 +186,10 @@ Before we get too much further, spend a minute or two outlining your RMarkdown d
 
 - Data Sources
   - read in the data
-- Clean and Reshape data
+- Clean the data
   - remove unnecessary columns
   - check column typing
-  - reshape data
+- Reshape the data
 - Join to Regions dataset
 
 #### About the pipe (`%>%`) operator {-}
@@ -298,9 +298,17 @@ catch_clean <- catch_data %>%
 head(catch_clean)
 ```
 
+
+
+### Reshaping the data
+
 #### Changing shape: `pivot_longer()` and `pivot_wider()` {-}
 
-The next issue is that the data are in a wide format and, we want the data in a tall format instead. `pivot_longer()` from the `tidyr` package helps us do just this conversion:
+The next issue is that the data are in a wide format and, we want the data in a tall format instead.
+
+![Visualisation of our `pivot_longer`](images/pivot_longer_wider.png)
+
+`pivot_longer()` from the `tidyr` package helps us do just this conversion:
 
 ```{r}
 catch_long <- catch_clean %>% 
@@ -381,6 +389,11 @@ mean_region <- catch_long %>%
 
 head(mean_region)
 ```
+
+#### Aside {- .aside}
+You might have seen the message "\`summarise()\` ungrouping output (override with \`.groups\` argument)" where the package has defaulted to `drop_last` and removing the grouping you have added in the `group_by` call. This argument allows you to control whether or not you want to keep the grouping after you have summarised the data. See the help documentation for more details.
+
+#### {-}
 
 Another common use of `group_by()` followed by `summarize()` is to count the number of rows in each group. We have to use a special function from `dplyr`, `n()`.
 
@@ -490,7 +503,7 @@ catch_joined <- left_join(catch_long, region_defs, by = c("Region"))
 head(catch_joined)
 ```
 
-Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just left\_join.
+Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just `left\_join`.
 
 #### `separate()` and `unite()` {-}
 
@@ -544,7 +557,7 @@ dates_df %>%
 # Write your solution here
 ```
 
-#### Summary {-}
+### Summary {-}
 
 We just ran through the various things we can do with `dplyr` and `tidyr` but if you're wondering how this might look in a real analysis. Let's look at that now:
 
