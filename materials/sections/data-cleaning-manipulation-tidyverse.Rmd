@@ -306,7 +306,7 @@ head(catch_clean)
 
 The next issue is that the data are in a wide format and, we want the data in a tall format instead.
 
-![Visualisation of our `pivot_longer`](images/pivot_longer_wider.png)
+![Visualisation of how the `pivot_longer` arguments will translate to our table](images/pivot_longer_wider.png)
 
 `pivot_longer()` from the `tidyr` package helps us do just this conversion:
 
@@ -503,7 +503,7 @@ catch_joined <- left_join(catch_long, region_defs, by = c("Region"))
 head(catch_joined)
 ```
 
-Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just `left\_join`.
+Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just left\_join.
 
 #### `separate()` and `unite()` {-}
 
