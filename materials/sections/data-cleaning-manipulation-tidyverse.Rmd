@@ -289,11 +289,12 @@ catch_data[i,]
 
 Well that's odd: The value in `catch_thousands` is `I`. It turns out that this dataset is from a PDF which was automatically converted into a CSV and this value of `I` is actually a 1.
 
-Let's fix it by incorporating the `ifelse` function to our `mutate` call, which will change the value of the `Chinook` column to 1 if the value is equal to I, otherwise it will use `as.numeric` to turn the character representations of numbers into numeric typed values.
+Let's fix it by incorporating the `case_when` function to our `mutate` call, which will change the value of the `Chinook` column to 1 if the value is equal to I, otherwise it will use `as.numeric` to turn the character representations of numbers into numeric typed values.
 
 ```{r}
-catch_clean <- catch_data %>% 
-  mutate(Chinook = if_else(Chinook == "I", 1, as.numeric(Chinook)))
+catch_clean <- catch_data %>%
+  mutate(Chinook = case_when(Chinook == "I" ~ 1,
+                             T ~ as.numeric(Chinook)))
 
 head(catch_clean)
 ```
