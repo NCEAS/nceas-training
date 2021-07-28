@@ -1,7 +1,17 @@
-# Session 2: Documenting and Publishing Data
+# Session 2: Data Modeling
 
-```{r, child = 'sections/metadata-data-best-practices-intro.Rmd'}
+```{r, child = 'sections/data-modeling.Rmd'}
 ```
 
-```{r, child = 'sections/metadata-knb-data-documentation-hands-on.Rmd'}
-```
+## Reproducible Research in R
+
+This workshop is a shortened version of our week long course in reproducible research. The week long course expands on these ideas and teaches software tools such as:
+
+* git/GitHub
+* Rmarkdown
+* wrangling data with the `tidyverse` in R
+* data visualization in R
+* writing functions and packages
+* writing reproducible papers
+
+Learn more about our short course at: [https://www.nceas.ucsb.edu/learning-hub/short-course](https://www.nceas.ucsb.edu/learning-hub/short-course)
