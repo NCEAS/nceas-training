@@ -1,4 +1,11 @@
-# Session 1: Introduction and setup
+# Session 1: Setup and Introduction to R
+
+These chapters will help make sure your computer is set up appropriately for the workshop, and help anyone who is new to R or wants a base R refresher.
+
+Please email jclark@nceas.ucsb.edu with questions or issues.
 
 ```{r, child = 'sections/r-intro-rstudio-git-setup-motivation.Rmd'}
+```
+
+```{r, child = 'sections/r-beginning-programming.Rmd'}
 ```
