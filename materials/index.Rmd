@@ -1,6 +1,6 @@
 --- 
-title: "Reproducible Research Techniques for Synthesis"
-date: "July 8-9, 12-14, 2021"
+title: "Open Science Synthesis for the Delta Science Program: Week 1"
+date: "September 13-17, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -11,15 +11,20 @@ description: ""
 always_allow_html: yes
 ---
 
-# Reproducible Research Techniques for Synthesis {-#reproducible-research-techniques-for-synthesis}
+# Open Science Synthesis for the Delta Science Program: Week 1 {-#reproducible-research-techniques-for-synthesis}
 
+![](images/DSP_Logo_Horizonal.jpg)
 
-The research landscape is changing. Researchers are increasingly engaging in collaboration across networks; open science includes not just open publication but also open data, software, and workflows; and technology is evolving in support of this new paradigm. This five-day workshop is designed to help researchers stay abreast of current best practices and initiatives and get started on acquiring good data science skills to maximize their productivity, share their data with the scientific community effectively and efficiently, and benefit from the re-use of their data by others.
+This book is for week 1 of 3, one-week facilitated synthesis and training events for Delta researchers that will revolve around scientific computing and scientific software for reproducible science.
+
+Week 1 will focus on introducing concepts and tooling for conducting reproducible research synthesis projects. Groups will also work on synthesis development using a logic model framework. 
+
 
 ## Schedule
 
+Coming soon!
 ```{r schedule, echo=FALSE, out.width = '100%', fig.align = 'center'}
-knitr::include_graphics("images/schedule.png")
+# knitr::include_graphics("images/schedule.png")
 ```
 
 ### Code of Conduct
@@ -36,11 +41,11 @@ knitr::include_graphics("images/nceas-logo.png")
 
 #### Overview
 
-Welcome to the NCEAS Reproducible Research Techniques for Synthesis short course. In previous years, we have been able to run this course on site as a 5-day intensive training between 8:00 am and 5:00 pm. Participants traveled to NCEAS in Santa Barbara and we asked that participants were as engaged as possible during the instructional period. Although we have had to switch to a remote training model due to COVID-19, we ask participants for the same level of commitment in this remote setting, while understanding that some conflicts are unavoidable.
+Welcome to week 1 of Open Science Synthesis for the Delta Science Program! Although we have had to switch to a remote training model due to COVID-19, we ask participants for the same level of commitment in this remote setting, while understanding that some conflicts are unavoidable.
 
 We will be using the following tools to facilitate this training:
 
-- Zoom (version 5.5.2)
+- Zoom (version 5.5.2+)
 - Slack (desktop app preferred)
 - RStudio, accessed through a server on an up-to-date web browser:
 	- Firefox (version 80+)
@@ -48,9 +53,12 @@ We will be using the following tools to facilitate this training:
 	- Safari (version 13+)
 	- Edge (version 81+)
 
+```{r, echo = F}
 #### Server
 
-You should receive a separate email prompting you to change your password using the NCEAS account service. **Please change your password**, and then ensure that you can log in at https://included-crab.nceas.ucsb.edu/. 
+#You should receive a separate email prompting you to change your password #using the NCEAS account service. **Please change your password**, and then #ensure that you can log in at https://included-crab.nceas.ucsb.edu/. 
+```
+
 
 #### Monitors
 
@@ -66,7 +74,7 @@ When we're in session, please turn your camera on, and mute your microphone unle
 
 #### Working from Home
 
-We recognize that working from home during the pandemic comes with challenges. The appearance or sound of other adults, children, and pets in remote meetings such as this is completely normal and understandable. Having your video on and enabling the instructors and your fellow participants to see you brings some humanity to this physically distant workshop, and we believe that this is a crucial element of its success. If you would like to use the Zoom virtual background feature to hide your surroundings, please do provided your background of choice fits within the code of conduct (and [here](https://www.arcus.org/resources/virtual-backgrounds) are some Arctic themed backgrounds if you need inspiration).
+We recognize that working from home during the pandemic comes with challenges. The appearance or sound of other adults, children, and pets in remote meetings such as this is completely normal and understandable. Having your video on and enabling the instructors and your fellow participants to see you brings some humanity to this physically distant workshop, and we believe that this is a crucial element of its success. If you would like to use the Zoom virtual background feature to hide your surroundings, please do provided your background of choice fits within the code of conduct.
 
 #### Non-Verbal Feedback
 
@@ -95,9 +103,6 @@ When you have detailed questions or need one on one coding assistance, we will h
 
 To facilitate a lively and interactive learning environment, we'll be calling on folks to share their code and to answer various questions posed by the instructor. It's completely okay to say "Pass" or "I Don't Know" - this is a supportive learning environment and we will all learn from each other. The instructors will be able to see your code as you go to help you if you get stuck, and the lead instructor may share participants' code to show a successful example or illustrate a teaching moment.
 
-### Acknowledgements
-
-Additional support was provided for working group collaboration by the Long Term Ecological Research Communications Office at the National Center for Ecological Analysis and Synthesis, a Center funded by the University of California, Santa Barbara, and the State of California.
 
 ```{r, echo=FALSE, out.width = '100%', fig.align = 'center'}
 knitr::include_graphics("images/nceas-logo.png")
