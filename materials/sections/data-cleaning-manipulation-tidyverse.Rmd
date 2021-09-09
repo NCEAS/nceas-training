@@ -163,7 +163,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 
 The code chunk you use to read in the data should look something like this:
 
-```{r, cache=TRUE, message = F}
+```{r, message = F}
 catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
