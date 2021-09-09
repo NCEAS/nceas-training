@@ -1,1 +1,61 @@
 # Session 9: Hands On: Synthesis Development and Exploration of Data Resources
+
+## Datasets of Interest
+
+There is an excel spreadsheet of datasets of interest located in the sharepoint [here](https://deltacouncil.sharepoint.com/:x:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/Questions%20and%20datasets.xlsx?d=w18c2ec2f348741e1b2cae309dc15c874&csf=1&web=1&e=mhVBhB). The vast majority of these datasets are already available online, in some form, which makes synthesis much easier. There are several other datasets that are not yet published, but will be published by week two of the workshop. 
+
+```{r}
+library(plotly)
+library(dplyr)
+
+# Read in data
+df <- read.csv("data/datasets.csv", stringsAsFactors = F) %>% 
+    arrange(Classification)
+
+df$legend <- !duplicated(df$Classification)
+
+# Convert to dates
+df$Start <- as.Date(paste0(df$Start, "-01-01"))
+df$End <- as.Date(paste0(df$End, "-12-31"))
+
+df$Published.Data.Link <- paste0('<a href="', df$Published.Data, '">', df$Name, '</a>')
+
+# Choose colors based on number of resources
+cols <- RColorBrewer::brewer.pal(length(unique(df$Classification)), name = "Set3")
+df$color <- factor(df$Classification, labels = cols)
+
+# Initialize empty plot
+fig <- plot_ly()
+
+for(i in 1:(nrow(df))){
+ fig <- add_trace(fig,
+                 type = "scatter",
+                 x = c(df$Start[i], df$End[i]),  # x0, x1
+                 y = c(i, i),  # y0, y1
+                 mode = "lines",
+                 line = list(color = df$color[i], width = 10),
+                 name = df$Classification[i],
+                 showlegend = df$legend[i],
+                 hoverinfo = "text",
+                 # Create custom hover text
+                 text = paste("Agency: ", df$Agency[i], "<br>",
+                              "Parameters: ", df$Parameter.s.[i]))
+}
+
+fig <- layout(fig,
+            xaxis = list(showgrid = F, tickfont = list(color = "black")),
+            yaxis = list(showgrid = T, tickfont = list(color = "black"),
+                         tickmode = "array",
+                         tickvals = 1:nrow(df),
+                         ticktext = unique(df$Published.Data.Link),
+                         domain = c(0, 0.9)),
+            hovermode = "closest",
+            legend = list(x = 100,
+                          y = 0.5,
+                          bordercolor = "black",
+                          borderwidth = 2))
+
+
+fig
+```
+
