@@ -184,7 +184,7 @@ custom_theme <- function(base_size = 9) {
       )
 }
 
-ggplot(temps_df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
+ggplot2::ggplot(temps_df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
     geom_point() +
     custom_theme(10)
 
