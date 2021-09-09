@@ -234,7 +234,7 @@ Much better!
 
 `select` also allows you to say which columns you *don't* want, by passing unquoted column names preceded by minus (-) signs:
 
-```{r}
+```{r, eval = FALSE}
 catch_data <- catch_original %>% 
   select(-All, -notesRegCode)
 
