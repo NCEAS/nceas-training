@@ -83,7 +83,7 @@ We will be using a PAT (Personal Access Token) in this course, because it is eas
 Steps:
 
 1. Run `usethis::create_github_token()` in the console
-2. In the browser window that pops up, scroll to the bottom and click "generate token."
+2. In the browser window that pops up, scroll to the bottom and click "generate token." You may need to log into GitHub first.
 3. Copy the token from the green box on the next page
 4. Back in RStudio, run `credentials::set_github_pat()`
 5. Paste your token into the dialog box that pops up.
