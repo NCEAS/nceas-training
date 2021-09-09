@@ -156,7 +156,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 
 3.  Select "copy link address" from the dropdown menu
 
-4.  Paste the URL into a `read_csv` call like below
+4.  Paste the URL into a `read.csv` call like below
     
 
 #### {-}
@@ -164,7 +164,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 The code chunk you use to read in the data should look something like this:
 
 ```{r, message = F}
-catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
+catch_original <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
 
@@ -173,7 +173,7 @@ catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/d
 Note that windows users who want to use this method locally also need to use the `url` function here with the argument `method = "libcurl"` as below:
 
 ```{r, eval = F}
-catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
+catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
 ```
 
 #### {-}
@@ -460,10 +460,10 @@ Let's look at a preview of what our join will do by looking at a simplified vers
 
 ![Visualisation of our `left_join`](images/left_join_catchdata.png)
 
-First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read_csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
+First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
 
 ```{r, cache=TRUE}
-region_defs <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
+region_defs <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
     select(code, mgmtArea)
 
 head(region_defs)
