@@ -74,6 +74,19 @@ git config --global user.name
 git config --global user.email
 ```
 
+#### GitHub Authentication
+
+GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. The book [Happy git with R](https://happygitwithr.com/credential-caching.html) has a wealth of information related to working with git in R, and these instructions are based off of section 10.1. 
+
+We will be using a PAT (Personal Access Token) in this course, because it is easy to set up. For better security and long term use, we recommend taking the extra steps to set up SSH keys.
+
+Steps:
+
+1. Run `usethis::create_github_token()` in the console
+2. In the browser window that pops up, scroll to the bottom and click "generate token."
+3. Copy the token from the green box on the next page
+4. Back in RStudio, run `credentials::set_github_pat()`
+5. Paste your token into the dialog box that pops up.
 
 ### Preparing to work in RStudio
 
