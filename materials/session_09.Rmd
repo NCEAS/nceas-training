@@ -1,4 +1,4 @@
-# Session 9: Hands On: Synthesis Development and Exploration of Data Resources
+# Session 9: Hands On: Exploration of Data Resources and Synthesis Development
 
 ## Datasets of Interest
 
@@ -74,7 +74,11 @@ fig
 
 If, in exploring and discussing the information above, groups decide they are missing pieces of data, searching through DataONE is a good start. We created a trial data portal on DataONE that shows just datasets in our geographic area of interest. [You can view the portal here](https://search.dataone.org/portals/8335950).
 
-A portal is a collection of DataONE federated repository data packages on a unique webpage.
+![](images/DeltaPortal.png)
+
+A portal is a collection of DataONE federated repository data packages on a unique webpage. This portal was constructed by defining geographic boundaries for the region of interest and it displays 9,189 data packages from within the DataONE collection of over 838K. This is a dynamic subset that will continue to grow as new data are added to repositories within the DataONE network.
+
+![](images/DeltaPortalEditor.png)
 
 Typically, a research project’s website won’t be maintained beyond the life of the project and all the information on the website that provides context for the data collection is lost. Portals can provide a means to preserve information regarding the projects’ objectives, scopes, and organization and couple this with the data files so it’s clear how to use and interpret the data for years to come. Plus, when datasets are scattered across the repositories in the DataONE network, portals can help see them all in one convenient webpage.
 
