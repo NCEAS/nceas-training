@@ -2,14 +2,10 @@
 
 name: webhook
 on: 
+  workflow_dispatch:
   push:
     branches: [ '**' ]
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
+
         
 jobs:
   build:
