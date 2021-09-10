@@ -15,5 +15,5 @@ jobs:
         with:
           workflow: renderbook
           repo: nceas/repro-research-course
-          ref: main
+          ref: master
           token: ${{ secrets.RRCOURSE }}
