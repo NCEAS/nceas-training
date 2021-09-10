@@ -2,7 +2,7 @@
 
 name: webhook
 on:
-  # Triggers the workflow on push events for all branchese
+  # Triggers the workflow on push events for all branches
   push:
     branches: [ '**' ]
 jobs:
@@ -10,8 +10,9 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-      - uses: joelwmale/webhook-action@master
+      - name: Invoke workflow in another repo with inputs
+        uses: benc-uk/workflow-dispatch@v1
         with:
-          url: https://api.travis-ci.com/repo/NCEAS%2Frepro-research-course/requests
-          headers: '{"Content-Type":"application/json", "Accept":"application/json", "Travis-API-Version":"3", "Authorization":"token ${{ secrets.TRAVIS }}"}'
-          body: '{"request": {"branch":"master"}}'
+          workflow: renderbook
+          repo: nceas/repro-research-course
+          token: ${{ secrets.TRAVIS }}
