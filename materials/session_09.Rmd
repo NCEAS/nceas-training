@@ -4,7 +4,9 @@
 
 There is an excel spreadsheet of datasets of interest located in the sharepoint [here](https://deltacouncil.sharepoint.com/:x:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/Questions%20and%20datasets.xlsx?d=w18c2ec2f348741e1b2cae309dc15c874&csf=1&web=1&e=mhVBhB). The vast majority of these datasets are already available online, in some form, which makes synthesis much easier. There are several other datasets that are not yet published, but will be published by week two of the workshop. 
 
-```{r}
+This chart shows a summary of the excel spreadsheet, with links to published datasets, or information about the datasets, where they exist.
+
+```{r, echo = FALSE, message = FALSE, fig.height = 10}
 library(plotly)
 library(dplyr)
 
@@ -39,7 +41,8 @@ for(i in 1:(nrow(df))){
                  hoverinfo = "text",
                  # Create custom hover text
                  text = paste("Agency: ", df$Agency[i], "<br>",
-                              "Parameters: ", df$Parameter.s.[i]))
+                              "Parameters: ", df$Parameter.s.[i]), "<br>",
+                              "Resolution:", df$Sampling.frequency)
 }
 
 fig <- layout(fig,
@@ -50,8 +53,7 @@ fig <- layout(fig,
                          ticktext = unique(df$Published.Data.Link),
                          domain = c(0, 0.9)),
             hovermode = "closest",
-            legend = list(x = 100,
-                          y = 0.5,
+            legend = list(orientation = "h",
                           bordercolor = "black",
                           borderwidth = 2))
 
