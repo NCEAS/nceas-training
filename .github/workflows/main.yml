@@ -2,6 +2,8 @@
 
 name: webhook
 on: 
+  push:
+    branches: [ '**' ]
   workflow_dispatch:
     inputs:
       logLevel:
