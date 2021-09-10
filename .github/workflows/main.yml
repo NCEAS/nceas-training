@@ -15,4 +15,4 @@ jobs:
         with:
           workflow: renderbook
           repo: nceas/repro-research-course
-          token: ${{ secrets.TRAVIS }}
+          token: ${{ secrets.RRCOURSE }}
