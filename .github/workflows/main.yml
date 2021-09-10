@@ -1,11 +1,6 @@
 # Webook to build course website
 
 name: webhook
-on:
-  # Triggers the workflow on push events for all branches
-  push:
-    branches: [ '**' ]
-    
 on: 
   workflow_dispatch:
     inputs:
