@@ -84,7 +84,7 @@ Let's:
 1. Create an `analysis` folder to hold our reproducible paper
 
 ```{r eval=FALSE}
-usethis::use_apl2_license(name="Your Name") # Change this
+usethis::use_apache_license()
 rrtools::use_readme_rmd()
 rrtools::use_analysis()
 ```
