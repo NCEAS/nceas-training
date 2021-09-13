@@ -139,8 +139,9 @@ To start a reproducible paper with `rrtools`, run:
 ```{r use-compendium, eval=FALSE, echo=TRUE}
 # install `tinytex` (See below)
 # Upgrade contentid to 0.12.0
+#remotes::install_github("cboettig/contentid")
 # Upgrade readr from 1.3.1 to 2.0.1
-install.packages(c("contentid", "readr"))
+install.packages(c("readr"))
 remotes::install_github("benmarwick/rrtools")
 setwd("..")
 rrtools::use_compendium("mypaper")
@@ -227,14 +228,15 @@ We're now going to walk though some of the key features that makes writing trans
 
 To do this, we will work from an already built-out example paper that illustrates these features. Start by:
 
-- Copy the example file [`paper.md`](files/paper.Rmd) to `analysis/paper/paper.Rmd` in the project you built earlier
-- Open that file in the reproducible paper project in RStudio
+- Copy the example file [`paper.Rmd`](files/paper.Rmd) to `analysis/paper/paper.Rmd` in the project you built earlier
+- Copy the example bibliography [`references.bib`](files/references.bib) to `analysis/paper/paper.Rmd` in the project you built earlier
+- Open that `paper.Rmd` file in the reproducible paper project in RStudio
 - Walk through the example file to examine each of the Rmarkdown features
 - Knot and view the file
 
 #### Getting PDF rendering working
 
-By default, `rrtools` will create papers that are meant to be rendered either as PDF documents, or as MS Word documents. You can switch between these, but for them both to work you must have the requisite software installed on your machine. For PDF, this means you need to have a version of Tex installed with pdflatex available, which can be a difficult process on Macs and Windows. We have found that installing the R package `tinytex` provides a good, reliable workaround on macs and windows machines, although there can still be some futzing involved if you already have LaTEX installed, or if you don't have sufficient permissions to install. Its beyond the scope of time available today to diagnose all of the installation issues, but hopefully tinytex will provide a path forward for you. In brief:
+By default, `rrtools` will create papers that are meant to be rendered either as PDF documents, or as MS Word documents. You can switch between these, but for them both to work you must have the requisite software installed on your machine. For PDF, this means you need to have a version of Tex installed with pdflatex available, which can be a difficult process on Macs and Windows. We have found that installing the R package `tinytex` provides a good, reliable workaround on macs and windows machines, although there can still be some futzing involved if you already have LaTEX installed, or if you don't have sufficient permissions to install. Its beyond the scope of time available today to diagnose all of the installation issues, but hopefully tinytex will provide a path forward for you. In brief, you can install tex in your personal account using `tinytex::install_tinytex()`, and the restart your RStudio session, and you should have a working version of pdflatex that allows things to build the documents properly.
 
 ```{r tinytex, eval=FALSE, echo=TRUE}
 install.packages("tinytex")
