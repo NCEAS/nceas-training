@@ -27,12 +27,8 @@ So for instance, narrative review might provide insights into vaccine research a
 
 ### Summary of options {-}  
 
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
-library(tidyverse)
-synthesis <- read_csv("data/synthesis.csv")
-knitr::kable(synthesis, booktabs = TRUE)
+![](images/Synthesisoptions.png)
 
-```
 
 ### Evidence framing {-}  
 A more complex and comprehensive summary of the contemporary landscape of synthesis has been evolving. Framing scientific synthesis activities as an open, comprehensive, and diverse aggregation or summary of many forms of evidence expands our capacity to inform decision making. Contemporary synthesis science has innovated on evidence maps as a tool to show the evidence. This can be done through mapping evidence onto a geographic map to show where we know what we know ([McKinnon et al. 2015](https://www.nature.com/articles/528185a)). Evidence maps can also be less literal and map out knowledge as tabular or bubble plots that focus more on the relative frequencies of what we know about different concepts within a synthesis ([Miake-Ley et al. 2016](https://systematicreviewsjournal.biomedcentral.com/articles/10.1186/s13643-016-0204-x)). This approach has also been framed as 'evidence maps for evidence gaps' because it can become abundantly clear where evidence is missing in terms of research or ideas ([O'Leary et al. 2017](https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-017-0096-9)). Importantly, decision making has also evolved to more substantially rely on synthesis science to inform strategy ([Thomas-Walters et al. 2021](https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.426)). There has also been a drive to thus enable and support more synthesis to build capacity and connect disparate fields of research for more holistic solution sets ([Ladouceur and Shackelford 2021](https://onlinelibrary.wiley.com/doi/full/10.1111/rec.13251)).  
