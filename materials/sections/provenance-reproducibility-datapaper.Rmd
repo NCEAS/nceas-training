@@ -136,7 +136,7 @@ Fortunately for us, Ben Marwick (and others) have written an R package called [r
 
 To start a reproducible paper with `rrtools`, run:
 
-```{r eval=FALSE}
+```{r use-compendium, eval=FALSE, echo=TRUE}
 setwd("..")
 remotes::install_github("benmarwick/rrtools")
 rrtools::use_compendium("mypaper")
@@ -187,7 +187,7 @@ Let's:
 1. Set up a README file in the RMarkdown format
 1. Create an `analysis` folder to hold our reproducible paper
 
-```{r eval=FALSE}
+```{r add-structure, eval=FALSE, echo=TRUE}
 usethis::use_apache_license()
 rrtools::use_readme_rmd()
 rrtools::use_analysis()
