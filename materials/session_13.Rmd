@@ -1,51 +1,7 @@
-# Session 13: Meta-analysis in R {#meta}
+# Session 13: Meta-analysis in R 
 
-![](./meta.png){width=3in}    
+```{r, child = 'sections/meta-analysis-r'}
+```
 
-## Learning outcomes   
-1. Format data for meta-analyses in R.  
-2. Explore the capacity of the R package metafor.  
-3. Pilot statistics for two datasets.    
-
-
-## Context  
-Try out these ideas in a meta-analysis. Securing derived data to replicate an existing synthesis was not common historically, but it is now becoming increasingly viable with open science influences on these contributions. How to do a meta-analysis is well described in the peer-reviewed literature ([Field and Gillett 2010](https://bpspsychub.onlinelibrary.wiley.com/doi/epdf/10.1348/000711010X502733)) and numerous books ([Koricheva et al 2013](https://press.princeton.edu/books/hardcover/9780691137285/handbook-of-meta-analysis-in-ecology-and-evolution)) to name a few. Doing meta-analyses using the R programming language is similarly well articulated - particularly from the documentation associated with the package [metafor](https://www.metafor-project.org/doku.php). There are no bad choices in R with well over 100 packages associated with and supporting meta-analyses ([conservatively listed at 151 packages](https://cran.r-project.org/web/views/MetaAnalysis.html). The output of Stata (an application specific to many medical meta-analyses), the R package meta, and metafor were virtually identical in several test cases ([Lortie and Filazzola 2020](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.6747)). Ten criteria are proposed in contrasting R packages for this task specifically, but at the current time, metafor is the most commonly used and extensively documented. Hence, consider tackling the challenges here with this package as a robust starting point and entry in meta-statistics.      
-
-## The 5 primary steps for meta-analyses in R. 
-1. Secure primary data.  
-2. Build conceputal model for factors, reponses, and moderators.
-3. Calculate effect size(s).  
-4. Fit appropriate meta-model.  
-5. Explore significance levels, heterogeneity, and bias.
-
-
-## Challenge   
-1. Start simple and go with a classic. These [wind turbine data](https://figshare.com/articles/dataset/Meta_thinking_data_wind_turbine_effects_2005/7766990) and its meta-analysis changed the world.  Download these data and appled the 5 steps from above with help from the metafor documentation.  
-2. In the spirit of reuse and conceputal replication, this process was reported in 2017 with a more [comprehensive dataset](https://figshare.com/articles/dataset/Meta_thinking_data_wind_turbine_effects_2017/7767002).  
-
-Try out one of these datasets.  
-
-
-[Preventing exercise-induced bronchoconstriction meta-analysis](https://figshare.com/articles/dataset/Meta_thinking_data_preventing_exercise-induced_bronchoconstriction/7767020)  
-
-[A meta-analysis of restoration outcomes and species richness](https://knb.ecoinformatics.org/view/doi%3A10.5063%2F057DCQ)  
-
-[A synthesis of common garden studies testing for local adaptation to climate](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FF1862DVX)  
-
-[A synthesis shrub facilitation studies testing for increases in community diversity estimates](https://knb.ecoinformatics.org/view/doi:10.5063/F147488H)  
-
-## Products  
-1. Two R scripts for meta-analysis.  
-2. A sense of data structures needed for meta-analyses in the R package metafor.  
-
-## Resources   
-[metafor documentation](https://www.metafor-project.org/doku.php)  
-[Bookdown free books](https://bookdown.org/home/tags/meta-analysis/)  
-
-## Reflection questions   
-1. Did the analytical process differ significantly from primary-data workflows?  
-2. Do meta-models in R sufficiently report outcomes to assess strength of evidence?  
-3. What other steps would be an appropriate addendum to this process?  
-4. What relational or qualitative elements might be worthwhile to consider adding to meta-analyses and their interpretation for stronger evidence framing and reuse?  
 
 
