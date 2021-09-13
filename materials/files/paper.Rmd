@@ -1,0 +1,245 @@
+---
+title: "Reproducible Analysis Example: Delta Salmon Smelt"
+author:
+  - Matthew B. Jones:
+      email: jones@nceas.ucsb.edu
+      institute: [NCEAS]
+      correspondence: true
+  - Bryce Mecum:
+      email: mecum@nceas.ucsb.edu
+      institute: [NCEAS]
+      correspondence: false
+  - S. Jeanette Clark:
+      email: sjclark@nceas.ucsb.edu
+      institute: [NCEAS]
+      correspondence: false
+institute:
+  - NCEAS: National Center for Ecological Analysis and Synthesis
+  - UCSB: University of California Santa Barbara
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+    bookdown::pdf_document2:
+      fig_caption: yes
+      reference_docx: "../templates/template.docx" # Insert path for the DOCX file
+      pandoc_args:
+      - --lua-filter=../templates/scholarly-metadata.lua
+      - --lua-filter=../templates/author-info-blocks.lua
+      - --lua-filter=../templates/pagebreak.lua
+bibliography: references.bib
+#csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the bib-style
+abstract: |
+  We review approaches to computational reproducibility that are helpful in writing a reproducible paper. By representing a paper as an RMarkdown document inside of an R package, we can powerfully interleave the text of the paper with the data cleaning, analysis, and visualization code that is used to create the tables and figures in the paper. Thus, the paper itself can be executed, and the end product produces the full paper in a way that documents all of the data inputs, data cleaning and integration, and analysis and visualization steps as a computational workflow. The whole package provides structured documentation about the requirements needed to execute the paper, including the R packages that need to be installed. And it can format the paper with advance mathematical equations, inline citations, figures and tables inline, and a reference section that in the style needed for specific journals.
+keywords: |
+  open science; reproducible papers; transparency; provenance
+highlights: |
+  Transparency leads to reproducibility, and can be greatly facilitted through tooling that tracks specific data and workflows used for analysis and modeling in a paper. 
+---
+
+<!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
+
+<!-- With the following code you can access and display values from the yml header above. -->
+
+Keywords: `r rmarkdown::metadata$keywords`
+
+Highlights: `r rmarkdown::metadata$highlights`
+
+<!-- The following code chunk defines some general settings how code chunks should behave. -->
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE,
+  comment = "#>",
+  fig.path = "../figures/",
+  dpi = 300
+)
+```
+
+```{r load-libs}
+library(contentid)
+library(ggplot2)
+library(knitr)
+library(broom)
+```
+
+<!-- Paper is based on data that is stored in the EDI data repository:
+
+Interagency Ecological Program (IEP), Lauren Damon, and Adam Chorazyczewski. 2021. Interagency Ecological Program San Francisco Estuary Spring Kodiak Trawl Survey 2002 - 2021. Environmental Data Initiative. https://pasta.lternet.edu/package/metadata/eml/edi/527/4. 
+
+-->
+
+```{r load-data}
+# We use the `contentid` package to ensure that data are referenced properly online, but also that they 
+# can be used locally with an unambiguous version
+delta.file <- contentid::resolve("hash://sha1/3ccff226e8aefed9448386bbb09311239475301d", store = TRUE)
+delta.df <- readr::read_csv(delta.file, show_col_types=FALSE)
+```
+
+<!-- The actual document text starts here: -->
+
+# Introduction
+
+Writing reports and academic papers is a ton of work but a large amount of that work can be spent doing monotonous tasks such as:
+
+- Updating figures and tables as we refine our analysis
+- Editing our analysis and, in turn, editing our paper's text
+- Managing bibliography sections and in-text citations/references
+
+These monotonous tasks are also highly error-prone.
+With RMarkdown, we can close the loop, so to speak, between our analysis and our manuscript because the manuscript can become the analysis.
+
+As an alternative to Microsoft Word, RMarkdown provides some advantages:
+
+- Free to use
+- Uses text so we can:
+  - Use version control for
+    - Tracking changes
+    - Collaborating
+  - Edit it with our favorite and most powerful text editors
+  - Use the command line for automation
+
+The rest of this document will show how we get some of the features we need such as:
+
+- Attractive typesetting for mathematics
+- Figures, tables, and captions
+- In-text citations
+- Bibliographies
+
+# Methods
+
+Our analysis will be pretty simple.
+We'll use the `diamonds` dataset from the `ggplot2` [@ggplot] package and run a simple linear model.
+At the top of this document, we started with a code chunk with `echo=FALSE` set as a chunk option so that we can load the `ggplot2` package and `diamonds` dataset without outputting anything to the screen.
+
+For our analysis, we'll create a really great plot which really shows the relationship between price and carat and shows how we include plots in our document.
+
+## Mathematics
+
+Then we'll run a linear model of the form $y = mx + b$ on the relationship between price and carat and shows how we include tables in our document. Note how the previous equation was rendered inline. We can also put some more advanced math in our paper and it will be beautifully typeset as a block equation:
+
+\[\sum_{i=1}^{N}{log(i) + \frac{\omega}{x}}\]
+
+## Citations
+
+We can also use R itself to generate bibliographic entries for the packages we use so we can give proper credit when we use other peoples' packages in our analysis.
+Here we cite the `ggplot2` package:
+
+```{r, eval=FALSE, echo=TRUE}
+> citation('ggplot2')
+
+To cite ggplot2 in publications, please use:
+
+  H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.
+
+A BibTeX entry for LaTeX users is
+
+  @Book{ggplot,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2009},
+    isbn = {978-0-387-98140-6},
+    url = {http://ggplot2.org},
+  }
+
+```
+
+And then we just place that in our `.bibtex` file, and we can cite it inline to indicate that we used `ggplot2` for visualiations [@ggplot]. Note how these inline citations are simply the bibliographic `key` for the bibtext entry, nested in square brackets with an `@` sign, like this: `[@ggplot]`. We can cite other papers in the flow of the text, for example by indicating that this guide follows [@Marwick2017]. And when we cite all of the software that we used [@RCoreTeam][@RStudio][@RMarkdown], they will all be rendered in the References section.
+
+## Inline text
+
+As we report on our methods, we can even include details inline from the text about the data and analysis. For example, we might report that the Delta smelt dataset contains `r nrow(delta.df)` samples from trawl surveys. We do that by embedding snippets of R code using backticks in the prose that get evaluated, and the results of those snippets are formatted in the text.
+
+# Results
+
+<!-- Here's some example analysis code: -->
+
+In the results section, you can interleave text and analysis. For example, we might start with a simple plot of a sample from the normal distribution. Building this does not require loading a dataset explicitly.
+
+```{r demo-plot, fig.cap="A plot of random numbers"}
+plot(rnorm(10))
+```
+
+Figure \@ref(fig:demo-plot) shows how we can have a caption and cross-reference for a plot in the text.
+
+Alternatively, we could also load a dataset from a file that is in the package itself, in the `analysis/data/raw_data` directory. Here's how you might do that, but we're going to skip that step because embedding data in the package directly isn't the best practice unless it is very small, and is unlikely to be used in other papers and analyses.
+
+```{r get-data, eval = FALSE, echo=TRUE}
+# Note the path that we need to use to access our data files when rendering this document
+my_data <- read.csv(here::here('analysis/data/raw_data/my_csv_file.csv'))
+```
+
+A better approach is to load the data from an archival, versioned data repository, and cache it locally for speed. This allows anyone to run the script, which downloads and caches the data on the local system only on the first run. This means we are no longer dependent on local file paths, and the analysis is portable across many machines. Here's how we loaded the Delta Smelt dataset from EDI earlier in this document:
+
+```{r load-data2, eval=FALSE, echo=TRUE}
+# We use the `contentid` package to ensure that data are referenced properly online, but also that they 
+# can be used locally with an unambiguous version
+delta.file <- contentid::resolve("hash://sha1/3ccff226e8aefed9448386bbb09311239475301d", store = TRUE)
+delta.df <- readr::read_csv(delta.file, show_col_types=FALSE)
+```
+
+Now that we have the data file loaded, we can build a linear model of Smelt count over time, and then plot it (Figure \@ref(fig:delta-plot)).
+
+```{r themodel, echo=FALSE}
+mod <- lm(Delta_Smelt/Volume ~ Year, delta.df)
+kable(tidy(mod), digits = 2, caption = "This is a broomed linear model summary table.")
+```
+
+
+```{r delta-plot, fig.cap="Smelt per cubic Meter by year across all surveys."}
+ggplot(delta.df, aes(x=Year, y=Delta_Smelt/Volume)) +
+  geom_point(color="blue") +
+  ylab("Smelt (count per cubic meter)") +
+  theme_classic()
+```
+
+The plot we made was really great, but the model was even better. We were delighted to find that the slope parameter was `r round(mod$coefficients["Year"][[1]], 4)`.
+
+# Discussion
+
+This was just a quick demonstration of a reproducible paper that combined text, analysis, figures, tables, and citations into multiple output formats (HTML, PDF).
+Hopefully you found it useful.
+
+A lot of people are using RMarkdown these days so there are tons of resources online but here are a few choice ones specifically about making papers:
+
+- [http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
+- [http://svmiller.com/blog/2016/02/svm-r-markdown-manuscript/](http://svmiller.com/blog/2016/02/svm-r-markdown-manuscript/)
+- [http://www.petrkeil.com/?p=2401](http://www.petrkeil.com/?p=2401)
+
+# Data Availability
+
+Data are available from the EDI Data Repository:
+
+> Interagency Ecological Program (IEP), Lauren Damon, and Adam Chorazyczewski. 2021. Interagency Ecological Program San Francisco Estuary Spring Kodiak Trawl Survey 2002 - 2021. Environmental Data Initiative. https://pasta.lternet.edu/package/metadata/eml/edi/527/4.
+
+# Acknowledgements
+
+<!-- The following line inserts a page break  -->
+
+\newpage
+
+# References 
+
+<!-- The following line ensures the references appear here for the MS Word or HTML output files, rather than right at the end of the document (this will not work for PDF files):  -->
+
+<div id="refs"></div>
+
+\newpage
+
+### Colophon
+
+This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
+
+```{r colophon, cache = FALSE}
+# which R packages and versions?
+if ("devtools" %in% installed.packages()) devtools::session_info()
+```
+
+The current Git commit details are:
+
+```{r}
+# what commit is this file at? 
+if ("git2r" %in% installed.packages() & git2r::in_repository(path = ".")) git2r::repository(here::here())  
+```

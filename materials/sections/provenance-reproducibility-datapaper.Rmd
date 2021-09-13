@@ -1,15 +1,118 @@
-## Reproducibility and Provenance
+## Reproducible and Transparent Papers
 
 ### Learning Objectives
 
-In this lesson, you will:
+In this lesson, we will:
 
-- Learn how to build a reproducible paper in RMarkdown
+- Discuss the concept of reproducible workflows
 - Review the importance of computational reproducibility
-- Review the  of provenance metadata
+- Review the utility of provenance metadata
+- Overview how R packages are great ways to package work reproducibly
+- Learn how to build a reproducible paper in RMarkdown
 - Review tools and techniques for reproducibility supported by the NCEAS and DataONE
 
-#### Reproducible Papers
+#### Reproducibility and Provenance
+
+- Slides: [Accelerating synthesis science through reproducible science practices](files/2019-10-11-repro-sci.pdf)
+
+#### Reproducible Research: Recap  {-}
+
+Working in a reproducible manner:
+
+- increases research efficiency, accelerating the pace of your research and collaborations
+- provides transparency by capturing and communicating scientific workflows
+- enables research to stand on the shoulders of giants (build on work that came before)
+- allows credit for secondary usage and supports easy attribution
+- increases trust in science
+
+To enable others to fully interpret, reproduce or build upon our research, we need to provide more comprehensive information than is typically included in a figure or publication. The methods sections of papers are typically inadequate to fully reproduce the work described in the paper.
+
+![](images/Smith-et-al.png)
+
+What data were used in this study? What methods applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? 
+
+Are the results reproducible?
+
+**Computational reproducibility** is the ability to document data, analyses, and models sufficiently for other researchers to be able to understand and ideally re-execute the computations that led to scientific results and conclusions.
+
+Practically speaking, reproducibility includes:
+
+- Preserving the data
+- Preserving the software workflow
+- Documenting what you did
+- Describing how to interpret it all
+
+#### Computational Provenance and Workflows {-}
+
+Computational provenance refers to the origin and processing history of data including:
+
+- Input data
+- Workflow/scripts
+- Output data
+- Figures
+- Methods, dataflow, and dependencies
+
+When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from inital data cleaning and integration, through analysis, modeling, and visualization. 
+
+Here's an example of a computational workflow from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
+
+![](images/comp-workflow-1.png)
+
+
+![](images/provenance.png)
+
+This screenshot of the dataset page shows how DataONE renders the workflow model information as part of our interactive user interface. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
+
+**From Provenance to Reproducibility**
+
+![](images/Prov-History.png)
+
+
+At DataONE we facilitate reproducible science through provenance by: 
+
+- Tracking **data derivation** history
+- Tracking data **input**s and **outputs** of analyses
+- Preserving and documenting software **workflows**
+- Tracking analysis and model **executions**
+- Linking all of these to **publications**
+
+
+**Introducing [ProvONE](http://purl.dataone.org/provone-v1-dev)**, an extension of W3C PROV
+
+![](images/Prov_ONE.png)
+
+ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
+
+
+![](images/data-package.png)
+
+### Data Citation  {-}
+
+Data citation best practices are focused on providing credit where credit is due and indexing and exposing data citations across international repository networks. In 2014, Force 11 established a [Joint Declaration of Data Citation Principles](https://doi.org/10.25490/a97f-egyk) that includes:
+
+- Importance of data citation
+- Credit and Attribution
+- Evidence
+- Unique Identification
+- Access
+- Persistence
+- Specificity and Verifiability
+- Interoperability and Flexibility
+
+**Transitive Credit**
+
+We want to move towards a model such that when a user cites a research publication we will also know:
+
+- **Which data** produced it
+- **What software** produced it
+- What was **derived** from it
+- **Who to credit** down the attribution stack
+
+![](images/Transitive-Credit.png)
+
+This is transitive credit. And it changes the way in which we think about science communication and traditional publications. 
+
+### Reproducible Papers with `rrtools`
 
 A great overview of this approach to reproducible papers comes from:
 
@@ -21,8 +124,9 @@ This lesson will draw from existing materials:
 - [Reproducible papers with RMarkdown](https://nceas.github.io/oss-lessons/reproducible-papers-with-rmd/reproducible-papers-with-rmd.html)
 
 The key idea in Marwick et al. (2018) is that of the "research compendium": A single container for not just the journal article associated with your research but also the underlying analysis, data, and even the required software environment required to reproduce your work.
-Research compendia make it easy for researchers to do their work but also for others to inspect or even reproduce the work because all necessary materials are readily at hand due to being kept in one place.
-Rather than a constrained set of rules, the research compendium is a scaffold upon which to conduct reproducible research using open science tools such as:
+
+![Research compendia from Marwick et al.](images/compendia.png)
+Research compendia make it easy for researchers to do their work but also for others to inspect or even reproduce the work because all necessary materials are readily at hand due to being kept in one place. Rather than a constrained set of rules, the research compendium is a scaffold upon which to conduct reproducible research using open science tools such as:
 
 - [R](https://www.r-project.org/)
 - [RMarkdown](https://rmarkdown.rstudio.com/)
@@ -33,6 +137,7 @@ Fortunately for us, Ben Marwick (and others) have written an R package called [r
 To start a reproducible paper with `rrtools`, run:
 
 ```{r eval=FALSE}
+setwd("..")
 remotes::install_github("benmarwick/rrtools")
 rrtools::use_compendium("mypaper")
 ```
@@ -73,8 +178,7 @@ Next, you need to:  ↓ ↓ ↓
 
 `rrtools` has created the beginnings of a research compendium for us.
 At this point, it looks mostly the same as an R package.
-That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package.
-And this means our research compendium will be easy to install, just like an R package.
+That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package. And this means our research compendium will be easy to install, just like an R package.
 
 Before we get to writing our reproducible paper, let's fill in some more structure.
 Let's:
@@ -89,7 +193,7 @@ rrtools::use_readme_rmd()
 rrtools::use_analysis()
 ```
 
-At this point, we're ready to start writing the paper.
+This creates a starndard, predicatable layout for our code and data and outpus that mutliple people can understand. At this point, we're ready to start writing the paper.
 To follow the structure `rrtools` has put in place for us, here are some pointers:
 
 - Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
@@ -107,116 +211,33 @@ usethis::use_git()
 
 After that, push a copy up to [GitHub](https://github.com).
 
+#### A quick tour of features for reproducibility in RMarkdown
+
+We're now going to walk though some of the key features that makes writing transparent articles with RMarkdown a breeze. We'll cover:
+
+- Loading data reproducibly
+- Attractive typesetting for mathematics
+- Figures, tables, and captions
+- In-text citations
+- Bibliographies
+
+To do this, we will work from an already built-out example paper that illustrates these features. Start by:
+
+- Copy the example file [`paper.md`](files/paper.md) to `analysis/paper/paper.Rmd` in the project you built earlier
+- Open that file in the reproducible paper project in RStudio
+
 Hopefully, now that you've created a research compendium with `rrtools`, you can imagine how a pre-defined structure like the one `rrtools` creates might help you organize your reproducible research and also make it easier for others to understand your work.
 
 For a more complete example than the one we built above, take a look at [benmarwick/teaching-replication-in-archaeology](https://github.com/benmarwick/teaching-replication-in-archaeology).
 
+### Reproducible Papers with `rticles`
 
-#### Reproducibility and Provenance
+This sub-lesson is TBD, but for now note that the [`rticles`](https://github.com/rstudio/rticles
+B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals.
 
-- [Accelerating synthesis science through reproducible science practices](files/2019-10-11-repro-sci.pdf)
-
-#### Reproducible Research: Recap  {-}
-
-Working in a reproducible manner:
-
-- increases research efficiency, accelerating the pace of your research and collaborations
-- provides transparency by capturing and communicating scientific workflows
-- enables research to stand on the shoulders of giants (build on work that came before)
-- allows credit for secondary usage and supports easy attribution
-- increases trust in science
-
-To enable others to fully interpret, reproduce or build upon our research, we need to provide more comprehensive information than is typically included in a figure or publication.
-
-![](images/Smith-et-al.png)
-
-What data were used in this study? What methods applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? 
-
-Are the results reproducible?
-
-**Computational reproducibility** is the ability to document data, analyses, and models sufficiently for other researchers to be able to understand and ideally re-execute the computations that led to scientific results and conclusions.
-
-Practically speaking, reproducibility includes:
-
-- Preserving the data
-- Preserving the software workflow
-- Documenting what you did
-- Describing how to interpret it all
-
-#### Computational Provenance  {-}
-
-Computational provenance refers to the origin and processing history of data including:
-
-- Input data
-- Workflow/scripts
-- Output data
-- Figures
-- Methods, dataflow, and dependencies
-
-![](images/TexasSummerHeat.png)
-
-**From Provenance to Reproducibility**
-
-![](images/Prov-History.png)
-
-
-At DataONE we facilitate reproducible science through provenance by: 
-
-- Tracking **data derivation** history
-- Tracking data **input**s and **outputs** of analyses
-- Tracking analysis and model **executions**
-- Preserving and documenting software **workflows**
-- Linking all of these to **publications**
-
-
-**Introducing [Prov-ONE](http://purl.dataone.org/provone-v1-dev)**, an extension of W3C PROV
-
-![](images/Prov_ONE.png)
-
-ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
-
-
-![](images/data-package.png)
-
-You will recall the example presented of data from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), where we showed the six step workflow comprising four source data files and two output visualizations. 
-
-
-![](images/comp-workflow-1.png)
-
-
-![](images/provenance.png)
-
-This screenshot of the dataset page shows how DataONE renders the Prov-ONE model information as part of our interactive user interface.
-
-### Data Citation  {-}
-
-Data citation best practices are focused on providing credit where credit is due and indexing and exposing data citations across international repository networks. In 2014, Force 11 established a [Joint Declaration of Data Citation Principles](https://doi.org/10.25490/a97f-egyk) that includes:
-
-- Importance of data citation
-- Credit and Attribution
-- Evidence
-- Unique Identification
-- Access
-- Persistence
-- Specificity and Verifiability
-- Interoperability and Flexibility
-
-**Transitive Credit**
-
-We want to move towards a model such that when a user cites a research publication we will also know:
-
-- **Which data** produced it
-- **What software** produced it
-- What was **derived** from it
-- **Who to credit** down the attribution stack
-
-![](images/Transitive-Credit.png)
-
-This is transitive credit. And it changes the way in which we think about science communication and traditional publications. 
+### The 5th Generation of Reproducible Papers {-}
 
 ![](images/Living-paper.png)
-
-### The 5th Generation  {-}
 
 **Whole Tale** simplifies computational reproducibility. It enables researchers to easily package and share 'tales'. Tales are executable research objects captured in a standards-based tale format complete with metadata. They can contain:
 
@@ -243,7 +264,7 @@ By integrating with DataONE and Dataverse, Whole Tale includes over 90 major res
 
 
 ![](images/Publish-Tale.png)
-Full circle reproducibility can be achieved by publishing data, code AND the environment.
 
+Full circle reproducibility can be achieved by publishing data, code AND the environment.
 
 
