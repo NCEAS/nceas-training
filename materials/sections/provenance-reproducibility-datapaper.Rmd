@@ -223,8 +223,16 @@ We're now going to walk though some of the key features that makes writing trans
 
 To do this, we will work from an already built-out example paper that illustrates these features. Start by:
 
-- Copy the example file [`paper.md`](files/paper.md) to `analysis/paper/paper.Rmd` in the project you built earlier
+- Copy the example file [`paper.md`](files/paper.Rmd) to `analysis/paper/paper.Rmd` in the project you built earlier
 - Open that file in the reproducible paper project in RStudio
+- Walk through the example file to examine each of the Rmarkdown features
+- Knot and view the file
+
+#### Getting PDF rendering working
+
+By default, `rrtools` will create papers that are meant to be rendered either as PDF documents, or as MS Word documents. You can switch between these, but for them both to work you must have the requisite software installed on your machine. For PDF, this means you need to have a fairly complete version of Tex installed, which can be a difficult process on Macs and Windows. We have found that installing the R package `tinytex` provides a good, reliable workaround on macs and windows machines, although there can still be some futzing involved if you already have LaTEX installed, or if you don't have sufficient permissions to install. Its beyond the scope of time available today to diagnose all of the installation issues, but hopefully tinytex will provide a path forward for you.
+
+#### Wrapping up with `rrtools`
 
 Hopefully, now that you've created a research compendium with `rrtools`, you can imagine how a pre-defined structure like the one `rrtools` creates might help you organize your reproducible research and also make it easier for others to understand your work.
 
