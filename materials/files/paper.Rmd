@@ -26,7 +26,7 @@ output:
       - --lua-filter=../templates/author-info-blocks.lua
       - --lua-filter=../templates/pagebreak.lua
 bibliography: references.bib
-#csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the bib-style
+csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the bib-style
 abstract: |
   We review approaches to computational reproducibility that are helpful in writing a reproducible paper. By representing a paper as an RMarkdown document inside of an R package, we can powerfully interleave the text of the paper with the data cleaning, analysis, and visualization code that is used to create the tables and figures in the paper. Thus, the paper itself can be executed, and the end product produces the full paper in a way that documents all of the data inputs, data cleaning and integration, and analysis and visualization steps as a computational workflow. The whole package provides structured documentation about the requirements needed to execute the paper, including the R packages that need to be installed. And it can format the paper with advance mathematical equations, inline citations, figures and tables inline, and a reference section that in the style needed for specific journals.
 keywords: |
@@ -147,6 +147,14 @@ A BibTeX entry for LaTeX users is
 ```
 
 And then we just place that in our `.bibtex` file, and we can cite it inline to indicate that we used `ggplot2` for visualiations [@ggplot]. Note how these inline citations are simply the bibliographic `key` for the bibtext entry, nested in square brackets with an `@` sign, like this: `[@ggplot]`. We can cite other papers in the flow of the text, for example by indicating that this guide follows [@Marwick2017]. And when we cite all of the software that we used [@RCoreTeam][@RStudio][@RMarkdown], they will all be rendered in the References section.
+
+Citation formats are, of course, specific to each journal. The format can be controlled by a **Citaation Style Language** file, which you configure in the metadata at the top of this Rmd file. The current entry looks like this:
+
+```
+csl: "../templates/journal-of-archaeological-science.csl" # Insert path for the bib-style
+```
+
+You can downlaod other styles for 1000's of other journals from the web. Put the resultant file in the `templates` directory, update the metadata at the top of the file to point at the new CSL file, and suddenly your paper will be using an entirely new bibliographic format.
 
 ## Inline text
 
