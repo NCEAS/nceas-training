@@ -29,7 +29,7 @@ So for instance, narrative review might provide insights into vaccine research a
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)
-synthesis <- read_csv("./synthesis.csv")
+synthesis <- read_csv("data/synthesis.csv")
 knitr::kable(synthesis, booktabs = TRUE)
 
 ```
