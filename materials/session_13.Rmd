@@ -7,11 +7,6 @@ author: "cjlortie"
 
 ![](./meta.png){width=3in}    
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
-```
-
-
 ## Learning outcomes {-}  
 1. Format data for meta-analyses in R.  
 2. Explore the capacity of the R package metafor.  
