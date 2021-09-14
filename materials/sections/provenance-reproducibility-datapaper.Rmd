@@ -234,6 +234,11 @@ To do this, we will work from an already built-out example paper that illustrate
 - Walk through the example file to examine each of the Rmarkdown features
 - Knot and view the file
 
+```{r download-paper-example, eval=FALSE}
+download.file("https://learning.nceas.ucsb.edu/2021-09-delta/files/paper.Rmd", destfile = "analysis/paper/paper.Rmd")
+download.file("https://learning.nceas.ucsb.edu/2021-09-delta/files/references.bib", destfile = "analysis/paper/references.bib")
+```
+
 #### Getting PDF rendering working
 
 By default, `rrtools` will create papers that are meant to be rendered either as PDF documents, or as MS Word documents. You can switch between these, but for them both to work you must have the requisite software installed on your machine. For PDF, this means you need to have a version of Tex installed with pdflatex available, which can be a difficult process on Macs and Windows. We have found that installing the R package `tinytex` provides a good, reliable workaround on macs and windows machines, although there can still be some futzing involved if you already have LaTEX installed, or if you don't have sufficient permissions to install. Its beyond the scope of time available today to diagnose all of the installation issues, but hopefully tinytex will provide a path forward for you. In brief, you can install tex in your personal account using `tinytex::install_tinytex()`, and the restart your RStudio session, and you should have a working version of pdflatex that allows things to build the documents properly.
