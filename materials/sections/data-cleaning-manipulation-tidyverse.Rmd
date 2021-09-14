@@ -293,7 +293,8 @@ Let's fix it by incorporating the `ifelse` function to our `mutate` call, which 
 
 ```{r}
 catch_clean <- catch_data %>% 
-  mutate(Chinook = if_else(Chinook == "I", 1, as.numeric(Chinook)))
+  mutate(Chinook = if_else(Chinook == "I", "1", Chinook)) %>% 
+  mutate(Chinook = as.integer(Chinook))
 
 head(catch_clean)
 ```
