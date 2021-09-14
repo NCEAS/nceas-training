@@ -67,11 +67,16 @@ git config --global user.email "gitcode@magisa.org"
 
 Note that these lines need to be run one at a time.
 
-Finally, check to make sure everything looks correct by entering these commands, which will return the options that you have set.
+Next, we will set our credentials to not time out for a very long time. This is related to the way that our server operating system handles credentials - not doing this will make your PAT (which we will set up soon) expire immediately on the system, even though it is actually valid for a month.
+
+```{sh git-email, eval=FALSE}
+git config --global credential.helper 'cache --timeout=10000000'
+```
+
+Finally, check to make sure everything looks correct by entering this command, which will return the options that you have set.
 
 ```{sh git-list, eval=FALSE}
-git config --global user.name
-git config --global user.email
+git config --global --list
 ```
 
 #### GitHub Authentication
