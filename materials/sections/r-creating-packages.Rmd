@@ -62,7 +62,7 @@ you can use it's various utility methods for setting a specific license file, su
 as the `Apacxhe 2` license:
 
 ```{r, eval=FALSE}
-usethis::use_apl2_license(name="Matthew Jones")
+usethis::use_apache_license()
 ```
 
     ✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
