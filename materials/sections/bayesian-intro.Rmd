@@ -1,0 +1,46 @@
+---
+title: "Introduction to Bayesian modeling"
+author: "Jessica Guo"
+date: "9/28/2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Learning Objectives
+In this lesson, you will learn:
+ - Why Bayesian approaches are useful
+ - Refresher on probability, distributions, and Bayes' Rule
+ - Drafting models with directed acyclic graphs, statistical notation, and model code
+ - Basic understanding of coding tools to specify custom models
+ 
+## Why choose Bayesian?
+
+While the methods secion of a Bayesian paper can seem complex and opaque, the underlying principles of Bayesian thinking are more intuitive than for frequentist tests. Kruschke (2015) breaks Bayesian data analysis down into two foundational principles:
+(1) using data to reallocate credibility among possibilities
+(2) the possibilites are parameter values in meaningful mathematical models
+
+Suppose we step outside and notice that a garden plant is yellowing and losing its leaves. We can consider the many possible causes, such as under watering or over watering, among others. Each possibility has some prior creditability based on previous knowledge. For example, where I live in the Sonoran desert, drought or under watering has a greater probability of causing mortality than over watering. As we continue to walk around the garden, we collect new observations. If the other individuals of the same species are green and thriving, we would decrease the probability of under watering, which would probably affect all individuals similarly, and increase the probability of over watering (e.g., leaking pipe). Therefore, Bayesian inference closely mimics deductive reasoning in its reallocation of creditability across possibilities. 
+
+In real life, data are noisy and inferences are probablistic. For example, consider testing for COVID in a population, but the test is not perfect and can produce both false positive and false negatives. But, we must take into acount the prevalence of COVID in population. In areas with high disease prevalence, the false positive rate is lower than in areas with low prevalence. Therefore, the true outcome (positive or negative for COVID) depends on previous knowledge of COVID prevalence and the noisy data (imperfect COVID test). We use Bayesian inference to reallocate credibility across the possibilities. 
+
+The second foundational principle calls us to define and therefore constrain the set of possibilities. We begin by describing the data from a family of candidate distributions, which are mathematical formulas that can characterize the trends and spreads in data. Each of these distributions is defined by one or more parameter values, which determine the exact shape of the distribution. 
+
+```{r}
+df_prob <- data.frame(value = c(rnorm(1000, mean = 15, sd = 4),
+                                rnorm(1000, mean = 0, sd = 2)),
+                      params = rep(c(10, 0), each = 1000))
+ggplot(df_prob) +
+  geom_histogram(aes(x = value, fill = as.factor(params)), alpha = 0.5)
+
+hist(dat1)
+
+dat2 <- 
+hist(dat2)
+```
+
+
