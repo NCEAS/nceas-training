@@ -1,6 +1,6 @@
 --- 
-title: "Open Science Synthesis for the Delta Science Program: Week 1"
-date: "September 13-17, 2021"
+title: "Open Science Synthesis for the Delta Science Program: Week 2"
+date: "October 24-29, 2021"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -11,20 +11,18 @@ description: ""
 always_allow_html: yes
 ---
 
-# Open Science Synthesis for the Delta Science Program: Week 1 {-#reproducible-research-techniques-for-synthesis}
+# Open Science Synthesis for the Delta Science Program: Week 2 {-#reproducible-research-techniques-for-synthesis}
 
 ![](images/DSP_Logo_Horizontal.jpg)
 
-This book is for week 1 of 3, one-week facilitated synthesis and training events for Delta researchers that will revolve around scientific computing and scientific software for reproducible science.
+This book is for week 2 of 3, one-week facilitated synthesis and training events for Delta researchers that will revolve around scientific computing and scientific software for reproducible science.
 
-Week 1 will focus on introducing concepts and tooling for conducting reproducible research synthesis projects. Groups will also work on synthesis development using a logic model framework. 
+Week 2 will focus on advanced analysis techniques, and group synthesis work in analysis development of the synthesis developed in Week 1.
 
 
 ## Schedule
 
-```{r schedule, echo=FALSE, out.width = '100%', fig.align = 'center'}
-knitr::include_graphics("images/schedule.png")
-```
+Coming soon!
 
 ### Code of Conduct
 
@@ -38,63 +36,7 @@ knitr::include_graphics("images/nceas-logo.png")
 
 ### Logistics
 
-#### Overview
-
-Welcome to week 1 of Open Science Synthesis for the Delta Science Program! Although we have had to switch to a remote training model due to COVID-19, we ask participants for the same level of commitment in this remote setting, while understanding that some conflicts are unavoidable.
-
-We will be using the following tools to facilitate this training:
-
-- Zoom (version 5.5.2+)
-- Slack (desktop app preferred)
-- RStudio, accessed through a server on an up-to-date web browser:
-	- Firefox (version 80+)
-	- Chrome (version 80+)
-	- Safari (version 13+)
-	- Edge (version 81+)
-
-#### Server
-
-You should receive a separate email prompting you to change your password using the NCEAS account service. **Please change your password**, and then ensure that you can log in at https://included-crab.nceas.ucsb.edu/. 
-
-
-#### Monitors
-
-If you have a second monitor or second device, it would be useful for this training. You'll need enough screen real estate to handle the primary Zoom window, the participant pane in Zoom, Slack, and a browser with tabs for RStudio and our training curriculum. We recommend either using two monitors, or joining the Zoom room from a second device.
-
-![](images/arctic-data-center/Two-Monitors.png)
-
-If you must be on one machine for everything, here’s an example of what it could look like when you are following along with the class and how your screen will shift when you have a more detailed question that requires breakout assistance.
-
-![](images/arctic-data-center/One-Monitor.png)
-
-When we're in session, please turn your camera on, and mute your microphone unless you would like to ask a question or contribute to a discussion. 
-
-#### Working from Home
-
-We recognize that working from home during the pandemic comes with challenges. The appearance or sound of other adults, children, and pets in remote meetings such as this is completely normal and understandable. Having your video on and enabling the instructors and your fellow participants to see you brings some humanity to this physically distant workshop, and we believe that this is a crucial element of its success. If you would like to use the Zoom virtual background feature to hide your surroundings, please do provided your background of choice fits within the code of conduct.
-
-#### Non-Verbal Feedback
-
-We'll be using the Zoom "Non Verbal Feedback" buttons throughout this course. We will ask you to put a green check by your name when you're all set or you understand, and a red x by your name if you're stuck or need assistance. These buttons can be found in the participants panel of the Zoom room. When you're asked to answer using these buttons, please ensure that you select one so that the instructor has the feedback that they need to either continue the lesson or pause until everyone gets back on the same page.
-
-![](images/arctic-data-center/Non-Verbal-Feedback.png)
-
-#### Questions and Getting Help
-
-When you need to ask a question, please do so in one of the following ways:
-
-- Turn your mic on and ask. If you are uncomfortable interrupting the instructor, you may also raise your virtual hand (in the participant panel) and the session facilitator will ask the instructor to pause and call upon you. 
-- Ask your question in the slack channel.
-
-If you have an issue/error and get stuck, you can ask for help in the following ways:
-
-- Turn your mic on and ask for help. See also above regarding the use of a virtual raised hand.
-- Let one of the instructors know in the slack channel.
-- If prompted to do so, put a red X next to your name as your status in the participant window.
-
-When you have detailed questions or need one on one coding assistance, we will have zoom breakout rooms available with helpers. The helper will try to help you in Slack first. If the issue requires more in-depth troubleshooting, the helper will invite you to join their named Breakout Room. 
-
-![](images/arctic-data-center/breakout-rooms.png)
+#### Computing Setup
 
 #### The Power of Open
 
