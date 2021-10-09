@@ -9,6 +9,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
 
 ## Learning Objectives
@@ -20,27 +21,57 @@ In this lesson, you will learn:
  
 ## Why choose Bayesian?
 
-While the methods secion of a Bayesian paper can seem complex and opaque, the underlying principles of Bayesian thinking are more intuitive than for frequentist tests. Kruschke (2015) breaks Bayesian data analysis down into two foundational principles:
+### Philosophically sound and consistent
+
+While the methods section of a Bayesian paper can seem complex and opaque, the underlying principles of Bayesian thinking are more intuitive than for frequentist tests. Kruschke (2015) breaks Bayesian data analysis down into two foundational principles:
 (1) using data to reallocate credibility among possibilities
 (2) the possibilites are parameter values in meaningful mathematical models
 
-Suppose we step outside and notice that a garden plant is yellowing and losing its leaves. We can consider the many possible causes, such as under watering or over watering, among others. Each possibility has some prior creditability based on previous knowledge. For example, where I live in the Sonoran desert, drought or under watering has a greater probability of causing mortality than over watering. As we continue to walk around the garden, we collect new observations. If the other individuals of the same species are green and thriving, we would decrease the probability of under watering, which would probably affect all individuals similarly, and increase the probability of over watering (e.g., leaking pipe). Therefore, Bayesian inference closely mimics deductive reasoning in its reallocation of creditability across possibilities. 
+Suppose we step outside and notice that a cultivated plant is yellowing and losing its leaves. We can consider the many possible causes, such as under watering or over watering, among others. Each possibility has some prior credibility based on previous knowledge. For example, where I live in the Sonoran desert, drought or under watering has a greater probability of causing mortality than over watering. As we continue to walk around the garden, we collect new observations. If the other individuals of the same species are green and thriving, we might decrease the probability of under watering, which would probably affect all individuals similarly, and increase the probability of over watering (e.g., leaking pipe). Therefore, Bayesian inference closely mimics deductive reasoning in its reallocation of credibility across possibilities. 
 
-In real life, data are noisy and inferences are probablistic. For example, consider testing for COVID in a population, but the test is not perfect and can produce both false positive and false negatives. But, we must take into acount the prevalence of COVID in population. In areas with high disease prevalence, the false positive rate is lower than in areas with low prevalence. Therefore, the true outcome (positive or negative for COVID) depends on previous knowledge of COVID prevalence and the noisy data (imperfect COVID test). We use Bayesian inference to reallocate credibility across the possibilities. 
+In real life, data are noisy and inferences are probabilistic. For example, consider testing for COVID in a population where the test is not perfect and can produce both false positive and false negatives. But, we must take into account the prevalence of COVID in population. In areas with high disease prevalence, the false positive rate is lower than in areas with low prevalence. Therefore, the true outcome (positive or negative for COVID) depends on previous knowledge of COVID prevalence and the noisy data (imperfect COVID test). We use Bayesian inference to reallocate credibility across the possibilities. 
 
 The second foundational principle calls us to define and therefore constrain the set of possibilities. We begin by describing the data from a family of candidate distributions, which are mathematical formulas that can characterize the trends and spreads in data. Each of these distributions is defined by one or more parameter values, which determine the exact shape of the distribution. 
 
 ```{r}
-df_prob <- data.frame(value = c(rnorm(1000, mean = 15, sd = 4),
-                                rnorm(1000, mean = 0, sd = 2)),
-                      params = rep(c(10, 0), each = 1000))
+set.seed(8675301)
+df_prob <- data.frame(value = rnorm(1000, mean = 15, sd = 4))
+
 ggplot(df_prob) +
-  geom_histogram(aes(x = value, fill = as.factor(params)), alpha = 0.5)
-
-hist(dat1)
-
-dat2 <- 
-hist(dat2)
+  geom_histogram(aes(x = value, 
+                     y = ..density..),
+                     alpha = 0.5,
+                 bins = 50) +
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 15, sd = 4),
+                aes(color = "a"), ) +
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 14, sd = 4.5),
+                aes(color = "b")) +  
+  ylab("Probability density") +
+  xlab("Data values") +
+  theme_bw(base_size = 12) +
+  theme(panel.grid = element_blank()) +
+  guides(color = "none")
 ```
 
+In Bayesian inference, model parameters are the possibilities over which credibility is allocated. For example, the above histograms show a roughly unimodal and symmetric distribution. The red and blue lines represent candidate descriptions of the data, normal distributions with different sets of parameter values. Both choices are plausible, but the red line has greater credence. Bayesian inference will use the prior probabilities and the data to compute the exact credibility of parameter values. 
 
+### Flexible
+
+Once data are collected, they cannot be further adjusted. Bayesian modeling allows practitioners to design models to fit the data they have, rather than transforming data in an attempt to satisfy model assumptions. The flexibility extends to accounting for hierarchy, treating data as drawn from any kind of distribution, and defining meaningful parameters. 
+
+For an example of hierarchy, consider a trait collected across multiple individuals and nested within taxonomic levels. Species-level differences are important to examine, but genus-level and family-level differences are interesting too. A hierarchical means model might specify: 
+$trait_i \sim Normal(\mu_{species(i)}, \sigma^2)$
+$\mu_{species} \sim Normal(\mu_{genus}, \sigma^2_{genus})$
+$\mu_{genus} \sim Normal(\mu_{family}, \sigma^2_{family})$
+
+Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. It is straightforward to describe the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
+
+Bayesian inference can accommodate a wide range of model and data possibilities, rather than having separate tools or approaches for different types of data or tests. T-test, ANOVA, linear model, non-linear models, and more can be specified in the same framework, using the same set of tools, and can even be combined. This allows the implementation of mathematical models with scientifically meaningful parameters, possibly in conjunction with an ANOVA or regression framework. For example, we might have leaf-level gas exchange data and want to fit a biochemical model of photosynthesis, and also ask whether photosynthetic parameters differed between species and treatments. 
+
+### Clear inference
+
+In frequentist paradigms, confidence intervals and p-values have very specific, non-intuitive definitions. A 95% confidence interval indicates that out of 100 replications of the experiment, 95% of the resulting confidence intervals will include the true parameter value. In contrast, Bayesian inference results in parameters themselves having distributions, and conditioned on a particular dataset, the 95% credible interval includes 95% of the probability of the parameter value. Bayesian credible intervals and p-values are simple to define, calculate, and interpret. 
+
+### Uses all available information
+
+Bayesian modeling allows for simultaneous analysis of multiple-related datasets. For example, a response variable and its measurement error can be incorporated into a single analysis. Partially missing data do not have to be excluded, and in fact the missing values can be imputed by the model in the same step as the analysis. Finally, prior knowledge can be included in the form of informative priors. In practice, many practitioners use relatively non-informative priors, but knowledge of the acceptable values a parameter can take (e.g., water potentials must be negative) can be incorporated as informative priors, which can improve model speed and convergence. 
