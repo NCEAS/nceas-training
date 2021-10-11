@@ -10,22 +10,29 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
+library(ggforce)
 ```
 
 ## Learning Objectives
 In this lesson, you will learn:
- - Why Bayesian approaches are useful
- - Refresher on probability, distributions, and Bayes' Rule
- - Drafting models with directed acyclic graphs, statistical notation, and model code
- - Basic understanding of coding tools to specify custom models
+
+* Why Bayesian approaches are useful
+
+* Refresher on probability, distributions, and Bayes' rule
+
+* Drafting models with directed acyclic graphs, statistical notation, and model code
+
+* Basic understanding of coding tools to specify custom models
  
 ## Why choose Bayesian?
 
 ### Philosophically sound and consistent
 
 While the methods section of a Bayesian paper can seem complex and opaque, the underlying principles of Bayesian thinking are more intuitive than for frequentist tests. Kruschke (2015) breaks Bayesian data analysis down into two foundational principles:
-(1) using data to reallocate credibility among possibilities
-(2) the possibilites are parameter values in meaningful mathematical models
+
+(1) Using data to reallocate credibility among possibilities
+
+(2) The possibilities are parameter values in meaningful mathematical models
 
 Suppose we step outside and notice that a cultivated plant is yellowing and losing its leaves. We can consider the many possible causes, such as under watering or over watering, among others. Each possibility has some prior credibility based on previous knowledge. For example, where I live in the Sonoran desert, drought or under watering has a greater probability of causing mortality than over watering. As we continue to walk around the garden, we collect new observations. If the other individuals of the same species are green and thriving, we might decrease the probability of under watering, which would probably affect all individuals similarly, and increase the probability of over watering (e.g., leaking pipe). Therefore, Bayesian inference closely mimics deductive reasoning in its reallocation of credibility across possibilities. 
 
@@ -33,7 +40,7 @@ In real life, data are noisy and inferences are probabilistic. For example, cons
 
 The second foundational principle calls us to define and therefore constrain the set of possibilities. We begin by describing the data from a family of candidate distributions, which are mathematical formulas that can characterize the trends and spreads in data. Each of these distributions is defined by one or more parameter values, which determine the exact shape of the distribution. 
 
-```{r}
+```{r, echo=FALSE}
 set.seed(8675301)
 df_prob <- data.frame(value = rnorm(1000, mean = 15, sd = 4))
 
@@ -43,9 +50,9 @@ ggplot(df_prob) +
                      alpha = 0.5,
                  bins = 50) +
   stat_function(fun = dnorm, n = 1000, args = list(mean = 15, sd = 4),
-                aes(color = "a"), ) +
+                aes(color = "a"), size = 1.5) +
   stat_function(fun = dnorm, n = 1000, args = list(mean = 14, sd = 4.5),
-                aes(color = "b")) +  
+                aes(color = "b"), size = 1.5) +  
   ylab("Probability density") +
   xlab("Data values") +
   theme_bw(base_size = 12) +
@@ -53,20 +60,25 @@ ggplot(df_prob) +
   guides(color = "none")
 ```
 
-In Bayesian inference, model parameters are the possibilities over which credibility is allocated. For example, the above histograms show a roughly unimodal and symmetric distribution. The red and blue lines represent candidate descriptions of the data, normal distributions with different sets of parameter values. Both choices are plausible, but the red line has greater credence. Bayesian inference will use the prior probabilities and the data to compute the exact credibility of parameter values. 
+In Bayesian inference, model parameters are the possibilities over which credibility is allocated. For example, the above histograms show a roughly unimodal and symmetric distribution. The red and blue lines represent candidate descriptions of the data, normal distributions with different sets of parameter values ($\mu, \sigma$). Both choices are plausible, but given the data, the red line has greater credence. Bayesian inference uses the prior probabilities and the data to compute the exact credibility of parameter values. 
 
 ### Flexible
 
-Once data are collected, they cannot be further adjusted. Bayesian modeling allows practitioners to design models to fit the data they have, rather than transforming data in an attempt to satisfy model assumptions. The flexibility extends to accounting for hierarchy, treating data as drawn from any kind of distribution, and defining meaningful parameters. 
+Bayesian modeling allows practitioners to design models to fit the data they have, rather than transforming data in an attempt to satisfy model assumptions. This flexibility extends to accounting for hierarchy, treating data as drawn from any kind of distribution, and defining meaningful parameters. 
 
-For an example of hierarchy, consider a trait collected across multiple individuals and nested within taxonomic levels. Species-level differences are important to examine, but genus-level and family-level differences are interesting too. A hierarchical means model might specify: 
-$trait_i \sim Normal(\mu_{species(i)}, \sigma^2)$
-$\mu_{species} \sim Normal(\mu_{genus}, \sigma^2_{genus})$
-$\mu_{genus} \sim Normal(\mu_{family}, \sigma^2_{family})$
+For an example of hierarchy, consider a trait collected across multiple individuals and nested within taxonomic levels. We might be interested in comparisons across species, genera, and families. A hierarchical means model might specify: 
 
-Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. It is straightforward to describe the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
+$trait_i \sim Normal(\mu_{sp(i)}, \sigma^2)$
 
-Bayesian inference can accommodate a wide range of model and data possibilities, rather than having separate tools or approaches for different types of data or tests. T-test, ANOVA, linear model, non-linear models, and more can be specified in the same framework, using the same set of tools, and can even be combined. This allows the implementation of mathematical models with scientifically meaningful parameters, possibly in conjunction with an ANOVA or regression framework. For example, we might have leaf-level gas exchange data and want to fit a biochemical model of photosynthesis, and also ask whether photosynthetic parameters differed between species and treatments. 
+$\mu_{sp} \sim Normal(\mu_{g(sp)}, \sigma^2_{g})$
+
+$\mu_{g} \sim Normal(\mu_{f(g)}, \sigma^2_{f})$
+
+In a single model, the hierarchical relationship between species, genus, and family can be encoded. The notation indicates that each observation *i* belongs to a species, each species belongs to a genus, and each genus belongs to a family. 
+
+Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. In Bayesian modeling, it is straightforward to describe the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
+
+Finally, Bayesian inference can accommodate a wide range of model and data possibilities, rather than having separate tools or approaches for different types of data or tests. T-test, ANOVA, linear model, non-linear models, and more can be specified in the same framework, using the same set of tools, and can even be combined. This allows the implementation of mathematical models with scientifically meaningful parameters, possibly in conjunction with an ANOVA or regression framework. For example, we might have leaf-level gas exchange data and want to fit a biochemical model of photosynthesis, and also ask whether photosynthetic parameters differed between species and treatments. The flexible nature of a hierarchical approach means that the meaningful model parameters (e.g., $V_{cmax}$) can be represented by a linear regression. 
 
 ### Clear inference
 
@@ -74,4 +86,118 @@ In frequentist paradigms, confidence intervals and p-values have very specific, 
 
 ### Uses all available information
 
-Bayesian modeling allows for simultaneous analysis of multiple-related datasets. For example, a response variable and its measurement error can be incorporated into a single analysis. Partially missing data do not have to be excluded, and in fact the missing values can be imputed by the model in the same step as the analysis. Finally, prior knowledge can be included in the form of informative priors. In practice, many practitioners use relatively non-informative priors, but knowledge of the acceptable values a parameter can take (e.g., water potentials must be negative) can be incorporated as informative priors, which can improve model speed and convergence. 
+Bayesian modeling allows for simultaneous analysis of multiple-related datasets. For example, a response variable and its measurement error can be incorporated into a single analysis. Partially missing data do not have to be excluded, and in fact the missing values can be imputed by the model in the same step as the analysis. Finally, prior knowledge can be included in the form of informative priors. In practice, many Bayesian practitioners use relatively non-informative priors, but knowledge of the acceptable values a parameter can take can be incorporated as informative priors, which can improve model speed and convergence. 
+
+## Review of probability, Bayes' rule, and distributions
+
+### Probabability
+```{r echo = FALSE, fig.width = 4, fig.height = 2, fig.align='center'}
+df.venn <- data.frame(x = c(0.866, -0.866),
+                      y = c( -0.5, -0.5),
+                      labels = c('B', 'A'))
+                      
+# df.pt <- data.frame(x= c(-1.3, -1, 1,
+#                           -0.4, -0.3, -0.7, 
+#                           1.4, 1.3, 1.1, 1.6, 1.8, 1.2), 
+#                     y = c(0.43, -1.3, 0.2, 
+#                           0, -0.4, 0.3, 
+#                           -0.21, -1.56, -0.75, 0.75, 0.56, 0.2), 
+#                         name = 1)
+                          
+venn <- ggplot() +
+  geom_circle(data = df.venn, aes(x0 = x, y0 = y, r = 1.5, fill = labels), alpha = .3, size = 1, colour = 'grey') +
+  coord_fixed() +  
+  theme_void() +
+  scale_fill_manual(values = c("yellow", "blue"))
+  
+print(venn)
+# venn + geom_point(data = df.pt, aes(x = x, y = y), color = "red")
+```
+
+We define the marginal probability as the total area of circles A and B. 
+
+$P(A) = {A_A}$
+
+$P(B) = {A_B}$
+
+The joint probability is the shared area of circles A and B. 
+
+$P(A,B) = A_{AB}$
+
+The conditional probability describes the the shared area scaled by the whole area of one circle. 
+
+$P(B|A) = \frac{A_{AB}}{A_A}$
+
+$P(B|A) = \frac{P(A,B)}{P(A)}$
+
+The joint probability can be rearranged algebraically to produce:
+
+$P(A,B) = P(B|A)P(A)$
+
+Thus, we can describe the joint probability as a product of a conditional and marginal probabilities. 
+
+#### Interactive problem: Conditional probability {- .aside}
+Conditional probability rules are very useful for breaking down complex problems. What are some possible ways to break down $P(A, B, C)$?
+
+### Bayes' rule
+Bayes' rule can be derived by describing the joint probability in two ways. 
+
+$P(A,B) = P(B|A)P(A)$
+
+$P(A,B) = P(A|B)P(B)$
+
+By setting these two descriptions equal to each other and rearranging algebraically, we obtain:
+
+$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$
+
+Thus, we can obtain the conditional probability of $A|B$ from the conditional probability of $B|A$, plus the marginal probabilities of A and B. 
+
+#### Interactive problem: Applying Bayes' rule {- .aside}
+
+On a hike, we observe a dead tree and wonder, what is the probability the tree was attacked by beetles, given that it is dead? There are two random variables of interest, beetle and death, each of which can take on the values 1 or 0. We are interested in $P(beetle = 1 | death = 1)$. Recent data show the following probabilities:
+
+| Condition  | Probability   |
+|---|---|
+| $P(beetle = 0)$  | 0.7  |
+| $P(beetle = 1)$  | 0.3  |
+| $P(death = 0|beetle = 0)$  | 0.8  |
+| $P(death = 0|beetle = 1)$ | 0.1  |
+| $P(death = 1|beetle = 0)$  | 0.2  |
+| $P(death = 1|beetle = 1)$  | 0.9  |
+
+What is $P(beetle = 1 | death = 1)$?  
+
+### Bayesian inference
+
+In Bayesian inference, we can use the inversion of probability from Bayes' rule to understand the conditional probability of the parameters given the data from the conditional probability of the data. Here, we use $y$ to represent data and $\theta$ to represent parameters:
+
+$P(\theta|y) = \frac{P(y|\theta)P(\theta)}{P(y)}$
+
+To simplify further, we can remove the marginal probability of $y$ and utilize a proportion instead:
+
+$P(\theta|y) \propto {P(y|\theta)P(\theta)}$
+
+We read this as 'the posterior is proportional to the likelihood times the prior'. 
+
+In Bayesian inference, we can learn about the posterior parameter distribution given the observed data. In so doing, we specify the data as drawn from a probability distribution conditioned on the 'true' parameter values and define the prior probability of those parameters. 
+
+### Quick review of distributions
+
+We identified above that to derive the posterior parameter probabilities, we need to specify both the likelihood and the prior. To do so, we should be aware of a handful of probability distributions that mathematically describe a sample space, or possible outcomes of a random variable. 
+
+| Continuous  | Description  | Discrete  | Description  |
+|---|---|---|---|
+| Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net primary productivity| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Fish counts |
+| Log-normal ![](images/distributions/lognormal_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Biomass  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
+| Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameter: $n, p$<br/>Example: Deaths in a population  |
+
+Once we are aware of the general features of distributions, we can select an appropriate likelihood for the data. *The likelihood should match the data and the data-generating process*. 
+
+ - Are the data (response variables) continuous or discrete?
+ 
+ - What are the range of possible values that the data can take?
+ 
+ - How does the variance of the data change as a function of the mean?
+ 
+### Acknowledgements
+These materials are derived primarily from the Bayesian short course developed and taught by Kiona Ogle. Additional materials and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015) and 'Statistical Rethinking' (McElreath 2016) were strongly influential and recommended reading. 
