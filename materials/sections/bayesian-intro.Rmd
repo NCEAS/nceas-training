@@ -11,6 +11,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(ggforce)
+library(DiagrammeR)
 ```
 
 ## Learning Objectives
@@ -20,7 +21,7 @@ In this lesson, you will learn:
 
 * Refresher on probability, distributions, and Bayes' rule
 
-* Drafting models with directed acyclic graphs, statistical notation, and model code
+* Drafting models with directed acyclic graphs
 
 * Basic understanding of coding tools to specify custom models
  
@@ -84,9 +85,15 @@ Finally, Bayesian inference can accommodate a wide range of model and data possi
 
 In frequentist paradigms, confidence intervals and p-values have very specific, non-intuitive definitions. A 95% confidence interval indicates that out of 100 replications of the experiment, 95% of the resulting confidence intervals will include the true parameter value. In contrast, Bayesian inference results in parameters themselves having distributions, and conditioned on a particular dataset, the 95% credible interval includes 95% of the probability of the parameter value. Bayesian credible intervals and p-values are simple to define, calculate, and interpret. 
 
+A corollary to the direct quantification of uncertainty is that the purpose of the analysis can be on estimation or parameters, rather than strict hypothesis testing. Bayesian inference provides a way to quantitatively describe relationships in complex datasets, which allows for inquiry to be driven by questions and models of understanding, rather than solely falsifiable hypotheses. 
+
 ### Uses all available information
 
 Bayesian modeling allows for simultaneous analysis of multiple-related datasets. For example, a response variable and its measurement error can be incorporated into a single analysis. Partially missing data do not have to be excluded, and in fact the missing values can be imputed by the model in the same step as the analysis. Finally, prior knowledge can be included in the form of informative priors. In practice, many Bayesian practitioners use relatively non-informative priors, but knowledge of the acceptable values a parameter can take can be incorporated as informative priors, which can improve model speed and convergence. 
+
+#### Brainstorming: Possible applications of Bayesian modeling {- .aside}
+
+Have you encountered any research roadblocks, past or present, that could potentially be addressed with the techniques mentioned above?
 
 ## Review of probability, Bayes' rule, and distributions
 
@@ -173,7 +180,7 @@ In Bayesian inference, we can use the inversion of probability from Bayes' rule 
 
 $P(\theta|y) = \frac{P(y|\theta)P(\theta)}{P(y)}$
 
-To simplify further, we can remove the marginal probability of $y$ and utilize a proportion instead:
+To simplify further, we can remove the marginal probability of $y$, which is the normalizing constant in the denominator. The unnormalized posterior distribution can be described as:
 
 $P(\theta|y) \propto {P(y|\theta)P(\theta)}$
 
@@ -189,9 +196,11 @@ We identified above that to derive the posterior parameter probabilities, we nee
 |---|---|---|---|
 | Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net primary productivity| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Fish counts |
 | Log-normal ![](images/distributions/lognormal_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Biomass  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
-| Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameter: $n, p$<br/>Example: Deaths in a population  |
+| Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameters: $n, p$<br/>Example: Deaths in a population  |
 
 Once we are aware of the general features of distributions, we can select an appropriate likelihood for the data. *The likelihood should match the data and the data-generating process*. 
+
+A few questions to consider are:
 
  - Are the data (response variables) continuous or discrete?
  
@@ -199,5 +208,167 @@ Once we are aware of the general features of distributions, we can select an app
  
  - How does the variance of the data change as a function of the mean?
  
+#### Interactive problem: Identifying potential likelihoods {- .aside}
+
+For each example, identify the potential probability distribution(s) that would be appropriate. Use the questions above to guide your choices. 
+
+1. Number of trees classified as dead in a forest plot
+2. Total leaf area of a tree
+3. Reproductive status of an individual (reproductive vs. non-reproductive)
+4. Proportion of trees classified as dead in a forest plot
+5. Seed mass
+6. Number of sea stars in a tide pool
+7. Concentration of oxygen in seawater
+8. Time between flood events
+ 
+### Selecting priors
+
+Selecting a likelihood to describe the data distribution is necessary but not sufficient for specifying a Bayesian model. Careful thought must be put in to picking priors as well, which represent existing knowledge about a parameter. 
+
+A few questions to consider are:
+
+ - What range can the parameter take mathematically?
+ 
+ - What values are ecologically realistic?
+ 
+ - Is there an appropriate conjugate prior for this likelihood?
+ 
+Conjugacy has a formal definition, but for our purposes, natural conjugate prior families have practical advantages for computation and interpretation.
+
+Some examples include the binomial-beta, Poisson-gamma, multinomial-Dirichlet, and exponential-gamma. For a normal likelihood, the conjugate prior for $\mu$ is normal and the conjugate prior for $\sigma^2$ is the inverse-gamma. In common Bayesian simulation software such as JAGS, OpenBUGS, and Stan, the scale parameter of a normal likelihood is defined as the precision ($\tau = \frac{1}{\sigma^2}$); the conjugate prior for $\tau$ is a gamma distribution. 
+
+Selecting priors is an important consideration of Bayesian modeling that will have its own lecture later in the week. For now, we can say that many parameters do not need informative priors in order to be reliably estimated by the data (e.g., regression parameters). Other parameters, such as observation error, will rarely be identifiable without strong prior information (or additional data). 
+
+In practice, selecting priors can be part of the model development process. Different priors can be tested for their contribution to the posterior, which allows for evaluation of the sensitivity of the posterior to the prior specification. Particulal for non-identifiable parameters, convergence can be achieved more quickly with a more informative prior. One method can be to specify a uniform prior with realistic but conservative upper and lower bounds:
+
+$\theta \sim Uniform(A, B)$
+
+As such, the posterior distribution for $\theta$ will also be restricted to the interval [A,B], but the data likelihood will contribute to its shape. 
+
+## Graphical representations of hierarchical models
+
+Complex or hierarchical models can be easily represented as a graphical model, particularly a Directed Acycling Graph (DAG). General convention for DAGs in Bayesian modeling are:
+
+ - *Nodes* can be stochastic (circles) or deterministic/fixed (squares)
+    - Child nodes depend on parent nodes
+    - A root node does not have any parents
+    - A terminal node does not have any children
+    - An internal node gives rise to children nodes and has parent node(s)
+ - *Edges* are directional (arrows) that indicate the direction of the conditional relationship between two nodes
+    - Edges must be unidirectional (node A cannot be parent to and child of node B)
+    - No sequence of edges returns to the parent node
+    
+```{r, echo=FALSE}
+grViz("digraph {
+  graph [layout = dot, rankdir = TB, dir = back]
+  
+  node [shape = oval]        
+  rec1 [label = 'A']
+  rec2 [label = 'B']
+  rec3 [label = 'C']
+  
+  # edge definitions with the node IDs
+  rec1 -> rec2 -> rec3
+  }",
+  height = 300)
+```
+
+The conditional probability model for the above DAG is:
+
+$P(A, B, C) = P(C|B)P(B|A)P(A)$
+
+We will see in the example below that DAGs can be especially useful for helping translate between mathematical and code representations of models.
+
+## Simple hierachical example: snow fences
+
+Consider a study to quantify the effects of snow fences on invasive plant establishment. 10 snow fences are monitored and their invasive plants counted within the "footprint" of each snow fence. 
+
+ - Let $y_i$ represent the number of invasive plants associated with snow fence $i$. 
+ - Let $x_i$ represent the footprint (in square meters) of snow fence $i$
+
+The data are:
+
+| $i$  | $y_i$  | $x_i$  |
+|---|---|---|
+| 1  | 138  | 72  |
+| 2  | 91  | 50  |
+| 3  | 132  | 55  |
+| 4  | 123  | 60  |
+| 5  | 173  | 78  |
+| 6  | 124  | 63  |
+| 7  | 109  | 54  |
+| 8  | 154  | 70  |
+| 9  | 138  | 80  |
+| 10  | 134  | 68  |
+
+```{r, echo=FALSE}
+sf <- data.frame(y = c(138, 91, 132, 123, 173, 124, 109, 154, 138, 134),
+                 x = c(72, 50, 55, 60, 78, 63, 54, 70, 80, 68))
+```
+
+Given these count data, let's define the likelihood with a Poisson distribution. However, we have reason to believe that each snow fence has its own rate of invasive plants due to local topographical factors. Therefore, we specify the likelihood as:
+
+$y_i \sim Poisson(\theta_i \cdot x_i)$
+
+such that each snow fence $i$ has its own rate parameter, $\theta_i$. However, given that the snow fences are located at the same field site, we believe that the individual rates of invasive plants are drawn from an overall regional rate:
+
+$\theta_i \sim Gamma(\alpha, \beta)$
+
+In this hierarchical model, the prior for the parameter of interest is a gamma distribution described by $\alpha$ and $\beta$, which are unknown/stochastic. So, we must define these hyperparameters with their own priors. 
+
+$\alpha \sim Exponential(1)$
+
+$\beta \sim Gamma(0.1, 1)$
+
+The hyperparameters $\alpha$ and $\beta$ are root nodes, whose distributions must be defined by numbers.
+
+The levels of this hierarchical model can be visualized by the following DAG:
+
+```{r, echo=FALSE}
+grViz("digraph {
+  graph [layout = dot, rankdir = TB]
+  
+  node [shape = oval]        
+  rec1 [label = '&#945;']
+  rec2 [label = '&#946;']
+  rec3 [label = <<B>&#952;</B>>]
+  rec4 [label = <<B>y</B>>]
+  node [shape = rectangle] 
+  rec5 [label = <<B>x</B>>]
+  
+  # edge definitions with the node IDs
+  rec1 -> rec3 -> rec4 -> rec5
+  rec2 -> rec3
+  }",
+  height = 300)
+```
+
+To implement our statistical model, we will Markov chain Monte Carlo (MCMC) simulation via JAGS ('Just Another Gibbs Sampler'). MCMC is a genernal method where samples are drawn sequentially from a proposal distribution that depends on the last value in the sequence. These draws form a Markov chain because the probability of accepting a proposed value of $\theta$ in iteration $j$ depends on the value of $\theta$ in iteration $j-1$. Each iteration improves the proposal distribution until it eventually approximates (converges upon) the posterior distribution. 
+
+This method frees us from having to compute the posterior analytically (which is only possible for very simple cases), but does add the following considerations:
+
+ - The simulation must be run long enough such that the distribution of $\theta$ closely approximates the true posterior distribution
+ 
+ - Once samples have been drawn, we need to check for convergence
+ 
+ - We need to provide starting values to initiate the MCMC 
+
+from translate it into model code. Here, we will JAGS inside with the R package 'rjags'. The syntax is looks similar to R but contains some important differences. 
+
+```{r}
+"model{
+  for(i in 1:N){
+    y[i] ~ dpois(theta[i]*x[i])
+  }
+}"
+```
+
+```{r}
+sf <- data.frame(y = c(138, 91, 132, 123, 173, 124, 109, 154, 138, 134),
+                 x = c(72, 50, 55, 60, 78, 63, 54, 70, 80, 68))
+```
+
+
+
 ### Acknowledgements
 These materials are derived primarily from the Bayesian short course developed and taught by Kiona Ogle. Additional materials and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015) and 'Statistical Rethinking' (McElreath 2016) were strongly influential and recommended reading. 
