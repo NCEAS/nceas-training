@@ -1,0 +1,44 @@
+---
+title: "Implementing Bayesian models"
+author: "Jessica Guo"
+date: "10/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+To implement our statistical model, we will Markov chain Monte Carlo (MCMC) simulation via JAGS ('Just Another Gibbs Sampler'). MCMC is a genernal method where samples are drawn sequentially from a proposal distribution that depends on the last value in the sequence. These draws form a Markov chain because the probability of accepting a proposed value of $\theta$ in iteration $j$ depends on the value of $\theta$ in iteration $j-1$. Each iteration improves the proposal distribution until it eventually approximates (converges upon) the posterior distribution. 
+
+This method frees us from having to compute the posterior analytically (which is only possible for very simple cases), but does add the following considerations:
+
+ - The simulation must be run long enough such that the distribution of $\theta$ closely approximates the true posterior distribution
+ 
+ - Once samples have been drawn, we need to check for convergence
+ 
+ - We need to provide starting values to initiate the MCMC 
+
+from translate it into model code. Here, we will JAGS inside with the R package 'rjags'. The syntax is looks similar to R but contains some important differences. 
+
+```{r}
+"model{
+  for(i in 1:N){
+    y[i] ~ dpois(theta[i]*x[i])
+  }
+}"
+```
+
+```{r}
+sf <- data.frame(y = c(138, 91, 132, 123, 173, 124, 109, 154, 138, 134),
+                 x = c(72, 50, 55, 60, 78, 63, 54, 70, 80, 68))
+```
+
+
+
+```{r cars}
+summary(cars)
+```
+
+### Acknowledgements
+These materials are derived primarily from the Bayesian short course developed and taught by Kiona Ogle. Additional materials and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015) and 'Statistical Rethinking' (McElreath 2016) were strongly influential and recommended reading. 

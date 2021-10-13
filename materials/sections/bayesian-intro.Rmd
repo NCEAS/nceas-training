@@ -337,38 +337,55 @@ grViz("digraph {
   rec5 [label = <<B>x</B>>]
   
   # edge definitions with the node IDs
-  rec1 -> rec3 -> rec4 -> rec5
+  rec1 -> rec3 -> rec4 
   rec2 -> rec3
+  rec4 -> rec5 [dir = back]
   }",
   height = 300)
 ```
 
-To implement our statistical model, we will Markov chain Monte Carlo (MCMC) simulation via JAGS ('Just Another Gibbs Sampler'). MCMC is a genernal method where samples are drawn sequentially from a proposal distribution that depends on the last value in the sequence. These draws form a Markov chain because the probability of accepting a proposed value of $\theta$ in iteration $j$ depends on the value of $\theta$ in iteration $j-1$. Each iteration improves the proposal distribution until it eventually approximates (converges upon) the posterior distribution. 
+The bolded variables indicate vectors, which are indexed by $i$ in statistical notation. The rectangle around $\bf{x}$ indicates that it is a deterministic node, or fixed as data. Notably,the oval around the response variable $\bf{y}$ indicates that it is a stochastic node; that is, drawn from a distribution and given the Poisson likelihood. $\bf{\theta}$ is the parameter in the Poisson likelihood, and it is drawn from a conjugate gamma prior with two parameters, $\alpha$ and $\beta$. 
 
-This method frees us from having to compute the posterior analytically (which is only possible for very simple cases), but does add the following considerations:
+All of the stochastic nodes (ovals) are drawn from distributions. $\alpha$ and $\beta$ are root nodes, meaning that the parameter values for their distributions must be defined numerically. 
 
- - The simulation must be run long enough such that the distribution of $\theta$ closely approximates the true posterior distribution
+#### Interactive problem: Logistic regression example {- .aside}
+
+Consider the case of selection pressure from discoloring of tree trunks from air pollution. One species of moth rests on tree trucks during the day, and their coloration acts as camouflage against bird predation. Researchers established a gradient of tree trunk color from Liverpool the countryside and selected 7 sites. At each site, they glued an equal number of dead light and dead dark moths to tree trunks and counted the number of removed moths after 24 hours. 
+
+The dataset includes Site (1,2, ... 7), Morph (1 = light, 2 = dark), Distance (from Liverpool, km) Placed (number of moths glued to trunks), and Removed (number of moths removed from trunks after 24 hours).  
+
+| $Site$  | $Morph$  | $Distance$  | $Placed$  | $Removed$  |
+|---|---|---|
+| 1  | 1  | 0  | 56  | 17  |
+| 1  | 2  | 0  | 56  | 14  |
+| 2  | 1  | 7.2  | 80  | 28  |
+| 2  | 2  | 7.2  | 80  | 20  |
+| 3  | 1  | 24.1  | 52  | 18  |
+| 3  | 2  | 24.1  | 52  | 22  |
+| 4  | 1  | 30.2  | 60  | 9  |
+| 4  | 2  | 30.2  | 60  | 16  |
+| 5  | 1  | 36.4  | 60  | 16  |
+| 5  | 2  | 36.4  | 60  | 23  |
+| 6  | 1  | 41.5  | 84  | 20  |
+| 6  | 2  | 41.5  | 84  | 40  |
+| 7  | 1  | 51.2  | 92  | 24  |
+| 7  | 2  | 51.2  | 92  | 39  |
+
+Here, our goal is to evaluate whether the probability of removal differed between the light and dark morphs, and whether this difference depends on distance from Liverpool. 
+
+Consider the following questions:
+
+ - Let $y$ represent the number of removed moths. What kind of likelihood should be given to this response variable?
  
- - Once samples have been drawn, we need to check for convergence
+ - The probability $p$ of removal differs depending on distance from Liverpool. Thus, we should index it as $p_i$. Assuming $\beta_1$ and $\beta_2$ as the regression parameters, how can $p_i$ be modeled in terms of $x_i$?
  
- - We need to provide starting values to initiate the MCMC 
-
-from translate it into model code. Here, we will JAGS inside with the R package 'rjags'. The syntax is looks similar to R but contains some important differences. 
-
-```{r}
-"model{
-  for(i in 1:N){
-    y[i] ~ dpois(theta[i]*x[i])
-  }
-}"
-```
-
-```{r}
-sf <- data.frame(y = c(138, 91, 132, 123, 173, 124, 109, 154, 138, 134),
-                 x = c(72, 50, 55, 60, 78, 63, 54, 70, 80, 68))
-```
-
-
+ - Furthermore, we hypothesize that color morph influences the relationship with distance. By turning $\beta_1$ and $\beta_2$ into vectors, can we account for different regression parameters based on the morph of observation $i$?
+ 
+ - Regressions work best on the whole real line, but probability $p$ can only take on values between $[0,1]$. What kind of link function can be used to relate $[0,1]$ to the whole real line?
+ 
+ - Priors are needed for the regression parameters. In the absence of prior information, what might be a relatively non-informative prior to give $\beta_1$ and $\beta_2$?
+ 
+ - Draw a DAG for this model. 
 
 ### Acknowledgements
-These materials are derived primarily from the Bayesian short course developed and taught by Kiona Ogle. Additional materials and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015) and 'Statistical Rethinking' (McElreath 2016) were strongly influential and recommended reading. 
+These materials are derived primarily from Bayesian course materials developed and taught by Kiona Ogle. Additional ideas and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015), 'Statistical Rethinking' (McElreath 2016), and 'Bayesian Data Analysis' (Gelman et al. 2014) were strongly influential and recommended references.  
