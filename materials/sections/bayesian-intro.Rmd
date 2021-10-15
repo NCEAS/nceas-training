@@ -7,8 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include=FALSE}
 library(ggplot2)
 library(ggforce)
 library(DiagrammeR)
@@ -22,8 +21,6 @@ In this lesson, you will learn:
 * Refresher on probability, distributions, and Bayes' rule
 
 * Drafting models with directed acyclic graphs
-
-* Basic understanding of coding tools to specify custom models
  
 ## Why choose Bayesian?
 
@@ -77,15 +74,15 @@ $\mu_{g} \sim Normal(\mu_{f(g)}, \sigma^2_{f})$
 
 In a single model, the hierarchical relationship between species, genus, and family can be encoded. The notation indicates that each observation *i* belongs to a species, each species belongs to a genus, and each genus belongs to a family. 
 
-Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. In Bayesian modeling, it is straightforward to describe the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
+Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. In Bayesian modeling, it is straightforward to specify the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
 
-Finally, Bayesian inference can accommodate a wide range of model and data possibilities, rather than having separate tools or approaches for different types of data or tests. T-test, ANOVA, linear model, non-linear models, and more can be specified in the same framework, using the same set of tools, and can even be combined. This allows the implementation of mathematical models with scientifically meaningful parameters, possibly in conjunction with an ANOVA or regression framework. For example, we might have leaf-level gas exchange data and want to fit a biochemical model of photosynthesis, and also ask whether photosynthetic parameters differed between species and treatments. The flexible nature of a hierarchical approach means that the meaningful model parameters (e.g., $V_{cmax}$) can be represented by a linear regression. 
+Finally, Bayesian inference can accommodate a wide range of model and data possibilities, rather than having separate tools or approaches for different types of data or tests. T-test, ANOVA, linear model, non-linear models, and more can be specified in the same framework, using the same set of tools, and can even be combined. This allows the implementation of mathematical models with scientifically meaningful parameters, possibly in conjunction with an ANOVA or regression framework. For example, we might have leaf-level gas exchange data and want to fit a biochemical model of photosynthesis, but the scientific question is whether photosynthetic parameters differed between species and treatments. The flexible nature of a hierarchical approach means that the meaningful parameters (e.g., $V_{cmax}$) can be represented by a linear model. We can use the data to make inference about the meaningful parameters in one step. 
 
 ### Clear inference
 
 In frequentist paradigms, confidence intervals and p-values have very specific, non-intuitive definitions. A 95% confidence interval indicates that out of 100 replications of the experiment, 95% of the resulting confidence intervals will include the true parameter value. In contrast, Bayesian inference results in parameters themselves having distributions, and conditioned on a particular dataset, the 95% credible interval includes 95% of the probability of the parameter value. Bayesian credible intervals and p-values are simple to define, calculate, and interpret. 
 
-A corollary to the direct quantification of uncertainty is that the purpose of the analysis can be on estimation or parameters, rather than strict hypothesis testing. Bayesian inference provides a way to quantitatively describe relationships in complex datasets, which allows for inquiry to be driven by questions and models of understanding, rather than solely falsifiable hypotheses. 
+A corollary to the direct quantification of uncertainty is that the purpose of the analysis can be on estimation of parameters, rather than strict hypothesis testing. Bayesian inference provides a way to quantitatively describe relationships in complex datasets, which allows for inquiry to be driven by questions and models of understanding, rather than falsifiable hypotheses. 
 
 ### Uses all available information
 
@@ -186,7 +183,7 @@ $P(\theta|y) \propto {P(y|\theta)P(\theta)}$
 
 We read this as 'the posterior is proportional to the likelihood times the prior'. 
 
-In Bayesian inference, we can learn about the posterior parameter distribution given the observed data. In so doing, we specify the data as drawn from a probability distribution conditioned on the 'true' parameter values and define the prior probability of those parameters. 
+In Bayesian inference, we can learn about the posterior parameter distribution given the observed data. In so doing, we specify the data as stochastically drawn from a probability distribution conditioned on the 'true' parameter values and define the prior probability of those parameters. 
 
 ### Quick review of distributions
 
@@ -195,7 +192,7 @@ We identified above that to derive the posterior parameter probabilities, we nee
 | Continuous  | Description  | Discrete  | Description  |
 |---|---|---|---|
 | Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net primary productivity| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Fish counts |
-| Log-normal ![](images/distributions/lognormal_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Biomass  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
+| Gamma ![](images/distributions/gamma_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Rates  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
 | Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameters: $n, p$<br/>Example: Deaths in a population  |
 
 Once we are aware of the general features of distributions, we can select an appropriate likelihood for the data. *The likelihood should match the data and the data-generating process*. 
@@ -243,11 +240,15 @@ In practice, selecting priors can be part of the model development process. Diff
 
 $\theta \sim Uniform(A, B)$
 
-As such, the posterior distribution for $\theta$ will also be restricted to the interval [A,B], but the data likelihood will contribute to its shape. 
+As such, the posterior distribution for $\theta$ will also be restricted to the interval [A,B], and the data likelihood will contribute to its shape. 
 
-## Graphical representations of hierarchical models
+## Drafting Bayesian models
 
-Complex or hierarchical models can be easily represented as a graphical model, particularly a Directed Acycling Graph (DAG). General convention for DAGs in Bayesian modeling are:
+Given the flexibility of Bayesian modeling and the considerations of selecting likelihoods and priors, a key step in model development is to write out the model components after considering the features of the scientific question and dataset at hand. The model can be be represented a series of equations, as a diagram, and in code. Ultimately, the manuscript will require the equations in the Methods section and the code as part of the publishing requirement. Diagrams are useful tool to visually represent the model and consider alternative model formulations. 
+
+### Graphical representations of hierarchical models
+
+Complex or hierarchical models can be easily represented as a graphical model, particularly a Directed Acyclic Graph (DAG). General convention for DAGs in Bayesian modeling are:
 
  - *Nodes* can be stochastic (circles) or deterministic/fixed (squares)
     - Child nodes depend on parent nodes
@@ -316,11 +317,11 @@ $\theta_i \sim Gamma(\alpha, \beta)$
 
 In this hierarchical model, the prior for the parameter of interest is a gamma distribution described by $\alpha$ and $\beta$, which are unknown/stochastic. So, we must define these hyperparameters with their own priors. 
 
-$\alpha \sim Exponential(1)$
+$\alpha \sim Gamma(2, 1)$
 
-$\beta \sim Gamma(0.1, 1)$
+$\beta \sim Exponential(1)$
 
-The hyperparameters $\alpha$ and $\beta$ are root nodes, whose distributions must be defined by numbers.
+The hyperparameters $\alpha$ and $\beta$ are root nodes, whose distributions are fixed rather than stochastic.
 
 The levels of this hierarchical model can be visualized by the following DAG:
 
@@ -346,7 +347,7 @@ grViz("digraph {
 
 The bolded variables indicate vectors, which are indexed by $i$ in statistical notation. The rectangle around $\bf{x}$ indicates that it is a deterministic node, or fixed as data. Notably,the oval around the response variable $\bf{y}$ indicates that it is a stochastic node; that is, drawn from a distribution and given the Poisson likelihood. $\bf{\theta}$ is the parameter in the Poisson likelihood, and it is drawn from a conjugate gamma prior with two parameters, $\alpha$ and $\beta$. 
 
-All of the stochastic nodes (ovals) are drawn from distributions. $\alpha$ and $\beta$ are root nodes, meaning that the parameter values for their distributions must be defined numerically. 
+All of the stochastic nodes (ovals) are drawn from distributions. $\alpha$ and $\beta$ are root nodes, meaning that the parameter values for their distributions are fixed and must be defined numerically. 
 
 #### Interactive problem: Logistic regression example {- .aside}
 
@@ -355,7 +356,7 @@ Consider the case of selection pressure from discoloring of tree trunks from air
 The dataset includes Site (1,2, ... 7), Morph (1 = light, 2 = dark), Distance (from Liverpool, km) Placed (number of moths glued to trunks), and Removed (number of moths removed from trunks after 24 hours).  
 
 | $Site$  | $Morph$  | $Distance$  | $Placed$  | $Removed$  |
-|---|---|---|
+|---|---|---|---|---|
 | 1  | 1  | 0  | 56  | 17  |
 | 1  | 2  | 0  | 56  | 14  |
 | 2  | 1  | 7.2  | 80  | 28  |
@@ -373,19 +374,19 @@ The dataset includes Site (1,2, ... 7), Morph (1 = light, 2 = dark), Distance (f
 
 Here, our goal is to evaluate whether the probability of removal differed between the light and dark morphs, and whether this difference depends on distance from Liverpool. 
 
-Consider the following questions:
+Consider the following:
 
- - Let $y$ represent the number of removed moths. What kind of likelihood should be given to this response variable?
+ - Let $y$ represent the number of removed moths and $n$ represent the number of moths placed. Write out the likelihood for this response variable.
  
- - The probability $p$ of removal differs depending on distance from Liverpool. Thus, we should index it as $p_i$. Assuming $\beta_1$ and $\beta_2$ as the regression parameters, how can $p_i$ be modeled in terms of $x_i$?
+ - The probability $p$ of removal differs depending on distance from Liverpool, $x$. Thus, we should index the variables as $p_i$ and $x_i$, to indicate that each observation will be associated with a unique probability. Let $\beta_1$ and $\beta_2$ as the intercept and slope of a linear regression. Write out the expression relating $p_i$ as linear function of $x_i$.
  
- - Furthermore, we hypothesize that color morph influences the relationship with distance. By turning $\beta_1$ and $\beta_2$ into vectors, can we account for different regression parameters based on the morph of observation $i$?
+ - Furthermore, we hypothesize that color morph influences the relationship with distance. Let $\beta_1$ and $\beta_2$ each be vectors. How can the linear function be updated to account for the morph of observation $i$?
  
- - Regressions work best on the whole real line, but probability $p$ can only take on values between $[0,1]$. What kind of link function can be used to relate $[0,1]$ to the whole real line?
+ - Regressions work best on the whole real line, but probability $p$ can only take on values between $[0,1]$. What kind of link function can be used to relate $[0,1]$ to the whole real line? 
  
  - Priors are needed for the regression parameters. In the absence of prior information, what might be a relatively non-informative prior to give $\beta_1$ and $\beta_2$?
  
  - Draw a DAG for this model. 
 
 ### Acknowledgements
-These materials are derived primarily from Bayesian course materials developed and taught by Kiona Ogle. Additional ideas and code have been adapted from Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015), 'Statistical Rethinking' (McElreath 2016), and 'Bayesian Data Analysis' (Gelman et al. 2014) were strongly influential and recommended references.  
+These materials are derived primarily from Bayesian course materials developed and taught by Kiona Ogle. Additional ideas and code have been adapted from materials authored by Kelly Heilman, Robert Shriver, and Drew Peltier. The texts 'Doing Bayesian Data Analyis' (Kruschke 2015), 'Statistical Rethinking' (McElreath 2016), and 'Bayesian Data Analysis' (Gelman et al. 2014) were strongly influential and recommended references.  
