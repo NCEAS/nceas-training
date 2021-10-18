@@ -82,15 +82,28 @@ caterplot(jm_coda,
           parms = "beta",
           reorder = FALSE)
 
-# Report posterior summary statistics
-sum_out <- broom.mixed::tidyMCMC(jm_coda, 
-                                 conf.int = TRUE, 
-                                 conf.level = 0.95)
+# Report posterior summary statistics from package 'broom.mixed'
+sum_out <- tidyMCMC(jm_coda,
+                    conf.int = TRUE,
+                    conf.level = 0.95)
 
 # Determine if beta parameters are significant
 beta_sum <- sum_out %>%
     filter(grepl("beta", term)) %>%
     mutate(sig = ifelse(conf.low*conf.high > 0, TRUE, FALSE))
+
+beta_sum %>%
+    filter(grepl("beta\\[1", term)) %>%
+    ggplot(aes(x = term, y = estimate)) +
+    geom_pointrange(aes(ymin = conf.low, 
+                        ymax = conf.high))
+
+beta_sum %>%
+    filter(grepl("beta\\[2", term)) %>%
+    ggplot(aes(x = term, y = estimate)) +
+    geom_hline(yintercept = 0) +
+    geom_pointrange(aes(ymin = conf.low, 
+                        ymax = conf.high))
 
 # Plot model fit
 fit <- cbind.data.frame(moths, 
