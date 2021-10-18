@@ -280,7 +280,7 @@ The traceplots for the `theta` parameters are textbook 'fuzzy catepillars'; the 
 
 The `alpha` and `beta` parameters are also converged, in that the 3 chains are well-mixed and stable. However, there is some autocorrelation present. We will switch to using the function `mcmcplot`, which provides the traceplot, autoccorelation, and density for specified parameters as an html file that can be viewed in a web browser.  
 
-```{r, results="hide"}
+```{r, eval = FALSE}
 mcmcplot(jm_coda,
          parms = c("alpha", "beta"))
 ```
@@ -304,7 +304,8 @@ jm_coda <- coda.samples(model = jm,
                                            "pmean_theta", "pstd_theta"),
                         n.iter = 3000*20,
                         thin = 20)
-
+```
+```{r, eval = FALSE}
 mcmcplot(jm_coda,
          parms = c("alpha", "beta"))
 ```
@@ -352,6 +353,13 @@ moths <- data.frame(site = rep(1:7, each = 2),
                     placed = rep(c(56, 80, 52, 60, 60, 84, 92), each = 2),
                     removed = c(13, 14, 28, 20, 18, 22, 9, 16, 16, 23, 20, 40, 24, 39))
 ```
+
+Helpful hints:
+* Use the [JAGS manual](https://people.stat.sc.edu/hansont/stat740/jags_user_manual.pdf) to find the parameters of `dbin`, the binomial distribution
+
+* No need to specify initials for this regression model
+
+* Can add replicated data to evaluate model fit. Create a new variable `y.rep` beneath the likelihood and give it an identical distribution. 
 
 Once the model has converged, plot and summarize posterior parameters of interest to address the following questions:
 
