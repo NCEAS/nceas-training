@@ -191,7 +191,7 @@ We identified above that to derive the posterior parameter probabilities, we nee
 
 | Continuous  | Description  | Discrete  | Description  |
 |---|---|---|---|
-| Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net primary productivity| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Fish counts |
+| Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net ecosystem exchange| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Count data |
 | Gamma ![](images/distributions/gamma_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Rates  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
 | Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameters: $n, p$<br/>Example: Deaths in a population  |
 
