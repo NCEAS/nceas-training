@@ -1,7 +1,5 @@
 # Session 1
 
-## Review of Data Sources
-
 ## Datasets of Interest
 
 There is an excel spreadsheet of datasets of interest located in the sharepoint [here](https://deltacouncil.sharepoint.com/:x:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/Questions%20and%20datasets.xlsx?d=w18c2ec2f348741e1b2cae309dc15c874&csf=1&web=1&e=mhVBhB). The vast majority of these datasets are already available online, in some form, which makes synthesis much easier. There are several other datasets that are not yet published, but will be published by week two of the workshop. 
@@ -70,4 +68,11 @@ fig <- layout(fig,
 
 
 fig
+```
+
+
+```{r, child = 'sections/git-collaboration-conflicts.Rmd'}
+```
+
+```{r, child = 'sections/git-pull-requests-branches.Rmd'}
 ```
