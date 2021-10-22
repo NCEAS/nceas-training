@@ -109,10 +109,16 @@ df.venn <- data.frame(x = c(0.866, -0.866),
 #                         name = 1)
                           
 venn <- ggplot() +
-  geom_circle(data = df.venn, aes(x0 = x, y0 = y, r = 1.5, fill = labels), alpha = .3, size = 1, colour = 'grey') +
+  geom_circle(data = df.venn, 
+              aes(x0 = x, y0 = y, r = 1.5, fill = labels), 
+              alpha = .3, size = 1, colour = 'grey') +
+  geom_text(data = df.venn, 
+            aes(x = x, y = y, label = labels),
+            size = 6) +
   coord_fixed() +  
   theme_void() +
-  scale_fill_manual(values = c("yellow", "blue"))
+  scale_fill_manual(values = c("yellow", "blue")) +
+  guides(fill = "none")
   
 print(venn)
 ```
@@ -140,6 +146,34 @@ Thus, we can describe the joint probability as a product of a conditional and ma
 
 #### Interactive problem: Conditional probability {- .aside}
 Conditional probability rules are very useful for breaking down complex problems. What are some possible ways to break down $P(A, B, C)$?
+
+```{r echo = FALSE, fig.width = 4, fig.height = 4, fig.align='center'}
+df.venn <- data.frame(x = c(-1, 0, 1),
+                      y = c( 0, -1, 0),
+                      labels = c('A', 'C', 'B'))
+                      
+# df.pt <- data.frame(x= c(-1.3, -1, 1,
+#                           -0.4, -0.3, -0.7, 
+#                           1.4, 1.3, 1.1, 1.6, 1.8, 1.2), 
+#                     y = c(0.43, -1.3, 0.2, 
+#                           0, -0.4, 0.3, 
+#                           -0.21, -1.56, -0.75, 0.75, 0.56, 0.2), 
+#                         name = 1)
+                          
+venn <- ggplot() +
+  geom_circle(data = df.venn, 
+              aes(x0 = x, y0 = y, r = 1.2, fill = labels), 
+              alpha = .3, size = 1, colour = 'grey') +
+  geom_text(data = df.venn, 
+            aes(x = x, y = y, label = labels),
+            size = 6) +
+  coord_fixed() +  
+  theme_void() +
+  scale_fill_manual(values = c("yellow", "blue", "coral")) +
+  guides(fill = "none")
+  
+print(venn)
+```
 
 ### Bayes' rule
 Bayes' rule can be derived by describing the joint probability in two ways. 
@@ -276,7 +310,7 @@ In this DAG, A is a root node, C is a terminal node, and B is an internal node. 
 
 $P(A, B, C) = P(C|B)P(B|A)P(A)$
 
-We will see in the example below that DAGs can be especially useful for helping translate between mathematical and code representations of models.
+We will see in the example below that DAGs can be especially useful for visualizing the mathematical representation of models.
 
 ## Simple hierachical example: snow fences
 
@@ -351,7 +385,7 @@ All of the stochastic nodes (ovals) are drawn from distributions. $\alpha$ and $
 
 Consider the case of selection pressure from discoloring of tree trunks from air pollution. One species of moth rests on tree trunks during the day, and their coloration acts as camouflage against bird predation. Researchers established a gradient of tree trunk color from Liverpool the countryside and selected 7 sites. At each site, they glued an equal number of dead light and dead dark moths to tree trunks and counted the number of removed moths after 24 hours. 
 
-The dataset includes Site (1,2, ... 7), Morph (1 = light, 2 = dark), Distance (from Liverpool, km) Placed (number of moths glued to trunks), and Removed (number of moths removed from trunks after 24 hours).  
+The dataset includes *Site* (1,2, ... 7), *Morph* (1 = light, 2 = dark), *Distance* (from Liverpool, km) *Placed* (number of moths glued to trunks), and *Removed* (number of moths removed from trunks after 24 hours).  
 
 | $Site$  | $Morph$  | $Distance$  | $Placed$  | $Removed$  |
 |---|---|---|---|---|
