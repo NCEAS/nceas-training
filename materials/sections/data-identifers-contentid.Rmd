@@ -8,3 +8,33 @@ In this lesson, you will learn:
 * How content identifiers make research more reproducible
 * Ways to register and resolve content identifiers for unpublished data
 * How content identifiers can resolve to published data sources
+
+### Reproducible data access
+
+Traditional ways of working with data -- as files on a file system -- limit the 
+reproducibility of code to local compute environments.
+
+We want data access to be:
+
+- Portable
+- Persistent
+- Versioned
+- Traceable
+- Transparent
+
+
+### Loading data from a content identifier
+
+```{r}
+library(contentid)
+```
+
+```{r}
+library(contentid)
+sha1 <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+delta.file <- contentid::resolve(sha1, store = TRUE)
+#delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+delta.df <- readr::read_csv(delta.file, show_col_types=FALSE)
+```
+
+

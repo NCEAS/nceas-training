@@ -64,12 +64,12 @@ Follow these steps to get set up for the next exercise:
 1. Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. 
 [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. 
 doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
-2. Right click the download button next to the file "BGChem2008data.csv" and select "copy link addres.s"
+2. Right click the download button next to the file "BGChem2008data.csv" and select "copy link address"
 3. Read the data into the application using `read.csv` 
 
 The data contains chemistry measurements at various times and stations.
 
-```{r load_bgchem}
+```{r load_bgchem, eval=FALSE}
 data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
 bg_chem <- read.csv(data_url)
 
@@ -146,7 +146,7 @@ Looks so shiny!
 
 What happens if a clever user sets the minimum for the X axis at a greater value than the maximum?
 You'll see that the direction of the X axis becomes reversed, and the plotted points display right
-to left.  This is really an error condition.  Rather than use two independent sliders, we can modify 
+to left.  This is really an error condition.  Rather than use two independent sliders, we can modify
 the first slider to output a range of values, which will prevent the min from being greater than
 the max.  You do so by setting the value of the slider to a vector of length 2, representing 
 the default min and max for the slider, such as `value = c(0,100)`.  So, delete the second slider,
@@ -263,7 +263,7 @@ Don't forget to add `library(dplyr)` to the library imports at the top.
 
 Because we named the second plot `varPlot` in our UI section, we now need to modify
 the server to produce this plot.  Its very similar to the first plot, but this time
-we want to use the selected vsriables from the user controls to choose which
+we want to use the selected variables from the user controls to choose which
 variables are plotted. These variable names from the `$input` are character
 strings, and so would not be recognized as symbols in the `aes` mapping in ggplot.
 Instead, we can use `aes_string()` to provide character names for the variables to
