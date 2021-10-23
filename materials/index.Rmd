@@ -2,7 +2,7 @@
 title: "Open Science Synthesis for the Delta Science Program: Week 3"
 date: "November 1-5, 2021"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: bookdown::bs4_book
 documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
