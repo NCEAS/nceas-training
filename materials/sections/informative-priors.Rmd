@@ -116,6 +116,16 @@ There are many sources of information from which you can specify priors, includi
 3. A lot or a little bit of data, but from a related system
 4. Posterior from a related model, or from the same model at a prior time-step.
 
+##### Prior sensitivity
+
+It is prudent to test the sensitivity of your model to your prior assumptions. Having a model that is sensitive to priors is OK, especially when there is a strong rationale and support from data. However, it is necessary to understand how the use of an informative prior affects your posterior estimates. 
+
+It is very common when using strong priors to  find that the MCMC chains do not converge, because the posteriors exist where the priors have very low probaility. This often leads you to uncover differences between how you and the computer understand your model (what you think the code says and what it actually says); it can also point to errors in the data (often related to scale, or unexpected factors that differ), and other assumptions. 
+
+If applicable, you can plot the data against the prior on Y. Plot the data against  The easiest way to do this is to plot the prior PDFs and posterior histograms, and to compare the prior and posterior variances of each parameter. If the ratio of posterior:prior SD > 0.1, you have an informative prior and you should be careful.
+
+Think of this in the same way that you think of model specification. You can compare model posteriors fit with different priors in the same way that you can compare models with different structures or parameters, both visually and statistically.
+
 
 ### Different ways of fitting priors
 
@@ -149,7 +159,9 @@ The function `fit.pecr` provides a GUI to explore the fits of a range of distrib
 fit.perc(p = c(0.1, 0.5, 0.9), q = c(30, 60, 90), tolConv = 0.1)
 ```
 
-##### Activity: Online prior elicitation tool
+![](images/rriskdistributions_screenshot.png)
+
+##### Activity: Create your own priors
 
 Work with a partner in your project group 
 
@@ -162,6 +174,10 @@ Work with a partner in your project group
     - Is it skewed?
 4. Choose one of the tools above and generate a set of flat, weak / regularizing, and a strong prior.
 
+
+
 ### References and further reading
 
 David E. Morris, Jeremy E. Oakley, John A. Crowe, A web-based tool for eliciting probability distributions from experts, Environmental Modelling & Software, Volume 52, February 2014, Pages 1-4, ISSN 1364-8152, <http://dx.doi.org/10.1016/j.envsoft.2013.10.010>.
+
+Gelman, Lawrence, et al "Prior choice recommendations" Stan Community Wiki https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations
