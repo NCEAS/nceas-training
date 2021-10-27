@@ -52,6 +52,16 @@ In developing content for a new event you will likely need to:
 - edit `materials/index.Rmd` to customize introductory material to your event
 - edit `materials/_bookdown.yml` to include the chapters in `materials/` that you are teaching.
 
+- images in `materials/images`
+  - link should be relative to materials folder, e.g. `![](images/myfigure.png)`
+- sample data in `materials/data`
+
+To see how your changes will look, you can run:
+
+```
+bookdown::serve_book(‘materials/‘)
+```
+
 
 We ask that you not:
 
