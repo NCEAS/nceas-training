@@ -1,363 +1,146 @@
-## Informative Priors
+---
+author: "David LeBauer"
+date: "10/22/2021"
+---
+
+## Priors
 
 ### Learning Objectives
 
-- Understand of priors and how they can be used
-- How to specify priors from expert knowledge  
-- How to specify priors from (limited) data
-- How to evaluate the impact of priors
+In this lesson you will learn: - Why and when to use informative priors, and how they can be helpful - How to elicit priors from yourself or other experts - How to specify priors from limited data - How to evaluate the sensitivity of your results to priors
 
 ### Background
 
-Is there such a thing as a non-informative prior? Is a flat prior nothing?
+What are priors?
 
-When are priors necessary?
+Even outside of Bayesian statistics, the concept of priors is a core component of the scientific process - building on existing knowledge. Further, the use of informative priors is a way of getting the most out of your statistical analysis.
+
+$$
+\overbrace{P(\theta \mid X)}^{posterior} \propto \overbrace{P(X\mid \theta)}^{likelihood}\,\overbrace{P(\theta)}^{prior}
+$$
+
+### Conjugate Priors
+
+Probability distributions have useful relationships. For simple models, Bayes' Theorem can be solved mathematically. This is very appealing when it applies.
+
+
+The figure below shows some relationships among probability distributions are related. It comes from an [interactive website](https://www.johndcook.com/blog/conjugate_prior_diagram/) created by John Cook, which brings the paper "A compendium of conjugate priors" by Daniel Fink to life.
+
+![](images/conjugate_priors.png)
+
+
+Digging into the math is mostly beyond the scope of this lesson, except for the following illustrative example. This example is provided to show how the prior, the sample size, and the variance of data influence the posterior estimate.
+
+Consider the solution to the 'normal-normal' conjugate prior and likelihood.
+
+
+If the prior mean is $\mu_0$ and the prior variance is $\sigma_0^2$
+
+And the likelihood mean $\bar{x}$ and variance $s^2$:
+
+Then the posterior mean is
+
+$$
+\frac{1}{\frac{1}{\sigma_0^2}+\frac{n}{\sigma^2}} \left(           \frac{\mu_0}{\sigma_0^2}+ \frac{\sum_{i=1}^{n}{x_i}}{\sigma^2}\right)
+$$
+
+And the posterior variance is:
+
+$$
+\left(
+\frac{1}{\sigma_0^2} +\frac{n}{\sigma^2} 
+\right)^{-1}
+$$
+
+**Questions:**
+
+-   Is that math there just to scare you? (hint: *no*)
+-   What happens when the prior variance, $\sigma^2_0$ , is very large?
+-   What happens when the sample size, $n$, is very large?
+
+<details>
+
+Yes, that is correct. When the sample size and/or the prior variance is large, the influence of the prior diminishes to 0.
+
+</details>
+
+See also https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading15a.pdf
+ and https://en.wikipedia.org/wiki/Conjugate_prior
+
+
+### Uniformative / Weak / Flat Priors
+
+It is common to use what is known as a 'noninformative' or 'flat' prior. This is often the easiest approach, and is roughly defined by the fact that the priors have no influence on the model.
+
+Some common non-informative priors include a standard normal with large variance, such as $N(0, 10^4)$ or a wide uniform distribution - such as $U(-10^4, 10^4)$.
+
+
+**Discussion:**
+
+-   If you were setting a prior on the size of a fish, what would your prior be?
+  - That was a trick question - is size measured as mass or length? Hint: Consider a spherical fish with radius 1cm and density of 1g/ml. Recall $V=\frac{4}{3}\pi r^3$ 
+-   When are informative priors useful?
+
+
+```{r spherical_fish}
+length <- runif(100000, -10000, 10000)
+mass <- 4/3 * pi * (length / 2) ^ 3
+par(mfrow=c(1,2))
+hist(length, probability = TRUE, breaks = 100)
+hist(mass, probability = TRUE, breaks = 100)
+```
+
+Correct, even a non-informative prior or 'flat' prior on length is not so flat on a different scale. Consider other transformations.
+
+What else do you notice about the _range_ of values? Correct, most of the measurements that we make are greater than zero. At a minimum, it is useful to have a prior with a lower bound at zero. These include the log-Normal, Gamma, Weibull, and many other distributions. But as soon as you specify a prior distribution, you are imposing your understanding on the model. This is okay! This is The Way!
+
+In conclusion, there really is no such thing as a non-informative prior. However, it is often vastly easier to specify a weak prior than to go through the trouble of justifying an informative prior. 
+
+### Regularizing priors
+
+Regularization priors are relatively non-informative, but on a similar scale as the data. These provide a way to assign 0 probability to impossible values (e.g. a boundary at zero) and to down weight extreme outlines.
+
+### Informative Priors
+
+Informative priors are particularly useful in contexts with limited available data. 
+
+In many cases, it will be possible for an expert to use what is already known about a variable to specify a more informative prior. In the ideal case, a posterior from a previous study can be used as the prior for the subsequent study. This is the first step toward iterative forecasting - updating a prediction as new information becomes available. 
+
+In practice, however, it is often wise to inflate the variance to account for differences across systems - the specific study system (Delta) and what is generally known about freshwater systems.
+
+There are many sources of information from which you can specify priors, including:
+
+1. Expert knowledge, including biophysical constraints, logical bounds, or  reasonable values based on experience (what are the upper and lower bounds for the length of a mouse?)
+1. Lots of data from prior studies on the same system.
+2. A little bit of data.
+3. A lot or a little bit of data, but from a related system
+4. Posterior from a related model, or from the same model at a prior time-step.
+
 
 ### Different ways of fitting priors
 
+#### Generating Priors based or Expert knowledge:
 
-Generating Priors based on Data and / or Expert knowledge:
-========================================================
+Prior elicitation tools
 
+1. http://optics.eee.nottingham.ac.uk/match/uncertainty.php# (Morris et al 2013)
+2. R libraries "rriskDistributions" and "fitdistplus"
 
-Fitting priors to data (point estimates, all grass species in GLOPNET). 
--------------------------
+Examples:
 
-### Example: Specific Leaf Area based on all grasses
+##### Package `rriskDistributions`
 
-First we are going to set up initial values.
+The [rriskDistributions](http://cran.r-project.org/web/packages/rriskDistributions/index.html) is useful for estimating priors.
 
-```{r echo=FALSE, warning=FALSE, results='hide', message=FALSE}
-library(PEcAn.priors)
-library(DEoptim)
-library(dplyr)
+Individual functions for each distribution such as `get.<somedist>.par` include  diagnostic plots that compare chosen points to cdf.
 
-set.seed(1)
-iter <-10000 #jags chain and misc simulation length; 1k for test, 10k for real
-inits <- list(list(.RNG.seed = 1,
-                   .RNG.name = "base::Mersenne-Twister"),
-              list(.RNG.seed = 2,
-                   .RNG.name = "base::Mersenne-Twister"),
-              list(.RNG.seed = 3,
-                   .RNG.name = "base::Mersenne-Twister"),
-              list(.RNG.seed = 4,
-                   .RNG.name = "base::Mersenne-Twister"))
-
-```
-
-### MLE Fit to glopnet Specific Leaf Area data  
-
-The [`PEcAn.priors::fit.dist`](https://github.com/PecanProject/pecan/blob/master/modules/priors/R/priors.R) helps to choose the best fit parameter distribution given some sample datasets.
-
-```r
-devtools::install_github("pecanproject/pecan/modules/priors")
-```
-
-
-```{r echo=FALSE, warning=FALSE, results='hide', message=FALSE, cache=TRUE, fig.width=8}
-
-# devtools::install("pecanproject/pecan/modules/priors")
-glopnet.data <- read.csv(system.file('extdata/glopnet.csv', package = 'PEcAn.priors')) # Wright et. al. 2004 supplementary file 
-
-library(ggplot2)
-ggplot(glopnet.data, aes(color = GF)) +
-  geom_boxplot(aes(x = BIOME, y = 1000/10^log.LMA)) +
-  ylab("Specific Leaf Area") +
-  theme_bw()
-ggplot(glopnet.data %>% subset(GF == 'G'),aes(x = BIOME, y = 1000/10^log.LMA)) +
-  geom_boxplot() +
-  geom_point(alpha = 0.25) +
-  ylab("Specific Leaf Area") +
-  theme_bw()
-```
-
-
-```{r}
-glopnet.grass <- glopnet.data[which(glopnet.data$GF == 'G'), ] # GF = growth form; G=grass 
-
-## turnover time (tt)
-glopnet.grass$tt    <- 12/10^(glopnet.grass$log.LL)
-ttdata <- data.frame(tt = glopnet.grass$tt[!is.na(glopnet.grass$tt)])
-## specific leaf area
-##glopnet.grass$sla   <- 1000/ (0.48 * 10^glopnet.grass$log.LMA)
-glopnet.grass$sla   <- 1000/ (10^glopnet.grass$log.LMA)
-sladata <- data.frame(sla = glopnet.grass$sla[!is.na(glopnet.grass$sla)])
-```
-
-The `fit.dist` function takes a vector of point estimates (in this case 125 observations of Specific Leaf Area from GLOPNET database are stored in `sladata`.
-
-First, it prints out the fits of a subset of distributions (the 'f' distribution could not be fit). Second, it prints the 
-```{r}
-dists <-  c('gamma', 'lognormal','weibull', 'f')
-library(fitdistrplus)
-fit.dist(sladata, dists )
-```
-
-```{r}
-
-prior.dists <- rbind('SLA' = fit.dist(sladata, dists ), 
-                     'leaf_turnover_rate' = fit.dist(ttdata, dists))
-
-slaprior <- with(prior.dists['SLA',], pr.dens(distribution, a, b))
-ttprior <- with(prior.dists['leaf_turnover_rate',], pr.dens(distribution, a, b))
-```
-
-
-The `priorfig` function visualizes the chosen prior (line), with its mean and 95\%CI (dots) as well as the data used to generate the figure.
-
-```{r}
-
-prior.figures <- list()
-prior.figures[['SLA']]                <- priorfig(priordata = sladata, 
-                                                  priordensity = slaprior, 
-                                                  trait = 'SLA')
-prior.figures[['leaf_turnover_rate']] <- priorfig(priordata = ttdata, 
-                                                  priordensity = ttprior, 
-                                                  trait = 'leaf_turnover_rate')
-
-prior.figures
-```
-
-Fitting priors to data with uncertainty estimates (generating posterior predictive distribution of an unobserved C4 grass species based on values collected from many PFTs. 
--------------------------
-### Vcmax data from Wullschleger (1993)
-
-
-### Classify Wullschleger Data into Functional Types ###########
-#### 1. query functional types from BETY
-
-This code is not run here - data are provided in .csv file below. This code requires connection to the BETYdb MySQL server.
-
-```{r eval=FALSE}
-wullschleger.species <- vecpaste(unique(wullschleger.data$AcceptedSymbol))
-## load functional type data from BETY
-con <- function() {query.bety.con(username = "bety", password = "bety", 
-                                   host = "localhost", dbname = "bety")}
-functional.data <- query.bety(paste("select distinct AcceptedSymbol, scientificname, GrowthHabit, Category from species where AcceptedSymbol in (", wullschleger.species, ") and GrowthHabit is not NULL and Category is not NULL;"), con())
-write.csv(functional.data, 'inst/extdata/wullschleger_join_usdaplants.csv')
-```
-
-Picking up with the Wullschleger dataset joined to USDA Plants functional type classifications ... 
-
-```{r pft_wullschleger}
-
-wullschleger.data <- read.csv(system.file('extdata/wullschleger1993updated.csv', package = 'PEcAn.priors'))
-functional.data <- read.csv(system.file('extdata/wullschleger_join_usdaplants.csv', package = 'PEcAn.priors'))
-
-subshrubs <- rownames(wullschleger.data) %in% c(grep('Shrub',wullschleger.data$GrowthHabit), grep('Subshrub', wullschleger.data$GrowthHabit))
-########## 2. Merge functional type information into Wullschleger data
-wullschleger.data <- merge(wullschleger.data, functional.data, by = 'AcceptedSymbol')
-########## 3. Classify by functional type
-## grass: any Graminoid Monocot
-grass <- with(wullschleger.data, GrowthHabit == 'Graminoid' & Category == 'Monocot')
-## forbs/herbs = forb
-forb <- with(wullschleger.data, GrowthHabit == 'Forb/herb' | GrowthHabit == 'Vine, Forb/herb')
-## woody = Shrubs, Subshrubs or Trees, add category to a few with missing information, 
-woody <- with(wullschleger.data, scientificname %in% c('Acacia ligulata', 'Acacia mangium', 'Arbutus unedo', 'Eucalyptus pauciflora', 'Malus', 'Salix') |  rownames(wullschleger.data) %in% c(grep('Shrub', GrowthHabit), grep('Subshrub', GrowthHabit), grep('Tree', GrowthHabit)))
-## gymnosperms
-gymnosperm <- wullschleger.data$Category == 'Gymnosperm'
-## ambiguous is both woody and herbaceous, will drop
-ambiguous <- wullschleger.data$GrowthHabit %in% c("Subshrub, Shrub, Forb/herb, Tree", "Tree, Subshrub, Shrub", "Tree, Shrub, Subshrub, Forb/herb", "Subshrub, Forb/herb")
-
-wullschleger.data$functional.type[grass] <- 1
-wullschleger.data$functional.type[forb]  <- 3
-wullschleger.data$functional.type[woody & !gymnosperm] <- 4
-wullschleger.data$functional.type[woody & gymnosperm] <- 5
-wullschleger.data <- subset(wullschleger.data, !ambiguous)     
-
-############# Estimating SE and n ##################################
-##verr, jerr: the "asymptotic" errors for Vcmax, Jmax using SAS nlim
-##vucl,vlcl,jlcl,jucl: are upper and lower confidence limits of 95%CI
-
-##Calculate SD as (1/2 the 95%CI)/1.96
-wullschleger.data$vsd <- (wullschleger.data$vucl-wullschleger.data$vlcl)/(2*1.96)
-
-##Calculate effective N as (SE/SD)^2 + 1
-wullschleger.data$neff <- (wullschleger.data$vse/wullschleger.data$vsd)^2 + 1
-wullschleger.data$se   <- sqrt(wullschleger.data$vsd*sqrt(wullschleger.data$neff))
-## recode species to numeric
-species <- unique(wullschleger.data$scientificname)
-sp <- rep(NA, nrow(wullschleger.data))
-for(i in seq(species)){
-  sp[wullschleger.data$scientificname == species[i]] <- i
-} 
-
-############# Scale values to 25C ##################################
-wullschleger.data$corrected.vcmax <- arrhenius.scaling(wullschleger.data$vcmax, 
-                                     old.temp = wullschleger.data$temp, 
-                                     new.temp = 25)
-
-############# Create data.frame for JAGS model ##################################
-wullschleger.data <- data.frame(Y  = wullschleger.data$corrected.vcmax,
-                                obs.prec = 1 / (sqrt(wullschleger.data$neff) * wullschleger.data$se),
-                                sp = sp,
-                                ft = wullschleger.data$functional.type,
-                                n  = wullschleger.data$neff)
-## Summarize data by species
-wullschleger.vcmax <- wullschleger.data %>% 
-  group_by(sp) %>% 
-  summarise(Y = mean(Y), 
-            obs.prec = 1/sqrt(sum((1/obs.prec)^2)), 
-            ft = mean(ft), # identity
-            n =  sum(n)) %>% 
-  dplyr::select(-sp)
-                                        
-```
-
-##### Add data from C4 species #########
-
-Few measurements of Vcmax for C4 species were available. 
-###### Miscanthus: Wang D, Maughan MW, Sun J, Feng X, Miguez FE, Lee DK, Dietze MC, 2011. Impact of canopy nitrogen allocation on growth and photosynthesis of miscanthus (Miscanthus x giganteus). Oecologia, in press
-```{r}
-dwang.vcmax <- c(19.73, 40.35, 33.02, 21.28, 31.45, 27.83, 9.69, 15.99, 18.88, 11.45, 15.81, 27.61, 13, 21.25, 22.01, 10.37, 12.37, 22.8, 12.24, 15.85, 21.93, 23.48, 31.51, 23.16, 18.55, 17.06, 20.27, 30.41)
-dwang.vcmax <- data.frame(Y = mean(dwang.vcmax), 
-                          obs.prec = 1/sd(dwang.vcmax),
-                          ft = 2,         #C4 Grass
-                          n = length(dwang.vcmax))
-```
-
-###### Muhlenbergia glomerata
-
-Kubien and Sage 2004. Low-temperature photosynthetic performance of a C4 grass and a co-occurring C3 grass native to high latitudes. Plant, Cell & Environment DOI: 10.1111/j.1365-3040.2004.01196.x
-
-Data from figure 5 in Kubien and Sage (2004), average across plants grown at 14/10 degrees and 26/22 degrees 
-
-```{r}
-kubien.vcmax <- data.frame(Y = mean(23.4, 24.8), 
-                           obs.prec = 1/sqrt(2.6^2 + 2.5^2), 
-                           n = 8, 
-                           ft = 2)                      
-```
-
-###### Zea Mays (Corn)
-
-Massad, Tuzet, Bethenod 2007. The effect of temperature on C4-type leaf photosynthesis parameters. Plant, Cell & Environment 30(9) 1191-1204. DOI: 10.1111/j.1365-3040.2007.01691.x
-
-data from fig 6a
-```{r}
-massad.vcmax.data <- data.frame(vcmax = c(17.1, 17.2, 17.6, 18, 18.3, 18.5, 20.4, 22.9, 22.9, 21.9, 21.8, 22.7, 22.3, 25.3, 24.4, 25.5, 25.5, 24.9, 31.2, 30.8, 31.6, 31.7, 32.5, 34.1, 34.2, 33.9, 35.4, 36, 36, 37.5, 38.2, 38.1, 37.4, 37.7, 25.2, 25.5), 
-                                temp = c(20.5, 24.6, 21, 19, 21.9, 15, 19.6, 14.3, 20.8, 23.4, 24.8, 25.9, 24.1, 22.8, 27.9, 31.7, 35.5, 39.3, 37.9, 42.4, 41.5, 48.7, 33.3, 33.3, 31.5, 39.1, 38.8, 43.3, 50, 38.4, 35.7, 34.4, 31.9, 33.9, 32.1, 33.7))
-massad.vcmax <- with(massad.vcmax.data, arrhenius.scaling(old.temp = temp, 
-                                                          new.temp = 25, 
-                                                          observed.value = vcmax))
-
-massad.vcmax <- data.frame(Y  = mean(massad.vcmax),
-                           obs.prec = 1/(sd(massad.vcmax)),
-                           n  = length(massad.vcmax),
-                           ft = 2)
-
-##### Combine all data sets
-all.vcmax.data <- rbind(wullschleger.vcmax,
-                        dwang.vcmax, 
-                        ## xfeng.vcmax, 
-                        kubien.vcmax, 
-                        massad.vcmax)
-```
-
-##### take a look at the raw data by functional type:
-
-```{r}
-
-ggplot(data = all.vcmax.data, aes(factor(ft), Y)) +
-  geom_boxplot() + 
-  geom_point() +
-  xlab('Plant Functional Type') +
-  ylab('Vcmax') +
-  theme_bw()
-```
-##### Add unobserved C4 species so JAGS calculates posterior predictive distribution
-```{r}
-vcmax.data <- rbind(all.vcmax.data, 
-                    data.frame(Y = NA, obs.prec = NA, ft = 2, n = 1))
-```
-
-##### Write and Run Meta-analysis
-
-```{r}
-writeLines(con = "vcmax.prior.bug", 
-           text =  "model{  
-             for (k in 1:length(Y)){
-               Y[k]  ~ dnorm(beta.ft[ft[k]], tau.y[k])T(0,)
-               tau.y[k] <- prec.y*n[k]
-               u1[k] <- n[k]/2                             
-               u2[k] <- n[k]/(2*prec.y)
-               obs.prec[k] ~ dgamma(u1[k], u2[k])
-             }
-             for (f in 1:5){
-               beta.ft[f] ~ dnorm(0, tau.ft)
-             }
-             tau.ft ~ dgamma(0.1, 0.1)
-             prec.y    ~ dgamma(0.1, 0.1)     
-             sd.y      <- 1 / sqrt(prec.y)
-             ## estimating posterior predictive for new C4 species
-             pi.pavi <- Y[length(Y)]	     
-             diff <- beta.ft[1] - beta.ft[2]
-           }")
-
-library(rjags)
-j.model  <- jags.model(file = "vcmax.prior.bug", 
-                       data = vcmax.data, 
-                       n.adapt = 500, 
-                       n.chains = 4,
-                       inits = inits)
-
-mcmc.object <- coda.samples(model = j.model, variable.names = c('pi.pavi', 'beta.ft', 'diff'),
-                            n.iter = iter)
-mcmc.o     <- window(mcmc.object, start = iter/2, thin = 10)
-pi.pavi    <- data.frame(vcmax = unlist(mcmc.o[,'pi.pavi']))
-vcmax.dist <- fit.dist(pi.pavi, n = sum(!is.na(vcmax.data$Y)))
-
-prior.dists   <- rbind(prior.dists, 'Vcmax' = vcmax.dist)
-vcmax.density <- with(vcmax.dist, pr.dens(distribution, a, b), xlim = c(0,50))
-
-######### Vcmax Prior Plot
-vcmax.c4 <- all.vcmax.data$ft == 2
-vcmax.data <- transform(all.vcmax.data, mean = Y, se =  1/(sqrt(n) * obs.prec))[,c('ft', 'mean', 'se')]
-#vcmax.mean <- all.vcmax.data$Y[!c4,]
-#vcmax.se   <- with(all.vcmax.data[!c4,], 1/(sqrt(n) * obs.prec))#[reorder]
-#c4.mean <- all.vcmax.data$Y)[c4]
-#c4.se   <- with(all.vcmax.data, 1 / (sqrt(n) * obs.prec) )[c4]
-
-prior.figures[['Vcmax']] <- 
-  priorfig(priordensity = vcmax.density, 
-                                     trait = 'Vcmax', 
-                                     xlim = range(c(0, max(vcmax.data$mean)))) + 
-  geom_point(data = subset(vcmax.data, ft != 2), 
-             aes(x=mean, y = (sum(vcmax.c4) + 1:sum(!vcmax.c4))/3000), color = 'grey60') +
-  geom_segment(data = subset(vcmax.data, ft != 2),
-               aes(x = mean - se, xend = mean + se, 
-                   y = (sum(vcmax.c4) + 1:sum(!vcmax.c4))/3000, 
-                   yend = (sum(vcmax.c4) + 1:sum(!vcmax.c4))/3000),
-               color = 'grey60') +
-  ## darker color for C4 grasses
-  geom_point(data = subset(vcmax.data, ft == 2),
-             aes(x=mean, y = 1:sum(vcmax.c4)/2000), size = 3) +
-  geom_segment(data = subset(vcmax.data, ft == 2),
-               aes(x = mean - se, xend = mean + se, 
-                   y = 1:sum(vcmax.c4)/2000, yend = 1:sum(vcmax.c4)/2000))
-
-print(prior.figures[['Vcmax']])
-```
-
-
-Fitting priors to expert constraint. 
-
-## Other Examples / Approaches
-
-### Examples
-
-* Estimating priors for the DALEC model in [models/dalec/inst/DALEC_priors.R](https://github.com/PecanProject/pecan/blob/master/models/dalec/inst/DALEC_priors.R)
-
-### Package `rriskDistributions`
-
-The [rriskDistributions](http://cran.r-project.org/web/packages/rriskDistributions/index.html) useful for estimating priors ...
-
-as well as individual functions for each distribution such as `get.<somedist>.par` that provide nice diagnostic plots (e.g. compare chosen points to cdf) for example, to compute the parameters of a Gamma distribution that fits a median of 2.5 and has a 95%CI of [1, 10]:  
+As an example, compute the parameters of a Gamma distribution that fits a median of 2.5 and has a 95%CI of [1, 10]:
 
 ```{r}
 library(rriskDistributions)
 get.gamma.par(p = c(0.025, 0.50, 0.975), q = c(1, 2.5, 10), tol = 0.1)
 ```
+
 
 
 The function `fit.pecr` provides a GUI to explore the fits of a range of distributions, e.g.:
@@ -366,9 +149,19 @@ The function `fit.pecr` provides a GUI to explore the fits of a range of distrib
 fit.perc(p = c(0.1, 0.5, 0.9), q = c(30, 60, 90), tolConv = 0.1)
 ```
 
-produces this:
+##### Activity: Online prior elicitation tool
 
-![image of rriskDistributions example that uses GUI](https://dl.dropboxusercontent.com/u/18092793/fit.perc_example.PNG)
+Work with a partner in your project group 
 
+1. Choose a parameter in one of the models that you are developing (e.g. growth rate of a fish population, lag between flooding event and peak phytoplankton concentration); 
+2. Write down what you know about this based on your experience. 
+3. Write down the following:
+    - The central tendency 
+    - The plausible bounds
+    - The 95%CI
+    - Is it skewed?
+4. Choose one of the tools above and generate a set of flat, weak / regularizing, and a strong prior.
 
+### References and further reading
 
+David E. Morris, Jeremy E. Oakley, John A. Crowe, A web-based tool for eliciting probability distributions from experts, Environmental Modelling & Software, Volume 52, February 2014, Pages 1-4, ISSN 1364-8152, <http://dx.doi.org/10.1016/j.envsoft.2013.10.010>.
