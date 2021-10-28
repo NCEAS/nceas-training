@@ -158,7 +158,7 @@ https://otexts.com/fpp2/missing-outliers.html
 
 
 ```{r}
-f <- theme(text=element_text(family="Garamond")
+f <- theme(text=element_text(family="Garamond"))
 
 ggplot_na_imputations(x_with_na = mac_nojja$tmean, 
                       x_with_imputations = mac_pred$tmean, 
@@ -220,10 +220,10 @@ my_ts <- function(x){
 }
     
 imp <- na_seasplit(my_ts(mac_nojja$tmean))
+
 ggplot_na_imputations(x_with_na = my_ts(mac_nojja$tmean), 
                       x_with_imputations = imp, 
-                      x_with_truth = my_ts(mac_daymet$tmean )) +
-  f
+                      x_with_truth = my_ts(mac_daymet$tmean )) + f
 
 
 ```
