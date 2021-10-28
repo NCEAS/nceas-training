@@ -51,7 +51,7 @@ grViz("digraph {
 
 
 
-In this lesson, we will explain and demonstrate how to 'translate' between statistical notation and model code, with particular emphasis on how to implement Bayesian models. 
+In this lesson, we will explain and demonstrate how to 'translate' between statistical notation and model code, with particular emphasis on implementing Bayesian models with MCMC software. 
 
 ```{r, echo=FALSE}
 grViz("digraph {
@@ -355,6 +355,7 @@ moths <- data.frame(site = rep(1:7, each = 2),
 ```
 
 Helpful hints:
+
 * Use the [JAGS manual](https://people.stat.sc.edu/hansont/stat740/jags_user_manual.pdf) to find the parameters of `dbin`, the binomial distribution
 
 * No need to specify initials for this regression model

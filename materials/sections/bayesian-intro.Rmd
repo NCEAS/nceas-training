@@ -72,7 +72,7 @@ $\mu_{sp} \sim Normal(\mu_{g(sp)}, \sigma^2_{g})$
 
 $\mu_{g} \sim Normal(\mu_{f(g)}, \sigma^2_{f})$
 
-In a single model, the hierarchical relationship between species, genus, and family can be encoded. The notation indicates that each observation *i* belongs to a species, each species belongs to a genus, and each genus belongs to a family. 
+where *sp* represents species, *g* represents genus, and *f* represents families. The notation indicates that each observation *i* belongs to a species, each species belongs to a genus, and each genus belongs to a family. Thus, in a single model, the hierarchical relationship between species, genus, and family can be represented.  
 
 Data can also be treated as arising from any distribution. For example, a inventory survey might yield counts of a particular species, but those counts might be clumped on the landscape, yielding large number of zero observations. A Poisson distribution describes the probability of a given number of events occurring in an interval of time or space, but doesn't accommodate the extra zeros. In Bayesian modeling, it is straightforward to specify the surveyed counts as a mixture between Bernoulli and Poisson distributions, which accounts for the separate processes of dispersal (species arrives or not in plot) and frequency (if species arrives, the rate or density of arrival). 
 
@@ -109,17 +109,21 @@ df.venn <- data.frame(x = c(0.866, -0.866),
 #                         name = 1)
                           
 venn <- ggplot() +
-  geom_circle(data = df.venn, aes(x0 = x, y0 = y, r = 1.5, fill = labels), alpha = .3, size = 1, colour = 'grey') +
+  geom_circle(data = df.venn, 
+              aes(x0 = x, y0 = y, r = 1.5, fill = labels), 
+              alpha = .3, size = 1, colour = 'grey') +
+  geom_text(data = df.venn, 
+            aes(x = x, y = y, label = labels),
+            size = 6) +
   coord_fixed() +  
   theme_void() +
-  scale_fill_manual(values = c("yellow", "blue"))
+  scale_fill_manual(values = c("yellow", "blue")) +
+  guides(fill = "none")
   
 print(venn)
-# venn + geom_point(data = df.pt, aes(x = x, y = y), color = "red")
 ```
 
 We define the marginal probability as the total area of circles A and B. 
-
 $P(A) = {A_A}$
 
 $P(B) = {A_B}$
@@ -142,6 +146,34 @@ Thus, we can describe the joint probability as a product of a conditional and ma
 
 #### Interactive problem: Conditional probability {- .aside}
 Conditional probability rules are very useful for breaking down complex problems. What are some possible ways to break down $P(A, B, C)$?
+
+```{r echo = FALSE, fig.width = 4, fig.height = 4, fig.align='center'}
+df.venn <- data.frame(x = c(-1, 0, 1),
+                      y = c( 0, -1, 0),
+                      labels = c('A', 'C', 'B'))
+                      
+# df.pt <- data.frame(x= c(-1.3, -1, 1,
+#                           -0.4, -0.3, -0.7, 
+#                           1.4, 1.3, 1.1, 1.6, 1.8, 1.2), 
+#                     y = c(0.43, -1.3, 0.2, 
+#                           0, -0.4, 0.3, 
+#                           -0.21, -1.56, -0.75, 0.75, 0.56, 0.2), 
+#                         name = 1)
+                          
+venn <- ggplot() +
+  geom_circle(data = df.venn, 
+              aes(x0 = x, y0 = y, r = 1.2, fill = labels), 
+              alpha = .3, size = 1, colour = 'grey') +
+  geom_text(data = df.venn, 
+            aes(x = x, y = y, label = labels),
+            size = 6) +
+  coord_fixed() +  
+  theme_void() +
+  scale_fill_manual(values = c("yellow", "blue", "coral")) +
+  guides(fill = "none")
+  
+print(venn)
+```
 
 ### Bayes' rule
 Bayes' rule can be derived by describing the joint probability in two ways. 
@@ -191,7 +223,7 @@ We identified above that to derive the posterior parameter probabilities, we nee
 
 | Continuous  | Description  | Discrete  | Description  |
 |---|---|---|---|
-| Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net primary productivity| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Fish counts |
+| Normal ![](images/distributions/normal_pdf.png) |Domain: $(-\infty, \infty)$<br/>Parameters: $\mu$ and $\sigma$<br/>Example: Net ecosystem exchange| Poisson ![](images/distributions/Poisson_pmf.svg)  |Domain: 0 to $\infty$<br/>Parameter: $\lambda$<br/>Example: Count data |
 | Gamma ![](images/distributions/gamma_pdf.svg)  | Domain: $(0, \infty)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Rates  | Bernoulli ![](images/distributions/Bernoulli_pmf.png)  | Domain: 0 or 1<br/>Parameter: $p$<br/>Example: Presence or absence  |
 | Beta ![](images/distributions/beta_pdf.svg)  |  Domain: $(0, 1)$<br/>Parameters: $\alpha$ and $\beta$<br/>Example: Survival probability  | Binomial ![](images/distributions/binomial_pmf.svg)  | Domain: 0 to $\infty$<br/>Parameters: $n, p$<br/>Example: Deaths in a population  |
 
@@ -236,7 +268,7 @@ Some examples include the binomial-beta, Poisson-gamma, multinomial-Dirichlet, a
 
 Selecting priors is an important consideration of Bayesian modeling that will have its own lecture later in the week. For now, we can say that many parameters do not need informative priors in order to be reliably estimated by the data (e.g., regression parameters). Other parameters, such as observation error, will rarely be identifiable without strong prior information (or additional data). 
 
-In practice, selecting priors can be part of the model development process. Different priors can be tested for their contribution to the posterior, which allows for evaluation of the sensitivity of the posterior to the prior specification. Particulal for non-identifiable parameters, convergence can be achieved more quickly with a more informative prior. One method can be to specify a uniform prior with realistic but conservative upper and lower bounds:
+In practice, selecting priors can be part of the model development process. Different priors can be tested for their contribution to the posterior, which allows for evaluation of the sensitivity of the posterior to the prior specification. Particularly for non-identifiable parameters, convergence can be achieved more quickly with a more informative prior. One method can be to specify a uniform prior with realistic but conservative upper and lower bounds:
 
 $\theta \sim Uniform(A, B)$
 
@@ -274,11 +306,11 @@ grViz("digraph {
   height = 300)
 ```
 
-The conditional probability model for the above DAG is:
+In this DAG, A is a root node, C is a terminal node, and B is an internal node. The conditional probability model can be defined as:
 
 $P(A, B, C) = P(C|B)P(B|A)P(A)$
 
-We will see in the example below that DAGs can be especially useful for helping translate between mathematical and code representations of models.
+We will see in the example below that DAGs can be especially useful for visualizing the mathematical representation of models.
 
 ## Simple hierachical example: snow fences
 
@@ -351,9 +383,9 @@ All of the stochastic nodes (ovals) are drawn from distributions. $\alpha$ and $
 
 #### Interactive problem: Logistic regression example {- .aside}
 
-Consider the case of selection pressure from discoloring of tree trunks from air pollution. One species of moth rests on tree trucks during the day, and their coloration acts as camouflage against bird predation. Researchers established a gradient of tree trunk color from Liverpool the countryside and selected 7 sites. At each site, they glued an equal number of dead light and dead dark moths to tree trunks and counted the number of removed moths after 24 hours. 
+Consider the case of selection pressure from discoloring of tree trunks from air pollution. One species of moth rests on tree trunks during the day, and their coloration acts as camouflage against bird predation. Researchers established a gradient of tree trunk color from Liverpool the countryside and selected 7 sites. At each site, they glued an equal number of dead light and dead dark moths to tree trunks and counted the number of removed moths after 24 hours. 
 
-The dataset includes Site (1,2, ... 7), Morph (1 = light, 2 = dark), Distance (from Liverpool, km) Placed (number of moths glued to trunks), and Removed (number of moths removed from trunks after 24 hours).  
+The dataset includes *Site* (1,2, ... 7), *Morph* (1 = light, 2 = dark), *Distance* (from Liverpool, km) *Placed* (number of moths glued to trunks), and *Removed* (number of moths removed from trunks after 24 hours).  
 
 | $Site$  | $Morph$  | $Distance$  | $Placed$  | $Removed$  |
 |---|---|---|---|---|
