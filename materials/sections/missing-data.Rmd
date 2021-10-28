@@ -142,12 +142,19 @@ mac_pred <- mac_nas
 mac_pred$tmean[nas] <- pred_tmean
 ```
 
-```{r, eval = F}
+```{r, fig.height=3, fig.width=3}
 plot(tmean_model4)
+```
+
+
+```{r, fig.height=3, fig.width=3}
 plot(pred_tmean, mac_daymet$tmean[nas]) +
   lines(0:40,0:40, lty = 2) 
-hist(pred_tmean - mac_daymet$tmean[nas], breaks = 20)
+```
 
+
+```{r, fig.height=3, fig.width=3}
+hist(pred_tmean - mac_daymet$tmean[nas], breaks = 20)
 ```
 
 
