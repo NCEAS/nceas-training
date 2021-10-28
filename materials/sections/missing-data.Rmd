@@ -25,6 +25,7 @@ Types of missing data
 ### What to do about missing data
 
 How to record missing data
+
 - what does NULL mean? What does NA mean?
 - This is almost never specified. Some options:
   - observation was not recorded, or was recorded and not entered
@@ -36,6 +37,7 @@ How to record missing data
 ### Types of missing data
 
 The first two can be safely removed (Gelman and Hill 2006)
+
 - Missing completely at random. A useful assumption; difficult to prove. 
 - Missing at random. Missingness depends on observed variables - e.g. one species of fish can be observed but not caught and measured, or a sensor only works when the temperature is below some threshold.
 - Missing not at random
@@ -45,6 +47,7 @@ The first two can be safely removed (Gelman and Hill 2006)
 ### Approaches 
 
 If there are a few missing data points (<5-10%)
+
 - delete records with missing data 
 - replace missing data 
 If there are more, this can lead to bias.
@@ -59,6 +62,7 @@ A few limitations of the MICE approach include: it requires the assumption that 
 
 
 Algorithm:
+
 - create multiple copies of data
 - impute missing values - use the distribution of a variable to impute plausible values for the missing data
 - perform analysis on the values
