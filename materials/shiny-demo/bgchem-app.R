@@ -2,26 +2,43 @@
 # This is a demonstration Shiny web application showing how to build a simple
 # data exploration application.
 #
+#
+# This is a Shiny web application. You can run the application by clicking
+# the 'Run App' button above.
+#
+# Find out more about building applications with Shiny here:
+#
+#    http://shiny.rstudio.com/
+#
+
 library(shiny)
-library(ggplot2)
+library(contentid)
 library(dplyr)
-library(tidyr)
+library(ggplot2)
+library(lubridate)
 
-# Load data from Arctic Data Center
-data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(url(data_url, method="libcurl"), stringsAsFactors = FALSE) %>%
-    select(-Date, -Time, -Station)
-cols <- names(bg_chem)
+# read in the data from EDI
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
 
-# Define UI for application that draws two scatter plots
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+cols <- names(delta_data)
+
+
+
+# Define UI for application that draws a two plots
 ui <- fluidPage(
     
-    # Application title
-    titlePanel("Water biogeochemistry"),
+    # Application title and data  source
+    titlePanel("Yolo Bypass Fish and Water Quality Data"),
     p("Data for this application are from: "),
     tags$ul(
-        tags$li("Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center.",
-                tags$a("doi:10.18739/A25T3FZ8X", href="http://doi.org/10.18739/A25T3FZ8X")
+        tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
         )
     ),
     tags$br(),
@@ -31,26 +48,25 @@ ui <- fluidPage(
         # Sidebar with a slider input for depth axis
         sidebarLayout(
             sidebarPanel(
-                sliderInput("depth",
-                            "Depth:",
-                            min = 1,
-                            max = 500,
-                            value = c(1, 100))
+                sliderInput("date",
+                            "Date:",
+                            min = as.Date("1998-01-01"),
+                            max = as.Date("2020-01-01"),
+                            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
             ),
-            # Show a plot of the generated distribution
+            # Show a plot of the generated timeseries
             mainPanel(
-                plotOutput("depthPlot")
+                plotOutput("distPlot")
             )
         ),
         
         tags$hr(),
         
-        # Sidebar with a select inputs to choose variables to plot
         sidebarLayout(
             sidebarPanel(
-                selectInput("x_variable", "X Variable", cols, selected = "CTD_Salinity"),
-                selectInput("y_variable", "Y Variable", cols, selected = "d18O"),
-                selectInput("color_variable", "Color", cols, selected = "P")
+                selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                selectInput("color_variable", "Color", cols, selected = "CommonName")
             ),
             
             # Show a plot with configurable axes
@@ -62,28 +78,28 @@ ui <- fluidPage(
     )
 )
 
-# Define server logic required to draw both plots
+# Define server logic required to draw the two plots
 server <- function(input, output) {
     
-    output$depthPlot <- renderPlot({
-        ggplot(bg_chem, mapping = aes(x = CTD_Depth, y = CTD_Salinity)) +
-            geom_point(size=4, color="firebrick") +
-            xlim(input$depth[1],input$depth[2]) +
+    #  turbidity plot
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$date[1],input$date[2])) +
             theme_light()
     })
     
+    # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(bg_chem, mapping = aes_string(x = input$x_variable,
-                                             y = input$y_variable,
-                                             color = input$color_variable)) +
+        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
+                                                y = input$y_variable,
+                                                color = input$color_variable)) +
             geom_point(size=4) +
-            scale_color_gradient2(low="midnightblue", 
-                                  mid="white", 
-                                  high="firebrick", 
-                                  midpoint = mean(bg_chem[,input$color_variable])) +
             theme_light()
     })
 }
 
-# Run the application
+
+# Run the application 
 shinyApp(ui = ui, server = server)

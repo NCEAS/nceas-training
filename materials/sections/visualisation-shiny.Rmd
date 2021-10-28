@@ -17,13 +17,13 @@ In this lesson we will:
 
 [Shiny](http://shiny.rstudio.com/) is an R package for creating interactive data visualizations embedded in a web application that you and your colleagues can view with just a web browser. Shiny apps are relatively easy to construct, and provide interactive features for letting others share and explore data and analyses.
 
-There are some really great examples of what Shiny can do on the RStudio webite like [this one exploring movie metadata](https://shiny.rstudio.com/gallery/movie-explorer.html). A more scientific example is a tool from the SASAP project exploring [proposal data from the Alaska Board of Fisheries](https://sasap-data.shinyapps.io/board_of_fisheries/).
+There are some really great examples of what Shiny can do on the RStudio webite like [this one exploring movie metadata](https://shiny.rstudio.com/gallery/movie-explorer.html). A more scientific example is a tool from the SASAP project exploring [proposal data from the Alaska Board of Fisheries](https://sasap-data.shinyapps.io/board_of_fisheries/). There is also an app for [Delta monitoring efforts](https://deltascience.shinyapps.io/monitoring/).
 
 
 ![](images/shiny-sasap-app.png)
 
 
-Most any kind of analysis and visualization that you can do in R can be turned into a useful interactive visualization for the web that lets people explore your data more intuitively  But, a Shiny application is not the best way to preserve or archive your data.  Instead, for preservation use a repository that is archival in its mission like the [KNB Data Repository](https://knb.ecoinformatics.org), [Zenodo](https://zenodo.org), or [Dryad](https://datadryad.org). This will assign a citable identfier to the specific version of your data, which you can then read in an interactive visualiztion with Shiny.
+Most any kind of analysis and visualization that you can do in R can be turned into a useful interactive visualization for the web that lets people explore your data more intuitively  But, a Shiny application is not the best way to preserve or archive your data.  Instead, for preservation use a repository that is archival in its mission like the [KNB Data Repository](https://knb.ecoinformatics.org), [Zenodo](https://zenodo.org), or [Dryad](https://datadryad.org). This will assign a citable identifier to the specific version of your data, which you can then read in an interactive visualiztion with Shiny.
 
 For example, the data for the Alaska Board of Fisheries application is published on the KNB and is citable as:
 
@@ -54,67 +54,76 @@ Note that you can drag the slider to change the number of bins in the histogram.
 
 ### Interactive scatterplots
 
-Let's modify this application to plot water biogeochemistry data in a scatterplot, and allow
-aspects of the plot to be interactively changed.
+Let's modify this application to plot YOLO bypass secchi disk data in a time-series, and allow aspects of the plot to be interactively changed.
 
 #### Load data for the example
 
-Follow these steps to get set up for the next exercise:
-
-1. Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. 
-[Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. 
-doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
-2. Right click the download button next to the file "BGChem2008data.csv" and select "copy link addres.s"
-3. Read the data into the application using `read.csv` 
-
-The data contains chemistry measurements at various times and stations.
+Use this code to load the data at the top of your `app.R` script. Note we are using `contentId` again, and we have filtered
+for some species of interest.
 
 ```{r load_bgchem}
-data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(data_url)
+library(shiny)
+library(contentid)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
 
-# Sometimes you need to wrap the web address in url() on some platforms
-#bg_chem <- read.csv(url(data_url, method = "libcurl"))
-names(bg_chem)
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+names(delta_data)
+    
 ```
 
-#### Add a simple scatterplot using ggplot
+#### Add a simple timeseries using ggplot
 
-A number of chemistry parameters are sensitive to depth, so let's start by plotting `CTD_Salinitiy` as
-a function of `CTD_Depth`.  We do so by switching out the histogram code for a simple ggplot, like so:
+We know there has been a lot of variation through time in the delta, so let's plot a time-series of Secchi depth. We do so by switching out the histogram code for a simple ggplot, like so:
 
 ```{r server_chunk, eval=FALSE}
 server <- function(input, output) {
-
-    output$depthPlot <- renderPlot({
-
-        ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
+    
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
             geom_point(colour="red", size=4) +
             theme_light()
     })
 }
 ```
 
-If you now reload the app, it will display the simple scatterplot instead of
+If you now reload the app, it will display the simple time-series instead of
 the histogram.  At this point, we haven't added any interactivity.
 
 In a Shiny application, the `server` function provides the part of the application
 that creates our interactive components, and returns them to the user interface (`ui`)
 to be displayed on the page.
 
-#### Add sliders to set the min depth and max depth for the X axis
+#### Add sliders to set the start and end date for the X axis
 
 To make the plot interactive, first we need to modify our user interface to include
 widgits that we'll use to control the plot.  Specifically, we will add a new slider
-for setting the `mindepth` parameter, and modify the existing slider to be used for
-the `maxdepth` parameter.  To do so, modify the `sidebarPanel()` call to include two
+for setting the `minDate` parameter, and modify the existing slider to be used for
+the `maxDate` parameter.  To do so, modify the `sidebarPanel()` call to include two
 `sliderInput()` function calls:
 
 ```{r ui_chunk, eval=FALSE}
-        sidebarPanel(
-            sliderInput("mindepth", "Min depth:", min = 0, max = 500, value = 0),
-            sliderInput("maxdepth", "Max depth:", min = 1, max = 500, value = 50)
-        )
+sidebarPanel(
+    sliderInput("minDate",
+                "Min Date:",
+                min = as.Date("1998-01-01"),
+                max = as.Date("2020-01-01"),
+                value = as.Date("1998-01-01")),
+    sliderInput("maxDate",
+                "Max Date:",
+                min = as.Date("1998-01-01"),
+                max = as.Date("2020-01-01"),
+                value = as.Date("2005-01-01"))
+)
 ```
 
 If you reload the app, you'll see two new sliders, but if you change them, they don't
@@ -124,21 +133,20 @@ make any changes to the plot. Let's fix that.
 
 Finally, to make the plot interactive, we can use the `input` and `output` variables
 that are passed into the `server` function to access the current values of the sliders.
-In Shiny, each UI component is given an input identifier when it is created, which is used as the name of the value in the input list.  So, we can access the minimum depth as `input$mindepth` and
-the max as `input$maxdepth`.  Let's use these values now by adding limits to our X axis
+In Shiny, each UI component is given an input identifier when it is created, which is used as the name of the value in the input list.  So, we can access the minimum depth as `input$minDate` and the max as `input$maxDate`.  Let's use these values now by adding limits to our X axis
 in the ggplot:
 
 ```{r shiny_ggplot_interactive, eval=FALSE}
-        ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
             geom_point(colour="red", size=4) +
-            xlim(input$mindepth,input$maxdepth) +
+            xlim(c(input$minDate,input$maxDate)) +
             theme_light()
 ```
 
 At this point, we have a fully interactive plot, and the sliders can be used to change the
 min and max of the Depth axis.
 
-![](images/shiny-bgchem-1.png)
+![](images/shiny-yolo-1.png)
 
 Looks so shiny!
 
@@ -149,27 +157,30 @@ You'll see that the direction of the X axis becomes reversed, and the plotted po
 to left.  This is really an error condition.  Rather than use two independent sliders, we can modify 
 the first slider to output a range of values, which will prevent the min from being greater than
 the max.  You do so by setting the value of the slider to a vector of length 2, representing 
-the default min and max for the slider, such as `value = c(0,100)`.  So, delete the second slider,
+the default min and max date for the slider, such as `c(as.Date("1998-01-01"), as.Date("2020-01-01"))`.  So, delete the second slider,
 rename the first, and provide a vector for the value, like this:
 
 ```{r shiny_sidebar, eval=FALSE}
-        sidebarPanel(
-            sliderInput("depth", "Depth:", min = 0, max = 500, value = c(0,100))
-        )
+sliderInput("date",
+            "Date:",
+            min = as.Date("1998-01-01"),
+            max = as.Date("2020-01-01"),
+            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
+)
 ```
 
-Now, modify the ggplot to use this new `depth` slider value, which now will be returned
+Now, modify the ggplot to use this new `date` slider value, which now will be returned
 as a vector of length 2. The first element of the depth vector is the min, and the
 second is the max value on the slider.
 
 ```{r shiny_limvector, eval=FALSE}
-        ggplot(bg_chem, mapping = aes(CTD_Depth, CTD_Salinity)) +
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
             geom_point(colour="red", size=4) +
-            xlim(input$depth[1],input$depth[2]) +
+            xlim(c(input$date[1],input$date[2])) +
             theme_light()
 ```
 
-![](images/shiny-bgchem-2.png)
+![](images/shiny-yolo-2.png)
 
 ### Shiny architecture
 
@@ -217,15 +228,15 @@ second sidebarLayout for the second plot as follows:
         # Sidebar with a slider input for depth axis
         sidebarLayout(
             sidebarPanel(
-                sliderInput("depth",
-                            "Depth:",
-                            min = 1,
-                            max = 500,
-                            value = c(1, 100))
+                sliderInput("date",
+                            "Date:",
+                            min = as.Date("1998-01-01"),
+                            max = as.Date("2020-01-01"),
+                            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
             ),
             # Show a plot of the generated distribution
             mainPanel(
-               plotOutput("depthPlot")
+               plotOutput("distPlot")
             )
         ),
 
@@ -233,9 +244,9 @@ second sidebarLayout for the second plot as follows:
 
         sidebarLayout(
             sidebarPanel(
-                selectInput("x_variable", "X Variable", cols, selected = "CTD_Salinity"),
-                selectInput("y_variable", "Y Variable", cols, selected = "d18O"),
-                selectInput("color_variable", "Color", cols, selected = "P")
+                selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                selectInput("color_variable", "Color", cols, selected = "CommonName")
             ),
 
             # Show a plot with configurable axes
@@ -248,22 +259,27 @@ second sidebarLayout for the second plot as follows:
 
 Note that the second `sidebarPanel` uses three `selectInput` elements to provide dropdown
 menus with the variable columns (`cols`) from our data frame.  To manage that, we need to
-first set up the cols variable, which we do by selecting only the numeric variables
-from the `bg_chem` data frame, and then saving the name in a variable:
+first set up the cols variable, which we do by saving the variables names
+from the `delta_data` data frame to a variable:
 
 ```{r shiny_cols_2, eval=FALSE, echo=TRUE}
-bg_chem <- read.csv(url(data_url, method="libcurl")) %>%
-    select(-Date, -Time, -Station)
-cols <- names(bg_chem)
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+cols <- names(delta_data)
 ```
 
-Don't forget to add `library(dplyr)` to the library imports at the top.
 
 #### Add the dynamic plot
 
 Because we named the second plot `varPlot` in our UI section, we now need to modify
 the server to produce this plot.  Its very similar to the first plot, but this time
-we want to use the selected vsriables from the user controls to choose which
+we want to use the selected variables from the user controls to choose which
 variables are plotted. These variable names from the `$input` are character
 strings, and so would not be recognized as symbols in the `aes` mapping in ggplot.
 Instead, we can use `aes_string()` to provide character names for the variables to
@@ -271,20 +287,14 @@ be used in the mappings.
 
 ```{r shiny_aes_string, eval=FALSE, echo=TRUE}
     output$varPlot <- renderPlot({
-        ggplot(bg_chem, mapping = aes_string(x = input$x_variable,
-                                             y = input$y_variable,
-                                             color = input$color_variable)) +
+        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
+                                                y = input$y_variable,
+                                                color = input$color_variable)) +
             geom_point(size=4) +
-            scale_color_gradient2(low="midnightblue", 
-                                  mid="white", 
-                                  high="firebrick", 
-                                  midpoint = mean(bg_chem[,input$color_variable])) +
             theme_light()
+    })
 ```
 
-Notice that we also use `scale_color_gradient2` to set up a continuous color 
-scale that uses the mean of the chosen color variable as the midpoint of the 
-color ramp, which makes the display balance nicely.
 
 ### Finishing touches: data citation
 
@@ -293,11 +303,11 @@ You can add arbitrary HTML to the layout using utility functions in the `tags` l
 
 ```{r shiny_citation, eval=FALSE}
     # Application title
-    titlePanel("Water biogeochemistry"),
+    titlePanel("Yolo Bypass Fish and Water Quality Data"),
     p("Data for this application are from: "),
     tags$ul(
-        tags$li("Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center.",
-                tags$a("doi:10.18739/A25T3FZ8X", href="http://doi.org/10.18739/A25T3FZ8X")
+        tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
         )
     ),
     tags$br(),
@@ -308,7 +318,7 @@ You can add arbitrary HTML to the layout using utility functions in the `tags` l
 The final application shows the data citation, the depth plot, and the 
 configurable scatterplot in three distinct panels.
 
-![](images/shiny-bgchem-app.png)
+![](images/shiny-yolo-app.png)
 
 ### Publishing Shiny applications
 
@@ -348,7 +358,7 @@ application window in RStudio, and your app will be live before you know it!
 Shiny is a fantastic way to quickly and efficiently provide data exploration for your
 data and code.  We highly recommend it for its interactivity, but an archival-quality
 repository is the best long-term home for your data and products.  In this example, 
-we used data drawn directly from the [KNB repository](http://doi.org/10.18739/A25T3FZ8X)
+we used data drawn directly from the [EDI repository](http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f)
 in our Shiny app, which offers both the preservation guarantees of an archive, plus
 the interactive data exploration from Shiny.  You can utilize the full power of R and
 the tidyverse for writing your interactive applications.
@@ -360,57 +370,73 @@ the tidyverse for writing your interactive applications.
 # This is a demonstration Shiny web application showing how to build a simple
 # data exploration application.
 #
+#
+# This is a Shiny web application. You can run the application by clicking
+# the 'Run App' button above.
+#
+# Find out more about building applications with Shiny here:
+#
+#    http://shiny.rstudio.com/
+#
+
 library(shiny)
-library(ggplot2)
+library(contentid)
 library(dplyr)
-library(tidyr)
+library(ggplot2)
+library(lubridate)
 
-# Load data from Arctic Data Center
-data_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A35ad7624-b159-4e29-a700-0c0770419941"
-bg_chem <- read.csv(url(data_url, method="libcurl")) %>%
-    select(-Date, -Time, -Station)
-cols <- names(bg_chem)
+# read in the data from EDI
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
 
-# Define UI for application that draws two scatter plots
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+cols <- names(delta_data)
+    
+
+
+# Define UI for application that draws a two plots
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Water biogeochemistry"),
+    
+    # Application title and data  source
+    titlePanel("Yolo Bypass Fish and Water Quality Data"),
     p("Data for this application are from: "),
     tags$ul(
-        tags$li("Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center.",
-                tags$a("doi:10.18739/A25T3FZ8X", href="http://doi.org/10.18739/A25T3FZ8X")
+        tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
         )
     ),
     tags$br(),
     tags$hr(),
-
+    
     verticalLayout(
         # Sidebar with a slider input for depth axis
         sidebarLayout(
             sidebarPanel(
-                sliderInput("depth",
-                            "Depth:",
-                            min = 1,
-                            max = 500,
-                            value = c(1, 100))
+                sliderInput("date",
+                            "Date:",
+                            min = as.Date("1998-01-01"),
+                            max = as.Date("2020-01-01"),
+                            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
             ),
-            # Show a plot of the generated distribution
+            # Show a plot of the generated timeseries
             mainPanel(
-               plotOutput("depthPlot")
+                plotOutput("distPlot")
             )
         ),
-
+        
         tags$hr(),
         
-        # Sidebar with a select inputs to choose variables to plot
         sidebarLayout(
             sidebarPanel(
-                selectInput("x_variable", "X Variable", cols, selected = "CTD_Salinity"),
-                selectInput("y_variable", "Y Variable", cols, selected = "d18O"),
-                selectInput("color_variable", "Color", cols, selected = "P")
+                selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                selectInput("color_variable", "Color", cols, selected = "CommonName")
             ),
-
+            
             # Show a plot with configurable axes
             mainPanel(
                 plotOutput("varPlot")
@@ -420,31 +446,32 @@ ui <- fluidPage(
     )
 )
 
-# Define server logic required to draw both plots
+# Define server logic required to draw the two plots
 server <- function(input, output) {
-
-    output$depthPlot <- renderPlot({
-       ggplot(bg_chem, mapping = aes(x = CTD_Depth, y = CTD_Salinity)) +
-            geom_point(size=4, color="firebrick") +
-            xlim(input$depth[1],input$depth[2]) +
+    
+    #  turbidity plot
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$date[1],input$date[2])) +
             theme_light()
     })
-
+    
+    # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(bg_chem, mapping = aes_string(x = input$x_variable,
-                                             y = input$y_variable,
-                                             color = input$color_variable)) +
+        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
+                                                y = input$y_variable,
+                                                color = input$color_variable)) +
             geom_point(size=4) +
-            scale_color_gradient2(low="midnightblue", 
-                                  mid="white", 
-                                  high="firebrick", 
-                                  midpoint = mean(bg_chem[,input$color_variable])) +
             theme_light()
     })
 }
 
-# Run the application
+
+# Run the application 
 shinyApp(ui = ui, server = server)
+
 ```
 
 
