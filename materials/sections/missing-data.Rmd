@@ -157,12 +157,16 @@ The book 'forecating practices and principles:
 https://otexts.com/fpp2/missing-outliers.html
 
 
-```{r, eval =  FALSE}
+```{r}
+f <- theme(text=element_text(family="Garamond")
+
 ggplot_na_imputations(x_with_na = mac_nojja$tmean, 
                       x_with_imputations = mac_pred$tmean, 
-                      x_with_truth = mac_daymet$tmean )
+                      x_with_truth = mac_daymet$tmean )  +
+  f
 
-ggplot_na_distribution(mac_nas$tmean, x_axis_labels = mac_nas$date)
+ggplot_na_distribution(mac_nas$tmean, x_axis_labels = mac_nas$date) +
+  f
 
 
 interp <- na.interp(mac_nas$tmean)
@@ -176,22 +180,28 @@ plot(mac_daymet$tmean, interp_jjas)
 
 
 
-ggplot_na_distribution(mac_nas$tmean, x_axis_labels = mac_nas$date)
+ggplot_na_distribution(mac_nas$tmean, x_axis_labels = mac_nas$date) +
+  f
 
-ggplot_na_distribution(mac_nojja$tmean, x_axis_labels = mac_nojja$date)
+ggplot_na_distribution(mac_nojja$tmean, x_axis_labels = mac_nojja$date) +
+  f
 
-ggplot_na_intervals(mac_nas$tmean)
-ggplot_na_intervals(mac_nojja$tmean)
+ggplot_na_intervals(mac_nas$tmean) +
+  f
+ggplot_na_intervals(mac_nojja$tmean) +
+  f
 ```
 
 Gap Filling - weather, time series
 
-```{r, eval =  FALSE}
+```{r}
 imp <- na_interpolation(mac_nas, option = 'spline')
-ggplot_na_imputations(x_with_na = mac_nas$tmean, x_with_imputations = imp$tmean, x_with_truth = mac_daymet$tmean )
+ggplot_na_imputations(x_with_na = mac_nas$tmean, x_with_imputations = imp$tmean, x_with_truth = mac_daymet$tmean ) +
+  f
 
 imp <- na_interpolation(mac_nojja, option = 'stine')
-ggplot_na_imputations(x_with_na = mac_nojja$tmean, x_with_imputations = imp$tmean, x_with_truth = mac_daymet$tmean )
+ggplot_na_imputations(x_with_na = mac_nojja$tmean, x_with_imputations = imp$tmean, x_with_truth = mac_daymet$tmean ) +
+  f
 ```
 
 
@@ -202,7 +212,7 @@ try some different aproaches to missing data imputation:
 - replace with moving average `na_ma`
 - replace with ... random draws? `na_random`
 
-```{r, eval =  FALSE}
+```{r}
 my_ts <- function(x){
     ts(x, start = c(2017, 1), 
        end = c(2020, 365), 
@@ -212,7 +222,8 @@ my_ts <- function(x){
 imp <- na_seasplit(my_ts(mac_nojja$tmean))
 ggplot_na_imputations(x_with_na = my_ts(mac_nojja$tmean), 
                       x_with_imputations = imp, 
-                      x_with_truth = my_ts(mac_daymet$tmean ))
+                      x_with_truth = my_ts(mac_daymet$tmean )) +
+  f
 
 
 ```
