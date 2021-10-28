@@ -77,7 +77,7 @@ There are a variety of methods for interpolating missing data in time series. Th
 
 Lets look at an example. This dataset doesn't have any missing data, so we will make some.
 
-```{r sample_missing_data}
+```{r sample_missing_data, warning = FALSE, message = FALSE}
 library(lubridate)
 library(dplyr)
 library(imputeTS)
