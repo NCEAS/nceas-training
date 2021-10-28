@@ -75,7 +75,7 @@ Some common non-informative priors include a standard normal with large variance
 -   That was a trick question - is size measured as mass or length? Hint: Consider a spherical fish with radius 1cm and density of 1g/ml. Recall $V=\frac{4}{3}\pi r^3$
 -   When are informative priors useful?
 
-```{r spherical_fish, fig.height=3}
+```{r fig.height=3}
 length <- runif(100000, -10000, 10000)
 mass <- 4/3 * pi * (length / 2) ^ 3
 par(mfrow=c(1,2))
