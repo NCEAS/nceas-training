@@ -157,7 +157,7 @@ The book 'forecating practices and principles:
 https://otexts.com/fpp2/missing-outliers.html
 
 
-```{r}
+```{r, eval =  FALSE}
 ggplot_na_imputations(x_with_na = mac_nojja$tmean, 
                       x_with_imputations = mac_pred$tmean, 
                       x_with_truth = mac_daymet$tmean )
@@ -186,7 +186,7 @@ ggplot_na_intervals(mac_nojja$tmean)
 
 Gap Filling - weather, time series
 
-```{r}
+```{r, eval =  FALSE}
 imp <- na_interpolation(mac_nas, option = 'spline')
 ggplot_na_imputations(x_with_na = mac_nas$tmean, x_with_imputations = imp$tmean, x_with_truth = mac_daymet$tmean )
 
@@ -202,7 +202,7 @@ try some different aproaches to missing data imputation:
 - replace with moving average `na_ma`
 - replace with ... random draws? `na_random`
 
-```{r}
+```{r, eval =  FALSE}
 my_ts <- function(x){
     ts(x, start = c(2017, 1), 
        end = c(2020, 365), 
