@@ -52,6 +52,21 @@ the number of bins in the plot.
 
 Note that you can drag the slider to change the number of bins in the histogram.
 
+### Shiny architecture
+
+A Shiny application consists of two functions, the `ui` and the `server`.  The `ui`
+function is responsible for drawing the web page, while the `server` is responsible 
+for any calculations and for creating any dynamic components to be rendered.
+
+Each time that a user makes a change to one of the interactive widgets, the `ui`
+grabs the new value (say, the new slider min and max) and sends a request to the
+`server` to re-render the output, passing it the new `input` values that the user
+had set.  These interactions can sometimes happen on one computer (e.g., if the 
+application is running in your local RStudio instance).  Other times, the `ui` runs on
+the web browser on one computer, while the `server` runs on a remote computer somewhere
+else on the Internet (e.g., if the application is deployed to a web server).
+
+
 ### Interactive scatterplots
 
 Let's modify this application to plot YOLO bypass secchi disk data in a time-series, and allow aspects of the plot to be interactively changed.
@@ -182,19 +197,6 @@ second is the max value on the slider.
 
 ![](images/shiny-yolo-2.png)
 
-### Shiny architecture
-
-A Shiny application consists of two functions, the `ui` and the `server`.  The `ui`
-function is responsible for drawing the web page, while the `server` is responsible 
-for any calculations and for creating any dynamic components to be rendered.
-
-Each time that a user makes a change to one of the interactive widgets, the `ui`
-grabs the new value (say, the new slider min and max) and sends a request to the
-`server` to re-render the output, passing it the new `input` values that the user
-had set.  These interactions can sometimes happen on one computer (e.g., if the 
-application is running in your local RStudio instance).  Other times, the `ui` runs on
-the web browser on one computer, while the `server` runs on a remote computer somewhere
-else on the Internet (e.g., if the application is deployed to a web server).
 
 ### Extending the user interface with dynamic plots
 
