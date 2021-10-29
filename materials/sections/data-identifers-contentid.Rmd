@@ -1,9 +1,10 @@
-## Data Identifiers and `contentid`
+## Reproducible Data Access
 
 ### Learning Objectives
 
 In this lesson, you will learn:
 
+* Why we strive for reproducible data access
 * How content identifiers differ from DOIs
 * How content identifiers make research more reproducible
 * Ways to register and resolve content identifiers for unpublished data
@@ -11,8 +12,14 @@ In this lesson, you will learn:
 
 ### Reproducible data access
 
-Traditional ways of working with data -- as files on a file system -- limit the 
+- Traditional ways of working with data -- as files on a file system -- limit the 
 reproducibility of code to local compute environments.
+
+- Web URIs partly solve the problem, but are fragile
+
+- DOIs are the more recent approach to referencing datasets
+    - what they give us with indirection
+    - why DOIs don't really work for data access
 
 We want data access to be:
 
@@ -21,20 +28,78 @@ We want data access to be:
 - Versioned
 - Traceable
 - Transparent
+- Citable
 
+### Loading data from a URI
+
+```{r}
+
+```
+
+### Registering a content identifier from a URI
+
+```{r contentid_pin}
+vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid")
+id <- store(vostok_co2)
+retrieve(id)
+ 
+
+# Store and retrieve content from a URL 
+#id <- store("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/ess-dive-457358fdc81d3a5-20180726T203952542")
+retrieve(id)
+
+
+url <- "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+#x <- pin(url)
+## Faster if we're okay assuming URL is content-stable
+#x <- pin(url, verify = FALSE)
+```
 
 ### Loading data from a content identifier
 
-```{r}
+```{r load_packages}
 library(contentid)
 ```
 
-```{r}
-library(contentid)
-sha1 <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
-delta.file <- contentid::resolve(sha1, store = TRUE)
+```{r resolve}
+# This is the checksum in SHA-1 format for a Delta Taxonomy data file in CSV format
+checksum <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+
+delta_taxa_file <- contentid::resolve(checksum, store = TRUE)
 #delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
-delta.df <- readr::read_csv(delta.file, show_col_types=FALSE)
+delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
+# Do more stuff with this file
 ```
 
+This approach is **portable**, as anyone can run it without having the data local beforehand.
+This approach is **persistent**, because it pulls data from persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to 
+retrieve this data file:
+
+```{r list_sources}
+contentid::query_sources(checksum, registries = content_dir())
+# BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
+```
+
+This approach is **reproducible**, as the exact version will be used every time (even if someone changes the data at the original web URI).
+
+This approach is **traceable** because there is a reference in the code to the specific data used, and the only way to change which data are used is to change the `checksum` thst is being referenced to a new version.
+
+## Publishing local data identifiers
+
+### Improvements to content identifiers
+
+- Content identifiers are not well-linked to DOIs
+    - DOIs are the current standard for citing data, and carry the citation metadata for data packages (such as author, title, publication year, etc.)
+
+- Content identifiers are **opaque**, and not particularly transparent
+    - Need mechanisms to transparently know what a contentid refers to
+    - Luckily, we have everything we need to look up that info in DataONE and similar systems
+    
+- We can even retrieve the data citation for a content identifier
+    
+- Final example, showing use of contentid with metadata and a citation
+
+```{r citable_contentid}
+
+```
 
