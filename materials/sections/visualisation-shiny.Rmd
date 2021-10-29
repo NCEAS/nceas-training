@@ -268,7 +268,7 @@ from the `delta_data` data frame to a variable:
 
 ```{r shiny_cols_2, eval=FALSE, echo=TRUE}
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
-delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
 
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
@@ -379,7 +379,7 @@ library(lubridate)
 
 # read in the data from EDI
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
-delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
 
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
@@ -483,7 +483,7 @@ library(snakecase)
 
 # read in the data from EDI
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
-delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
 
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
