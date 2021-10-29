@@ -479,6 +479,7 @@ library(lubridate)
 library(shinythemes)
 library(sf)
 library(leaflet)
+library(snakecase)
 
 # read in the data from EDI
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
@@ -487,7 +488,10 @@ delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
     mutate(SampleDate = mdy(SampleDate))  %>% 
-    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName)) %>% 
+    rename(DissolvedOxygen = DO,
+           Ph = pH,
+           SpecificConductivity = SpCnd)
 
 cols <- names(delta_data)
 
@@ -498,8 +502,8 @@ sites <- delta_data %>%
 
 
 
-# Define UI for application that draws a two plots
-ui <- bootstrapPage(
+# Define UI for application
+ui <- fluidPage(
     navbarPage(theme = shinytheme("flatly"), collapsible = TRUE,
                HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">Sacramento River Floodplain Data</a>'), id="nav",
                windowTitle = "Sacramento River floodplain fish and water quality data",
@@ -524,11 +528,12 @@ ui <- bootstrapPage(
                tabPanel(
                    "Explore",
                    verticalLayout(
-                       fillPage(
+                       mainPanel(
                            plotOutput("distPlot"),
+                           width =  12,
                            absolutePanel(id = "controls",
                                          class = "panel panel-default",
-                                         top = 175, left = 75, width = 250, fixed=TRUE,
+                                         top = 175, left = 75, width = 300, fixed=TRUE,
                                          draggable = TRUE, height = "auto",
                                          sliderInput("date",
                                                      "Date:",
@@ -582,6 +587,7 @@ server <- function(input, output) {
         ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
             geom_point(colour="red", size=4) +
             xlim(c(input$date[1],input$date[2])) +
+            labs(x = "Sample Date", y = "Secchi Depth (m)") +
             theme_light()
     })
     
@@ -590,6 +596,9 @@ server <- function(input, output) {
         ggplot(delta_data, mapping = aes_string(x = input$x_variable,
                                                 y = input$y_variable,
                                                 color = input$color_variable)) +
+            labs(x = to_any_case(input$x_variable, case = "title"),
+                 y = to_any_case(input$y_variable, case = "title"),
+                 color = to_any_case(input$color_variable, case = "title")) +
             geom_point(size=4) +
             theme_light()
     })
