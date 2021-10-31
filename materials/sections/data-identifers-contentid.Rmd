@@ -32,52 +32,87 @@ We want data access to be:
 
 ### Loading data from a URI
 
-```{r}
+We'll be working with the following IEP dataset that is stored on EDI:
 
-```
+> Interagency Ecological Program (IEP), B. Schreier, B. Davis, and N. Ikemiyagi. 2019. Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018. ver 2. Environmental Data Initiative. https://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f (Accessed 2021-10-30).
+
+You can [view this IEP dataset on DataONE](https://search.dataone.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fedi%2F233%2F2#https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd):
+
+![](images/contentid-dataset.png)
+It also is visible from the [EDI dataset landing page](![](images/contentid-dataset.png)):
+
+![](../images/contentid-edi-landing-page.png)
+
+It has several data files, including:
+
+- Fish catch and water quality
+    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=015e494911cf35c90089ced5a3127334
+    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334
+- Fish taxonomy
+    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd
+    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd
+- Trap Effort
+    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=ace1ef25f940866865d24109b7250955
+    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955
+- Site locations
+    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d
+    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F6a82451e84be1fe82c9821f30ffc2d7d
+    
 
 ### Registering a content identifier from a URI
 
-```{r contentid_pin}
-vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid")
-id <- store(vostok_co2)
-retrieve(id)
- 
-
-# Store and retrieve content from a URL 
-#id <- store("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/ess-dive-457358fdc81d3a5-20180726T203952542")
-retrieve(id)
-
-
-url <- "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
-#x <- pin(url)
-## Faster if we're okay assuming URL is content-stable
-#x <- pin(url, verify = FALSE)
-```
-
-### Loading data from a content identifier
+First, load the `contentid` package for portable access to data.
 
 ```{r load_packages}
 library(contentid)
 ```
 
+```{r contentid_pin}
+delta_taxa_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd"
+delta_taxa_id <- store(delta_taxa_url, algos=c("sha1", "sha256"))
+
+delta_taxa_edi_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd"
+delta_taxa_edi_id <- store(delta_taxa_edi_url)
+
+delta_catch_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334"
+delta_catch_id <- store(delta_catch_url)
+
+delta_trap_effort_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955"
+delta_trap_effort_id <- store(delta_trap_effort_url, algos=c("sha1", "sha256"))
+
+print(c(delta_taxa_id=delta_taxa_id, delta_catch_id=delta_catch_id, delta_trap_effort_id=delta_trap_effort_id))
+```
+
+### Loading data from a content identifier
+
 ```{r resolve}
 # This is the checksum in SHA-1 format for a Delta Taxonomy data file in CSV format
-checksum <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+sha1_taxa <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
 
-delta_taxa_file <- contentid::resolve(checksum, store = TRUE)
+# This is the checksum for the Delta catch file Jeanette is using
+sha1_catch <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+
+delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
 #delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
 delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
 # Do more stuff with this file
+
+delta_example_file <- contentid::resolve(sha1_catch, store = TRUE)
+delta_example <- readr::read_csv(delta_example_file, show_col_types=FALSE)
+
+delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
+delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
 ```
 
 This approach is **portable**, as anyone can run it without having the data local beforehand.
-This approach is **persistent**, because it pulls data from persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to 
-retrieve this data file:
+This approach is **persistent**, because it pulls data from persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
 ```{r list_sources}
-contentid::query_sources(checksum, registries = content_dir())
+contentid::query_sources(sha1_taxa, registries = content_dir())
 # BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
+
+contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
+
 ```
 
 This approach is **reproducible**, as the exact version will be used every time (even if someone changes the data at the original web URI).
@@ -85,6 +120,13 @@ This approach is **reproducible**, as the exact version will be used every time 
 This approach is **traceable** because there is a reference in the code to the specific data used, and the only way to change which data are used is to change the `checksum` thst is being referenced to a new version.
 
 ## Publishing local data identifiers
+
+```{r register_local}
+# Store a local file
+vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid")
+id <- store(vostok_co2)
+retrieve(id)
+```
 
 ### Improvements to content identifiers
 
