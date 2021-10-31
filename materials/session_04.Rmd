@@ -3,6 +3,5 @@
 ```{r, child = 'sections/data-identifers-contentid.Rmd'}
 ```
 
-## EXCLUDE METADATA SECTION (WARNING MBJ)
-{r, child = 'sections/metadata-programming-publishing.Rmd'}
-
+```{r, child = 'sections/metadata-programming-publishing.Rmd'}
+```
