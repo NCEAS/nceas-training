@@ -1,5 +1,11 @@
 ## Reproducible Data Access
 
+```{r contentid_load_packages, echo=FALSE}
+library(readr)
+library(pins)
+library(contentid)
+```
+
 ### Learning Objectives
 
 In this lesson, you will learn:
@@ -12,10 +18,27 @@ In this lesson, you will learn:
 
 ### Reproducible data access
 
-- Traditional ways of working with data -- as files on a file system -- limit the 
-reproducibility of code to local compute environments.
+Traditional ways of working with data -- as files on a file system -- limit the 
+reproducibility of code to local compute environments. A typical R analysis file will load one or many data files from the local disk with code like this:
 
-- Web URIs partly solve the problem, but are fragile
+```{r contentid-file-load, eval=FALSE}
+delta_catch <- readr::read_csv('/Users/jkresearcher/Projects/2018/Delta_Analysis/delta_catch.csv')
+delta_taxa <- readr::read_csv('../../Delta_2021/delta_taxa.csv')
+delta_effort <- readr::read_csv('delta_effort.csv')
+delta_sites <- readr::read_csv('data/delta_sites.csv')
+```
+
+Which of those file paths are the most portable? And which will run unmodified on both the original computer that they were run on, and on colleagues' computers? In reality, none of them, in that they require that a specific data file be present in a specific location for the code to work properly, and these ssumptions are rarely met and hard to maintain.
+
+The Web partly solves this problem, because it allows code to access data that is located somewhere on the Internet with a web URI. For example, loading data from a web site can be much more portable than loading the equivalent data from a local computer.
+
+```{r contentid-load-web}
+delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
+delta_sites <- readr::read_csv(delta_sites_edi)
+head(delta_sites)
+```
+
+While this works well over the short term, abundant evidence shows that web URIs have short lifespan&emdash;most are defunct within a year or two. Only the most carefully curated web sites maintain the viability of there links for longer. And maintaining them for decadal long periods requires a focus on archival priciples and dedicated staff to ensure that files and the URLs at which they are published remain accessible over long time periods. This is precisely the role of archival data repositories like the Arctic Data Center, the KNB Data Repository, and the Environmental Data Initiative (EDI).
 
 - DOIs are the more recent approach to referencing datasets
     - what they give us with indirection
@@ -43,38 +66,36 @@ It also is visible from the [EDI dataset landing page](https://portal.edireposit
 
 ![](images/contentid-edi-landing-page.png)
 
-It has several data files, including:
+It contains several data files, each of which is at a specific web URI, including:
 
 - Fish catch and water quality
-    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=015e494911cf35c90089ced5a3127334
 - Fish taxonomy
-    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd
 - Trap Effort
-    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=ace1ef25f940866865d24109b7250955
 - Site locations
-    - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d
 
-```{r contentid-data-uris}
+```{r contentid-dataone-uris}
 delta_catch_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334"
 delta_taxa_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd"
-#delta_taxa_edi_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd"
 delta_effort_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955"
 delta_sites_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F6a82451e84be1fe82c9821f30ffc2d7d"
 ```
 
+```{r contentid-edi-uris, echo=FALSE}
+delta_catch_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=015e494911cf35c90089ced5a3127334'
+delta_taxa_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd'
+delta_effort_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=ace1ef25f940866865d24109b7250955'
+delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
+```
+
+### Loading from a web URL
 
 ### Registering a content identifier from a URI
 
-First, load the `contentid` package for portable access to data.
-
-```{r contentid_load_packages}
-library(contentid)
-```
+Use the `contentid` package for portable access to data.
 
 ```{r contentid_store, eval=TRUE}
 delta_catch_id <- store(delta_catch_url)
 delta_taxa_id <- store(delta_taxa_url)
-#delta_taxa_edi_id <- store(delta_taxa_edi_url)
 delta_effort_id <- store(delta_effort_url)
 delta_sites_id <- store(delta_sites_url)
 
@@ -87,22 +108,22 @@ print(c(delta_catch_id=delta_catch_id,
 ### Loading data from a content identifier
 
 ```{r resolve}
-#delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+# delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
 delta_catch_id <- 'hash://sha256/e0dc10d7f36cfc5ac147956abb91f24f2b2df9f914a004bbf1e85e7d9cf52f41'
-#delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+# delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
 delta_taxa_id <- 'hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d'
 delta_effort_id <- 'hash://sha256/f2433efab802f55fa28c4aab628f3d529f4fdaf530bbc5c3a67ab92b5e8f71b2'
 delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c8abcdd6f5cef55a9b'
 
-delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
-delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
-
-delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
-delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
-delta_catch
-
-delta_sites_file <- contentid::resolve(delta_sites_id, store = TRUE)
-delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
+# delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
+# delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
+# 
+# delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
+# delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
+# delta_catch
+# 
+# delta_sites_file <- contentid::resolve(delta_sites_id, store = TRUE)
+# delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
 ```
 
 This approach is **portable**, as anyone can run it without having the data local beforehand.
@@ -127,7 +148,7 @@ vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid"
 id <- store(vostok_co2)
 vostok <- retrieve(id)
 co2 <- read.table(vostok, col.names = c("depth", "age_ice", "age_air", "co2"), skip = 21)
-co2
+head(co2)
 ```
 
 ### Improvements to content identifiers
