@@ -47,72 +47,72 @@ It has several data files, including:
 
 - Fish catch and water quality
     - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=015e494911cf35c90089ced5a3127334
-    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334
 - Fish taxonomy
     - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd
-    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd
 - Trap Effort
     - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=ace1ef25f940866865d24109b7250955
-    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955
 - Site locations
     - https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d
-    - https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F6a82451e84be1fe82c9821f30ffc2d7d
-    
+
+```{r contentid-data-uris}
+delta_catch_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334"
+delta_taxa_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd"
+#delta_taxa_edi_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd"
+delta_effort_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955"
+delta_sites_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F6a82451e84be1fe82c9821f30ffc2d7d"
+```
+
 
 ### Registering a content identifier from a URI
 
 First, load the `contentid` package for portable access to data.
 
-```{r load_packages}
+```{r contentid_load_packages}
 library(contentid)
 ```
 
-```{r contentid_pin}
-delta_taxa_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd"
-delta_taxa_id <- store(delta_taxa_url, algos=c("sha1", "sha256"))
-
-delta_taxa_edi_url <- "https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd"
-delta_taxa_edi_id <- store(delta_taxa_edi_url)
-
-delta_catch_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334"
+```{r contentid_store, eval=TRUE}
 delta_catch_id <- store(delta_catch_url)
+delta_taxa_id <- store(delta_taxa_url)
+#delta_taxa_edi_id <- store(delta_taxa_edi_url)
+delta_effort_id <- store(delta_effort_url)
+delta_sites_id <- store(delta_sites_url)
 
-delta_trap_effort_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955"
-delta_trap_effort_id <- store(delta_trap_effort_url, algos=c("sha1", "sha256"))
-
-print(c(delta_taxa_id=delta_taxa_id, delta_catch_id=delta_catch_id, delta_trap_effort_id=delta_trap_effort_id))
+print(c(delta_catch_id=delta_catch_id, 
+        delta_taxa_id=delta_taxa_id,
+        delta_effort_id=delta_effort_id, 
+        delta_sites_id=delta_sites_id))
 ```
 
 ### Loading data from a content identifier
 
 ```{r resolve}
-# This is the checksum in SHA-1 format for a Delta Taxonomy data file in CSV format
-sha1_taxa <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
-
-# This is the checksum for the Delta catch file Jeanette is using
-sha1_catch <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+#delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta_catch_id <- 'hash://sha256/e0dc10d7f36cfc5ac147956abb91f24f2b2df9f914a004bbf1e85e7d9cf52f41'
+#delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+delta_taxa_id <- 'hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d'
+delta_effort_id <- 'hash://sha256/f2433efab802f55fa28c4aab628f3d529f4fdaf530bbc5c3a67ab92b5e8f71b2'
+delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c8abcdd6f5cef55a9b'
 
 delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
-#delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = FALSE)
 delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
-# Do more stuff with this file
-
-delta_example_file <- contentid::resolve(sha1_catch, store = TRUE)
-delta_example <- readr::read_csv(delta_example_file, show_col_types=FALSE)
 
 delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
 delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
+delta_catch
+
+delta_sites_file <- contentid::resolve(delta_sites_id, store = TRUE)
+delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
 ```
 
 This approach is **portable**, as anyone can run it without having the data local beforehand.
 This approach is **persistent**, because it pulls data from persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
 ```{r list_sources}
-contentid::query_sources(sha1_taxa, registries = content_dir())
-# BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
-
+#contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"), registries = content_dir())
 contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 
+# BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
 ```
 
 This approach is **reproducible**, as the exact version will be used every time (even if someone changes the data at the original web URI).
@@ -125,7 +125,9 @@ This approach is **traceable** because there is a reference in the code to the s
 # Store a local file
 vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid")
 id <- store(vostok_co2)
-retrieve(id)
+vostok <- retrieve(id)
+co2 <- read.table(vostok, col.names = c("depth", "age_ice", "age_air", "co2"), skip = 21)
+co2
 ```
 
 ### Improvements to content identifiers
