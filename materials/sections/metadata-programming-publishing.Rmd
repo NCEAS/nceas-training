@@ -1,6 +1,7 @@
 ## Programming Metadata and Data Publishing
 
-<!-- WARNING: currently set to NOT eval ANY blocks, switch back before final build -->
+<!-- WARNING MBJ: currently set to NOT eval ANY blocks, switch back before final build -->
+<!-- Also adjust the final chunk in this file that resets eval=TRUE -->
 ```{r metapp-setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 ```
@@ -535,3 +536,6 @@ packageId <- uploadDataPackage(d1c, dp, public = TRUE)
 You can now search for and view the package at https://test.arcticdata.io:
 
 ![](images/data-uploaded-simple.png)
+```{r metapp-reset, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
+```

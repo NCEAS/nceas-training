@@ -32,14 +32,16 @@ Which of those file paths are the most portable? And which will run unmodified o
 
 The Web partly solves this problem, because it allows code to access data that is located somewhere on the Internet with a web URI. For example, loading data from a web site can be much more portable than loading the equivalent data from a local computer.
 
-```{r contentid-load-web}
+<!-- WARNING MBJ: currently set to NOT eval this block, switch back before final build -->
+```{r contentid-load-web, eval=FALSE}
 delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
 delta_sites <- readr::read_csv(delta_sites_edi, show_col_types = FALSE)
 head(delta_sites)
 ```
 In theory, that code will work from anyone's computer with an internet connection. But code that downloads data each and every time it is run is not particularly efficient, and will be prohibitive for all but the smallest datasets. A simple solution to this issue is to cache a local copy of the dataset, and only retrieve the original from the web when we don't have a local copy. In this way, people running code or a script will download the data the first time their code is run, but use a local copy from thence forward. While this can be accomplished with some simple conditional logic in R, the pattern has been simplified using the `pins` package:
 
-```{r contentid-pins}
+<!-- WARNING MBJ: currently set to NOT eval this block, switch back before final build -->
+```{r contentid-pins, eval=FALSE}
 delta_sites_edi <- pins::pin('https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d')
 delta_sites <- readr::read_csv(delta_sites_edi, show_col_types = FALSE)
 head(delta_sites)
@@ -98,7 +100,8 @@ delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=ed
 
 Use the `contentid` package for portable access to data.
 
-```{r contentid_store, eval=TRUE}
+<!-- WARNING MBJ: currently set to NOT eval this block, switch back before final build -->
+```{r contentid_store, eval=FALSE}
 delta_catch_id <- store(delta_catch_url)
 delta_taxa_id <- store(delta_taxa_url)
 delta_effort_id <- store(delta_effort_url)
@@ -109,7 +112,8 @@ print(c(delta_catch_id=delta_catch_id,
         delta_effort_id=delta_effort_id, 
         delta_sites_id=delta_sites_id))
 ```
-```{r contentid-remote-build, eval=FALSE, include=FALSE}
+<!-- WARNING MBJ: currently set to EVAL this block, switch back before final build -->
+```{r contentid-remote-build, eval=TRUE, include=FALSE}
 delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
 delta_catch_id <- 'hash://sha256/e0dc10d7f36cfc5ac147956abb91f24f2b2df9f914a004bbf1e85e7d9cf52f41'
 delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
@@ -135,9 +139,10 @@ delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
 This approach is **portable**, as anyone can run it without having the data local beforehand.
 This approach is **persistent**, because it pulls data from persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
+<!-- WARNING MBJ: currently set to only use local repos, switch back before final build -->
 ```{r list_sources}
-#contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"), registries = content_dir())
-contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
+contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"), registries = content_dir())
+#contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 
 # BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
 ```
@@ -146,7 +151,7 @@ This approach is **reproducible**, as the exact version will be used every time 
 
 This approach is **traceable** because there is a reference in the code to the specific data used, and the only way to change which data are used is to change the `checksum` thst is being referenced to a new version.
 
-## Publishing local data identifiers
+### Publishing local data identifiers
 
 ```{r register_local}
 # Store a local file
