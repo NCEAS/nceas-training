@@ -104,26 +104,27 @@ print(c(delta_catch_id=delta_catch_id,
         delta_effort_id=delta_effort_id, 
         delta_sites_id=delta_sites_id))
 ```
-
-### Loading data from a content identifier
-
-```{r resolve}
-# delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+```{r contentid-remote-build, eval=FALSE, include=FALSE}
+delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
 delta_catch_id <- 'hash://sha256/e0dc10d7f36cfc5ac147956abb91f24f2b2df9f914a004bbf1e85e7d9cf52f41'
-# delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
 delta_taxa_id <- 'hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d'
 delta_effort_id <- 'hash://sha256/f2433efab802f55fa28c4aab628f3d529f4fdaf530bbc5c3a67ab92b5e8f71b2'
 delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c8abcdd6f5cef55a9b'
+```
 
-# delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
-# delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
-# 
-# delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
-# delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
-# delta_catch
-# 
-# delta_sites_file <- contentid::resolve(delta_sites_id, store = TRUE)
-# delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
+### Loading data from a content identifier
+
+```{r contentid-resolve}
+delta_taxa_file <- contentid::resolve(delta_taxa_id, store = TRUE)
+delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types=FALSE)
+ 
+delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
+delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
+head(delta_catch)
+ 
+delta_sites_file <- contentid::resolve(delta_sites_id, store = TRUE)
+delta_sites <- readr::read_csv(delta_sites_file, show_col_types = FALSE)
 ```
 
 This approach is **portable**, as anyone can run it without having the data local beforehand.
