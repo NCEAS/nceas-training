@@ -3,16 +3,24 @@ author: "David LeBauer"
 date: "10/22/2021"
 ---
 
-## Starting with time series.
-
 
 ## Learning Objectives
+
+
+These lessons are the equivalent of a city bus tour. They are a high level tour of some useful functions. 
+
+There are plenty of more detailed lessons on the internet. I would recommend starting with the  ["Forecasting Principles and Practice v2"](https://otexts.com/fpp2/) by Rob Hyndman who wrote the forecast package.
+
+Today we will take a tour with the `predict` function in R, as well as some advanced time series statistics that are provided by the forecast package.
 
 In this session you will learn how to
 
 - Simulate data and test if your model is working as expected
 - Use linear regression to fit and predict time series
+- Visualize data
 - Decompose a time series into seasonal, trend, and error
+
+_a note on the forecast package_ Hydnman and others are creating the successor to the forecast package called 'feasts'. The next version of the text uses this package https://otexts.com/fpp3/.  
 
 ## Linear regression, with time as a predictor
 
@@ -74,7 +82,8 @@ summary(mod_linear)
 
 # plot(mod_linear)
 ```
-### Time series 'feature extraction'
+
+## Time series 'feature extraction'
 
 We've already extracted features from our time series. What are 'features'? These are 
 properties underlying the data. In this case, the information in our time series has been condensed into a slope and intercept. 
@@ -89,6 +98,7 @@ For an example of Bayesian logistic regression using JAGS, see the work done by 
 
 Dietze's Ecological forecasting course shows how to simulate a logistic growth curve using Monte Carlo methods. https://github.com/EcoForecast/EF_Activities/blob/master/Exercise_02_Logistic.Rmd 
 
+There are a huge number of other methods for 'dimensionality reduction'. Principal components analysis is an important one. Another is taking a full resolution image and reducing the resolution to a few  pixels square, and everything in between. In the 'machine learning' world a wide range of methods are used in a process that they call 'encoding' . 
 
 ### The 'predict' function: forecasting with a fitted regression model
 
@@ -118,6 +128,7 @@ plot(mass ~ day,
 
 ```
 
+Now, we have predicted the next five days of growth! 
 
 ## Time Series objects in R
 
@@ -290,22 +301,27 @@ Such a model can take parameters for equations that control the the dynamics of 
 
 The 'state' of the system may be partially unobserved. But we can infer these states based on observations. 
 
-
-
-
 The concept of a 'data generating process' is an important concept when modeling, and when synthesizing data from many different locations. A 'data generating process' includes both the system being studied and the tools used to observe. It is common to hear people refer to data as if it is the truth. But data can only represent an incomplete view of the system itself.  In the end both data and models are representations of a system.
  
-
+Consider satellite imagery, radiative transfer models.
 
 ## Ecological Forecasting
 
 Like time series, forecasting is a very large area of research. 
 
-Ecological forecasting is an emerging discipline, and it covers both basic research and the application of ecological understanding to applications. Forecasts can help provide insights into the future state of a system as well as provide guidance on management scenarios.
+Ecological forecasting is an emerging discipline, and it covers both basic research and the application of ecological understanding to applications. Forecasts can help provide insights into the future state of a system as well as provide guidance on management scenarios. 
 
-Key references include Clark et al 2001 and Dietze et al 2018 below. The Ecological Forecasting Initiative (EFI, [ecoforecast.org](https://ecoforecast.org/)) is a Research Coordination Network that you can join to learn and contribute to the development of this field.
+That is exactly what it sounds like you need to do!
+
+
 
 Some examples of ecological forecasting problems:
+
+Where is the hurricane going to end up?
+
+How much carbon can the land store?
+
+How will flooding affect delta planton and fish populations?
 
 Predict the potential yield of different crops under future climates
 
@@ -315,8 +331,7 @@ Predict forest green up and senescence
 
 ![](images/efi_phenology.png)
 
-Predict the growth of organic farming in the US
-
+Key references include Clark et al 2001 and Dietze et al 2018 below. The Ecological Forecasting Initiative (EFI, [ecoforecast.org](https://ecoforecast.org/)) is a Research Coordination Network that you can join to learn and contribute to the development of this field.
 
 
 ### Forecasting Challenges
@@ -341,6 +356,8 @@ summary(ts_fit)
 plot(forecast(ts_fit, h = 20))
 
 ```
+
+Now if you aren't careful, it can automagically fit some fancy model. In this case, the STL+ETS(A,A,N). Is a combination of a Seasonal Trend with Loess and an Exponential smoothing state space model.  
 
 ```{r}
 ts_fit <- stlf(all[,'seasonal_trend'])
