@@ -1,17 +1,21 @@
-# Programming Metadata and Data Publishing
+## Programming Metadata and Data Publishing
 
-## Learning Objectives
+```{r metapp-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
+```
+
+### Learning Objectives
 
 In this lesson, you will learn:
 
 - How to write standardized metadata in R
 - How to publish data packages to the Arctic Data Center programmatically
 
-For datasets with a relatively small number of files that do not have many columns, the Arctic Data Center web form is the most efficient way to create metadata. However, for datasets that have many hundreds of files with a similar structure, or a large number of attributes, programmatic metadata creation may be more efficent. Creating metadata and publishing programmatically also allows for more a streamlined approach to updating datasets that have been published. By incorporating this documentation and publishing approach into your scientific workflow, you can improve the reproducibility and transparency of your work.
+For datasets with a relatively small number of files that do not have many columns, the Arctic Data Center web form is the most efficient way to create metadata. However, for datasets that have many hundreds of files with a similar structure, or a large number of attributes, programmatic metadata creation may be more efficient. Creating metadata and publishing programmatically also allows for more a streamlined approach to updating datasets that have been published. By incorporating this documentation and publishing approach into your scientific workflow, you can improve the reproducibility and transparency of your work.
 
-## Creating Metadata
+### Creating Metadata
 
-### About Ecological Metadata Language (EML)
+#### About Ecological Metadata Language (EML)
 
 EML, the metadata standard that the Arctic Data Center uses, looks like this:
 
@@ -87,7 +91,7 @@ This shows that within `individualName` there are 3 possible child elements: `sa
 
 So, to summarize, EML is the metadata standard used by the Arctic Data Center. It is written in XML, which consists of a series of nested elements. The element definitions, required elements, and structure are all defined by a schema. When you write EML, in order for it to be valid, your EML document must conform to the requirements given in the schema.
 
-### Metadata in R: a simple example
+#### Metadata in R: a simple example
 
 Now, let's learn how the [EML package](https://github.com/ropensci/EML) can help us create EML in R.
 
@@ -138,7 +142,7 @@ eml_validate(doc)
 We can write our EML using `write_eml`.
 
 ```{r}
-write_eml(doc, "files/simple_example.xml")
+write_eml(doc, "../files/simple_example.xml")
 ```
 
 Here is what the written file looks like:
@@ -147,7 +151,7 @@ Here is what the written file looks like:
 <?xml version="1.0" encoding="UTF-8"?>
 <eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1" packageId="id" system="system" xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1/ eml.xsd">
   <dataset>
-    <title>A minimial valid EML dataset</title>
+    <title>A minimal valid EML dataset</title>
     <creator>
       <individualName>
         <givenName>Jeanette</givenName>
@@ -164,7 +168,7 @@ Here is what the written file looks like:
 </eml:eml>
 ```
 
-### Validation Errors
+#### Validation Errors
 
 One of the hardest parts about creating EML in R is diagnosing validation errors. I won't get into too much detail, but here is a simple example. The `eml$...` family of helpers can help prevent validation errors, since they have a set list of arguments which are allowed. Here, I bypass the `eml$dataset()` helper function to show what the error looks like.
 
@@ -180,7 +184,7 @@ eml_validate(doc)
 
 This error essentially says that the element `arbitrary` is not expected, and gives you a hint of some elements that were expected. Validation errors can be tricky, especially when there are lots of them. Validate early and often!
 
-### Metadata in R: A more complete example
+#### Metadata in R: A more complete example
 
 As you might imagine, creating a complete metadata record like what is shown on [this page](https://arcticdata.io/catalog/view/doi:10.18739/A26W9688B) would be pretty tedious if we did it just using the generic `list` or `eml$...` helpers, since the nesting structure can be very deep.
 
@@ -199,7 +203,7 @@ We will edit these elements using a mix of helpers and generic techniques.
 
 To get set up, navigate to [this dataset](https://test.arcticdata.io/view/urn:uuid:da8b9bfc-ddea-4af4-9680-c2dafe4a1225) and download the CSV file and the R script. Put them in a directory called `files` that is a sub-directory of the location of this RMarkdown file.
 
-#### Title, creator, contact
+##### Title, creator, contact
 
 To start, lets create a basic EML skeleton using our example above, but with more information in the creator and contact information besides just my name.
 
@@ -220,7 +224,7 @@ doc <- list(packageId = "dataset-1", system = "local",
 
 Because we have used the `eml$dataset` helper, all of the possible sub-elements have been populated in our EML document, allowing us to easily access and edit them using R autocomplete.
 
-#### Abstract
+##### Abstract
 
 We can use this to dive down into sub-elements and edit them. Let's do the abstract. This is a simple element so we can just assign the value of the `abstract` to a character string.
 
@@ -228,16 +232,16 @@ We can use this to dive down into sub-elements and edit them. Let's do the abstr
 doc$dataset$abstract <- "A brief but comprehensive description of the who, what, where, when, why, and how of my dataset."
 ```
 
-#### Methods
+##### Methods
 
 We can use the `set_methods` function to parse a markdown (or word) document and insert it into the methods section. This way of adding text is especially nice because it preserves formatting.
 
 ```{r}
-doc$dataset$methods <- set_methods("files/methods.md")
+doc$dataset$methods <- set_methods("../files/methods.md")
 doc$dataset$methods
 ```
 
-#### Coverage
+##### Coverage
 
 The geographic and temporal coverage can be set using `set_coverage`.
 
@@ -251,14 +255,14 @@ doc$dataset$coverage <- set_coverage(beginDate = 2001,
                                      southBoundingCoordinate = 55)
 ```
 
-#### Data file: script
+##### Data file: script
 
 Information about data files (or `entity` level information) can be added in child elements of the `dataset` element. Here we will use the element `otherEntity` (other options include `spatialVector`, `spatialRaster`, and `dataTable`) to represent the R script.
 
 First, some high level information.
 
 ```{r}
-doc$dataset$otherEntity <- eml$otherEntity(entityName = "files/datfiles_processing.R",
+doc$dataset$otherEntity <- eml$otherEntity(entityName = "../files/datfiles_processing.R",
                                            entityDescription = "Data processing script",
                                            entityType = "application/R")
 ```
@@ -266,20 +270,20 @@ doc$dataset$otherEntity <- eml$otherEntity(entityName = "files/datfiles_processi
 We can use the `set_physical` helper to set more specific information about the file, like its size, delimiter, and checksum. This function automatically detects fundamental characteristics about the file if you give it a path to your file on your system.
 
 ```{r}
-doc$dataset$otherEntity$physical <- set_physical("files/datfiles_processing.R")
+doc$dataset$otherEntity$physical <- set_physical("../files/datfiles_processing.R")
 ```
 
-#### Data file: tabular
+##### Data file: tabular
 
 Here we will use the element `dataTable` to describe the tabular data file.
 
 As before, we set the `entityName`, `entityDescription`, and the `physical` sections.
 
 ```{r}
-doc$dataset$dataTable <- eml$dataTable(entityName = "files/my-data.csv",
+doc$dataset$dataTable <- eml$dataTable(entityName = "../files/my-data.csv",
                                        entityDescription = "Temperature data from in-situ loggers")
 
-doc$dataset$dataTable$physical <- set_physical("files/my-data.csv")
+doc$dataset$dataTable$physical <- set_physical("../files/my-data.csv")
 ```
 
 Next, perhaps the most important part of metadata, but frequently the most difficult to document in a metadata standard: attribute level information. An attribute is a variable in your dataset. For tabular data, this is information about columns within data tables, critical to understanding what kind of information is actually in the table!
@@ -318,12 +322,12 @@ As you might imagine, this can get VERY tedious with wide data tables. The funct
 Note: this requires that the `shinyjs` package is installed.
 
 ```{r, eval = F}
-atts_shiny <- shiny_attributes(data = read.csv("files/my-data.csv"))
+atts_shiny <- shiny_attributes(data = read.csv("../files/my-data.csv"))
 ```
 
 This produces a `data.frame` that you can insert into `set_attributes` as above.
 
-#### Validating and writing the file
+##### Validating and writing the file
 
 Finally, we need to validate and write our file.
 
@@ -332,17 +336,17 @@ eml_validate(doc)
 ```
 
 ```{r}
-write_eml(doc, "files/complex_example.xml")
+write_eml(doc, "../files/complex_example.xml")
 ```
 
-## Publish data to the Arctic Data Center test site
+### Publish data to the Arctic Data Center test site
 
-### Setup and Introduction
+#### Setup and Introduction
 
 Now let's see how to use the *dataone* and *datapack* R packages to upload data to DataONE
 member repositories like the [KNB Data Repository](https://knb.ecoinformatics.org) and the [Arctic Data Center](https://arcticdata.io).
 
-#### The `dataone` package
+##### The `dataone` package
 
 The *dataone* R package provides methods to enable R scripts to interact with DataONE to search for, download, upload and update data and metadata. The purpose of uploading data from R is to automate the repetitive tasks for large datasets with many files.  For small datasets, the web submission form will certainly be simpler.
 
@@ -350,7 +354,7 @@ The `dataone` package interacts with two major parts of the DataONE infrastructu
 
 In addition to the production `cn`, there are also several test coordinating node environments, and corresponding test member node environments. In this tutorial, we will be posting data to the test Arctic Data Center environment.
 
-#### The `datapack` package
+##### The `datapack` package
 
 The *datapack* R package represents the set of files in a dataset as a `datapack::DataPackage`. This `DataPackage` is just a special R object class that is specified in the `datapack` package. Each object in that `DataPackage` is represented as a `DataObject`, another R object class specified by `datapack`. 
 
@@ -362,11 +366,11 @@ Each of the files in the diagram above has a relationship with the other files, 
 
 Before uploading any data to a DataONE repository, you must login to get an *authentication token*, which is a character string used to identify yourself. This token can be retrieved by logging into the test repository and copying the token into your R session.
 
-#### Obtain an ORCID
+##### Obtain an ORCID
 
 ORCID is a researcher identifier that provides a common way to link your researcher identity to your articles and data.  An ORCID is to a researcher as a DOI is to a research article.  To obtain an ORCID, register at https://orcid.org.
 
-#### Log in to the test repository and copy your token
+##### Log in to the test repository and copy your token
 
 We will be using a test server, so login and retrieve your token at https://test.arcticdata.io.
 
@@ -376,7 +380,7 @@ Once you are logged in, navigate to your Profile Settings, and locate the "Authe
 
 Finally, paste the token into the R Console to register it as an option for this R session.  You are now logged in.  But note that you need to keep this token private; don't paste it into scripts or check it into git, as it is just as sensitive as your password.
 
-### Uploading A Package Using R with `uploadDataPackage`
+#### Uploading A Package Using R with `uploadDataPackage`
 
 Datasets and metadata can be uploaded individually or as a collection. Such a collection, whether contained in local R objects or existing on a DataONE repository, will be informally referred to as a `package`.
 
@@ -424,7 +428,7 @@ Now we need to modify our EML document to include these identifiers. This increa
 First read in the EML that we created earlier.
 
 ```{r}
-doc <- read_eml("files/complex_example.xml")
+doc <- read_eml("../files/complex_example.xml")
 ```
 
 Let's replace the arbitrary `packageId` and `system` that we set in the example above to reflect the identifier we created for this package, and the system we are uploading the package to.
@@ -448,7 +452,7 @@ doc$dataset$otherEntity$physical$distribution$online$url <- paste0(mn@endpoint,
                                                                    "object/",
                                                                    script_id)
 
-write_eml(doc, "files/complex_example.xml")
+write_eml(doc, "../files/complex_example.xml")
 ```
 
 Now we have a full metadata document ready to be uploaded. We now need to add our files to the `DataPackage`.
@@ -462,7 +466,7 @@ The `format` argument specifies the type of file, and should match one of the li
 metadataObj <- new("DataObject",
                    id = metadata_id,
                    format ="eml://ecoinformatics.org/eml-2.1.1",
-                   filename = "files/complex_example.xml")
+                   filename = "../files/complex_example.xml")
 ```
 
 After creating the `DataObject` that represents the metadata file, we add it to the data package using `addMember`.
@@ -479,7 +483,7 @@ We add the data file and the script similarly. The only difference is in the `ad
 sourceObj <- new("DataObject",
                  id = data_id,
                  format = "text/csv",
-                 filename = "files/my-data.csv")
+                 filename = "../files/my-data.csv")
 
 dp <- addMember(dp, sourceObj, mo = metadataObj)
 dp
@@ -492,7 +496,7 @@ Next we add our script in the same way.
 scriptObj <- new("DataObject",
                  id = script_id,
                  format = "application/R",
-                 filename = "files/datfiles_processing.R")
+                 filename = "../files/datfiles_processing.R")
 
 dp <- addMember(dp, scriptObj, mo = metadataObj)
 dp
@@ -530,3 +534,6 @@ packageId <- uploadDataPackage(d1c, dp, public = TRUE)
 You can now search for and view the package at https://test.arcticdata.io:
 
 ![](images/data-uploaded-simple.png)
+```{r metapp-reset, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
+```
