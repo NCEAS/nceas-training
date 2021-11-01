@@ -1,9 +1,5 @@
 ## Introduction to Shiny
 
-```{r shinysetup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ### Learning Objectives
 
 In this lesson we will:
@@ -78,7 +74,7 @@ Let's modify this application to plot YOLO bypass secchi disk data in a time-ser
 Use this code to load the data at the top of your `app.R` script. Note we are using `contentId` again, and we have filtered
 for some species of interest.
 
-```{r load_bgchem}
+```{r load_bgchem, eval = FALSE}
 library(shiny)
 library(contentid)
 library(dplyr)
