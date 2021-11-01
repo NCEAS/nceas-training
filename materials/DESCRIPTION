@@ -4,7 +4,7 @@ Title: Does not matter.
 Version: 0.0.2
 Imports: 
     bookdown,
-    contentId,
+    contentid,
     datapack,
     DiagrammeR,
     dplyr,
@@ -33,4 +33,5 @@ Imports:
     foreach,
     parallel,
     plotly
-Remotes: rstudio/bookdown
+Remotes: 
+    rstudio/bookdown
