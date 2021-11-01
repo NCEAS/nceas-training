@@ -594,7 +594,7 @@ ggplot(gcc, aes(time, gcc_90)) +
 
 
 
-```{r fig.height=4}
+```{r, fig.height=4, eval = F}
 
 gcc_ts <- ts(gcc_wide$BART, frequency = 365)
 plot(gcc_ts)
