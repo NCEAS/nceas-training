@@ -4,6 +4,7 @@ Title: Does not matter.
 Version: 0.0.2
 Imports: 
     bookdown,
+    contentId,
     datapack,
     DiagrammeR,
     dplyr,
@@ -19,6 +20,7 @@ Imports:
     leaflet,
     mcmcplots,
     ncdf4,
+    pins,
     readr,
     rjags,
     rvest,
