@@ -28,7 +28,7 @@ delta_effort <- readr::read_csv('delta_effort.csv')
 delta_sites <- readr::read_csv('data/delta_sites.csv')
 ```
 
-Which of those file paths are the most portable? And which will run unmodified on both the original computer that they were written on, and on colleagues' computers? In reality, none of them, in that they require that a specific data file be present in a specific location for the code to work properly, and these assumptions are rarely met and hard to maintain.
+Which of those file paths are the most portable? And which will run unmodified on both the original computer that they were written on, and on colleagues' computers? In reality, none of them, in that they require that a specific data file be present in a specific location for the code to work properly, and these assumptions are rarely met and hard to maintain. Hardcoded paths like these are often spread deeply through the scripts that researchers write, and can become a surprise when they are encountered during execution. 
 
 The Web partly solves this problem, because it allows code to access data that is located somewhere on the Internet with a web URI. For example, loading data from a web site can be much more portable than loading the equivalent data from a local computer.
 
@@ -49,11 +49,11 @@ head(delta_sites)
 
 You'll note that code takes longer the first time it is run, as the data file is downloaded only the first time. While this works well over the short term, abundant evidence shows that web URIs have short lifespan. Most URIs are defunct within a few years (e.g., see [McCown et al. 2005](http://arxiv.org/abs/cs/0511077)). Only the most carefully curated web sites maintain the viability of their links for longer. And maintaining them for decade-long periods requires a focus on archival principles and dedicated staff to ensure that files and the URLs at which they are published remain accessible. This is precisely the role of archival data repositories like the [Arctic Data Center](https://arcticdata.io), the [KNB Data Repository](https://knb.ecoinformatics.org), and the [Environmental Data Initiative (EDI)](https://portal.edirepository.org).
 
-Finally, no discussion of data access and persistence would be complete without discussing the use of [Digital Object Identifiers (DOIs)](https://datacite.org). DOIs have become the dominant means to create persistent links to academic articles, publications, and datasets. They work by assigning a DOI *name* to a published work, and then ensuring that the DOI name always redirects to the current web location of the resource. Journals, societies, and data repositories actively maintain the redirection between a DOI such as [doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f](https://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f) and its current location on the EDI Repository. DOIs are commonly assigned to published datasets, and include the bibliographic metadata needed to properly cite and access the dataset.
+Finally, no discussion of data access and persistence would be complete without discussing the use of [Digital Object Identifiers (DOIs)](https://datacite.org). DOIs have become the dominant means to create persistent links to academic articles, publications, and datasets. As **authority-based** identifiers, they work when an authority assigns a DOI *name* to a published work, and then ensures that the DOI name always redirects to the current web location of the resource. This is a lot of work, and there is no guarantees that the authorities will keep the links up-to-date. Journals, societies, and data repositories actively maintain the redirection between a DOI such as [doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f](https://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f) and its current location on the EDI Repository. DOIs are commonly assigned to published datasets, and include the bibliographic metadata needed to properly cite and access the dataset.
 
-The challenge with DOIs as they are typically implemented is that they are usually assigned to a [`Dataset`](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset), which is a collection of digital objects that are composed to form the whole Dataset and that can be accessed individually or through an API. Typically, the metadata attached to DOIs does not include an enumeration of those digital objects or a clear mechanism to get to the actual data -- rather, the DOI redirects to a dataset landing page that provides a human readable summary of the dataset, and often various types of links to find and eventually download the data. Despite advances in metadata interoperability from [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset) and [schema.org/Dataset](https://schema.org/Dataset), there is currently no reliable way to universally go from a known DOI for a dataset to the list of current locations of all of the digital objects that compose that dataset. And yet, this is exactly what we need for portable and persistent data access. In conclusion, DOIs are a great approach to uniquely citing a dataset, but they do not provde a way for code to download specific, versioned digital objects from a dataset in a portable way that is persistent over many years.
+The challenge with DOIs as they are typically implemented is that they are usually assigned to a [`Dataset`](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset), which is a collection of digital objects that are composed to form the whole Dataset and that can be accessed individually or through an API. Typically, the metadata attached to DOIs does not include an enumeration of those digital objects or a clear mechanism to get to the actual data -- rather, the DOI redirects to a dataset landing page that provides a human readable summary of the dataset, and often various types of links to find and eventually download the data. Despite advances in metadata interoperability from [DCAT](https://www.w3.org/TR/vocab-dcat-3/#Class:Dataset) and [schema.org/Dataset](https://schema.org/Dataset), there is currently no reliable way to universally go from a known DOI for a dataset to the list of current locations of all of the digital objects that compose that dataset. And yet, this is exactly what we need for portable and persistent data access. In addition, we frequently work with data that doesn't have a DOI yet as we are creating derived data products for analysis locally before they are published. In conclusion, DOIs are a great approach to uniquely citing a dataset, but they do not provde a way for code to download specific, versioned digital objects from a dataset in a portable way that is persistent over many years.
 
-We want data access to be:
+Thus, we want data access to be:
 
 - Portable
 - Persistent
@@ -61,6 +61,14 @@ We want data access to be:
 - Traceable
 - Transparent
 - Citable
+
+A powerful approach to solving these problems is by using **content-based** identifiers, rather than authority-based identifiers like DOIs. A content-based identifier, or `contentid` for short, can be calculated from the content in a data file itself, and is unique (within constraints) to that content. This is accomplished by using a "hash" function, which calculates a relatively short, fixed-length, and unique value for any given input. Hash functions form the basis of secure cryptography for secure messaging, and so there are many tools available for conveniently hashing data inputs. In our use case, we can use commonly available cryptographic hash functions (such as `SHA-256` and `SHA-1`) to calculate a unique identifier for any given file. This gives us a unique identifier for the file which can be calculated by anyone with a copy of the file, and which can be registered as metadata in repositories that hold those files.
+
+![](images/contentid-hashes.png)
+
+Once we have a content identifier for an object, we can cache the file locally (just like we did with `pins`), and we can query repositories to see if they contain a copy of that file. Unlike authority-based identifiers, anyone who possesses a copy of a specific version of a data file can calculate the content-identifier for it, enabling us to build systems to find and access those data files across the repository landscape, and really across any web-accessible location. This has all of the power of cacheing and pinning web resources that we demonstrated before, but has the advantage that all holders of the content will use an identical identifier, avoiding broken links. And because content-identifiers can be determined locally before files are published on the web, we can use them in our scripts for data files that have yet to be published and yet know that they will work for others once the files have been published in a repository.
+
+![](images/contentid-registries.png)
 
 ### Persistent and portable data access for improving reproducibility
 
@@ -96,7 +104,7 @@ delta_effort_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=e
 delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
 ```
 
-### Registering a content identifier from a URI
+### Storing a content identifier from a URI
 
 Use the `contentid` package for portable access to data.
 
