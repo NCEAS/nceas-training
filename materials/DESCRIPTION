@@ -4,19 +4,25 @@ Title: Does not matter.
 Version: 0.0.2
 Imports: 
     bookdown,
+    contentid,
     datapack,
+    DiagrammeR,
     dplyr,
     DT,
     ggmap,
     ggplot2,
+    ggforce,
     ggpmisc,
     gridExtra,
     janitor,
     kableExtra,
     knitr,
     leaflet,
+    mcmcplots,
     ncdf4,
+    pins,
     readr,
+    rjags,
     rvest,
     sf,
     scales,
@@ -27,4 +33,5 @@ Imports:
     foreach,
     parallel,
     plotly
-Remotes: rstudio/bookdown
+Remotes: 
+    rstudio/bookdown

@@ -266,16 +266,27 @@ What does that coefficient 'month' mean?
 Month is the rate of change per month. Check the equation above that we used to generate the time series. What is the slope of the trend that we added?
 </details>
 
-### ARIMA Models
+### Some Time Series Model Acronyms
 
-That we almost certainly won't have time to get into:
+**ARIMA Models**
 
 You will often see time series models specified as **ARIMA(n,m,k)**
 
 **AR: AutoRegressive time series**
-
+**I: Integrated**
 **MA: Moving Average smoothing**
 
+- p number of lags 
+- d degree of differencing
+- q size of moving average window
+
+The `forecast::auto.arima` function automatically fits these parameters. 
+
+For more information please consult the texts below, or your Favorite Source of Information. 
+
+**STL** Seasonal Seasonal Decomposition of Time Series by Loess. Extracts trend, seasonal, and locally smoothed moving average (described above). 
+
+**ETS** Exponential smoothing state space model
 
 ### State Space Models
 
@@ -343,6 +354,8 @@ There are a variety of forecasting challenges. These can be found on sites like 
 - Kaggle: [Predict end of season Sorghum biomass from photograps](https://www.kaggle.com/c/sorghum-biomass-prediction/)
 - HiveMind / Agrimetrics UK Wheat yield forecast market [Yield 21](https://agrimetrics.co.uk/2021/10/20/uk-2021-wheat-yield-prediction/)
 
+
+A note on challenges. Framing a problem as a challenge is a great way to engage the machine learning world. And these challenges provide a way to engage other communities, and lower the barrier to entry and more level playing field than many scientific pursuits. For challenges like those on Kaggle and the ones run by EFI, the best model wins. 
 
 ### The forecasting toolbox
 
@@ -439,12 +452,12 @@ mac_ts <- ts(mac_daymet,
 Lets take a look
 
 ```{r}
-
-plot(tmean.ts)
-
+plot(tmean.ts, ylab = "Daily mean T", xlab = "Year")
 ```
 
-
+```{r}
+lag.plot(tmean.ts, set.lags = c(1, 10, 100, 180, 360))
+```
 
 
 
@@ -471,7 +484,13 @@ plot(acf(tmean.mo.ts))
 
 ```
 
-Your turn - which of the other variables have autocorrelation?
+```{r}
+
+```
+
+Your turn - decompose, plot, look at a lag plot, acf, fit using auto.arima. 
+
+which of the other variables are similar to temperature? Which are most different?
 
 ```{r}
 vpd_mo <- mac_daymet %>% 
@@ -608,5 +627,7 @@ Ben Bolker 2007 Ecological Models and Data in R. Princeton university press.
 Ethan White and Morgan Earnst Ecological Dynamics and Forecasting  https://github.com/weecology/forecasting-course
 - Dietze, Michael. Ecological forecasting. Princeton University Press, 2017.
 - Dietze, Michael. Ecological forecasting. Course materials https://github.com/EcoForecast/EF_Activities
+
+Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 2021-10-31
 
 Dietze, Michael C., et al. "Iterative near-term ecological forecasting: Needs, opportunities, and challenges." Proceedings of the National Academy of Sciences 115.7 (2018): 1424-1432. https:doi.org/10.1073/pnas.1710231115

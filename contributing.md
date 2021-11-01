@@ -14,6 +14,15 @@ We welcome all types of contributions, including bug fixes, new lessons, lesson 
 - Fix a bug or contribute a lesson with a Pull Request
 - Add a training event with a Pull Request
 
+## Building the book
+
+While there are many workflows for building the Rmd files into the rendered bookdown,
+probably the simplest to use during authoring is to run `bookdown::serve_book('materials')`,
+assuming your working directory is the root of the nceas-training repository. This
+will load the rendered view into the RStudio `Viewer` pane, and any time you make a change
+to the Rmd files in the book, the book will be rebuild and loaded into the pane. For a larger
+view, you can open the content from the VIewer pane into a separate web browser. When you
+are done, or if you want to stop the book from being served, run `servr::daemon_stop()`.
 
 ## Pull Requests
 We use the pull-request model for contributions. See [GitHub's help on pull-requests](https://help.github.com/articles/about-pull-requests/).
