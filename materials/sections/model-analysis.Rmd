@@ -264,6 +264,8 @@ temp <- weather04$DailyTemp.C
 
 ```
 
+Now, estimate photosynthesis rate at each time step. This is isn't the entire model - just what would be happening to the leaf of a plant with C4 photosynthesis in full sunlight.
+
 ```{r}
 A <- c4photo(Qp = par, Tl = temp, RH = rh)$Assim
 
@@ -279,7 +281,7 @@ plot(temp, rh)
 ```
 
 <details>
-must be a strange scaling algorithm
+a strange scaling algorithm, interpolating from daily to hourly
 
 see also https://rpubs.com/dlebauer/metdriver_comparisons
 </details>
