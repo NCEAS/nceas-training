@@ -4,16 +4,34 @@ author: "David LeBauer"
 date: "11/2/2021"
 ---
 
-
-
-## Comparing models to data
-
-As we mentioned yesterday, DayMet is a gridded weather data product. It comes  The first step is to 
-
 ```{r}
 library(daymetr)
 library(dplyr)
+library(ggplot2)
+theme_set(theme_bw())
 options(digits = 3)
+```
+
+
+## Learning Objectives
+
+Today you will learn to 
+
+- Use visual and statistical approaches to compare model output to data
+- Investigate the relationships between model inputs and outputs using sensitivity analysis and variance decomposition
+
+## Comparing models to data
+
+DayMet is a gridded weather data product. It provides daily weather statistics for North America on a 
+1 km grid. The primary input to DayMet is data from weather stations. Using a number of statistical methods, values for each square on the grid are imputed. 
+
+Today we are going to use these as our 'model', and we are going to compare the output of this model
+to data from a weather station in Maricopa, AZ.
+
+Lets download the daily weather data from DayMet:
+
+```{r}
+
 mac_daymet_list <- download_daymet(site = "Maricopa Agricultural Center",
                                    lat = 33.07,
                                    lon =  -111.97,
@@ -24,16 +42,12 @@ mac_daymet <- mac_daymet_list$data %>%
   mutate(tmin = tmin..deg.c., tmax =  tmax..deg.c., tmean = (tmin + tmax)  / 2) %>% 
   select(doy = yday, tmean, tmax, tmin)
 
-
-
 ```
 
 
-A first step in model analysis is to visualize outputs and assess for meaning.
+Before we look at the ground truth, lets visualize these outputs and assess them for meaning.
 
 ```{r}
-library(ggplot2)
-theme_set(theme_bw())
 ggplot(data = mac_daymet, aes(doy, tmean)) +
   geom_point() + 
   geom_line()
@@ -43,16 +57,25 @@ ggplot(data = mac_daymet, aes(doy, tmean)) +
 
 Lets get some truth to compare our model to data measured at a weather station. 
 
-The AZMet data format is described here: https://cals.arizona.edu/azmet/raw2003.htm
+The AZMet data format is described here: https://cals.arizona.edu/azmet/raw2003.htm. On that page you can see that these are the columns we are interested in:
+
+| col | variable |
+|:---|:---|
+|2  | day of year | 
+| 4 | max temperature | 
+| 5 | min temperature | 
+| 6 | mean temperature | 
+
+
+We can read in the data and rename the columns of interest in the following steps:
 
 ```{r}
 mac_azmet <- read.csv('https://cals.arizona.edu/azmet/data/0621rd.txt', header = FALSE) %>% 
   select(doy = V2, tmean = V6, tmax = V4, tmin = V5)
-
-
 ```
 
-Lets join the data frames
+Now, lets join the data frames. We will use the suffix to identify model (DayMet) and observed station (AZMet) data.
+
 ```{r}
 comparison <- mac_daymet %>% 
   left_join(mac_azmet, by = 'doy', suffix = c('_model', '_obs')) %>% 
@@ -60,6 +83,15 @@ comparison <- mac_daymet %>%
 
 head(comparison)
 ```
+
+Just looking at the table, what do you notice about the observed and modeled temperatures?
+
+<details>
+* looks like the tmax observed is generally higher and tmin is generally lower!
+* the station observed five days below freezing in the first six days of the year!
+</details>
+
+Now, lets see how the model and data compare:
 
 ```{r}
 
@@ -88,18 +120,11 @@ ggplot(data = comparison) +
 
 We are going to talk about a set of key metrics for comparing models to data: 
 
-Slope, RMSE, R^2, 
-
-**Slope** and plots of model vs obs with a 1:1 line 
-**RMSE** Root Mean Square Error
-
-**R^2** 
-**Bias**: does one constantly over predict? $\bar{Y_{model}}-\bar{Y_{obs}}
-**Ratio of variances** $\frac{SD_{Y_{model}}}{SD_{Y_{obs}}}$
+Slope, RMSE, R^2, Bias, SD ratio 
 
 #### Slope
 
-of regression of predicted on observed: $Y_{obs}= bY_{mod}+\epsilon$. Does slope $b=1$?
+The slope of regression of predicted on observed: $Y_{obs}= bY_{mod}+\epsilon$. Does slope $b=1$?
 
 ```{r}
 mod <- comparison$tmean_model
@@ -124,7 +149,16 @@ because the default hypothesis test is that the slope is different than 0, not d
 coef(reg)
 confint(reg)
 ```
+
 Is the slope 1:1?
+
+What about for tmin and tmax?
+
+```r
+summary(lm(tmin_obs ~ tmin_model, data = comparison))
+summary(lm(tmax_obs ~ tmax_model, data = comparison))
+```
+
 
 #### RMSE Root Mean Square Error
 
@@ -136,23 +170,32 @@ $$RMSE=\sqrt{\frac{1}{n}(Y_{model}-Y_{obs})^2}$$
 
 RMSE <- sqrt(mean((mod - obs)^2))
 RMSE  
+```
+
+Sometimes you want a "Normalized" estimate of model error. That way the magnitude of the 
+error is on the same scale as the observations. There are many ways to do this, a 
+common approach is to divide by the mean of the observations. $NRMSE=RMSE/\bar{Y}_{obs}$ is equivalent to coefficient of variance $CV=\frac{\sigma}{\bar{x}}$.
+
+```{r}
 ## to normalize, divide by sd(obs) 
 NRMSE <- RMSE/sd(obs)
 ```
+
 Other approaches to normalization:
 
 * $RMSE/sd(obs)$
-* $RMSE/\bar{Y_{obs}}$ equivalent to coefficient of variance $\frac{\sigma}{\bar{x}}$
+* $RMSE/\bar{Y_{obs}}$
 * $RMSE/IQR$
 
 #### $R^2$ Corellation Coefficient
 
-Correlation Coefficient in terms of deviation from the 1:1 line
+When comparing models to data, it is common to calculate the Correlation Coefficient in terms of deviation from the 1:1 line
 
 $$R^2=1-\frac{\sum{(Y_{mod}-Y_{obs})^2}}{\sum{(Y_{obs}-\bar{Y}_{obs})^2}}$$
 
 ```{r}
 cor(mod, obs)
+cor.test(mod, obs)
 ```
 #### Bias
 
@@ -182,10 +225,20 @@ sum(mod > obs) / length(obs)
 
 #### Ratio of variances
 
+Does the model capture the observed variance? Often a model will have lower variances ... why?
+
+$$\frac{SD_{Y_{model}}}{SD_{Y_{obs}}}$$
+
 ```{r}
 sd(obs) / sd(mod)
 ```
-#### Taylor Plot
+
+#### Taylor Diagram - three metrics in two dimensions
+
+A Taylor Diagram allows you to plot three metrics of model performance - the RMSE, R^2, and SD ratio in two dimensions, taking advantage of the mathematical relationships among these scores.
+
+It is common to plot multiple points representing different models or model parameterizations, also different years or locations that the model is evaluated at. Plotting these as normalized values allows comparison across variables being predicted.
+
 
 ```r
 library(plotrix)
@@ -197,19 +250,23 @@ taylor.diagram(ref=obs, model = mod, normalize = TRUE, ref.sd = TRUE)
                     
 ## Simulation Models
 
-Yesterday I introduced the concept and application of simulation models, with examples related to simulating plant growth. Lets look at this in more detail.
+Yesterday I introduced the concept and application of simulation models, with examples related to simulating plant growth. In a regression model, it is often possible to see how each parameter relates to the model output (e.g. slope, intercept).
 
-### Example: A Photosynthesis model
+For a complex model, it is often not possible to understand the high level dynamics of the system by analyzing the mathematics. Another approach is to treat the model as a 'black box'. Then we can treat the black box as an experimental system, purturb it and see how it responds. 
+
+Lets look at this in more detail.
+
+### Example: A leaf level model of photosynthesis
 
 Based on the coupled C4 photosynthesis - conductance model developed by Collatz and Ball Berry
 
 > G. Collatz, M. Ribas-Carbo, J. Berry. (1992). Coupled photosynthesis-stomatal conductance model for leaves of C4 plants. Australian Journal of Plant Physiology 519–538.
 
-Basically conductance is coupled to photosynthesis, since plants need to regulate water loss as they uptake $CO_2$:
+Water transpiration is coupled to photosynthesis through stomatal conductance, since plants need to regulate water loss as they uptake $CO_2$:
 
 $$g_s = m\frac{A_n h_s}{c_a}p + b$$
 
-where $g_s$ is stomatal conducatnce, $A_n$ is net photosynthesis, $h_s$ is relative humidity, $c_a$ is $CO_2$ at leaf surface.
+Where $g_s$ is stomatal conducatnce, $A_n$ is net photosynthesis, $h_s$ is relative humidity, $c_a$ is $CO_2$ at leaf surface.
 
 and Photosynthesis is
 
@@ -223,13 +280,13 @@ This is a non-linear equation with key plant physiological traits:
 
 |Parameter | Description |
 |:----|:-----|
-| vmax      | maximum carboxylation of Rubisco according to the Collatz model.                                                 |
+| **Vmax**      | maximum carboxylation of Rubisco according to the Collatz model.                                                 |
 | alpha     | alpha parameter according to the Collatz model. Initial slope of the response to Irradiance.                     |
 | kparm     | k parameter according to the Collatz model. Initial slope of the response to CO2.                                |
 | theta     | theta parameter according to the Collatz model. Curvature for light response.                                    |
 | beta      | beta parameter according to the Collatz model. Curvature for response to CO2.                                    |
-| Rd        | Rd parameter according to the Collatz model. Dark respiration.                                                   |
-| b0        | intercept for the Ball-Berry stomatal conductance model.                                                         |
+| **Rd**        | Rd parameter according to the Collatz model. Dark respiration.                                                   |
+| **b0**        | intercept for the Ball-Berry stomatal conductance model.                                                         |
 | b1        | slope for the Ball-Berry stomatal conductance model.                                                             |
 
 The rate of photosynthesis is determined by environmental factors:
@@ -269,6 +326,8 @@ temp <- weather04$DailyTemp.C
 
 ```
 
+Now, estimate photosynthesis rate at each time step. This is isn't the entire model - just what would be happening to the leaf of a plant with C4 photosynthesis in full sunlight.
+
 ```{r}
 A <- c4photo(Qp = par, Tl = temp, RH = rh)$Assim
 
@@ -284,7 +343,7 @@ plot(temp, rh)
 ```
 
 <details>
-must be a strange scaling algorithm
+a strange scaling algorithm, interpolating from daily to hourly
 
 see also https://rpubs.com/dlebauer/metdriver_comparisons
 </details>
