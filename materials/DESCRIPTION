@@ -4,11 +4,16 @@ Title: Does not matter.
 Version: 0.0.2
 Imports: 
     bookdown,
+    broom,
     contentid,
     datapack,
+    dataone,
+    daymetr,
     DiagrammeR,
     dplyr,
     DT,
+    EML,
+    forecast,
     ggmap,
     ggplot2,
     ggforce,
