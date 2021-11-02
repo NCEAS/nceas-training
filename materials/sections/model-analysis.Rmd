@@ -249,6 +249,11 @@ $$[Gs, A, C_i]=f(T, RH, Light, CO_2, v_{max}, \alpha, k, \theta, R_d, b_0, b_1)$
 
 First, lets load some meteorological data:
 
+```{r, echo = F, warning=F,message=F, results="hide"}
+devtools::install_github('ebimodeling/biocro')
+```
+
+
 ```{r}
 library(BioCro) #devtools::install_github('ebimodeling/biocro')
 library(lubridate)
