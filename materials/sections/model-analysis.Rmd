@@ -5,6 +5,196 @@ date: "11/2/2021"
 ---
 
 
+
+## Comparing models to data
+
+As we mentioned yesterday, DayMet is a gridded weather data product. It comes  The first step is to 
+
+```{r}
+library(daymetr)
+library(dplyr)
+options(digits = 3)
+mac_daymet_list <- download_daymet(site = "Maricopa Agricultural Center",
+                                   lat = 33.07,
+                                   lon =  -111.97,
+                                   start = 2020,
+                                   end = 2020, 
+                                   internal = TRUE) 
+mac_daymet <- mac_daymet_list$data %>% 
+  mutate(tmin = tmin..deg.c., tmax =  tmax..deg.c., tmean = (tmin + tmax)  / 2) %>% 
+  select(doy = yday, tmean, tmax, tmin)
+
+
+
+```
+
+
+A first step in model analysis is to visualize outputs and assess for meaning.
+
+```{r}
+library(ggplot2)
+theme_set(theme_bw())
+ggplot(data = mac_daymet, aes(doy, tmean)) +
+  geom_point() + 
+  geom_line()
+```
+
+
+
+Lets get some truth to compare our model to data measured at a weather station. 
+
+The AZMet data format is described here: https://cals.arizona.edu/azmet/raw2003.htm
+
+```{r}
+mac_azmet <- read.csv('https://cals.arizona.edu/azmet/data/0621rd.txt', header = FALSE) %>% 
+  select(doy = V2, tmean = V6, tmax = V4, tmin = V5)
+
+
+```
+
+Lets join the data frames
+```{r}
+comparison <- mac_daymet %>% 
+  left_join(mac_azmet, by = 'doy', suffix = c('_model', '_obs')) %>% 
+  filter(!is.na(tmean_obs))
+
+head(comparison)
+```
+
+```{r}
+
+ggplot(data = comparison) + 
+  geom_line(aes(doy, tmean_model)) + 
+  geom_line(aes(doy, tmin_model), color = 'grey') + 
+  geom_line(aes(doy, tmax_model), color = 'grey') +
+  geom_line(aes(doy, tmean_obs), color = 'red') + 
+  geom_line(aes(doy, tmin_obs), color = 'pink') + 
+  geom_line(aes(doy, tmax_obs), color = 'pink') 
+
+
+ggplot(data = comparison) + 
+  geom_point(aes(doy, tmean_model - tmean_obs))
+
+ggplot(data = comparison) + 
+  geom_point(aes(tmean_model, tmean_obs)) +
+  geom_abline(aes(intercept = 0, slope = 1)) +
+  ylim(0, 40) +
+  xlim(0, 40)
+
+```
+
+### Statistical tests of model performance
+
+
+We are going to talk about a set of key metrics for comparing models to data: 
+
+Slope, RMSE, R^2, 
+
+**Slope** and plots of model vs obs with a 1:1 line 
+**RMSE** Root Mean Square Error
+
+**R^2** 
+**Bias**: does one constantly over predict? $\bar{Y_{model}}-\bar{Y_{obs}}
+**Ratio of variances** $\frac{SD_{Y_{model}}}{SD_{Y_{obs}}}$
+
+#### Slope
+
+of regression of predicted on observed: $Y_{obs}= bY_{mod}+\epsilon$. Does slope $b=1$?
+
+```{r}
+mod <- comparison$tmean_model
+obs <- comparison$tmean_obs
+reg <- lm(obs~ mod)
+
+plot(mod, obs, xlab = 'model tmean', ylab = 'obs tmean') +
+  abline(0,1) +
+  abline(coef(reg), lty = 2) 
+
+
+summary(reg)
+```
+
+Does the regression model includes the 1:1 line? Why is the P-value so low?
+
+<details>
+because the default hypothesis test is that the slope is different than 0, not different than 1
+</details>
+
+```{r}
+coef(reg)
+confint(reg)
+```
+Is the slope 1:1?
+
+#### RMSE Root Mean Square Error
+
+This is the most common model metric. It is the standard deviation of the residuals.
+
+$$RMSE=\sqrt{\frac{1}{n}(Y_{model}-Y_{obs})^2}$$
+
+```{r}
+
+RMSE <- sqrt(mean((mod - obs)^2))
+RMSE  
+## to normalize, divide by sd(obs) 
+NRMSE <- RMSE/sd(obs)
+```
+Other approaches to normalization:
+
+* $RMSE/sd(obs)$
+* $RMSE/\bar{Y_{obs}}$ equivalent to coefficient of variance $\frac{\sigma}{\bar{x}}$
+* $RMSE/IQR$
+
+#### $R^2$ Corellation Coefficient
+
+Correlation Coefficient in terms of deviation from the 1:1 line
+
+$$R^2=1-\frac{\sum{(Y_{mod}-Y_{obs})^2}}{\sum{(Y_{obs}-\bar{Y}_{obs})^2}}$$
+
+```{r}
+cor(mod, obs)
+```
+#### Bias
+
+Do you over or under predict?
+
+$$Y_{model}-Y_{obs}$$
+
+```{r}
+mean(mod - obs)
+
+# normalized
+
+mean(mod - obs)/mean(obs)
+```
+
+It is also useful to visualize and compute statistics on these differences. 
+
+```{r}
+hist(mod-obs)
+
+```
+
+What fraction of the time is the model above the observation?
+```{r}
+sum(mod > obs) / length(obs)
+```
+
+#### Ratio of variances
+
+```{r}
+sd(obs) / sd(mod)
+```
+#### Taylor Plot
+
+```r
+library(plotrix)
+taylor.diagram(ref=obs, model = mod, normalize = TRUE, ref.sd = TRUE) 
+
+```
+
+![](images/taylor_plot.png)
+                    
 ## Simulation Models
 
 Yesterday I introduced the concept and application of simulation models, with examples related to simulating plant growth. Lets look at this in more detail.
@@ -28,7 +218,7 @@ Where Rubisco-limited rate is $A_c$ and RuBP limited rate is $A_L$
 
 $$A_c=V_m\left[\frac{c_i-\Gamma}{c_i+K_c(1+O_2/K_o)}\right]$$
 
-$$A_L=?$$
+$$A_L=$$
 This is a non-linear equation with key plant physiological traits:
 
 |Parameter | Description |
@@ -57,33 +247,54 @@ $$[Gs, A, C_i]=f(T, RH, Light, CO_2, v_{max}, \alpha, k, \theta, R_d, b_0, b_1)$
 
 ### Let's run this model!
 
-First, retrieve some meteorological data:
+First, lets load some meteorological data:
 
 ```{r}
+library(BioCro) #devtools::install_github('ebimodeling/biocro')
+library(lubridate)
+library(ggplot2)
 
-met <- readr::read_csv('../data/mac_daymet.csv')
 
-time <- lubridate::ymd_hms(met$environment_sensor_readings$timestamp)
-par <- as.numeric(met$environment_sensor_readings$`sensor par`$value)
-rh <- as.numeric(met$environment_sensor_readings$weather_station$relHumidity$value) / 100
-temp <- as.numeric(met$environment_sensor_readings$weather_station$temperature$value)
+data("weather04")
 
-```
+time <- ymd('2004-01-01') + days(weather04$doy-1) + hours(weather04$hour)
+par <- weather04$solarR
+rh <- weather04$RH
+temp <- weather04$DailyTemp.C
 
-```{r}
-if(!require(BioCro)) devtools::install_github('ebimodeling/biocro')
-library(BioCro)
 ```
 
 ```{r}
 A <- c4photo(Qp = par, Tl = temp, RH = rh)$Assim
 
 pairs(data.frame(A, par, temp, rh))
+
+```
+
+
+```{r}
+## whoa this is wierd! What is going on?
+plot(temp, rh)
+
+```
+
+<details>
+must be a strange scaling algorithm
+
+see also https://rpubs.com/dlebauer/metdriver_comparisons
+</details>
+
+
+```{r}
+
 library(ggplot2)
 ggplot()+
-  geom_line(aes(time, A))
+  geom_line(aes(time, A)) +
+  scale_x_datetime(limits = ymd_h(c('2004-05-01 0', '2004-06-01 23')))
 ggplot()+
-  geom_line(aes(time, rh))
+  geom_line(aes(time, rh)) +
+  scale_x_datetime(limits = ymd_h(c('2004-05-01 0', '2004-06-01 23')))
+
 ```
 
 > question: is f(mean(X)) = mean(f(X))?
@@ -98,6 +309,8 @@ A1 <- c4photo(Qp = mean(testQp),
               RH = mean(testRH))
 A2 <- lapply(c4photo(Qp = testQp, Tl = testTl, RH = testRH), mean)
 
+dplyr::bind_rows(A1 = A1, A2 = A2)
+
 ```
 
 Why are these different?
@@ -109,6 +322,8 @@ This means - be careful when and how you use averages - everywhere!!! Spatial an
 
 
 #### Model sensitivity
+
+Next, we are going to look at the sensitivity of the model to each of the different weather parameters, holding the others at their mean
 
 ```{r}
 meanQp <- mean(par)
@@ -126,9 +341,19 @@ plot(1:100/4, c4photo(Qp = rep(meanQp, 100),
 
 ```
 
-#### OK. What about the other parameters?
+#### Monte Carlo Error propagation
 
-Lets set some priors on these:
+Given a model parameters represented as variables, e.g.
+
+$$
+V_{cmax}\sim N(45,2)\\
+Rd\sim N(1, 0.1)
+b1 \sim N(4,1)
+$$
+
+What is expected uncertainty in model predictions of photosynthesis (A = assimilation)
+
+Lets take some samples from these distributions
 
 ```{r}
 set.seed(100)
@@ -138,13 +363,27 @@ vmax <- rnorm(n, 45, 2)
 Rd   <- rnorm(n, 1, 0.10)
 b1   <- rnorm(n, 4, 1)
 
-x <- 1:100
-hist(vmax, probability = TRUE)
-lines(x, dnorm(x, 45, 5), type = 'l')
+```
+
+Now we can take a look at them
+
+```{r}
+
+x <- 25:75
+ggplot() +
+  geom_histogram(aes(vmax, y = ..density..), proability = TRUE) +
+  geom_line(aes(x, dnorm(x, 45, 2)))
 
 x <- 1:200/100
-hist(Rd, probability = TRUE)
-lines(x, dnorm(x, 1, 0.10), type = 'l')
+ggplot() +
+  geom_histogram(aes(Rd, y = ..density..), proability = TRUE) +
+  geom_line(aes(x, dnorm(x, 1, 0.1)))
+
+```
+
+Next, we are going to propagate the parameter variance to see how much of an effect it has on the model output variance:
+
+```{r}
 
 ### sample given time series of met
 A <- matrix(nrow = length(time), ncol = 1000)
@@ -152,30 +391,51 @@ for(i in 1:1000){
   A[,i] <- c4photo(Qp = par, Tl = temp, RH = rh, vmax = vmax[i], Rd = Rd[i], b1=b1[i])$Assim
 }
 
-median <- which.min(abs(quantile(colMeans(A), 0.75)-colMeans(A)))
-ucl    <- which.min(abs(quantile(colMeans(A), 0.95)-colMeans(A)))
-lcl    <- which.min(abs(quantile(colMeans(A), 0.25)-colMeans(A)))
+# take a look at the matrix .. 
+# image(A, xlab = 'time', ylab = 'sample')
+## shows an annual cycle of photosynthesis         
+median <- which.min(abs(quantile(colMeans(A), 0.50)-colMeans(A)))
+ucl    <- which.min(abs(quantile(colMeans(A), 0.975)-colMeans(A)))
+lcl    <- which.min(abs(quantile(colMeans(A), 0.025)-colMeans(A)))
 
 ggplot() +
 #  geom_smooth(aes(time, A))+
   geom_line(aes(time, A[,median])) +
   geom_line(aes(time, y = A[,lcl]), linetype = 2) +
-  geom_line(aes(time, y = A[,ucl]), linetype = 2)
-
+  geom_line(aes(time, y = A[,ucl]), linetype = 2) +
+  scale_x_datetime(limits = ymd_h(c('2004-05-01 0', '2004-05-07 23')))
 ```
-### Use met as a variable, sample over variation within the hour
 
+### Variance Decomposition - which of these parameters are most important?
+
+Response of interest is the total assimilation
+
+```{r}
+a_total <- colMeans(A)
+
+summary(aov(a_total ~ vmax + Rd + b1))
+```
+
+
+### Propagate met and Use met as a variable, sample over variation within the hour
+
+To answer the question - if I were to step out and look at the plants in the summer, 
+how fast would they be growing?
+
+This time, instead of sampling from a parameterized distribution, I am going to sample over the middle (hours 10-4) of days in the middle of the year (approx. summer, day of year 120-240) 
 ```{r}
 
 ### sample over met variability
 
 A2 <- Gs <- Ci <- Qp <- Tl <- RH <- vector(length = 1000)
 for(i in 1:1000){
-  j <- sample(1:length(time), size = 1)
+  day <- sample(120:240, size = 1)
+  hour <- sample(10:16, size = 1)
+  j <- day * 24 + hour
   Qp[i] <- par[j]
   Tl[i] <- temp[j]
   RH[i] <- rh[j]
-  res <- c4photo(Qp = Qp, Tl = Tl, RH = RH, vmax = vmax[i], Rd = Rd[i], b1=b1[i])
+  res <- c4photo(Qp = Qp[i], Tl = Tl[i], RH = RH[i], vmax = vmax[i], Rd = Rd[i], b1=b1[i])
   A2[i] <- res$Assim
   Gs[i] <- res$Gs
   Ci[i] <- res$Ci
@@ -195,7 +455,7 @@ The lm is pretty much a sensitivity analysis: what is the slope of the effect of
 
 ```{r}
 
-lm(A2 ~ vmax + Rd + b1 + Qp + Tl + RH)
+summary(lm(A2 ~ vmax + Rd + b1 + Qp + Tl + RH))
 ```
 
 The analysis of variance partitions the variance - how much if the total variance in A2 is contributed by each of the following parameters (recall that the domain for met variables is << the domain for physiological parameters ...
@@ -204,36 +464,27 @@ The analysis of variance partitions the variance - how much if the total varianc
 
 
 ```{r}
-aov(A2 ~ vmax + Rd + b1 + Qp + Tl + RH)
+summary(aov(A2 ~ vmax + Rd + b1 + Qp + Tl + RH))
 ```
 
-```{r}
-aov(Gs ~ vmax + Rd + b1 + Qp + Tl + RH)
+```{r, eval=FALSE}
+tidy(aov(Gs ~ vmax + Rd + b1 + Qp + Tl + RH))
 
-aov(Ci ~ vmax + Rd + b1 + Qp + Tl + RH)
+tidy(aov(Ci ~ vmax + Rd + b1 + Qp + Tl + RH))
 ```
-
-This is how you might evaluate the model for a year (2005) of climate data from Champaign, Il.
-
-```{r illinois-met-c4photo}
-data(weather05)
-resA <- c4photo(Qp = weather05$solarR, Tl = weather05$DailyTemp.C -2, RH = weather05$RH)$Assim
-
-pairs(data.frame(resA, Qp = weather05$solarR, Tl = weather05$DailyTemp.C -2, RH = weather05$RH))
-```
-
-In this case the parameter values within a plausible range are overwhelmed by the met (photosynthesis requires light and enzymes basically stop by the time they reach 0$\degree$C). This illustrates what we know about how important environment is to organisms, including crops.
 
 ### References
 
 Taylor, K.E., R.J. Stouffer, G.A. Meehl: An Overview of CMIP5 and the experiment design.” Bull. Amer. Meteor. Soc., 93, 485-498, doi:10.1175/BAMS-D-11-00094.1, 2012.
 http://journals.ametsoc.org/doi/pdf/10.1175/BAMS-D-11-00094.1
 
-Wang et al
+Humphries S and Long SP (1995) WIMOVAC - a software package for modeling the dynamics of the plant leaf and canopy photosynthesis. Computer Applications in the Bioscience 11(4):361-371.
 
-Miguez et al
+Miguez FE, Zhu XG, Humphries S, Bollero GA, Long SP (2009) A semimechanistic model predicting the growth and production of the bioenergy crop Miscanthus × giganteus: description, parameterization and validation. Global Change Biology Bioenergy 1: 282-296.
+
+Wang D, Jaiswal D, Lebauer DS, Wertin TM, Bollero GA, Leakey ADB, Long SP (2015) A physiological and biophysical model of coppice willow (Salix spp.) production yields for the contiguous USA in current and future climate scenarios. Plant, cell & environment, 38(9), 1850-1865.
 
 
-## Graphical Analysis of Model Outputs
+Thornton, M.M., R. Shrestha, Y. Wei, P.E. Thornton, S. Kao, and B.E. Wilson. 2020. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1840
 
-A first step in model analysis is to visualize outputs and assess for meaning.
+Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 https://doi.org/10.3334/ORNLDAAC/1840
