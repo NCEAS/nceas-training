@@ -270,7 +270,7 @@ Month is the rate of change per month. Check the equation above that we used to 
 
 **ARIMA Models**
 
-You will often see time series models specified as **ARIMA(n,m,k)**
+You will often see time series models specified as **ARIMA(p,d,q)**
 
 **AR: AutoRegressive time series**
 **I: Integrated**
@@ -280,13 +280,11 @@ You will often see time series models specified as **ARIMA(n,m,k)**
 - d degree of differencing
 - q size of moving average window
 
-The `forecast::auto.arima` function automatically fits these parameters. 
-
-For more information please consult the texts below, or your Favorite Source of Information. 
+The `forecast::auto.arima` function automatically fits these parameters. See https://otexts.com/fpp2/arima-r.html for an explanation of how this function works.
 
 **STL** Seasonal Seasonal Decomposition of Time Series by Loess. Extracts trend, seasonal, and locally smoothed moving average (described above). 
 
-**ETS** Exponential smoothing state space model
+**ETS** Exponential smoothing state space model.
 
 ### State Space Models
 
