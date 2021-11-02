@@ -1,0 +1,239 @@
+---
+title: "Model Asessment and Analysis"
+author: "David LeBauer"
+date: "11/2/2021"
+---
+
+
+## Simulation Models
+
+Yesterday I introduced the concept and application of simulation models, with examples related to simulating plant growth. Lets look at this in more detail.
+
+### Example: A Photosynthesis model
+
+Based on the coupled C4 photosynthesis - conductance model developed by Collatz and Ball Berry
+
+> G. Collatz, M. Ribas-Carbo, J. Berry. (1992). Coupled photosynthesis-stomatal conductance model for leaves of C4 plants. Australian Journal of Plant Physiology 519–538.
+
+Basically conductance is coupled to photosynthesis, since plants need to regulate water loss as they uptake $CO_2$:
+
+$$g_s = m\frac{A_n h_s}{c_a}p + b$$
+
+where $g_s$ is stomatal conducatnce, $A_n$ is net photosynthesis, $h_s$ is relative humidity, $c_a$ is $CO_2$ at leaf surface.
+
+and Photosynthesis is
+
+$$A_n=min(A_c, A_L)-R_d$$
+Where Rubisco-limited rate is $A_c$ and RuBP limited rate is $A_L$
+
+$$A_c=V_m\left[\frac{c_i-\Gamma}{c_i+K_c(1+O_2/K_o)}\right]$$
+
+$$A_L=?$$
+This is a non-linear equation with key plant physiological traits:
+
+|Parameter | Description |
+|:----|:-----|
+| vmax      | maximum carboxylation of Rubisco according to the Collatz model.                                                 |
+| alpha     | alpha parameter according to the Collatz model. Initial slope of the response to Irradiance.                     |
+| kparm     | k parameter according to the Collatz model. Initial slope of the response to CO2.                                |
+| theta     | theta parameter according to the Collatz model. Curvature for light response.                                    |
+| beta      | beta parameter according to the Collatz model. Curvature for response to CO2.                                    |
+| Rd        | Rd parameter according to the Collatz model. Dark respiration.                                                   |
+| b0        | intercept for the Ball-Berry stomatal conductance model.                                                         |
+| b1        | slope for the Ball-Berry stomatal conductance model.                                                             |
+
+The rate of photosynthesis is determined by environmental factors:
+
+|Parameter | Description |
+|:----|:-----|
+| Tl        | temperature of the leaf (Celsius).                                                                               |
+| RH        | relative humidity (as a fraction, i.e. 0-1).                                                                     |
+| Qp        | quantum flux (direct light), (micro mol m-2 s-1).                                                                |
+| Catm      | Atmospheric CO2 in ppm (or micromol/mol).                                                                        |
+
+In the end:
+
+$$[Gs, A, C_i]=f(T, RH, Light, CO_2, v_{max}, \alpha, k, \theta, R_d, b_0, b_1)$$
+
+### Let's run this model!
+
+First, retrieve some meteorological data:
+
+```{r}
+
+met <- readr::read_csv('../data/mac_daymet.csv')
+
+time <- lubridate::ymd_hms(met$environment_sensor_readings$timestamp)
+par <- as.numeric(met$environment_sensor_readings$`sensor par`$value)
+rh <- as.numeric(met$environment_sensor_readings$weather_station$relHumidity$value) / 100
+temp <- as.numeric(met$environment_sensor_readings$weather_station$temperature$value)
+
+```
+
+```{r}
+if(!require(BioCro)) devtools::install_github('ebimodeling/biocro')
+library(BioCro)
+```
+
+```{r}
+A <- c4photo(Qp = par, Tl = temp, RH = rh)$Assim
+
+pairs(data.frame(A, par, temp, rh))
+library(ggplot2)
+ggplot()+
+  geom_line(aes(time, A))
+ggplot()+
+  geom_line(aes(time, rh))
+```
+
+> question: is f(mean(X)) = mean(f(X))?
+
+
+```{r}
+testQp <- 11:20*100
+testTl <- 21:30
+testRH <- 21:30/50
+A1 <- c4photo(Qp = mean(testQp),
+              Tl = mean(testTl),
+              RH = mean(testRH))
+A2 <- lapply(c4photo(Qp = testQp, Tl = testTl, RH = testRH), mean)
+
+```
+
+Why are these different?
+
+
+For non-linear functions see  Jensen's Inequality ([Wikipedia](https://en.wikipedia.org/wiki/Jensen%27s_inequality))
+
+This means - be careful when and how you use averages - everywhere!!! Spatial and temporal downscaling is how crop modelers deal with lower resolution atmospheric model forecasts. For example the most recent IPCC 100 y climate forecasts were generated on ~100km grids ([Taylor et al 2012](http://journals.ametsoc.org/doi/pdf/10.1175/BAMS-D-11-00094.1)), thus one data point may simultaneously represent a month that is $60^o$F and foggy in San Fransicsco and $100^o$F and dry in Davis, CA. At the same time, crop models need to run on local hourly data while also capturing the uncertainty represented by within and across model variability.
+
+
+#### Model sensitivity
+
+```{r}
+meanQp <- mean(par)
+meanTl <- mean(temp)
+meanRH <- mean(rh)
+plot(1:100/100, c4photo(Qp = rep(meanQp, 100),
+                        Tl = rep(meanTl, 100),
+                        RH = 1:100/100)$Assim,
+     type = 'l', ylab = 'Assim', xlab = 'RH')
+
+plot(1:100/4, c4photo(Qp = rep(meanQp, 100),
+                      Tl = 1:100/4,
+                      RH = rep(meanRH, 100))$Assim,
+     type = 'l', ylab = 'Assim', xlab = 'RH')
+
+```
+
+#### OK. What about the other parameters?
+
+Lets set some priors on these:
+
+```{r}
+set.seed(100)
+
+n <- 1000
+vmax <- rnorm(n, 45, 2)
+Rd   <- rnorm(n, 1, 0.10)
+b1   <- rnorm(n, 4, 1)
+
+x <- 1:100
+hist(vmax, probability = TRUE)
+lines(x, dnorm(x, 45, 5), type = 'l')
+
+x <- 1:200/100
+hist(Rd, probability = TRUE)
+lines(x, dnorm(x, 1, 0.10), type = 'l')
+
+### sample given time series of met
+A <- matrix(nrow = length(time), ncol = 1000)
+for(i in 1:1000){
+  A[,i] <- c4photo(Qp = par, Tl = temp, RH = rh, vmax = vmax[i], Rd = Rd[i], b1=b1[i])$Assim
+}
+
+median <- which.min(abs(quantile(colMeans(A), 0.75)-colMeans(A)))
+ucl    <- which.min(abs(quantile(colMeans(A), 0.95)-colMeans(A)))
+lcl    <- which.min(abs(quantile(colMeans(A), 0.25)-colMeans(A)))
+
+ggplot() +
+#  geom_smooth(aes(time, A))+
+  geom_line(aes(time, A[,median])) +
+  geom_line(aes(time, y = A[,lcl]), linetype = 2) +
+  geom_line(aes(time, y = A[,ucl]), linetype = 2)
+
+```
+### Use met as a variable, sample over variation within the hour
+
+```{r}
+
+### sample over met variability
+
+A2 <- Gs <- Ci <- Qp <- Tl <- RH <- vector(length = 1000)
+for(i in 1:1000){
+  j <- sample(1:length(time), size = 1)
+  Qp[i] <- par[j]
+  Tl[i] <- temp[j]
+  RH[i] <- rh[j]
+  res <- c4photo(Qp = Qp, Tl = Tl, RH = RH, vmax = vmax[i], Rd = Rd[i], b1=b1[i])
+  A2[i] <- res$Assim
+  Gs[i] <- res$Gs
+  Ci[i] <- res$Ci
+}
+
+hist(A2)
+```
+
+Equivalent of sensitivity analysis: (where A2, Gs, Ci are response variables)
+
+```{r}
+pairs(data.frame(A2, Gs, Ci, vmax, Rd, b1, Qp, Tl, RH), pch = '.')
+```
+
+The lm is pretty much a sensitivity analysis: what is the slope of the effect of inputs on the output of the model.
+
+
+```{r}
+
+lm(A2 ~ vmax + Rd + b1 + Qp + Tl + RH)
+```
+
+The analysis of variance partitions the variance - how much if the total variance in A2 is contributed by each of the following parameters (recall that the domain for met variables is << the domain for physiological parameters ...
+
+> What would happen if we used a whole year of meteorological data instead of the one hour of met data that we used?
+
+
+```{r}
+aov(A2 ~ vmax + Rd + b1 + Qp + Tl + RH)
+```
+
+```{r}
+aov(Gs ~ vmax + Rd + b1 + Qp + Tl + RH)
+
+aov(Ci ~ vmax + Rd + b1 + Qp + Tl + RH)
+```
+
+This is how you might evaluate the model for a year (2005) of climate data from Champaign, Il.
+
+```{r illinois-met-c4photo}
+data(weather05)
+resA <- c4photo(Qp = weather05$solarR, Tl = weather05$DailyTemp.C -2, RH = weather05$RH)$Assim
+
+pairs(data.frame(resA, Qp = weather05$solarR, Tl = weather05$DailyTemp.C -2, RH = weather05$RH))
+```
+
+In this case the parameter values within a plausible range are overwhelmed by the met (photosynthesis requires light and enzymes basically stop by the time they reach 0$\degree$C). This illustrates what we know about how important environment is to organisms, including crops.
+
+### References
+
+Taylor, K.E., R.J. Stouffer, G.A. Meehl: An Overview of CMIP5 and the experiment design.” Bull. Amer. Meteor. Soc., 93, 485-498, doi:10.1175/BAMS-D-11-00094.1, 2012.
+http://journals.ametsoc.org/doi/pdf/10.1175/BAMS-D-11-00094.1
+
+Wang et al
+
+Miguez et al
+
+
+## Graphical Analysis of Model Outputs
+
+A first step in model analysis is to visualize outputs and assess for meaning.
