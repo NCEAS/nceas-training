@@ -4,6 +4,10 @@
 library(readr)
 library(pins)
 library(contentid)
+library(stringr)
+library(dplyr)
+library(solrium)
+library(dataone)
 ```
 
 ### Learning Objectives
@@ -179,24 +183,67 @@ The `contentid` package is a work in progress, but holds tremendous potential to
 
 First, content identifiers are not well-linked to DOIs. DOIs are the current standard for citing data, and carry the citation metadata for data packages (such as author, title, publication year, etc.). But the `contentid` package currently lacks a mechanism to determine the citation for a file that is used in a script. Because data networks like [DataONE](https://dataone.org) maintain the association between each content-identifier that is registered there with the assigned DOI for the Dataset that the object is part of, it would be technically feasible to extend the contentid package to retrieve the citation for a given content identifier. 
 
+```{r contentid_get_citation, echo=FALSE, eval=TRUE}
+
+# Function to return the text of a citation for a given contentid
+get_citation <- function(contentid) {
+    #browser()
+    # Set up for SOLR queries
+    solr <- SolrClient$new(host = "cn.dataone.org", path = "/cn/v2/query/solr/", scheme = "https", port=443)
+    
+    # Use query_sources to determine if a copy is on DataONE or amenable repository (based on the URL pattern)
+    d1_locations <- query_sources(contentid, cols=c("identifier", "source", "date", "status", "sha1", "sha256", "md5")) %>%
+        filter(grepl('cn.dataone.org|v2/object|v2/resolve', source))
+    
+    if (nrow(d1_locations) > 0) {
+        # Query that network API to determine which Datasets the content identifier is associated with
+        # If more than one is found, reduce the list to the most recent version of each Dataset 
+        # (eliminating duplicate older versions, in favor of citing the most recent)
+        
+        # Look up the metadata for this object, including which metadata documents describe it in DataONE
+        pids <- d1_locations$source %>% basename() %>% unique()
+        subquery_pids <- stringr::str_replace_all(stringr::str_flatten(pids, collapse=" OR "), ":", "\\\\:")
+        subquery <- paste0("id:(", subquery_pids, ") AND -obsoletedBy:*")
+        fields <- 'identifier,checksum,checksumAlgorithm,datasource,isDocumentedBy,resourceMap'
+        metadata <- solr$search(params = list(q=subquery, rows=100, fl=fields))
+            
+        # Retrieve the bibliographic metadata for each of those datasets by searching on the PID for each
+        documented_by <- stringr::str_split(metadata$isDocumentedBy, ",")
+        subquery_ids <- stringr::str_replace_all(stringr::str_flatten(documented_by[[1]], collapse=" OR "), ":", "\\\\:")
+        subquery <- paste0("id:(", subquery_ids, ")")
+        fields <- paste(sep=",", 'origin,identifier,formatId,checksum,checksumAlgorithm,title,datePublished,pubDate',
+                                 'datasource,obsoletes, obsoletedBy, isDocumentedBy,resourceMap')
+        datasets <- solr$search(params = list(q=subquery, rows=100, fl=fields))
+        
+        # Determine the repository name and URI
+        library(dataone)
+        repos <- listNodes(CNode())
+        repo_list <- repos[sapply(repos, function(repo) { repo@identifier==datasets$datasource[[1]]}, simplify = TRUE ) ]
+        
+        # Return a list of citations, one for each matching Dataset (possibly providing different formats 
+        # for returning the citation information (text string, bibtex, CSL-formatted string))
+        citation_text <- paste0(datasets$origin[[1]], ". ", format(as.Date(datasets$pubDate[[1]]), "%Y"), ". ", 
+                               datasets$title[[1]], ". ", repo_list[[1]]@name, ". ", datasets$identifier, " ",
+                               paste0("https://search.dataone.org/view/", datasets$identifier[[1]]))
+        return(citation_text)
+    } else {
+        return(list())
+    }
+}
+
+
+```
+
+For example, if the data is on DataONE, we could write a function to print the citation:
+
+```{r contentid-print-citation}
+get_citation(id)
+```
+
+And this can even be displayed inline in the markdown text. For example, this chapter used data from:
+
+> `r get_citation(id)`
+
 Second, content identifiers are **opaque**, and not particularly transparent. For many researchers, seeing the long hash value in a script will not be very meaningful. The `contentid` package needs mechanisms to transparently indicate what a content identifier refers to. Again, we have this information available dynamically through the metadata collated in networks like [DataONE](https://dataone.org). Another useful extension to `contentid` would be to provide functions for displaying detailed metadata about a content identifier when it is available, as well as a mechanism to provide more human-readable aliases for the identifier.
 
 These types of ideas for extension are how the R ecosystem advances. Anyone who sees a better way to extend packages like `contentid` can do so, or even create their own packages to ecplore new approaches to reproducible data access.
-
-```{r citable_contentid, echo=FALSE}
-# Final example, showing use of contentid with metadata and a citation
-
-# TBD pseudocode
-get_citation <- function(id) {
-    # Use query_sources to determine if a copy is on DataONE or amenable registry
-    # If so,
-        # Query that network API to determine which Datasets the content identifier is associated with
-        # If more than one is found, reduce the list to the most recent version of each Dataset (eliminating duplicate older versions, in favor of citing the most recent)
-    
-        # Retrieve the metadata for each of those datasets
-    
-        # Return a list of citations, one for each matching Dataset (posssibly providing different formats for returing the citation information (text string, bibtex, CSL-formmatted string))
-    
-}
-```
-
