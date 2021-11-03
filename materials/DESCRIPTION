@@ -4,10 +4,16 @@ Title: Does not matter.
 Version: 0.0.2
 Imports: 
     bookdown,
+    broom,
+    contentid,
     datapack,
+    dataone,
+    daymetr,
     DiagrammeR,
     dplyr,
     DT,
+    EML,
+    forecast,
     ggmap,
     ggplot2,
     ggforce,
@@ -19,11 +25,13 @@ Imports:
     leaflet,
     mcmcplots,
     ncdf4,
+    pins,
     readr,
     rjags,
     rvest,
     sf,
     scales,
+    solrium,
     tidyr,
     htmlwidgets,
     MASS,
@@ -31,4 +39,6 @@ Imports:
     foreach,
     parallel,
     plotly
-Remotes: rstudio/bookdown
+Remotes: 
+    rstudio/bookdown,
+    ebimodeling/biocro

@@ -1,8 +1,7 @@
 ## Programming Metadata and Data Publishing
 
-<!-- WARNING: currently set to NOT eval ANY blocks, switch back before final build -->
 ```{r metapp-setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
 ```
 
 ### Learning Objectives
@@ -429,7 +428,7 @@ Now we need to modify our EML document to include these identifiers. This increa
 First read in the EML that we created earlier.
 
 ```{r}
-doc <- read_eml("files/complex_example.xml")
+doc <- read_eml("../files/complex_example.xml")
 ```
 
 Let's replace the arbitrary `packageId` and `system` that we set in the example above to reflect the identifier we created for this package, and the system we are uploading the package to.
@@ -453,7 +452,7 @@ doc$dataset$otherEntity$physical$distribution$online$url <- paste0(mn@endpoint,
                                                                    "object/",
                                                                    script_id)
 
-write_eml(doc, "files/complex_example.xml")
+write_eml(doc, "../files/complex_example.xml")
 ```
 
 Now we have a full metadata document ready to be uploaded. We now need to add our files to the `DataPackage`.
@@ -467,7 +466,7 @@ The `format` argument specifies the type of file, and should match one of the li
 metadataObj <- new("DataObject",
                    id = metadata_id,
                    format ="eml://ecoinformatics.org/eml-2.1.1",
-                   filename = "files/complex_example.xml")
+                   filename = "../files/complex_example.xml")
 ```
 
 After creating the `DataObject` that represents the metadata file, we add it to the data package using `addMember`.
@@ -484,7 +483,7 @@ We add the data file and the script similarly. The only difference is in the `ad
 sourceObj <- new("DataObject",
                  id = data_id,
                  format = "text/csv",
-                 filename = "files/my-data.csv")
+                 filename = "../files/my-data.csv")
 
 dp <- addMember(dp, sourceObj, mo = metadataObj)
 dp
@@ -497,7 +496,7 @@ Next we add our script in the same way.
 scriptObj <- new("DataObject",
                  id = script_id,
                  format = "application/R",
-                 filename = "files/datfiles_processing.R")
+                 filename = "../files/datfiles_processing.R")
 
 dp <- addMember(dp, scriptObj, mo = metadataObj)
 dp
@@ -535,3 +534,6 @@ packageId <- uploadDataPackage(d1c, dp, public = TRUE)
 You can now search for and view the package at https://test.arcticdata.io:
 
 ![](images/data-uploaded-simple.png)
+```{r metapp-reset, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
+```
