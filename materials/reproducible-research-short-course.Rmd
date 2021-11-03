@@ -1,0 +1,111 @@
+--- 
+title: "Open Science Synthesis for the Delta Science Program: Week 3"
+date: "November 1-5, 2021"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+always_allow_html: yes
+---
+
+# Open Science Synthesis for the Delta Science Program: Week 3 {-#reproducible-research-techniques-for-synthesis}
+
+Placeholder
+
+
+## Schedule
+### Code of Conduct
+#### The Power of Open
+### About this book
+
+<!--chapter:end:index.Rmd-->
+
+# Session 1: Time Series and Forecasting
+
+```{r, child = 'sections/time-series-forecasting.Rmd'}
+```
+
+<!--chapter:end:session_01.Rmd-->
+
+# Session 2: Collaborative synthesis
+
+<!--chapter:end:session_02.Rmd-->
+
+# Session 3: Web based data archival
+
+```{r, child = 'sections/metadata-data-best-practices-intro.Rmd'}
+```
+
+```{r, child = 'sections/metadata-knb-data-documentation-hands-on.Rmd'}
+```
+
+<!--chapter:end:session_03.Rmd-->
+
+# Session 4: Programmatic metadata and data access
+
+```{r, child = 'sections/data-identifers-contentid.Rmd'}
+```
+
+```{r, child = 'sections/metadata-programming-publishing.Rmd'}
+```
+
+<!--chapter:end:session_04.Rmd-->
+
+# Session 5: Model Analysis
+
+```{r, child = 'sections/model-analysis.Rmd'}
+```
+
+
+
+<!--chapter:end:session_05.Rmd-->
+
+# Session 6: Shiny
+
+```{r, child = 'sections/visualisation-shiny.Rmd'}
+```
+
+<!--chapter:end:session_06.Rmd-->
+
+# Session 7: Collaborative synthesis
+
+<!--chapter:end:session_07.Rmd-->
+
+# Session 8: Reproducible workflows revisited
+
+```{r, child = 'sections/parallel-computing-in-r.Rmd'}
+```
+
+```{r, child = 'sections/Workflows-and-continuous-integration.Rmd'}
+```
+
+<!--chapter:end:session_08.Rmd-->
+
+# Session 9: Communicating Your Research: The Message Box
+
+```{r, child = 'sections/communication.Rmd'}
+```
+
+<!--chapter:end:session_09.Rmd-->
+
+# Session 10: Collaborative synthesis
+
+<!--chapter:end:session_10.Rmd-->
+
+# Session 11: Collaborative Synthesis
+
+<!--chapter:end:session_11.Rmd-->
+
+# Session 12: Collaborative Synthesis
+
+<!--chapter:end:session_12.Rmd-->
+
+# Session 13: Collaborative Synthesis and Wrap-up
+
+
+
+<!--chapter:end:session_13.Rmd-->
+
