@@ -158,7 +158,7 @@ contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", 
 # [BUG FILED](https://github.com/cboettig/contentid/issues/81): `query_sources should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
 ```
 
-This approach is **reproducible**, as the exact version of the data will be used every time (even if someone changes the data at the original web URI, which would require a new content identfier).
+This approach is **reproducible**, as the exact version of the data will be used every time (even if someone changes the data at the original web URI, which would require a new content identifier).
 
 This approach is **traceable** because there is a reference in the code to the specific data used based on in its content identifier, and the only way to change which data are used is to change the `checksum` that is being referenced to a new version.
 
