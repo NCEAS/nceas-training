@@ -82,7 +82,7 @@ library(ggplot2)
 library(lubridate)
 
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
-delta.file <- contentid::resolve(sha1)
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
 
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
@@ -587,9 +587,9 @@ server <- function(input, output) {
     
     # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(delta_data, mapping = aes(x = .data[[x_variable]],
-                                         y = .data[[y_variable]],
-                                         color = .data[[color_variable]])) +
+        ggplot(delta_data, mapping = aes(x = .data[[input$x_variable]],
+                                         y = .data[[input$y_variable]],
+                                         color = .data[[input$color_variable]])) +
             labs(x = to_any_case(input$x_variable, case = "title"),
                  y = to_any_case(input$y_variable, case = "title"),
                  color = to_any_case(input$color_variable, case = "title")) +
