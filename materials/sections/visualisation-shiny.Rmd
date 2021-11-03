@@ -82,7 +82,7 @@ library(ggplot2)
 library(lubridate)
 
 sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
-delta.file <- contentid::resolve(sha1)
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
 
 # fix the sample date format, and filter for species of interest
 delta_data <- read.csv(delta.file) %>% 
