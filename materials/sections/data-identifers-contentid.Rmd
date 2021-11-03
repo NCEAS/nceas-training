@@ -155,7 +155,7 @@ This approach is **persistent**, because it pulls data from these persistent arc
 ```{r list_sources}
 contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 
-# BUG TO FILE: `query_sources` should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
+# [BUG FILED](https://github.com/cboettig/contentid/issues/81): `query_sources should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
 ```
 
 This approach is **reproducible**, as the exact version of the data will be used every time (even if someone changes the data at the original web URI, which would require a new content identfier).
@@ -187,7 +187,7 @@ First, content identifiers are not well-linked to DOIs. DOIs are the current sta
 
 # Function to return the text of a citation for a given contentid
 get_citation <- function(contentid) {
-    #browser()
+
     # Set up for SOLR queries
     solr <- SolrClient$new(host = "cn.dataone.org", path = "/cn/v2/query/solr/", scheme = "https", port=443)
     
@@ -222,6 +222,7 @@ get_citation <- function(contentid) {
         
         # Return a list of citations, one for each matching Dataset (possibly providing different formats 
         # for returning the citation information (text string, bibtex, CSL-formatted string))
+        # Currently this only returns the first result as a POC, needs work
         citation_text <- paste0(datasets$origin[[1]], ". ", format(as.Date(datasets$pubDate[[1]]), "%Y"), ". ", 
                                datasets$title[[1]], ". ", repo_list[[1]]@name, ". ", datasets$identifier, " ",
                                paste0("https://search.dataone.org/view/", datasets$identifier[[1]]))
