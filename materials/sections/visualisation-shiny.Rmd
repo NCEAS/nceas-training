@@ -67,7 +67,7 @@ else on the Internet (e.g., if the application is deployed to a web server).
 
 ### Interactive scatterplots
 
-Let's modify this application to plot YOLO bypass secchi disk data in a time-series, and allow aspects of the plot to be interactively changed.
+Let's modify this application to plot Yolo bypass secchi disk data in a time-series, and allow aspects of the plot to be interactively changed.
 
 #### Load data for the example
 
@@ -163,7 +163,7 @@ min and max of the Depth axis.
 
 Looks so shiny!
 
-#### Negative depths?
+#### Reversed Axes?
 
 What happens if a clever user sets the minimum for the X axis at a greater value than the maximum?
 You'll see that the direction of the X axis becomes reversed, and the plotted points display right
@@ -281,17 +281,15 @@ Because we named the second plot `varPlot` in our UI section, we now need to mod
 the server to produce this plot.  Its very similar to the first plot, but this time
 we want to use the selected variables from the user controls to choose which
 variables are plotted. These variable names from the `$input` are character
-strings, and so would not be recognized as symbols in the `aes` mapping in ggplot.
-Instead, we can use `aes_string()` to provide character names for the variables to
-be used in the mappings.
+strings, and so would not be recognized as symbols in the `aes` mapping in ggplot. As recommended by the tidyverse authors, we use the [non-standard evaluation](https://dplyr.tidyverse.org/articles/programming.html) syntax of `.data[["colname"]]` to access the variables.
 
 ```{r shiny_aes_string, eval=FALSE, echo=TRUE}
     output$varPlot <- renderPlot({
-        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
-                                                y = input$y_variable,
-                                                color = input$color_variable)) +
-            geom_point(size=4) +
-            theme_light()
+      ggplot(delta_data, aes(x = .data[[input$x_variable]],
+                             y = .data[[input$y_variable]],
+                             color = .data[[input$color_variable]])) +
+        geom_point(size = 4)+
+        theme_light()
     })
 ```
 
@@ -448,11 +446,11 @@ server <- function(input, output) {
     
     # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
-                                                y = input$y_variable,
-                                                color = input$color_variable)) +
-            geom_point(size=4) +
-            theme_light()
+      ggplot(delta_data, aes(x = .data[[input$x_variable]],
+                             y = .data[[input$y_variable]],
+                             color = .data[[input$color_variable]])) +
+        geom_point(size = 4) +
+        theme_light()
     })
 }
 
@@ -589,9 +587,9 @@ server <- function(input, output) {
     
     # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(delta_data, mapping = aes_string(x = input$x_variable,
-                                                y = input$y_variable,
-                                                color = input$color_variable)) +
+        ggplot(delta_data, mapping = aes(x = .data[[x_variable]],
+                                         y = .data[[y_variable]],
+                                         color = .data[[color_variable]])) +
             labs(x = to_any_case(input$x_variable, case = "title"),
                  y = to_any_case(input$y_variable, case = "title"),
                  color = to_any_case(input$color_variable, case = "title")) +
