@@ -587,9 +587,9 @@ server <- function(input, output) {
     
     # mix and  match plot
     output$varPlot <- renderPlot({
-        ggplot(delta_data, mapping = aes(x = .data[[x_variable]],
-                                         y = .data[[y_variable]],
-                                         color = .data[[color_variable]])) +
+        ggplot(delta_data, mapping = aes(x = .data[[input$x_variable]],
+                                         y = .data[[input$y_variable]],
+                                         color = .data[[input$color_variable]])) +
             labs(x = to_any_case(input$x_variable, case = "title"),
                  y = to_any_case(input$y_variable, case = "title"),
                  color = to_any_case(input$color_variable, case = "title")) +
