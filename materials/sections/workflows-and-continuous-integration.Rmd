@@ -129,6 +129,35 @@ While managing workflows solely as linked functions works, the presence of side-
 
 In this workflow, each icon represents a *target state* of the application, and it is the job of the workflow executor to make sure that all of these "targets" are up-to-date. The final products are dependent on both a pre-processed data pipeline, and on the code for generating a plot. In this example, the dark green icons indicate parts of the workflow that have not changed. Whereas the blue `create_plot` box indicates that the function has changed, which then "taints" all of the downstream parts of the workflow that depend on it. So, in this case, the change in `create_plot` means that the `hist` target must be re-executed, but the data processing pipeline above it does not currently need to be re-run. 
 
+Targets is configured by producing a special R script (`_targets.R`) that sets up the workflow to be executed. Here's an example from the simple workflow example above: 
+
+```{r wf-target-file, eval=FALSE}
+library(targets)
+library(tarchetypes)
+source("R/functions.R")
+options(tidyverse.quiet = TRUE)
+tar_option_set(packages = c("biglm", "dplyr", "ggplot2", "readr", "tidyr"))
+list(
+  tar_target(
+    raw_data_file,
+    "data/raw_data.csv",
+    format = "file"
+  ),
+  tar_target(
+    raw_data,
+    read_csv(raw_data_file, col_types = cols())
+  ),
+  tar_target(
+    data,
+    raw_data %>%
+      filter(!is.na(Ozone))
+  ),
+  tar_target(hist, create_plot(data)),
+  tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
+  tar_render(report, "index.Rmd")
+)
+```
+
 This is really useful for being able to incrementally work through data loading and cleaning pipelines that feed downstream analytical functions that depend on using a consistent set of input data.
 
 ### Exercise
