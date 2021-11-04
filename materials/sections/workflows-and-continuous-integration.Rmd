@@ -9,24 +9,88 @@ output: html_document
 
 ```{r wf-setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(contentid)
+library(readr)
 ```
 
 ### Learning Outcomes
 
-- Conceptualize workflows for automating large processing
+- Conceptualize workflows for reproducible processing
 - Understand how workflow systems can simplify repetitive tasks
 - Overview systems for executing workflows
 - Understand the utility of continuous integration
 
 ### Introduction
 
+Preparing data for running analysis, models, and visualization processes can be complex,
+with many dependencies among datasets, as well as complex needs for data cleaning,
+munging, and integration that need to occur before "analysis" can begin.
 
+Many research projects would benefit from a structured approach to organizing these
+processes into workflows. A research workflow is an ordered sequence of steps in which the outputs
+of one process are connected to the inputs of the next in a formal way. Steps are then
+chained together to typically create a directed, acyclic graph that represents the
+entire data processing pipeline.
 
-### Summary
+![](images/workflow.png)
+This hypothetical workflow shows three processing stages for downloading, integrating, and mapping the
+data, along with the outputs of each step. This is a simplified rendition of what is normally a much more 
+complex process. 
 
+Whether simple or complex, it is helpful to conceptualize your entire workflow as a directed graph, which 
+helps to identify the explicit and implicit dependencies, and to plan work collaboratively.
 
+### Workflow dependencies and encapsulation
+
+While there are many thousands of details in any given analysis, the reason to create a workflow is to structure all of those details so that they are understandable and traceable. Being explicit about **dependencies** and building a **hierarchical** workflow that encapsulates the steps of the work as independent modules. So the idea is to focus the workflow on the **major** steps in the pipeline, and to articulate each of their dependencies.
+
+Workflows can be implemented in many ways, with various benefits:
+
+- as a conceptual diagram
+- As a series of functions that perform each step through a controlling script
+- As a series functions managed by a workflow tool like [`targets`](https://docs.ropensci.org/targets/)
+- many others...
+
+Here's a simple, toy example of using functions to encapsulate a workflow.
+
+```{r wf-as-functions}
+load_data <- function() {
+    delta_taxa_file <- contentid::resolve("hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d")
+    delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types = FALSE)
+    print("Data loading complete.")
+    return(delta_taxa)
+}
+
+clean_data <- function(delta_taxa) {
+    print("Data cleaning not implemented yet.")
+}
+
+plot_data <- function(delta_taxa) {
+    print("Plotting not implemented yet.")
+}
+
+run_workflow <- function() {
+    delta_taxa <- load_data()
+    delta_taxa_cleaned <- clean_data(delta_taxa)
+    plot_data(delta_taxa_cleaned)
+    print("Worflow run completed.")
+}
+
+run_workflow()
+```
+
+This workflow modularizes the code so that it is reasonably understandable, and it makes the dependencies among the steps clear. But we can do more. Each time the workflow is run, all of the functions are run. We could improve efficiency by only running the functions for which a dependencies changed.
+
+> Note on dependencies: Dependencies are the data and processes that must have completed before a given step in the workflow can be run. In purely functional programming, all of the dependencies would be passed as arguments to the function. This makes it so that the function is able to run with only the information that is passed to it at runtime, and is very powerful. However, dependendencies can also be provided by writing files to disk, or into a daatbase. These are called *side effects*, because a change in the state of the application was made (e.g., a file was changed), but there is no signal in the main function calls that this has happened. Many workflow systems are simply trying to make it easier to manage both direct dependencies and side-effects so that execution of a workflow can be executed cleanly.
+
+The benefits of conceptualizing a workflow include:
+
+- Improved understanding
+- Efficiency
+- Automation
+- Improved quality via modular testing
+- Reproducibility
 
 ### Readings and tutorials
 
-Thanks for all the fish!
-
+- The [`targets`](https://docs.ropensci.org/targets/) package
