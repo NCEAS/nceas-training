@@ -81,15 +81,30 @@ run_workflow()
 
 This workflow modularizes the code so that it is reasonably understandable, and it makes the dependencies among the steps clear. But we can do more. Each time the workflow is run, all of the functions are run. We could improve efficiency by only running the functions for which a dependencies changed.
 
-> Note on dependencies: Dependencies are the data and processes that must have completed before a given step in the workflow can be run. In purely functional programming, all of the dependencies would be passed as arguments to the function. This makes it so that the function is able to run with only the information that is passed to it at runtime, and is very powerful. However, dependendencies can also be provided by writing files to disk, or into a daatbase. These are called *side effects*, because a change in the state of the application was made (e.g., a file was changed), but there is no signal in the main function calls that this has happened. Many workflow systems are simply trying to make it easier to manage both direct dependencies and side-effects so that execution of a workflow can be executed cleanly.
+### Dependencies {- .aside}
 
-The benefits of conceptualizing a workflow include:
+Dependencies are the data and processes that must have completed before a given step in the workflow can be run. In purely functional programming, all of the dependencies would be passed as arguments to the function. This makes it so that the function is able to run with only the information that is passed to it at runtime, and is very powerful. However, dependendencies can also be provided by writing files to disk, or into a daatbase. These are called *side effects*, because a change in the state of the application was made (e.g., a file was changed), but there is no signal in the main function calls that this has happened. Many workflow systems are simply trying to make it easier to manage both direct dependencies and side-effects so that execution of a workflow can be executed cleanly.
+
+#### {-}
+
+### Benefits
+
+The benefits of conceptualizing work as a workflow include:
 
 - Improved understanding
 - Efficiency
 - Automation
 - Improved quality via modular testing
 - Reproducibility
+
+
+### Exercise
+
+Take an analysis that you are familiar with, and:
+
+- draw a diagram of the major steps and substeps of the workflow
+- analyze the dependencies of these steps and substeps
+- stub out a set of functions that would execute that workflow
 
 ### Readings and tutorials
 
