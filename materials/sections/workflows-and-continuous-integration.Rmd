@@ -9,24 +9,165 @@ output: html_document
 
 ```{r wf-setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(contentid)
+library(readr)
 ```
 
 ### Learning Outcomes
 
-- Conceptualize workflows for automating large processing
+- Conceptualize workflows for reproducible processing
 - Understand how workflow systems can simplify repetitive tasks
 - Overview systems for executing workflows
 - Understand the utility of continuous integration
 
 ### Introduction
 
+Preparing data for running analysis, models, and visualization processes can be complex,
+with many dependencies among datasets, as well as complex needs for data cleaning,
+munging, and integration that need to occur before "analysis" can begin.
 
+Many research projects would benefit from a structured approach to organizing these
+processes into workflows. A research workflow is an ordered sequence of steps in which the outputs
+of one process are connected to the inputs of the next in a formal way. Steps are then
+chained together to typically create a directed, acyclic graph that represents the
+entire data processing pipeline.
 
-### Summary
+![](images/workflow.png)
+This hypothetical workflow shows three processing stages for downloading, integrating, and mapping the
+data, along with the outputs of each step. This is a simplified rendition of what is normally a much more 
+complex process. 
 
+Whether simple or complex, it is helpful to conceptualize your entire workflow as a directed graph, which 
+helps to identify the explicit and implicit dependencies, and to plan work collaboratively.
 
+### Workflow dependencies and encapsulation
+
+While there are many thousands of details in any given analysis, the reason to create a workflow is to structure all of those details so that they are understandable and traceable. Being explicit about **dependencies** and building a **hierarchical** workflow that encapsulates the steps of the work as independent modules. So the idea is to focus the workflow on the **major** steps in the pipeline, and to articulate each of their dependencies.
+
+Workflows can be implemented in many ways, with various benefits:
+
+- as a conceptual diagram
+- As a series of functions that perform each step through a controlling script
+- As a series functions managed by a workflow tool like [`targets`](https://docs.ropensci.org/targets/)
+- many others...
+
+Here's a simple, toy example of using functions to encapsulate a workflow.
+
+```{r wf-as-functions}
+load_data <- function() {
+    delta_taxa_file <- contentid::resolve("hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d")
+    delta_taxa <- readr::read_csv(delta_taxa_file, show_col_types = FALSE)
+    print("Data loading complete.")
+    return(delta_taxa)
+}
+
+clean_data <- function(delta_taxa) {
+    print("Data cleaning not implemented yet.")
+}
+
+plot_data <- function(delta_taxa) {
+    print("Plotting not implemented yet.")
+}
+
+run_workflow <- function() {
+    delta_taxa <- load_data()
+    delta_taxa_cleaned <- clean_data(delta_taxa)
+    plot_data(delta_taxa_cleaned)
+    print("Worflow run completed.")
+}
+
+run_workflow()
+```
+
+This workflow modularizes the code so that it is reasonably understandable, and it makes the dependencies among the steps clear. But we can do more. Each time the workflow is run, all of the functions are run. We could improve efficiency by only running the functions for which a dependencies changed.
+
+### Dependencies {- .aside}
+
+Dependencies are the data and processes that must have completed before a given step in the workflow can be run. In purely functional programming, all of the dependencies would be passed as arguments to the function. This makes it so that the function is able to run with only the information that is passed to it at runtime, and is very powerful. However, dependendencies can also be provided by writing files to disk, or into a daatbase. These are called *side effects*, because a change in the state of the application was made (e.g., a file was changed), but there is no signal in the main function calls that this has happened. Many workflow systems are simply trying to make it easier to manage both direct dependencies and side-effects so that execution of a workflow can be executed cleanly.
+
+#### {-}
+
+### Benefits
+
+The benefits of conceptualizing work as a workflow include:
+
+- Improved understanding
+- Efficiency
+- Automation
+- Improved quality via modular testing
+- Reproducibility
+
+### Organizing code in packages
+
+Utilizing functions is key to good workflow design. We also need mechanisms to organize these functions so that they are accessible to a workflow executor. In the toy example above I put all of the functions in a single code block in a single function. While this works, it would get unwieldy in larger projects.  While there are various ways to include code that is present in multiple files (e.g., using `source`), [R Packages](https://learning.nceas.ucsb.edu/2021-09-delta/session-7-functions-and-packages.html#creating-r-packages) are specifically designed to make it easy to encapsulate work into different functions and files, and have those be accessible to all parts of the workflow. They also provide a great mechanism for describing the installation dependencies of your code. The basic structure of an R package is just a series of R code in files in the `R` subdirectory, with metadata about the package:
+
+```
+.
+├── DESCRIPTION
+├── LICENSE.md
+├── NAMESPACE
+├── R
+│   └── load_data.R
+│   └── load_data_taxa.R
+│   └── load_data_catch.R
+│   └── clean_taxa.R
+│   └── environment_info.R
+├── man
+│   └── environment_info.Rd
+├── mytools.Rproj
+└── tests
+    ├── testthat
+    │   └── test-enviroment_info.R
+    └── testthat.R
+```
+
+### Workflow systems
+
+While managing workflows solely as linked functions works, the presence of side-effects in a workflow can make it more difficult to efficiently run only the parts of the workflow where items have changed. Workflow systems like Make and [`targets`] have been created to provide a structured way to specify, analyze, and track dependencies, and to execute only the parts of the workflow that are needed. For example, here's an example workflow from `targets`:
+
+![](images/wf-targets-outdated.png)
+
+In this workflow, each icon represents a *target state* of the application, and it is the job of the workflow executor to make sure that all of these "targets" are up-to-date. The final products are dependent on both a pre-processed data pipeline, and on the code for generating a plot. In this example, the dark green icons indicate parts of the workflow that have not changed. Whereas the blue `create_plot` box indicates that the function has changed, which then "taints" all of the downstream parts of the workflow that depend on it. So, in this case, the change in `create_plot` means that the `hist` target must be re-executed, but the data processing pipeline above it does not currently need to be re-run. 
+
+Targets is configured by producing a special R script (`_targets.R`) that sets up the workflow to be executed. Here's an example from the simple workflow example above: 
+
+```{r wf-target-file, eval=FALSE}
+library(targets)
+library(tarchetypes)
+source("R/functions.R")
+options(tidyverse.quiet = TRUE)
+tar_option_set(packages = c("biglm", "dplyr", "ggplot2", "readr", "tidyr"))
+list(
+  tar_target(
+    raw_data_file,
+    "data/raw_data.csv",
+    format = "file"
+  ),
+  tar_target(
+    raw_data,
+    read_csv(raw_data_file, col_types = cols())
+  ),
+  tar_target(
+    data,
+    raw_data %>%
+      filter(!is.na(Ozone))
+  ),
+  tar_target(hist, create_plot(data)),
+  tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
+  tar_render(report, "index.Rmd")
+)
+```
+
+This is really useful for being able to incrementally work through data loading and cleaning pipelines that feed downstream analytical functions that depend on using a consistent set of input data.
+
+### Exercise
+
+Take an analysis that you are familiar with, and:
+
+- draw a diagram of the major steps and substeps of the workflow
+- analyze the dependencies of these steps and substeps
+- stub out a set of functions that would execute that workflow
 
 ### Readings and tutorials
 
-Thanks for all the fish!
-
+- The [`targets`](https://docs.ropensci.org/targets/) package
