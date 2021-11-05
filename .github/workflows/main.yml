@@ -2,7 +2,6 @@
 
 name: webhook
 on: 
-  workflow_dispatch:
   push:
     branches: [ '**' ]
 
@@ -13,9 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Invoke workflow in another repo with inputs
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: renderbook
-          repo: nceas/repro-research-course
-          ref: master
-          token: ${{ secrets.RRCOURSE }}
+      - run: |
+        curl -XPOST -u "${{ secrets.RRUSER}}:${{secrets.RRCOURSE}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/nceas/reproducible-research-course/dispatches --data '{"event_type": "build_application"}'
+      
+
