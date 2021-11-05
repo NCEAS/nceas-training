@@ -5,11 +5,11 @@ on:
   push:
     branches: [ '**' ]
 
-        
 jobs:
+  build-page:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Invoke workflow in another repo with inputs
-      - run: |
+        run: |
           curl -XPOST -u "${{ secrets.RRUSER}}:${{secrets.RRCOURSE}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/nceas/reproducible-research-course/dispatches --data '{"event_type": "build_application"}'
-      
-
