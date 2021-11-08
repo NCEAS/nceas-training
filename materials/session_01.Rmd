@@ -1,4 +1,7 @@
-# Session 1: Time Series and Forecasting
+# Introduction and Setup
 
-```{r, child = 'sections/time-series-forecasting.Rmd'}
+```{r, child = 'lessons/inro-reproducibility.Rmd'}
+```
+
+```{r, child = 'lessons/r-intro-rstudio-git-setup-motivation.Rmd'}
 ```
