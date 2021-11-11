@@ -6,13 +6,6 @@ date: "10/22/2021"
 
 ## Learning Objectives
 
-
-These lessons are the equivalent of a city bus tour. They are a high level tour of some useful functions. 
-
-There are plenty of more detailed lessons on the internet. I would recommend starting with the  ["Forecasting Principles and Practice v2"](https://otexts.com/fpp2/) by Rob Hyndman who wrote the forecast package.
-
-Today we will take a tour with the `predict` function in R, as well as some advanced time series statistics that are provided by the forecast package.
-
 In this session you will learn how to
 
 - Simulate data and test if your model is working as expected
@@ -20,23 +13,29 @@ In this session you will learn how to
 - Visualize data
 - Decompose a time series into seasonal, trend, and error
 
-_a note on the forecast package_ Hydnman and others are creating the successor to the forecast package called 'feasts'. The next version of the text uses this package https://otexts.com/fpp3/.  
+As a reminder, these lessons are intended to provide a high level introduction to concepts and tools used in time series analysis and forecasting. While it is not possible to provide the background required to fully understand the theory and application of these methods in this short time, learners are pointed to references betlow. 
+
+I would recommend starting with the  ["Forecasting Principles and Practice v2"](https://otexts.com/fpp2/) by Rob Hyndman who wrote the R `forecast` package. 
+
+Hydnman and others are creating the successor to the forecast package called 'feasts' intended to align more closely with the 'tidymodels' and 'tidyverse' ecosystems. The next version of the Hyndman text has code using the feasts package https://otexts.com/fpp3/. At the time of writing, the forecast package is both more stable and more widely used.
 
 ## Linear regression, with time as a predictor
+
+We start with regression using time as the dependent variable.
 
 Both the simulation of data and the fitting of the model here is a general approach. It is demonstrated with a simple regression model of increasing $Y$ as a funciton of time. But simulating data can be very useful in understanding your data, your model, and the about statistics in general. 
 
 First, lets define our data model.
 
-We want to fit. simulate a time series of one observations on each of ten subsequent dates:
-
-Our data model is effectively
-
 $$
 Y_{\textrm{linear}}=1+2t +\epsilon\\
 \epsilon\sim N(0,1)
 $$
-Where y is the mass of your favorite organism. They are born on day 0 with 1 g and growth on average is 2 grams per day.   
+
+Lets imagine that $Y$ is the mass of your favorite organism. Say, a fish, born on day 0 with a mass of $1$ gram (the intercept) and growth rate of $2\pm 1$ grams per day.   
+
+First, simulate and plot the growth a fish:
+
 ```{r}
 library(forecast)
 library(dplyr)
@@ -50,6 +49,7 @@ for(t in seq_along(days)){
   mass[t] <- 1 + 2 * days[t] + rnorm(1, 0, 1)
 }
 
+
 linear_data <- data.frame(day = days, mass = mass)
 plot(mass~day, 
      data = linear_data, 
@@ -59,7 +59,7 @@ plot(mass~day,
 
 ```
 
-Now, we can fit a linear regression, and estimate the parameters. Did the model find the 'right' values?
+Now, lets fit a linear regression. It will allow us to estimate the parameters - and to see whether we can recover the 'truth' of the growth model that generated the observations. Did the model find the right values?
 
 ```{r}
 mod_linear <- lm(mass ~ 1 + days, data = linear_data)
@@ -69,6 +69,9 @@ tidy(mod_linear)
 Did we recover the correct parameters from the simulated data?
 
 Don't forget to check assumptions! `plot(lm)`
+This is helpful when you use simulated data, because it helps you to see how these diagnostics 
+look even with a known data generating process.
+
 
 ```{r}
 mod_linear
@@ -76,37 +79,111 @@ mod_linear
 ## you can look at model statistics 
 summary(mod_linear)
 
-## don't forget to check assumptions, etc
-## this is helpful even when you simulate and you know
-## that the data generating process is valid; get an idea of what is 'okay'
+
 
 # plot(mod_linear)
 ```
 
+
+### Further notes: a digression from time into the power of simulation for power analysis
+
+The data generated above has a random error term $\epsilon\sim N(0,1)$. You can use simulation for power analysis by simulating a lot of datasets and fitting the model to test, e.g., what percent of the datasets have a particular P value, or if the mean parameter estimates (intercept, slope, error in this case) converge on the 'true' values.
+
+The concept of a 'data generating process' is an important concept when modeling, and when synthesizing data from many different locations. A 'data generating process' includes both the system being studied and the tools used to observe (discussed further below in the section on state space models). It is common to hear data referred to as the truth. But data can only represent an incomplete view of the system itself.  In the end both data and models are representations of a system that help estimate some underlying truth.
+
+```{r}
+
+n_sims <- 1000
+sim_data <- list()
+fits <- list()
+days <- 0:9
+n <- length(days)
+
+
+for(i in 1:n_sims){
+  sim_data[[i]] <- vector(mode = 'double', length = n)
+  for(t in seq_along(days)){
+    mass[t] <- 1 + 2 * days[t] + rnorm(1, 0, 1)
+  }
+  sim_data[[i]] <- mass
+  fits[[i]] <- lm(mass ~ 1 + days)
+}
+```
+
+
+
+Now, we can create a data frame of the statistics that we are interested in. Here, we will look at fitted values of:
+
+1. intercept
+2. slope
+3. model error
+4. significance (P value) of test that intercept is different than 0
+5. significance of test that slope is different than 0
+
+
+```{r}
+v <- vector(length = n_sims)
+stats <- data.frame(intercept = v, slope = v, sigma = v, p_i = v, p_s = v)
+for(i in 1:n_sims){
+  stats[i, c('intercept', 'slope')] <- coef(fits[[i]])
+  stats[i, 'sigma']                 <- sigma(fits[[i]])
+  stats[i, c('p_i', 'p_s')]         <- summary(fits[[i]])$coefficients[1:2, 4]
+}
+
+
+```
+
+Now, we can check out whether our model returns the simulated terms. Here we will look at the mean and sd, and create a nice table while we are at it! 
+
+```{r}
+data.frame(slope = c(mean(stats$slope), sd(stats$slope)), 
+           intercept = c(mean(stats$intercept), sd(stats$intercept)), 
+           row.names = c('mean', 'sd'))
+
+```
+
+Now that we are working with our 'population' of model fits, we can use all manner of statistics and visualizations to better understand the simulated experiments. We can use `pairs`, `hist`, `quantile` and others. 
+
+For the classical 'power analysis' lets look at the percent of time the slope term is significant at 
+P <= 0.05. How often is the slope significant? How often is the intercept significant?
+
+This is rather straightforward with the 'stats' data.frame we created above:
+
+```{r}
+
+sum(intercept_ps > 0.05)/length(day_ps)
+sum(day_ps > 0.05)/length(day_ps)
+```
+
+
+
+_note_ (use P values with care, if at all! Here they are used because they are a familiar and still commonly used statistic) But see the [Forum on P values and Model Selection in Vol 95, Issue 3 of Ecology](https://esajournals.onlinelibrary.wiley.com/toc/19399170/2014/95/3).
+
+Now back to the main topic!
+
 ## Time series 'feature extraction'
 
-We've already extracted features from our time series. What are 'features'? These are 
-properties underlying the data. In this case, the information in our time series has been condensed into a slope and intercept. 
+We've already estimated some of the statistical properties of our time series. In machine learning, these parameter estimates can be used as a set of numbers with lower dimension than the raw data. Once you have estimated a slope and intercept, you have condensed your dataset from 10 points into two values that describe the data. This is a simple way of creating features for a machine learning model from even complex time series.
 
 There are a lot of other mathematical functions that can be fit to your data, and properties of these functions that can be extracted, and used in subsequent analyses.
 
 Bolker (2007) provides a 'bestiary of functions' in chapter 3 of his book ["Ecological Models and Data in R"](https://ms.mcmaster.ca/~bolker/emdbook/book.pdf). It provides some biological meanings and useful contexts for a variety of linear and non-linear, continuous and discontinuous functions. 
 
-This is a common and very useful way of converting a time series into features.
+This is a common and very useful way of converting a time series into descriptive statistics.
 
 For an example of Bayesian logistic regression using JAGS, see the work done by Jessica Guo and me: https://github.com/genophenoenvo/JAGS-logistic-growth. 
 
 Dietze's Ecological forecasting course shows how to simulate a logistic growth curve using Monte Carlo methods. https://github.com/EcoForecast/EF_Activities/blob/master/Exercise_02_Logistic.Rmd 
 
-There are a huge number of other methods for 'dimensionality reduction'. Principal components analysis is an important one. Another is taking a full resolution image and reducing the resolution to a few  pixels square, and everything in between. In the 'machine learning' world a wide range of methods are used in a process that they call 'encoding' . 
+There are a number of other methods for 'dimensionality reduction'. Principal components analysis is an important one. Another is taking a full resolution image and reducing the resolution - even from thousands to hundreds or even tens of pixels. In the machine learning world a wide range of methods are used in a process that they call 'encoding'.
 
 ### The 'predict' function: forecasting with a fitted regression model
 
 The `predict` function in R has a variety of uses. Last week we learned how to use it to impute missing data values. This week, we will learn how to use it to predict the next time points in our time series. 
 
-First step, lets predict what is the _expected_ value on the subsequent few days. 
-This is using the fitted slope and intercept to plot a single value on the regression line for each day. 
+As an example, given that we have observed a fish on the first ten days (day 0 to day 9) of its life, and then fit the model on day 11, lets predict what the mass of our fish over the next five days. 
 
+We will use the fitted slope and intercept to plot a single value on the regression line for each day. 
 We will plot the data in black, the new points in red, and the regression line.
 
 ```{r}
@@ -115,6 +192,8 @@ newdays <- 11:15
 newdat <- data.frame(days = newdays)
 preds <- predict(mod_linear, 
                  newdata = newdat)
+## approx. equivalent to:
+# preds <- 1 + 2 * newdays
 
 plot(mass ~ day, 
      data = linear_data, 
@@ -132,11 +211,11 @@ Now, we have predicted the next five days of growth!
 
 ## Time Series objects in R
 
-R has a specific type of time series 'object'.  that is analogous to a 'data.frame', but special. It is called a time series object - 'ts' (or 'mts' for a multivariate time series). See `?ts`
+R has a specific type of 'object' that it uses for time series. It is called a time series object - 'ts' (or 'mts' for a multivariate time series). These objects are analogous to a 'data.frame', but are special because they contain information describing the time between each observation.  See `?ts`
 
 Lets create time series objects so that we can use some of the basic functions for time series analysis.
 
-How to make a time series object. 
+**How to make a time series object.**
 
 Last week when we learned about the `imputeTS` package, we skipped over what we actually did to make a time series object. 
 
@@ -187,33 +266,41 @@ all <- ts(data = data.frame(noise, lag, lag_trend, seasonal, seasonal_trend),
           frequency = 12)
 
 plot(all)
-tsdisplay(all)
 ```
 
 
 Lets look at some basic statistics: which of these have a lag?
 
 This plot will show the correlation between $Y_t$ and $Y_{t-\textrm{lag}}$
+
 ```{r}
 lag.plot(all, set.lags = c(1, 3, 6, 9))
 
 ```
 
-### Autocorrelation plots
+### Autocorrelation
+
+Autocorrelation measures the correlation between an observation at time $t$ and 
+previous observations at defined 'lags', e.g. the correlation between $Y_t$ and $Y_{t-1}$
+would be an autocorrelation with a lag of 1.
 
 ```{r}
-acf(all[,'noise'], xlab = 'Lag (years)')
-acf(all[,'lag'], xlab = 'Lag (years)')
-acf(all[,'seasonal'], xlab = 'Lag (years)')
+acf(all[,'noise'], xlab = 'Lag (years), noise')
+acf(all[,'lag'], xlab = 'Lag (years), lag 1')
+acf(all[,'lag'], xlab = 'Lag (years), lag 1 and trend')
+acf(all[,'seasonal'], xlab = 'Lag (years), seasonal')
 
 ```
+
+Learn more in chapter 2 of [Hyndman's text](https://otexts.com/fpp2/autocorrelation.html),
+
 ### Time Series Decomposition
 
 We want to look at a time series in terms of its components.
 
-R has a number of handy functions for basic time series analysis. Lets take a look. 
+To do so, we will review a number of handy functions for basic time series analysis that are provided in base R and the forecast package.
 
-Lets look at some of the basic components of a time series
+First, we will use the `decompose` function to extract and visualize some of the basic components of a time series. These components are:
 
 - seasonal patterns
 - trend
@@ -223,22 +310,40 @@ Lets look at some of the basic components of a time series
 dec <- decompose(all[,'seasonal_trend'])
 
 plot(dec)
+```
 
-dec_df <- data.frame(trend = dec$trend, month = months)
-dec_df <- dec_df[!is.na(dec_df),]
 
-tidy(lm(trend ~ month, data = dec_df))
+This plot shows the four panels. First is the raw data, the the next three panels show the trend, seasonal pattern, and the residuals. These can be used in further statistical analysis. For example, you may be interested in learning about other variables that explain patterns in the the residuals after the trend and seasonal patterns are removed. 
+
+Lets simulate the number of times the fish sees a twig float by, and see if that affects our time series:
+
+```{r}
+r <- rpois(n = length(dec$random), lambda = 4)
+tidy(lm(dec$random ~ r, data = dec_df))
+```
+No, there is no relation!(as expect since this random number generating process is unrelated to the time series)
+
+Or, you may want to test whether the trend is positive by regressing it against the months:
+
+
+```{r}
+
+tidy(lm(dec$trend ~ months))
 
 ```
 ### Seasonal Trend with Loess smoothing (STL) decomposition
 
-The seasonal component of the decomposed time series is very regular. The `acf()` function creates a seasonal component using the means. Lets look at a more sophisticated model - the seasonal trend with local (Loess) smoothing
+The seasonal component of the decomposed time series is very regular. The `acf()` function creates a seasonal component using the means, so if you have a monthly data set, the seasonal component for January will be the mean of all historical Januarys. 
 
-If we are interested in a longer term trend, lets use the 
-Seasonal trend w/ local smoothing Loess (STL) to smooth over a few years. 
+At a more sophisticated approach is to weight the mean with more recent data - so, e.g. this month will be the historical mean adjusted to the recent trends. One algorithm provided in base R is `stl` which performs seasonal decomposition with local smoothing using Loess. 
 
-- trend window > seasonal window
-- has some rule of thumbs for estimating the parameters
+Seasonal trend w/ local smoothing Loess (STL) to smooth over a few years.
+
+Some guidelines:
+
+- the trend window should be greater than the seasonal window
+- there are rules of thumbs for estimating the parameters
+- The `forecast` and `auto.arima` functions can automatically fit these parameters 
 
 ```{r}
 seasonal_stl <- stl(all[,'seasonal_trend'], s.window = 6)
@@ -249,15 +354,11 @@ plot(seasonal_stl)
 
 ### Now we can analyze the trend
 
+Is there a trend using local smoothing?
+
 ```{r}
-tmp <- data.frame(month = months, trend = seasonal_stl$time.series[,'trend'])
-#plot(tmp$month, tmp$trend)
-fit <- lm(trend ~ month, data = tmp)
+fit <- lm(seasonal_stl$time.series[,'trend'] ~ months)
 coef(fit)
-tidy(fit)
-
-z <- rnorm(10000, 0.019, 0.0002208)
-
 
 ```
 What does that coefficient 'month' mean?
@@ -276,43 +377,60 @@ You will often see time series models specified as **ARIMA(p,d,q)**
 **I: Integrated**
 **MA: Moving Average smoothing**
 
-- p number of lags 
-- d degree of differencing
-- q size of moving average window
+- _p_ number of lags 
+- _d_ degree of differencing
+- _q_ size of moving average window
 
 The `forecast::auto.arima` function automatically fits these parameters. See https://otexts.com/fpp2/arima-r.html for an explanation of how this function works.
 
 **STL** Seasonal Seasonal Decomposition of Time Series by Loess. Extracts trend, seasonal, and locally smoothed moving average (described above). 
 
-**ETS** Exponential smoothing state space model.
+**ETS** Exponential smoothing state space model. These forecast based on previous observations, but the importance of the prior observations are weighted using exponential smoothing such that more recent observations have more weight. See https://otexts.com/fpp2/expsmooth.html
+
+
+### Tools for forecasting
+
+As we discussed last week, there are some simple or 'naiive' ways to forecast - using the historical means from a seasonal trend, or using the overall mean. These approaches are useful, sometimes because they perform well and other times because they provide a reasonable null hypothesis. Some use the same methods that we used to interpolate.
+
+The `forecast` package has a lot of handy functions for the analysis of time series data, and the fitting of complex models including components described above. Here are some that may be useful:
+
+There are also functions `ets`, `stlm`, `ma`, `spline`, `meanf`, and `snaive` for ETS, STL, Moving Average, Spline, and Naive forecasts. 
+
+The `tslm` function uses `lm` and adds the ability to automatically specify trend and season componets as predictors (even if they aren't in the data frame). The funciton fits a linear regression to trend, season, and other factors. This has special terms 'trend' and 'season' that don't actually have to be in the data frame - they are automatically fit and added. The result will include one estimate for the trend, and another for each time step (in this case, an intercept for the first month and a parameter for each subsequent month):  
+
+```{r}
+ts_fit <- tslm(all[,'seasonal_trend'] ~ trend + season)
+plot(forecast(ts_fit, h = 20))
+tidy(ts_fit)
+
+```
+
+Another handy funciton is `auto.arima`. This function will evaluate a large number of candidate models (e.g. with different parameters for the STL and ETS components) and select the best based on AIC or other criteria. Note that this takes a long time because it has to evaluate so many candidate models. 
+
+
+```{r}
+auto_fit <- auto.arima(all[,'seasonal_trend'])
+summary(auto_fit)
+```
+
 
 ### State Space Models
 
-1. Latent variable - this is the process of interest. Not directly measured, but measured with an 'observation model' a.k.a. whatever is used to actually measure - often boils down to changes in an electric current that capture a property of interest.
-
-It could be a model of a pendulum or similar dynamical system.
-
-https://upload.wikimedia.org/wikipedia/commons/2/24/Oscillating_pendulum.gif
-
-<a href="https://commons.wikimedia.org/wiki/File:Oscillating_pendulum.gif">Ruryk</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>, via Wikimedia Commons
-
-Imagine you are interested in 'growth rate'. Then you measure the size (how? mass? length?...) of your tree, fish, or other organism of interest. Yesterday, today, and tomorrow. You can then estimate the growth rate by these differences. In turn, the growth rate could also be controlled by time, temperature, resource availability. These might each have   its own latent and observed variables.  
-
-2. State-space models 
-
 State space models are models of how the state of a system changes over time.  
 
-A state-space They provide a series of equations that represent how a system evolves in time. These models are widely used in the study of complex systems.
+State space models leverage a useful concept of a "latent variable". A latent variable is the process of interest, but which can not be directly measured. While it can not be directly measured, it can be measured with an 'observation model'. This decoupling of the measurement from the process of interest is a conceptual step that is very helpful. 
 
-For example, a model of population dynamics that accounts for growth, reproduction, and death, geophysical at a particular place. Rocket scientists and robotics engineers, car manufacturers and video game designers all use complex models of a system that function in this way. 
+Indeed, whatever is used to actually measure - often boils down to changes in an electric current that capture a property of interest. If we are measuring temperature with a mercury thermometer, there is an 'observation' model (scale on the thermometer) that converts the observation of the height of mercury into the latent variable of air temperature.
 
-Such a model can take parameters for equations that control the the dynamics of the system (e.g 'growth rate'). you know the state of a system, and how the system changes in time, you can use a state-space framework. once it represents the current state, it can be represent the state of a system. Conceptually, they are a way of modeling time series when you have a model of the 'process' or mechanism that moves the system state from $t$ to $t+1$.
+A common application of state space modeling is to the study of dynamical systems. Often such a model is a set of equations that describe how a system evolves in time. 
+
+As a simple example, consider a model of a pendulum (see [Wikipedia](https://en.wikipedia.org/wiki/Pendulum_(mechanics)). This model has terms for the force of gravity and the length of the pendulum. The observatino might be the location of the pendulum at multiple points in time. It is then possible to estimate the force of gravity, the torque, velocity, and potential and kinetic energy at any point in time by fitting the observations of position to the dynamical model of pendulum dynamics.
+
+Such a model can take parameters for equations that control the the dynamics of the system (e.g 'growth rate'). you know the state of a system, and how the system changes in time, you can use a state-space framework. Once the model represents the current state, it can represent the state of a system. Conceptually, they are a way of modeling time series when you have a model of the 'process' or mechanism that moves the system state from $t$ to $t+1$.
 
 The 'state' of the system may be partially unobserved. But we can infer these states based on observations. 
 
-The concept of a 'data generating process' is an important concept when modeling, and when synthesizing data from many different locations. A 'data generating process' includes both the system being studied and the tools used to observe. It is common to hear people refer to data as if it is the truth. But data can only represent an incomplete view of the system itself.  In the end both data and models are representations of a system.
- 
-Consider satellite imagery, radiative transfer models.
+
 
 ## Ecological Forecasting
 
@@ -320,23 +438,16 @@ Like time series, forecasting is a very large area of research.
 
 Ecological forecasting is an emerging discipline, and it covers both basic research and the application of ecological understanding to applications. Forecasts can help provide insights into the future state of a system as well as provide guidance on management scenarios. 
 
-That is exactly what it sounds like you need to do!
-
-
-
 Some examples of ecological forecasting problems:
 
-Where is the hurricane going to end up?
-
-How much carbon can the land store?
-
-How will flooding affect delta planton and fish populations?
-
-Predict the potential yield of different crops under future climates
+- Where is the hurricane going to end up?
+- How much carbon can the land store?
+- How will flooding affect delta planton and fish populations?
+- Predict the potential yield of different crops under future climates
+- Predict forest green up and senescence
 
 ![](images/davis-agave.png)
 
-Predict forest green up and senescence
 
 ![](images/efi_phenology.png)
 
@@ -355,43 +466,13 @@ There are a variety of forecasting challenges. These can be found on sites like 
 
 A note on challenges. Framing a problem as a challenge is a great way to engage the machine learning world. And these challenges provide a way to engage other communities, and lower the barrier to entry and more level playing field than many scientific pursuits. For challenges like those on Kaggle and the ones run by EFI, the best model wins. 
 
-### The forecasting toolbox
-
-As we discussed last week, there are some simple or 'naiive' ways to forecast. These approaches are useful, sometimes because they perform well and other times because they provide a reasonable null hypothesis. Some use the same methods that we used to interpolate.
-
-The `forecast` package has a lot of handy functions for time series data. Lets start with the moving average.
-
-```{r}
-ts_fit <- tslm(all[,'seasonal_trend'] ~ trend + season, data = all)
-summary(ts_fit)
-plot(forecast(ts_fit, h = 20))
-
-```
-
-Now if you aren't careful, it can automagically fit some fancy model. In this case, the STL+ETS(A,A,N). Is a combination of a Seasonal Trend with Loess and an Exponential smoothing state space model.  
-
-```{r}
-ts_fit <- stlf(all[,'seasonal_trend'])
-plot(forecast(ts_fit))
-
-summary(ts_fit)
-plot(forecast(ts_fit, h = 20))
-```
-
-
 
 
 ## Your Turn - Some Actual Data!
 
 ### Example 1: A twenty year history of weather in Maricopa, AZ
 
-We looked at this lastweek. 
-
-These are daily statistics from 'DayMet'. Daymet isn't actually observed data - it is 'imputed' data. So, it is available for everywhere in the continental US from 1980 on a 1km grid.
-
-We will also use it in the model analysis lesson to compare this imputed 'model' data with ground truth observations.
-
-You can learn more about it here: https://daymet.ornl.gov/ and Thornton et al 2021.
+Here, we will work with daily weather statistics from 'DayMet'. Daymet isn't actually observed data - it is 'imputed' data. So, it is available for everywhere in the continental US from 1980 on a 1km grid. You can learn more about it here: https://daymet.ornl.gov/ and Thornton et al 2021. We will also use this dataset in the model analysis lesson to compare this imputed 'model' data with ground truth observations.
 
 While we have a sample of the dataset in the lesson repository for a particular site, it is useful to know how to access the data for your site.
 
@@ -421,9 +502,6 @@ readr::write_csv(mac_daymet, file = '../data/mac_daymet.csv')
 
 ```
 
-
-
-
 Lets read in and look at the data
 
 ```{r}
@@ -433,6 +511,8 @@ mac_daymet <- readr::read_csv('../data/mac_daymet.csv') %>%
 head(mac_daymet)
 ```
 
+Now lets create a univariate time series object of mean temperature and a multivariate time series 
+object of all of the variables so that we can apply some of the functions we learned about above to some simulated data.
 
 ```{r}
 tmean.ts <- ts(mac_daymet$tmean, 
@@ -447,23 +527,46 @@ mac_ts <- ts(mac_daymet,
 
 ```
 
-Lets take a look
+Lets create some plots to explore these data:
 
 ```{r}
 plot(tmean.ts, ylab = "Daily mean T", xlab = "Year")
 ```
+Lets look at some of the lags in the time series of temperature. The lags we look at will be 
+1 day, 1 week, 1 month, 1 quarter, 1/2 year and 1 year.
 
 ```{r}
-lag.plot(tmean.ts, set.lags = c(1, 10, 100, 180, 360))
+lag.plot(tmean.ts, set.lags = c(1, 7, 30, 90, 180, 360))
 ```
 
+Which of these lags are positively correlated? 
 
+<detalis>The day, week, and month are all positively correlated.</details> 
+
+Which are negatively correlated 
+<details>The 1/2 year is negatively correlated - it will be warm on July 1 and cold on Dec 1</details>
+
+What causes the donut?
+
+<details>
+
+Imagine a circle from trigonometry class. If the value of x at the top of the circle is at 0 degrees, the equivalent of 90 days or 1/4 year ago would be the value of x at -90 degrees. Move forward to +90 degrees and the value of x is 0; the value of x 1/4 of the way back is 1. Take a second to plot these out. 
+
+```{r, fig.height=4, fig.width=4}
+angle <- 1:13 * 2 * pi/12
+
+x <- sin(angle)
+x_lag <- c(x[10:12], x[1:10])
+plot(x, type = 'l') + lines(x_lag, lty = 2)
+plot(x, x_lag, type = 'l')
+```
+</details>
 
 ### Autocorrelation 
 
-The lag plot shows the correlation between each point and the points at t+1. We can see that the interpolation between every other point.
+The lag plot shows the correlation between each point and the points at t-lag.
 
-Lets get some monthly temperature data and start working with that.
+Since there are so many points above, lets calculate the monthly temperature averages; this will make it easier to work with.
 
 
 ```{r}
@@ -478,13 +581,15 @@ tmean.mo.ts <- ts(tmean_mo, start = c(2000, 1), end = c(2020, 12), frequency = 1
 
 lag.plot(tmean.mo.ts, lags = 12)
 
-plot(acf(tmean.mo.ts))
 
 ```
+Now we can see how lag plots work over the course of twelve months. Lets look at the autocorrelation plot:
 
 ```{r}
-
+plot(acf(tmean.mo.ts), xlab = 'Time (years)')
 ```
+
+
 
 Your turn - decompose, plot, look at a lag plot, acf, fit using auto.arima. 
 
@@ -503,29 +608,7 @@ acf(vpd_mo)
 
 ccf(tmean_mo, vpd_mo)
 ```
-
-
-
-
-```{r}
-ma_tmean <- ma(tmean.mo.ts, order = 13, centre = TRUE)
-plot(ma_tmean, xlab = 'Year', ylab = 'trend')
-plot(tmean.mo.ts) +
-    lines(ma_tmean)
-
-plot(tmean.mo.ts - ma_tmean)
-plot(ma_tmean)
-
-```
-
-
-```{r}
-acf(tmean.ts, lag.max = 180)
-# What does this mean?
-lag.plot(tmean.ts)
-```
-
-Your Turn:
+**Your Turn:**
 
 Plot a few of the other variables. How do the seasonal patterns and trends compare?
 
@@ -553,79 +636,58 @@ ccf(precip.ts, tmean.ts)
 
 ```
 
-<https://cals.arizona.edu/azmet/06.htm> <https://cals.arizona.edu/azmet/raw2003.htm>
+
+Can you determine if there is an impact of solar radiation and vpd on temperature after accounting for trend and seasonal components? 
+
+
+<details>
+There are a few ways.
 
 ```{r}
-head(mac_daymet)
-mac_azmet <- readr::read_csv('https://cals.arizona.edu/azmet/data/0620rd.txt', 
-                             col_select = 1:4,
-                             col_names = c('year', 'day', 'hour', 'air_temp')) %>% 
-    mutate(doy = day + hour/24)
+d <- decompose(tmean.ts)
+mvlm <- tslm(d$random ~ srad + vpd + srad:vpd, data = mac_ts)
 
 
-a <- acf(mac_azmet$air_temp)
+summary(mvlm)
 
 ```
+</details>
 
+OK, now can you do the same using `stl` decomposition?
 
-## Growth Curves
-
-This is from the NEON Ecological Forecasting Initiative Challenge
-
+<details>
 ```{r}
-library(ggplot2)
-library(tidyr)
-gcc <- readr::read_csv('https://data.ecoforecast.org/targets/phenology/phenology-targets.csv.gz')
 
-
-gcc_wide <- gcc %>% 
-  dplyr::select(time, siteID, gcc_90) %>% 
-  pivot_wider(id_cols = time, names_from = siteID, values_from = gcc_90)
-
-head(gcc_wide)
-
-ggplot(gcc, aes(time, gcc_90)) +
-    geom_line() +
-    facet_wrap(~siteID)
-
+s <- stl(tmean.ts, s.window = 'periodic')
+r <- seasadj(d)
+stlmvlm <- tslm(r ~ srad + vpd + srad:vpd, data = mac_ts)
+summary(stlmvlm)
 ```
+</details>
 
-
-
-```{r, fig.height=4, eval = F}
-
-gcc_ts <- ts(gcc_wide$BART, frequency = 365)
-plot(gcc_ts)
-gcc_ts_interp <- na.interp((gcc_ts))
-
-plot(decompose(gcc_ts_interp))
-
-plot(forecast(gcc_ts))
-
-f <- auto.arima(gcc_ts)
-
-plot(f)
-```
 
 
 ## References
 
+**Text Books**
+Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 2021-10-31
 
-**Daymet** 
+Dietze, Michael. Ecological forecasting. Princeton University Press, 2017.
+
+**Courses**
+
+Ethan White and Morgan Earnst Ecological Dynamics and Forecasting  https://github.com/weecology/forecasting-course
+
+
+Dietze, Michael. Ecological forecasting. Course materials https://github.com/EcoForecast/EF_Activities
+
+
+**DayMet** 
 
 Thornton, M.M., R. Shrestha, Y. Wei, P.E. Thornton, S. Kao, and B.E. Wilson. 2020. Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1840
 
 Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 https://doi.org/10.3334/ORNLDAAC/1840
 
-Some of the material is based on the following courses and texts 
-
-Ben Bolker 2007 Ecological Models and Data in R. Princeton university press. 
-- The author makes a early version pre-print available on his website https://ms.mcmaster.ca/~bolker/emdbook/book.pdf 
-
-Ethan White and Morgan Earnst Ecological Dynamics and Forecasting  https://github.com/weecology/forecasting-course
-- Dietze, Michael. Ecological forecasting. Princeton University Press, 2017.
-- Dietze, Michael. Ecological forecasting. Course materials https://github.com/EcoForecast/EF_Activities
-
-Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 2021-10-31
+**Other Publications**
 
 Dietze, Michael C., et al. "Iterative near-term ecological forecasting: Needs, opportunities, and challenges." Proceedings of the National Academy of Sciences 115.7 (2018): 1424-1432. https:doi.org/10.1073/pnas.1710231115
