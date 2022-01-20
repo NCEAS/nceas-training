@@ -183,7 +183,7 @@ The `contentid` package is a work in progress, but holds tremendous potential to
 
 First, content identifiers are not well-linked to DOIs. DOIs are the current standard for citing data, and carry the citation metadata for data packages (such as author, title, publication year, etc.). But the `contentid` package currently lacks a mechanism to determine the citation for a file that is used in a script. Because data networks like [DataONE](https://dataone.org) maintain the association between each content-identifier that is registered there with the assigned DOI for the Dataset that the object is part of, it would be technically feasible to extend the contentid package to retrieve the citation for a given content identifier. 
 
-```{r contentid_get_citation, echo=FALSE, eval=TRUE}
+```{r contentid_get_citation, echo=FALSE, eval=FALSE}
 
 # Function to return the text of a citation for a given contentid
 get_citation <- function(contentid) {
