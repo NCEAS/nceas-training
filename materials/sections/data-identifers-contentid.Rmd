@@ -152,7 +152,7 @@ This approach is **portable**, as anyone can run it without having the data loca
 This approach is **persistent**, because it pulls data from these persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
 <!-- WARNING MBJ: currently set to only use local repos, switch back before final build -->
-```{r list_sources}
+```{r list_sources, eval = FALSE}
 contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 
 # [BUG FILED](https://github.com/cboettig/contentid/issues/81): `query_sources should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
