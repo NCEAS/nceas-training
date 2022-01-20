@@ -58,11 +58,11 @@ Now we can load the libraries we need:
 
 ```{r, warning = F, message = F}
 library(sf)
-library(dplyr)
 library(ggplot2)
 library(leaflet)
 library(scales)
 library(ggmap)
+library(dplyr)
 ```
 
 Read in the data and look at a plot of it.
