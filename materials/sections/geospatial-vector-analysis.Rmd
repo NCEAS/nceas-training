@@ -56,6 +56,17 @@ The first file we will use is a shapefile of regional boundaries in alaska deriv
 
 Now we can load the libraries we need:
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+lapply(names(sessionInfo()$otherPkgs), function(pkgs)
+  detach(
+    paste0('package:', pkgs),
+    character.only = T,
+    unload = T,
+    force = T
+  ))
+```
+
+
 ```{r, warning = F, message = F}
 library(sf)
 library(ggplot2)
