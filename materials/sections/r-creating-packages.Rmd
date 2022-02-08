@@ -85,57 +85,84 @@ LazyData: true
 
 ### Add your code
 
-The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `environemnt_info.R` that contains a function `environment_info()` that you might want to reuse. This one might leave something to be desired..., but you get the point... The
-`usethis::use_r()` function will help set up you files in the right places.  For example, running:
+The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `cutsom_theme` that contains a function `custom_theme()` that you might want to reuse. The `usethis::use_r()` function will help set up you files in the right places.  For example, running:
 
 ```{r eval=FALSE}
-usethis::use_r("environment_info")
+usethis::use_r("custom_theme")
 ```
 
-    ● Modify 'R/environment_info.R'
+    ● Modify 'R/custom_theme'
 
-creates the file `R/environment_info.R`, which you can then modify to add the implementation fo the following function:
+creates the file `R/custom_theme`, which you can then modify to add the implementation fo the following function from the functions lesson:
 
 ```{r eval=FALSE}
-environment_info <- function(msg) {
-    print(devtools::session_info())
-    print(paste("Also print the incoming message: ", msg))
+custom_theme <- function(base_size = 9) {
+    ggplot2::theme(
+      axis.ticks       = ggplot2::element_blank(),
+      text             = ggplot2::element_text(family = 'Helvetica', color = 'gray30', size = base_size),
+      plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), hjust = 0.5, face = 'bold'),
+      panel.background = ggplot2::element_blank(),
+      legend.position  = 'right',
+      panel.border     = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major = ggplot2::element_line(colour = 'grey90', size = .25),
+      legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
+      axis.line        = ggplot2::element_blank()
+      )
 }
+
 ```
 
 If your R code depends on functions from another package, then you must declare so
 in the `Imports` list in the `DESCRIPTION` file for your package.  In our example
-above, we depend on the `devtools` package, and so we need to list it as a dependency.
+above, we depend on the `ggplot2` package, and so we need to list it as a dependency.
 Once again, `usethis` provides a handy helper method:
 
 ```{r eval=FALSE}
-usethis::use_package("devtools")
+usethis::use_package("ggplot2")
 ```
 
-    ✔ Adding 'devtools' to Imports field in DESCRIPTION
+    ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
     ● Refer to functions with `devtools::fun()`
 
 ### Add documentation
 
-You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts.    Be sure to define the overall purpose of the function, and each of its parameters.
+You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts. Be sure to define the overall purpose of the function, and each of its parameters.
 
 ```{r}
-#' A function to print information about the current environment.
+#' A function set a custom ggplot theme.
 #'
-#' This function prints current environment information, and a message.
+#' This function sets ggplot theme elements that I like, with the ability to change
+#' the base size of the text.
 #'
-#' @param msg The message that should be printed
+#' @param base_size Base size of plot text
 #'
-#' @keywords debugging
+#' @keywords plotting
 #'
 #' @export
 #'
 #' @examples
-#' environment_info("This is an important message from your sponsor.")
-environment_info <- function(msg) {
-    print(devtools::session_info())
-    print(paste("Also print the incoming message: ", msg))
+#' library(ggplot2)
+#'
+#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#'     geom_point() +
+#'     custom_theme(base_size = 10)
+#'
+custom_theme <- function(base_size = 9) {
+    ggplot2::theme(
+        axis.ticks       = ggplot2::element_blank(),
+        text             = ggplot2::element_text(family = 'Helvetica', color = 'gray30', size = base_size),
+        plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), hjust = 0.5, face = 'bold'),
+        panel.background = ggplot2::element_blank(),
+        legend.position  = 'right',
+        panel.border     = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.grid.major = ggplot2::element_line(colour = 'grey90', size = .25),
+        legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
+        axis.line        = ggplot2::element_blank()
+    )
 }
+
 ```
 
 Once your files are documented, you can then process the documentation using the `document()` function to generate the appropriate .Rd files that your package needs.
@@ -149,16 +176,41 @@ devtools::document()
     Writing NAMESPACE
     Loading mytools
     Writing NAMESPACE
-    Writing environment_info.Rd
+    Writing custom_theme.Rd
 
 That's really it.  You now have a package that you can `check()` and `install()` and `release()`.  See below for these helper utilities.
 
 ### Test your package
 
-You can tests your code using the `tetsthat` testing framework.  The `ussethis::use_testthat()` 
+You can test your code using the `tetsthat` testing framework.  The `ussethis::use_testthat()` 
 function will set up your package for testing, and then you can use the `use_test()` function
-to setup individual test files.  For example, if you want to create tests of our
-environment_info functions, set it up like this:
+to setup individual test files.  For example, in the functions lesson we created some tests for our `fahr_to_celsius` functions but ran them line by line in the console.
+
+First, lets add that function to our package. Run the `use_r` function in the console:
+
+```{r, eval = FALSE}
+usethis::use_r("fahr_to_celsius")
+```
+
+Then copy the function and documentation into the R script that opens and save the file.
+
+```{r}
+#' Convert temperature data from Fahrenheit to Celsius
+#'
+#' @param fahr Temperature data in degrees Fahrenheit to be converted
+#' @return temperature value in degrees Celsius
+#' @keywords conversion
+#' @export
+#' @examples
+#' fahr_to_celsius(32)
+#' fahr_to_celsius(c(32, 212, 72))
+fahr_to_celsius <- function(fahr) {
+  celsius <- (fahr-32)*5/9
+  return(celsius)
+}
+```
+
+Now, set up your package for testing:
 
 ```{r eval = FALSE}
 usethis::use_testthat()
@@ -166,21 +218,25 @@ usethis::use_testthat()
     ✔ Adding 'testthat' to Suggests field in DESCRIPTION
     ✔ Creating 'tests/testthat/'
     ✔ Writing 'tests/testthat.R'
-    
-```{r eval = FALSE}
-usethis::use_test("environment_info")
-```
-    ✔ Writing 'tests/testthat/test-environment_info.R'
-    ● Modify 'tests/testthat/test-environment_info.R'
 
-You can now add tests to the `test-environment_info.R`, and you can run all of the
-tests using `devtools::test()`.  For example, if you add a test to the `test-environment_info.R` file:
+
+Then write a test for `fahr_to_celsius`:
+
+```{r eval = FALSE}
+usethis::use_test("fahr_to_celsius")
+```
+    ✔ Writing 'tests/testthat/test-fahr_to_celsius.R'
+    ● Modify 'tests/testthat/test-fahr_to_celsius.R'
+
+You can now add tests to the `test-fahr_to_celsius.R`, and you can run all of the
+tests using `devtools::test()`.  For example, if you add a test to the `test-fahr_to_celsius.R` file:
 
 ```{r eval=FALSE}
-test_that("A message is present", {
-    capture.output(result <- environment_info("A unique message"))
-    expect_match(result, "A unique message")
+test_that("fahr_to_celsius works", {
+  expect_equal(fahr_to_celsius(32), 0)
+  expect_equal(fahr_to_celsius(212), 100)
 })
+
 ```
 
 Then you can run the tests to be sure all of your functions are working using `devtools::test()`:
@@ -192,7 +248,7 @@ devtools::test()
     Loading mytools
     Testing mytools
     ✔ | OK F W S | Context
-    ✔ |  2       | test-environment_info [0.1 s]
+    ✔ |  2       | test-fahr_to_celsius [0.1 s]
     
     ══ Results ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
     Duration: 0.1 s
