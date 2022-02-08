@@ -279,7 +279,7 @@ If your package might be broadly useful, also consider releasing it to CRAN, usi
 
 #### Challenge {- .exercise}
 
-Add temperature conversion functions with full documentation to your package, write tests to ensure the functions work properly, and then
+Add the other temperature conversion functions with full documentation to your package, write tests to ensure the functions work properly, and then
 `document()`, `check()`, and `install()` the new version of the package. Don't forget to update the version number before you install!
 
 ### More reading
