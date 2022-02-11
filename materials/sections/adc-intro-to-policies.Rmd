@@ -39,17 +39,23 @@ To browse the data catalog, navigate to [arcticdata.io](https://arcticdata.io/).
 ![](images/arctic-data-center/ADC-datacatalog1.png)
 Clicking on a dataset brings you to this page. You have the option to download all the files by clicking the green “Download All” button, which will zip together all the files in the dataset to your Downloads folder. You can also pick and choose to download just specific files.
 
+![](images/arctic-data-center/ADC-datacatalog2.png)
+
 All the raw data is in open formats to make it easily accessible and compliant with [FAIR](https://www.go-fair.org/fair-principles/) principles – for example, tabular documents are in .csv (comma separated values) rather than Excel documents.
 
 The metrics at the top give info about the number of citations with this data, the number of downloads, and the number of views. This is what it looks like when you click on the Downloads tab for more information.
 
-![](images/arctic-data-center/ADC-datacatalog2.png)
+![](images/arctic-data-center/ADC-downloads.png)
 
 Scroll down for more info about the dataset – abstract, keywords. Then you’ll see more info about the data itself. This shows the data with a description, as well as info about the attributes (or variables or parameters) that were measured. The green check mark indicates that those attributes have been annotated, which means the measurements have a precise definition to them. Scrolling further, we also see who collected the data, where they collected it, and when they collected it, as well as any funding information like a grant number. For biological data, there is the option to add taxa. 
 
 ### Tools and Infrastructure 
 
-We have a number of tools available to submitters and researchers who are there to download data. We also partner with other organizations, like [Make Data Count](https://makedatacount.org/) and [DataONE](https://www.dataone.org/), and leverage those partnerships to create a better data experience.
+Across all our services and partnership, we are strongly aligned with the community principles of making data FAIR (Findable, Accesible, Interoperable and Reusable).
+
+![](images/arctic-data-center/FAIR.jpeg)
+
+We have a number of tools available to submitters and researchers who are there to download data. We also partner with other organizations, like [Make Data Count](https://makedatacount.org/) and [DataONE](https://www.dataone.org/), and leverage those partnerships to create a better data experience. 
 
 ![](images/arctic-data-center/ADC-infrastructure.png)
 
@@ -94,6 +100,9 @@ Projects that have to submit their data include all Arctic Research Opportunitie
 Additionally, we have social science data, though that data often has special exceptions due to sensitive human subjects data. At the very least, the metadata has to be deposited with us. 
 
 ![](images/arctic-data-center/ADC-whosubmits2.png)
+Recognizing the importance of sensitive data handling and of ethical treatment of all data, the Arctic Data Center submission system provides the opportunity for researchers to document the ethical treatment of data and how collection is aligned with community principle (such as the CARE principles). Submitters may also tag the metadata according to community develop data sensitivity tags. We will go over these features in more detail shortly.
+
+![](images/arctic-data-center/ADC-sensitive.png)
 
 ### Summary
 
@@ -101,4 +110,3 @@ All the above informtion can be found on our website or if you need help, ask ou
 
 ![](images/arctic-data-center/ADC-overallmetrics.png)
 
-Download slides: [Arctic Data Center Overview and NSF Policies](files/October-2019-ADC-Data-Science-Training_Intro_Policies.pdf)
