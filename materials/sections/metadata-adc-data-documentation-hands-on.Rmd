@@ -117,7 +117,15 @@ than visiting each of the (currently 44!) repositories one at a time.
 Each data repository tends to have its own mechanism for submitting data and
 providing metadata.  With repositories like the KNB Data Repository and the
 Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package.  Let's walk through a web submission to see what you might expect.
+a data package. This section provides a brief overview of the data submission process, before embarking on a hands-on activity.  
+
+We will walk through web submission on https://demo.arcticdata.io, and start by logging in with an ORCID account. ORCID provides a common account for sharing scholarly data, so if you don’t have one, you can create one when you are redirected to ORCID from the Sign In button. 
+
+![](images/adc-banner.png)
+
+![](images/orcid-login.png)
+
+
 
 #### Download the data to be used for the tutorial
 
