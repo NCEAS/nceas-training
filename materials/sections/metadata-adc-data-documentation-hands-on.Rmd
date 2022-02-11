@@ -13,6 +13,8 @@ In this lesson, you will learn:
 
 ![](images/WhyManage-small.png)
 
+
+
 ### Data repositories: built for data (and code)
 
 - GitHub is not an archival location
@@ -115,7 +117,53 @@ than visiting each of the (currently 44!) repositories one at a time.
 Each data repository tends to have its own mechanism for submitting data and
 providing metadata.  With repositories like the KNB Data Repository and the
 Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package.  Let's walk through a web submission to see what you might expect.
+a data package. This section provides a brief overview of the data submission process, before embarking on a hands-on activity.  
+
+We will walk through web submission on https://demo.arcticdata.io, and start by logging in with an ORCID account. ORCID provides a common account for sharing scholarly data, so if you don’t have one, you can create one when you are redirected to ORCID from the Sign In button. 
+
+![](images/adc-banner.png)
+
+![](images/orcid-login.png)
+
+ORCID is a non-profit organization made up of research institutions, funders, publishers and other stakeholders in the research space. ORCID stands for Open Researcher and Contributor ID. The purpose of ORCID is to give researchers a unique identifier which then helps highlight and give credit to researchers for their work. If you click on someone’s ORCID, their work and research contributions will show up (as long as the research used ORCID to publish or post their work).
+
+After signing in, you can access the data submission form using the Submit button. Once on the form, upload your data files and follow the prompts to provide the required metadata.
+
+![](images/editor-01.png)
+
+Underneath the Title option, you’ll see an option titled “Sensitive Data Tags.” As the primary data repository for the National Science Foundation Arctic section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data, meaning data that contains personal or identifiable information. Sharing sensitive data can pose challenges to researchers, however sharing anonymized data or metadata contributes to discoverability, supports open science principles, and helps reduce duplicate research efforts.
+To help mitigate the challenges of sharing sensitive data, the Arctic Data Center has added new features to the data submission process influenced by the CARE Principles for Indigenous Data Governance (Collective benefit, Authority to control, Responsibility, Ethics) - more about that later. Researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. Data submitters can select one of three sensitivity levels  data tags that best fit their data and/or metadata. Based on the level of sensitivity, guidelines for submission are provided. The data tags range from non-confidential information to maximally sensitive information. 
+
+The purpose of these tags is to ethically contribute to open science by making the richest set of data available for future research. The first tag, “non-sensitive data”, represents data that does not contain potentially harmful information, and can be submitted without further precaution. Data or metadata that is “sensitive with minimal risk” means that either the sensitive data has been anonymized and shared with consent, or that publishing it will not cause any harm or damage to participants. The third option, “some or all data is sensitive with significant risk” represents data that contains potentially harmful or identifiable information, and the data submitter will be asked to hold off submitting the data until further notice. In the case where sharing anonymised sensitive data is not possible due to ethical considerations, sharing anonymised metadata still aligns with FAIR (Findable, Accessible, Interoperable, Reproducible) principles because it increases the visibility of the research which helps reduce duplicate research efforts. Here, it is important to consider the metadata that is being shared, and to publish or share it only when consent from participants is given, and it aligns with the CARE principles fully.
+
+Next, you will fill in the necessary boxes and information. We recommend taking your time because the richer your metadata is, the more easily reproducible and usable your data and research will be for both your future self and other researchers. Instructions are provided below once you go into break out groups.
+
+Another important feature to note is the methods section.
+
+Methods are critical to accurate interpretation and reuse of your data. The editor allows you to add multiple different methods sections, so that you can include details of sampling methods, experimental design, quality assurance procedures, and/or computational techniques and software. Please be complete with your methods sections, as they are fundamentally important to reuse of the data.
+
+![](images/editor-11.png)
+
+Recently, the methods section has been made mandatory. Researchers are now asked to describe the ethical data practices used throughout their research. The answers listed will be visible along with their data and/or metadata. This feature was added to the data submission process to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science. Sharing ethical practices in the same way that data is shared is useful for the research community because it encourages deeper discussion about data reuse and ethics, and may be useful for those looking for ethical practices. 
+
+We encourage you to think about the ethical data and research practices that were utilized during your research, even if they don’t seem obvious at first.
+
+Once each of these sections have been filled out, you can submit your dataset. The link we have provided is a demo link, so feel free to submit it. 
+
+Once you have submitted your data, you can go back and edit it, as well as add metadata and provenance, which is the relationship between files and datasets. The final major section of metadata concerns the structure and content of your data files. In this case, provide the names and descriptions of the data contained in each file, as well as details of their internal structure.
+
+For example, for data tables, you’ll need the name, label, and definition of each variable in your file. Click the Describe button to access a dialog to enter this information. 
+
+![](images/editor-19.png)
+
+From here, fill out the following information for each of the data tables and attributes.
+
+![](images/editor-14.png)
+
+Once you have filled out those details, the linkages between the tables will show. 
+
+The step-by-step instructions for this process are outlined below. Once you are in your breakout room, download the data and as a team, walk through the process together.  
+
 
 #### Download the data to be used for the tutorial
 
