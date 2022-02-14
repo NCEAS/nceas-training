@@ -117,7 +117,9 @@ than visiting each of the (currently 44!) repositories one at a time.
 Each data repository tends to have its own mechanism for submitting data and
 providing metadata.  With repositories like the KNB Data Repository and the
 Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package. This section provides a brief overview of the data submission process, before embarking on a hands-on activity.  
+a data package. This section provides a brief overview of some highlights within the data submission process, in advance of a more comprehensive hands-on activity.  
+
+**ORCiDs**
 
 We will walk through web submission on https://demo.arcticdata.io, and start by logging in with an ORCID account. ORCID provides a common account for sharing scholarly data, so if you don’t have one, you can create one when you are redirected to ORCID from the Sign In button. 
 
@@ -130,6 +132,8 @@ ORCID is a non-profit organization made up of research institutions, funders, pu
 After signing in, you can access the data submission form using the Submit button. Once on the form, upload your data files and follow the prompts to provide the required metadata.
 
 ![](images/editor-01.png)
+
+**Sensitive Data Handling**
 
 Underneath the Title field, you will see a  section titled “Data Sensitivity”. As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data, meaning data that contains personal or identifiable information. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts.
 
@@ -149,21 +153,19 @@ As part of a recent update, researchers are now asked to describe the ethical da
 
 We encourage you to think about the ethical data and research practices that were utilized during your research, even if they don’t seem obvious at first.
 
-Once each of these sections have been filled out, you can submit your dataset. The link we have provided is a demo link, so feel free to submit it. 
+**File and Variable Level Metadata**
 
-Once you have submitted your data, you can go back and edit it, as well as add metadata and provenance, which is the relationship between files and datasets. The final major section of metadata concerns the structure and content of your data files. In this case, provide the names and descriptions of the data contained in each file, as well as details of their internal structure.
-
-For example, for data tables, you’ll need the name, label, and definition of each variable in your file. Click the Describe button to access a dialog to enter this information. 
+In addition to providing information about, (or a description of) your dataset, you can also provide information about each file and the variables within the file. By clicking the "Describe" button you can add comprehensive information about each of your measurements, such as the name, measurement type, standard units etc. 
 
 ![](images/editor-19.png)
 
-From here, fill out the following information for each of the data tables and attributes.
+**Provenance**
+
+The data submission system also provides the opportunity for you to provide provenance  information, describe the relationship between package elements. When viewing  your  dataset followinng submission, After completing your data description and submitting your dataset you will see the option to add source data and code, and derived data and code.
 
 ![](images/editor-14.png)
 
-Once you have filled out those details, the linkages between the tables will show. 
-
-The step-by-step instructions for this process are outlined below. Once you are in your breakout room, download the data and as a team, walk through the process together.  
+These are just some of the features and functionality of the Arctic Data Center submission system and we will go through them in more detail below as part of a hands-on activity.
 
 
 #### Download the data to be used for the tutorial
