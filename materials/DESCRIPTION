@@ -8,12 +8,9 @@ Imports:
     contentid,
     datapack,
     dataone,
-    daymetr,
-    DiagrammeR,
     dplyr,
     DT,
     EML,
-    forecast,
     ggmap,
     ggplot2,
     ggforce,
@@ -27,7 +24,6 @@ Imports:
     ncdf4,
     pins,
     readr,
-    rjags,
     rvest,
     sf,
     scales,
@@ -40,5 +36,4 @@ Imports:
     parallel,
     plotly
 Remotes: 
-    rstudio/bookdown,
-    ebimodeling/biocro
+    rstudio/bookdown
