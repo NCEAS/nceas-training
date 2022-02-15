@@ -28,7 +28,7 @@ to directly pull and push from the owner's GitHub repository.
 
 ## Collaborating with a trusted colleague **without conflicts**
 
-We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their reposity. We start by giving that person access to our GitHub repository.
+We start by enabling collaboration with a trusted colleague. We will designate the `Owner` as the person who owns the shared repository, and the `Collaborator` as the person that they wish to grant the ability to make changes to their repository. We start by giving that person access to our GitHub repository.
 
 ### Setup {- .setup}
 
@@ -52,29 +52,25 @@ We will start by having the collaborator make some changes and share those with 
 
 ### Step 1: Collaborator clone
 
-To be able to contribute to a repository, the collaborator
-must clone the repository from the **Owner's** github account. To do this, the Collaborator
-should visit the github page for the Owner's repository, and then copy the clone URL.
-In R Studio, the Collaborator will create a new project from version control by pasting
-this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
+To be able to contribute to a repository, the collaborator must clone the repository from the **Owner's** github account. To do this, the Collaborator should visit the github page for the Owner's repository, and then copy the clone URL. In R Studio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
 
 ![](images/github-clone-url-owner.png)
 
 ### Step 2: Collaborator Edits
 
 With a clone copied locally, the Collaborator can now make changes to the
-`index.Rmd` file in the repository, adding a line or statment somewhere noticeable
+`index.Rmd` file in the repository, adding a line or statement somewhere noticeable
 near the top.  Save your changes.
 
 ### Step 3: Collaborator commit and push
 
 To sync changes, the collaborator will need to add, commit, and
-push their changes to the Owner's repository.  But before doing so, its good practice
+push their changes to the Owner's repository.  But before doing so, it's good practice
 to `pull` immediately before committing to ensure you have the most recent changes
 from the owner.  So, in R Studio's Git tab, first click the "Diff" button to
 open the git window, and then press the green "Pull" down arrow button.  This will
 fetch any recent changes from the origin repository and merge them.  Next, add
-the changed index.Rmd file to be committed by cicking the checkbox next to it, 
+the changed index.Rmd file to be committed by clicking the checkbox next to it, 
 type in a commit message, and click 'Commit.'  Once that finishes, then the collaborator can
 immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
@@ -197,16 +193,16 @@ the issues.
 #### Owner and collaborator ensure all changes are updated
 
 First, start the exercise by ensuring that both the Owner and Collaborator have all
-of the changes synced to their local copies of the Owner's repositoriy in RStudio. 
+of the changes synced to their local copies of the Owner's repository in RStudio. 
 This includes doing a `git pull` to ensure that you have all changes local, and 
 make sure that the Git tab in RStudio doesn't show any changes needing to be committed.
 
 #### Owner makes a change and commits
 
-From that clean slate, the Owner first modifies and commits a small change inlcuding their
+From that clean slate, the Owner first modifies and commits a small change including their
 name on a specific line of the README.md file (we will change line 4). Work to only change
 that one line, and add your username to the line in some form and commit the changes 
-(but DO NOT push). We are now in the situation where the owner has unpushed changes that
+(but DO NOT push). We are now in a situation where the owner has unpushed changes that
 the collaborator can not yet see.
 
 #### Collaborator makes a change and commits **on the same line**
@@ -248,7 +244,7 @@ for an unresolved merge conflict.
 #### Owner edits the file to resolve the conflict
 
 To resolve the conflict, the Owner now needs to edit the file. Again, as indicated above,
-git has flagged the locations in the file where a conflict occcurred 
+git has flagged the locations in the file where a conflict occurred 
 with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, merging whatever
 changes are appropriate until the conflicting lines read how they should, and eliminate
 all of the marker lines with with `<<<<<<<`, `=======`, and `>>>>>>>`.
