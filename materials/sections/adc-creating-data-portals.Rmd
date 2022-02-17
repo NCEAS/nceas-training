@@ -55,9 +55,7 @@ As with the full Arctic Data Center catalog, we aggregate metrics for the collec
 
 ### Creating Portals
 
-A step-by-step guide on how to navigate the Arctic Data Center and create a new portal.
-
-**For video tutorials on how to create your first portal, please visit the [Arctic Data Center's](https://arcticdata.io/data-portals/#instructional-videos-identifier) website.**
+A step-by-step guide on how to navigate the Arctic Data Center and create a new portal. For video tutorials on how to create your first portal, please visit the [Arctic Data Center's](https://arcticdata.io/data-portals/#instructional-videos-identifier) website.
 
 #### Getting Started with Portals
 
@@ -73,47 +71,67 @@ On your profile settings page, select 'My Portals'. After the page loads select 
 
 ![](images/arctic-data-center/ADC-newportal.png)
 
-#### Portal About and Settings Page
+#### Portal Settings Page
 
-In a new edit session, the first thing you'll see is the about page where you'll be able to add details about your project page.
+In a new edit session, the first page you'll be taken to is the settings page where you'll be able to add details about your portal.
 
-On the settings tab, you'll set the basic elements of your portal:
+![](images/arctic-data-center/ADC_portal_settings1.png)
 
--   Portal title
+- Portal URL
+    - Identify a short name for your portal that will become part of the URL. If the name is available, a label will indicate it's available and if the name is taken already, it will note that the name is already taken. This feature ensures the portals are unique.
+- Portal description
+- Sharing options
+    - For the purposes of this training, please leave your portal in 'Private' status. You are welcome to return and make the portal public when the portal is complete and is useful to you and others.
+- Permissions
+    - Adding collaborators to help you create your portal is as straightforward as copying and pasting in their ORCID into the box below the permissions section. You can choose whether the collaborator can view, edit, or is an owner of the portal. You can have multiples of each role.
+-  Partner Logos
 
--   Unique portal identifier
-
-    -   *This identifier will be used to create the portal URL. If the name is available, a label will indicate it's available and if the name is taken already, it will note that the name is already taken. This feature ensures the portals are unique.*
-
--   Portal description
-
--   Partner organization logos
-
-![](images/arctic-data-center/ADC-portalsettings.png)
-
-Adding collaborators to help you create your portal is as straightforward as copying and pasting in their ORCID into the box below the permissions section. You can choose whether the collaborator can view, edit, or is an owner of the portal. You can have multiples of each role.
-
-![](images/arctic-data-center/ADC-orcid.png)
+![](images/arctic-data-center/ADC_portal_settings2.png)
 
 ### Adding Data to Portals
 
-**Please see this tutorial video for a walkthrough on using portal search filters:[Adding Datasets by Search Query](https://arcticdata.io/data-portals/#instructional-videos-identifier)**
+When selecting the data tab you will see a page with two sections. These are titled with instructive statements to help explain their function:
 
-Navigate to the 'Data' tab. Here you will see a list of all the datasets in the Arctic Data Center. In order to populate a portal with the data packages applicable to your needs, narrow the search results using the filters on the left side of the page. When you've selected the data you want, hit the green save button in the bottom right.
+- Add filters to help people find data within your collection
+    - *build search features for others to use within your portal*
+- Add data to your collection
+    - *construct a search to populate your portal with data*
 
-![](images/arctic-data-center/ADC-addingdata.png)
+![](images/arctic-data-center/ADC_portal_data_editor_1.png)
+We're going to start with the second section.
 
-The portal search feature has the following filters available:
+When adding data to your collection, you can include any of the datasets that are available at the Arctic Data Center. You build rules based on metadata to define which datasets should be included. Of course, where metadata is incomplete or abbreviated, this will impact your  results. Data added to the network in the future that match these rules will also be added to your collection. 
 
--   **Search**: A general search feature that will return data packages with the entered term in the package metadata
--   **Creator**: We recommend searching by last names for more accurate results.
--   **Publish Year**: Use either the sliding scale or enter start and end years manually
--   **Year of Data Coverage**: Searches for data packages with temporal coverages within the selected date range. As with the Publish Year search, use either the sliding scale or enter manually
--   **Identifier**: Searches for all or part of the DOI (digital object identifier) associated with the dataset
--   **Taxon**: Searches for any taxonomic rank specified by the submitter
--   **Location**: This filter will search within the data packages' geographic description field, meaning that you can search by both name or type of location (eg. United States or forest)
+The first thing we notice is the ability to include/exclude data based on all/any metadata criteria. This setting applies across all rules.
 
-If you need assistance assembling portal data using a complex query, please contact the [Arctic Data Center Support Team](mailto:support@arcticdata.io).
+In the default view you have the starrtig point for a single rule, and a view showing 0 datasets. 
+
+![](images/arctic-data-center/ADC_portal_data_editor_2.png)
+
+As we build rules, the page will refresh to show how many datasets are included based on your rule structure. You can continue to add rules (and rule groups) to create complex queries that are specific to your needs.
+
+![](images/arctic-data-center/ADC_portal_data_editor_3.png)
+
+The metadata fields available for rule construction are easily visible in the dropdown option, and grouped for ease of use. You also have the option to define 'any metadata field' though your results may be less precise.
+
+![](images/arctic-data-center/ADC_portal_data_editor_4.png)
+
+### Building Search Options for Your Audience
+
+This section covers the first part of the 'data' page. "Add filters to help people find data within your collection". Although it appears first, I recommend constructing these filters after you have defined your data as you will have a better undertsanding of the metadata field that are relevant to your portal collection. It appears at the top of this editor page as when published, it will be at the top for users. hence the editor page reflects the layout of the published page.
+
+When selecting "add a search filter" you will be presented with a pop-up that comprises three primary elements. 
+
+1. The metadata filed you will be querying
+1. The way in which you want the user to interact with that metadata
+1. Language settings for the filter you are building
+
+![](images/arctic-data-center/ADC_portal_filter_1.png)
+
+As you select options for number 1 - the metadata field, the pop-up will refresh to show only those relevant options. Save this filter to close the pop-up, return to the main editor and add another search filter. 
+
+![](images/arctic-data-center/ADC_portal_filter_2.png)
+
 
 #### Data Package Metrics
 
