@@ -53,6 +53,11 @@ As with the full Arctic Data Center catalog, we aggregate metrics for the collec
 ![](images/arctic-data-center/ADC_Toolik_portal_metrics1.png)
 ![](images/arctic-data-center/ADC_Toolik_portal_metrics2.png)
 
+#### Relationship between Arctic Data Center portals and DataONE
+
+Both DataONE and the Arctic Data Center use Metacat and MetacatUI software and both have the capability for individuals and groups to develop portals. This is true of other repositories running this software. The difference between a portal at teh Arctic Data Center and one through DataONE is the corpus of data that can be pulled into your portal. Arctic Data Center portals expose only data held in the Arctic Data Center repository. A portal in DataONE can expose data from across the full network of data repositories - including DataONE. This is particularly useful for interdisciplinary research projects, labs that have published data to multiple oirtals etc. However, unlike at the Arctic Data Center, there is a cost associated with a DataONE portal as they are part of the organizations sustainability model.
+
+
 ### Creating Portals
 
 A step-by-step guide on how to navigate the Arctic Data Center and create a new portal. For video tutorials on how to create your first portal, please visit the [Arctic Data Center's](https://arcticdata.io/data-portals/#instructional-videos-identifier) website.
