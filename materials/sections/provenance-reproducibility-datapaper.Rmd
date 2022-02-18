@@ -198,7 +198,7 @@ rrtools::use_readme_rmd()
 rrtools::use_analysis()
 ```
 
-This creates a starndard, predicatable layout for our code and data and outpus that mutliple people can understand. At this point, we're ready to start writing the paper.
+This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper.
 To follow the structure `rrtools` has put in place for us, here are some pointers:
 
 - Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
@@ -232,11 +232,11 @@ To do this, we will work from an already built-out example paper that illustrate
 - Copy the example bibliography [`references.bib`](files/references.bib) to `analysis/paper/paper.Rmd` in the project you built earlier
 - Open that `paper.Rmd` file in the reproducible paper project in RStudio
 - Walk through the example file to examine each of the Rmarkdown features
-- Knot and view the file
+- Knit and view the file
 
 ```{r download-paper-example, eval=FALSE}
-download.file("https://learning.nceas.ucsb.edu/2021-09-delta/files/paper.Rmd", destfile = "analysis/paper/paper.Rmd")
-download.file("https://learning.nceas.ucsb.edu/2021-09-delta/files/references.bib", destfile = "analysis/paper/references.bib")
+download.file("https://learning.nceas.ucsb.edu/2022-02-arctic/files/paper.Rmd", destfile = "analysis/paper/paper.Rmd")
+download.file("https://learning.nceas.ucsb.edu/2022-02-arctic/files/references.bib", destfile = "analysis/paper/references.bib")
 ```
 
 #### Getting PDF rendering working
