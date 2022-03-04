@@ -1,4 +1,10 @@
-# Session 1: Time Series and Forecasting
+# Session 1: Open Science Best Practices
 
-```{r, child = 'sections/time-series-forecasting.Rmd'}
+```{r, child = 'sections/research-reproducibility.Rmd'}
+```
+
+```{r, child = 'sections/data-ethics.Rmd'}
+```
+
+```{r, child = 'sections/community-data.Rmd'}
 ```
