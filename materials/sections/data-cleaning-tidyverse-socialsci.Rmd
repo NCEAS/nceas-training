@@ -1,0 +1,338 @@
+---
+author: "Jeanette Clark"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data Cleaning and Manipulation
+
+### Learning Objectives
+
+In this lesson, you will learn:
+
+-   What the Split-Apply-Combine strategy is and how it applies to data
+-   The difference between wide vs. tall table formats and how to convert between them
+-   How to use `dplyr` and `tidyr` to clean and manipulate data for analysis
+-   How to join multiple `data.frame`s together using `dplyr`
+
+### Introduction
+
+The data we get to work with are rarely, if ever, in the format we need to do our analyses. It's often the case that one package requires data in one format, while another package requires the data to be in another format. To be efficient analysts, we should have good tools for reformatting data for our needs so we can do our actual work like making plots and fitting models. The `dplyr` and `tidyr` R packages provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly and learning these tools well will greatly increase your efficiency as an analyst.
+
+Analyses take many shapes, but they often conform to what is known as the Split-Apply-Combine strategy. This strategy follows a usual set of steps:
+
+-   **Split**: Split the data into logical groups (e.g., area, stock, year)
+-   **Apply:** Calculate some summary statistic on each group (e.g. mean total length by year)
+-   **Combine:** Combine the groups back together into a single table
+
+![Figure 1: diagram of the split apply combine strategy](images/split-apply-combine-diagram.png)
+
+As shown above (Figure 1), our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
+
+`dplyr` provides a fast and powerful way to express this. 
+
+Another exceedingly common thing we need to do is "reshape" our data. Let's look at an example table that is in what we will call "wide" format:
+
+| site   | 1990 | 1991 | ... | 1993 |
+|--------|------|------|-----|------|
+| gold   | 100  | 118  | ... | 112  |
+| lake   | 100  | 118  | ... | 112  |
+| ...    | ...  | ...  | ... | ...  |
+| dredge | 100  | 118  | ... | 112  |
+
+You are probably quite familiar with data in the above format, where values of the variable being observed are spread out across columns (Here: columns for each year). Another way of describing this is that there is more than one measurement per row. This wide format works well for data entry and sometimes works well for analysis but we quickly outgrow it when using R. For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run:
+
+```{r eval = FALSE}
+lm(length ~ year)
+```
+
+But this won't work on our wide data because `lm` needs `length` and `year` to be columns in our table.
+
+Or how would we make a separate plot for each year? We could call `plot` one time for each year but this is tedious if we have many years of data and hard to maintain as we add more years of data to our dataset.
+
+The `tidyr` package allows us to quickly switch between wide format and what is called tall format using the `pivot_longer` function:
+
+```{r, eval=FALSE}
+site_data %>% 
+  pivot_longer(-site, names_to = "year", values_to = "length")
+```
+
+| site   | year |  length|
+|--------|------|-------:|
+| gold   | 1990 |     101|
+| lake   | 1990 |     104|
+| dredge | 1990 |     144|
+| ...    | ...  |     ...|
+| dredge | 1993 |     145|
+
+In this lesson we're going to walk through the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
+
+-   `dplyr`
+
+    -   `mutate()`
+    -   `group_by()`
+    -   `summarise()`
+    -   `select()`
+    -   `filter()`
+    -   `arrange()`
+    -   `left_join()`
+    -   `rename()`
+
+-   `tidyr`
+
+    -   `pivot_longer()`
+    -   `pivot_wider()`
+    -   `unite()`
+    -   `separate()`
+
+
+### Data Cleaning Basics
+
+To demonstrate how to use these functions, we are going to be using a modified version of some real survey data we have gathered for feedback on our courses (like the one you are taking now!) I've made some changes to the original data, including removing references to instructor names, untidying the responses with controlled vocabularies, and scrambling the word order of the free text answers. These changes will help illustrate some of the common issues seen with survey data. They also help ensure that only general conclusions can be gathered from the free text responses, since scrambling the text inhibits our interpretative abilities.
+
+
+# Read in survey data
+
+First, open a new RMarkdown document. Delete everything below the setup chunk, and add a library chunk that calls `dplyr`, `tidyr`, and `readr`:
+
+```{r, message = F, warning = F}
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+#### Aside {- .aside}
+
+**A note on loading packages.**
+
+You may have noticed the following warning messages pop up when you ran your library chunk.
+
+```
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+```
+
+These are important warnings. They are letting you know that certain functions from the `stats` and `base` packages (which are loaded by default when you start R) are masked by *different functions* with the same name in the `dplyr` package. It turns out, the order that you load the packages in matters. Since we loaded `dplyr` after `stats`, R will assume that if you call `filter`, you mean the `dplyr` version unless you specify otherwise.
+
+Being specific about which version of `filter`, for example, you call is easy. To explicitly call a function by its unambiguous name, you use the syntax `package_name::function_name(...)`. So, if I wanted to call the `stats` version of `filter` in this Rmarkdown document, I would use the syntax `stats::filter(...)`.
+
+#### {-}
+
+#### Challenge {- .exercise}
+
+The warnings above are important, but we might not want them in our final document. After you have read them, adjust the chunk settings on your library chunk to suppress warnings and messages.
+
+#### {-}
+
+Now that we have learned a little mini-lesson on functions, let's get the data that we are going to use for this lesson.
+
+#### Setup {- .setup}
+
+1.  Navigate to the salmon dataset:
+
+2.  Right click the "download" button for the file "survey_data.csv"
+
+3.  Select "copy link address" from the dropdown menu
+
+4.  Paste the URL into a `read_csv` call like below
+    
+
+#### {-}
+
+The code chunk you use to read in the data should look something like this:
+
+```{r}
+survey_raw <- read_csv("../data/survey_data.csv", show_col_types = FALSE)
+```
+
+This dataset is already relatively clean, but as we'll see there are a few issues that we need to resolve, and a couple of things we can do to make our analysis easier.
+
+We can examine the dataset in a few different ways, one easy way is the `glimpse` function, which shows the first few items of every column in the `data.frame`.
+
+```{r}
+glimpse(survey_raw)
+```
+
+For some context, here is a table showing what each of the questions are asking:
+
+```{r, echo = FALSE}
+questions <- read_csv("../data/questions.csv", show_col_types = FALSE, progress = FALSE)
+knitr::kable(questions) %>% kableExtra::kable_styling()
+```
+
+Q1 and Q2 have responses with a controlled vocabulary (choice answers), while Q3 and Q4 are free text.
+
+#### About the pipe (`%>%`) operator {-}
+
+Before we jump into learning `tidyr` and `dplyr`, we first need to explain the `%>%`.
+
+Both the `tidyr` and the `dplyr` packages use the pipe operator - `%>%`, which may look unfamiliar. The pipe is a powerful way to efficiently chain together operations. The pipe will take the output of a previous statement, and use it as the input to the next statement.
+
+Say you want to both `filter` out rows of a dataset, and `select` certain columns. Instead of writing
+
+    df_filtered <- filter(df, ...)
+    df_selected <- select(df_filtered, ...)
+
+You can write
+
+    df_cleaned <- df %>% 
+                  filter(...) %>%
+                  select(...)
+
+If you think of the assignment operator (`<-`) as reading like "gets", then the pipe operator would read like "then."
+
+So you might think of the above chunk being translated as:
+
+The cleaned dataframe gets the original data, and then a filter (of the original data), and then a select (of the filtered data).
+
+The benefits to using pipes are that you don't have to keep track of (or overwrite) intermediate data frames. The drawbacks are that it can be more difficult to explain the reasoning behind each step, especially when many operations are chained together. It is good to strike a balance between writing efficient code (chaining operations), while ensuring that you are still clearly explaining, both to your future self and others, what you are doing and why you are doing it.
+
+RStudio has a keyboard shortcut for `%>%` : Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac).
+
+#### Selecting/removing columns: `select()` {-}
+
+One of the first things we might want to do to this dataset is to remove the `notes` column. In this case, the `notes` column is completely empty, so it doesn't serve us much purpose. Let's use the `select` function to select the columns we want to keep.
+
+```{r}
+survey_clean <- survey_raw %>% 
+    select(ResponseId, StartDate, Q1, Q2, Q3, Q4)
+```
+
+
+`select` also allows you to say which columns you *don't* want, by passing unquoted column names preceded by minus (-) signs:
+
+```{r}
+survey_clean <- survey_raw %>% 
+    select(-notes)
+```
+
+#### Split-Apply-Combine {-}
+
+Let's say we want to see the number of responses for each choice given for question 1. We'll use the split-apply-combine strategy to split that column into groups for each unique response, and then apply a function to count the number of times each group appears.
+
+`group_by` splits the rows of your `data.frame` according to the unique values within the grouping column. Running `group_by` on its own won't look like anything happened, since that information is stored behind the scenes in your `data.frame` which otherwise looks the same.
+
+`summarize` applies the function you pass to it, creating a new column with the function applied over each unique value in your grouping column.
+
+```{r}
+q1_response <- survey_raw %>% 
+    group_by(Q1) %>% 
+    summarise(n = n())
+
+knitr::kable(q1_response) %>% kableExtra::kable_styling()
+```
+
+
+What does that 1 mean? Turns out our kind of messy data didn't have a consistent coding system. After doing some research, we figure out that 1 actually means "below expectations". Let's fix that in our original data so the data are consistent.
+
+#### Changing column content: `mutate()` {-}
+
+We can use the `mutate` function to change a column, or to create a new column. Here we change the column `Q1`, using the `if_else` function. This function says if Q1 is equal to (`==`) 1, change the value to "below expectations." Otherwise, keep the value of Q1.
+
+```{r}
+survey_clean <- survey_raw %>% 
+    select(-notes) %>% 
+    mutate(Q1 = if_else(Q1 == "1", "below expectations", Q1))
+```
+
+
+Now we can do our group by and summarize again:
+
+```{r}
+q1_response <- survey_clean %>% 
+    group_by(Q1) %>% 
+    summarise(n = n())
+
+datatable(q1_response)
+```
+
+If we want to arrange our rows from highest to lowest counts, we can use `arrange`. The minus sign sorts from high to low.
+
+```{r}
+q1_response <- survey_clean %>% 
+    group_by(Q1) %>% 
+    summarise(n = n()) %>% 
+    arrange(-n)
+
+datatable(q1_response)
+```
+
+Let's look at question 2 now.
+
+```{r}
+q2_response <- survey_clean %>% 
+    group_by(Q2) %>% 
+    summarise(n = n())
+
+datatable(q2_response)
+```
+
+It also has issues with the unique values, with some stray capitalization errors. We can use `mutate` and `to_lower` to make everything consistent
+
+```{r}
+survey_clean <- survey_raw %>% 
+    select(-notes) %>% 
+    mutate(Q1 = ifelse(Q1 == "1", "below expectations", Q1)) %>% 
+    mutate(Q2 = tolower(Q2))
+```
+
+```{r}
+q2_response <- survey_clean %>% 
+    group_by(Q2) %>% 
+    summarise(n = n()) %>% 
+    arrange(-n)
+
+knitr::kable(q2_response) %>% kableExtra::kable_styling()
+```
+
+
+#### Changing shape: `pivot_longer()` and `pivot_wider()` {-}
+
+Although the format of this table is tidy, we have have good reasons to change shape to where the question is in one column, and the response in another. This may make certain types of plots or tables easier to make.
+
+```{r}
+survey_long <- survey_clean %>% 
+    pivot_longer(cols = starts_with("Q"), names_to = "id", values_to = "answer")
+```
+
+```{r}
+survey_long %>% 
+    filter(id %in% c("Q1", "Q2")) %>% 
+    group_by(id, answer) %>% 
+    summarise(n = n()) %>% 
+    arrange(id, -n)
+```
+
+
+# Joins
+
+```{r}
+events <- read_csv("~/Desktop/surveys/events.csv", show_col_types = FALSE)
+```
+
+
+```{r}
+survey_joined <- left_join(survey_long, events)
+```
+
+(for ggplot lesson)
+
+```{r}
+library(ggplot2)
+
+q1 <- survey_joined %>% 
+    filter(id %in% c("Q1"))
+
+ggplot(q1, aes(x = location, fill = answer)) +
+    geom_bar()
+```
+
