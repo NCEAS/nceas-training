@@ -1,12 +1,9 @@
 ## Introduction to Reproducible Research
 
-Reproducibility is the hallmark of science, which is based on empirical observations 
-coupled with explanatory models. And reproducible research is at the core of what we do at NCEAS, research synthesis.
+#### What is research reproducibility and how does it relate to open science?
+Reproducibility is a hallmark of scientific research, which is based on empirical observations coupled with explanatory models. Whether integrating data from across multiple studies and sources, or working with your own data, the data life cycle typically involves some degree of data collection/integration, quality assurance practices, analysis and synthesis.  Operating in a reproducible fashion means that each of these steps can be easily re-executed to achieve the same result, ideally as part of a single workflow.  
 
-The National Center for Ecological Analysis and Synthesis was funded over 25 years ago to bring together interdisciplinary researchers in exploration of grand challenge ecological questions through analysis of existing data. Such questions often require integration, analysis and synthesis of diverse data across broad temporal, spatial and geographic scales. Data that is not typically collected by a single individual or collaborative team. Synthesis science, leveraging previously collected data, was a novel concept at that time and the approach and success of NCEAS has been a model for other synthesis centers.
 
-![](images/NCEAS-synthesis.jpg)
-During this course you will learn about some of the challenges that can be encountered when working with published data, but more importantly, how to apply best practices to data collection, documentation, analysis and management to mitigate these challenges in support of reproducible research.
 
 #### Why is reproducible research important? {-}
 Working in a reproducible manner builds efficiencies into your own research practices. The ability to automate processes and rerun analyses as you collect more data, or share your full workflow (including data, code and products) with colleagues, will accelerate the pace of your research and collaborations. However, beyond these direct benefits, reproducible research builds trust in science with the public, policy makers and others.  
@@ -25,6 +22,16 @@ Ionnidis (2005) contends that "Most research findings are false for most researc
 
 In the case of 'climategate', it took three years, and over 300 personnel, to gather the necessary provenance information in order to document how results, figures and other outputs were derived from input sources. Time and effort that could have been significantly reduced with appropriate documentation and reproducible practices. Moving forward, through reproducible research training, practices, and infrastructure, the need to manually chase this information will be reduced enabling replication studies and great trust in science.
 
+#### Open Science
+To enable full reproducibility by the broader community; researchers, practitioners, policy makers etc, all products of the research activity need to be accessible - open data, open code, and open publications. Further, full research transparency also requires open peer review. There are, of course, data sensitivities and ethical considerations regarding open everything and these will be discussed later.
+
+At its core, the aims of Open Science are to:
+1. Increase transparency of the research process
+1. Enable reproducibility of results and conclusions
+1. Accelerate Discovery
+1. Enhance and facilitate collaboration
+1. Increase diversity, equity and inclusion
+1. Transform knowledge into benefits for society
 
 #### Computational reproducibility {-}
 
