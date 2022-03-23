@@ -1,9 +1,19 @@
+---
+author: "Amber Budden"
+---
+
 ## Introduction to Reproducible Research
 
 #### What is research reproducibility and how does it relate to open science?
 Reproducibility is a hallmark of scientific research, which is based on empirical observations coupled with explanatory models. Whether integrating data from across multiple studies and sources, or working with your own data, the data life cycle typically involves some degree of data collection/integration, quality assurance practices, analysis and synthesis.  Operating in a reproducible fashion means that each of these steps can be easily re-executed to achieve the same result, ideally as part of a single workflow.  
 
+Reproducibility means different things to different researchers. For our purposes, practical reproducibility looks like:
+- Preserving the data
+- Preserving the software workflow
+- Documenting what you did
+- Describing how to interpret it all
 
+Reproducibility does not, by definition, require openness. Reproducibility can be achieved within a single research activity or across a research program with a closed group of collaborators. However, when working in an OPEN and REPRODUCIBLE manner, we are better able to transform knowledge into benefits for society. In this section we will expand on the benefits of reproducible research and open science before highlighting some best practices. 
 
 #### Why is reproducible research important? {-}
 Working in a reproducible manner builds efficiencies into your own research practices. The ability to automate processes and rerun analyses as you collect more data, or share your full workflow (including data, code and products) with colleagues, will accelerate the pace of your research and collaborations. However, beyond these direct benefits, reproducible research builds trust in science with the public, policy makers and others.  
@@ -35,22 +45,9 @@ At its core, the aims of Open Science are to:
 
 #### Computational reproducibility {-}
 
-While reproducibility encompasses the full science lifecycle, and includes issues such as methodological consistency and treatment of bias, in this course we will focus on **computational reproducibility**: the ability to document data, analyses, and models sufficiently for other researchers to be able to understand and ideally re-execute the computations that led to scientific results and conclusions.
+Computational reproducibility is the ability to document data, analyses, and models sufficiently for other researchers to be able to understand and ideally re-execute the computations that led to scientific results and conclusions.
 
-The first step towards addressing these issues is to be able to evaluate the data,
-analyses, and models on which conclusions are drawn.  Under current practice, 
-this can be difficult because data are typically unavailable, the method sections
-of papers do not detail the computational approaches used, and analyses and models
-are often conducted in graphical programs, or, when scripted analyses are employed,
-the code is not available.
-
-And yet, this is easily remedied.  Researchers can achieve computational 
-reproducibility through open science approaches, including straightforward steps 
-for archiving data and code openly along with the scientific workflows describing 
-the provenance of scientific results (e.g., @hampton_tao_2015, @munafo_manifesto_2017).
-
-
-#### Conceptualizing workflows {-}
+To be able to evaluate the data, analyses, and models on which conclusions are drawn, computational reproducibility requires open science approaches, including straightforward steps for archiving data and code openly along with the scientific workflows describing the provenance of scientific results (e.g., @hampton_tao_2015, @munafo_manifesto_2017).
 
 Scientific workflows encapsulate all of the steps from data acquisition, cleaning,
 transformation, integration, analysis, and visualization.  
@@ -63,8 +60,6 @@ of a workflow, and when researchers publish specific versions of the scripts and
 data used in an analysis, it becomes far easier to repeat their computations and 
 understand the provenance of their conclusions.
 
-#### Summary
-
 Computational reproducibility provides:
 
 - transparency by capturing and communicating scientific workflows
@@ -74,12 +69,6 @@ Computational reproducibility provides:
 
 Preserving computational workflows enables understanding, evaluation, and reuse for the benefit of *future you* and your collaborators and colleagues **across disciplines**.
 
-Reproducibility means different things to different researchers. For our purposes, practical reproducibility looks like:
-
-- Preserving the data
-- Preserving the software workflow
-- Documenting what you did
-- Describing how to interpret it all
-
-During this course will outline best practices for how to make those four components happen.
+```{r, child = 'sections/metadata-data-best-practices-intro.Rmd'}
+```
 
