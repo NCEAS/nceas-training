@@ -1,6 +1,324 @@
 ---
-author: "Amber Budden"
+author: "Noor Johnson"
 date: "3/4/2022"
 ---
 
-## Data Ethics
+## Open Data Ethics
+
+Developed by the Exchange for Local Observations and Knowledge of the
+Arctic (ELOKA) and Navigating the New Arctic Community Office
+(NNA-CO).
+
+#### Introduction
+
+This part of the training offers an introduction to ethics in the
+context of open science. It was developed with input from ELOKA and
+the NNA-CO, and is a work-in-progress – this is the first time we are
+offering this training. The training introduces ethics issues in a
+broad way and includes discussion of social science data and open
+science, but the majority of the section focuses on issues related to
+research with, by, and for Indigenous communities. We recognize that
+there is a need for more in-depth training and focus on open science
+for social scientists and others who are not engaging with Indigenous
+Knowledge holders and Indigenous communities, and hope to develop
+further resources in this area in the future. Many of the data
+stewardship practices that have been identified as good practices
+through Indigenous Data Sovereignty framework development are also
+relevant for those working with Arctic communities that are not
+Indigenous, although the rights frameworks and collective ownership is
+specific to the Indigenous context.  
+
+The examples we include in this training are primarily drawn from the
+North American research context. In future trainings, we plan to
+expand and include examples from other Indigenous Arctic contexts. We
+welcome suggestions and resources that would strengthen this training
+for audiences outside of North America.  
+
+We also recognize the importance of trainings on Indigenous data
+sovereignty and ethics that are being developed and facilitated by
+Indigenous organizations and facilitators. In this training we offer
+some introductory material but there is much more depth offered in IDS
+specific trainings. We include some suggestions of organizations
+offering further training in the “resources” section and encourage
+participants to seek out these opportunities to deepen their
+understanding.  
+
+
+#### Equity issues in open science
+
+Arctic communities (defined based on geographic location in the
+Arctic/sub-Arctic) are involved in research in diverse ways - as hosts
+to visiting or non-local researchers, as well as “home” to community
+researchers who are leading or collaborating on research
+projects. Over the past decades, community voices of discontent with
+standard research practices that are often exclusive and perpetuate
+inequities have grown stronger. The Arctic research community (defined
+more broadly as the range of institutions, organizations, researchers
+and local communities involved in research) is in the midst of a
+complex conversation about equity in research aimed at transforming
+research practice to make it more equitable and inclusive.  
+
+One of the drivers of community concerns is the colonial practice of
+extracting knowledge from a place or group of people without respect
+for local norms of relationship with people and place and without an
+ethical commitment to sharing and making benefits of knowledge
+accessible and accountable to that place. Such approaches to knowledge
+and data extraction follow hundreds of years of exploration and
+research that viewed science as a tool of “Enlightenment” yet focused
+exclusively on benefits to White, European (or “southern” from an
+Arctic community perspective) researchers and scientists. This
+prioritization of non-local perspectives and needs (to Arctic
+communities) continues in Arctic research.  
+
+Open science is ostensibly about making access to data and knowledge
+more equitable and open and enabling reproducible research. Because it
+is being implemented within a social and institutional context that
+continues to perpetuate inequities in research, however, there are
+significant challenges remaining to ethically and equitably
+implementing open science practices. Here are some examples:  
+
+* Many Open Science tools and practices (e.g. GitHub, non-proprietary
+  software) have been adopted from software development, and are not
+  familiar to many, even physical, scientists. This makes barriers to
+  implementation of open science and participation in open science
+  practices higher for some than for others.  
+
+* Some of the main focus areas of open science (making sure data is
+  archived in a clean and reusable format, open access publication)
+  are still not accessible for Arctic residents and others who are not
+  already situated within an academic environment. Open science
+  assumes access to tools and infrastructure, such as computers that
+  have reliable and low-cost or subsidized internet access.  
+
+* These structural inequalities extend even within the
+  academy. Researchers and academics based in lower-income countries
+  have fewer provided resources and sources of support to pay for open
+  access fees and face greater challenges in adopting open science
+  practices.
+
+* The emphasis of open science on stakeholder and rights holder
+  engagement and knowledge co-production also creates unintended
+  challenges for Arctic communities. For example, when the National
+  Science Foundation’s Navigating the New Arctic initiative, which
+  brought millions of additional funds to Arctic research, suggested
+  that research projects incorporate co-production and collaboration
+  with Arctic communities, community representatives reported being
+  inundated with requests from researchers. Perhaps because NNA was
+  designed, in part, to bring new researchers and disciplines into
+  Arctic research, many of these requests were made without adequate
+  regard for recognized good practices for community engagement (such
+  as the importance of building relationships, reaching out very early
+  for input; communicating “early and often;” and incorporating
+  significant resources for community participants’ time and knowledge
+  into project budgets, among other things). As a letter to NSF
+  written by Kawerak, the Association of Village Council Presidents,
+  the Aleut Community of St. Paul Island, and the Bering Sea Elders
+  Group emphasized, without adequate attention to these practices as
+  well as an emphasis on topics that communities have identified as
+  important, research will not serve community partners and will fail
+  to achieve its broader impact goals. (See also the 2021 update
+  letter from the same organizations).  
+
+#### Social science and open data
+
+In addition to these equity related challenges in promoting open
+access, there are also different disciplinary norms and requirements
+that can create challenges for the adoption of open science
+practices. For example, traditional social science methods training
+and IRB processes emphasize confidentiality and privacy. Social
+scientists generally lack access to training about benefits of sharing
+data. On the other hand, social scientists are often trained to be
+attuned to issues of equity and access, including issues related to
+information equity. Those who lack this background may not give
+adequate attention or time to the process of partnering with
+communities. The Arctic Horizons Report reviewed challenges around
+social science data management. In 2020, a workshop organized by the
+Arctic Data Center reviewed some of the challenges for sharing and
+reusing social science data, including:
+
+* Data heterogeneity, including “unstructured” data that is not always
+  well supported by data repositories;  
+* A dearth of metadata support for social sciences, with repositories
+  not always offering relevant metadata fields;  
+* A lack of “formal vocabularies” that limits findability of social
+science data in searches; Limited training and support in data
+management practices for social scientists; limited examples using
+social science data in interdisciplinary trainings.  
+
+In addition to these challenges, a number of broader concerns about
+sharing data were identified, including:
+
+* Concerns about proper handling of sensitive data; importance of
+  upholding IRB and ethics requirements, data sharing/use agreements;  
+* Importance of context - researchers may feel that data reuse is too
+difficult given lack of contextual knowledge;  
+* Concerns about upholding Indigenous data sovereignty.  
+
+
+#### Open (and other) data challenges for Indigenous Peoples
+
+The introduction of open data requirements has raised concerns about
+how open data objectives such as making data freely available for use
+and reuse may conflict with Indigenous Data Sovereignty and the right
+of Indigenous peoples to govern their data (Rainie et al. 2019:
+301). Stephanie Carroll (formerly Rainie) and colleagues (2019) have
+summarized some of the data challenges for Indigenous Peoples,
+including:
+
+* Data collection invisibility and bias  
+
+  + Insufficient involvement of Indigenous Peoples in broader
+  decisions/discussions about data governance, including decisions
+  about what data is collected, when, how, and by whom, as well as
+  involvement in global data governance bodies.
+
+  + __Even if Indigenous peoples are not part of data collection, if the
+  data is collected on Indigenous lands and could be used to support
+  decisions that impact these lands, animals, or Indigenous peoples,
+  they should be part of decision-making about that data.__
+  
+* Data access, use, and interpretation, including:
+
+  + Insufficient availability of data about Indigenous peoples - gaps
+in national data collection
+
+  + Challenges in data access (infrastructure and training)
+  
+  + Data collected from a “deficit” lens - reinforces perception of
+dysfunction, leading to bias and misrepresentation.
+
+  + Open data movement prioritizes making data available for
+  reuse. However, there are concerns about secondary analysis of
+  Indigenous data given the importance of context to
+  understanding/interpreting Indigenous data and emphasis on building
+  and maintaining relationships to Indigeous research (Burrage 2021).
+  
+  + __Important for researchers generating data that they hope will be
+  useful to Indigenous communities to be aware of ethical frameworks
+  for working with/sharing data and partnering with communities.__
+  
+* Data ownership and appropriation
+
+  + Digitization of data/“big data” - the context surrounding data is
+  often very important to Indigenous Knowledge and data. The
+  digitization of data raises concerns about how and to what extent
+  this context can be preserved.  
+
+  + Individual vs. collective rights. Data ownership is often focused
+  on individual rights (both in protection of sensitive data as well
+  as in intellectual property rights), while Indigenous peoples have
+  both individual and collective rights in relation to data.
+
+  * __All requests for data contributions, clarification, or
+    informational resources are requests for collaboration and should
+    be treated with the same level of importance as larger projects
+    (Murphy 2019).__
+
+
+#### The role of IRBs and Indigenous data
+
+In the **United States**, Institutional Review Boards (IRBs; in **Canada**
+they are referred to as Research Ethics Boards or REBs) focus on
+ensuring ethical treatment and protection of research subjects with a
+particular focus on vulnerable populations and ethical management of
+data. For projects proposing research that involves Indigenous peoples
+in the United States, IRBs will often refer the review to Tribal IRBs,
+which are research review boards established and implemented directly
+by Tribal Nations. Tribal IRBs reflect and respond to community needs,
+changes in research, and revisions to research policy (Around Him et
+al. 2019). Oversight mechanisms range from federally registered review
+bodies and policy development to community-specific frameworks and
+approaches (see Around Him et al. 2019 for differentiation,
+justification and authority).
+
+In addition to IRB review, universities require ethics training for
+researchers who are doing research with human subjects, including
+Indigenous Peoples.  Many universities use the web-based, third-party
+[CITI training program](https://about.citiprogram.org/), which offers different short courses.  A basic
+training course for social and behavioral science researchers covers
+the history of ethical misconduct in research, how human subjects
+research is defined, federal regulations that govern research
+practice, assessing risk, informed consent, privacy and
+confidentiality, and ethics requirements for different categories of
+vulnerable populations including prisoners and children.  While the
+CITI human subjects trainings touch on topics related to Indigenous
+peoples, they are not at all comprehensive. A CITI webinar, “[Research
+with Native American Communities: Important Considerations when
+Applying Federal Regulations](https://about.citiprogram.org/news/new-webinar-available-research-with-native-american-communities-important-considerations-when-applying-federal-regulations/)” introduces more topics.  The r-ETHICS
+training ([Ethics Training for Health in Indigenous Communities Study](http://iwri.org/research/ethics/))
+is starting to become an acceptable, recognizable CITI addition for
+IRB training by tribal entities.
+
+Specific **universities** have adopted tribal consultation policies (such
+as the Arizona Board of Regents’ (ABOR) Tribal Consultation policy
+(1-118) adopted in 2016; University of Wisconsin System Board of
+Regents tribal consultation policy adopted in 2021; Washington State
+University [EP 41](https://policies.wsu.edu/prf/index/manuals/executive-policy-manual-contents/ep41-policy-on-tribal-engagement-consultation-and-consent-for-joint-wsu-tribal-research-activities-and-projects/) adopted in 2021). These policies highlight where
+consultation is expected/required and what the process should be
+(Marley 2019).
+
+In **Canada**, funding agencies have established the Tri-Council Policy
+Statement on Ethical Conduct for Research Involving Humans; [Chapter 9](https://ethics.gc.ca/eng/tcps2-eptc2_2018_chapter9-chapitre9.html)
+focuses on research involving First Nations, Inuit and Metis. The
+chapter points to the importance of addressing issues regarding access
+to data and use of data with involved communities and suggests using a
+research agreement to establish any limits on data use and sharing,
+provisions to offer the opportunity for research participants and
+collaborators to review reports and publications prior to
+dissemination/publication, and to include provisions for any
+anticipated secondary use of information.
+
+The Tri-Council Statement has resulted in direct modifications to
+institutional-level REB (Canada) processes and procedures, such as
+incorporation of dedicated sections focusing on Indigenous research
+ethics within University protocols. For example, the “Indigenous
+Peoples and Community Engagement” section of an REB application at a
+Canadian university asks researchers to “**Describe arrangements for the
+participating community’s/ies’ ownership and/or sharing of project
+data and findings**, including the OCAP principles.”
+
+
+#### Indigenous data governance and sovereignty
+
+All governing entities, whether national, state, local, or tribal,
+need access to good, current, relevant data in order to make policy,
+planning, and programmatic decisions. Indigenous nations and
+organizations have had to push for data about their peoples and
+communities to be collected and shared in ethical and culturally
+appropriate ways, and they have also had to fight for resources and
+capacity to develop and lead their own research programs.
+
+##### Indigenous data definitions:
+
+**Indigenous data sovereignty** “...refers to the right of Indigenous
+peoples to govern the collection, ownership, and application of data
+about Indigenous communities, peoples, lands, and resources (Rainie et
+al. 2019). These governance rights apply “regardless of where/by whom
+data is held (Rainie et al. 2019).
+
+Some Indigenous individuals and communities have expressed
+dissatisfaction with the term “data” as being too narrowly focused and
+abstract to represent the embedded and holistic nature of knowledge in
+Indigenous communities. **Knowledge sovereignty** is a related term that
+has a similar meaning but is framed more broadly, and has been defined
+as:
+
+“Tribal communities having control over the documentation and
+production of knowledge (such as through research activities) which
+relate to Alaska Native people and the resources they steward and
+depend on” (Kawerak 2021).
+
+**Indigenous data** is “data in a wide variety of formats inclusive of
+digital data and data as knowledge and information. It encompasses
+data, information, and knowledge about Indigenous individuals,
+collectives, entities, lifeways, cultures, lands, and resources.”
+(Rainie et al. 2019)
+
+**Indigenous data governance** is “The entitlement to determine how
+Indigenous data is governed and stewarded” (Rainie et al. 2019)
+
+
+#### Frameworks in support of IDS
+
+#### Resources
+
