@@ -79,7 +79,6 @@ Preserving computational workflows enables understanding, evaluation, and reuse 
 In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): Findable, Accessible, Interoperable, and Reproducible. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
 
 ![](images/FAIRsFAIR.png)
-We will dig deeper into metadata best practices shortly.
 
 ![](images/FAIR_CARE.png)
 
@@ -179,12 +178,11 @@ Additionally, at the Arctic Data Center we now require data submissions to inclu
 
 As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts. To help mitigate the challenges of sharing sensitive data, researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. 
 
-![](images/semantic-search.png)
+![](images/editor-01.png)
 
 Within the research methods section, submitters are now asked to describe the ethical data practices used throughout their research. The information provided will be visible as part of the metadata record and this field has been added to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science and sharing ethical practices encourages deeper discussion about data reuse and ethics.
 
-
-![](images/semantic-search.png)
+![](images/editor-11.png)
 
 
 So, how do you organize all this information? There are a number of **metadata standards** (think, templates) that you could use, including the [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/), [Geospatial Metadata Standards](https://www.fgdc.gov/metadata/iso-standards) like ISO 19115 and ISO 19139, the [Biological Data Profile (BDP)](https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf), [Dublin Core](https://dublincore.org/), [Darwin Core](https://dwc.tdwg.org/), [PREMIS](https://www.loc.gov/standards/premis/), the [Metadata Encoding and Transmission Standard (METS)](http://www.loc.gov/standards/mets/), and the list goes on and on. The Arctic Data Center runs on EML and has a simple to use interface that guides you through the process of creating your metadata record.
@@ -205,54 +203,61 @@ Having the data identified in this manner allows us to accurately track the data
 ![](images/dataset-metrics.png)
 
 
-We filter out most views by internet bots and repeat views within a small time window in order to make these metrics COUNTER compliant. COUNTER is a standard that libraries and repositories use to provide users with consistent, credible, and comparable usage data. 
-
-
-![](images/arctic-data-center/ADC-datacatalog2.png)
-
-
 ### Data Citation
 
-Researchers should get in the habit of citing the data that they use - even if it's their own data! - in each publication that uses that data. The Arctic Data Center has taken multiple steps towards providing data citation information for all datasets we hold in our catalog, including a feature enabling dataset owners to directly register citations to their datasets. 
+Data citation best practices are focused on providing credit where credit is due and indexing and exposing data citations across international repository networks. In 2014, Force 11 established a [Joint Declaration of Data Citation Principles ](https://doi.org/10.25490/a97f-egyk)that includes:
 
-We recently implemented this “Register Citation” feature to allow researchers to register known citations to their datasets. Researchers may register a citation for any occasions where they know a certain publication uses or refers to a certain dataset, and the citation will be viewable on the dataset profile within 24 hours. 
+- Importance of data citation
+- Credit and Attribution
+- Evidence
+- Unique Identification
+- Access
+- Persistence
+- Specificity and Verifiability
+- Interoperability and Flexibility
 
-To register a citation, navigate to the dataset using the DOI and click on the citations tab. Once there, this dialog box will pop up and you'll be able to register the citation with us. Click that button and you'll see a very simple form asking for the DOI of the paper and if the paper **CITES** the dataset (that is, the dataset is explicitly identified or linked to somewhere in the text or references) or **USES** the dataset (that is, uses the dataset but doesn't formally cite it).
+**Transitive Credit**
 
+We want to move towards a model such that when a user cites a research publication we will also know:
 
-![](images/register-citation.png)
+- **Which data** produced it
+- **What software** produced it
+- What was **derived** from it
+- **Who to credit** down the attribution stack
 
-We encourage you to make this part of your workflow, and for you to let your colleagues know about it too!
+![](images/Transitive-Credit.png)
 
-### Provanance & Preserving Computational Workflows
+This is transitive credit. And it changes the way in which we think about science communication and traditional publications.
 
-![](images/comp-repro.png)
+### Open Science, Reproducibilty and Computational Provenance {-}
 
-While the [Arctic Data Center](https://arcticdata.io), [Knowledge Network for Biocomplexity](https://knb.ecoinformatiocs.org), and similar repositories do
-focus on preserving data, we really set our sights much more broadly on preserving
-entire computational workflows that are instrumental to advances in science.  A 
-computational workflow represents the sequence of computational tasks that are
-performed from raw data acquisition through data quality control, integration, 
-analysis, modeling, and visualization.
+Computational provenance refers to the origin and processing history of data including:
+
+- Input data
+- Workflow/scripts
+- Output data
+- Figures
+- Methods, dataflow, and dependencies
+
+When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from inital data cleaning and integration, through analysis, modeling, and visualization. 
+
+Here's an example of a computational workflow from [Mark Carls](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
 
 ![](images/comp-workflow-1.png)
 
-In addition, these workflows are often not executed all at once, but rather are
-divided into multiple workflows, earch with its own purpose.  For example, a data
-acquistion and cleaning workflow often creates a derived and integrated data product
-that is then picked up and used by multiple downstream analytical workflows that
-produce specific scientific findings.  These workflows can each be archived as 
-distinct data packages, with the output of the first workflow becoming the input
-of the second and subsequent workflows.
-
-![](images/comp-workflow-2.png)
-
-In an effort to make data more reproducible, datasets also support provenance tracking. With provenance tracking, users of the Arctic Data Center can see exactly what datasets led to what product, using the particular script or workflow that the researcher used.
 
 ![](images/provenance.png)
 
-This is a useful tool to make data more compliant with the [FAIR](https://www.go-fair.org/fair-principles/) principles. In addition to making data more reproducible, it is also useful for building on the work of others; you can produce similar visualizations for another location, for example, using the same code.
+The screenshot of the dataset page shows how we render the workflow model information as part of an interactive user interface. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
 
-RMarkdown itself can be used as a provenance tool, as well - by starting with the raw data and cleaning it programmatically, rather than manually, you preserve the steps that you went through and your workflow is reproducible.
+**From Provenance to Reproducibility**
 
-![](images/fjord.png)
+![](images/Prov-History.png)
+
+At the Arctic Data Center we facilitate reproducible science through provenance by: 
+
+- Tracking **data derivation** history
+- Tracking data **inputs** and **outputs** of analyses
+- Preserving and documenting software **workflows**
+- Tracking analysis and model **executions**
+- Linking all of these to **publications**
