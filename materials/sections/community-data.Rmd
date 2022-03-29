@@ -1,6 +1,542 @@
 ---
-author: "Amber Budden"
+author: "Noor Johnson"
 date: "3/4/2022"
 ---
 
 ## Community Data
+
+### Introduction
+
+In this section of the training, we focus on **tools and approaches for
+ethically managing community data in research projects and community
+collaborations**.
+
+**Community data** can be defined broadly as **any data that a community
+feels a sense of investment in or ownership of** (Johnson et al. 2021;
+Pulsifer et al. 2012). (In this workshop, we are using the term
+“community” to refer to a geographic place and the people who live
+there).
+
+Community data may include:
+
+ * data produced by community-engaged or led research projects;  
+ * data collected by external researchers that is about or relevant to
+   a community or the people who live there;  
+ * or data or information needed to guide local decision-making and
+   planning.
+
+![](images/2022-03_assw_cdm01.png)
+
+How does management of community data differ from traditional academic
+approaches to data management? While many of the tools (such as data
+management plans) are similar, community data management is guided by
+ethical considerations and protocols discussed in the “data ethics”
+part of this training. It has been said that data management is not
+primarily technical but social; **ethical management of community data
+requires significant attention to the processes of meaningful
+collaboration needed to build and maintain relationships with
+communities**. Community data management also requires an understanding
+of the governance context, including ethics protocols. In addition,
+building capacity and support for community control of data is an
+important aspect of community data management. **ELOKA refers to these
+three aspects (governance/application of tools/capacity building) as
+comprising a “community data management system.”**
+
+
+### Tools and Approaches for Stewardship of Community Data
+
+#### Memorandum of Understanding (MOU)
+
+**An MOU is a formal agreement between two or more parties that
+documents the nature of the relationship and collaboration and puts
+into writing specific expectations regarding data management and data
+ownership. [Although they are not legally binding](https://uas.alaska.edu/admin/mous-moas.html)**, they are formal
+agreements to coordinate activities and as such, Universities may
+require legal counsel to review an MOU. An MOU may be most useful when
+a community or Tribe and a research program or institution want to lay
+out terms for ongoing collaboration beyond the timeframe of a single
+project, although sometimes a more formal agreement may be helpful to
+establish clear expectations for cooperation at the project level.
+
+**Some resources and templates for developing an MOU**:
+
+Memorial University. [Indigenous Research Agreement Template](https://www.mun.ca/research/Indigenous/agreement.php). 
+
+Liboiron, M. “[Template of Memorandum of Understanding for Mutual Aid
+Research in Disasters.](https://seeingcollaborations.files.wordpress.com/2014/10/template-of-memorandum-of-understanding-for-mutual-aid-research-in-disasters-5-1-12.docx)” Template/resource designed with “mutual-aid
+researcher-community or academic-activist partnerships in mind.”
+
+Colorado Nonprofit Association. 2003. [Collaboration Toolkit: Creating an MOU](https://anschutzfamilyfoundation.org/wp-content/uploads/2016/04/MOU-toolkit-MAIN.pdf). 
+
+Indigenous Works, “Building a Memorandum of Understanding” - includes [template](https://indigenousworks.ca/en/resources/articles-reports/mou):
+
+Karuk Tribe. “[Memorandum of Mutual Understandings](https://www.sustainableheritagenetwork.org/system/files/atoms/file/KarukTribe_MemorandumofMutualUnderstanding.pdf).” (Approved to be shared as a resource through the Sustainable Heritage Network).
+
+
+#### Data Management Plan (DMP)
+
+A DMP is a document used to **describe the strategies and tools you will
+use to manage your data through different stages in the research
+lifecycle, including data collection, documentation & metadata,
+storage and backup, sharing & reuse, and preservation**. The DMP
+includes plans for managing data both during active research as well
+as after the project is complete. DMPs include information about:
+
+ * what data will be created
+ * what policies will apply to the data
+ * who will own and have access to the data
+ * what data management practices will be used
+ * what facilities and equipment will be required
+ * who will be responsible for each of these activities.
+
+[https://dmptool.org/](https://dmptool.org/) is a free, online tool
+developed by the California Digital Library to guide development of
+DMPs. The template is customizable based on the funder that the plan
+will be submitted to. They maintain a list of funder requirements as
+well as a list of public plans from other projects - you can search
+them by keyword, funder, institution, language, and subject. (At the
+time of this training, a keyword search for “Indigenous” had only one
+result). The tool does not (yet?) incorporate IDS/CARE principles. A
+similar tool, [DMPonline](https://dmponline.dcc.ac.uk/), is available from the Digital Curation
+Centre.
+
+**A data management plan should be developed during the planning phase
+of a research project**. Many funders explicitly require a data
+management plan as part of a funding proposal. As a result, DMPs are
+often put together in haste to meet a proposal deadline without a lot
+of thought about ethical management of data. These DMPs are then often
+set aside without a lot more thought, and as a result there is a
+missed opportunity to use DMPs to deeply consider data as one of the
+major legacies of a research project, with the potential to “live”
+well beyond the duration of the research project. **In the context of
+collaborative research, data sharing and use have the potential to
+create friction when they are viewed as supplementary rather than
+integral to good project planning and implementation.**
+
+![](images/2022-03_assw_cdm02.png)
+
+Some elements of a DMP for co-produced research or research involving Indigenous Knowledge:
+
+ * When Indigenous data is involved or when activities will be
+   undertaken on or near Indigenous lands/waters, or when the data
+   generated is relevant to Indigenous governance, the plan should
+   include a discussion of Indigenous data sovereignty.  
+ * This should include a statement of overall intent as well as a
+   careful review of proposed activities to ensure that they uphold
+   IDS principles, with reference to the relevant ethical guidelines
+   including any foundational or mid-level frameworks as well as the
+   CARE principles.  
+ * The foundational guidelines at the Tribal or community level, if
+   available, should serve as the primary resource for ethical data
+   management.  
+ * To be effective in the context of collaborative research, DMPs
+   should be revisited at different stages of the project to make sure
+   that all collaborators still feel comfortable with plans based on
+   how the project has evolved.  
+
+The [Aboriginal and Torres Strait Islander Data Archive](https://www.atsida.edu.au/) (ATSIDA)
+suggests that researchers working in the field of Australian
+Indigenous Studies ask and answer (collaboratively with communities)
+the following questions as part of data management planning (also
+relevant to the Arctic community and Indigenous context):
+
+ 1. Do the participants want the data preserved?  
+ 2. Does any data need to be attributed to Traditional Knowledge holders?  
+ 3. What are the access and use constraints for data deposited?  
+ 4. How do I manage requests for re-use?  
+ 5. Do I need to make the data anonymous?  
+ 6. Can I publish the material online?  
+ 7. If material is closed to public access, how long for?
+ 8. Do I need to dispose of any research data? If so, have I deleted
+ it adequately without leaving a digital footprint? (Gardiner and
+ Thorpe 2014)
+
+
+#### Data Use Agreement
+
+![](images/2022-03_assw_cdm03.png)
+
+**A data use agreement is a tool that asks users to agree to specific
+requirements for use, such as providing context for the data, citing
+the data in a certain way, and recognizing the rights of Indigenous
+knowledge holders**. For example, the SIZONet/AAOKH database, a digital
+database of community contributed observations about the coastal
+environment in Alaska, includes a use agreement that provides a
+citation for the dataset and asks users to acknowledge the individual
+observer as well as review a paper providing additional context. In
+order to access the observations, an atlas user must confirm that they
+will abide by these use terms.
+
+
+#### Data Citation
+
+![](images/2022-03_assw_cdm04.png)
+
+Giving proper recognition to the knowledge and data contributed by
+Indigenous communities and Knowledge holders is an important part of
+ethical data management. **When Indigenous data or community data is
+shared in a digital format, for example in an online atlas or
+database, it should be accompanied by a suggested citation**, which will
+help those who access and use the data provide the proper credit.
+
+ * Like all data citations, it should include a persistent identifier,
+   such as a DOI. Data repositories will often assist with securing a
+   DOI for a dataset when it is deposited.  
+ * To address the challenges of providing context, the citation could
+   be accompanied by a user guide that includes additional information
+   that could be useful to understand or interpret the data/knowledge.
+
+Lorisia McLeod of the James Smith Cree Nation developed templates for
+citing Indigenous Elders and Knowledge Keepers in APA and MLA format
+(Kornei 2021; McLeod 2021). The templates include the name of the
+knowledge holder/keeper, nation/community, treaty territory (if
+applicable), city/community they live in (if applicable), a brief
+description or title of the teaching, personal communication (for the
+APA template) and date (McLeod 2021).
+
+Example (APA format) :
+
+Cardinal, D. Goodfish Lake Cree Nation. Treaty 6. Lives in Edmonton. Oral teaching. personal communication. April 4, 2004.
+
+For digital data, this could be combined with additional information
+that is commonly used in developing a data citation, such as:
+
+ * Release date (for a complete dataset)  
+ * Formal title of the dataset  
+ * Version of the dataset (if updates are planned)  
+ * Format of the data (physical format the data is in)  
+ * Archive or distributor (location where the dataset is held)  
+
+
+#### Metadata
+
+Metadata supports data discovery, retrieval and reuse. When data are
+made available for use, metadata provides a structured record that
+allows users to locate data and understand how to use or
+interpret it. Metadata records might contain information about how and
+where the data or knowledge was collected and by whom, the storage
+file type and how the data is organized.
+
+Metadata questions to consider (from University of Michigan Library Research Guide):
+
+ * What contextual details (metadata) are needed to make your data meaningful?  
+ * What form or format will the metadata describing your data take?
+   Which metadata University of Michigan Library Research Guild
+   standards will you use? If there is no applicable standard, how
+   will you describe your data in a way that will make them accessible
+   to others?  
+ * How will metadata files be generated for each of the data sets that
+   you produce? Who will do the work of data description and how will
+   the costs be borne?  
+ * Who on your team will be responsible for ensuring that metadata
+   standards are followed and are correctly applied to the
+   corresponding data sets?  
+
+Except when efforts have been made to update metadata, **much of the
+metadata that describes Indigenous data in museum and library
+collections uses outdated and racist terminology such as names that
+were applied to Indigenous Peoples without their consent.** There have
+been a number of efforts within the library and archival communities
+to describe these challenges and develop approaches to address
+them. For example **the [“Use Our Words” Toolkit](https://indigenouslis.ca/the-use-our-words-toolkit/) by Lauren Bourdages and
+Kassandra Caporiccio provides an approach to reviewing metadata in
+library and archive collections to decolonize the subject terms** used
+to describe collections, replacing problematic terms with ones that
+have been approved by Indigenous communities.
+
+![](images/2022-03_assw_cdm05.png)
+
+Metadata standards establish a common way of structuring and
+understanding data. For Indigenous data, metadata description
+standards need to have some flexibility so that communities can
+determine what classes and terms should be used (Murphy
+2019). **Metadata are information sources so IDS guidelines apply to
+metadata** - it is important to collaborate fully on metadata
+development with Indigenous community partners (Kukutai & Taylor). To
+give an example of how this was applied in a project context: *The
+Atlas of Community-Based Monitoring in a Changing Arctic*
+(arcticcbm.org) is an online inventory of CBM and Indigenous Knowledge
+projects. The atlas hosts only metadata and points users to other,
+project-controlled sites when observational data records or datasets
+are available. Nevertheless, permission to include projects was
+obtained prior to adding each record in the atlas, even when the
+metadata was already available on another online site.
+
+Sharing metadata, or “data about data” is one way to uphold open
+science principles when sharing data is not possible/ethical (ADC
+2020). **The Arctic Data Center requests information about ethical
+research practices as part of the metadata they ask projects to
+submit**. They ask researchers to:
+
+ * *Describe how and the extent to which data collection procedures
+    followed community standards for ethical research practices (e.g.,
+    CARE Principles).*  
+
+ * *Be explicit about Institutional Review Board approvals, consent
+    waivers, procedures for Co-production, data sovereignty, and other
+    issues addressing responsible and ethical research.*  
+
+ * *Include any steps to anonymize, aggregate or de-identify the
+    dataset, or to otherwise create a version for public
+    distribution.”*  
+
+This is a new request but some early responses have required
+back-and-forth to address questions and a general lack of awareness on
+the part of some respondents that they should consider
+community/Indigenous data interests and requirements in relation to
+their research projects. For example, some respondents suggest that
+there are no ethical requirements for their data because it did not
+need to go through IRB review at their university, or because they do
+not work directly in community settings or on tribally held
+lands. These responses ignore the fact that **Arctic Indigenous
+residents have historic homelands that extend over vast areas, well
+beyond what is officially recognized as “Tribal lands.” Additionally,
+research and data produced on adjacent lands or on topics with
+relevance to Indigenous governance should still be made available to
+communities.**
+
+#### Traditional Knowledge Labels and Notices
+
+![](images/2022-03_assw_cdm06.png)
+
+The [TK Labels](https://localcontexts.org/labels/traditional-knowledge-labels/) were developed by the Local Contexts project as a way to
+support the management of cultural heritage data in digital
+environments. **The metadata labels are intended to be customized by
+communities to reflect their particular rules and responsibilities in
+relation to data sharing** (such as sacred and/or ceremonial material,
+material that has gender restrictions, seasonal conditions of use
+and/or materials specifically designed for outreach purposes. They can
+be adapted by using the Local Contexts Hub. [TK Notices](https://localcontexts.org/notices/aboutnotices/) are also
+available for use by **institutions and researchers to recognize
+Indigenous interests in collections and data**. The notices can be used
+to indicate openness to collaborate with a community on a particular
+collection or dataset where there is not yet a label associated with
+the content. These labels give researchers and other users more
+information and ethical guidance about how a collection or dataset
+should be used. The project has also developed [Biocultural](https://localcontexts.org/labels/biocultural-labels/) labels and
+notices and is working on developing TK licenses.
+
+*Note that Jane Anderson and Maui Hudson from Local Contexts will be
+speaking as part of AOS 2022 on the following panels:*
+
+ * Maui Hudson: Community-Driven Observations and Indigenous
+   Perspectives (Wednesday, March 30)  
+ * Jane Anderson: Data Sharing (Thursday, March 31)  
+
+
+#### Digital Infrastructure
+
+Increasingly, Indigenous and community data are stored in digital
+formats and made available through web-based applications such as
+online databases, portals, and atlases. To uphold IDS, **decisions about
+where to store data and who should be able to access it should be made
+by a governing body or organization within the community where the
+data was collected** (Burrage 2020). Some projects establish a research
+advisory committee to guide these types of decisions. **The selection of
+digital tools to manage and share community data should also be made
+with the informed input and guidance of community members**.
+
+![](images/2022-03_assw_cdm07.png)
+
+Digital data management and sharing tools range from basic websites to
+applications designed with the aim of supporting Indigenous data
+management (such as the [Mukurtu content management system](https://mukurtu.org/) for managing
+cultural heritage or the [SIKU platform](https://siku.org/) that is designed to store and
+share observational data from Arctic communities) to custom-built
+tools that meet specific needs of a project or community (Johnson et
+al. 2021). The selection of a tool requires consideration of a range
+of factors including cost, functionality, and privacy and security of
+data, among other things.
+
+**To protect sensitive data, digital applications can employ a range of
+techniques such as using password protection to limit access to all or
+a portion of the data and creating public and private versions of an
+application that display different datasets.** Another approach is to
+create aggregated or less detailed datasets for public access while
+providing full access to limited community users who are given
+usernames and passwords to access the sites.
+
+
+#### Long-term Storage and Archiving
+
+Some communities have concerns about data being stored non-locally. In
+other cases, there are no concerns about non-local data storage as
+long as communities have ongoing access to data in usable
+formats. **Enhancing community infrastructure so that communities are
+able to manage their own data, such as through a locally maintained
+server, is an important component of IDS.**
+
+Data should be reviewed (by community members) for suitability for
+long-term preservation. Part of this process is setting appropriate
+access conditions. Some repositories allow partially open data, where
+some data is open and other data requires special permission or is
+closed. Access conditions can also limit access for a certain period
+of time.
+
+![](images/2022-03_assw_cdm08.png)
+
+The [Aboriginal and Torres Strait Islander Data Archive](https://www.atsida.edu.au) has developed a
+set of protocols that advocate for the return of data in a digital
+form to the community at the end of the research project. This creates
+the opportunity for active participation of community members in
+decisions about deposit, access and use of the data (Gardiner & Thorpe
+2014). They note that a lack of infrastructure and support in
+communities to manage digital cultural heritage presents a challenge,
+however. They have been testing the [Mukurtu content management system](https://mukurtu.org/)
+as a tool to support digital repatriation.
+
+
+#### Publishing
+
+![](images/2022-03_assw_cdm09.png)
+
+Many journals have open data requirements but also have exceptions for
+data with legal/ethical considerations. **It is important to review a
+journal’s data policies prior to deciding where to
+submit/publish.** Keep in mind that apart from a few journals
+specializing in Indigenous Knowledge, **the process of “peer review” of
+academic papers does not include Indigenous Knowledge holders as
+expert reviewers.** This creates significant challenges for IDS, since
+Indigenous Knowledge systems have their own system of “review” based
+on practical recognition of what works over time, as well as the
+identification and recognition of “experts” in particular topics
+within each community (Loseto et al. 2020).
+
+Prior to submission in academic journals, **papers developed with
+community and Indigenous collaborators should go through review within
+the community to ensure that data was interpreted and attributed
+correctly** and that the community feels comfortable with choices about
+what is included and how all contributors and the community are
+represented. Writing about this process as part of the methodology
+will help orient the reviewers and readers to how this knowledge was
+reviewed by the community’s process.
+
+A growing list of journals focus on or accept “Data papers”-- short
+papers that offer a description of datasets. This is an area of
+publication where projects generating community and Indigenous data
+could share information about their datasets to make them more visible
+and also to raise awareness about access constraints and the reasons
+for them in the context of the open science/open data movement.
+
+
+#### Secondary Analysis of Indigenous Data
+
+![](images/2022-03_assw_cdm10.png)
+
+**There are different opinions about whether or not it is possible to
+conduct secondary analysis of Indigenous data in a way that honors and
+respects Indigenous research ethics.** Secondary analysis is done by
+someone who was not the original researcher, so there are concerns
+about the lack of relationship to the place and person/people/culture
+in which the knowledge was produced. As Rachel Burrage notes:
+
+“...if the creation of and sharing of knowledge is relational in
+nature, this …calls into question the appropriateness of allowing a
+third party to analyze knowledge that was created through a
+relationship between the original researcher and the individual or
+community that provided the original data” (Burrage 2020: 30).
+
+On the other hand, Burrage says, many researchers who have conducted
+research with or on Indigenous Peoples are not fully aware of the
+cultural context and may not be any better positioned to correctly
+interpret and provide context for data. It is also possible that
+secondary analysis may be done by someone who is familiar with the
+context (a community embedded researcher) but not the data (Burrage
+2020).  **There may be benefits to secondary analysis for knowledge
+holders and communities, including respecting and making the most of
+the time that was already contributed by the individual who shared
+their knowledge** (so that it does not have to be shared multiple times
+for different research or knowledge documentation projects).
+
+One way to recenter relationship in secondary analysis is to adopt a
+**participatory approach that involves engaging community members from
+the community where the data was collected in the data
+reanalysis**. This allows their knowledge of context to inform the data
+interpretation, and also potentially offers a community member the
+chance to become familiar with data or knowledge that they may not
+have seen before (such as a set of interviews with Elders) (Burrage
+2020).
+
+Burrage (2020) suggests that researchers considering secondary
+analysis of Indigenous knowledge reflect on these questions:
+
+ * Was the original data collected in a way that is congruent with an
+   Indigenous research paradigm?  
+ * Has the data been stored and accessed according to principles of
+   Indigenous data sovereignty?  
+ * What is your relationship with the community where the data wa
+   originally collected?  
+ * How will you familiarize yourself with the epistemologies and
+   ontologies of the community from which the data was drawn?  
+ * Who might you turn to for assistance if you have questions about
+   particular meanings within the data, both in terms of language and
+   in terms of styles of speech?
+ * How feasible will it be to receive feedback on your results from
+   the community that provided the data?
+ * How will you disseminate your results in a way that it reaches the
+   community that provided the data?
+
+
+### Summary: Life Cycle of Community Data
+
+![](images/2022-03_assw_cdm11.png)
+
+Working with community data across different stages of a project
+follows many of the same practices of working with any data. This
+image is an adaptation of the “Data Life Cycle” developed by DataONE,
+focusing on some of the specific requirements of community data
+management discussed today. In summary, data management should not be
+taken for granted or addressed early in a project and then set
+aside. Making data management part of the process of engagement that
+is revisited throughout a project will support ethical management, use
+and (when relevant) reuse of data.
+
+### Discussion questions
+
+What do you see as the benefits to your research (or to Arctic
+research more generally) from applying the frameworks discussed today?
+What do you see as the major impediments to adopting these frameworks
+in the context of open science? How might you navigate these conflicts
+within your own research project(s)?
+
+Have you used any of the tools or approaches discussed in this session
+to support management of community data in your projects? What has
+worked well for you with these tools and where have you encountered
+challenges? Are there any tools or approaches to ethical data
+management that you have learned about today that are relevant to your
+work and that you may apply in the future?
+
+
+### References
+
+Burrage, Rachel L. 2020. “Concerning Disconnects: The Place of
+Secondary Analysis in Indigenous Inquiry.” In New Directions in
+Theorizing Qualitative Research, eds. Norman K. Denzin and James
+Salvo. Gorham, ME: Myers Education Press, 23–38.
+
+Gardiner, G, Thorpe, K. 2014. “The Aboriginal and Torres Strait
+Islander Data Archive: Connecting Communities and Research Data.”
+Language Documentation and Description 12(Special Issue on Language
+Documentation and Archiving): 103–19.
+
+Kornei, K. (2021), Academic citations evolve to include Indigenous
+oral teachings, Eos, 102,
+[https://doi.org/10.1029/2021EO210595](https://doi.org/10.1029/2021EO210595). Published on 9 November 2021.
+
+MacLeod, L.. 2021. “More Than Personal Communication: Templates For
+Citing Indigenous Elders and Knowledge Keepers”. KULA: Knowledge
+Creation, Dissemination, and Preservation Studies 5
+(1). [https://doi.org/10.18357/kula.135](https://doi.org/10.18357/kula.135).
+
+Mannheimer S, Pienta A, Kirilova D, Elman C, Wutich A. Qualitative
+Data Sharing: Data Repositories and Academic Libraries as Key Partners
+in Addressing Challenges. American Behavioral
+Scientist. 2019;63(5):643-664. doi:10.1177/0002764218784991
+
+Ormond-Parker, L., Sloggett, R. Local archives and community
+collecting in the digital age. Arch Sci 12, 191–212
+(2012). [https://doi-org.colorado.idm.oclc.org/10.1007/s10502-011-9154-1](https://doi-org.colorado.idm.oclc.org/10.1007/s10502-011-9154-1)
+
+Johnson, Noor, Matthew L. Druckenmiller, Finn Danielsen, and Peter
+L. Pulsifer. 2021. “The Use of Digital Platforms for Community-Based
+Monitoring.” BioScience 71(5): 452–66.
