@@ -39,7 +39,7 @@ In the case of 'climategate', it took three years, and over 300 personnel, to ga
 
 To enable full reproducibility by the broader community; researchers, practitioners, policy makers etc, all products of the research activity need to be accessible - open data, open code, and open publications. Further, full research transparency also requires open peer review. There are, of course, data sensitivities and ethical considerations regarding open everything and these will be discussed later.
 
-![](images/open_science.png)
+![](images/open-science.png)
 
 At its core, the aims of Open Science are to:
 
@@ -78,11 +78,9 @@ Preserving computational workflows enables understanding, evaluation, and reuse 
 
 ### Community Principles: CARE and FAIR 
 
-In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): Findable, Accessible, Interoperable, and Reproducible. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
+In facilitating use of data resources, the community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): **Findable, Accessible, Interoperable, and Reproducible**. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
 
 ![](images/FAIRsFAIR.png)
-
-![](images/FAIR_CARE.png)
 
 Another set of community developed principles surrounding open data are the [CARE Principles](https://static1.squarespace.com/static/5d3799de845604000199cd24/t/5da9f4479ecab221ce848fb2/1571419335217/CARE+Principles_One+Pagers+FINAL_Oct_17_2019.pdf).  The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. The CARE Principles stand for:
 
@@ -90,6 +88,8 @@ Another set of community developed principles surrounding open data are the [CAR
 - Authority to Control
 - Responsibility 
 - Ethics 
+
+![](images/FAIR_CARE.png)
 
 The CARE principles align with the FAIR principles by outlining guidelines for publishing data that is findable, accessible, interoperable, and reproducible while at the same time, accounts for Indigenous’ Peoples rights and interests. Initially designed to support Indigenous data sovereignty, CARE principles are now being adopted across domains, and many researchers argue they are relevant for both Indigenous Knowledge and data, as well as data from all disciplines (Carroll et al., 2021). These principles introduce a “game changing perspective” that encourages transparency in data ethics, and encourages data reuse that is purposeful and intentional that aligns with human well-being  aligns with human well-being (Carroll et al., 2021). 
 
@@ -117,7 +117,7 @@ Another way to think about it is to answer the following questions with the docu
 - Who should get credit for this data (researcher AND funding agency)?
 - How can this data be reused (licensing)?
 
-*Bibliographic Details*
+***Bibliographic Details***
 
 The details that will help your data be cited correctly are:
 
@@ -127,7 +127,7 @@ The details that will help your data be cited correctly are:
 - **funding information** like the award number and the sponsor;
 - the **people and organizations** like the creator of the dataset (ie who should be cited), the person to contact about the dataset (if different than the creator), and the contributors to the dataset
 
-*Discovery Details*
+***Discovery Details***
 
 The details that will help your data be discovered correctly are:
 
@@ -136,7 +136,7 @@ The details that will help your data be discovered correctly are:
 - the **taxonomic coverage** of the data, including what species were measured and what taxonomy standards and procedures were followed; as well as
 - **any other contextual information** as needed.
 
-*Interpretation Details*
+***Interpretation Details***
 
 The details that will help your data be interpreted correctly are:
 
@@ -148,7 +148,7 @@ The details that will help your data be interpreted correctly are:
 - information about the **hardware and software** used to process your data, including the make, model, and version; and
 - the **computing quality control** procedures like any testing or code review.
 
-*Data Structure and Contents*
+***Data Structure and Contents***
 
 Well constructed metadata also includes information about the data structure and contents. Everything needs a description: the data model, the data objects (like tables, images, matricies, spatial layers, etc), and the variables all need to be described so that there is no room for misinterpretation.
 
@@ -162,9 +162,9 @@ Using an example from the natural sciences, if you were to search for the charac
 ![](images/semantic-search.png)
 
 
-Demonstrates a typical search for “carbon dioxide flux”, yielding 20 datasets. (right) Illustrates an annotated search for “carbon dioxide flux”, yielding 29 datasets. Note that if you were to interact with the site and explore the results of the figure on the right, the dataset in red of Figure 3 will not appear in the typical search for “carbon dioxide flux.”
+Above left demonstrates a typical search for “carbon dioxide flux”, yielding 20 datasets. Above right illustrates an annotated search for “carbon dioxide flux”, yielding 29 datasets. Note that if you were to interact with the site and explore the results of the figure on the right, the dataset in red of Figure 3 will not appear in the typical search for “carbon dioxide flux.”
 
-*Rights and Attribution*
+***Rights and Attribution***
 
 Correctly assigning a way for your datasets to be cited and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
 
@@ -174,9 +174,9 @@ Correctly assigning a way for your datasets to be cited and reused is the last p
 - the **redistribution rights**, which describe who may copy and redistribute the metadata and the data; and
 - the **legal terms and conditions** like how the data are licensed for reuse.
 
-*Ethical Data Practices*
+***Ethical Data Practices***
 
-Additionally, at the Arctic Data Center we now require data submissions to include information on the level of data sensitivity and to provide a statement of ethical research practice. 
+Additionally, at the Arctic Data Center, we now require data submissions to include information on the level of data sensitivity and to provide a statement of ethical research practice. 
 
 As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts. To help mitigate the challenges of sharing sensitive data, researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. 
 
