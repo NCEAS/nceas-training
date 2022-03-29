@@ -76,45 +76,28 @@ Preserving computational workflows enables understanding, evaluation, and reuse 
 
 ### Community Principles: CARE and FAIR 
 
-The CARE and FAIR Principles were introduced previously in the context of introducing the Arctic Data Center and our data submission and documentation process. In this section we will dive a little deeper.
-
-To recap, the Arctic Data Center is an openly-accessible data repository and the data published through the repository is open for anyone to reuse, subject to conditions of the license (at the Arctic Data Center, data is released under one of two licenses: [CC-0 Public Domain](https://creativecommons.org/publicdomain/zero/1.0/) and [CC-By Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)).  In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management  One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/). FAIR stands for Findable, Accessible, Interoperable, and Reproducible.
-
+In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): Findable, Accessible, Interoperable, and Reproducible. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
 
 ![](images/FAIRsFAIR.png)
-
-The “[Fostering FAIR Data Practices in Europe](https://zenodo.org/record/5837500#.Ygb7VFjMJ0t)” project found that it is more monetarily and timely expensive when FAIR principles are not used, and it was estimated that 10.2 billion dollars per years are spent through “storage and license costs to more qualitative costs related to the time spent by researchers on creation, collection and management of data, and the risks of research duplication.” FAIR principles and open science are overlapping concepts, but are distinctive concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data. 
-
+We will dig deeper into metadata best practices shortly.
 
 ![](images/FAIR_CARE.png)
 
 Another set of community developed principles surrounding open data are the [CARE Principles](https://static1.squarespace.com/static/5d3799de845604000199cd24/t/5da9f4479ecab221ce848fb2/1571419335217/CARE+Principles_One+Pagers+FINAL_Oct_17_2019.pdf).  The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. The CARE Principles stand for:
 
-- Collective Benefit - Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data 
-- Authority to Control - Indigenous Peoples’ rights and interests in Indigenous data must be recognised and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledges and geographical indicators, are represented and identified within data.
--  Responsibility - Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples’ self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.
-- Ethics - Indigenous Peoples’ rights and wellbeing should be the primary concern at all stages of the data life cycle and across the data ecosystem.
+- Collective Benefit 
+- Authority to Control
+- Responsibility 
+- Ethics 
 
 The CARE principles align with the FAIR principles by outlining guidelines for publishing data that is findable, accessible, interoperable, and reproducible while at the same time, accounts for Indigenous’ Peoples rights and interests. Initially designed to support Indigenous data sovereignty, CARE principles are now being adopted across domains, and many researchers argue they are relevant for both Indigenous Knowledge and data, as well as data from all disciplines (Carroll et al., 2021). These principles introduce a “game changing perspective” that encourages transparency in data ethics, and encourages data reuse that is purposeful and intentional that aligns with human well-being  aligns with human well-being (Carroll et al., 2021). 
 
+These will be discussed more comprehensively during the data ethics section of the workshop.
 
 
-### Data and Metadata Best Practices
+### Metadata Best Practices
 
-We'll spend an entire lesson later on that's dedicated to organizing your data in a tidy and effective manner, but first, let's focus on the benefits on having "clean" data and complete metadata.
-
-- Decreases errors from redundant updates
-- Enforces data integrity
-- Helps you and future researchers to handle large, complex datasets
-- Enables powerful search filtering
-
-Much has been written on effective data management to enable reuse. The following two papers offer words of wisdom:
-
-- [**Some simple guidelines for effective data management.**](https://doi.org/10.1890/0012-9623-90.2.205) Borer et al. 2009. Bulletin of the Ecological Society of America. 
-- [**Nine simple ways to make it easier to (re)use your data.**](https://doi.org/10.4033/iee.2013.6b.6.f) White et al. 2013. Ideas in Ecology and Evolution 6. 
-
-
-#### Metadata Guidelines
+Well structured and described data unpin the FAIR principles and we'll visit how best to organize your data in a tidy and effective manner (in both theory and practice) shortly. Here we focus on metadata best practices. 
 
 Metadata (data about data) is an important part of the data life cycle because it enables data reuse long after the original collection.
 Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files? 
@@ -172,7 +155,7 @@ Variable information includes the definition of a variable, a standardized unit 
 
 Not only is this information helpful to you and any other researcher in the future using your data, but it is also helpful to search engines. The [semantics](https://arcticdata.io/semantic-annotations/) of your dataset are crucial to ensure your data is both discoverable by others and interoperable (that is, reusable).
 
-For example, if you were to search for the character string `carbon dioxide flux` in the general search box at the Arctic Data Center, not all relevant results will be shown due to varying vocabulary conventions (ie, `CO2 flux` instead of `carbon dioxide flux`) across disciplines — only datasets containing the exact words `carbon dioxide flux` are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it `CO2 flux` WOULD be included in that search.
+Using an example from the natural sciences, if you were to search for the character string `carbon dioxide flux` in the general search box at the Arctic Data Center, not all relevant results will be shown due to varying vocabulary conventions (ie, `CO2 flux` instead of `carbon dioxide flux`) across disciplines — only datasets containing the exact words `carbon dioxide flux` are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it `CO2 flux` WOULD be included in that search.
 
 
 ![](images/semantic-search.png)
@@ -190,7 +173,21 @@ Correctly assigning a way for your datasets to be cited and reused is the last p
 - the **redistribution rights**, which describe who may copy and redistribute the metadata and the data; and
 - the **legal terms and conditions** like how the data are licensed for reuse.
 
-So, how do you organize all this information? There are a number of **metadata standards** (think, templates) that you could use, including the [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/), [Geospatial Metadata Standards](https://www.fgdc.gov/metadata/iso-standards) like ISO 19115 and ISO 19139, the [Biological Data Profile (BDP)](https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf), [Dublin Core](https://dublincore.org/), [Darwin Core](https://dwc.tdwg.org/), [PREMIS](https://www.loc.gov/standards/premis/), the [Metadata Encoding and Transmission Standard (METS)](http://www.loc.gov/standards/mets/), and the list goes on and on. The Arctic Data Center runs on EML.
+*Ethical Data Practices*
+
+Additionally, at the Arctic Data Center we now require data submissions to include information on the level of data sensitivity and to provide a statement of ethical research practice. 
+
+As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts. To help mitigate the challenges of sharing sensitive data, researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. 
+
+![](images/semantic-search.png)
+
+Within the research methods section, submitters are now asked to describe the ethical data practices used throughout their research. The information provided will be visible as part of the metadata record and this field has been added to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science and sharing ethical practices encourages deeper discussion about data reuse and ethics.
+
+
+![](images/semantic-search.png)
+
+
+So, how do you organize all this information? There are a number of **metadata standards** (think, templates) that you could use, including the [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/), [Geospatial Metadata Standards](https://www.fgdc.gov/metadata/iso-standards) like ISO 19115 and ISO 19139, the [Biological Data Profile (BDP)](https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf), [Dublin Core](https://dublincore.org/), [Darwin Core](https://dwc.tdwg.org/), [PREMIS](https://www.loc.gov/standards/premis/), the [Metadata Encoding and Transmission Standard (METS)](http://www.loc.gov/standards/mets/), and the list goes on and on. The Arctic Data Center runs on EML and has a simple to use interface that guides you through the process of creating your metadata record.
 
 ### Data Identifiers
 
