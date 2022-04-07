@@ -3,7 +3,7 @@ author: "Jeanette Clark"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 ## Data Cleaning and Manipulation
@@ -336,3 +336,6 @@ ggplot(q1, aes(x = location, fill = answer)) +
     geom_bar()
 ```
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
