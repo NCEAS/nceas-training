@@ -93,7 +93,7 @@ In this lesson we're going to walk through the functions you'll most commonly us
 To demonstrate how to use these functions, we are going to be using a modified version of some real survey data we have gathered for feedback on our courses (like the one you are taking now!) I've made some changes to the original data, including removing references to instructor names, untidying the responses with controlled vocabularies, and scrambling the word order of the free text answers. These changes will help illustrate some of the common issues seen with survey data. They also help ensure that only general conclusions can be gathered from the free text responses, since scrambling the text inhibits our interpretative abilities.
 
 
-# Read in survey data
+### Read in survey data
 
 First, open a new RMarkdown document. Delete everything below the setup chunk, and add a library chunk that calls `dplyr`, `tidyr`, and `readr`:
 
@@ -313,7 +313,7 @@ survey_long %>%
 ```
 
 
-# Joins
+### Joins
 
 ```{r}
 events <- read_csv("~/Desktop/surveys/events.csv", show_col_types = FALSE)
