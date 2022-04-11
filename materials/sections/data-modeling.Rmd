@@ -73,7 +73,7 @@ When data are "denormalized" it means that observations about different entities
 
 ![](images/table-denorm.png) 
 
-In the above example, each row has measurements about both the site at which observations occurred, as well as observations of two individuals of possibly different species found at that site. This is *not normalized* data.
+In the above example, each row has measurements about both the site at which observations occurred, as well as observations of two individual plants of possibly different species found at that site. This is *not normalized* data.
 
 People often refer to this as *wide* format, because the observations are spread across a wide number of columns. Note that, should one encounter a new species in the survey, we would have to add new columns to the table. This is difficult to analyze, understand, and maintain.
 
