@@ -13,6 +13,8 @@ In this lesson, you will learn:
 
 ![](images/WhyManage-small.png)
 
+
+
 ### Data repositories: built for data (and code)
 
 - GitHub is not an archival location
@@ -115,7 +117,56 @@ than visiting each of the (currently 44!) repositories one at a time.
 Each data repository tends to have its own mechanism for submitting data and
 providing metadata.  With repositories like the KNB Data Repository and the
 Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package.  Let's walk through a web submission to see what you might expect.
+a data package. This section provides a brief overview of some highlights within the data submission process, in advance of a more comprehensive hands-on activity.  
+
+**ORCiDs**
+
+We will walk through web submission on https://demo.arcticdata.io, and start by logging in with an ORCID account. ORCID provides a common account for sharing scholarly data, so if you don’t have one, you can create one when you are redirected to ORCID from the Sign In button. 
+
+![](images/adc-banner.png)
+
+![](images/orcid-login.png)
+
+ORCID is a non-profit organization made up of research institutions, funders, publishers and other stakeholders in the research space. ORCID stands for Open Researcher and Contributor ID. The purpose of ORCID is to give researchers a unique identifier which then helps highlight and give credit to researchers for their work. If you click on someone’s ORCID, their work and research contributions will show up (as long as the researcher used ORCID to publish or post their work).
+
+After signing in, you can access the data submission form using the Submit button. Once on the form, upload your data files and follow the prompts to provide the required metadata.
+
+![](images/editor-01.png)
+
+**Sensitive Data Handling**
+
+Underneath the Title field, you will see a  section titled “Data Sensitivity”. As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data, meaning data that contains personal or identifiable information. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts.
+
+To help mitigate the challenges of sharing sensitive data, the Arctic Data Center has added new features to the data submission process influenced by the CARE Principles for Indigenous Data Governance (Collective benefit, Authority to control, Responsibility, Ethics). Researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. Data submitters can select one of three sensitivity level data tags that best fit their data and/or metadata. Based on the level of sensitivity, guidelines for submission are provided. The data tags range from non-confidential information to maximally sensitive information. 
+
+The purpose of these tags is to ethically contribute to open science by making the richest set of data available for future research. The first tag, “non-sensitive data”, represents data that does not contain potentially harmful information, and can be submitted without further precaution. Data or metadata that is “sensitive with minimal risk” means that either the sensitive data has been anonymized and shared with consent, or that publishing it will not cause any harm. The third option, “some or all data is sensitive with significant risk” represents data that contains potentially harmful or identifiable information, and the data submitter will be asked to hold off submitting the data until further notice. In the case where sharing anonymized sensitive data is not possible due to ethical considerations, sharing anonymized metadata still aligns with FAIR (Findable, Accessible, Interoperable, Reproducible) principles because it increases the visibility of the research which helps reduce duplicate research efforts. Hence, it is important to share metadata, and to publish or share sensitive data only when consent from participants is given, in alignment with the CARE principles and any IRB requirements.
+
+You will continue to be prompted to enter information about your research, and in doing so, create your metadata record. We recommend taking your time because the richer your metadata is, the more easily reproducible and usable your data and research will be for both your future self and other researchers. Detailed instructions are provided below for the hands-on activity.
+
+**Research Methods**
+
+Methods are critical to accurate interpretation and reuse of your data. The editor allows you to add multiple different methods sections, so that you can include details of sampling methods, experimental design, quality assurance procedures, and/or computational techniques and software. 
+
+![](images/editor-11.png)
+
+As part of a recent update, researchers are now asked to describe the ethical data practices used throughout their research. The information  provided will be visible as part of the metadata record. This feature was added to the data submission process to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science and sharing ethical practices encourages deeper discussion about data reuse and ethics. 
+
+We encourage you to think about the ethical data and research practices that were utilized during your research, even if they don’t seem obvious at first.
+
+**File and Variable Level Metadata**
+
+In addition to providing information about, (or a description of) your dataset, you can also provide information about each file and the variables within the file. By clicking the "Describe" button you can add comprehensive information about each of your measurements, such as the name, measurement type, standard units etc. 
+
+![](images/editor-19.png)
+
+**Provenance**
+
+The data submission system also provides the opportunity for you to provide provenance  information, describe the relationship between package elements. When viewing  your  dataset followinng submission, After completing your data description and submitting your dataset you will see the option to add source data and code, and derived data and code.
+
+![](images/editor-14.png)
+
+These are just some of the features and functionality of the Arctic Data Center submission system and we will go through them in more detail below as part of a hands-on activity.
+
 
 #### Download the data to be used for the tutorial
 
@@ -300,4 +351,4 @@ The diagram now shows the relationships among the data files and the R script, s
 click **Submit** to save another version of the package.
 
 ![](images/editor-24.png)
-Et voilà!  A beatifully preserved data package!
+Et voilà!  A beautifully preserved data package!

@@ -16,7 +16,7 @@ We’re best known in the research community as a data archive – researchers u
 
 ![](images/arctic-data-center/ADC-features.png)
 
-NSF has long had a commitment to data reuse and sharing. Since our start in 2016, we’ve grown substantially – from that original 4 TB of data from ACADIS to now over 39 TB. In the last year alone, we’ve seen a 16% growth in dataset count, and about a 30% growth in data volume. This increase has come from advances in tools – both ours and of the scientific community, plus active community outreach and a strong culture of data preservation from NSF and from researchers. We plan to add more storage capacity in the coming months, as researchers are coming to us with datasets in the terabytes, and we’re excited to preserve these research products in our archive. We’re projecting our growth to be around several hundred TB this year, which has a big impact on processing time. Give us a heads up if you’re planning on having larger submissions so that we can work with you and be prepared for a large influx of data.
+NSF has long had a commitment to data reuse and sharing. Since our start in 2016, we’ve grown substantially – from that original 4 TB of data from ACADIS to now over 57 TB. In the last year alone, we’ve seen a 16% growth in dataset count, and about a 30% growth in data volume. This increase has come from advances in tools – both ours and of the scientific community, plus active community outreach and a strong culture of data preservation from NSF and from researchers. We plan to add more storage capacity in the coming months, as researchers are coming to us with datasets in the terabytes, and we’re excited to preserve these research products in our archive. We’re projecting our growth to be around several hundred TB this year, which has a big impact on processing time. Give us a heads up if you’re planning on having larger submissions so that we can work with you and be prepared for a large influx of data.
 
 ![](images/arctic-data-center/ADC-growth.png)
 
@@ -24,7 +24,7 @@ The data that we have in the Arctic Data Center comes from a wide variety of dis
 
 ![](images/arctic-data-center/ADC-disciplines.png)
 
-Along with that diversity of disciplines comes a diversity of file types. The most common file type we have are image files in four different file types. Probably less than 200-300 of the datasets have the majority of those images – we have some large datasets that have image and/or audio files from drones. Most of those 5800+ datasets are tabular datasets. There’s a large diversity of data files, though, whether you want to look at remote sensing images, listen to passive acoustic audio files, or run applications – or something else entirely. We also cover a long period of time, at least by human standards. The data represented in our repository spans across centuries.
+Along with that diversity of disciplines comes a diversity of file types. The most common file type we have are image files in four different file types. Probably less than 200-300 of the datasets have the majority of those images – we have some large datasets that have image and/or audio files from drones. Most of those 6600+ datasets are tabular datasets. There’s a large diversity of data files, though, whether you want to look at remote sensing images, listen to passive acoustic audio files, or run applications – or something else entirely. We also cover a long period of time, at least by human standards. The data represented in our repository spans across centuries.
 
 ![](images/arctic-data-center/ADC-filetypes.png)
 
@@ -39,17 +39,23 @@ To browse the data catalog, navigate to [arcticdata.io](https://arcticdata.io/).
 ![](images/arctic-data-center/ADC-datacatalog1.png)
 Clicking on a dataset brings you to this page. You have the option to download all the files by clicking the green “Download All” button, which will zip together all the files in the dataset to your Downloads folder. You can also pick and choose to download just specific files.
 
+![](images/arctic-data-center/ADC-datacatalog2.png)
+
 All the raw data is in open formats to make it easily accessible and compliant with [FAIR](https://www.go-fair.org/fair-principles/) principles – for example, tabular documents are in .csv (comma separated values) rather than Excel documents.
 
 The metrics at the top give info about the number of citations with this data, the number of downloads, and the number of views. This is what it looks like when you click on the Downloads tab for more information.
 
-![](images/arctic-data-center/ADC-datacatalog2.png)
+![](images/arctic-data-center/ADC-downloads.png)
 
 Scroll down for more info about the dataset – abstract, keywords. Then you’ll see more info about the data itself. This shows the data with a description, as well as info about the attributes (or variables or parameters) that were measured. The green check mark indicates that those attributes have been annotated, which means the measurements have a precise definition to them. Scrolling further, we also see who collected the data, where they collected it, and when they collected it, as well as any funding information like a grant number. For biological data, there is the option to add taxa. 
 
 ### Tools and Infrastructure 
 
-We have a number of tools available to submitters and researchers who are there to download data. We also partner with other organizations, like [Make Data Count](https://makedatacount.org/) and [DataONE](https://www.dataone.org/), and leverage those partnerships to create a better data experience.
+Across all our services and partnership, we are strongly aligned with the community principles of making data FAIR (Findable, Accesible, Interoperable and Reusable).
+
+![](images/arctic-data-center/FAIR.jpeg)
+
+We have a number of tools available to submitters and researchers who are there to download data. We also partner with other organizations, like [Make Data Count](https://makedatacount.org/) and [DataONE](https://www.dataone.org/), and leverage those partnerships to create a better data experience. 
 
 ![](images/arctic-data-center/ADC-infrastructure.png)
 
@@ -69,13 +75,12 @@ Metadata quality checks are the automatic way that we ensure quality of data in 
 
 ### Training and Outreach
 
-In addition to the tools and support services, we also interact with the community via trainings like this one and outreach events. We run workshops at conferences like the Ecological Society of America and the American Geophysical Union. We also run an intern and fellows program, and webinars with different organizations. We’re invested in helping to train the Arctic science community in reproducible techniques, since it facilitates a more open culture of data sharing and reuse. 
+In addition to the tools and support services, we also interact with the community via trainings like this one and outreach events. We run workshops at conferences like the American Geophysical Union, Arctic Science Summit Week and others. We also run an intern and fellows program, and webinars with different organizations. We’re invested in helping the Arctic science community learn reproducible techniques, since it facilitates a more open culture of data sharing and reuse. 
 
 ![](images/arctic-data-center/ADC-trainingpeople.png)
 
-We also strive to keep our fingers on the pulse of what researchers like yourselves are looking for in terms of support. We’re active on [Twitter](https://twitter.com/arcticdatactr) to share Arctic updates, data science updates, and specifically Arctic Data Center updates, but we’re also happy to feature new papers or successes that you all have had with working with the data. We can also take data science questions if you’re running into those in the course of your research, or how to make a quality data management plan. Follow us on Twitter and interact with us – we love to be involved in your research as it’s happening as well as after it’s completed.
+We strive to keep our fingers on the pulse of what researchers like yourselves are looking for in terms of support. We’re active on [Twitter](https://twitter.com/arcticdatactr) to share Arctic updates, data science updates, and specifically Arctic Data Center updates, but we’re also happy to feature new papers or successes that you all have had with working with the data. We can also take data science questions if you’re running into those in the course of your research, or how to make a quality data management plan. Follow us on Twitter and interact with us – we love to be involved in your research as it’s happening as well as after it’s completed.
 
-Furthermore, we have a robust Data Fellows program to train early career researchers or recently graduated students in data science.
 
 ![](images/arctic-data-center/ADC-fellows2020.png)
 
@@ -87,13 +92,31 @@ We also run data rescue operations. We digitiazed Autin Post's collection of gla
 
 ### Who Must Submit
 
-Projects that have to submit their data include all Arctic Research Opportunities through the NSF Office of Polar Programs. That data has to be uploaded within two years of collection. The Arctic Observing Network has a shorter timeline – their data products must be uploaded within 6 months of collection.
+Projects that have to submit their data include all Arctic Research Opportunities through the NSF Office of Polar Programs. That data has to be uploaded within two years of collection. The Arctic Observing Network has a shorter timeline – their data products must be uploaded within 6 months of collection. Additionally, we have social science data, though that data often has special exceptions due to sensitive human subjects data. At the very least, the metadata has to be deposited with us. 
 
-![](images/arctic-data-center/ADC-whosubmits1.png)
+**Arctic Research Opportunities (ARC)**
 
-Additionally, we have social science data, though that data often has special exceptions due to sensitive human subjects data. At the very least, the metadata has to be deposited with us. 
+-  Complete metadata and all appropriate data and derived products
+-  Within 2 years of collection or before the end of the award, whichever comes first
 
-![](images/arctic-data-center/ADC-whosubmits2.png)
+**ARC Arctic Observation Network (AON)**
+
+-  Complete metadata and all data
+-  Real-time data made public immediately
+-  Within 6 months of collection 
+
+**Arctic Social Sciences Program (ASSP)**
+
+- NSF policies include special exceptions for ASSP and other awards that contain sensitive data
+- Human subjects, governed by an Institutional Review Board, ethically or legally sensitive, at risk of decontextualization
+- Metadata record that documents non-sensitive aspects of the project and data
+  -  Title, Contact information, Abstract, Methods
+  
+For more complete information see our "Who Must Submit" [webpage](https://arcticdata.io/submit/#who-must-submit)
+
+Recognizing the importance of sensitive data handling and of ethical treatment of all data, the Arctic Data Center submission system provides the opportunity for researchers to document the ethical treatment of data and how collection is aligned with community principles (such as the CARE principles). Submitters may also tag the metadata according to community develop data sensitivity tags. We will go over these features in more detail shortly.
+
+![](images/arctic-data-center/ADC-sensitive.png)
 
 ### Summary
 
@@ -101,4 +124,3 @@ All the above informtion can be found on our website or if you need help, ask ou
 
 ![](images/arctic-data-center/ADC-overallmetrics.png)
 
-Download slides: [Arctic Data Center Overview and NSF Policies](files/October-2019-ADC-Data-Science-Training_Intro_Policies.pdf)
