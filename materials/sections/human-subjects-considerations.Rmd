@@ -2,27 +2,58 @@
 title: "Human Subjects Considerations"
 output: html_document
 ---
+### The role of IRBs, funding agencies, and Indigenous data
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+In the **United States**, Institutional Review Boards (IRBs; in **Canada**
+they are referred to as Research Ethics Boards or REBs) focus on
+ensuring ethical treatment and protection of research subjects with a
+particular focus on vulnerable populations and ethical management of
+data. For projects proposing research that involves Indigenous peoples
+in the United States, IRBs will often refer the review to Tribal IRBs,
+which are research review boards established and implemented directly
+by Tribal Nations. Tribal IRBs reflect and respond to community needs,
+changes in research, and revisions to research policy (Around Him et
+al. 2019). Oversight mechanisms range from federally registered review
+bodies and policy development to community-specific frameworks and
+approaches (see Around Him et al. 2019 for differentiation,
+justification and authority).
 
-## R Markdown
+![](images/2022-03_assw_dataethics06.png)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+In addition to IRB review, universities require ethics training for
+researchers who are doing research with human subjects, including
+Indigenous Peoples.  Many universities use the web-based, third-party
+[CITI training program](https://about.citiprogram.org/), which offers different short courses.  A basic
+training course for social and behavioral science researchers covers
+the history of ethical misconduct in research, how human subjects
+research is defined, federal regulations that govern research
+practice, assessing risk, informed consent, privacy and
+confidentiality, and ethics requirements for different categories of
+vulnerable populations including prisoners and children.  While the
+CITI human subjects trainings touch on topics related to Indigenous
+peoples, they are not at all comprehensive. A CITI webinar, “[Research
+with Native American Communities: Important Considerations when
+Applying Federal Regulations](https://about.citiprogram.org/news/new-webinar-available-research-with-native-american-communities-important-considerations-when-applying-federal-regulations/)” introduces more topics.  The r-ETHICS
+training ([Ethics Training for Health in Indigenous Communities Study](http://iwri.org/research/ethics/))
+is starting to become an acceptable, recognizable CITI addition for
+IRB training by tribal entities.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Specific **universities** have adopted tribal consultation policies (such
+as the Arizona Board of Regents’ (ABOR) Tribal Consultation policy
+(1-118) adopted in 2016; University of Wisconsin System Board of
+Regents tribal consultation policy adopted in 2021; Washington State
+University [EP 41](https://policies.wsu.edu/prf/index/manuals/executive-policy-manual-contents/ep41-policy-on-tribal-engagement-consultation-and-consent-for-joint-wsu-tribal-research-activities-and-projects/) adopted in 2021). These policies highlight where
+consultation is expected/required and what the process should be
+(Marley 2019).
 
-```{r cars}
-summary(cars)
-```
+In the United States, the [Inter-Agency Arctic Research Policy Committee has established the Principles for Conducting Research in the Arctic](https://www.nsf.gov/geo/opp/arctic/conduct.jsp) (2018) with input from the  Arctic research community, which are:
 
-## Including Plots
+- Be Accountable
+- Establish Effective Communication
+- Respect Indigenous Knowledge and Cultures
+- Build and Sustain Relationships
+- Pursue Responsible Environmental Stewardship
 
-You can also embed plots, for example:
+IRBs are not necessarily aware of these principles but national funding agencies may use them to inform proposal reviewers about expectations for research projects that work with Arctic communities.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+![](images/2022-03_assw_dataethics07.png)
