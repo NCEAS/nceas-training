@@ -1,0 +1,121 @@
+---
+author: "Jeanette Clark"
+---
+
+## Introduction to text analysis
+
+### Learning Objectives
+
+### Introduction
+
+Much of the information covered in this chapter is based on [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/index.html) by Julia Silge and David Robinson. I highly recommend checking out the book if you want to go deeper into text analysis. 
+
+#### Setup {.setup -}
+
+First we'll load the libraries we need for this lesson:
+
+```{r}
+library(dplyr)
+library(readr)
+library(tidytext)
+```
+
+
+Load the survey data back in using the code chunk below:
+
+```{r}
+survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
+
+survey_clean <- survey_raw %>% 
+    select(-notes) %>% 
+    mutate(Q1 = if_else(Q1 == "1", "below expectations", Q1)) %>% 
+    mutate(Q2 = tolower(Q2))
+
+events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
+
+survey_joined <- left_join(survey_clean, events, by = "StartDate")
+```
+
+#### {-}
+
+We are going to be working in the "tidy text format." This format stipulates that the text column of our data frame contains rows with only one token per row. A token, in this case, is a meaningful unit of text. Depending on the analysis, that could be a word, two words, or phrase.
+
+First, let's create a data frame with responses to question 3, with the one token per row. We use the `unnest_tokens` function from `tidytext`, after selecting columns of interest.
+
+```{r}
+q3 <- survey_joined %>% 
+    select(StartDate, location, Q3) %>% 
+    unnest_tokens(output = word, input = Q3)
+```
+
+
+```{r, echo = FALSE}
+DT::datatable(q3)
+```
+
+You'll see that we now have a very long data frame with only one word in each row of the text column. Some of the words aren't so interesting though. The words that are likely not useful for analysis are called "stop words". There is a list of stop words contained within the `tidytext` package and we can access it using the `data` function. We can then use the `anti_join` function to return only the words that are not in the stop word list.
+
+```{r}
+data(stop_words)
+
+q3 <- anti_join(q3, stop_words)
+```
+
+```{r, echo = FALSE}
+DT::datatable(q3)
+```
+
+Now, we can do normal `dplyr` analysis to examine the most commonly used words in question 3. The `count` function is helpful here. We could also do a `group_by` and `summarize` and get the same result. We can also `arrange` the results, and get the top 10 using `slice_head`.
+
+```{r}
+q3_top <- q3 %>% 
+    count(word) %>% 
+    arrange(-n) %>% 
+    slice_head(n = 10)
+```
+
+
+```{r, echo = FALSE}
+DT::datatable(q3_top)
+```
+
+Let's do the same workflow for question 4:
+
+```{r}
+q4 <- survey_joined %>% 
+    select(StartDate, location, Q4) %>% 
+    unnest_tokens(output = word, input = Q4) %>% 
+    anti_join(stop_words)
+
+q4_top <- q4 %>% 
+    count(word) %>% 
+    arrange(-n) %>% 
+    slice_head(n = 10)
+```
+
+```{r, echo = FALSE}
+DT::datatable(q4_top)
+```
+
+Perhaps not surprisingly, the word data is mentioned a lot! In this case, it might be useful to add it to our stop words list.
+
+```{r}
+custom_words <- data.frame(word = "data", lexicon = "custom")
+
+stop_words_full <- rbind(stop_words, custom_words)
+```
+
+Now we can run our question 4 analysis again, with the `anti_join` on our custom list.
+
+```{r}
+q4 <- survey_joined %>% 
+    select(StartDate, location, Q4) %>% 
+    unnest_tokens(output = word, input = Q4) %>% 
+    anti_join(stop_words_full)
+
+q4_top <- q4 %>% 
+    count(word) %>% 
+    arrange(-n) %>% 
+    slice_head(n = 10)
+```
+
