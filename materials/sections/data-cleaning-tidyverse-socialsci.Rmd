@@ -2,10 +2,6 @@
 author: "Jeanette Clark"
 ---
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-```
-
 ## Data Cleaning and Manipulation
 
 ### Learning Objectives
@@ -137,7 +133,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 
 #### Setup {- .setup}
 
-1.  Navigate to the salmon dataset:
+1.  Navigate to the [demo dataset](https://demo.arcticdata.io/view/urn%3Auuid%3A840c9e9c-8344-4e63-ac29-25ced74ccee7)
 
 2.  Right click the "download" button for the file "survey_data.csv"
 
@@ -151,7 +147,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 The code chunk you use to read in the data should look something like this:
 
 ```{r}
-survey_raw <- read_csv("../data/survey_data.csv", show_col_types = FALSE)
+survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
 ```
 
 This dataset is already relatively clean, but as we'll see there are a few issues that we need to resolve, and a couple of things we can do to make our analysis easier.
@@ -165,7 +161,7 @@ glimpse(survey_raw)
 For some context, here is a table showing what each of the questions are asking:
 
 ```{r, echo = FALSE}
-questions <- read_csv("../data/questions.csv", show_col_types = FALSE, progress = FALSE)
+questions <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A2aba2688-0861-46f3-b6b8-9796d618c9e9", show_col_types = FALSE, progress = FALSE)
 knitr::kable(questions) %>% kableExtra::kable_styling()
 ```
 
@@ -227,7 +223,9 @@ Let's say we want to see the number of responses for each choice given for quest
 q1_response <- survey_raw %>% 
     group_by(Q1) %>% 
     summarise(n = n())
+```
 
+```{r, echo = FALSE}
 knitr::kable(q1_response) %>% kableExtra::kable_styling()
 ```
 
@@ -236,7 +234,7 @@ What does that 1 mean? Turns out our kind of messy data didn't have a consistent
 
 #### Changing column content: `mutate()` {-}
 
-We can use the `mutate` function to change a column, or to create a new column. Here we change the column `Q1`, using the `if_else` function. This function says if Q1 is equal to (`==`) 1, change the value to "below expectations." Otherwise, keep the value of Q1.
+We can use the `mutate` function to change a column, or to create a new column. Here we change the column `Q1`, using the `if_else` function. This function takes three arguments, a conditional statement, what to return if the condition is `TRUE`, and what to return if the condition is `FALSE`. In this case, our implementation says if Q1 is equal to (`==`) 1, change the value to "below expectations." Otherwise, keep the value of Q1.
 
 ```{r}
 survey_clean <- survey_raw %>% 
@@ -251,8 +249,11 @@ Now we can do our group by and summarize again:
 q1_response <- survey_clean %>% 
     group_by(Q1) %>% 
     summarise(n = n())
+```
 
-datatable(q1_response)
+
+```{r, echo = FALSE}
+knitr::kable(q1_response) %>% kableExtra::kable_styling()
 ```
 
 If we want to arrange our rows from highest to lowest counts, we can use `arrange`. The minus sign sorts from high to low.
@@ -262,35 +263,46 @@ q1_response <- survey_clean %>%
     group_by(Q1) %>% 
     summarise(n = n()) %>% 
     arrange(-n)
-
-datatable(q1_response)
 ```
 
-Let's look at question 2 now.
+
+```{r, echo = FALSE}
+knitr::kable(q1_response) %>% kableExtra::kable_styling()
+```
+
+Let's look at the results from question 2 now.
 
 ```{r}
 q2_response <- survey_clean %>% 
     group_by(Q2) %>% 
     summarise(n = n())
-
-datatable(q2_response)
 ```
 
-It also has issues with the unique values, with some stray capitalization errors. We can use `mutate` and `to_lower` to make everything consistent
+```{r, echo = FALSE}
+knitr::kable(q2_response) %>% kableExtra::kable_styling()
+```
+
+It also has issues with the unique values, with some stray capitalization errors. 
+
+We will use `mutate` again here to change the existing `Q2` column. On the right hand of the expression in the `mutate` function, we include another function, called `to_lower`. This function will turn all of the characters in the column into lower case. We can add this to our existing data cleaning pipeline as below:
 
 ```{r}
 survey_clean <- survey_raw %>% 
     select(-notes) %>% 
-    mutate(Q1 = ifelse(Q1 == "1", "below expectations", Q1)) %>% 
+    mutate(Q1 = if_else(Q1 == "1", "below expectations", Q1)) %>% 
     mutate(Q2 = tolower(Q2))
 ```
+
+Looking at the aggregated responses again:
 
 ```{r}
 q2_response <- survey_clean %>% 
     group_by(Q2) %>% 
     summarise(n = n()) %>% 
     arrange(-n)
+```
 
+```{r, echo = FALSE}
 knitr::kable(q2_response) %>% kableExtra::kable_styling()
 ```
 
@@ -299,43 +311,105 @@ knitr::kable(q2_response) %>% kableExtra::kable_styling()
 
 Although the format of this table is tidy, we have have good reasons to change shape to where the question is in one column, and the response in another. This may make certain types of plots or tables easier to make.
 
+To change from a wide format to a long format, we use `pivot_longer`. The key arguments to this function are: `cols`, the columns you are pivoting over, `names_to`, the column name you are creating from the column names covered by `cols`, and `values_to`, the column name you are creating from the values in those columns. Note in the `cols` argument, we use a little helper function called `starts_with` to select the columns starting with "Q" (Q1, Q2, Q3, Q4) as our pivoting columns.
+
 ```{r}
 survey_long <- survey_clean %>% 
     pivot_longer(cols = starts_with("Q"), names_to = "id", values_to = "answer")
 ```
 
+This kind of pivoting allows us to quickly create a table with responses to both question 1 and question 2, summarized. First we use the `filter` function to filter for those questions, then the `group_by` and `summarize` we have been using.
+
 ```{r}
-survey_long %>% 
+comb <- survey_long %>% 
     filter(id %in% c("Q1", "Q2")) %>% 
     group_by(id, answer) %>% 
     summarise(n = n()) %>% 
     arrange(id, -n)
 ```
 
+```{r, echo = FALSE}
+knitr::kable(comb) %>% kableExtra::kable_styling()
+```
+
+
 
 ### Joins
 
+So now that we're awesome at manipulating a single `data.frame`, where do we go from here? Manipulating **more than one** `data.frame`.
+
+If you've ever used a database, you may have heard of or used what's called a "join", which allows us to to intelligently merge two tables together into a single table based upon a shared column between the two. We've already covered joins in [Data Modeling] so let's see how it's done with `dplyr`.
+
+The dataset we're working with contains an additional CSV which has information about each individual training event. This is a really common way of storing auxiliary information about our dataset of interest (survey responses) but, for analytical purposes, we often want them in the same `data.frame`. Joins let us do that easily.
+
+Let's look at a preview of what our join will do by looking at a simplified version of our data:
+
+![](images/left_join_surveydata.png)
+
+First, we read in the events data just as we did previously with the survey data.
+
 ```{r}
-events <- read_csv("~/Desktop/surveys/events.csv", show_col_types = FALSE)
+events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
 ```
 
+Now, we can use our `left_join` function to join the two tables together by the `StartDate` column.
+
+Notice that I have deviated from our usual pipe syntax (although it does work here!) because I prefer to see the `data.frames` that I am joining side by side in the syntax.
 
 ```{r}
-survey_joined <- left_join(survey_long, events)
+survey_joined <- left_join(survey_long, events, by = "StartDate")
 ```
 
-(for ggplot lesson)
+Now we have a joined data frame!
+
+#### `separate()` and `unite()` {-}
+
+`separate()` and its complement, `unite()` allow us to easily split a single column into numerous (or numerous into a single).
+
+This can come in really handle when we need to split a column into two pieces by a consistent separator (like a dash).
+
+Let's make a new `data.frame` with fake data to illustrate this. Here we have a set of site identification codes. with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
 
 ```{r}
-library(ggplot2)
+sites_df <- data.frame(site = c("HAW-101",
+                                "HAW-103",
+                                "OAH-320",
+                                "OAH-219",
+                                "MAI-039"))
 
-q1 <- survey_joined %>% 
-    filter(id %in% c("Q1"))
-
-ggplot(q1, aes(x = location, fill = answer)) +
-    geom_bar()
+sites_df %>% 
+  separate(site, c("island", "site_number"), "-")
 ```
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(eval = TRUE)
+-   **Exercise:** Split the `city` column in the following `data.frame` into `city` and `state_code` columns:
+
+```{r}
+cities_df <- data.frame(city = c("Juneau AK", 
+                                 "Sitka AK", 
+                                 "Anchorage AK"))
+
+# Write your solution here
+```
+
+`unite()` does just the reverse of `separate()`. If we have a data.frame that contains columns for year, month, and day, we might want to unite these into a single date column.
+
+```{r}
+dates_df <- data.frame(year = c("1930",
+                                "1930",
+                                "1930"),
+                       month = c("12",
+                                "12",
+                                "12"),
+                       day = c("14",
+                               "15",
+                               "16"))
+
+dates_df %>% 
+  unite(date, year, month, day, sep = "-")
+```
+
+-   **Exercise:** Use `unite()` on your solution above to combine the `cities_df` back to its original form with just one column, `city`:
+
+```{r}
+# Write your solution here
 ```
