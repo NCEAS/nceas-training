@@ -38,7 +38,6 @@ Open a new RMarkdown document and remove the filler text.
 First, let's load the packages we'll need:
 
 ```{r load_packages, message = F, warning = F}
-  library(leaflet)
   library(dplyr)
   library(tidyr)
   library(ggplot2)
