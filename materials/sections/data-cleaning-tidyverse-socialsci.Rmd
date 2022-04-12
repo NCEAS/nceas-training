@@ -344,7 +344,7 @@ The dataset we're working with contains an additional CSV which has information 
 
 Let's look at a preview of what our join will do by looking at a simplified version of our data:
 
-![Visualisation of our `left_join`](images/left_join_surveydata.png)
+![](images/left_join_surveydata.png)
 
 First, we read in the events data just as we did previously with the survey data.
 
@@ -412,16 +412,4 @@ dates_df %>%
 
 ```{r}
 # Write your solution here
-```
-
-(for ggplot lesson)
-
-```{r}
-library(ggplot2)
-
-q1 <- survey_joined %>% 
-    filter(id %in% c("Q1"))
-
-ggplot(q1, aes(x = location, fill = answer)) +
-    geom_bar()
 ```
