@@ -42,7 +42,8 @@ First, let's load the packages we'll need:
   library(dplyr)
   library(tidyr)
   library(ggplot2)
-  library(DT)
+  library(viridis)
+  library(scales)
 ```
 
 
@@ -72,14 +73,14 @@ Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* 
 Let's start by just plotting the answers to question 1. `geom_bar` will automatically count them for us.
 
 ```{r plot_esc}
-ggplot(survey_joined, aes(x = Q1)) +
+ggplot(survey_joined, aes(x = location)) +
     geom_bar()
 ```
 
 What if we want our bars to be blue instad of gray? You might think we could run this:
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = "blue")) +
+ggplot(survey_joined, aes(x = location, fill = "blue")) +
     geom_bar()
 ```
 
@@ -90,7 +91,7 @@ Notice that we tried to set the fill color of the plot inside the mapping aesthe
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_bar` function, **outside** of the mapping aesthetics function call.
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1)) +
+ggplot(survey_joined, aes(x = location)) +
     geom_bar(fill = "blue")
 ```
 
@@ -99,14 +100,14 @@ What if we did want to map the color of the bars to a variable, such as location
 `ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data.
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
     geom_bar()
 ```
-If we want to make our bar chart side by side as opposed to stacked, we can set the `position` argument within `geom_bar` to dodge
+If we want to make our bar chart show what percentage of repondents gave each answer, we can switch our bar chart by setting the `position` argument within `geom_bar` to fill.
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
-    geom_bar(position = "dodge")
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill")
 ```
 
 
@@ -115,12 +116,12 @@ ggplot(survey_joined, aes(x = Q1, fill = location)) +
 Now let's work on making this plot look a bit nicer. Add labels using the `labs` function, and include a built in theme using `theme_bw()`. There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
-    geom_bar(position = "dodge") +
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill") +
     labs(title = "To what degree did the course meet expectations?",
          x = "",
-         y = "Number of Responses",
-         fill = "Location") +
+         y = "Percent of Responses",
+         fill = "Response") +
     theme_bw()
 ```
 
@@ -134,15 +135,15 @@ Use the RStudio autocomplete, the `ggplot2` documentation, a cheatsheet, or good
 
 The built in theme functions change the default settings for many elements that can also be changed invididually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just google "ggplot cheatsheet" and find one you like.
 
-Let's look at an example of a `theme` call, where we change the rotation of our x tick labels so that we can read them all more easily.
+Let's look at an example of a `theme` call, where we change the rotation of the x axis tick labels.
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
-    geom_bar(position = "dodge") +
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill") +
     labs(title = "To what degree did the course meet expectations?",
          x = "",
-         y = "Number of Responses",
-         fill = "Location") +
+         y = "Percent of Responses",
+         fill = "Response") +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
 ```
@@ -158,12 +159,12 @@ my_theme <- theme_bw() +
 ```
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
-    geom_bar(position = "dodge") +
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill") +
     labs(title = "To what degree did the course meet expectations?",
          x = "",
-         y = "Number of Responses",
-         fill = "Location") +
+         y = "Percent of Responses",
+         fill = "Response") +
     my_theme
 ```
 
@@ -184,14 +185,31 @@ survey_joined <- survey_joined %>%
 ```
 
 ```{r}
-ggplot(survey_joined, aes(x = Q1, fill = location)) +
-    geom_bar(position = "dodge") +
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill") +
     labs(title = "To what degree did the course meet expectations?",
          x = "",
-         y = "Number of Responses",
-         fill = "Location") +
+         y = "Percent of Responses",
+         fill = "Response") +
     my_theme
 ```
+
+One last thing we might want to do is to set a nicer color palette. Here we use `scale_fill_viridis` from the `viridis` package. We can also add `scale_y_continuous` with the `labels = percent` argument to set the y tick labels in percent format.
+
+```{r}
+ggplot(survey_joined, aes(x = location, fill = Q1)) +
+    geom_bar(position = "fill") +
+    scale_fill_viridis(discrete = TRUE) +
+    scale_y_continuous(labels = percent) +
+    labs(title = "To what degree did the course meet expectations?",
+         x = "",
+         y = "Percent of Responses",
+         fill = "Response") +
+    my_theme
+```
+
+
+
 
 #### Saving plots
 
@@ -219,7 +237,8 @@ The default behaviour of facet wrap is to put all facets on the same x and y sca
 
 ```{r}
 ggplot(survey_long, aes(x = answer, fill = location)) + 
-    geom_bar() +
+    geom_bar(position = "dodge") +
+    scale_fill_viridis(discrete = TRUE) +
     labs(x = "", y = "Number of Responses", fill = "Location") +
     facet_wrap(~id, scales = "free") +
     my_theme
