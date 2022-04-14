@@ -6,6 +6,11 @@ author: "Jeanette Clark"
 
 ### Learning Objectives
 
+- What a token is and how they are used
+- How to use stop words
+- How to customize stop words
+- Introduction to sentiment analysis
+
 ### Introduction
 
 Much of the information covered in this chapter is based on [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/index.html) by Julia Silge and David Robinson. I highly recommend checking out the book if you want to go deeper into text analysis. 
@@ -18,6 +23,8 @@ First we'll load the libraries we need for this lesson:
 library(dplyr)
 library(readr)
 library(tidytext)
+library(wordcloud)
+library(reshape2)
 ```
 
 
@@ -117,5 +124,48 @@ q4_top <- q4 %>%
     count(word) %>% 
     arrange(-n) %>% 
     slice_head(n = 10)
+```
+
+## Sentiment Analysis
+
+Sentiment analysis is a broad topic, but the general concept is that tokens (in this case our single words) are evaluated against a dictionary of words where a sentiment is assigned to the word. There are many different sentiment lexicons, some with single words, some with more than one word, and some that are aimed at particular disciplines. When embarking on a sentiment analysis project, choosing your lexicon is one that should be done with care.
+
+With that in mind, we will next do a very simple sentiment analysis on our Q3 and Q4 answers using the [bing lexicon](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html) from Bing Liu and collaborators, which ships with the `tidytext` package.
+
+First we will use the `get_sentiments` function to load the lexicon.
+
+```{r}
+bing <- get_sentiments("nrc")
+```
+
+Next we do an inner join to return the words from question 3 that are contained within the lexicon.
+
+```{r}
+q3_sent <- inner_join(q3, bing, by = "word")
+```
+
+```{r}
+DT::datatable(q3_sent)
+```
+
+There are a variety of directions you could go from here, analysis wise, such as calculating an overall sentiment index for that question, plotting sentiment against some other variable, or, making a fun word cloud like below! Here we bring in `reshape2::acast` to create a sentiment matrix for each word, and pass that into `wordcloud::comparison.cloud` to look at a wordcloud that indiciates the frequency and sentiment of the words in our responses.
+
+```{r}
+q3_sent() %>% 
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 100, title.size = 2)
+```
+
+Let's look at the question 4 word cloud:
+
+```{r}
+q4 %>%
+  inner_join(bing, by = "word") %>% 
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("gray20", "gray80"),
+                   max.words = 100, title.size = 2)
 ```
 
