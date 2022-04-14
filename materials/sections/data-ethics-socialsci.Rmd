@@ -45,6 +45,13 @@ understanding.  And there are several sessions this week with some of
 the authors of the frameworks and protocols that will be discussed,
 including:
 
+### Ethical Data Considerations in Your Research
+As the primary repository for the Arctic section of the National Science Foundation, the Arctic Data Center accepts Arctic data from all disciplines. Recently, a new submission feature was released which asks researchers to describe the ethical considerations that are apparent in their research. This question is asked to all researchers, regardless of disciplines. 
+
+#### Discussion Questions
+1. Before diving into the world of ethics, what ethical concerns do you consider in your research?
+1. Please fill out this form to briefly describe any ethical concerns apparent in the research you conduct. 
+
 ### FAIR and Open Science
 To recap, the Arctic Data Center is an openly-accessible data repository and the data published through the repository is open for anyone to reuse, subject to conditions of the license (at the Arctic Data Center, data is released under one of two licenses: CC-0 Public Domain and CC-By Attribution 4.0). In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management One set of these principles is the FAIR principles. FAIR stands for Findable, Accessible, Interoperable, and Reproducible.
 
@@ -105,7 +112,6 @@ To many, the FAIR and CARE principles are viewed by many as complementary: CARE 
 
 ![](images/FAIR_CARE.png)
 
-
 Sharing sensitive data introduces unique ethical considerations, and FAIR and CARE principles speak to this by recommending sharing anonymized metadata to encourage discover ability and reduce duplicate research efforts, following consent of rights holders  (Puebla & Lowenberg, 2021). While initially designed to support Indigenous data sovereignty, CARE principles are being adopted more broadly and researchers argue they are relevant across all disciplines (Carroll et al., 2021). As such, these principles introduce a “game changing perspective” for all researchers that encourages transparency in data ethics, and encourages data reuse that is both purposeful and intentional and that aligns with human well-being (Carroll et al., 2021). Hence, to enable the research community to articulate and document the degree of data sensitivity, and ethical research practices, the Arctic Data Center has introduced new submission requirements.
 
 Open science is ostensibly about making access to data and knowledge
@@ -163,7 +169,6 @@ implementation of open science:
   important, research will not serve community partners and will fail
   to achieve its broader impact goals. (See also the [2021 update
   letter](https://kawerak.org/download/dec-2021-nna-follow-up-letter/) from the same organizations).  
-
 
 
 
@@ -331,65 +336,6 @@ development of an ethical approach.
 
 ![](images/2022-03_assw_dataethics09.png)
 
-**High level frameworks in support of IDS:**
-
-* The **UN Declaration on the Rights of Indigenous Peoples**, which
-recognizes the collective rights of Indigenous peoples. **Article 18** of
-UNDRIP **recognizes the right of Indigenous Peoples to participate in
-decision-making** about matters that affect their rights; **Article 19**
-**recognizes the requirement for states to consult and cooperate with
-Indigenous Peoples to gain their Free Prior and Informed Consent** on
-legislation that affects them. Other international protocols such as
-**Nagoya Protocol** on access and benefit sharing and the **Cartagena
-Protocol on Biosafety** (UNCBD) also recognize Indigenous rights with
-reference to intellectual property and the right to benefit from
-Indigenous knowledge and data as the owners/stewards of that data.
-
-
-**Mid-level frameworks:**
-
- * The First Nations Principles of [OCAP®](https://fnigc.ca/ocap-training/) (ownership, control, access, possession). Developed by the First Nations Information Governance Centre, which has developed good educational materials explaining the principles and how to implement them, as well as a training course (available on their website; the class has a registration fee).    
- * [Inuit Circumpolar Council’s Ethical and Equitable Engagement Synthesis](https://www.inuitcircumpolar.com/project/icc-ethical-and-equitable-engagement-synthesis-report/). This synthesis summarizes the process and approach that ICC took to develop principles of ethical and equitable engagement for Inuit, which involved broad engagement and input from Inuit in Alaska, Canada, Greenland, and Chukotka. ICC is working on a full set of principles, which will be released after they have gone through review.  
- * [National Inuit Strategy on Research](https://www.itk.ca/wp-content/uploads/2018/04/ITK_NISR-Report_English_low_res.pdf). Developed by Inuit Tapiriit Kanatami, the National Inuit Organization of Canada, with input from the Inuit regions of northern Canada. The research strategy discusses Indigenous data sovereignty.
- * In Alaska, the Alaska Native Knowledge Center developed [Guidelines for Respecting Cultural Knowledge](http://www.ankn.uaf.edu/publications/Knowledge.pdf). These include specific guidelines for authors and illustrators, curriculum developers and administrators, educators, editors and publishers, document reviewers, researchers, native language specialists, native community organizers, and the general public.
- * [Principles of Māori Data Sovereignty](https://www.temanararaunga.maori.nz/nga-rauemi) (Te Mana Rararunga) - Developed by the Maori Data Sovereignty Network (Maui Hudson is a founding member of this network).  
- * [Maiam nayri Wingara key principles](https://www.maiamnayriwingara.org/key-principles) developed by the Maiam nayri Wingara Aboriginal and Torres Strait Islander Data Sovereignty Collective.    
-
-**Foundational level frameworks:**
-
-![](images/2022-03_assw_dataethics11.png)
-
-* Tribal or community-level expectations/frameworks - such as [Native Village of Kotzebue’s Research Protocol](https://www.kotzebueira.org/wp-content/uploads/Native-Village-of-Kotzebue-Environmental-Program-February-2022-1-1.pdf) (Whiting 2022), which requests that researchers follow ethical research practices pertaining to informed consent and:
-
-    + Inform the Tribe of plan to research and continue to inform them
-       after permission has been granted;
-    + Consult with the Tribe in project development, implementation and planning.
-    + Explain the purposes, goals, time frame, and methodology of the
-       research, including the sponsoring institutions and
-       affiliations of the research project and identify the person in
-       charge, as well as all investigators involved in the research,
-       and the need for consultants, guides, or interpreters and
-       proposed compensation rates for same  
-    + Share results with the Tribe in non-technical language
-    + Give credit to those contributing to the research project by
-    acknowledging the Intellectual Property Rights of individual
-    Tribal citizens taking part in the research (unless there are
-    requirements for anonymity)
-    + Recognize that all information belongs to the Tribe and
-    divulgence of such information is expressly forbidden without
-    permission of the Tribe;
-    + Compensate Indigenous Knowledge holders fairly for sharing their knowledge.
-    
-### Discussion: Case Studies from "Challenges in Community-Research Relationships: Learning from Natural Science in Nunavut" (Gearheard & Shirley, 2006)
-
-In 2006, Gearheard & Shirley (2006) published "Challenges in Community-Research Relationship: Learning from Natural Science in Nunavut." In this paper, case studies of illustrated to demonstrate examples relationships between researchers and communities. These case studies illustrate some challenges faced by communities and researchers, and the importance of communicating with a community from the beginning of the research to ensure that the project is mutually beneficial. 
-
-#### Case Study One
-
-#### Case Study Two
-
-#### Case Study Three
-
 
 ## Discussion questions:
 
@@ -398,7 +344,7 @@ research more generally) from applying the frameworks discussed today?
 What do you see as the major impediments to adopting these frameworks
 in the context of open science? How might you navigate these conflicts
 within your own research project(s)?
-2. How do you and/or your research lab view open science? 
+1. How do you and/or your research lab view open science? 
 
 
 ```{r, child = 'data-ethics-resources.Rmd'}
