@@ -1,0 +1,164 @@
+--- 
+title: "Fundamentals in Data Management for Qualitative and Quantitative Arctic Research"
+date: "April 18 - 22, 2022"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+always_allow_html: yes
+---
+
+# Fundamentals in Data Management for Qualitative and Quantitative Arctic Research {-#open-science}
+
+## About {-}
+
+This 5-day in-person workshop will provide researchers with an overview of reproducible and ethical research practices, steps and methods for more easily documenting and preserving their data at the Arctic Data Center, and an introduction to programming in R. Special attention will be paid to qualitative data management, including practices working with sensitive data. Example datasets will draw from natural and social sciences, and methods for conducting reproducible research will be discussed in the context of both qualitative and quantitative data. Responsible and reproducible data management practices will be discussed as they apply to all aspects of the data life cycle. This includes ethical data collection and data sharing, data sovereignty, and the [CARE](https://www.gida-global.org/care) principles. The CARE principles are guidelines that help ensure open data practices (like the FAIR principles) appropriately engage with Indigenous Peoples’ rights and interests.
+
+
+![](images/arctic-data-center.png)
+
+### Schedule {-}
+
+Coming soon!
+
+
+### Code of Conduct {-}
+Please note that by participating in this activity you agree to abide by the [NCEAS Code of Conduct](https://www.nceas.ucsb.edu/sites/default/files/2021-11/NCEAS_Code-of-Conduct_Nov2021_0.pdf). 
+
+
+### About this book {-}
+
+These written materials reflect the continuous development of learning materials at the Arctic Data Center and NCEAS to support individuals to understand, adopt, and apply ethical open science practices. In bringing these materials together we recognize that many individuals have contributed to their development. The primary authors are listed alphabetically in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+
+**Citation**: Amber E. Budden, S. Jeanette Clark, Natasha Haycock-Chavez, Matthew B. Jones. 2022. Fundamentals in Data Management for Qualitative and Quantitative Arctic Research.
+
+**Additional contributors**: Stephanie Hampton, Jim Regetz, Bryce Mecum, Julien Brun, Julie Lowndes, and Erin McLean.
+
+<!--chapter:end:index.Rmd-->
+
+# Welcome and Introductions
+
+```{r, child = 'sections/adc-intro-to-policies.Rmd'}
+```
+
+
+<!--chapter:end:session_01.Rmd-->
+
+# Data Management for Reproducible Research
+
+<!--chapter:end:session_02.Rmd-->
+
+# Reproducible Research 101
+
+```{r, child = 'sections/research-reproducibility.Rmd'}
+```
+
+
+<!--chapter:end:session_03.Rmd-->
+
+# Writing Data Management Plans
+
+```{r, child = 'sections/data-management-plans.Rmd'}
+```
+
+
+<!--chapter:end:session_04.Rmd-->
+
+# Introduction to R
+
+```{r, child = 'sections/r-beginning-programming.Rmd'}
+```
+
+
+<!--chapter:end:session_05.Rmd-->
+
+# Introduction to RMarkdown
+
+```{r, child = 'sections/r-introduction-to-rmarkdown.Rmd'}
+```
+
+
+<!--chapter:end:session_06.Rmd-->
+
+# Social aspects of collaboration
+
+```{r, child = 'sections/collaboration-thinking-preferences.Rmd'}
+```
+
+
+```{r, child = 'sections/data-ethics.Rmd'}
+```
+
+
+<!--chapter:end:session_07.Rmd-->
+
+# Data Modeling Essentials
+
+```{r, child = 'sections/data-modeling-socialsci.Rmd'}
+```
+
+<!--chapter:end:session_08.Rmd-->
+
+# Cleaning and Manipulating Data
+
+```{r, child = 'sections/data-cleaning-tidyverse-socialsci.Rmd'}
+```
+
+<!--chapter:end:session_09.Rmd-->
+
+# Human Subjects Research Considerations
+
+<!--chapter:end:session_10.Rmd-->
+
+# Data Portals
+
+```{r, child = 'sections/adc-creating-data-portals.Rmd'}
+```
+
+<!--chapter:end:session_11.Rmd-->
+
+# Reproducible Survey Workflows
+
+<!--chapter:end:session_12.Rmd-->
+
+# Text Analysis and Plotting
+
+```{r, child = 'sections/intro-text-analysis.Rmd'}
+```
+
+```{r, child = 'sections/visualization-ggplot-socialsci.Rmd'}
+```
+
+
+<!--chapter:end:session_13.Rmd-->
+
+# Publishing to the Arctic Data Center
+
+```{r, child = 'sections/metadata-adc-data-documentation-socialsci.Rmd'}
+```
+
+<!--chapter:end:session_14.Rmd-->
+
+# Geospatial Vector Analysis
+
+```{r, child = 'sections/geospatial-vector-analysis.Rmd'}
+```
+
+<!--chapter:end:session_15.Rmd-->
+
+# Open Block
+
+<!--chapter:end:session_16.Rmd-->
+
+# Reproducibility and Provenance
+
+```{r, child = 'sections/provenance-reproducibility-datapaper.Rmd'}
+```
+
+<!--chapter:end:session_17.Rmd-->
+
