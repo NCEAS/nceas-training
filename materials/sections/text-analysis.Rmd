@@ -135,7 +135,7 @@ With that in mind, we will next do a very simple sentiment analysis on our Q3 an
 First we will use the `get_sentiments` function to load the lexicon.
 
 ```{r}
-bing <- get_sentiments("nrc")
+bing <- get_sentiments("bing")
 ```
 
 Next we do an inner join to return the words from question 3 that are contained within the lexicon.
