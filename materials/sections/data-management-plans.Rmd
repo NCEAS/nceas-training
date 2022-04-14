@@ -1,6 +1,6 @@
-# Writing Good Data Management Plans
+## Writing Good Data Management Plans
 
-## Learning Objectives
+### Learning Objectives
 
 In this lesson, you will learn:
 
@@ -9,14 +9,14 @@ In this lesson, you will learn:
 - Tools that can help create a data management plan
 - Festures and functionality of the DMPTool
 
-## When to Plan: The Data Life Cycle
+### When to Plan: The Data Life Cycle
 
 Shown below is one version of the [Data Life Cycle](https://www.dataone.org/data-life-cycle) that was developed by DataONE. The data life cycle provides a high level overview of the stages involved in successful management and preservation of data for use and reuse. Multiple versions of a data life cycle exist with differences attributable to variation in practices across domains or communities. It is not neccesary for researchers to move through the data life cycle in a cylical fashion and some research activities might use only part of the life cycle. For instance, a project involving meta-analysis might focus on the Discover, Integrate, and Analyze steps, while a project focused on primary data collection and analysis might bypass the Discover and Integrate steps. However, 'Plan' is at the top of the data life cycle as it is advisable to initiate your data management planning at the beginning of your research process, before any data has been collected.
 
 
 ![](images/DLC.png)
 
-## Why Plan?
+### Why Plan?
 
 Planning data management in advance povides a number of benefits to the researcher.
 
@@ -26,7 +26,7 @@ Planning data management in advance povides a number of benefits to the research
 - **Meet funder requirements**; Funders require a data management plan as part of the proposal process.
 - **Share data**; Information in the DMP is the foundation for archiving and sharing data with community.
 
-## How to Plan
+### How to Plan
 
 1) As indicated above, engaging your team is a benefit of data management planning. Collaborators involved in the data collection and processing of your research data bring diverse expertise. Therefore, **plan in collaboration** with these individuals. 
 2) Make sure to **plan from the start** to avoid confusion, data loss, and increase efficiency. Given DMPs are a requirement of funding agencies, it is nearly always neccesary to plan from the start. However, the same should apply to research that is being undertaken outside of a specific funded proposal.
@@ -34,7 +34,7 @@ Planning data management in advance povides a number of benefits to the research
 4) **Use tools** available to you; you don’t have to reinvent the wheel.
 5) **Revise your plan** as situations change and you potentially adapt/alter your project. Like your research projects, data management plans are not static, they require changes and updates throughout the research project process.
 
-## What to include in a DMP
+### What to include in a DMP
 
 If you are writing a data management plan as part of a solicitation proposal, the funding agency will have guidelines for the information they want to be provided in the plan. A good plan will provide information on the study design; data to be collected; metadata; policies for access, sharing & reuse; long-term storage & data management; and budget. 
 
@@ -74,7 +74,7 @@ Roles may include data collection, data entry, QA/QC, metadata creation and mana
 **10. Prepare a realistic budget**  
 Review your plan and make sure that there are lines in the budget to support the people that manage the data as well as pay for the requisite hardware, software etc. 
 
-## NSF DMP requirements
+### NSF DMP requirements
 
 In the 2014 Proposal Preparation Instructions, Section J ['Special Information and Supplementary Documentation'](https://www.nsf.gov/pubs/policydocs/pappguide/nsf14001/gpg_2.jsp#IIC2j) NSF put foward the baseline requirements for a data management plan. In addition, there are specific divison and program requirements that provide additional detail. If you are working on a research project with funding that does not require a data management plan, or are developing a plan for unfunded research, the NSF generic requirements are a good set of guidelines to follow.
 
@@ -96,13 +96,13 @@ Including re-distribution and the production of derivatives
 Plans for archiving data, samples, research products and for preservation of access
 
 
-## Tools in Support of Creating a DMP
+### Tools in Support of Creating a DMP
 
 ![](images/dmptools.jpg)
 
 The [DMP Tool](https://dmptool.org) and [DMP Online](https://dmponline.dcc.ac.uk) are both easy to use web based tools that support the development of a DMP. The tools are partnered and share a code base; the DMPTool incorporates templates from US funding agencies and the DMP Online is focussed on EU requirements.
 
-## Hands-On: Creating a DMP
+### Hands-On: Creating a DMP
 
 Go to [https://dmptool.org](https://dmptool.org)
 
