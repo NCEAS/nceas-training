@@ -5,9 +5,18 @@ date: "3/4/2022"
 
 ## Open Data Ethics
 
-Developed by the [Exchange for Local Observations and Knowledge of the
+Developed in collaboration with the [Exchange for Local Observations and Knowledge of the
 Arctic (ELOKA)](https://eloka-arctic.org/) and [Navigating the New Arctic Community Office
 (NNA-CO)](https://nna-co.org/).
+
+### Learning Objectives
+
+In this lesson, we will:
+
+- Discuss Indigenous Data Sovereignty in the context of open science
+- Discuss FAIR and CARE Principles 
+- Review concepts such as co-production of knowledge and Indigenous data governance 
+- Examine case studies of relationships between Arctic Indigenous communities and natural science researchers
 
 ### Introduction
 
@@ -50,7 +59,7 @@ As the primary repository for the Arctic section of the National Science Foundat
 
 #### Discussion Questions
 1. Before diving into the world of ethics, what ethical concerns do you consider in your research?
-1. Please fill out this form to briefly describe any ethical concerns apparent in the research you conduct. 
+1. Please fill out this form to briefly describe any ethical concerns apparent in the research you conduct: https://forms.gle/VcogEPwcgVfnEj9f7 
 
 ### FAIR and Open Science
 To recap, the Arctic Data Center is an openly-accessible data repository and the data published through the repository is open for anyone to reuse, subject to conditions of the license (at the Arctic Data Center, data is released under one of two licenses: CC-0 Public Domain and CC-By Attribution 4.0). In facilitating use of data resources, the data stewardship community have converged on principles surrounding best practices for open data management One set of these principles is the FAIR principles. FAIR stands for Findable, Accessible, Interoperable, and Reproducible.
@@ -60,13 +69,12 @@ The FAIR (Findable, Accessible, Interoperable, Reproducible) principles for data
 ![](images/FAIRsFAIR.png)
 FAIR Principles and open science are not synonymous, however they often go hand in hand. However, data can be open and not FAIR, and vice verse. 
 
-The “Fostering FAIR Data Practices in Europe” project found that it is more monetarily and timely expensive when FAIR principles are not used, and it was estimated that 10.2 billion dollars per years are spent through “storage and license costs to more qualitative costs related to the time spent by researchers on creation, collection and management of data, and the risks of research duplication.” FAIR principles and open science are overlapping concepts, but are distinctive concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
+The “Fostering FAIR Data Practices in Europe” project found that it is more monetarily and timely expensive when FAIR principles are not used, and it was estimated that 10.2 billion dollars per years are spent through “storage and license costs to more qualitative costs related to the time spent by researchers on creation, collection and management of data, and the risks of research duplication.” FAIR principles and open science are overlapping concepts, but are distinctive concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data. The FAIR principles place emphasis on machine readability, “distinct from peer initiatives that focus on the human scholar” (Wilkinson et al 2016) and as such, do not fully engage with sensitive data considerations and with  Indigenous rights and interests (Research Data Alliance International Indigenous Data Sovereignty Interest Group, 2019).
+
 
 ### Equity issues in open science
 
 ![](images/2022-03_assw_dataethics01.png)
-The FAIR principles place emphasis on machine readability, “distinct from peer initiatives that focus on the human scholar” (Wilkinson et al 2016) and as such, do not fully engage with sensitive data considerations and with  Indigenous rights and interests (Research Data Alliance International Indigenous Data Sovereignty Interest Group, 2019). 
-
 With an Indigenous population double that of Indigenous peoples across the globe, there are over 40 different ethnic and cultural groups in the Arctic (Arctic Council, 2021). Arctic communities (defined as a place and the people who live there,
 based on geographic location in the Arctic/sub-Arctic) are involved in
 research in diverse ways - as hosts to visiting or non-local
@@ -114,14 +122,14 @@ To many, the FAIR and CARE principles are viewed by many as complementary: CARE 
 
 Sharing sensitive data introduces unique ethical considerations, and FAIR and CARE principles speak to this by recommending sharing anonymized metadata to encourage discover ability and reduce duplicate research efforts, following consent of rights holders  (Puebla & Lowenberg, 2021). While initially designed to support Indigenous data sovereignty, CARE principles are being adopted more broadly and researchers argue they are relevant across all disciplines (Carroll et al., 2021). As such, these principles introduce a “game changing perspective” for all researchers that encourages transparency in data ethics, and encourages data reuse that is both purposeful and intentional and that aligns with human well-being (Carroll et al., 2021). Hence, to enable the research community to articulate and document the degree of data sensitivity, and ethical research practices, the Arctic Data Center has introduced new submission requirements.
 
-Open science is ostensibly about making access to data and knowledge
+From ELOKA and NNA: Open science is ostensibly about making access to data and knowledge
 more equitable and open and enabling reproducible research. These are laudable goals and on the surface, could provide a counterbalance to
 traditional approaches that limited Arctic community members’ access
 to research data and knowledge. Because it is being implemented within
 a social and institutional context that continues to perpetuate
-inequities in research, however, **there are significant challenges
+inequities in research, however, there are significant challenges
 remaining to ethically and equitably implementing open science
-practices.**
+practices.
 
 Here are some examples of impediments to ethical and equitable
 implementation of open science:  
@@ -172,88 +180,19 @@ implementation of open science:
 
 
 
-### Open (and other) data challenges for Indigenous Peoples
 
-![](images/2022-03_assw_dataethics05.png)
 
-The introduction of open data requirements has raised concerns about
-how open data objectives such as making data freely available for use
-and reuse may conflict with Indigenous Data Sovereignty and the right
-of Indigenous peoples to govern their data (Rainie et al. 2019:
-301). Stephanie Carroll (formerly Rainie) and colleagues (2019) have
-summarized some of the data challenges for Indigenous Peoples,
-including:
+### Co-production of knowledge
+Here, we define co-production of knowledge as the contribution of various knowledge sources, and capacity sharing from different rights holders and stakeholders in the context of co-creating knowledge and information to inform research projects and environmental decision-making (Lemos & Morehouse, 2005). Many argue that co-production of knowledge will increase the usability and relevance of science for society (Lemos & Morehouse, 2005; Meadow et al., 2015; Wall et al., 2017). Based on a literature review from Djenontin & Meadow (2018) of successful examples of co-production, here are several themes of successful co-production.
 
-* **Data collection invisibility and bias**  
+** Development, design and implementation components **
 
-  + Insufficient involvement of Indigenous Peoples in broader
-  decisions/discussions about data governance, including decisions
-  about what data is collected, when, how, and by whom, as well as
-  involvement in global data governance bodies.
+Rights holders and stakeholders' needs should drive the project. Several approaches to help ensure this include:
+* co-defining research questions
+* co-conceptualizing and co-designing the research project 
+* co-leadership 
 
-  + __Even if Indigenous peoples are not part of data collection, if the
-  data is collected on Indigenous lands and could be used to support
-  decisions that impact these lands, animals, or Indigenous peoples,
-  they should be part of decision-making about that data.__
-  
-* **Data access, use, and interpretation, including**:
-
-  + Insufficient availability of data about Indigenous peoples - gaps
-in national data collection
-
-  + Challenges in data access (infrastructure and training); accessing
-  and utilizing data from multiple sources given time and staffing
-  limitations (McBride N.D.)
-  
-  + Data collected from a “deficit” lens - reinforces perception of
-dysfunction, leading to bias and misrepresentation.
-
-  + Open data movement prioritizes making data available for
-  reuse. However, there are concerns about secondary analysis of
-  Indigenous data given the importance of context to
-  understanding/interpreting Indigenous data and emphasis on building
-  and maintaining relationships in Indigeous research (Burrage 2021).
-  
-  + __Important for researchers generating data that they hope will be
-  useful to Indigenous communities to be aware of ethical frameworks
-  for working with/sharing data and partnering with communities.__
-  
-* **Data ownership and appropriation**
-
-  + Digitization of data/“big data” - the context surrounding data is
-  often very important to Indigenous Knowledge and data. The
-  digitization of data raises concerns about how and to what extent
-  this context can be preserved.  
-
-  + Individual vs. collective rights. Data ownership is often focused
-  on individual rights (both in protection of sensitive data as well
-  as in intellectual property rights), while Indigenous peoples have
-  both individual and collective rights in relation to data.
-
-  * __All requests for data contributions, clarification, or
-    informational resources are requests for collaboration and should
-    be treated with the same level of importance as larger projects
-    (Murphy 2019).__
-
-In **Canada**, funding agencies have established the **Tri-Council Policy
-Statement on Ethical Conduct for Research Involving Humans**; [Chapter 9](https://ethics.gc.ca/eng/tcps2-eptc2_2018_chapter9-chapitre9.html)
-focuses on research involving First Nations, Inuit and Metis. The
-chapter points to the importance of addressing issues regarding access
-to data and use of data with involved communities and suggests using a
-research agreement to establish any limits on data use and sharing,
-provisions to offer the opportunity for research participants and
-collaborators to review reports and publications prior to
-dissemination/publication, and to include provisions for any
-anticipated secondary use of information.
-
-The Tri-Council Statement has resulted in **direct modifications to
-institutional-level REB (Canada) processes and procedures, such as
-incorporation of dedicated sections focusing on Indigenous research
-ethics within University protocols**. For example, the “Indigenous
-Peoples and Community Engagement” section of an REB application at a
-Canadian university asks researchers to “**Describe arrangements for the
-participating community’s/ies’ ownership and/or sharing of project
-data and findings**, including the OCAP principles” (see below for more on OCAP).
+In the current research framework that involves timely deadlines for finishing and producing research, there are many challenges that include time and resources. Many of these challenges stem from research that is still founded on a western timeline. Navigating these challenges is a work in progress, however the foundation starts at building long-term relationships. 
 
 
 ### Indigenous data governance and sovereignty
@@ -268,7 +207,7 @@ communities to be collected and shared in ethical and culturally
 appropriate ways, and they have also had to fight for resources and
 capacity to develop and lead their own research programs.
 
-#### Indigenous data definitions: {.exercise}
+#### Indigenous data definitions:
 
 **Indigenous data sovereignty** “...refers to the right of Indigenous
 peoples to govern the collection, ownership, and application of data
@@ -299,42 +238,6 @@ Indigenous data is governed and stewarded” (Rainie et al. 2019)
 
 
 
-### IDS Frameworks
-
-There has been increasing emphasis on development of frameworks to
-support ethical research and data stewardship grounded in Indigenous
-understandings and world views. The emergence of national and global
-networks focusing on Indigenous data sovereignty has supported the
-development of some of these frameworks. For example, the [Global
-Indigenous Data Alliance (GIDA)](https://www.gida-global.org/whoweare) developed the CARE principles in
-response to the emergence of the FAIR principles. CARE is a set of
-high-level principles that are broad enough to encompass more specific
-frameworks and principles developed by International and national
-Indigenous networks, organizations, and Tribes. This alliance is
-supported by three national networks, the [United States Indigenous
-Data Sovereignty Network (USIDSN)](https://usindigenousdata.org/), [Te Mana Raraunga Maori Data
-Sovereignty Network](https://www.temanararaunga.maori.nz/), and the [Maiam nayri Wingara Aboriginal and Torres
-Strait Islander Data Sovereignty Collective](https://www.maiamnayriwingara.org/key-principles). The latter networks each
-have worked within their respective national contexts to develop IDS
-principles at a “mid-level.”
-
-These frameworks are being developed at different governance levels,
-from “high level” frameworks that are global in scale and therefore
-more general to mid-level frameworks that are developed at a national
-scale or by a subset of Indigenous Peoples/Nations (such as
-circumpolar Inuit or Inuit within the national level in Canada), to
-foundational level frameworks that are developed at the Tribal or
-community scale.
-
-It is important for researchers to be aware of the different
-frameworks that can inform and guide ethical research practice and
-data management. Frameworks developed at the high or mid-level do not
-replace foundational frameworks. In the absence of a written framework
-at the tribal/community scale, the practices of strong consultation
-and engagement outlined in mid-level frameworks can help inform the
-development of an ethical approach.
-
-![](images/2022-03_assw_dataethics09.png)
 
 
 ## Discussion questions:
