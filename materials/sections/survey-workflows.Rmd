@@ -24,20 +24,59 @@ Surveys and questionnaires are commonly used research methods within social scie
 
 #### Qualtrics and qualtRics
 
-[qualtRics](https://cran.r-project.org/web/packages/qualtRics/vignettes/qualtRics.html) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtics is propritary software, the qualtRics R packacke is open source and community developed.
+[`qualtRics`](https://github.com/ropensci/qualtRics) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtrics is proprietary software, the `qualtRics` R package is open source and community developed. The only limitation to this package is that your institution must support Qualtrics API access and it must be enabled in your account to use it.
 
 The package currently contains three core functions:
 
-1. all_surveys() fetches a list of all surveys that you own or have access to from Qualtrics.
-1. fetch_survey() downloads a survey from Qualtrics and loads it into R.
-1. read_survey() allows you to read CSV files you download manually from Qualtrics.
+1. `all_surveys()` fetches a list of all surveys that you own or have access to from Qualtrics.
+1. `fetch_survey()` downloads a survey from Qualtrics and loads it into R.
+1. `read_survey()` allows you to read CSV files you download manually from Qualtrics.
 
 Also contained within the package are the following helper functions:
 
-1. qualtrics_api_credentials() stores your API key and base url in environment variables.
-1. survey_questions() retrieves a data frame containing questions and question IDs for a survey; extract_colmap() retrieves a similar data frame with more detailed mapping from columns to labels.
-1. metadata() retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
+1. `qualtrics_api_credentials()` stores your API key and base url in environment variables.
+1. `survey_questions()` retrieves a data frame containing questions and question IDs for a survey; `extract_colmap()` retrieves a similar data frame with more detailed mapping from columns to labels.
+1. `metadata()` retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
 
 
 
 ### Google forms 
+
+Google forms can be a great way to set up surveys, and it is very easy to interact with the results using R. The benefits of using google forms are a simple interface and easy sharing between collaborators, especially when writing the survey instrument.
+
+The downside is that google forms has far fewer features than Qualtrics in terms of survey flow and appearance.
+
+To show how we can link R into our survey workflows, I've set up a simple example survey [here](https://docs.google.com/forms/d/1Yh3IxygzuLXzJvTHl-lskMy7YrQgmeWgr2bEw5gwdIM/edit?usp=sharing). 
+
+I've set up the results so that they are in a new spreadsheet [here:](https://docs.google.com/spreadsheets/d/1CSG__ejXQNZdwXc1QK8dKouxphP520bjUOnZ5SzOVP8/edit?resourcekey#gid=1527662370). To access them, we will use the `googlesheets4` package.
+
+First, open up a new R script and load the `googlesheets4` library:
+
+```{r}
+library(googlesheets4)
+```
+
+Next, we can read the sheet in using the same URL that you would use to share the sheet with someone else. Right now, this sheet is public
+
+```{r, echo = FALSE}
+gs4_deauth()
+```
+
+
+```{r}
+responses <- read_sheet("https://docs.google.com/spreadsheets/d/1CSG__ejXQNZdwXc1QK8dKouxphP520bjUOnZ5SzOVP8/edit?usp=sharing")
+```
+
+The first time you run this, you should get a popup window in your web browser asking you to confirm that you want to provide access to your google sheets via the tidyverse (googlesheets) package.
+
+My dialog box looked like this:
+
+![](images/gsheets-access.png)
+
+Make sure you click the third check box enabling the Tidyverse API to see, edit, create, and delete your sheets. Note that you will have to tell it to do any of these actions via the R code you write.
+
+When you come back to your R environment, you should have a data frame containing the data in your sheet!
+
+#### Bypassing authentication for public sheets {-}
+
+If you don't want to go through a little interactive dialog every time you read in a sheet, and your sheet is public, you can run the function `gs4_deauth()` to access the sheet as a public user. This is helpful for cases when you want to run your code non-interactively. This is actually how I set it up for this book to build!
