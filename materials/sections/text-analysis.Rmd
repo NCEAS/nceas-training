@@ -13,13 +13,19 @@ author: "Jeanette Clark"
 
 ### Introduction
 
-Much of the information covered in this chapter is based on [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/index.html) by Julia Silge and David Robinson. I highly recommend checking out the book if you want to go deeper into text analysis. 
+Much of the information covered in this chapter is based on [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/index.html) by Julia Silge and David Robinson. This is a great book if you want to go deeper into text analysis. 
+
+Text mining is the process by which unstructured text is transformed into a structured format to prepare it for analysis. This can range from the simple example we show in this lesson, to much more complicated processes such as using OCR (optical character recognition) to scan and extract text from pdfs, or web scraping.
+
+Once text is in a structured format, analysis can be performed on it. The inherent benefit of quantitative text analysis is that it is highly scalable. With the right computational techniques, massive quantities of text can be mined and analyzed many, many orders of magnitude faster than it would take a human to do the same task. The downside, is that human language is inherently nuanced, and computers (as you may have noticed) think very differently than we do. In order for an analysis to capture this nuance, the tools and techniques for text analysis need to be set up with care, especially when the analysis becomes more complex.
+
+There a number of different types of text analysis. In this lesson we will show some simple examples of two: word frequency, and sentiment analysis.
 
 #### Setup {.setup -}
 
 First we'll load the libraries we need for this lesson:
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(dplyr)
 library(readr)
 library(tidytext)
@@ -86,6 +92,12 @@ q3_top <- q3 %>%
 DT::datatable(q3_top)
 ```
 
+#### Term frequency {- .aside}
+
+Right now, our counts of the most commonly used non-stop words are only moderately informative because they don't take into context how many other words, responses, and courses there are. A widely used metric to analyze and draw conclusions from word frequency, including frequency within documents (or courses, in our case) is called tf-idf. This is the term frequency (number of appearances of a term divided by total number of terms), multiplied by the inverse document frequency (the natural log of the number of documents divided by the number of documents containing the term). The [tidytext book](https://www.tidytextmining.com/tfidf.html) has great examples on how to calculate this metric easily using some built in functions to the package.
+
+#### {-}
+
 Let's do the same workflow for question 4:
 
 ```{r}
@@ -104,7 +116,7 @@ q4_top <- q4 %>%
 DT::datatable(q4_top)
 ```
 
-Perhaps not surprisingly, the word data is mentioned a lot! In this case, it might be useful to add it to our stop words list.
+Perhaps not surprisingly, the word data is mentioned a lot! In this case, it might be useful to add it to our stop words list. You can create a data.frame in place with your word, and an indication of the lexicon (in this case, your own, which we can call custom). Then we use `rbind` to bind that data frame with our previous stop words data frame.
 
 ```{r}
 custom_words <- data.frame(word = "data", lexicon = "custom")
@@ -128,7 +140,7 @@ q4_top <- q4 %>%
 
 ## Sentiment Analysis
 
-Sentiment analysis is a broad topic, but the general concept is that tokens (in this case our single words) are evaluated against a dictionary of words where a sentiment is assigned to the word. There are many different sentiment lexicons, some with single words, some with more than one word, and some that are aimed at particular disciplines. When embarking on a sentiment analysis project, choosing your lexicon is one that should be done with care.
+In sentiment analysis, tokens (in this case our single words) are evaluated against a dictionary of words where a sentiment is assigned to the word. There are many different sentiment lexicons, some with single words, some with more than one word, and some that are aimed at particular disciplines. When embarking on a sentiment analysis project, choosing your lexicon is one that should be done with care. Sentiment analysis can also be done using machine learning algorithms.
 
 With that in mind, we will next do a very simple sentiment analysis on our Q3 and Q4 answers using the [bing lexicon](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html) from Bing Liu and collaborators, which ships with the `tidytext` package.
 
@@ -148,7 +160,7 @@ q3_sent <- inner_join(q3, bing, by = "word")
 DT::datatable(q3_sent)
 ```
 
-There are a variety of directions you could go from here, analysis wise, such as calculating an overall sentiment index for that question, plotting sentiment against some other variable, or, making a fun word cloud like below! Here we bring in `reshape2::acast` to create a sentiment matrix for each word, and pass that into `wordcloud::comparison.cloud` to look at a wordcloud that indiciates the frequency and sentiment of the words in our responses.
+There are a variety of directions you could go from here, analysis wise, such as calculating an overall sentiment index for that question, plotting sentiment against some other variable, or, making a fun word cloud like below! Here we bring in `reshape2::acast` to create a sentiment matrix for each word, and pass that into `wordcloud::comparison.cloud` to look at a wordcloud that indicates the frequency and sentiment of the words in our responses.
 
 ```{r}
 q3_sent %>% 
