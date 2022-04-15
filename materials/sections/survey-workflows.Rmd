@@ -12,7 +12,9 @@
 
 Surveys and questionnaires are commonly used research methods within social science and other fields. For example, understanding regional and national population demographics, income, and education as part of the [National Census](https://www.census.gov/en.html) activity, assessing audience perspectives on specific topics of research interest (e.g. the work by Tenopir and colleagues on [Data Sharing by Scientists](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0021101)), evaluation of learning deliverable and outcomes, and consumer feedback on new and upcoming products. These are distinct from the use of the term survey within natural sciences, which might include geographical surveys ("the making of measurement in the field from which maps are drawn"), ecological surveys ("the process whereby a proposed development site is assess to establish any environmental impact the development may have") or biodiversity surveys ("provide detailed information about biodiversity and community structure") among others. In social science, a survey can be defined as:
 
-a research method involving the use of standardised questionnaires or interviews to collect data about people and their preferences, thoughts, and behaviours in a systematic manner.
+> a research method involving the use of standardised questionnaires or interviews to collect data about people and their preferences, thoughts, and behaviours in a systematic manner.
+
+
 
 
 ### Survey data best practices
@@ -20,8 +22,21 @@ a research method involving the use of standardised questionnaires or interviews
 
 ### Building workflows: Options for data integration
 
+#### Qualtrics and qualtRics
 
+[qualtRics](https://cran.r-project.org/web/packages/qualtRics/vignettes/qualtRics.html) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtics is propritary software, the qualtRics R packacke is open source and community developed.
 
+The package currently contains three core functions:
+
+1. all_surveys() fetches a list of all surveys that you own or have access to from Qualtrics.
+1. fetch_survey() downloads a survey from Qualtrics and loads it into R.
+1. read_survey() allows you to read CSV files you download manually from Qualtrics.
+
+Also contained within the package are the following helper functions:
+
+1. qualtrics_api_credentials() stores your API key and base url in environment variables.
+1. survey_questions() retrieves a data frame containing questions and question IDs for a survey; extract_colmap() retrieves a similar data frame with more detailed mapping from columns to labels.
+1. metadata() retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
 
 
 
