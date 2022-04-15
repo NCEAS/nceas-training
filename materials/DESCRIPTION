@@ -16,11 +16,14 @@ Imports:
     knitr,
     leaflet,
     readr,
+    reshape2,
     sf,
     scales,
     tidyr,
     tidytext,
+    textdata,
     htmlwidgets,
+    wordcloud,
     viridis
 Remotes: 
     rstudio/bookdown

@@ -309,9 +309,11 @@ knitr::kable(q2_response) %>% kableExtra::kable_styling()
 
 #### Changing shape: `pivot_longer()` and `pivot_wider()` {-}
 
-Although the format of this table is tidy, we have have good reasons to change shape to where the question is in one column, and the response in another. This may make certain types of plots or tables easier to make.
+Although the format of this table is tidy, we may have good reasons to change shape to where the question is in one column, and the response in another. This may make certain types of plots or tables easier to make.
 
 To change from a wide format to a long format, we use `pivot_longer`. The key arguments to this function are: `cols`, the columns you are pivoting over, `names_to`, the column name you are creating from the column names covered by `cols`, and `values_to`, the column name you are creating from the values in those columns. Note in the `cols` argument, we use a little helper function called `starts_with` to select the columns starting with "Q" (Q1, Q2, Q3, Q4) as our pivoting columns.
+
+Our new column of old column names will be called "id" to indicate that it represents the question id. The new column of values within those columns we will call "answer."
 
 ```{r}
 survey_long <- survey_clean %>% 
@@ -361,6 +363,47 @@ survey_joined <- left_join(survey_long, events, by = "StartDate")
 ```
 
 Now we have a joined data frame!
+
+#### Review {.aside}
+
+That was a lot of exposition for very little code. Here is a summary of the main data cleaning steps we used:
+
+```{r, eval = FALSE}
+survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
+
+survey_clean <- survey_raw %>% 
+    select(-notes) %>% 
+    mutate(Q1 = if_else(Q1 == "1", "below expectations", Q1)) %>% 
+    mutate(Q2 = tolower(Q2))
+
+events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
+
+survey_joined <- left_join(survey_clean, events, by = "StartDate")
+```
+
+As well as the split-apply-combine for questions 1 and 2:
+
+```{r, eval = FALSE}
+q1_response <- survey_clean %>% 
+    group_by(Q1) %>% 
+    summarise(n = n()) %>% 
+    arrange(-n)
+
+q2_response <- survey_clean %>% 
+    group_by(Q2) %>% 
+    summarise(n = n()) %>% 
+    arrange(-n)
+```
+
+And finally the pivot long: 
+
+```{r}
+survey_long <- survey_clean %>% 
+    pivot_longer(cols = starts_with("Q"), names_to = "id", values_to = "answer")
+```
+
+
+#### {-}
 
 #### `separate()` and `unite()` {-}
 
