@@ -14,7 +14,7 @@ Surveys and questionnaires are commonly used research methods within social scie
 
 > a research method involving the use of standardised questionnaires or interviews to collect data about people and their preferences, thoughts, and behaviours in a systematic manner.       - Social Science Research: Principles, Methods and Practices
 
-There are a large number of platforms that provide opportunity for structured feedback and have specific use cases, outside of formalized research methods. For example, participant registration (e.g. Google forms, Aventri), presentation feedback (e.g. Mentimeter), scheduling (e.g. Doodle). In this section we will discuss three of the most commonly used software for developing research surveys: Google surveys, Survey Monkey and Qualtrics.
+There are a large number of platforms that provide opportunity for structured feedback and have specific use cases, outside of formalized research methods. For example, participant registration (e.g. Google forms, Aventri), presentation feedback (e.g. Mentimeter), scheduling (e.g. Doodle). In this section we will focus on software designed or commonly used for research activity.
 
 
 
@@ -34,11 +34,11 @@ The package currently contains three core functions:
 1. `fetch_survey()` downloads a survey from Qualtrics and loads it into R.
 1. `read_survey()` allows you to read CSV files you download manually from Qualtrics.
 
-Example of the functions in use:
+##### Example of the functions in use:{- .example}
 
 `surveys <- all_surveys()`
 
-This will create a list of all survey names contained within your Qualtrics account, within the file `surveys`. From there, you can download the data from one or more individual surveys of your choice using `fetch_survey()`. In the example below the researcher is bringing in a subset of data from survey number 4, based on the date of responses.
+This will create a list of all survey names contained within your Qualtrics account, within the data frame `surveys`. The survey data have not yet been downloaded. You can download the data from one or more individual surveys of your choice using `fetch_survey()`. In the example below the researcher is bringing in a subset of data from survey number 4, based on the date of responses.
 
 `mysurvey <- fetch_survey(surveys$id[4],
                          start_date = "2018-10-01",
@@ -49,13 +49,15 @@ If you have already downloaded a *.csv filed from Qualtrics, these can be read i
 
 `mysurvey <- read_survey("/users/aebudden/Desktop/workshop_feedback.csv")`
 
+##### {-}
+
 Also contained within the package are the following helper functions:
 
 1. `qualtrics_api_credentials()` stores your API key and base url in environment variables.
 1. `survey_questions()` retrieves a data frame containing questions and question IDs for a survey; `extract_colmap()` retrieves a similar data frame with more detailed mapping from columns to labels.
 1. `metadata()` retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
 
-'qualtRics' will only enable you to download and integrate survey data that you have administrative access to. rest assured that someone else cannot use this package to read in your data. However, one limitation is that the package requires Qualtrics API access, which must be enabled in your account to use it. Depending on the type of account your have, this may require administrative approval from your brand ambassador for institutional accounts.
+`qualtRics` will only enable you to download and integrate survey data that you have administrative access to. Rest assured that someone else cannot use this package to read in your data. However, one limitation is that the package requires Qualtrics API access, which must be enabled in your account to use it. Depending on the type of account you have, this may require administrative approval from your brand ambassador for institutional accounts.
 
 ### Google forms 
 
