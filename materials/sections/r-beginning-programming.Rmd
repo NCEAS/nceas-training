@@ -387,7 +387,7 @@ To install a package, we use the syntax `install.packages('packge_name')`. A pac
 
 Use the chunk below to check to make sure you have all of the packages installed that you need for the course:
 
-```{r}
+```{r, eval = FALSE}
 packages <- c("readr", "dplyr", "tidyr", "googlesheets4", "tidytext", "wordcloud", "reshape2", "ggplot2", "viridis", "scales", "leaflet", "sf", "ggmap", "DT", "rmarkdown", "knitr")
 
 
