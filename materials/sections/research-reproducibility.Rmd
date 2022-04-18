@@ -99,13 +99,21 @@ Computational reproducibility provides:
 
 Preserving computational workflows enables understanding, evaluation, and reuse for the benefit of *future you* and your collaborators and colleagues **across disciplines**.
 
-### Community Principles: CARE and FAIR 
+### A Note on Community Principles: CARE and FAIR 
 
 In facilitating use of data resources, the community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): **Findable, Accessible, Interoperable, and Reproducible**. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
 
 ![](images/FAIRsFAIR.png)
 
-Another set of community developed principles surrounding open data are the [CARE Principles](https://static1.squarespace.com/static/5d3799de845604000199cd24/t/5da9f4479ecab221ce848fb2/1571419335217/CARE+Principles_One+Pagers+FINAL_Oct_17_2019.pdf).  The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. The CARE Principles stand for:
+
+Note, that accessibility in FAIR does not require the data to be open. The guiding principles put forward by FORCE 11 for accessibility are that: 
+
+1. (meta)data are retrievable by their identifier using a standard communicaitons protocol
+1. the protocol is open, free, and universally implementable
+1. the protocol allows for an authentication and authorization procedure, where neccesary
+1. metadata are accessible, even when the data are no longer available
+
+The [CARE Principles](https://static1.squarespace.com/static/5d3799de845604000199cd24/t/5da9f4479ecab221ce848fb2/1571419335217/CARE+Principles_One+Pagers+FINAL_Oct_17_2019.pdf) for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. The CARE Principles stand for:
 
 - Collective Benefit 
 - Authority to Control
@@ -114,9 +122,7 @@ Another set of community developed principles surrounding open data are the [CAR
 
 ![](images/FAIR_CARE.png)
 
-The CARE principles align with the FAIR principles by outlining guidelines for publishing data that is findable, accessible, interoperable, and reproducible while at the same time, accounts for Indigenous’ Peoples rights and interests. Initially designed to support Indigenous data sovereignty, CARE principles are now being adopted across domains, and many researchers argue they are relevant for both Indigenous Knowledge and data, as well as data from all disciplines (Carroll et al., 2021). These principles introduce a “game changing perspective” that encourages transparency in data ethics, and encourages data reuse that is purposeful and intentional that aligns with human well-being  aligns with human well-being (Carroll et al., 2021). 
-
-These will be discussed more comprehensively during the data ethics section of the workshop.
+These will be discussed more comprehensively during the data ethics section of the course
 
 
 ### Metadata Best Practices
@@ -253,34 +259,3 @@ We want to move towards a model such that when a user cites a research publicati
 ![](images/Transitive-Credit.png)
 
 This is transitive credit. And it changes the way in which we think about science communication and traditional publications.
-
-### Open Science, Reproducibilty and Computational Provenance {-}
-
-Computational provenance refers to the origin and processing history of data including:
-
-- Input data
-- Workflow/scripts
-- Output data
-- Figures
-- Methods, dataflow, and dependencies
-
-When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from inital data cleaning and integration, through analysis, modeling, and visualization. 
-
-Here's an example of a computational workflow from [Mark Carls](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
-
-![](images/comp-workflow-1.png)
-
-
-![](images/provenance.png)
-
-The screenshot of the dataset page shows how we render the workflow model information as part of an interactive user interface. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
-
-**From Provenance to Reproducibility**
-
-At the Arctic Data Center we facilitate open, reproducible science through provenance by: 
-
-- Tracking **data derivation** history
-- Tracking data **inputs** and **outputs** of analyses
-- Preserving and documenting software **workflows**
-- Tracking analysis and model **executions**
-- Linking all of these to **publications**
