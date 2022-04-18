@@ -19,7 +19,7 @@ Text mining is the process by which unstructured text is transformed into a stru
 
 Once text is in a structured format, analysis can be performed on it. The inherent benefit of quantitative text analysis is that it is highly scalable. With the right computational techniques, massive quantities of text can be mined and analyzed many, many orders of magnitude faster than it would take a human to do the same task. The downside, is that human language is inherently nuanced, and computers (as you may have noticed) think very differently than we do. In order for an analysis to capture this nuance, the tools and techniques for text analysis need to be set up with care, especially when the analysis becomes more complex.
 
-There a number of different types of text analysis. In this lesson we will show some simple examples of two: word frequency, and sentiment analysis.
+There are a number of different types of text analysis. In this lesson we will show some simple examples of two: word frequency, and sentiment analysis.
 
 #### Setup {.setup -}
 
