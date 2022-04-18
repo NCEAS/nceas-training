@@ -22,28 +22,28 @@ In this lesson we are going to learn what relational data models are, and how th
 
 A great paper called 'Some Simple Guidelines for Effective Data Management' [@borer_simple_2009] lays out exactly that - guidelines that make your data management, and your reproducible research, more effective.
 
-- Use a scripted program (like R!)
+- **Use a scripted program (like R!)**
 
 A scripted program helps to make sure your work is reproducible. Typically, point-and-click actions, such as clicking on a cell in a spreadsheet program and modifying the value, are not reproducible or easily explained. Programming allows you to both reproduce what you did, and explain it if you use a tool like Rmarkdown.
 
 
-- Non-proprietary file formats are preferred (eg: csv, txt)
+- **Non-proprietary file formats are preferred (eg: csv, txt)**
 
 Using a file that can be opened using free and open software greatly increases the longevity and accessibility of your data, since your data do not rely on having any particular software license to open the data file. 
 
-- Keep a raw version of data
+- **Keep a raw version of data**
 
 In conjunction with using a scripted language, keeping a raw version of your data is definitely a requirement to generate a reproducible workflow. When you keep your raw data, your scripts can read from that raw data and create as many derived data products as you need, and you will always be able to re-run your scripts and know that you will get the same output.
 
-- Use descriptive file and variable names (without spaces!)
+- **Use descriptive file and variable names (without spaces!)**
 
 When you use a scripted language, you will be using file and variable names as arguments to various functions. Programming languages are quite sensitive with what they are able to interpret as values, and they are particularly sensitive to spaces. So, if you are building reproducible workflows around scripting, or plan to in the future, saving your files without spaces or special characters will help you read those files and variables more easily. Additionally, making file and variables descriptive will help your future self and others more quickly understand what type of data they contain. 
 
-- Include a header line in your tabular data files
+- **Include a header line in your tabular data files**
 
 Using a single header line of column names as the first row of your data table is the most common and easiest way to achieve consistency among files.
 
-- Use plain ASCII text
+- **Use plain ASCII text**
 
 ASCII (sometimes just called plain text) is a very commonly used standard for character encoding, and is far more likely to persist very far into the future than proprietary binary formats such as Excel.
 
@@ -184,6 +184,10 @@ An Entity-Relationship model allows us to compactly draw the structure of the ta
 ![](images/plotobs-diagram-ss.png)
 
 In the above model, one can see that each community in the community observations table must have one or more survey participants in the survey table, whereas each survey response has one and only one community.
+
+Here is a more complicated ER Model showing examples of other types of relationships.
+
+![](images/ERD_Relationship_Symbols_Quick_Reference-1.png)
 
 #### Merging data {-}
 

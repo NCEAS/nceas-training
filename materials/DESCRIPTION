@@ -9,16 +9,22 @@ Imports:
     DT,
     ggplot2,
     ggforce,
+    ggmap,
     ggpmisc,
+    googlesheets4,
     janitor,
     kableExtra,
     knitr,
+    leaflet,
     readr,
+    reshape2,
     sf,
     scales,
     tidyr,
     tidytext,
+    textdata,
     htmlwidgets,
+    wordcloud,
     viridis
 Remotes: 
     rstudio/bookdown

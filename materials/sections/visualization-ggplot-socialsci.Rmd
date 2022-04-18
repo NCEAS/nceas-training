@@ -230,9 +230,11 @@ survey_long <- survey_joined %>%
 ```
 
 
-What if we wanted to generate a plot for every region? A fast way to do this uses the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
+What if we wanted to generate a plot for every question with a controlled vocabulary? A fast way to do this uses the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
 
-The default behaviour of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots. Here, we free the y scale. You can also specify the number of columns using the `n_col` argument.
+The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots. Here, we free the both scales. 
+
+Note that we have had to modify our axes from the previous plots. We now have answer on the y axis and fill as the location, since our answers have different answers. 
 
 ```{r}
 ggplot(survey_long, aes(x = answer, fill = location)) + 
