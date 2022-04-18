@@ -94,17 +94,16 @@ Preserving computational workflows enables understanding, evaluation, and reuse 
 
 ### A Note on Community Principles: CARE and FAIR 
 
+![](images/FAIR_CARE.png)
+
 In facilitating use of data resources, the community have converged on principles surrounding best practices for open data management. One set of these principles is the [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/): **Findable, Accessible, Interoperable, and Reproducible**. FAIR principles and open science are overlapping, but distinct concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data.
-
-![](images/FAIRsFAIR.png)
-
 
 Note, that accessibility in FAIR does not require the data to be open. The guiding principles put forward by FORCE 11 for accessibility are that: 
 
-1. (meta)data are retrievable by their identifier using a standard communicaitons protocol
-1. the protocol is open, free, and universally implementable
-1. the protocol allows for an authentication and authorization procedure, where neccesary
-1. metadata are accessible, even when the data are no longer available
+- (meta)data are retrievable by their identifier using a standard communicaitons protocol
+- the protocol is open, free, and universally implementable
+- the protocol allows for an authentication and authorization procedure, where neccesary
+- metadata are accessible, even when the data are no longer available
 
 The [CARE Principles](https://static1.squarespace.com/static/5d3799de845604000199cd24/t/5da9f4479ecab221ce848fb2/1571419335217/CARE+Principles_One+Pagers+FINAL_Oct_17_2019.pdf) for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. The CARE Principles stand for:
 
@@ -113,7 +112,6 @@ The [CARE Principles](https://static1.squarespace.com/static/5d3799de84560400019
 - Responsibility 
 - Ethics 
 
-![](images/FAIR_CARE.png)
 
 These will be discussed more comprehensively during the data ethics section of the course
 
