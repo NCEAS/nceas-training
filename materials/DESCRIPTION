@@ -3,6 +3,7 @@ Type: Book
 Title: Does not matter.
 Version: 0.0.2
 Imports: 
+    bibtex,
     bookdown,
     broom,
     dplyr,
@@ -15,6 +16,7 @@ Imports:
     janitor,
     kableExtra,
     knitr,
+    knitcitations,
     leaflet,
     readr,
     reshape2,

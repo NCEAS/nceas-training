@@ -1,7 +1,5 @@
 ---
 author: "Amber Budden"
-bibliography: 'sections/research-reproducibility.bib'
-nocite: '@*'
 ---
 
 ## Introduction to Reproducible Research
@@ -261,3 +259,10 @@ We want to move towards a model such that when a user cites a research publicati
 This is transitive credit. And it changes the way in which we think about science communication and traditional publications.
 
 ## Related resources and references
+
+```{r generateBibliography, results="asis", echo=FALSE, warning=F, message=F}
+require("knitcitations")
+cleanbib()
+options("citation_format" = "pandoc")
+read.bibtex(file = "research-reproducibility.bib")
+``` 
