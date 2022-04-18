@@ -4,9 +4,31 @@ author: "Amber Budden"
 
 ## Introduction to Reproducible Research
 
+### What do we mean by open science and research reproducibility?
+
+Throughout this course you will hear us emphasize open practices and research reproducibility. Indeed, as a data repository charged with both preserving and making accessible the products of NSF funded research, it is no surprise that these topics are central to our mission. However, these terms, while readily parsed, can mean different things to different individuals depending on their frame of reference and research activities. Further, even with a shared definition variation exists int he degree to which openness and research reproducibility can (or should) be implemented.
+
+Before we begin, we are going to take the time to discuss and possibly develop a shared understanding of the terms 'open' and 'reproducible' as they pertain to research. 
+
+#### Discuss {.unnumbered .exercise}
+
+In small groups answer the following questions:
+
+- What does open research mean to you? 
+    - Do you consider your own research practices open? 
+    - If not, why not? If so, how so?
+- What does reproducible research mean to you?
+    - Who should be able to reproduce research?
+    - Is your own research reproducible?
+    - If not, why not? If so, how so?
+
+Identify an individual to summarize and report back to the full group. 
+
+#### {-}
+
 ### What is research reproducibility and how does it relate to open science? 
 
-Reproducibility is a hallmark of scientific research, which is based on empirical observations coupled with explanatory models. Whether integrating data from across multiple studies and sources, or working with your own data, the data life cycle typically involves some degree of data collection/integration, quality assurance practices, analysis and synthesis.  Operating in a reproducible fashion means that each of these steps can be easily re-executed to achieve the same result, ideally as part of a single workflow.  
+Reproducibility is a hallmark of the scientific research process, which is based on empirical observations coupled with explanatory models. Whether integrating data from across multiple studies and sources, or working with your own data, the data life cycle typically involves some degree of data collection/integration, quality assurance practices, analysis and synthesis.  Operating in a reproducible fashion means that each of these steps can be easily re-executed to achieve the same result, ideally as part of a single workflow.  
 
 Reproducibility means different things to different researchers. For our purposes, practical reproducibility looks like:
 
@@ -17,7 +39,22 @@ Reproducibility means different things to different researchers. For our purpose
 
 Reproducibility does not, by definition, require openness. Reproducibility can be achieved within a single research activity or across a research program with a closed group of collaborators. However, when working in an OPEN and REPRODUCIBLE manner, we are better able to transform knowledge into benefits for society. In this section we will expand on the benefits of reproducible research and open science before highlighting some best practices. 
 
-### Why is reproducible research important? {-}
+### Open Science
+
+To enable full reproducibility by the broader community; researchers, practitioners, policy makers etc, all products of the research activity need to be accessible - open data, open code, and open publications. Further, full research transparency also requires open peer review. There are, of course, data sensitivities and ethical considerations regarding open everything and these will be discussed later.
+
+![](images/open-science.png)
+
+At its core, the aims of Open Science are to:
+
+1. Increase transparency of the research process
+1. Enable reproducibility of results and conclusions
+1. Accelerate discovery
+1. Enhance and facilitate collaboration
+1. Increase diversity, equity and inclusion
+1. Transform knowledge into benefits for society
+
+### So, why is reproducible research important? {-}
 
 Working in a reproducible manner builds efficiencies into your own research practices. The ability to automate processes and rerun analyses as you collect more data, or share your full workflow (including data, code and products) with colleagues, will accelerate the pace of your research and collaborations. However, beyond these direct benefits, reproducible research builds trust in science with the public, policy makers and others.  
 
@@ -35,20 +72,6 @@ Ionnidis (2005) contends that "Most research findings are false for most researc
 
 In the case of 'climategate', it took three years, and over 300 personnel, to gather the necessary provenance information in order to document how results, figures and other outputs were derived from input sources. Time and effort that could have been significantly reduced with appropriate documentation and reproducible practices. Moving forward, through reproducible research training, practices, and infrastructure, the need to manually chase this information will be reduced enabling replication studies and great trust in science.
 
-### Open Science
-
-To enable full reproducibility by the broader community; researchers, practitioners, policy makers etc, all products of the research activity need to be accessible - open data, open code, and open publications. Further, full research transparency also requires open peer review. There are, of course, data sensitivities and ethical considerations regarding open everything and these will be discussed later.
-
-![](images/open-science.png)
-
-At its core, the aims of Open Science are to:
-
-1. Increase transparency of the research process
-1. Enable reproducibility of results and conclusions
-1. Accelerate discovery
-1. Enhance and facilitate collaboration
-1. Increase diversity, equity and inclusion
-1. Transform knowledge into benefits for society
 
 #### Computational reproducibility {-}
 
