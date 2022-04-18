@@ -131,7 +131,7 @@ ORCID is a non-profit organization made up of research institutions, funders, pu
 
 After signing in, you can access the data submission form using the Submit button. Once on the form, upload your data files and follow the prompts to provide the required metadata.
 
-![](images/editor-01.png)
+![](images/editor-01-socialsci.png)
 
 **Sensitive Data Handling**
 
@@ -147,7 +147,7 @@ You will continue to be prompted to enter information about your research, and i
 
 Methods are critical to accurate interpretation and reuse of your data. The editor allows you to add multiple different methods sections, so that you can include details of sampling methods, experimental design, quality assurance procedures, and/or computational techniques and software. 
 
-![](images/editor-11.png)
+![](images/editor-11-socialsci.png)
 
 As part of a recent update, researchers are now asked to describe the ethical data practices used throughout their research. The information  provided will be visible as part of the metadata record. This feature was added to the data submission process to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science and sharing ethical practices encourages deeper discussion about data reuse and ethics. 
 
@@ -157,13 +157,13 @@ We encourage you to think about the ethical data and research practices that wer
 
 In addition to providing information about, (or a description of) your dataset, you can also provide information about each file and the variables within the file. By clicking the "Describe" button you can add comprehensive information about each of your measurements, such as the name, measurement type, standard units etc. 
 
-![](images/editor-19.png)
+![](images/editor-19-socialsci.png)
 
 **Provenance**
 
 The data submission system also provides the opportunity for you to provide provenance  information, describe the relationship between package elements. When viewing  your  dataset followinng submission, After completing your data description and submitting your dataset you will see the option to add source data and code, and derived data and code.
 
-![](images/editor-14.png)
+![](images/editor-14-socialsci.png)
 
 These are just some of the features and functionality of the Arctic Data Center submission system and we will go through them in more detail below as part of a hands-on activity.
 
@@ -176,7 +176,7 @@ I've already uploaded the test data package, and so you can access the data here
 
 Grab both CSV files, and the R script, and store them in a convenient folder.
 
-![](images/hatfield-01.png)
+![](images/test-dataset-socialsci.png)
 
 #### Login via ORCID
 
@@ -200,7 +200,7 @@ required metadata.
 
 You can select multiple files at a time to efficiently upload many files.
 
-![](images/editor-01.png)
+![](images/editor-01-socialsci.png)
 
 The files will upload showing a progress indicator.  You can continue editing 
 metadata while they upload.
@@ -211,16 +211,15 @@ metadata while they upload.
 
 This includes a descriptive title, abstract, and keywords.
 
-![](images/editor-03.png)
-![](images/editor-04.png)
+![](images/editor-03-socialsci.png)
+![](images/editor-04-socialsci.png)
 You also must enter a funding award number and choose a license.  The funding field will 
 search for an NSF award identifier based on words in its title or the number itself. The licensing options are CC-0 and CC-BY, which both allow your data to be downloaded and re-used by other researchers.
 
 - CC-0 Public Domain Dedication: “...can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.”
 - CC-BY: Attribution 4.0 International License: “...free to...copy,...redistribute,...remix, transform, and build upon the material for any purpose, even commercially,...[but] must give appropriate credit, provide a link to the license, and indicate if changes were made.”
 
-![](images/editor-05.png)
-![](images/editor-06.png)
+![](images/editor-05-socialsci.png)
 
 ##### People Information
 
@@ -236,7 +235,7 @@ the product.  Enter information for the following people:
 For each, please provide their [ORCID](https://orcid.org) identifier, which
 helps link this dataset to their other scholarly works.
 
-![](images/editor-07.png)
+![](images/editor-07-socialsci.png)
 
 ##### Location Information
 
@@ -255,14 +254,14 @@ place name, ordered from the local to global:
 
 - Mission Canyon, Santa Barbara, California, USA
 
-![](images/editor-09.png)
+![](images/editor-09-socialsci.png)
 
 ##### Temporal Information
 
 Add the temporal coverage of the data, which represents the time period to which
 data apply.  Again, use multiple date ranges if your sampling was discontinuous.
 
-![](images/editor-10.png)
+![](images/editor-10-socialsci.png)
 
 ##### Methods
 
@@ -272,7 +271,7 @@ sampling methods, experimental design, quality assurance procedures, and/or comp
 techniques and software.  Please be complete with your methods sections, as they
 are fundamentally important to reuse of the data.
 
-![](images/editor-11.png)
+![](images/editor-11-socialsci.png)
 
 ##### Save a first version with **Submit**
 
@@ -284,7 +283,7 @@ Correct those, and then try submitting again.  When you are successful, you shou
 see a large green banner with a link to the current dataset view.  Click the `X` 
 to close that banner if you want to continue editing metadata.
 
-![](images/editor-12.png)
+![](images/editor-12-socialsci.png)
 Success!
 
 #### File and variable level metadata 
@@ -296,28 +295,27 @@ the data contained in each file, as well as details of their internal structure.
 For example, for data tables, you'll need the name, label, and definition of 
 each variable in your file.  Click the **Describe** button to access a dialog to enter this information.
 
-![](images/editor-18.png)
+![](images/editor-18-socialsci.png)
 The **Attributes** tab is where you enter variable (aka attribute)
 information, including:
 
 - variable name (for programs)
 - variable label (for display)
 
-![](images/editor-19.png)
+![](images/editor-19-socialsci.png)
 - variable definition (be specific)
 - type of measurement
-![](images/editor-20.png)
+![](images/editor-20-socialsci.png)
 - units & code definitions 
 
-![](images/editor-21.png)
+![](images/editor-21-socialsci.png)
 You'll need to add these definitions for every variable (column) in 
 the file. When done, click **Done**.
-![](images/editor-22.png)
 Now, the list of data files will show a green checkbox indicating that you have
 fully described that file's internal structure.  Proceed with the other CSV
 files, and then click **Submit Dataset** to save all of these changes.
 
-![](images/editor-23.png)
+![](images/editor-23-socialsci.png)
 After you get the big green success message, you can visit your 
 dataset and review all of the information that you provided. If
 you find any errors, simply click **Edit** again to make changes.
@@ -336,19 +334,19 @@ workflow.  On the left side, select the `Add` circle to add an **input** data so
 to the filteredSpecies.csv file.  This starts building the provenance graph to
 explain the origin and history of each data object.
 
-![](images/editor-13.png)
+![](images/editor-13-socialsci.png)
 The linkage to the source dataset should appear.
 
-![](images/editor-14.png)
+![](images/editor-14-socialsci.png)
 
 Then you can add the link to the source code that handled the conversion
 between the data files by clicking on `Add` arrow and selecting the R script:
 
-![](images/editor-15.png)
-![](images/editor-16.png)
-![](images/editor-17.png)
+![](images/editor-15-socialsci.png)
+![](images/editor-16-socialsci.png)
+![](images/editor-17-socialsci.png)
 The diagram now shows the relationships among the data files and the R script, so
 click **Submit** to save another version of the package.
 
-![](images/editor-24.png)
+![](images/editor-24-socialsci.png)
 Et voilà!  A beautifully preserved data package!
