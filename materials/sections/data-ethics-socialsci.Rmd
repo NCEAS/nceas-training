@@ -33,25 +33,12 @@ The FAIR (Findable, Accessible, Interoperable, Reproducible) principles for data
 ![](images/FAIRsFAIR.png)
 FAIR Principles and open science are not synonymous, however they often go hand in hand. However, data can be open and not FAIR, and vice verse. 
 
-The “Fostering FAIR Data Practices in Europe” project found that it is more monetarily and timely expensive when FAIR principles are not used, and it was estimated that 10.2 billion dollars per years are spent through “storage and license costs to more qualitative costs related to the time spent by researchers on creation, collection and management of data, and the risks of research duplication.” FAIR principles and open science are overlapping concepts, but are distinctive concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data. The FAIR principles place emphasis on machine readability, “distinct from peer initiatives that focus on the human scholar” (Wilkinson et al 2016) and as such, do not fully engage with sensitive data considerations and with  Indigenous rights and interests (Research Data Alliance International Indigenous Data Sovereignty Interest Group, 2019).
+The “Fostering FAIR Data Practices in Europe” project found that it is more monetarily and timely expensive when FAIR principles are not used, and it was estimated that 10.2 billion dollars per years are spent through “storage and license costs to more qualitative costs related to the time spent by researchers on creation, collection and management of data, and the risks of research duplication.” 
+
+FAIR principles and open science are overlapping concepts, but are distinctive concepts. Open science supports a culture of sharing research outputs and data, and FAIR focuses on how to prepare the data. **The FAIR principles place emphasis on machine readability, “distinct from peer initiatives that focus on the human scholar” (Wilkinson et al 2016) and as such, do not fully engage with sensitive data considerations and with  Indigenous rights and interests (Research Data Alliance International Indigenous Data Sovereignty Interest Group, 2019)**. Research has historically perpetuated colonialism and represented extractive practices, meaning that the research results were not mutually beneficial. These issues also related to how data was owned, shared, and used.
 
 
-### Equity issues in open science
-
-With an Indigenous population double that of Indigenous peoples across the globe, there are over 40 different ethnic and cultural groups in the Arctic (Arctic Council, 2021). Arctic communities (defined as a place and the people who live there,
-based on geographic location in the Arctic/sub-Arctic) are involved in
-research in diverse ways - as hosts to visiting or non-local
-researchers, as well as “home” to community researchers who are
-leading or collaborating on research projects. Over the past decades,
-community voices of discontent with standard research practices that
-are often exclusive and perpetuate inequities have grown stronger. The
-Arctic research community (defined more broadly as the range of
-institutions, organizations, researchers and local communities
-involved in research) is in the midst of a complex conversation about
-equity in research aimed at transforming research practice to make it
-more equitable and inclusive.
-
-To address issues like these, the Global Indigenous Data Alliance (GIDA) introduced CARE Principles for Indigenous Data Governance to support Indigenous data sovereignty. CARE Principles for Indigenous Data Governance stand for Collective Benefit, Authority to Control, Responsibility, Ethics. The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. These principles ask researchers to put human well-being at the forefront of open-science and data sharing (Carroll et al., 2021; Research Data Alliance International Indigenous Data Sovereignty Interest Group, September 2019). Indigenous data sovereignty and considerations related to working with Indigenous communities are particularly relevant to the Arctic. The CARE Principles stand for:
+**To address issues like these, the Global Indigenous Data Alliance (GIDA) introduced CARE Principles for Indigenous Data Governance to support Indigenous data sovereignty**. CARE Principles for Indigenous Data Governance stand for Collective Benefit, Authority to Control, Responsibility, Ethics. The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices. These principles ask researchers to put human well-being at the forefront of open-science and data sharing (Carroll et al., 2021; Research Data Alliance International Indigenous Data Sovereignty Interest Group, September 2019). Indigenous data sovereignty and considerations related to working with Indigenous communities are particularly relevant to the Arctic. The CARE Principles stand for:
 
 * Collective Benefit - Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data
 * Authority to Control - Indigenous Peoples’ rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledges and geographical indicators, are represented and identified within data.
@@ -64,61 +51,6 @@ To many, the FAIR and CARE principles are viewed by many as complementary: CARE 
 ![](images/FAIR_CARE.png)
 
 Sharing sensitive data introduces unique ethical considerations, and FAIR and CARE principles speak to this by recommending sharing anonymized metadata to encourage discover ability and reduce duplicate research efforts, following consent of rights holders  (Puebla & Lowenberg, 2021). While initially designed to support Indigenous data sovereignty, CARE principles are being adopted more broadly and researchers argue they are relevant across all disciplines (Carroll et al., 2021). As such, these principles introduce a “game changing perspective” for all researchers that encourages transparency in data ethics, and encourages data reuse that is both purposeful and intentional and that aligns with human well-being (Carroll et al., 2021). Hence, to enable the research community to articulate and document the degree of data sensitivity, and ethical research practices, the Arctic Data Center has introduced new submission requirements.
-
-From ELOKA and NNA: Open science is ostensibly about making access to data and knowledge
-more equitable and open and enabling reproducible research. These are laudable goals and on the surface, could provide a counterbalance to
-traditional approaches that limited Arctic community members’ access
-to research data and knowledge. Because it is being implemented within
-a social and institutional context that continues to perpetuate
-inequities in research, however, there are significant challenges
-remaining to ethically and equitably implementing open science
-practices.
-
-Here are some examples of impediments to ethical and equitable
-implementation of open science:  
-
-* Many Open Science tools and practices (e.g. GitHub, non-proprietary
-  software) have been adopted from software development, and are not
-  familiar to many, even physical, scientists. This makes barriers to
-  implementation of open science and participation in open science
-  practices higher for some than for others.  
-
-* Some of the main focus areas of open science (making sure data is
-  archived in a clean and reusable format, open access publication)
-  are still not accessible for Arctic residents and others who are not
-  already situated within an academic environment. Open science
-  assumes access to tools and infrastructure, such as computers that
-  have reliable and low-cost or subsidized internet access.  
-
-* These structural inequalities extend even within the
-  academy. Researchers and academics based in lower-income countries
-  have fewer provided resources and sources of support to pay for open
-  access fees and [face greater challenges in adopting open science
-  practices](https://www.nature.com/articles/d41586-022-00724-0?WT.ec_id=NATURE-20220317&utm_source=nature_etoc&utm_medium=email&utm_campaign=20220317&sap-outbound-id=B4EAD742973291804C3AEF5A15DD13806C9F2C30).
-
-
-* The emphasis of open science on stakeholder and rights holder
-  engagement and knowledge co-production also creates unintended
-  challenges for Arctic communities. For example, when the National
-  Science Foundation’s Navigating the New Arctic initiative, which
-  brought millions of additional funds to Arctic research, suggested
-  that research projects incorporate co-production and collaboration
-  with Arctic communities, community representatives reported being
-  inundated with requests from researchers. Perhaps because NNA was
-  designed, in part, to bring new researchers and disciplines into
-  Arctic research, many of these requests were made without adequate
-  regard for recognized good practices for community engagement (such
-  as the importance of building relationships, reaching out very early
-  for input; communicating “early and often;” and incorporating
-  significant resources for community participants’ time and knowledge
-  into project budgets, among other things). As a [letter to NSF](https://kawerak.org/download/navigating-the-new-arctic-program-comment-letter/)
-  written by Kawerak, the Association of Village Council Presidents,
-  the Aleut Community of St. Paul Island, and the Bering Sea Elders
-  Group emphasized, without adequate attention to these practices as
-  well as an emphasis on topics that communities have identified as
-  important, research will not serve community partners and will fail
-  to achieve its broader impact goals. (See also the [2021 update
-  letter](https://kawerak.org/download/dec-2021-nna-follow-up-letter/) from the same organizations).  
 
 
 ### Discussion: Case Studies from "Challenges in Community-Research Relationships: Learning from Natural Science in Nunavut" (Gearheard & Shirley, 2006)  https://journalhosting.ucalgary.ca/index.php/arctic/article/view/63328/47265 
@@ -166,11 +98,7 @@ This research continued to receive community approval throughout the years.
 ## Discussion questions:
 
 1. What main differences between the two case studies stand out to you? 
-2. What do you see as the benefits to your research (or to Arctic
-research more generally) from applying the frameworks discussed today?
-What do you see as the major impediments to adopting these frameworks
-in the context of open science? How might you navigate these conflicts
-within your own research project(s)?
+2. What data ethics do you consider in your research? Why or why not?
 3. How do you and/or your research lab view open science? 
 
 
