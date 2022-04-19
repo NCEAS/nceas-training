@@ -147,46 +147,12 @@ setwd("..")
 rrtools::use_compendium("mypaper")
 ```
 
-You should see output similar to the below:
-
-```
-> rrtools::use_compendium("mypaper")
-The directory mypaper has been created.
-✓ Setting active project to '/Users/bryce/mypaper'
-✓ Creating 'R/'
-✓ Writing 'DESCRIPTION'
-Package: mypaper
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R (parsed):
-    * First Last <first.last@example.com> [aut, cre]
-Description: What the package does (one paragraph).
-License: MIT + file LICENSE
-ByteCompile: true
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
-✓ Writing 'NAMESPACE'
-✓ Writing 'mypaper.Rproj'
-✓ Adding '.Rproj.user' to '.gitignore'
-✓ Adding '^mypaper\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
-✓ Setting active project to '<no active project>'
-✓ The package mypaper has been created
-✓ Now opening the new compendium...
-✓ Done. The working directory is currently /Users/bryce
-
-Next, you need to:  ↓ ↓ ↓ 
-● Edit the DESCRIPTION file
-● Use other 'rrtools' functions to add components to the compendium
-```
 
 `rrtools` has created the beginnings of a research compendium for us.
 At this point, it looks mostly the same as an R package.
 That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package. And this means our research compendium will be easy to install, just like an R package.
 
-Before we get to writing our reproducible paper, let's fill in some more structure.
-Let's:
+`rrtools` also helps you set up some key information like:
 
 1. Add a license (always a good idea)
 1. Set up a README file in the RMarkdown format
@@ -199,7 +165,7 @@ rrtools::use_analysis()
 ```
 
 This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper.
-To follow the structure `rrtools` has put in place for us, here are some pointers:
+To follow the structure `rrtools` has put in place for us, here are some next steps you can take:
 
 - Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
 - Add any citations to `./analysis/paper/references.bib`
@@ -208,56 +174,20 @@ To follow the structure `rrtools` has put in place for us, here are some pointer
 - Write out any derived data (generated in `paper.Rmd`) to `./data/derived_data`
 - Write out any figures in `./analysis/figures`
 
-It would also be a good idea to initialize this folder as a git repo for maximum reproducibility:
+You can then write all of your R code in your RMarkdown, and generate your manuscript all in the format needed for your journal (using it's .csl file).
 
-```{r init-git, eval=FALSE}
-usethis::use_git()
-```
+Here is a look at the beginning of the Rmd:
 
-After that, push a copy up to [GitHub](https://github.com).
+![](images/paper-rmd.png)
 
-#### A quick tour of features for reproducibility in RMarkdown
+And the rendered PDF:
 
-We're now going to walk though some of the key features that makes writing transparent articles with RMarkdown a breeze. We'll cover:
-
-- Loading data reproducibly
-- Attractive typesetting for mathematics
-- Figures, tables, and captions
-- In-text citations
-- Bibliographies
-
-To do this, we will work from an already built-out example paper that illustrates these features. Start by:
-
-- Copy the example file [`paper.Rmd`](files/paper.Rmd) to `analysis/paper/paper.Rmd` in the project you built earlier
-- Copy the example bibliography [`references.bib`](files/references.bib) to `analysis/paper/paper.Rmd` in the project you built earlier
-- Open that `paper.Rmd` file in the reproducible paper project in RStudio
-- Walk through the example file to examine each of the Rmarkdown features
-- Knit and view the file
-
-```{r download-paper-example, eval=FALSE}
-download.file("https://learning.nceas.ucsb.edu/2022-02-arctic/files/paper.Rmd", destfile = "analysis/paper/paper.Rmd")
-download.file("https://learning.nceas.ucsb.edu/2022-02-arctic/files/references.bib", destfile = "analysis/paper/references.bib")
-```
-
-#### Getting PDF rendering working
-
-By default, `rrtools` will create papers that are meant to be rendered either as PDF documents, or as MS Word documents. You can switch between these, but for them both to work you must have the requisite software installed on your machine. For PDF, this means you need to have a version of Tex installed with pdflatex available, which can be a difficult process on Macs and Windows. We have found that installing the R package `tinytex` provides a good, reliable workaround on macs and windows machines, although there can still be some futzing involved if you already have LaTEX installed, or if you don't have sufficient permissions to install. Its beyond the scope of time available today to diagnose all of the installation issues, but hopefully tinytex will provide a path forward for you. In brief, you can install tex in your personal account using `tinytex::install_tinytex()`, and the restart your RStudio session, and you should have a working version of pdflatex that allows things to build the documents properly.
-
-```{r tinytex, eval=FALSE, echo=TRUE}
-install.packages("tinytex")
-tinytex::install_tinytex()
-```
-
-#### Wrapping up with `rrtools`
-
-Hopefully, now that you've created a research compendium with `rrtools`, you can imagine how a pre-defined structure like the one `rrtools` creates might help you organize your reproducible research and also make it easier for others to understand your work.
-
-For a more complete example than the one we built above, take a look at [benmarwick/teaching-replication-in-archaeology](https://github.com/benmarwick/teaching-replication-in-archaeology).
+![](images/paper-rendered.png)
 
 ### Reproducible Papers with `rticles`
 
 Note that the [`rticles`](https://github.com/rstudio/rticles
-B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for rreference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `remotes::install_github("rstudio/rticles")` and restarting your RStudion session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
+B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for rreference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `remotes::install_github("rstudio/rticles")` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
 
 ![](images/rticles-new.png)
 Select the "PNAS" template, give the file a name and choose a location for the files, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
