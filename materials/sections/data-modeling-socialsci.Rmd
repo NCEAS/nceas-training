@@ -205,17 +205,16 @@ In the figure above, the blue regions show the set of rows that are included in 
 
 ### Data modeling exercise
 
--   Break into groups, 1 per table
+-   Break into groups
 
 Our funding agency requires that we take surveys of individuals who complete our training courses so that we can report on the demographics of our trainees and how effective they find our courses to be. In your small groups, design a set of tables that will capture information collected in a participant survey that would apply to many courses. 
 
 Don't focus on designing a comprehensive set of questions for the survey, one or two simple stand ins (eg: "Did the course meet your expectations?", "What could be improved?", "To what degree did your knowledge increase?") would be sufficient.
 
-Include as variables (columns) a basic set of demographics and identifying information, such as career stage, date of birth, gender, name, and contact information.
+Include as variables (columns) a basic set of information not only from the surveys, but about the courses, such as the date of the course and name of the course.
 
 
-Draw your entity-relationship model in the invision session for your group that the instructor links to. Note: you don't have to create an account or log-in. Click "continue as guest" in the upper right hand corner to access the drawing tool.
-
+Draw your entity-relationship model for your tables.
 
 
 ### Resources
