@@ -1,5 +1,14 @@
 # Welcome and Introductions
 
-```{r, child = 'sections/adc-intro-to-policies.Rmd'}
+![](images/adc-courses-banner.png)
+This course is one of three that we are currently offering, covering fundamentals of open data sharing, reproducible research, ethical data use and reuse, and scalable computing for reusing large data sets.
+
+```{r, course-figs, echo = FALSE}
+par(mfrow=c(1,3))
+knitr::include_graphics("images/adc-courses-fundamentals.png")
+knitr::include_graphics("images/adc-courses-repro-rsrch.png")
+knitr::include_graphics("images/adc-courses-scalable-comp.png")
 ```
 
+```{r, child = 'sections/adc-intro-to-policies.Rmd'}
+```
