@@ -55,6 +55,31 @@ Commonly used survey software within academic (vs market) research include Qualt
 
 ![](images/survey_comparison.png)
 
+#### Data Validation
+
+Despite some limitations in comparison with more advanced licensed software, Google Forms does include some elements of data validation. This feature helps ensure responses fall within expected or logical ranges. It is also useful if using google forms as a data collection instrument as opposed to a survey tool, reducing input errors.
+
+Data validation can be applied to short answer responses, paragraph responses and check boxes. For example:
+
+1. **Short answer:** If numeric, you can define limits. For text you can check for a specific work or string type, e.g. URL or email. You can also define the minimum and maximum characters. 
+1. **Paragraph:** Define the minimm and maximum paragraph length (in characters).  
+1. **Checkboxes:** Set a minimums for box selection, set maximums, set actual numbers of boxes to be selected. 
+
+![](images/googleform.png)
+
+Both short answer and paragraph responses can also use regular expressions as a form of validation. Regular expressions are formulas that represent a sequence of characters signifying a search pattern.  e.g.
+
+`^[a-z].*` 
+
+signifies an input that contains a lowercase letter followed by another character 0 or more times. This might be used within a name field to correct for lack of capitalization of the name. 
+
+`^`: signifies that the string starts with the character(s) or sequence placed after the caret
+`[a-z]`: signifies a search for a character within the given range of characters
+`.`: signifies any character in the given position
+`*`: signifies a search for the preceding character repeated 0 or more times
+
+This signifies a U.S. zip code consisting of five numbers with an optional hyphen and four-digit add-on.
+
 ### Building workflows: Options for data integration
 
 #### Qualtrics and qualtRics
