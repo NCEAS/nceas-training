@@ -3,30 +3,90 @@
 ### Learning Objectives
 
 - Overview of survey instruments
-- Best practices for survey data management
 - Overview of data integration packages
 - Practice in google forms integration through R
 
 
 ### Survey instruments and methods
 
-Surveys and questionnaires are commonly used research methods within social science and other fields. For example, understanding regional and national population demographics, income, and education as part of the [National Census](https://www.census.gov/en.html) activity, assessing audience perspectives on specific topics of research interest (e.g. the work by Tenopir and colleagues on [Data Sharing by Scientists](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0021101)), evaluation of learning deliverable and outcomes, and consumer feedback on new and upcoming products. These are distinct from the use of the term survey within natural sciences, which might include geographical surveys ("the making of measurement in the field from which maps are drawn"), ecological surveys ("the process whereby a proposed development site is assess to establish any environmental impact the development may have") or biodiversity surveys ("provide detailed information about biodiversity and community structure") among others. In social science, a survey can be defined as:
+Surveys and questionnaires are commonly used research methods within social science and other fields. For example, understanding regional and national population demographics, income, and education as part of the [National Census](https://www.census.gov/en.html) activity, assessing audience perspectives on specific topics of research interest (e.g. the work by Tenopir and colleagues on [Data Sharing by Scientists](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0021101)), evaluation of learning deliverables and outcomes, and consumer feedback on new and upcoming products. These are distinct from the use of the term survey within natural sciences, which might include geographical surveys ("the making of measurement in the field from which maps are drawn"), ecological surveys ("the process whereby a proposed development site is assess to establish any environmental impact the development may have") or biodiversity surveys ("provide detailed information about biodiversity and community structure") among others. In social science, a survey can be defined as:
 
 > a research method involving the use of standardised questionnaires or interviews to collect data about people and their preferences, thoughts, and behaviours in a systematic manner.       - Social Science Research: Principles, Methods and Practices
 
 There are a large number of platforms that provide opportunity for structured feedback and have specific use cases, outside of formalized research methods. For example, participant registration (e.g. Google forms, Aventri), presentation feedback (e.g. Mentimeter), scheduling (e.g. Doodle). In this section we will focus on software designed or commonly used for research activity.
 
+But first ...
 
+#### Discuss {.unnumbered .exercise}
 
+Whether experienced in survey methodologies, or via knowledge of surveys from a user perspective, discuss the following questions:
 
-### Survey data best practices
+- What survey software do you / have you used?
+- What features or functionality did you like about the software?
+- What features or functionality are important to you when considering survey software?
+
+Identify an individual to summarize and report back to the full group. 
+
+#### {-}
+
+### Survey Needs and Software Solutions
+
+Survey needs will vary across individual according to the nature of the research being undertaken. However, there is fundamental functionality that survey software should provide including:
+
+1. The ability to create and customize questions
+1. The ability to include different types of questions
+1. The ability to distribute the survey and manage response collection
+1. The ability to collect, summarize, and (securely) store response data
+
+More advanced features can include:
+
+1. **Visual design and templates**  - custom design might include institutional branding or aesthetic elements. Templates allow you to save these designs and apply to other surveys
+1. **Question piping** - piping inserts answers from previous questions into upcoming questions and can personalize the survey experience for users 
+1. **Survey logic** - with question logic and skip logic you can control the inclusion / exclusion of questions based on previous responses
+1. **Randomization** - the ability to randomize the presentation of questions within (blocks of) the survey
+1. **Branching** - this allows for different users to take different paths through the survey. Similar to question logic but at a bigger scale
+1. **Language support** - automated translation or multi-language presentation support
+1. **Shared administration** - enables collaboration on the survey and response analysis 
+1. **Survey export** - ability to download (export) the survey instrument
+1. **Reports** - survey response visualization and reporting tools
+1. **Institutional IRB approved** - institutional IRB policy may require certain software be used for research purposes
+
+Commonly used survey software within academic (vs market) research include Qualtrics, Survey Monkey and Google Forms. Both qualtrics and survey monkey are licensed (with limited functionality available at no cost) and google forms is free.
+
+![](images/survey_comparison.png)
+
+#### Data Validation
+
+Despite some limitations in comparison with more advanced licensed software, Google Forms does include some elements of data validation. This feature helps ensure responses fall within expected or logical ranges. It is also useful if using google forms as a data collection instrument as opposed to a survey tool, reducing input errors.
+
+Data validation can be applied to short answer responses, paragraph responses and check boxes. For example:
+
+1. **Short answer:** If numeric, you can define limits. For text you can check for a specific word or string type, e.g. URL or email. You can also define the minimum and maximum characters. 
+1. **Paragraph:** Define the minimum and maximum paragraph length (in characters).  
+1. **Checkboxes:** Set a minimums for box selection, set maximums, set actual numbers of boxes to be selected. 
+
+![](images/googleform.png)
+
+Both short answer and paragraph responses can also use regular expressions as a form of validation. Regular expressions are formulas that represent a sequence of characters signifying a search pattern.  e.g. 
+
+`^[a-z].*` 
+
+signifies an input that contains a lowercase letter followed by another character 0 or more times. This might be used within a name field to correct for lack of capitalization of the name. 
+
+`^`: signifies that the string starts with the character(s) or sequence placed after the caret
+
+`[a-z]`: signifies a search for a character within the given range of characters
+
+`.`: signifies any character in the given position
+
+`*`: signifies a search for the preceding character repeated 0 or more times
 
 
 ### Building workflows: Options for data integration
 
 #### Qualtrics and qualtRics
 
-[`qualtRics`](https://github.com/ropensci/qualtRics) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtrics is proprietary software, the `qualtRics` R package is open source and community developed. 
+[`qualtRics`](https://github.com/ropensci/qualtRics) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtrics is proprietary software, the `qualtRics` R package is open source and developed within the [ROpenSci](https://ropensci.org) community. 
 
 The package currently contains three core functions:
 
@@ -58,6 +118,21 @@ Also contained within the package are the following helper functions:
 1. `metadata()` retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
 
 `qualtRics` will only enable you to download and integrate survey data that you have administrative access to. Rest assured that someone else cannot use this package to read in your data. However, one limitation is that the package requires Qualtrics API access, which must be enabled in your account to use it. Depending on the type of account you have, this may require administrative approval from your brand ambassador for institutional accounts.
+
+#### Survey Monkey
+
+Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). Again, this package requires API access to Survey Monkey and documentation on setup is provided within the [Readme](https://github.com/cloudyr/Rmonkey#readme) file. 
+
+Features of RMonkey include the ability to:
+
+1. `createsurvey()` which will create an email collector survey from a template of another survey example
+1. `createcollector()` which will create a web collector survey from a template of another survey example
+1. `getresponses()` will return responses from a survey
+1. List various entities including `surveylist()` `templatelist()` `respondentlist()`
+
+Also like qualtRics this package is open source and community developed. Inspection of the GitHub repository shows that the last updates were made 5 years ago and so the package may not function as intended. 
+
+There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R.  
 
 ### Google forms 
 
