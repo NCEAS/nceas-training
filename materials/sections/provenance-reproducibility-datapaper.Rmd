@@ -1,5 +1,3 @@
-## Reproducible and Transparent Papers
-
 ### Learning Objectives
 
 In this lesson, we will:
@@ -10,10 +8,6 @@ In this lesson, we will:
 - Overview how R packages are great ways to package work reproducibly
 - Learn how to build a reproducible paper in RMarkdown
 - Review tools and techniques for reproducibility supported by the NCEAS and DataONE
-
-#### Reproducibility and Provenance
-
-- Slides: [Accelerating synthesis science through reproducible science practices](files/2019-10-11-repro-sci.pdf)
 
 #### Reproducible Research: Recap  {-}
 
@@ -86,7 +80,7 @@ ProvONE provides the fundamental information required to understand and analyze 
 
 ![](images/data-package.png)
 
-### Data Citation  {-}
+<!--### Data Citation  {-}
 
 Data citation best practices are focused on providing credit where credit is due and indexing and exposing data citations across international repository networks. In 2014, Force 11 established a [Joint Declaration of Data Citation Principles](https://doi.org/10.25490/a97f-egyk) that includes:
 
@@ -97,9 +91,9 @@ Data citation best practices are focused on providing credit where credit is due
 - Access
 - Persistence
 - Specificity and Verifiability
-- Interoperability and Flexibility
+- Interoperability and Flexibility -->
 
-**Transitive Credit**
+### Data Citation and Transitive Credit
 
 We want to move towards a model such that when a user cites a research publication we will also know:
 
@@ -112,7 +106,7 @@ We want to move towards a model such that when a user cites a research publicati
 
 This is transitive credit. And it changes the way in which we think about science communication and traditional publications. 
 
-### Reproducible Papers with `rrtools`
+<!--### Reproducible Papers with `rrtools`
 
 A great overview of this approach to reproducible papers comes from:
 
@@ -193,7 +187,7 @@ B) package provides a lot of other great templates for formatting your paper spe
 Select the "PNAS" template, give the file a name and choose a location for the files, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
 
 ![](images/rticles-pnas.png)
-While `rticles` doesn't produce the detailed folder layout of `rrtools`, it is relatively simple to use the two packages together. Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
+While `rticles` doesn't produce the detailed folder layout of `rrtools`, it is relatively simple to use the two packages together. Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible. -->
 
 ### The 5th Generation of Reproducible Papers {-}
 
