@@ -67,7 +67,7 @@ Data validation can be applied to short answer responses, paragraph responses an
 
 ![](images/googleform.png)
 
-Both short answer and paragraph responses can also use regular expressions as a form of validation. Regular expressions are formulas that represent a sequence of characters signifying a search pattern.  e.g.
+Both short answer and paragraph responses can also use regular expressions as a form of validation. Regular expressions are formulas that represent a sequence of characters signifying a search pattern.  e.g. 
 
 `^[a-z].*` 
 
