@@ -74,8 +74,11 @@ Both short answer and paragraph responses can also use regular expressions as a 
 signifies an input that contains a lowercase letter followed by another character 0 or more times. This might be used within a name field to correct for lack of capitalization of the name. 
 
 `^`: signifies that the string starts with the character(s) or sequence placed after the caret
+
 `[a-z]`: signifies a search for a character within the given range of characters
+
 `.`: signifies any character in the given position
+
 `*`: signifies a search for the preceding character repeated 0 or more times
 
 This signifies a U.S. zip code consisting of five numbers with an optional hyphen and four-digit add-on.
