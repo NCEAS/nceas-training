@@ -181,12 +181,14 @@ And the rendered PDF:
 ### Reproducible Papers with `rticles`
 
 Note that the [`rticles`](https://github.com/rstudio/rticles
-B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for rreference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `remotes::install_github("rstudio/rticles")` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
+B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `remotes::install_github("rstudio/rticles")` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
 
 ![](images/rticles-new.png)
+
 Select the "PNAS" template, give the file a name and choose a location for the files, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
 
 ![](images/rticles-pnas.png)
+
 While `rticles` doesn't produce the detailed folder layout of `rrtools`, it is relatively simple to use the two packages together. Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
 
 ### The 5th Generation of Reproducible Papers {-}
