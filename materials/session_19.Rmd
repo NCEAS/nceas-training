@@ -5,6 +5,47 @@
 
 # Introduction to git
 
+## Setting up git {-}
+
+If you haven't downloaded git already, you can do so [here](https://git-scm.com/).
+
+If you haven't already, go to [github.com](http://github.com) and create an account. 
+
+Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
+
+A terminal tab should now be open where your console usually is. To set the global options, type the following into the command prompt, with your actual name, and press enter:
+
+```{sh git-name, eval=FALSE}
+git config --global user.name "Matt Jones"
+```
+
+Note that if it ran successfully, it will look like nothing happened. We will check at the end to makre sure it worked.
+ 
+Next, enter the following line, with the email address you used when you created your account on github.com:
+
+```{sh git-email, eval=FALSE}
+git config --global user.email "gitcode@magisa.org"
+```
+
+Note that these lines need to be run one at a time. It will not look like anything happened, but thats ok! Check to make sure everything looks correct by entering this command, which will return the options that you have set.
+
+```{sh git-list, eval=FALSE}
+git config --global --list
+```
+
+GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. The book [Happy git with R](https://happygitwithr.com/credential-caching.html) has a wealth of information related to working with git in R, and these instructions are based off of section 10.1. 
+
+We will be using a PAT (Personal Access Token) in this course, because it is easy to set up. For better security and long term use, we recommend taking the extra steps to set up SSH keys.
+
+Steps:
+
+1. Run `usethis::create_github_token()` in the console
+2. In the browser window that pops up, scroll to the bottom and click "generate token." You may need to log into GitHub first.
+3. Copy the token from the green box on the next page
+4. Back in RStudio, run `credentials::set_github_pat()`
+5. Paste your token into the dialog box that pops up.
+
+
 ```{r, child = 'sections/git-intro.Rmd'}
 ```
 
