@@ -12,4 +12,3 @@ To create a custom book for a specific training, create a new branch for the tra
 ## Updating Materials
 
 Changes to chapters that would be beneficial to other training events should be merged back into the master branch.
-
