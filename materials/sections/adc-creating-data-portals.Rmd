@@ -20,7 +20,7 @@ To see an example of a portal, please view the [Toolik Field Station's portal](h
 
 ## Portal Features
 
-Published portals vary in their design according to the needs and preferences of the individual or group. However, when constructing a portal there are three core elements: a data page, a metrics page, and customizable free-form pages. 
+Published portals vary in their design according to the needs and preferences of the individual or group. However, when constructing a portal there are three core elements: a data page, a metrics page, and customizable free-form pages.
 
 ### Flexible Content Creation {.unnumbered}
 
@@ -32,7 +32,7 @@ Portals can be constructed as a website providing information about the research
 
 ### Curated Collections of Data {.unnumbered}
 
-The data page is arguably the most important component of the Arctic Data Center portal system. This is where users will display the data packages of their choice. Whether these data reflect research products from your research group (collated based on contributor IDs), or thematic areas of research interest (collated based on keyword and search terms), will depend upon the intended use of the portal but in all cases, you are refining the suite of data viewed by your audience. The data page looks and performs just like the main Arctic Data Center catalog - with some added bonuses, see below. 
+The data page is arguably the most important component of the Arctic Data Center portal system. This is where users will display the data packages of their choice. Whether these data reflect research products from your research group (collated based on contributor IDs), or thematic areas of research interest (collated based on keyword and search terms), will depend upon the intended use of the portal but in all cases, you are refining the suite of data viewed by your audience. The data page looks and performs just like the main Arctic Data Center catalog - with some added bonuses, see below.
 
 ![](images/arctic-data-center/ADC_Toolik_portal_data.png)
 
@@ -46,26 +46,24 @@ You can also build more precise search capabilities into your portal, leveraging
 
 ### Metrics, Metrics, Metrics {.unnumbered}
 
-As with the full Arctic Data Center catalog, we aggregate metrics for the collection of data packages within a portal. This page is not customizable - it comes as a default with the portal - but you can choose to delete it. The metrics provided include a summary of the holdings: number, volume, time period, format of datasets,  metadata assessment scores, citations across all packages, and counts of downloads and views. These latter metrics can be particularly useful if wanting to track the usage or reach of your project or group's activities.
+As with the full Arctic Data Center catalog, we aggregate metrics for the collection of data packages within a portal. This page is not customizable - it comes as a default with the portal - but you can choose to delete it. The metrics provided include a summary of the holdings: number, volume, time period, format of datasets, metadata assessment scores, citations across all packages, and counts of downloads and views. These latter metrics can be particularly useful if wanting to track the usage or reach of your project or group's activities.
 
 ![](images/arctic-data-center/ADC_Toolik_portal_metrics1.png)
 ![](images/arctic-data-center/ADC_Toolik_portal_metrics2.png)
 
 ## Enhancing Access to Social Science Research Data
 
-Many of the portal examples provided above are organizational, individual or project portals created by members of the Arctic research community. The ability to group relevant datasets and customize search criteria, increases data discoverability and accessibility among target audiences. The Arctic Data Center has leveraged these features to create a specific portal for social science data. 
+Many of the portal examples provided above are organizational, individual or project portals created by members of the Arctic research community. The ability to group relevant datasets and customize search criteria, increases data discoverability and accessibility among target audiences. The Arctic Data Center has leveraged these features to create a specific portal for social science data.
 
 ![](images/Sosci_portal.png)
 
-Within this portal users can subset by social science [discipline](https://raw.githubusercontent.com/NCEAS/adc-disciplines/main/adc-disciplines.png), data type and other metadata fields built into the portal. These search features depend on sufficient user contributed metadata describing the dataset, and as can be seen from the 'with data' toggle, the portal does not require the data themselves to be uploaded to the Arctic Data Center. 
+Within this portal users can subset by social science [discipline](https://raw.githubusercontent.com/NCEAS/adc-disciplines/main/adc-disciplines.png), data type and other metadata fields built into the portal. These search features depend on sufficient user contributed metadata describing the dataset, and as can be seen from the 'with data' toggle, the portal does not require the data themselves to be uploaded to the Arctic Data Center.
 
 ![](images/Sosci_portal_discipline.png)
 
-
-## Relationship between Arctic Data Center portals and DataONE 
+## Relationship between Arctic Data Center portals and DataONE
 
 Both DataONE and the Arctic Data Center use Metacat and MetacatUI software and both have the capability for individuals and groups to develop portals. This is true of other repositories running this software. The difference between a portal at teh Arctic Data Center and one through DataONE is the corpus of data that can be pulled into your portal. Arctic Data Center portals expose only data held in the Arctic Data Center repository. A portal in DataONE can expose data from across the full network of data repositories - including DataONE. This is particularly useful for interdisciplinary research projects, labs that have published data to multiple repositories etc. However, unlike at the Arctic Data Center, there is a cost associated with a DataONE portal as they are part of the organizations sustainability model.
-
 
 ## Creating Portals
 
@@ -91,34 +89,33 @@ In a new edit session, the first page you'll be taken to is the settings page wh
 
 ![](images/arctic-data-center/ADC_portal_settings1.png)
 
-- Portal URL
-    - Identify a short name for your portal that will become part of the URL. If the name is available, a label will indicate it's available and if the name is taken already, it will note that the name is already taken. This feature ensures the portals are unique.
-- Portal description
-- Sharing options
-    - For the purposes of this training, please leave your portal in 'Private' status. You are welcome to return and make the portal public when the portal is complete and is useful to you and others.
-- Permissions
-    - Adding collaborators to help you create your portal is as straightforward as copying and pasting in their ORCID into the box below the permissions section. You can choose whether the collaborator can view, edit, or is an owner of the portal. You can have multiples of each role.
--  Partner Logos
+-   Portal URL
+    -   Identify a short name for your portal that will become part of the URL. If the name is available, a label will indicate it's available and if the name is taken already, it will note that the name is already taken. This feature ensures the portals are unique.
+-   Portal description
+-   Sharing options
+    -   For the purposes of this training, please leave your portal in 'Private' status. You are welcome to return and make the portal public when the portal is complete and is useful to you and others.
+-   Permissions
+    -   Adding collaborators to help you create your portal is as straightforward as copying and pasting in their ORCID into the box below the permissions section. You can choose whether the collaborator can view, edit, or is an owner of the portal. You can have multiples of each role.
+-   Partner Logos
 
 ![](images/arctic-data-center/ADC_portal_settings2.png)
 
-### Adding Data to Portals{.unnumbered}
+### Adding Data to Portals {.unnumbered}
 
 When selecting the data tab you will see a page with two sections. These are titled with instructive statements to help explain their function:
 
-- Add filters to help people find data within your collection
-    - *build search features for others to use within your portal*
-- Add data to your collection
-    - *construct a search to populate your portal with data*
+-   Add filters to help people find data within your collection
+    -   *build search features for others to use within your portal*
+-   Add data to your collection
+    -   *construct a search to populate your portal with data*
 
-![](images/arctic-data-center/ADC_portal_data_editor_1.png)
-We're going to start with the second section.
+![](images/arctic-data-center/ADC_portal_data_editor_1.png) We're going to start with the second section.
 
-When adding data to your collection, you can include any of the datasets that are available at the Arctic Data Center. You build rules based on metadata to define which datasets should be included. Of course, where metadata is incomplete or abbreviated, this will impact your  results. Data added to the network in the future that match these rules will also be added to your collection. 
+When adding data to your collection, you can include any of the datasets that are available at the Arctic Data Center. You build rules based on metadata to define which datasets should be included. Of course, where metadata is incomplete or abbreviated, this will impact your results. Data added to the network in the future that match these rules will also be added to your collection.
 
 The first thing we notice is the ability to include/exclude data based on all/any metadata criteria. This setting applies across all rules.
 
-In the default view you have the starrtig point for a single rule, and a view showing 0 datasets. 
+In the default view you have the starting point for a single rule, and a view showing 0 datasets.
 
 ![](images/arctic-data-center/ADC_portal_data_editor_2.png)
 
@@ -126,24 +123,24 @@ As we build rules, the page will refresh to show how many datasets are included 
 
 ![](images/arctic-data-center/ADC_portal_data_editor_3.png)
 
-The metadata fields available for rule construction are easily visible in the dropdown option, and grouped for ease of use. You also have the option to define 'any metadata field' though your results may be less precise.
+The metadata fields available for rule construction are easily visible in the dropdown option (don't forget to scroll!), and grouped for ease of use. You also have the option to define 'any metadata field' though your results may be less precise. A recently added feature allows users to search for an attributes' semantic annotation.  
 
 ![](images/arctic-data-center/ADC_portal_data_editor_4.png)
+![](images/arctic-data-center/ADC_portal_data_editor_5.png)
 
-### Building Search Options for Your Audience{.unnumbered}
+### Building Search Options for Your Audience {.unnumbered}
 
-This section covers the first part of the 'data' page. "Add filters to help people find data within your collection". Although it appears first, I recommend constructing these filters after you have defined your data as you will have a better undertsanding of the metadata field that are relevant to your portal collection. It appears at the top of this editor page as when published, it will be at the top for users, hence the editor page reflects the layout of the published page.
+This section covers the first part of the 'data' page. "Add filters to help people find data within your collection". Although it appears first, I recommend constructing these filters after you have defined your data as you will have a better understanding of the metadata field that are relevant to your portal collection. It appears at the top of this editor page as when published, it will be at the top for users, hence the editor page reflects the layout of the published page.
 
-When selecting "add a search filter" you will be presented with a pop-up that comprises three primary elements. 
+When selecting "add a search filter" you will be presented with a pop-up that comprises three primary elements.
 
-1. The metadata filed you will be querying
-1. The way in which you want the user to interact with that metadata
-1. Language settings for the filter you are building
+1.  The metadata filed you will be querying
+2.  The way in which you want the user to interact with that metadata
+3.  Language settings for the filter you are building
 
 ![](images/arctic-data-center/ADC_portal_filter_1.png)
 
-
-As you select options for number 1 - the metadata field, the pop-up will refresh to show only those relevant options. Save this filter to close the pop-up, return to the main editor and add another search filter. 
+As you select options for number 1 - the metadata field, the pop-up will refresh to show only those relevant options. Save this filter to close the pop-up, return to the main editor and add another search filter.
 
 ![](images/arctic-data-center/ADC_portal_filter_2.png)
 
@@ -155,7 +152,7 @@ To see metric summaries, navigate to your portal in view mode. See Saving and Ed
 
 ![](images/arctic-data-center/ADC-editmetrics.png)
 
-### Creating Unique Freeform Pages{.unnumbered}
+### Creating Unique Freeform Pages {.unnumbered}
 
 To watch a tutorial on creating a new freeform page see this video:[Creating a Freeform Text Page](https://arcticdata.io/data-portals/#instructional-videos-identifier)
 
@@ -177,7 +174,7 @@ Please see these additional resources for help with markdown:
 -   [Ten minute tutorial](https://commonmark.org/help/tutorial/)
 -   For a longer example where you can also preview the results, checkout the [Showdown Live Editor](http://demo.showdownjs.com/)
 
-### Saving and Editing Portals{.unnumbered}
+### Saving and Editing Portals {.unnumbered}
 
 Be sure to save your portal when you complete a page to ensure your progress is retained.
 
