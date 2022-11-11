@@ -48,16 +48,15 @@ You can also build more precise search capabilities into your portal, leveraging
 
 As with the full Arctic Data Center catalog, we aggregate metrics for the collection of data packages within a portal. This page is not customizable - it comes as a default with the portal - but you can choose to delete it. The metrics provided include a summary of the holdings: number, volume, time period, format of datasets, metadata assessment scores, citations across all packages, and counts of downloads and views. These latter metrics can be particularly useful if wanting to track the usage or reach of your project or group's activities.
 
-![](images/arctic-data-center/ADC_Toolik_portal_metrics1.png)
-![](images/arctic-data-center/ADC_Toolik_portal_metrics2.png)
+![](images/arctic-data-center/ADC_Toolik_portal_metrics1.png) ![](images/arctic-data-center/ADC_Toolik_portal_metrics2.png)
 
 ## Enhancing Access to Social Science Research Data
 
-Many of the portal examples provided above are organizational, individual or project portals created by members of the Arctic research community. The ability to group relevant datasets and customize search criteria, increases data discoverability and accessibility among target audiences. The Arctic Data Center has leveraged these features to create a specific portal for social science data.
+Many of the portal examples provided above are organizational, individual or project portals created by members of the Arctic research community. The ability to group relevant datasets and customize search criteria, increases data discoverability and accessibility among target audiences. The Arctic Data Center has leveraged these features to create a specific portal for [social science datasets](https://arcticdata.io/catalog/portals/socialscience).
 
 ![](images/Sosci_portal.png)
 
-Within this portal users can subset by social science [discipline](https://raw.githubusercontent.com/NCEAS/adc-disciplines/main/adc-disciplines.png), data type and other metadata fields built into the portal. These search features depend on sufficient user contributed metadata describing the dataset, and as can be seen from the 'with data' toggle, the portal does not require the data themselves to be uploaded to the Arctic Data Center.
+Within this portal users can subset by social science [discipline](https://raw.githubusercontent.com/NCEAS/adc-disciplines/main/adc-disciplines.png), data type and other metadata fields built into the portal. These search features depend on sufficient user contributed metadata describing the dataset, and can be seen from the 'with data' toggle, the portal does not require the data themselves to be uploaded to the Arctic Data Center.
 
 ![](images/Sosci_portal_discipline.png)
 
@@ -71,17 +70,18 @@ A step-by-step guide on how to navigate the Arctic Data Center and create a new 
 
 ### Getting Started with Portals {.unnumbered}
 
-There are two methods to create portals on our site, both of which require being logged in. If you are on the [Arctic Data Center's primary website](http://arcticdata.io/), hover over the ‘Data’ tab, and select the ‘Portals’ option. This will take you to the [Portals page](https://arcticdata.io/catalog/portals) where you can view all public portals. If you are logged in, you will be able to see the button labeled ‘+ New Portal’, which will then take you directly to the page where you can start customizing your portal.
+There are two methods to create portals on our site, both of which require being logged in. If you are on the [Arctic Data Center's primary website](http://arcticdata.io/), hover over the 'Data' tab, and select the 'Portals' option. This will take you to the [Portals page](https://arcticdata.io/catalog/portals) where you can view all public portals. If you are logged in, you will be able to see the button labeled '+ New Portal', which will then take you directly to the page where you can start customizing your portal.
 
-![](images/arctic-data-center/ADC-createportal1.jpg)
-
-Alternatively, if you are logged in with your ORCID and on the [Dataset Search](https://arcticdata.io/catalog) page, you can also get to the page to create a new portal by hovering on your name in the upper right hand corner. From there, a dropdown will appear and you can select ‘My Portals’.
-
+![](images/arctic-data-center/ADC-createportal1.png)
 ![](images/arctic-data-center/ADC-createportal2.png)
+
+Alternatively, if you are logged in with your ORCID and on the [Dataset Search](https://arcticdata.io/catalog) page, you can also get to the page to create a new portal by hovering on your name in the upper right hand corner. From there, a dropdown will appear and you can select 'My Portals'.
+
+![](images/arctic-data-center/ADC-createportal3.png)
 
 On your profile settings page, select 'My Portals'. After the page loads select the green button '+ New Portal' to add a new portal, you'll automatically be directed to a fresh edit session.
 
-![](images/arctic-data-center/ADC-newportal.png)
+![](images/arctic-data-center/ADC-createportal4.png)
 
 ### Portal Settings Page {.unnumbered}
 
@@ -123,10 +123,9 @@ As we build rules, the page will refresh to show how many datasets are included 
 
 ![](images/arctic-data-center/ADC_portal_data_editor_3.png)
 
-The metadata fields available for rule construction are easily visible in the dropdown option (don't forget to scroll!), and grouped for ease of use. You also have the option to define 'any metadata field' though your results may be less precise. A recently added feature allows users to search for an attributes' semantic annotation.  
+The metadata fields available for rule construction are easily visible in the dropdown option (don't forget to scroll!), and grouped for ease of use. You also have the option to define 'any metadata field' though your results may be less precise. A recently added feature allows users to search for an attributes' semantic annotation.
 
-![](images/arctic-data-center/ADC_portal_data_editor_4.png)
-![](images/arctic-data-center/ADC_portal_data_editor_5.png)
+![](images/arctic-data-center/ADC_portal_data_editor_4.png) ![](images/arctic-data-center/ADC_portal_data_editor_5.png)
 
 ### Building Search Options for Your Audience {.unnumbered}
 
@@ -182,17 +181,17 @@ Be sure to save your portal when you complete a page to ensure your progress is 
 
 Whenever a portal is saved, a dialogue box will pop up at the top of the page prompting users to view their private portal in view mode. You can choose to ignore this and continue editing.
 
-![](images/arctic-data-center/ADC-saveportal.jpg)
+![](images/arctic-data-center/ADC-saveportal.png)
 
-To delete a page from your portal, select the arrow in the tab and choose 'Delete' from the dropdown.
+To delete a page from your portal, select the arrow in the tab you want to remove and choose 'Delete' from the dropdown.
 
-![](images/arctic-data-center/ADC-delete.jpg)
+![](images/arctic-data-center/ADC-delete.png)
 
 Users can view and edit their portal from their 'My Portals' tab.
 
-First, click the arrow your name in the top-right corner to drop down your menu options. Then, select 'My Portals' from the dropdown underneath your name. See the section on Getting Started with Portals for more details.
+First, hover over your name in the top-right corner to drop down your menu options. Then, select 'My Portals' from the dropdown underneath your name. See the section on Getting Started with Portals for more details.
 
-![](images/arctic-data-center/ADC-myportals.jpg) ![ADC-viewportal](images/arctic-data-center/ADC-viewportal.png)
+![](images/arctic-data-center/ADC-myportals.png) ![ADC-viewportal](images/arctic-data-center/ADC-viewportal2.png)
 
 Click on the portal title to view it or select the edit button to make changes.
 
