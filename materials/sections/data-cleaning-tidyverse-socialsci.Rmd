@@ -133,7 +133,7 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 
 #### Setup {- .setup}
 
-1.  Navigate to the [demo dataset](https://demo.arcticdata.io/view/urn%3Auuid%3A840c9e9c-8344-4e63-ac29-25ced74ccee7)
+1.  Navigate to the [demo dataset](https://demo.arcticdata.io/view/urn%3Auuid%3A98c799ef-d7c9-4658-b432-4d486221fca3)
 
 2.  Right click the "download" button for the file "survey_data.csv"
 
@@ -147,7 +147,9 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 The code chunk you use to read in the data should look something like this:
 
 ```{r}
-survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
+url_s <- url("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", method = "libcurl")
+
+survey_raw <- read_csv(url_s, show_col_types = FALSE)
 ```
 
 This dataset is already relatively clean, but as we'll see there are a few issues that we need to resolve, and a couple of things we can do to make our analysis easier.
@@ -161,7 +163,9 @@ glimpse(survey_raw)
 For some context, here is a table showing what each of the questions are asking:
 
 ```{r, echo = FALSE}
-questions <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A2aba2688-0861-46f3-b6b8-9796d618c9e9", show_col_types = FALSE, progress = FALSE)
+url_q <- url("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A2aba2688-0861-46f3-b6b8-9796d618c9e9", method = "libcurl")
+
+questions <- read_csv(url_q, show_col_types = FALSE, progress = FALSE)
 knitr::kable(questions) %>% kableExtra::kable_styling()
 ```
 
