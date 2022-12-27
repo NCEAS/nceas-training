@@ -1,4 +1,15 @@
-# Open Data and Ethics Summary
+# Provenance and Reproducibility
 
-```{r, child = 'sections/data-publishing-part-two-socialsci.Rmd'}
+```{r, child = 'sections/provenance-reproducibility-datapaper.Rmd'}
+```
+
+# Introduction to git
+
+
+```{r, child = 'sections/git-intro.Rmd'}
+```
+
+# git collaboration and conflicts
+
+```{r, child = 'sections/git-collaboration-conflicts.Rmd'}
 ```
