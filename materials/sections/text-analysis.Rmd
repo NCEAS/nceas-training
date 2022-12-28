@@ -239,3 +239,36 @@ pdf_summary <- txt_clean %>%
 ```
 
 If we look at the result, and then back at the original document, it is clear that there is more work needed to get the data to an analyzable state. The header and footer of each page of the PDF were included in our analysis, so those should be removed from the text string after we imported it. It might also be beneficial to try and separate out the questions from responses.
+
+To help us clean things up, first let's split our value column currently containing full pages of text by where there are double newlines (\n\n). You can see in the original PDF how this demarcates the responses, which contain single newlines within each paragraph. The `str_split` function will create a list of values within each row of the `value` column. Then we use the `unnest` function to flatten these lists into regular columns, adding rows to the `data.frame`.
+
+```{r}
+txt_clean <- txt %>%
+  enframe() %>% 
+  rename(page = name) %>% 
+  mutate(value = str_split(value, "\n\n")) %>% 
+  unnest(cols = value)
+```
+
+You can see that our questions and answers are now easily visible because they all start with wither Q or A. The other lines are blank lines or header/footer lines from the document. So, let's extract the first few characters of each line, clean them up a little bit, and then run a `filter` for lines that start with Q or A. Finally, we can then extract the Q/A identifier text from the beginning of the line.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4)) %>% 
+  mutate(id = str_replace(id, "\n", "")) %>% 
+  mutate(id = substr(id, 1, 2)) %>% 
+  filter(grepl("^[QA]", id)) %>% 
+  mutate(value = str_replace_all(value, "[QA][0-9]\\:", ""))
+```
+
+Finally, we can try the same analysis again to look for the most commonly used words.
+
+```{r}
+pdf_summary <- txt_clean %>%  
+  unnest_tokens(output = word, input = value) %>%
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  arrange(-n) %>% 
+  slice_head(n = 10)
+```
+
