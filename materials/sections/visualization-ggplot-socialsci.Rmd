@@ -1,5 +1,9 @@
 ## Publication Graphics
 
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 ### Learning Objectives
 
 In this lesson, you will learn:
@@ -245,6 +249,9 @@ ggplot(survey_long, aes(x = answer, fill = location)) +
     my_theme
 ```
 
+```{r}
+knitr::opts_chunk$set(eval = TRUE)
+```
 
 ### Resources
 

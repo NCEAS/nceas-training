@@ -1,6 +1,9 @@
 ---
 author: "Jeanette Clark"
 ---
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
 
 ## Introduction to text analysis
 
@@ -181,3 +184,6 @@ q4 %>%
                    max.words = 100, title.size = 2)
 ```
 
+```{r}
+knitr::opts_chunk$set(eval = TRUE)
+```
