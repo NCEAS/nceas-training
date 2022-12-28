@@ -1,9 +1,5 @@
 ## Publication Graphics
 
-```{r}
-knitr::opts_chunk$set(eval = FALSE)
-```
-
 ### Learning Objectives
 
 In this lesson, you will learn:
@@ -247,10 +243,6 @@ ggplot(survey_long, aes(x = answer, fill = location)) +
     labs(x = "", y = "Number of Responses", fill = "Location") +
     facet_wrap(~id, scales = "free") +
     my_theme
-```
-
-```{r}
-knitr::opts_chunk$set(eval = TRUE)
 ```
 
 ### Resources
