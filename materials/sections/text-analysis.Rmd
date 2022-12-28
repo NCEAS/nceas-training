@@ -1,9 +1,6 @@
 ---
 author: "Jeanette Clark"
 ---
-```{r}
-knitr::opts_chunk$set(eval = FALSE)
-```
 
 ## Introduction to text analysis
 
@@ -182,8 +179,4 @@ q4 %>%
   acast(word ~ sentiment, value.var = "n", fill = 0) %>%
   comparison.cloud(colors = c("gray20", "gray80"),
                    max.words = 100, title.size = 2)
-```
-
-```{r}
-knitr::opts_chunk$set(eval = TRUE)
 ```
