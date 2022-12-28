@@ -9,7 +9,7 @@ In this lesson, you will learn:
 
 ### Logging into the RStudio server
 
-To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remove server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
+To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remote server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
 Here are the instructions for logging in and getting set up:
 
@@ -36,7 +36,7 @@ In your RStudio server session, follow these steps to set up your shared project
 * Leave "Create Project as subdirectory of:" set to `~`
 * Click "Create Project"
 
-Your Rstudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name if your project (eg: `training_clark`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
+Your Rstudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: `training_clark`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
 
 * jclark
 * aebudden
@@ -56,7 +56,7 @@ To set the global options, type the following into the command prompt, with your
 git config --global user.name "Matt Jones"
 ```
 
-Note that if it ran successfully, it will look like nothing happened. We will check at the end to makre sure it worked.
+Note that if it runs successfully, it will look like nothing happened. We will check at the end to make sure it worked.
  
 Next, enter the following line, with the email address you used when you created your account on github.com:
 
@@ -157,7 +157,7 @@ Currently, the only file in your project is your `.Rproj` file. This file is wha
 
 We will use R version 4.0.5, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
-```{r rversion, eval=FALSE}
+```{r r-version, eval=FALSE}
 R.version$version.string
 ```
 
@@ -204,7 +204,7 @@ Then you can follow the instructions that we used above to set your email addres
 
 ##### Note for Windows Users {-}
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendixe). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendix). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
 
 In addition, some versions of windows have difficulty with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
 
