@@ -19,7 +19,7 @@ And **if R were a knife, RStudio is the kitchen**. RStudio provides a place to d
 
 Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, learning words that mean the same as others, etc, just like everybody else. And just like any form of communication, there will be miscommunications that can be frustrating, but hands down we are all better off because of it.
 
-While language is a familiar concept, programming languages are in a different context from spoken languages, but you will get to know this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast". So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: 'desayuno'). **We will get you to expect that programming languages also have words (called functions in R) for concepts as well**. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you increase your expectations and learn to ask and find what you're looking for.
+While language is a familiar concept, programming languages are in a different context from spoken languages, but you will get to know this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast". So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: "desayuno"). **We will get you to expect that programming languages also have words (called functions in R) for concepts as well**. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you to increase your expectations and learn to ask and find what you're looking for.
 
 #### Resources
 
@@ -86,7 +86,7 @@ Before we open a new R script, we are going to create a project to save it into.
 
 Now we will continue learning R code, while writing in our R script.
 
-You can assign the value of that mathematic operation to a variable, or object, in R. You do this using the assignment operator, `<-`.
+You can assign the value of that mathematical operation to a variable, or object, in R. You do this using the assignment operator, `<-`.
 
 Make an assignment and then inspect the object you just created.
 
@@ -151,7 +151,7 @@ You may have noticed that when assigning a value to an object, R does not print 
 
 ```{r, purl=FALSE}
 weight_kg <- 55    # doesn't print anything
-(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+(weight_kg <- 55)  # but putting parentheses around the call prints the value of `weight_kg`
 weight_kg          # and so does typing the name of the object
 ```
 
@@ -331,7 +331,7 @@ Follow these steps to get set up for the next exercise:
 2.  Download the first csv file called "BGchem2008data.csv" by clicking the "download" button next to the file.
 3.  Move this file from your `Downloads` folder into a place you can more easily find it. Eg: a folder called `data` in your previously-created directory `arctic_training_files`.
 
-Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great autocomplete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `training` called `data`, and your working directory is your home directory (`~/`) your `read.csv` call will look like this:
+Now we have to tell `read.csv` how to find the file. We do this using the `file` argument which you can see in the usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great auto-complete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `training` called `data`, and your working directory is your home directory (`~/`) your `read.csv` call will look like this:
 
 ```{r, eval = F}
 bg_chem <- read.csv("Documents/training/data/BGchem2008data.csv")
@@ -355,7 +355,7 @@ bg_chem <- read.csv("../data/BGchem2008data.csv", stringsAsFactors = FALSE)
 
 ### Using `data.frames`
 
-A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv`, the object `bg_chem` that we created is a `data.frame`. There are a a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
+A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv`, the object `bg_chem` that we created is a `data.frame`. There are a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
 -   click on the word `bg_chem` in the environment pane
 -   click on the arrow next to `bg_chem` in the environment pane
@@ -386,7 +386,7 @@ You can also create basic plots using the list subset operator.
 plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
 ```
 
-There are many more advancted tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course.
+There are many more advanced tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course.
 
 #### Your Turn
 
