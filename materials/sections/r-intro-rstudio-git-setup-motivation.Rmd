@@ -14,7 +14,7 @@ To prevent us from spending most of this lesson troubleshooting the myriad of is
 
 Here are the instructions for logging in and getting set up:
 
-#### Setup {.unnumbered .setup}
+#### Server Setup {.unnumbered .setup}
 
 You should have received an email prompting you to change your password for your server account. If you did not, please put up a red post-it and someone will help you.
 
@@ -38,7 +38,7 @@ In your RStudio server session, follow these steps to set up your shared project
 -   Click "New Directory"
 -   Click "New Project"
 -   Under "Directory name" type: `training_{USERNAME}`, eg: `training_do-linh`
--   Leave "Create Project as subdirectory of: " set to `~`
+-   Leave "Create Project as subdirectory of:" set to `~`
 -   Click "Create Project"
 
 Your RStudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: `training_do-linh`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
