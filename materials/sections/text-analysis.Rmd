@@ -199,6 +199,7 @@ First we'll load another library, `pdftools`.
 
 ```{r, message=FALSE, warning=FALSE}
 library(pdftools)
+library(stringr)
 ```
 
 Next, navigate to the dataset [Elizabeth Rink and Gitte Adler Reimer. 2022. Population Dynamics in Greenland: A Multi-component Mixed-methods Study of Pregnancy Dynamics in Greenland (2014-2022). Arctic Data Center. doi:10.18739/A21Z41V1R.](http://doi.org/doi:10.18739/A21Z41V1R). Right click the download button next to the top PDF data file called 'Translation_of_FG_8_Ilulissat_170410_0077.pdf'.
