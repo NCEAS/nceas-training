@@ -145,11 +145,14 @@ Now that we have learned a little mini-lesson on functions, let's get the data t
 #### {-}
 
 The code chunk you use to read in the data should look something like this:
+```{r, echo = FALSE}
+survey_raw <- read_csv("../data/survey_data.csv", show_col_types = FALSE)
 
-```{r}
-url_s <- url("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", method = "libcurl")
+events <- read_csv("../data/events.csv", show_col_types = FALSE)
+```
 
-survey_raw <- read_csv(url_s, show_col_types = FALSE)
+```{r, eval = FALSE}
+survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
 ```
 
 This dataset is already relatively clean, but as we'll see there are a few issues that we need to resolve, and a couple of things we can do to make our analysis easier.
@@ -163,9 +166,7 @@ glimpse(survey_raw)
 For some context, here is a table showing what each of the questions are asking:
 
 ```{r, echo = FALSE}
-url_q <- url("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A2aba2688-0861-46f3-b6b8-9796d618c9e9", method = "libcurl")
-
-questions <- read_csv(url_q, show_col_types = FALSE, progress = FALSE)
+questions <- read_csv("../data/questions.csv", show_col_types = FALSE, progress = FALSE)
 knitr::kable(questions) %>% kableExtra::kable_styling()
 ```
 
@@ -354,7 +355,7 @@ Let's look at a preview of what our join will do by looking at a simplified vers
 
 First, we read in the events data just as we did previously with the survey data.
 
-```{r}
+```{r, eval = FALSE}
 events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
 ```
 
@@ -401,7 +402,7 @@ q2_response <- survey_clean %>%
 
 And finally the pivot long: 
 
-```{r}
+```{r, eval = FALSE}
 survey_long <- survey_clean %>% 
     pivot_longer(cols = starts_with("Q"), names_to = "id", values_to = "answer")
 ```
