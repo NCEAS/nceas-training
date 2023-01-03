@@ -1,98 +1,108 @@
-## RStudio and Git/GitHub Setup
+## RStudio Setup
 
 ### Learning Objectives
 
 In this lesson, you will learn:
 
-- How to check to make sure your RStudio environment is set up properly for analysis
-- How to set up git
+-   How to organize your work using R project
+-   *Supplemental objective: How to make sure your local RStudio environment is set up properly for analysis*
+-   *Supplemental objective: How to set up Git and GitHub*
 
 ### Logging into the RStudio server
 
-To help prevent us from spending most of this lesson remotely troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called, aptly, RStudio Server. If you have never worked on a remove server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
+To prevent us from spending most of this lesson troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called RStudio Server. If you have never worked on a remote server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
 Here are the instructions for logging in and getting set up:
 
-#### Setup {- .setup}
+#### Server Setup {.unnumbered .setup}
 
-You should have received an email prompting you to change your password for your server account. If you did not, please let one of the helpers know on Slack.
- 
-If you were able to successfully change your password, you can log in at: [https://included-crab.nceas.ucsb.edu/](https://included-crab.nceas.ucsb.edu/)
+You should have received an email prompting you to change your password for your server account. If you did not, please put up a red post-it and someone will help you.
 
-#### {-}
+If you were able to successfully change your password, you can log in at: <https://included-crab.nceas.ucsb.edu/>
 
-In this workshop, we are going to be using R projects to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
+### Why use an R project? {.unnumbered}
 
-We are going to be doing nearly all of the work in this course in one project. Our version of RStudio server allows you to share projects with others. Sharing your project with the instructors of the course will allow for them to jump into your session and type along with you, should you encounter an error you cannot fix.
+In this workshop, we are going to be using R project to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
 
-#### Setup {- .setup}
+**The Big Idea:** using an R project is a reproducible research best practice because it bundles all your work within a *working directory* (we'll talk more about what this means in a later section). Consider your current data analysis workflow. Where do you import you data? Where do you clean and wrangle it? Where do you create graphs, and ultimately, a final report? Are you going back and forth between multiple software tools like Microsoft Excel, JMP, and Google Docs? An R project and the tools in R that we will talk about today will consolidate this process because it can all be done (and updated) in using one software tool, RStudio, and within one R project.
+
+We are going to be doing nearly all of the work in this course in one R project.
+
+Our version of RStudio Server allows you to share projects with others. Sharing your project with the instructors of the course will allow for them to jump into your session and type along with you, should you encounter an error you cannot fix.
+
+#### Creating your project {.unnumbered .setup}
 
 In your RStudio server session, follow these steps to set up your shared project:
 
-* In the "File" menu, select "New Project"
-* Click "New Directory"
-* Click "New Project"
-* Under "Directory name" type: `training_{USERNAME}`, eg: `training_jclark`
-* Leave "Create Project as subdirectory of:" set to `~`
-* Click "Create Project"
+-   In the "File" menu, select "New Project"
+-   Click "New Directory"
+-   Click "New Project"
+-   Under "Directory name" type: `training_{USERNAME}`, eg: `training_do-linh`
+-   Leave "Create Project as subdirectory of:" set to `~`
+-   Click "Create Project"
 
-Your Rstudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name if your project (eg: `training_clark`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
+Your RStudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: `training_do-linh`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
 
-* jclark
-* aebudden
-* jones
+-   do-linh
+-   jclark
+-   jones
+-   vargas-pouslen
+-   virlar-knight
 
 Once those names show up in the list, click "OK".
 
-#### Setting up git {-}
+#### Understand how to use paths and working directories {.unnumbered}
 
-Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -> Terminal -> New Terminal.
+Now that we have your project created (and notice we know it's an R Project because we see a `.Rproj` file in our Files pane), let's learn how to move in a project. We do this using paths.
 
-A terminal tab should now be open where your console usually is. 
+There are two types of paths in computing: **absolute paths** and **relative paths**.
 
-To set the global options, type the following into the command prompt, with your actual name, and press enter:
+An absolute path always starts with the root of your file system and locates files from there. The absolute path to my project directory is: `/home/do-linh/training_do-linh`
 
-```{sh git-name, eval=FALSE}
-git config --global user.name "Matt Jones"
-```
+Relative paths start from some location in your file system that is below the root. Relative paths are combined with the path of that location to locate files on your system. R (and some other languages like MATLAB) refer to the location where the relative path starts as our *working directory*.
 
-Note that if it ran successfully, it will look like nothing happened. We will check at the end to makre sure it worked.
- 
-Next, enter the following line, with the email address you used when you created your account on github.com:
+RStudio projects automatically set the working directory to the directory of the project. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the `data` directory within my project, I can simply type `read.csv("data/samples.csv")` as opposed to `read.csv("/home/do-linh/training_do-linh/data/samples.csv")`
 
-```{sh git-email, eval=FALSE}
-git config --global user.email "gitcode@magisa.org"
-```
+This is not only convenient for you, but also when working collaboratively. We will talk more about this later, but if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `"/home/do-linh/training_do-linh/data/samples.csv"` to `"/home/jones/training_jones/data/samples.csv"`
 
-Note that these lines need to be run one at a time.
+Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
 
-Next, we will set our credentials to not time out for a very long time. This is related to the way that our server operating system handles credentials - not doing this will make your PAT (which we will set up soon) expire immediately on the system, even though it is actually valid for a month.
+Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
 
-```{sh git-cred, eval=FALSE}
-git config --global credential.helper 'cache --timeout=10000000'
-```
+#### Organizing your project {.unnumbered}
 
-Finally, check to make sure everything looks correct by entering this command, which will return the options that you have set.
+When starting a new research project, one of the first things I do is create an R project for it (just like we have here!). The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are [`rrtools`](https://github.com/benmarwick/rrtools) or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
 
-```{sh git-list, eval=FALSE}
-git config --global --list
-```
+There are lots of good examples out there of research compendia. Here is one from a friend of NCEAS, Carl Boettiger, which he put together for a paper he wrote.
 
-#### GitHub Authentication
+![](images/paper-compendium.png)
 
-GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. The book [Happy git with R](https://happygitwithr.com/credential-caching.html) has a wealth of information related to working with git in R, and these instructions are based off of section 10.1. 
+The complexity of this project reflects years of work. Perhaps more representative of the situation we are in at the start of our course is a project that looks like this one, which we have just started at NCEAS.
 
-We will be using a PAT (Personal Access Token) in this course, because it is easy to set up. For better security and long term use, we recommend taking the extra steps to set up SSH keys.
+![](images/project-start.png)
 
-Steps:
+Currently, the only file in your project is your `.Rproj` file. This file is what contains the settings specific to your R project. Some common directories are:
 
-1. Run `usethis::create_github_token()` in the console
-2. In the browser window that pops up, scroll to the bottom and click "generate token." You may need to log into GitHub first.
-3. Copy the token from the green box on the next page
-4. Back in RStudio, run `credentials::set_github_pat()`
-5. Paste your token into the dialog box that pops up.
+-   `data`: where we store our data (often contains sub-directories for raw, processed, metadata data)
 
-### Preparing to work in RStudio
+-   `R`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work contains other scripts beyond the R programming language, in which case they call this directory `scripts`)
+
+-   `plots` or `figs`: generated plots, graphs, and figures
+
+-   `doc`: summaries or reports of analysis or other relevant project information
+
+Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproduciblity and collaboration.
+
+#### Summary {.unnumbered}
+
+-   organize your research into projects using R projects
+-   use R project working directories instead of `setwd`
+-   use relative paths from those working directories, not absolute paths
+-   structure your R project as a compendium
+
+### Supplemental Instructions
+
+#### Preparing to work in RStudio
 
 ![](images/RStudio_IDE.png)
 
@@ -112,58 +122,67 @@ There are two places that can indicate what project we are in. The first is the 
 
 ![](images/r-project-wd.png)
 
-#### About paths and working directories {-}
+#### Setting up git {.unnumbered}
 
-There are two types of paths in computing: **absolute paths** and **relative paths**.
+Before using git, you need to tell it who you are, also known as setting the global options. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools -\> Terminal -\> New Terminal.
 
-An absolute path always starts with the root of your file system and locates files from there. The absolute path to my R project directory is: `/home/jclark/training_jclark`
+A terminal tab should now be open where your console usually is.
 
-Relative paths start from some location in your file system that is below the root. Relative paths are combined with the path of that location to locate files on your system. R (and some other languages like MATLAB) refer to the location where the relative path starts as our *working directory*. 
+To set the global options, type the following into the command prompt, with your actual name, and press enter:
 
-RStudio projects automatically set the working directory to the directory of the project. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the `data` directory within my project, I can simply type `read.csv("data/samples.csv")` as opposed to `read.csv("/home/jclark/training_jclark/data/samples.csv")`
+```{sh git-name, eval=FALSE}
+git config --global user.name "Halina Do-Linh"
+```
 
-This is not only convenient for you, but also when working collaboratively. We will talk more about this later, but if Bryce makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `"/home/jclark/training_jclark/data/samples.csv"` to `"/home/mecum/training_jclark/data/samples.csv"`
+Note that if it runs successfully, it will look like nothing happened. We will check at the end to make sure it worked.
 
-Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
+Next, enter the following line, with the email address you used when you created your account on github.com:
 
-Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
+```{sh git-email, eval=FALSE}
+git config --global user.email "username@github.com"
+```
 
-#### Organizing your project {-}
+Note that these lines need to be run one at a time.
 
-When starting a new research project, one of the first things I do is set up an R project for it (just like we have here!) The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are [`rrtools`](https://github.com/benmarwick/rrtools) or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
+Next, we will set our credentials to not time out for a very long time. This is related to the way that our server operating system handles credentials - not doing this will make your PAT (which we will set up soon) expire immediately on the system, even though it is actually valid for a month.
 
-There are lots of good examples out there of research compendia. Here is one from a friend of NCEAS, Carl Boettiger, which he put together for a paper he wrote.
+```{sh git-cred, eval=FALSE}
+git config --global credential.helper 'cache --timeout=10000000'
+```
 
-![](images/paper-compendium.png)
+Finally, check to make sure everything looks correct by entering this command, which will return the options that you have set.
 
-The complexity of this project reflects years of work. Perhaps more representative of the situation we are in at the start of our course is a project that looks like this one, which we have just started at NCEAS.
+```{sh git-list, eval=FALSE}
+git config --global --list
+```
 
-![](images/project-start.png)
+#### GitHub Authentication
 
-Currently, the only file in your project is your `.Rproj` file. This file is what contains the settings specific to your R project. We haven't changed anything here yet, but will when we learn git.
+GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. The book [Happy git with R](https://happygitwithr.com/credential-caching.html) has a wealth of information related to working with git in R, and these instructions are based off of section 10.1.
 
-#### Summary {-}
+We will be using a PAT (Personal Access Token) in this course, because it is easy to set up. For better security and long term use, we recommend taking the extra steps to set up SSH keys.
 
+Steps:
 
-- organize your research into projects using R projects
-- use R project working directories instead of `setwd`
-- use relative paths from those working directories, not absolute paths
-- structure your R project as a compendium
-
+1.  Run `usethis::create_github_token()` in the console
+2.  In the browser window that pops up, scroll to the bottom and click "generate token." You may need to log into GitHub first.
+3.  Copy the token from the green box on the next page
+4.  Back in RStudio, run `credentials::set_github_pat()`
+5.  Paste your token into the dialog box that pops up.
 
 ### Setting up the R environment on your local computer
 
-#### R Version {-}
+#### R Version {.unnumbered}
 
 We will use R version 4.0.5, which you can download and install from [CRAN](https://cran.rstudio.com). To check your version, run this in your RStudio console:
 
-```{r rversion, eval=FALSE}
+```{r r-version, eval=FALSE}
 R.version$version.string
 ```
 
 If you have R version 4.0.0 that will likely work fine as well.
 
-#### RStudio Version {-}
+#### RStudio Version {.unnumbered}
 
 We will be using RStudio version 1.4 or later, which you can download and install [here](https://www.rstudio.com/products/rstudio/download/) To check your RStudio version, run the following in your RStudio console:
 
@@ -171,17 +190,22 @@ We will be using RStudio version 1.4 or later, which you can download and instal
 RStudio.Version()$version
 ```
 
-If the output of this does not say `1.4` or higher, you should update your RStudio. Do this by selecting Help -> Check for Updates and follow the prompts.
+If the output of this does not say `1.4` or higher, you should update your RStudio. Do this by selecting Help -\> Check for Updates and follow the prompts.
 
-#### Package installation {-}
+#### Package installation {.unnumbered}
 
 Run the following lines to check that all of the packages we need for the training are installed on your computer.
 
 ```{r package-install, eval = FALSE}
 packages <- c("dplyr", "tidyr", "readr", "devtools", "usethis", "roxygen2", "leaflet", "ggplot2", "DT", "scales", "shiny", "sf", "ggmap", "broom", "captioner", "MASS")
 
-for (package in packages) { if (!(package %in% installed.packages())) { install.packages(package) } }
-rm(packages) #remove variable from workspace
+for (package in packages) {
+    
+    if (!(package %in% installed.packages())) { install.packages(package) }
+    
+    }
+
+rm(packages) # remove variable from workspace
 
 # Now upgrade any out-of-date packages
 update.packages(ask=FALSE)
@@ -189,38 +213,38 @@ update.packages(ask=FALSE)
 
 If you haven't installed all of the packages, this will automatically start installing them. If they are installed, it won't do anything.
 
-Next, create a new R Markdown (File -> New File -> R Markdown). If you have never made an R Markdown document before, a dialog box will pop up asking if you wish to install the required packages. Click yes.
+Next, create a new R Markdown (File -\> New File -\> R Markdown). If you have never made an R Markdown document before, a dialog box will pop up asking if you wish to install the required packages. Click yes.
 
 At this point, RStudio and R should be all set up.
 
-#### Setting up git locally {-}
+#### Setting up git locally {.unnumbered}
 
 If you haven't downloaded git already, you can do so [here](https://git-scm.com/).
 
-If you haven't already, go to [github.com](http://github.com) and create an account. 
+If you haven't already, go to [github.com](http://github.com) and create an account.
 
 Then you can follow the instructions that we used above to set your email address and user name.
 
+##### Note for Windows Users {.unnumbered}
 
-##### Note for Windows Users {-}
+If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendix). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
 
-If you get "command not found" (or similar) when you try these steps through the RStudio terminal tab, you may need to set the type of terminal that gets launched by RStudio. Under some git install scenarios, the git executable may not be available to the default terminal type. Follow the instructions on the RStudio site for [Windows specific terminal options](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal#appendixe). In particular, you should choose "New Terminals open with Git Bash" in the Terminal options (`Tools->Global Options->Terminal`).
+In addition, some versions of windows have difficulty with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones"). You may need to use an account name without spaces.
 
-In addition, some versions of windows have difficulty with the command line if you are using an account name with spaces in it (such as "Matt Jones", rather than something like "mbjones").  You may need to use an account name without spaces.
-
-#### Updating a previous R installation {-}
+#### Updating a previous R installation {.unnumbered}
 
 **This is useful for users who already have R with some packages installed and need to upgrade R, but don't want to lose packages.** If you have never installed R or any R packages before, you can skip this section.
 
 If you already have R installed, but need to update, and don't want to lose your packages, these two R functions can help you. The first will save all of your packages to a file. The second loads the packages from the file and installs packages that are missing.
 
-Save this script to a file (eg `package_update.R`).
+Save this script to a file (e.g. `package_update.R`).
 
 ```{r, eval = F}
 #' Save R packages to a file. Useful when updating R version
 #'
 #' @param path path to rda file to save packages to. eg: installed_old.rda
 save_packages <- function(path){
+    
     tmp <- installed.packages()
     installedpkgs <- as.vector(tmp[is.na(tmp[,"Priority"]), 1])
     save(installedpkgs, file = path)
@@ -248,7 +272,7 @@ Source the file that you saved above (eg: `source(package_update.R)`). Then, run
 save_packages("installed.rda")
 ```
 
-Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R. 
+Then quit R, go to [CRAN](https://cran.rstudio.com), and install the latest version of R.
 
 Source the R script that you saved above again (eg: `source(package_update.R)`), and then run:
 
@@ -257,4 +281,3 @@ update_packages("installed.rda")
 ```
 
 This should install all of your R packages that you had before you upgraded.
-
