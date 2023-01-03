@@ -48,15 +48,25 @@ First, let's load the packages we'll need:
 
 Let's get set up to where we were at the end of the data tidying lesson. In that lesson, we walked through this chunk of code to read in our survey data, tidy it up, and join it to the events data.
 
-```{r}
+```{r, echo = FALSE}
+survey_raw <- read_csv("../data/survey_data.csv", show_col_types = FALSE)
+
+events <- read_csv("../data/events.csv", show_col_types = FALSE)
+```
+
+```{r, eval = FALSE}
 survey_raw <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A71cb8d0d-70d5-4752-abcd-e3bcf7f14783", show_col_types = FALSE)
 
+
+events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
+```
+
+
+```{r}
 survey_clean <- survey_raw %>% 
     select(-notes) %>% 
     mutate(Q1 = if_else(Q1 == "1", "below expectations", Q1)) %>% 
     mutate(Q2 = tolower(Q2))
-
-events <- read_csv("https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3A0a1dd2d8-e8db-4089-a176-1b557d6e2786", show_col_types = FALSE)
 
 survey_joined <- left_join(survey_clean, events, by = "StartDate")
 ```
