@@ -3,35 +3,13 @@
 ### Learning Objectives
 
 - Overview of survey instruments
-- Overview of data integration packages
-- Practice in google forms integration through R
 
 
-### Survey instruments and methods
+### Introduction
 
-Surveys and questionnaires are commonly used research methods within social science and other fields. For example, understanding regional and national population demographics, income, and education as part of the [National Census](https://www.census.gov/en.html) activity, assessing audience perspectives on specific topics of research interest (e.g. the work by Tenopir and colleagues on [Data Sharing by Scientists](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0021101)), evaluation of learning deliverables and outcomes, and consumer feedback on new and upcoming products. These are distinct from the use of the term survey within natural sciences, which might include geographical surveys ("the making of measurement in the field from which maps are drawn"), ecological surveys ("the process whereby a proposed development site is assess to establish any environmental impact the development may have") or biodiversity surveys ("provide detailed information about biodiversity and community structure") among others. In social science, a survey can be defined as:
+Surveys and questionnaires are commonly used research methods within social science and other fields. For example, understanding regional and national population demographics, income, and education as part of the [National Census](https://www.census.gov/en.html) activity, assessing audience perspectives on specific topics of research interest (e.g. the work by Tenopir and colleagues on [Data Sharing by Scientists](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0021101)), evaluation of learning deliverables and outcomes, and consumer feedback on new and upcoming products. These are distinct from the use of the term survey within natural sciences, which might include geographical surveys ("the making of measurement in the field from which maps are drawn"), ecological surveys ("the process whereby a proposed development site is assess to establish any environmental impact the development may have") or biodiversity surveys ("provide detailed information about biodiversity and community structure") among others.
 
-> a research method involving the use of standardised questionnaires or interviews to collect data about people and their preferences, thoughts, and behaviours in a systematic manner.       - Social Science Research: Principles, Methods and Practices
-
-There are a large number of platforms that provide opportunity for structured feedback and have specific use cases, outside of formalized research methods. For example, participant registration (e.g. Google forms, Aventri), presentation feedback (e.g. Mentimeter), scheduling (e.g. Doodle). In this section we will focus on software designed or commonly used for research activity.
-
-But first ...
-
-#### Discuss {.unnumbered .exercise}
-
-Whether experienced in survey methodologies, or via knowledge of surveys from a user perspective, discuss the following questions:
-
-- What survey software do you / have you used?
-- What features or functionality did you like about the software?
-- What features or functionality are important to you when considering survey software?
-
-Identify an individual to summarize and report back to the full group. 
-
-#### {-}
-
-### Survey Needs and Software Solutions
-
-Survey needs will vary across individual according to the nature of the research being undertaken. However, there is fundamental functionality that survey software should provide including:
+Although surveys can be conducted on paper or verbally, here we focus on surveys done via software tools. Needs will vary according to the nature of the research being undertaken. However, there is fundamental functionality that survey software should provide including:
 
 1. The ability to create and customize questions
 1. The ability to include different types of questions
@@ -55,71 +33,54 @@ Commonly used survey software within academic (vs market) research include Qualt
 
 ![](images/survey_comparison.png)
 
-#### Data Validation
+### Building workflows
 
-Despite some limitations in comparison with more advanced licensed software, Google Forms does include some elements of data validation. This feature helps ensure responses fall within expected or logical ranges. It is also useful if using google forms as a data collection instrument as opposed to a survey tool, reducing input errors.
+In this lesson we will use the [`qualtRics`](https://github.com/ropensci/qualtRics) package to reproducible access some survey results set up for this course. 
 
-Data validation can be applied to short answer responses, paragraph responses and check boxes. For example:
+First, open a new RMarkdown document and add a chunk to load the libraries we'll need for this lesson:
 
-1. **Short answer:** If numeric, you can define limits. For text you can check for a specific word or string type, e.g. URL or email. You can also define the minimum and maximum characters. 
-1. **Paragraph:** Define the minimum and maximum paragraph length (in characters).  
-1. **Checkboxes:** Set a minimums for box selection, set maximums, set actual numbers of boxes to be selected. 
+```{r}
+library(qualtRics)
+```
 
-![](images/googleform.png)
+Next, we need to set the API credentials.
 
-Both short answer and paragraph responses can also use regular expressions as a form of validation. Regular expressions are formulas that represent a sequence of characters signifying a search pattern.  e.g. 
+```{r, eval = FALSE}
+qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE)
+```
 
-`^[a-z].*` 
+To get a list of all the surveys in your Qualtrics instance, use the `all_surveys` function.
 
-signifies an input that contains a lowercase letter followed by another character 0 or more times. This might be used within a name field to correct for lack of capitalization of the name. 
+```{r, eval = FALSE}
+surveys <- all_surveys()
+```
 
-`^`: signifies that the string starts with the character(s) or sequence placed after the caret
+This function returns a list of surveys, in this case only one, and information about each, including an identifier and it's name. We'll need that identifier later, so let's go ahead and extract it using base R from the data frame.
 
-`[a-z]`: signifies a search for a character within the given range of characters
+```{r, eval = FALSE}
+i <- which(surveys$name == "Survey for Data Science Training")
+id <- surveys$id[i]
+```
 
-`.`: signifies any character in the given position
+You can retrieve a list of the questions the survey asked using the `survey_questions` function and the survey `id`.
 
-`*`: signifies a search for the preceding character repeated 0 or more times
+```{r, eval = FALSE}
+questions <- survey_questions(id)
+```
+
+This returns a `data.frame` with one row per question with columns for question id, question name, question text, and whether the question was required. This is helpful to have as a reference for when you are looking at the full survey results.
+
+To get the full survey results, run `fetch_survey` with the survey id.
+
+```{r, eval = FALSE}
+survey_results <- fetch_survey(id)
+```
 
 
-### Building workflows: Options for data integration
 
-#### Qualtrics and qualtRics
+#### Other survey tools
 
-[`qualtRics`](https://github.com/ropensci/qualtRics) (note the capital R) is an R package that enables retrieval of Qualtrics data directly from the Qualtrics platform and into R, reducing pre-processing time associated with data manipulation and import. Although Qualtrics is proprietary software, the `qualtRics` R package is open source and developed within the [ROpenSci](https://ropensci.org) community. 
-
-The package currently contains three core functions:
-
-1. `all_surveys()` fetches a list of all surveys that you own or have access to from Qualtrics.
-1. `fetch_survey()` downloads a survey from Qualtrics and loads it into R.
-1. `read_survey()` allows you to read CSV files you download manually from Qualtrics.
-
-#### Example of the functions in use: {- .setup}
-
-`surveys <- all_surveys()`
-
-This will create a list of all survey names contained within your Qualtrics account, within the data frame `surveys`. The survey data have not yet been downloaded. You can download the data from one or more individual surveys of your choice using `fetch_survey()`. In the example below the researcher is bringing in a subset of data from survey number 4, based on the date of responses.
-
-`mysurvey <- fetch_survey(surveys$id[4],
-                         start_date = "2018-10-01",
-                         end_date = "2018-10-31",
-                         label = FALSE)`
-                         
-If you have already downloaded a *.csv filed from Qualtrics, these can be read in from your computer with the `read_survey()` function. e.g. 
-
-`mysurvey <- read_survey("/users/aebudden/Desktop/workshop_feedback.csv")`
-
-#### {-}
-
-Also contained within the package are the following helper functions:
-
-1. `qualtrics_api_credentials()` stores your API key and base url in environment variables.
-1. `survey_questions()` retrieves a data frame containing questions and question IDs for a survey; `extract_colmap()` retrieves a similar data frame with more detailed mapping from columns to labels.
-1. `metadata()` retrieves metadata about your survey, such as questions, survey flow, number of responses etc.
-
-`qualtRics` will only enable you to download and integrate survey data that you have administrative access to. Rest assured that someone else cannot use this package to read in your data. However, one limitation is that the package requires Qualtrics API access, which must be enabled in your account to use it. Depending on the type of account you have, this may require administrative approval from your brand ambassador for institutional accounts.
-
-#### Survey Monkey
+##### Survey Monkey {-}
 
 Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). Again, this package requires API access to Survey Monkey and documentation on setup is provided within the [Readme](https://github.com/cloudyr/Rmonkey#readme) file. 
 
@@ -134,7 +95,7 @@ Also like qualtRics this package is open source and community developed. Inspect
 
 There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R.  
 
-### Google forms 
+##### Google forms  {-}
 
 Google forms can be a great way to set up surveys, and it is very easy to interact with the results using R. The benefits of using google forms are a simple interface and easy sharing between collaborators, especially when writing the survey instrument.
 
