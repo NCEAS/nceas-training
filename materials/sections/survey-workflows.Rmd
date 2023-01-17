@@ -126,7 +126,7 @@ ggplot(data = q3, mapping = aes(x = Q3, y = n)) +
 
 Now we'll extract the free text responses:
 
-```{r}
+```{r, eval = FALSE}
 q3_text <- survey_results %>% 
     select(Q3_7_TEXT) %>% 
     drop_na() %>% 
