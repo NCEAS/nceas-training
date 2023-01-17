@@ -27,6 +27,7 @@ First we'll load the libraries we need for this lesson:
 
 ```{r, warning = FALSE, message = FALSE}
 library(dplyr)
+library(tibble)
 library(readr)
 library(tidytext)
 library(wordcloud)
@@ -180,3 +181,94 @@ q4 %>%
   comparison.cloud(colors = c("gray20", "gray80"),
                    max.words = 100, title.size = 2)
 ```
+
+### Unstructured Text
+
+The above example showed how to analyze text that was contained within a tabular format (a csv file). There are many other text formats that you might want to analyze, however. This might include pdf documents, websites, word documents, etc. Here, we'll look at how to read in the text from a PDF document into an analysis pipeline like above.
+
+First we'll load another library, `pdftools`.
+
+```{r, message=FALSE, warning=FALSE}
+library(pdftools)
+```
+
+Next, navigate to the dataset [Elizabeth Rink and Gitte Adler Reimer. 2022. Population Dynamics in Greenland: A Multi-component Mixed-methods Study of Pregnancy Dynamics in Greenland (2014-2022). Arctic Data Center. doi:10.18739/A21Z41V1R.](http://doi.org/doi:10.18739/A21Z41V1R). Right click the download button next to the top PDF data file called 'Translation_of_FG_8_Ilulissat_170410_0077.pdf'.
+
+First we create a variable with a path to a location where we want to save the file.
+
+```{r, echo = FALSE}
+path <- tempfile()
+```
+
+```{r, eval = FALSE}
+path <- "data/Translation_of_FG_8_Ilulissat_170410_0077.pdf"
+```
+
+Then use `download.file` to download it and save it to that path.
+
+```{r}
+download.file("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A34999083-2fa1-4222-ab27-53204327e8fc", path)
+```
+
+```{r}
+txt <- pdf_text(path)
+
+class(txt)
+```
+
+The text is read in as a list of strings, where each page of text is an item in the list.
+
+To help us work with the rest of the `tidytext` tools, we use the `tibble::enframe` function, which converts the list into a `data.frame`, then rename the column to make it clear what page it is on.
+
+```{r}
+txt_clean <- txt %>%
+  enframe() %>% 
+  rename(page = name) 
+```
+
+We can do the same analysis as above, unnesting the tokens and removing stop words to get the most frequent words:
+
+
+```{r}
+pdf_summary <- txt_clean %>%  
+  unnest_tokens(output = word, input = value) %>%
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  arrange(-n) %>% 
+  slice_head(n = 10)
+```
+
+If we look at the result, and then back at the original document, it is clear that there is more work needed to get the data to an analyzable state. The header and footer of each page of the PDF were included in our analysis, so those should be removed from the text string after we imported it. It might also be beneficial to try and separate out the questions from responses.
+
+To help us clean things up, first let's split our value column currently containing full pages of text by where there are double newlines (\n\n). You can see in the original PDF how this demarcates the responses, which contain single newlines within each paragraph. The `str_split` function will create a list of values within each row of the `value` column. Then we use the `unnest` function to flatten these lists into regular columns, adding rows to the `data.frame`.
+
+```{r}
+txt_clean <- txt %>%
+  enframe() %>% 
+  rename(page = name) %>% 
+  mutate(value = str_split(value, "\n\n")) %>% 
+  unnest(cols = value)
+```
+
+You can see that our questions and answers are now easily visible because they all start with wither Q or A. The other lines are blank lines or header/footer lines from the document. So, let's extract the first few characters of each line, clean them up a little bit, and then run a `filter` for lines that start with Q or A. Finally, we can then extract the Q/A identifier text from the beginning of the line.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4)) %>% 
+  mutate(id = str_replace(id, "\n", "")) %>% 
+  mutate(id = substr(id, 1, 2)) %>% 
+  filter(grepl("^[QA]", id)) %>% 
+  mutate(value = str_replace_all(value, "[QA][0-9]\\:", ""))
+```
+
+Finally, we can try the same analysis again to look for the most commonly used words.
+
+```{r}
+pdf_summary <- txt_clean %>%  
+  unnest_tokens(output = word, input = value) %>%
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  arrange(-n) %>% 
+  slice_head(n = 10)
+```
+
