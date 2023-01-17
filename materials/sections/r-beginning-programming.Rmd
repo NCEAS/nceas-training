@@ -135,7 +135,7 @@ Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(
 
 Now that we know what an object is in R and how to create one let's learn how to use an object in calculations. Create the variable `weight_kg` and assign it a value of 55.
 
-```{r, eval=FALSE, purl=FALSE}
+```{r, purl=FALSE}
 weight_kg <- 55 
 ```
 
