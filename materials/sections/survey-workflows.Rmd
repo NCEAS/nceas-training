@@ -33,14 +33,18 @@ Commonly used survey software within academic (vs market) research include Qualt
 
 ![](images/survey_comparison.png)
 
-### Building workflows
+### Building workflows using Qualtrics
 
 In this lesson we will use the [`qualtRics`](https://github.com/ropensci/qualtRics) package to reproducible access some survey results set up for this course. 
 
 First, open a new RMarkdown document and add a chunk to load the libraries we'll need for this lesson:
 
-```{r}
+```{r, eval = FALSE}
 library(qualtRics)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(ggplot2)
 ```
 
 Next, we need to set the API credentials.
@@ -76,11 +80,78 @@ To get the full survey results, run `fetch_survey` with the survey id.
 survey_results <- fetch_survey(id)
 ```
 
+The survey results table has tons of information in it, not all of which will be relevant depending on your survey. The table has identifying information for the respondents (eg: `ResponseID`, `IPaddress`, `RecipientEmail`, `RecipientFirstName`, etc), much of which will be empty for this survey since it is anonymous. It also has information about the process of taking the survey, such as the `StartDate`, `EndDate`, `Progress`, and `Duration`. Finally, there are the answers to the questions asked, with columns labeled according to the `qname` column in the questions table (eg: Q1, Q2, Q3). Depending on the type of question, some questions might have multiple columns associated with them. We'll have a look at this more closely in a later example. 
+
+#### Question 2 {-}
+
+Let's look at the responses to the second question in the survey, "How long have you been programming?" Remember, the first question was the consent question.
+
+We'll use the `dplyr` and `tidyr` tools we learned earlier to extract the information. Here are the steps:
+
+- `select` the column we want (`Q1`)
+- `group_by` and `summarize` the values
+
+```{r, eval = FALSE}
+q2 <- survey_results %>% 
+    select(Q2) %>% 
+    group_by(Q2) %>% 
+    summarise(n = n())
+```
+
+We can show these results in a table using the `kable` function from the `knitr` package:
+
+```{r, eval = FALSE}
+kable(q2)
+```
+
+#### Question 3
+
+For question 3, we'll use a similar workflow. For this question, however there are two columns containing survey answers. One contains the answers from the controlled vocabulary, the other contains any free text answers users entered.
+
+To present this information, we'll first show the results of the controlled answers as a plot. Below the plot, we'll include a table showing all of the free text answers for the "other" option.
+
+```{r, eval = FALSE}
+q3 <- survey_results %>% 
+    select(Q3) %>% 
+    group_by(Q3) %>% 
+    summarise(n = n())
+```
+
+```{r, eval = FALSE}
+ggplot(data = q3, mapping = aes(x = Q3, y = n)) +
+    geom_col() +
+    labs(x = "What language do you currently use most frequently?", y = "Number of reponses") +
+    theme_minimal()
+```
+
+Now we'll extract the free text responses:
+
+```{r}
+q3_text <- survey_results %>% 
+    select(Q3_7_TEXT) %>% 
+    drop_na() %>% 
+    rename(`Other (please indicate)` = Q3_7_TEXT)
+
+kable(q3_text)
+```
+
+#### Question 4
+
+The last question is just a free text question, so we can just display the results as is. 
+
+```{r, eval = FALSE}
+q4 <- survey_results %>% 
+    select(Q4) %>% 
+    rename(`What data science tool or language are you most excited to learn next?` = Q4) %>% 
+    drop_na()
+
+kable(q4)
+```
 
 
-#### Other survey tools
+### Other survey tools
 
-##### Survey Monkey {-}
+#### Survey Monkey {-}
 
 Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). Again, this package requires API access to Survey Monkey and documentation on setup is provided within the [Readme](https://github.com/cloudyr/Rmonkey#readme) file. 
 
@@ -95,7 +166,7 @@ Also like qualtRics this package is open source and community developed. Inspect
 
 There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R.  
 
-##### Google forms  {-}
+#### Google forms  {-}
 
 Google forms can be a great way to set up surveys, and it is very easy to interact with the results using R. The benefits of using google forms are a simple interface and easy sharing between collaborators, especially when writing the survey instrument.
 
@@ -132,6 +203,6 @@ Make sure you click the third check box enabling the Tidyverse API to see, edit,
 
 When you come back to your R environment, you should have a data frame containing the data in your sheet!
 
-#### Bypassing authentication for public sheets {-}
+##### Bypassing authentication for public sheets {-}
 
 If you don't want to go through a little interactive dialog every time you read in a sheet, and your sheet is public, you can run the function `gs4_deauth()` to access the sheet as a public user. This is helpful for cases when you want to run your code non-interactively. This is actually how I set it up for this book to build!
