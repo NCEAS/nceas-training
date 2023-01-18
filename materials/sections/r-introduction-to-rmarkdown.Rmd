@@ -15,7 +15,7 @@ The concept of literate analysis dates to a [1984 article by Donald Knuth](http:
 
 > Instead of imagining that our main task is to instruct a *computer* what to do, let us concentrate rather on explaining to *human beings* what we want a computer to do.
 
-If our aim is to make scientific research more transparent, the appeal of this paradigm reversal is immediately apparent. All too often, computational methods are written in such a way as to be borderline incomprehensible - even to the person who originally wrote the code! The reason for this is obvious, computers interpret information very differently than people do. By switching to a literate analysis model, you help enable human understanding of what the computer is doing. As Knuth describes, in the literate analysis model, the author is an "essayist" who chooses variable names carefully, explains what they mean, and introduces concepts in the analysis in a way that facilitates understanding.
+If our aim is to make scientific research more transparent, the appeal of this paradigm reversal is immediately apparent. All too often, computational methods are written in such a way as to be borderline incomprehensible - even to the person who originally wrote the code! The reason for this is obvious, computers interpret information very differently than people do. By switching to a literate analysis model, **you help enable human understanding of what the computer is doing**. As Knuth describes, in the literate analysis model, the author is an "essayist" who chooses variable names carefully, explains what they mean, and introduces concepts in the analysis in a way that facilitates understanding.
 
 RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. RMarkdown is a combination of two things - R, the programming language, and markdown, a set of text formatting directives. In R, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by `#`). The paradigm shift of literate analysis comes in the switch to RMarkdown, where instead of assuming you are writing code, Rmarkdown assumes that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown, encourages the "essayist" to write understandable prose to accompany the code that explains to the human-beings reading the document what the author told the computer to do. This is in contrast to writing just R code, where the author telling to the computer what to do with maybe a smattering of terse comments explaining the code to a reader.
 
@@ -33,6 +33,8 @@ In addition to achieving literate analysis, this document also represents a **re
 
 RMarkdown is an amazing tool to use for collaborative research, so we will spend some time learning it well now, and use it through the rest of the course.
 
+<!--- LINK TO VIDEO??-->
+
 #### Setup {.unnumbered .setup}
 
 Open a new RMarkdown file using the following prompts:
@@ -49,6 +51,9 @@ Let's have a look at this file --- it's not blank; there is some initial text al
 
 -   There are white and grey sections. R code is in grey sections, and other text is in white.
 
+<!--- UPDATE AND IMPROVE QUALITY OF IMAGES -->
+<!-- ADD image form video to show Rmd structure. Add langueage round YAML -->
+
 ![](images/rmarkdown.png)
 
 <br>
@@ -63,11 +68,15 @@ What do you notice between the two?
 
 First, the knit process produced a second file (an HTML file) that popped up in a second window. You'll also see this file in your directory with the same name as your Rmd, but with the html extension. In it's simplest format, RMarkdown files come in pairs - the RMarkdown file, and its rendered version. In this case, we are knitting, or rendering, the file into HTML. You can also knit to PDF or Word files.
 
-Notice how the grey **R code chunks** are surrounded by 3 backticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`. The label next to the letter r in the code chunk syntax is a chunk label - this can help you navigate your RMarkdown document using the dropdown menu at the bottom of the editor pane.
+Notice how the grey **R code chunks** are surrounded by 3 back-ticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`. The label next to the letter r in the code chunk syntax is a chunk label - this can help you navigate your RMarkdown document using the drop-down menu at the bottom of the editor pane.
 
-Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo = FALSE`. RMarkdown has lots of chunk options, including ones that allow for code to be run but not shown (`echo = FALSE`), code to be shown but not run (`eval = FALSE`), code to be run, but results not shown (`results = 'hide'`), or any combination of those.
+Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo = FALSE`. RMarkdown has lots of chunk options: - allow for code to be run but not shown (`echo = FALSE`), - code to be shown but not run (`eval = FALSE`), - code to be run, but results not shown (`results = 'hide'`), - or any combination of those.
 
-Before we get too deeply into the R side, let's talk about Markdown. Markdown is a formatting language for plain text, and there are only around 15 rules to know.
+It is important to emphasize one more time that in an RMarkdown document, the gray areas of the document are *code*, in this case R code because that is what it is indicated in the ```` ```{r} ```` syntax at the start of this gray area. And the white areas of this Rmd are in Markdown language.
+
+Let's talk about Markdown first, before going deeper into the R side. Markdown is a formatting language for plain text, and there are only around 15 rules to know.
+
+<!--- Clarify each of this Markdown syntax -->
 
 Notice the syntax in the document we just knitted:
 
@@ -88,14 +97,20 @@ There are some good [cheatsheets](https://github.com/adam-p/markdown-here/wiki/M
 
 #### New Rmarkdown editing tools
 
-The new version of RStudio (1.4) has a 'what you see is what you get' (wysiwyg) editor, which can be a nice way to write markdown without remembering all of the markdown rules. Since there aren't many rules for markdown, I recommend just learning them - especially since markdown is used in many, many other contexts besides RMarkdown (formatting GitHub comments, for example).
+<!--- IS THIS THE LATES VERSION?? -->
 
-To access the editor, click the compass icon in the upper right hand corner of your editor pane. You'll notice that your document is now formatted as you type, and you can change elements of the formatting using the row of icons in the top of the editor pane. Although I don't really recommend doing all of your markdown composition in this format, there are two features to this editor that I find **immensely** helpful - adding citations, and adding tables.
+<!--- Ask Jeanette about introducing the "Visual editor" here -->
 
+<!-- Re write using "editing mode"-->
+
+The new version of RStudio (1.4) has a 'what you see is what you get' (wysiwyg) editor or Visual editor, which can be a nice way to write markdown without remembering all of the markdown rules. Since there aren't many rules for markdown, I recommend just learning them - especially since markdown is used in many, many other contexts besides RMarkdown (formatting GitHub comments, for example).
+
+To access the editor, click the Visual button in the upper left hand corner of your editor pane. You'll notice that your document is now formatted as you type, and you can change elements of the formatting using the row of icons in the top of the editor pane. Although I don't really recommend doing all of your markdown composition in the Visual editor, there are two features to this editor that I find **immensely** helpful - adding citations, and adding tables.
+
+<!--- CHECK IF THIS HAS NOT CHANGED -->
 From the insert drop down, select "citation." In the window that appears, there are several options in the left hand panel for the source of your citation. If you had a citation manager, such as Zotero, installed, this would be included in that list. For now, select "From DOI", and in the search bar enter a DOI of your choice (eg: 10.1038/s41467-020-17726-z), then select "Insert."
 
-![](images/markdown-citation.png)
-After selecting insert, a couple of things happen. First, the citation reference is inserted into your markdown text as `[@oke2020]`. Second, a file called `references.bib` containing the BibTex format of the citation is created. Third, that file is added to the YAML header of your RMarkdown document (`bibliography: references.bib`). Adding another citation will automatically update your `references.bib` file. So easy!
+![](images/markdown-citation.png) After selecting insert, a couple of things happen. First, the citation reference is inserted into your markdown text as `[@oke2020]`. Second, a file called `references.bib` containing the BibTex format of the citation is created. Third, that file is added to the YAML header of your RMarkdown document (`bibliography: references.bib`). Adding another citation will automatically update your `references.bib` file. So easy!
 
 The second task that the markdown editor is convenient for is generating tables. Markdown tables are a bit finicky and annoying to type, and there are a number of formatting options that are difficult to remember if you don't use them often. In the top icon bar, the "table" drop down gives several options for inserting, editing, and formatting tables. Experiment with this menu to insert a small table.
 
@@ -180,7 +195,9 @@ Hint: Navigate to Help \> Markdown Quick Reference to lookup the hyperlink synta
 
 Now that we have outlined our document, we can start writing code! To read the data into our environment, we will use a function from the `readr` package.
 
-To use a package in our analysis, we need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. Loading the package is a key part of the reproducible aspect of our Rmarkdown, so we will include it as an R chunk. It is generally good practice to include all of your `library` calls in a single, dedicated R chunk near the top of your document. This lets collaborators know what packages they might need to install before they start running your code.
+To use a package in our analysis, we need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. **Loading the package is a key part of the reproducible aspect of our Rmarkdown**, so we will include it as an R chunk. It is generally good practice to include all of your `library` calls in a single, dedicated R chunk near the top of your document. This lets collaborators know what packages they might need to install before they start running your code.
+
+<!--- Think about introducing the librarian package? It installs necessary and loads your packages --->
 
 You should have already installed `readr` as part of the setup for this course, so add a new R chunk below your setup chunk that calls the `readr` library, and run it. It should look like this:
 
@@ -188,15 +205,17 @@ You should have already installed `readr` as part of the setup for this course, 
 library(readr)
 ```
 
-Now, below the introduction that you wrote, add a chunk that uses the `read_csv` function to read in your data file.
+Now, below the introduction that you wrote, add a code chunk that uses the `read_csv` function to read in your data file.
 
 ##### About RMarkdown paths {.unnumbered}
 
-In computing, a path specifies the unique location of a file on the filesystem. A path can come in one of two forms: absolute or relative. **Absolute** paths start at the very top of your file system, and work their way down the directory tree to the file. **Relative** paths start at an arbitrary point in the file system. In R, this point is set by your working directory.
+In computing, a path specifies the unique location of a file on the filesystem. A path can come in one of two forms: absolute or relative. 
+- **Absolute** paths start at the very top of your file system, and work their way down the directory tree to the file. 
+- **Relative** paths start at an arbitrary point in the file system. In R, this point is set by your working directory.
 
-RMarkdown has a special way of handling relative paths that can be very handy. When working in an RMarkdown document, R will set all paths relative **to the location of the RMarkdown file.** This way, you don't have to worry about setting a working directory, or changing your colleagues absolute path structure with the correct user name, etc. If your RMarkdown is stored near where the data it analyses are stored (good practice, generally), setting paths becomes much easier!
+RMarkdown has a special way of handling relative paths that can be very handy. When working in an RMarkdown document, R will set all paths relative **to the location of the RMarkdown file.** This way, you don't have to worry about setting a working directory, or changing your colleagues absolute path structure with the correct user name, etc. _If your RMarkdown is stored near where the data it analyses are stored (good practice, generally)_, setting paths becomes much easier!
 
-If you saved your "BGchem2008data.csv" data file in the same location as your Rmd, you can just write the following to read it in. The help page (`?read_csv`, in the console) for this function tells you that the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press 'tab' with your cursor between the quotes, a popup menu will appear showing you some options.
+If you saved your "BGchem2008data.csv" data file in the same location as your Rmd, you can just write the following to read it in. Checkout the help page by typing `?read_csv` in the console. This tells you that for this function the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press 'tab' with your cursor between the quotes, a popup menu will appear showing you some options.
 
 ```{r, eval = F}
 bg_chem <- read_csv("../data/BGchem2008data.csv")
@@ -243,7 +262,7 @@ If you run this line in your RMarkdown document, you should see the `bg_chem` ob
 Use one of two methods to figure out how to suppress **warning** and **message** text in your chunk output:
 
 1.  The gear icon in the chunk, next to the play button
-2.  The [RMarkdown reference guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) (also under Help > Cheatsheets)
+2.  The [RMarkdown reference guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) (also under Help \> Cheatsheets)
 
 #### Aside {.unnumbered .aside}
 
@@ -251,6 +270,7 @@ Use one of two methods to figure out how to suppress **warning** and **message**
 
 We chose to show `read_csv` from the `readr` package for a few reasons. One is to introduce the concept of packages and showing how to load them, but `read_csv` has several advantages over `read.csv`.
 
+<!--- Should we introduce to the different class objects?---> 
 -   more reasonable function defaults (no stringsAsFactors!)
 -   smarter column type parsing, especially for dates
 -   it is **much** faster than `read.csv`, which is helpful for large files
@@ -259,7 +279,23 @@ We chose to show `read_csv` from the `readr` package for a few reasons. One is t
 
 As our "analysis" we are going to calculate some very simple summary statistics and generate a single plot. In this dataset of oceanographic water samples, we will be examining the ratio of nitrogen to phosphate to see how closely the data match the Redfield ratio, which is the consistent 16:1 ratio of nitrogen to phosphorous atoms found in marine phytoplankton.
 
-Under the appropriate bullet point in your analysis section, create a new R chunk, and use it to calculate the mean nitrate (NO3), nitrite (NO2), ammonium (NH4), and phosphorous (P) measured. Save these mean values as new variables with easily understandable names, and write a (brief) description of your operation using markdown above the chunk.
+<!--- ADDING THIS SECTION -->
+Let's start by exploring the data we just read. Every time I read a new data set, I like to familiarize my self with it and make sure that the data looks as expected. There are a couple of functions I use to do this. So we will create a new R chunk and run the following functions. Because this just an exploration and we do not want this chunc to be part of our report, we will indicate that by adding `eval = FALSE` in the setup of the chunk, that way, the code in this chunk will not run when I knit the final document.
+
+```{r, eval=FALSE}
+
+colnames(bg_chem)
+str(bg_chem)
+head(bg_chem)
+summary(bg_chem)
+View(bg_chem)
+```
+
+<!--- UP TO HERE--> 
+
+Now that we know a more about the data set we are working with lets do some analyses. Under the appropriate bullet point in your analysis section, create a new R chunk, and use it to calculate the mean nitrate (NO3), nitrite (NO2), ammonium (NH4), and phosphorous (P) measured. Save these mean values as new variables with easily understandable names, and write a (brief) description of your operation using markdown above the chunk.
+
+<!--- explain that you can access the different columns in your data frame using the $ -->
 
 ```{r}
 nitrate <- mean(bg_chem$NO3)
@@ -368,6 +404,7 @@ Your document might contain the following sections:
 -   [RMarkdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 -   [RMarkdown Home Page](https://rmarkdown.rstudio.com/)
 -   [RMarkdown Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+-   [What is RMardown Video](https://vimeo.com/178485416)
 
 ### Troubleshooting
 
