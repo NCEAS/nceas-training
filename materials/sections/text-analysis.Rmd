@@ -10,6 +10,7 @@ author: "Jeanette Clark"
 - How to use stop words
 - How to customize stop words
 - Introduction to sentiment analysis
+- How to give structure to unstructured text
 
 ### Introduction
 
@@ -73,7 +74,7 @@ q3 <- survey_joined %>%
 
 
 ```{r, echo = FALSE}
-DT::datatable(q3)
+DT::datatable(q3, rownames = F)
 ```
 
 You'll see that we now have a very long data frame with only one word in each row of the text column. Some of the words aren't so interesting though. The words that are likely not useful for analysis are called "stop words". There is a list of stop words contained within the `tidytext` package and we can access it using the `data` function. We can then use the `anti_join` function to return only the words that are not in the stop word list.
@@ -85,7 +86,7 @@ q3 <- anti_join(q3, stop_words)
 ```
 
 ```{r, echo = FALSE}
-DT::datatable(q3)
+DT::datatable(q3, rownames = F)
 ```
 
 Now, we can do normal `dplyr` analysis to examine the most commonly used words in question 3. The `count` function is helpful here. We could also do a `group_by` and `summarize` and get the same result. We can also `arrange` the results, and get the top 10 using `slice_head`.
@@ -99,7 +100,7 @@ q3_top <- q3 %>%
 
 
 ```{r, echo = FALSE}
-DT::datatable(q3_top)
+DT::datatable(q3_top, rownames = F)
 ```
 
 #### Term frequency {- .aside}
@@ -123,7 +124,7 @@ q4_top <- q4 %>%
 ```
 
 ```{r, echo = FALSE}
-DT::datatable(q4_top)
+DT::datatable(q4_top, rownames = F)
 ```
 
 Perhaps not surprisingly, the word data is mentioned a lot! In this case, it might be useful to add it to our stop words list. You can create a data.frame in place with your word, and an indication of the lexicon (in this case, your own, which we can call custom). Then we use `rbind` to bind that data frame with our previous stop words data frame.
@@ -166,8 +167,8 @@ Next we do an inner join to return the words from question 3 that are contained 
 q3_sent <- inner_join(q3, bing, by = "word")
 ```
 
-```{r}
-DT::datatable(q3_sent)
+```{r, echo=F}
+DT::datatable(q3_sent, rownames = F)
 ```
 
 There are a variety of directions you could go from here, analysis wise, such as calculating an overall sentiment index for that question, plotting sentiment against some other variable, or, making a fun word cloud like below! Here we bring in `reshape2::acast` to create a sentiment matrix for each word, and pass that into `wordcloud::comparison.cloud` to look at a wordcloud that indicates the frequency and sentiment of the words in our responses.
@@ -191,11 +192,13 @@ q4 %>%
                    max.words = 100, title.size = 2)
 ```
 
-### Unstructured Text
+## Unstructured Text
 
 The above example showed how to analyze text that was contained within a tabular format (a csv file). There are many other text formats that you might want to analyze, however. This might include pdf documents, websites, word documents, etc. Here, we'll look at how to read in the text from a PDF document into an analysis pipeline like above.
 
-First we'll load another library, `pdftools`.
+Before we begin, it is important to understand that not all PDF documents can be processed this way. PDF files can store information in many ways, including both images and text. Some PDF documents, particularly older ones, or scanned documents, are images of text and the bytes making up the document do not contain a 'readable' version of the text in the image, it is an image not unlike one you would take with a camera. Other PDF documents will contain the text as character strings, along with the information on how to render it on the page (such as position and font). The analysis that follows will only work on PDF files that fit the second description of the format. If the PDF document you are trying to analyze is more like the first, you would need to first use a technique called Optical Character Recognition (OCR) to interpret the text in the image and store it in a parsable way. Since this document can be parsed, we'll proceed without doing OCR.
+
+First we'll load another library, `pdftools`, which will read in our PDF, and the `stringr` library, which helps manipulate character strings.
 
 ```{r, message=FALSE, warning=FALSE}
 library(pdftools)
@@ -220,15 +223,15 @@ Then use `download.file` to download it and save it to that path.
 download.file("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A34999083-2fa1-4222-ab27-53204327e8fc", path)
 ```
 
+The `pdf_text` function extracts the text from the PDF file, returning a vector of character strings with a length equal to the number of pages in the file. So, our return value is loaded into R, but maybe not that useful yet because it is just a bunch of really long strings.
+
 ```{r}
 txt <- pdf_text(path)
 
 class(txt)
 ```
 
-The text is read in as a list of strings, where each page of text is an item in the list.
-
-To help us work with the rest of the `tidytext` tools, we use the `tibble::enframe` function, which converts the list into a `data.frame`, then rename the column to make it clear what page it is on.
+Luckily, there is a function that will turn the pdf text data we just read in to a form that is compatible with the rest of the `tidytext` tools. The `tibble::enframe` function, converts the list into a `data.frame`. We then change one column name to describe what the column actually is (page number).
 
 ```{r}
 txt_clean <- txt %>%
@@ -248,19 +251,121 @@ pdf_summary <- txt_clean %>%
   slice_head(n = 10)
 ```
 
-If we look at the result, and then back at the original document, it is clear that there is more work needed to get the data to an analyzable state. The header and footer of each page of the PDF were included in our analysis, so those should be removed from the text string after we imported it. It might also be beneficial to try and separate out the questions from responses.
+```{r, echo = FALSE}
+DT::datatable(pdf_summary, rownames = F)
+```
 
-To help us clean things up, first let's split our value column currently containing full pages of text by where there are double newlines (\n\n). You can see in the original PDF how this demarcates the responses, which contain single newlines within each paragraph. The `str_split` function will create a list of values within each row of the `value` column. Then we use the `unnest` function to flatten these lists into regular columns, adding rows to the `data.frame`.
+
+If we look at the result, and then back at the original document, it is clear that there is more work needed to get the data to an analyzable state. The header and footer of each page of the PDF were included in the text we analyzed, and since they are repeated every page (and aren't really the subject of our inquiry anyway), should be removed from the text after we read it into R but before we try to calculate the most used words. It might also be beneficial to try and separate out the questions from responses, if we wanted to analyze just the responses or just the questions.
+
+To help us clean things up, first let's split our value column currently containing full pages of text by where there are double newlines (`\n\n`). You can see in the original PDF how this demarcates the responses, which contain single newlines within each paragraph, and two new lines (an empty line) between paragraphs. You can see an example of this within the text we have read in by examining just the first 500 characters of the first page of data.
 
 ```{r}
-txt_clean <- txt %>%
-  enframe() %>% 
-  rename(page = name) %>% 
+substr(txt_clean$value[1], 1,500)
+```
+
+To split our character vectors, we will use the `str_split` function. It splits a character vector according to a separator, and stores the values in a list. To show more clearly, let's look at a dummy example. We can split a string of comma separated numbers into a list with each individual number.
+
+```{r}
+x <- "1,2,3,4,5"
+str_split(x, ",")
+```
+
+
+In the real dataset, we'll use `str_split` and `mutate`, which will create a list of values within each row of the `value` column. So each cell in the `value` column contains a list of values like the result of the example above. We can "flatten" this data so that each cell only has one value by using the `unnest` function, which takes as arguments the columns to flatten. Let's take the example above, and make it a little more like our real data.
+
+First turn the original dummy vector into a data frame, and do our split as before, this time using `mutate`.
+
+```{r}
+x_df <- data.frame(x = x) %>% 
+  mutate(x = str_split(x, ","))
+x_df
+```
+Then you can run the `unnest` on the column of split values we just created.
+
+```{r}
+x_df_flat <- x_df %>% 
+  unnest(cols = x)
+
+x_df_flat
+```
+Now that we know how this works, let's do it on our dataset with the double newline character as the separator.
+
+```{r}
+txt_clean <- txt_clean %>%
   mutate(value = str_split(value, "\n\n")) %>% 
   unnest(cols = value)
 ```
 
-You can see that our questions and answers are now easily visible because they all start with wither Q or A. The other lines are blank lines or header/footer lines from the document. So, let's extract the first few characters of each line, clean them up a little bit, and then run a `filter` for lines that start with Q or A. Finally, we can then extract the Q/A identifier text from the beginning of the line.
+```{r}
+DT::datatable(txt_clean, rownames = F)
+```
+
+
+You can see that our questions and answers are now easily visible because they all start with wither Q or A. The other lines are blank lines or header/footer lines from the document. So, let's extract the first few characters of each line into a new column using `substr`, with the goal that we'll run a `filter` for rows that start with Q or A, thus discarding all the other rows.
+
+First, we extract the first 4 characters of each row and using `mutate` create a new column with those values called `id`.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4))
+```
+
+Let's have a look at the unique values there:
+
+```{r}
+unique(txt_clean$id)
+```
+
+So unfortunately some of the text is a tiny bit garbled, there are newlines before at least some Q and A ids. We can use mutate again with `str_replace` to replace those `\n` with a blank value, which will remove them.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4)) %>% 
+  mutate(id = str_replace(id, "\n", ""))
+```
+
+```{r}
+unique(txt_clean$id)
+```
+
+Now we will use `substr` again to get the first two characters of each id.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4)) %>% 
+  mutate(id = str_replace(id, "\n", "")) %>% 
+  mutate(id = substr(id, 1, 2))
+```
+
+```{r}
+unique(txt_clean$id)
+```
+
+Finally, we can run the filter. Here, we filter for `id` values that start with either a Q or an A using the `grepl` function and a regular expression. We won't go much into regular expression details, but there is a chapter in the appendix for more about how they work.
+
+Here is an example of grepl in action. It returns a true or false for whether the value of x starts with (signified by `^`) a Q or A (signified by QA in square brackets).
+
+```{r}
+x <- c("Q3", "F1", "AAA", "FA")
+grepl("^[QA]", x)
+```
+
+So let's run that within a `filter` which will return only rows where the `grepl` would return TRUE.
+
+```{r}
+txt_clean <- txt_clean %>% 
+  mutate(id = substr(value, 1, 4)) %>% 
+  mutate(id = str_replace(id, "\n", "")) %>% 
+  mutate(id = substr(id, 1, 2)) %>% 
+  filter(grepl("^[QA]", id))
+```
+
+```{r, echo = FALSE}
+DT::datatable(txt_clean, rownames = F)
+```
+
+Finally, as our last cleaning step we replace all instances of the start of a string that contains a Q or A, followed by a digit and a colon, with an empty string (removing them from the beginning of the line.
 
 ```{r}
 txt_clean <- txt_clean %>% 
@@ -271,7 +376,11 @@ txt_clean <- txt_clean %>%
   mutate(value = str_replace_all(value, "[QA][0-9]\\:", ""))
 ```
 
-Finally, we can try the same analysis again to look for the most commonly used words.
+```{r, echo = FALSE}
+DT::datatable(txt_clean, rownames = F)
+```
+
+Finally, we can try the same analysis again as above to look for the most commonly used words.
 
 ```{r}
 pdf_summary <- txt_clean %>%  
@@ -282,3 +391,13 @@ pdf_summary <- txt_clean %>%
   slice_head(n = 10)
 ```
 
+```{r, echo = FALSE}
+DT::datatable(pdf_summary, rownames = F)
+```
+
+## Summary
+
+In this lesson, we learned:
+
+- how to analyze structured text data from a survey using stop words and sentiment analysis
+- how to give structure to unstructured text data from a PDF to do some analysis using stop words and times words are used
