@@ -47,11 +47,19 @@ library(knitr)
 library(ggplot2)
 ```
 
-Next, we need to set the API credentials.
+Next, we need to set the API credentials. This function modifies the `.Renviron` file to set your API key and base URL so that you can access Qualtrics programmatically. 
+
+The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above.
 
 ```{r, eval = FALSE}
 qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE)
 ```
+
+#### Aside {.aside -}
+
+The .Renviron file is a special user controlled file that can create environment variables. Every time you open Rstudio, the variables in your environment file are loaded as...environment variables! Environment variables are named values that are accessible by your R process. They will not show up in your environment pane, but you can get a list of all of them using `Sys.getenv()`. Many are system defaults.
+
+To view or edit your `.Renviron` file, you can use `usethis::edit_r_environ()`.
 
 To get a list of all the surveys in your Qualtrics instance, use the `all_surveys` function.
 
