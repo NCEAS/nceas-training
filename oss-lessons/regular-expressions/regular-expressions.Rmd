@@ -44,7 +44,7 @@ Let's start off with a simple example of where simpler methods won't work and se
 Let's say we just received some data we need to analyze and we find this:
 
 ```{r}
-site_data <- read.csv("site_data.csv", stringsAsFactors = FALSE)
+site_data <- read.csv("../../materials/data/site_data.csv", stringsAsFactors = FALSE)
 site_data
 ```
 
@@ -236,7 +236,7 @@ site_data$site <- str_extract(site_data$x, "") # <- Fill this in between the ""
 site_data$plot <- str_extract(site_data$x, "") # <- Fill this in between the ""
 ```
 
-# Common R functions that use regular expressions
+## Common R functions that use regular expressions
 
 - Base R
   - `grep`

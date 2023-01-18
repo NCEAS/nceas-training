@@ -1,15 +1,10 @@
-# Provenance and Reproducibility
-
-```{r, child = 'sections/provenance-reproducibility-datapaper.Rmd'}
-```
-
-# Introduction to git
-
+# Appendix
 
 ```{r, child = 'sections/git-intro.Rmd'}
 ```
 
-# git collaboration and conflicts
-
 ```{r, child = 'sections/git-collaboration-conflicts.Rmd'}
+```
+
+```{r, child = '../oss-lessons/regular-expressions/regular-expressions.Rmd'}
 ```
