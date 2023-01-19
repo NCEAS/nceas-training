@@ -217,6 +217,7 @@ When you come back to your R environment, you should have a data frame containin
 
 If you don't want to go through a little interactive dialog every time you read in a sheet, and your sheet is public, you can run the function `gs4_deauth()` to access the sheet as a public user. This is helpful for cases when you want to run your code non-interactively. This is actually how I set it up for this book to build!
 
+
 #### Survey Monkey {-}
 
 Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). However, the last updates were made 5 years ago, an eternity in the software world, so it may or may not still function as intended.
