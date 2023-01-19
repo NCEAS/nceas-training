@@ -2,7 +2,8 @@
 
 ### Learning Objectives
 
-- Overview of survey instruments
+- Overview of survey tools
+- Generating a reproducible survey report with Qualtrics
 
 
 ### Introduction
@@ -37,6 +38,18 @@ Commonly used survey software within academic (vs market) research include Qualt
 
 In this lesson we will use the [`qualtRics`](https://github.com/ropensci/qualtRics) package to reproducible access some survey results set up for this course. 
 
+#### Survey Instrument
+
+The survey is very short, only four questions. The first question is on it's own page and is a consent question, after a couple of short paragraphs describing what the survey is, it's purpose, how long it will take to complete, and who is conducting it. This type of information is required if the survey is governed by an IRB, and the content will depend on the type of research being conducted. In this case, this survey is not for research purposes, and thus is not governed by IRB, but we still include this information as it conforms to the [Belmont Principles](https://www.hhs.gov/ohrp/regulations-and-policy/belmont-report/read-the-belmont-report/index.html#xinform). The Belmont Principles identify the basic ethical principles that should underlie research involving human subjects.
+
+![](../images/survey_consent.png)
+
+The three main questions of the survey have three types of responses: a multiple choice answer, a multiple choice answer which also includes an "other" write in option, and a free text answer. We'll use the results of this survey, which was sent out to NCEAS staff to fill out, to learn about how to create a reproducible survey report.
+
+![](..images/survey_main.png)
+
+
+
 First, open a new RMarkdown document and add a chunk to load the libraries we'll need for this lesson:
 
 ```{r, eval = FALSE}
@@ -45,6 +58,7 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 library(ggplot2)
+library(kableExtra)
 ```
 
 Next, we need to set the API credentials. This function modifies the `.Renviron` file to set your API key and base URL so that you can access Qualtrics programmatically. 
@@ -109,7 +123,9 @@ q2 <- survey_results %>%
 We can show these results in a table using the `kable` function from the `knitr` package:
 
 ```{r, eval = FALSE}
-kable(q2)
+kable(q2, col.names = c("How long have you been programming?",
+                        "Number of responses")) %>%
+    kable_styling()
 ```
 
 #### Question 3
@@ -137,10 +153,10 @@ Now we'll extract the free text responses:
 ```{r, eval = FALSE}
 q3_text <- survey_results %>% 
     select(Q3_7_TEXT) %>% 
-    drop_na() %>% 
-    rename(`Other (please indicate)` = Q3_7_TEXT)
+    drop_na()
 
-kable(q3_text)
+kable(q3_text, col.names = c("Other responses to 'What language do you currently use mose frequently?'")) %>% 
+    kable_styling()
 ```
 
 #### Question 4
@@ -153,26 +169,12 @@ q4 <- survey_results %>%
     rename(`What data science tool or language are you most excited to learn next?` = Q4) %>% 
     drop_na()
 
-kable(q4)
+kable(q4, col.names = "What data science tool or language are you most excited to learn next?") %>% 
+    kable_styling()
 ```
 
 
 ### Other survey tools
-
-#### Survey Monkey {-}
-
-Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). Again, this package requires API access to Survey Monkey and documentation on setup is provided within the [Readme](https://github.com/cloudyr/Rmonkey#readme) file. 
-
-Features of RMonkey include the ability to:
-
-1. `createsurvey()` which will create an email collector survey from a template of another survey example
-1. `createcollector()` which will create a web collector survey from a template of another survey example
-1. `getresponses()` will return responses from a survey
-1. List various entities including `surveylist()` `templatelist()` `respondentlist()`
-
-Also like qualtRics this package is open source and community developed. Inspection of the GitHub repository shows that the last updates were made 5 years ago and so the package may not function as intended. 
-
-There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R.  
 
 #### Google forms  {-}
 
@@ -214,3 +216,11 @@ When you come back to your R environment, you should have a data frame containin
 ##### Bypassing authentication for public sheets {-}
 
 If you don't want to go through a little interactive dialog every time you read in a sheet, and your sheet is public, you can run the function `gs4_deauth()` to access the sheet as a public user. This is helpful for cases when you want to run your code non-interactively. This is actually how I set it up for this book to build!
+
+#### Survey Monkey {-}
+
+Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). However, the last updates were made 5 years ago, an eternity in the software world, so it may or may not still function as intended.
+
+There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R. 
+
+
