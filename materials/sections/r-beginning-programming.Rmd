@@ -54,7 +54,8 @@ Notice the default panes:
 -   Environment/History (tabbed in upper right)
 -   Files/Plots/Packages/Help (tabbed in lower right)
 
-***Quick Tip:** you can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).*
+>**Quick Tip:** you can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
+>
 
 An important first question: **where are we?**
 
@@ -79,7 +80,8 @@ Note the console is not a great place to run most code since you can't save what
 3/4
 ```
 
-***Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of the line. This is called the "prompt" and when we see it, this means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on some additional information before running. You can always press escape (esc) to return back to the prompt.* *Try practicing this by running 3\* in the console.*
+>**Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of the line. This is called the "prompt" and when we see it, this means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on additional information before running. You can always press escape (esc) to return to the prompt. Try practicing this by running `3*` in the console.*
+>
 
 #### Objects in R
 
@@ -89,7 +91,8 @@ We can assign a value of a mathematical operation (and more!) to an object in R 
 
 Assign `3*4` to an object called important_value and then inspect the object you just created.
 
-***Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.*
+>**Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.
+>
 
 ```{r, eval=FALSE}
 # in my head I hear, e.g., "important_value gets 12".
@@ -98,7 +101,8 @@ important_value <- 3*4
 
 Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it) or by using parentheses.
 
-***Quick Tip:** When you begin typing an object name RStudio will automatically have suggested completions for you that you can select by hitting the tab key, then press return.*
+>**Quick Tip:** When you begin typing an object name RStudio will automatically have suggested completions for you that you can select by hitting the tab key, then press return.
+>
 
 ```{r, eval=FALSE}
 # printing the object by calling the object name
@@ -107,13 +111,6 @@ important_value
 (important_value <- 3*4)
 ```
 
-##### Objects vs Variables
-
-> An important note on objects vs variables from Claudia A Engel's [*Introduction to R*](https://cengel.github.io/R-intro/):
->
-> What are known as objects in R are known as variables in many other programming languages. Depending on the context, object and variable can have drastically different meanings. However, in this course, the two words are used synonymously.
->
-> For more information see the chapter [*Objects* in the R manual on CRAN](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects).
 
 #### Naming Conventions
 
@@ -230,7 +227,7 @@ Try running the following line in your console:
 
 What happened? Why?
 
-**Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, `is.logical()`, and so on.
+>**Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, >`is.logical()`, and so on.
 
 ```{r, eval=FALSE}
 class(science_rocks) # returns character
@@ -277,7 +274,8 @@ weight_kg >= 30
 weight_kg != 5
 ```
 
-**Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
+>**Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
+>
 
 #### Clearing the environment
 
@@ -306,7 +304,8 @@ rm(list = ls())
 
 Or click the broom in RStudio's Environment pane.
 
-**Quick Tip:** it's good practice to clear your environment often. Over time your Global Environmental will fill up with objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
+>**Quick Tip:** it's good practice to clear your environment often. Over time your Global Environmental will fill up with objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
+>
 
 ### R Functions
 
