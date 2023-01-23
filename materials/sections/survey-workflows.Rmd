@@ -42,11 +42,11 @@ In this lesson we will use the [`qualtRics`](https://github.com/ropensci/qualtRi
 
 The survey is very short, only four questions. The first question is on it's own page and is a consent question, after a couple of short paragraphs describing what the survey is, it's purpose, how long it will take to complete, and who is conducting it. This type of information is required if the survey is governed by an IRB, and the content will depend on the type of research being conducted. In this case, this survey is not for research purposes, and thus is not governed by IRB, but we still include this information as it conforms to the [Belmont Principles](https://www.hhs.gov/ohrp/regulations-and-policy/belmont-report/read-the-belmont-report/index.html#xinform). The Belmont Principles identify the basic ethical principles that should underlie research involving human subjects.
 
-![](../images/survey_consent.png)
+![](images/survey_consent.png)
 
 The three main questions of the survey have three types of responses: a multiple choice answer, a multiple choice answer which also includes an "other" write in option, and a free text answer. We'll use the results of this survey, which was sent out to NCEAS staff to fill out, to learn about how to create a reproducible survey report.
 
-![](..images/survey_main.png)
+![](images/survey_main.png)
 
 
 
@@ -63,7 +63,7 @@ library(kableExtra)
 
 Next, we need to set the API credentials. This function modifies the `.Renviron` file to set your API key and base URL so that you can access Qualtrics programmatically. 
 
-The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above.
+The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above. You should have an e-mail with the API key in it. Copy and paste it as a string to the `api_key` argument in the function below:
 
 ```{r, eval = FALSE}
 qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE)
@@ -72,6 +72,8 @@ qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", ins
 #### Aside {.aside -}
 
 The .Renviron file is a special user controlled file that can create environment variables. Every time you open Rstudio, the variables in your environment file are loaded as...environment variables! Environment variables are named values that are accessible by your R process. They will not show up in your environment pane, but you can get a list of all of them using `Sys.getenv()`. Many are system defaults.
+
+#### {-}
 
 To view or edit your `.Renviron` file, you can use `usethis::edit_r_environ()`.
 
