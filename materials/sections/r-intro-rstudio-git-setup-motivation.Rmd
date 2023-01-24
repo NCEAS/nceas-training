@@ -5,7 +5,7 @@
 In this lesson, you will learn:
 
 -   How to organize your work using R project
--   *Supplemental objective: How to make sure your local RStudio environment is set up properly for analysis*
+-   *Supplemental objective: How to make sure your local RStudio environment is set up for analysis*
 -   *Supplemental objective: How to set up Git and GitHub*
 
 ### Logging into the RStudio server
@@ -16,15 +16,15 @@ Here are the instructions for logging in and getting set up:
 
 #### Server Setup {.unnumbered .setup}
 
-You should have received an email prompting you to change your password for your server account. If you did not, please put up a red post-it and someone will help you.
+You should have received an email prompting you to change your password for your server account. If you did not, please put up a post-it and someone will help you.
 
 If you were able to successfully change your password, you can log in at: <https://included-crab.nceas.ucsb.edu/>
 
-### Why use an R project? {.unnumbered}
+### Why use an R project?
 
 In this workshop, we are going to be using R project to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
 
-**The Big Idea:** using an R project is a reproducible research best practice because it bundles all your work within a *working directory* (we'll talk more about what this means in a later section). Consider your current data analysis workflow. Where do you import you data? Where do you clean and wrangle it? Where do you create graphs, and ultimately, a final report? Are you going back and forth between multiple software tools like Microsoft Excel, JMP, and Google Docs? An R project and the tools in R that we will talk about today will consolidate this process because it can all be done (and updated) in using one software tool, RStudio, and within one R project.
+**The Big Idea:** using an R project is a reproducible research best practice because it bundles all your work within a *working directory*. Consider your current data analysis workflow. Where do you import you data? Where do you clean and wrangle it? Where do you create graphs, and ultimately, a final report? Are you going back and forth between multiple software tools like Microsoft Excel, JMP, and Google Docs? An R project and the tools in R that we will talk about today will consolidate this process because it can all be done (and updated) in using one software tool, RStudio, and within one R project.
 
 We are going to be doing nearly all of the work in this course in one R project.
 
@@ -41,7 +41,11 @@ In your RStudio server session, follow these steps to set up your shared project
 -   Leave "Create Project as subdirectory of:" set to `~`
 -   Click "Create Project"
 
-Your RStudio should now open your project. To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: `training_do-linh`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
+Your RStudio should open your project automatically after creating it. One way to check this is by looking at the top right corner and checking for the project name. 
+
+#### Sharing your project {.unnumbered .setup}
+
+To share your project with the instructor team, locate the "project switcher" dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: `training_do-linh`), and a dropdown arrow. Click the dropdown menu, then "Share Project." When the dialog box pops up, add the following usernames to your project:
 
 -   do-linh
 -   jclark
@@ -51,7 +55,9 @@ Your RStudio should now open your project. To share your project with the instru
 
 Once those names show up in the list, click "OK".
 
-#### Understand how to use paths and working directories {.unnumbered}
+### Understand how to use paths and working directories
+
+![Artwork by Allison Horst. A cartoon of a cracked glass cube looking frustrated with casts on its arm and leg, with bandaids on it, containing “setwd”, looks on at a metal riveted cube labeled “R Proj” holding a skateboard looking sympathetic, and a smaller cube with a helmet on labeled “here” doing a trick on a skateboard.](images/allison-horst-pathways.png)
 
 Now that we have your project created (and notice we know it's an R Project because we see a `.Rproj` file in our Files pane), let's learn how to move in a project. We do this using paths.
 
@@ -69,7 +75,7 @@ Note that once you start working in projects you should basically never need to 
 
 Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
 
-#### Organizing your project {.unnumbered}
+### Organizing your project
 
 When starting a new research project, one of the first things I do is create an R project for it (just like we have here!). The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are [`rrtools`](https://github.com/benmarwick/rrtools) or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
 
@@ -81,26 +87,26 @@ The complexity of this project reflects years of work. Perhaps more representati
 
 ![](images/project-start.png)
 
-Currently, the only file in your project is your `.Rproj` file. This file is what contains the settings specific to your R project. Some common directories are:
+Currently, the only file in your project is your `.Rproj` file. Let's add some directories and start a file folder structure. Some common directories are:
 
--   `data`: where we store our data (often contains sub-directories for raw, processed, metadata data)
+-   `data`: where we store our data (often contains subdirectories for raw, processed, and  metadata data)
 
--   `R`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work contains other scripts beyond the R programming language, in which case they call this directory `scripts`)
+-   `R`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory `scripts`)
 
 -   `plots` or `figs`: generated plots, graphs, and figures
 
 -   `doc`: summaries or reports of analysis or other relevant project information
 
-Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproduciblity and collaboration.
+Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproducibility and collaboration.
 
-#### Summary {.unnumbered}
+### Summary
 
 -   organize your research into projects using R projects
--   use R project working directories instead of `setwd`
+-   use R project working directories instead of `setwd()`
 -   use relative paths from those working directories, not absolute paths
 -   structure your R project as a compendium
 
-### Supplemental Instructions
+### Supplemental Objectives
 
 #### Preparing to work in RStudio
 
