@@ -3,8 +3,9 @@
 In this lesson we will:
 
 -   get oriented to the RStudio interface
--   work with R in the console
+-   run code and basic arithmetic in the console
 -   be introduced to built-in R functions
+-   be introduced to an R script
 -   learn to use the help pages
 
 ## Introduction and Motivation
@@ -36,6 +37,24 @@ Here are some other resources that we like for learning R:
 -   The [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry's R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course
 -   Jenny Bryan's Stat 545 [course materials](https://stat545.com/r-basics.html)
 
+Community resources:
+
+-   [NCEAS' EcoDataScience](https://eco-data-science.github.io/)
+
+-   [R-Ladies](https://rladies.org/)
+
+-   [rOpenSci](https://ropensci.org/community/)
+
+-   [Minorities in R (MiR)](https://mircommunity.com/)
+
+-   Twitter - there is *a lot* here but some hashtags to start with are:
+
+    -   #rstats
+
+    -   #TidyTuesday
+
+    -   #dataviz
+
 Other resources:
 
 -   [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)
@@ -44,7 +63,7 @@ Other resources:
 
 ## RStudio Interface
 
-Launch RStudio
+Ok let's get started with a tour of RStudio.
 
 ![](images/RStudio_IDE.png)
 
@@ -54,8 +73,7 @@ Notice the default panes:
 -   Environment/History (tabbed in upper right)
 -   Files/Plots/Packages/Help (tabbed in lower right)
 
->**Quick Tip:** you can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
->
+> **Quick Tip:** you can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
 
 An important first question: **where are we?**
 
@@ -63,13 +81,13 @@ If you've just opened RStudio for the first time, you'll be in your Home directo
 
 ![](images/RStudio_IDE_homedir.png)
 
-## R Basics: Running Code in the Console
+## R Basics: Running code in the Console
 
 We can run code in a couple of places, including the Console, let's start there.
 
 At it's most basic, we can use R to calculate simple math for us, let's try a couple of examples in the console.
 
-Note the console is not a great place to run most code since you can't save what you ran. A better way is to create an R script, and write your code from there. Then you run your code from the script, and save it when you are done. We're going to continue doing writing code in the console for now, but we'll create an R script in later sessions.
+Note the console is not a great place to run most code since you can't save what you ran. A better way is to create an R script, and write your code from there. Then you run your code from the script, and save it when you are done. We're going to continue doing writing code in the console for now, but we'll create an R script later in this chapter.
 
 ```{r, eval=FALSE}
 # run in the console
@@ -80,8 +98,7 @@ Note the console is not a great place to run most code since you can't save what
 3/4
 ```
 
->**Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of the line. This is called the "prompt" and when we see it, this means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on additional information before running. You can always press escape (esc) to return to the prompt. Try practicing this by running `3*` in the console.*
->
+> **Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of the line. This is called the "prompt" and when we see it, this means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on additional information before running. You can always press escape (esc) to return to the prompt. Try practicing this by running `3*` in the console.
 
 ### Objects in R
 
@@ -89,10 +106,9 @@ Let's say the value of 12 that we got from running `3*4` is a really important v
 
 We can assign a value of a mathematical operation (and more!) to an object in R using the assignment operator, `<-`. All objects in R are created using the assignment operator, following this form: `object_name <- value`.
 
-Assign `3*4` to an object called important_value and then inspect the object you just created.
+Assign `3*4` to an object called `important_value` and then inspect the object you just created.
 
->**Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.
->
+> **Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.
 
 ```{r, eval=FALSE}
 # in my head I hear, e.g., "important_value gets 12".
@@ -101,8 +117,7 @@ important_value <- 3*4
 
 Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it) or by using parentheses.
 
->**Quick Tip:** When you begin typing an object name RStudio will automatically have suggested completions for you that you can select by hitting the tab key, then press return.
->
+> **Quick Tip:** When you begin typing an object name RStudio will automatically show suggested completions for you that you can select by hitting `tab`, then press `return.`
 
 ```{r, eval=FALSE}
 # printing the object by calling the object name
@@ -110,7 +125,6 @@ important_value
 # printing the object by wrapping the assignment syntax in parentheses
 (important_value <- 3*4)
 ```
-
 
 ### Naming Conventions
 
@@ -126,7 +140,7 @@ Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(
 
 ### R calculations with objects
 
-Now that we know what an object is in R and how to create one let's learn how to use an object in calculations. Create the variable `weight_kg` and assign it a value of 55.
+Now that we know what an object is in R and how to create one let's learn how to use an object in calculations. Let's say we have the weight of a dog in kilograms. Create the object `weight_kg` and assign it a value of 55.
 
 ```{r, purl=FALSE}
 weight_kg <- 55 
@@ -134,20 +148,20 @@ weight_kg <- 55
 
 Now that R has `weight_kg` saved in the Global Environment, we can do arithmetic with it. For instance, we may want to convert weight into pounds (weight in pounds is 2.2 times the weight in kg):
 
-```{r}
+```{r, results='hide'}
 2.2 * weight_kg
 ```
 
-We can also change a variable's value by assigning it a new one:
+We can also change an object's value by assigning it a new one:
 
-```{r}
+```{r, results='hide'}
 weight_kg <- 57.5
 2.2 * weight_kg
 ```
 
-This means that assigning a value to one variable does not change the values of other variables. For example, let's store the animal's weight in pounds in a new variable, `weight_lb`:
+This means that assigning a value to one object does not change the values of other objects. For example, let's store the dog weight in pounds in a new variable, `weight_lb`:
 
-```{r}
+```{r, results='hide'}
 weight_lb <- 2.2 * weight_kg
 ```
 
@@ -189,19 +203,19 @@ all_data_types_list <- list(chr_atomic_vector, numeric_atomic_vector, boolean_at
 
 The most common data types in R are:
 
--   **Boolean** (also called logical): data take on the value of either `TRUE`, `FALSE`, or `NA`. `NA` is used to represent missing values.
+-   `boolean` (also called `logical`): data take on the value of either `TRUE`, `FALSE`, or `NA`. `NA` is used to represent missing values.
 
--   **Character**: data are used to represent string values. You can think of character strings as something like a word (or multiple words). A special type of character string is a **factor**, which is a string but with additional attributes (like levels or an order).
+-   `character`: data are used to represent string values. You can think of character strings as something like a word (or multiple words). A special type of character string is a `factor`, which is a string but with additional attributes (like levels or an order).
 
--   **Integer**: data are whole numbers (those numbers without a decimal point). To explicitly create an integer data type, use the suffix `L` (e.g. `2L`).
+-   `integer`: data are whole numbers (those numbers without a decimal point). To explicitly create an integer data type, use the suffix `L` (e.g. `2L`).
 
--   **Numeric** (also called double): data are numbers that contain a decimal.
+-   `numeric` (also called `double`): data are numbers that contain a decimal.
 
 Some less common data types are (note we won't discuss these further in this course):
 
--   **Complex**: data are complex numbers with real and imaginary parts.
+-   `complex`: data are complex numbers with real and imaginary parts.
 
--   **Raw**: data are raw bytes.
+-   `raw`: data are raw bytes.
 
 In the objects we created above, what do you think the data types are?
 
@@ -223,7 +237,7 @@ Try running the following line in your console:
 
 What happened? Why?
 
->**Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, >`is.logical()`, and so on.
+> **Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, \>`is.logical()`, and so on.
 
 ```{r, eval=FALSE}
 class(science_rocks) # returns character
@@ -231,7 +245,9 @@ is.numeric(science_rocks) # returns FALSE
 is.character(science_rocks) # returns TRUE
 ```
 
-### Error messages are your friends
+## Running code in an R Script
+
+## Error messages are your friends
 
 There is an implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
 
@@ -270,8 +286,7 @@ weight_kg >= 30
 weight_kg != 5
 ```
 
->**Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
->
+> **Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` is a pain to type. Don't be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
 
 ### Clearing the environment
 
@@ -300,8 +315,7 @@ rm(list = ls())
 
 Or click the broom in RStudio's Environment pane.
 
->**Quick Tip:** it's good practice to clear your environment often. Over time your Global Environmental will fill up with objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
->
+> **Quick Tip:** it's good practice to clear your environment often. Over time your Global Environmental will fill up with objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
 
 ## R Functions
 
