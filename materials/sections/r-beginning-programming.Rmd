@@ -77,11 +77,11 @@ If you've just opened RStudio for the first time, you'll be in your Home directo
 
 ## R Basics: Running code in the Console
 
-We can run code in a couple of places, including the Console, let's start there.
+We can run code in a couple of places in RStudio, including the Console, let's start there.
 
-At it's most basic, we can use R to calculate simple math for us, let's try a couple of examples in the console.
+At it's most basic, we can use R as a calculator, let's try a couple of examples in the console.
 
-Note the console is not a great place to run most code since you can't save what you ran. A better way is to create an R script, and write your code from there. Then you run your code from the script, and save it when you are done. We're going to continue doing writing code in the console for now, but we'll create an R script later in this chapter.
+Note the console is not a great place to run most code since you can't save what you ran. A better way is to create an R script, and write your code there. Then when you run your code from the script, you can save it when you are done. We're going to continue doing writing code in the console for now, but we'll code in an R script later in this chapter.
 
 ```{r, eval=FALSE}
 # run in the console
@@ -92,24 +92,22 @@ Note the console is not a great place to run most code since you can't save what
 3/4
 ```
 
-> **Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of the line. This is called the "prompt" and when we see it, this means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on additional information before running. You can always press escape (esc) to return to the prompt. Try practicing this by running `3*` in the console.
+> **Quick Tip:** When you're in the console you'll see a greater than sign (\>) at the start of a line. This is called the "prompt" and when we see it, it means R is ready to accept commands. If you see a plus sign (+) in the Console, it means R is waiting on additional information before running. You can always press escape (esc) to return to the prompt. Try practicing this by running `3*` (or any incomplete expression) in the console.
 
 ### Objects in R
 
-Let's say the value of 12 that we got from running `3*4` is a really important value we need to keep. The way we store information in R is through **objects**.
+Let's say the value of 12 that we got from running `3*4` is a really important value we need to keep. To keep information in R, we will need to create an **object**. The way information is stored in R is through objects.
 
-We can assign a value of a mathematical operation (and more!) to an object in R using the assignment operator, `<-`. All objects in R are created using the assignment operator, following this form: `object_name <- value`.
+We can assign a value of a mathematical operation (and more!) to an object in R using the assignment operator, `<-` (greater than sign and minus sign). All objects in R are created using the assignment operator, following this form: `object_name <- value`.
 
-Assign `3*4` to an object called `important_value` and then inspect the object you just created.
-
-> **Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.
+**Exercise:** Assign `3*4` to an object called `important_value` and then inspect the object you just created.
 
 ```{r, eval=FALSE}
 # in my head I hear, e.g., "important_value gets 12".
 important_value <- 3*4
 ```
 
-Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it) or by using parentheses.
+Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object, and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it out) or by using parentheses.
 
 > **Quick Tip:** When you begin typing an object name RStudio will automatically show suggested completions for you that you can select by hitting `tab`, then press `return.`
 
@@ -119,6 +117,8 @@ important_value
 # printing the object by wrapping the assignment syntax in parentheses
 (important_value <- 3*4)
 ```
+
+> **Quick Tip:** Use the up and down arrow keys to call your command history, with the most recent commands being called first.
 
 ### Naming Conventions
 
@@ -130,7 +130,9 @@ Before we run more calculations, let's talk about naming objects. For the object
 
 -   SomeUseUpperCamelCaseAlsoCalledPascalCase
 
-Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(programming)#:~:text=In%20computer%20programming%2C%20a%20naming,in%20source%20code%20and%20documentation) is a personal preference, but once you choose one - be consistent! A consistent naming convention will increase the readability of your code for others and your future self. Note that object names cannot start with a digit and cannot contain certain characters such as a comma or a space.
+Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(programming)#:~:text=In%20computer%20programming%2C%20a%20naming,in%20source%20code%20and%20documentation) is a personal preference, but once you choose one - be consistent! A consistent naming convention will increase the readability of your code for others and your future self. 
+
+> **Quick Tip:** Object names cannot start with a digit and cannot contain certain characters such as a comma or a space.
 
 ### R calculations with objects
 
@@ -148,37 +150,38 @@ Now that R has `weight_kg` saved in the Global Environment, we can run calculati
 2.2 * weight_kg
 ```
 
-You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is the function `c()`, which stands for combine or concatenate.
+You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is with the function `c()`, which stands for combine or concatenate.
 
-First let's create a *vector* of weights in kilograms using `c()`.
+First let's create a *vector* of weights in kilograms using `c()` (we'll talk more about vectors in the next section, [Data structures in R](#data_structures)).
 
-```{r}
+```{r, results='hide'}
 # create a vector of weights in kilograms
 weight_kg <- c(55, 25, 12)
+# call the object to inspect
 weight_kg
 ```
 
 Now convert the object `weight_kg` to pounds.
 
-```{r}
+```{r, results='hide'}
 # covert `weight_kg` to pounds 
 weight_kg * 2.2
 ```
 
-Wouldn't it be helpful if we could save these new weights in pounds? This might be important information we may need to use for a future calculation. How would you save these new weights in pounds?
+Wouldn't it be helpful if we could save these new weight values we just converted? This might be important information we may need for a future calculation. How would you save these new weights in pounds?
 
-```{r}
+```{r, results='hide'}
 # create a new object 
 weight_lb <- weight_kg * 2.2
 # call `weight_lb` to check if the information you expect is there
 weight_lb
 ```
 
-> **Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` can be tedious to type over and over. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
+> **Quick Tip:** You will make many objects and the assignment operator `<-` can be tedious to type over and over. Instead, use **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automatically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
 
 ### Logical operators and expressions
 
-A moment about **logical operators and expressions**. We can ask questions about the objects we just made.
+A moment about **logical operators and expressions**. We can ask questions about the object, `weight_lb` we made.
 
 -   `==` means 'is equal to'
 -   `!=` means 'is not equal to'
@@ -194,13 +197,11 @@ weight_lb >= 30
 weight_lb != 5
 ```
 
-### Data structures in R
+### Data structures in R {#data_structures}
 
-Let's talk more about vectors.
+**A vector is the most common and most basic data structure in R**. A common vector you will interact with often are **atomic vectors**. To put it simply, atomic vectors *only* contain elements of the *same* data type.
 
-**A vector is the most common and most basic data structure in R**. The vector we will interact with the most during this course are **atomic vectors**. To put it simply, atomic vectors only contain elements of the *same* data type.
-
-Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the [Chapter Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
+Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the chapter [Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
 
 [![Source: Advanced R by Hadley Wickham](images/vector-data-structures-tree-hadley-wickham.png)](https://adv-r.hadley.nz/vectors-chap.html)
 
@@ -226,7 +227,7 @@ The most common data types in R are:
 
 -   `numeric` (also called `double`): data are numbers that contain a decimal.
 
-Some less common data types are (note we won't discuss these further in this course):
+Some less common data types are:
 
 -   `complex`: data are complex numbers with real and imaginary parts.
 
@@ -238,9 +239,9 @@ Let's create an object that has been assigned a string.
 science_rocks <- "yes it does!"
 ```
 
-In R, this is called a "string", and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R pretty easily, thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
+In R, this is called a "string", and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R easily thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
 
-Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. Everything in R is an object - an object is a variable, function, data structure, or method that you have written to your environment. Again, you can see what objects you have created by looking in the Environment pane in RStudio. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings).
+Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. Everything in R is an object - an object is a variable, function, data structure, or method that you have written to your environment. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings).
 
 Try running the following line in your console:
 
@@ -250,7 +251,7 @@ Try running the following line in your console:
 
 What happened? Why?
 
-> **Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, \>`is.logical()`, and so on.
+> **Quick Tip:** You can see what data type an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, `is.logical()`, and so on.
 
 ```{r, eval=FALSE}
 class(science_rocks) # returns character
@@ -269,7 +270,7 @@ In your RStudio server session, follow these steps to set up your R script:
 -   In the "File" menu, select "New File"
 -   Click "R Script" from the list of options
 
-Your RStudio should open your R script automatically after creating it. Notice a new pane appears above the console. This is called the **source pane** and is where we will write and edit R code and documents. This pane is only present if there are files open in the editor.
+RStudio should open your R script automatically after creating it. Notice a new pane appears above the console. This is called the **source pane** and is where we write and edit R code and documents. This pane is only present if there are files open in the editor.
 
 ### R Functions
 
@@ -279,7 +280,7 @@ A function is a way to group a set of commands together to undertake a task in a
 
 All functions are called using the same syntax: function name with parentheses around what the function needs in order to do what it was built to do. The pieces of information that the function needs to do its job are called arguments. So the syntax will look something like: `result_value <- function_name(argument1 = value1, argument2 = value2, ...)`.
 
-### Example using `mean()`
+### Use the `mean()` function to run a more complex calculation
 
 We can also change an object's value by assigning it a new one:
 
@@ -319,7 +320,7 @@ mean_my_numbers <- mean(my_numbers)
 
 To take a very simple example, let's look at the `mean()` function. As you might expect, this is a function that will take the mean of a set of numbers. Very convenient!
 
-### Use a function to read a file into R
+### Use the `read.csv()` function to read a file into R
 
 So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv()`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
 
@@ -501,7 +502,7 @@ R packages are the building blocks of computational reproducibility in R. Each p
 
 To install a package, we use the syntax `install.packages("packge_name")`. A package only needs to be installed once, so this code can be run directly in the console if needed. Generally, you don't want to save your install package calls in a script, because when you run the script it will re-install the package, which you only need to do once, or if you need to update the package.
 
-Use the chunk below to check to make sure you have all of the packages installed that you need for the course:
+Use the chunk below to check that you have all the necessary packages installed for the course:
 
 ```{r, eval = FALSE}
 packages <- c("readr", 
