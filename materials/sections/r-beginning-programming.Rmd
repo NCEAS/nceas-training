@@ -24,42 +24,36 @@ While language is a familiar concept, programming languages are in a different c
 
 ### R Resources
 
-This lesson is a combination of excellent lessons by others. Huge thanks to [Julie Lowndes](https://jules32.github.io/) for writing most of this content and letting us build on her material, which in turn was built on [Jenny Bryan's](https://jennybryan.org/about/) materials. I definitely recommend reading through the original lessons and using them as reference:
+This lesson is a combination of excellent lessons by others. Huge thanks to [Julie Lowndes](https://jules32.github.io/) for writing most of this content and letting us build on her material, which in turn was built on [Jenny Bryan's](https://jennybryan.org/about/) materials. We highly recommend reading through the original lessons and using them as reference.
 
-[Julie Lowndes' Data Science Training for the Ocean Health Index](http://ohi-science.org/data-science-training/)
-
--   [R, RStudio, RMarkdown](http://ohi-science.org/data-science-training/rstudio.html)
--   [Programming in R](http://ohi-science.org/data-science-training/programming.html)
-
-Here are some other resources that we like for learning R:
-
--   Learn R in the console with [swirl](https://swirlstats.com/)
--   The [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry's R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course
--   Jenny Bryan's Stat 545 [course materials](https://stat545.com/r-basics.html)
-
-Community resources:
-
--   [NCEAS' EcoDataScience](https://eco-data-science.github.io/)
-
--   [R-Ladies](https://rladies.org/)
-
--   [rOpenSci](https://ropensci.org/community/)
-
--   [Minorities in R (MiR)](https://mircommunity.com/)
-
--   Twitter - there is *a lot* here but some hashtags to start with are:
-
-    -   #rstats
-
-    -   #TidyTuesday
-
-    -   #dataviz
-
-Other resources:
-
--   [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)
--   [Base R Cheatsheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
--   [MATLAB/R Translation Cheat Sheet](http://mathesaurus.sourceforge.net/octave-r.html)
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Learning R Resources | -   [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry's R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course |
+|                      | -   Jenny Bryan's Stat 545 [course materials](https://stat545.com/r-basics.html)                                                                                                                  |
+|                      | -   [Julie Lowndes' Data Science Training for the Ocean Health Index](http://ohi-science.org/data-science-training/)                                                                              |
+|                      | -   Learn R in the console with [swirl](https://swirlstats.com/)                                                                                                                                  |
+|                      | -   [Programming in R](http://ohi-science.org/data-science-training/programming.html)                                                                                                             |
+|                      | -   [R, RStudio, RMarkdown](http://ohi-science.org/data-science-training/rstudio.html)                                                                                                            |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Community Resources  | -   [NCEAS' EcoDataScience](https://eco-data-science.github.io/)                                                                                                                                  |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [R-Ladies](https://rladies.org/)                                                                                                                                                              |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [rOpenSci](https://ropensci.org/community/)                                                                                                                                                   |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [Minorities in R (MiR)](https://mircommunity.com/)                                                                                                                                            |
+|                      |                                                                                                                                                                                                   |
+|                      | -   Twitter - there is *a lot* here but some hashtags to start with are:                                                                                                                          |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #rstats                                                                                                                                                                                   |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #TidyTuesday                                                                                                                                                                              |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #dataviz                                                                                                                                                                                  |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Cheatsheets          | -   [Base R Cheatsheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)                                                                                                     |
+|                      | -   [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)                                                                                                             |
+|                      | -   [MATLAB/R Translation Cheatsheet](http://mathesaurus.sourceforge.net/octave-r.html)                                                                                                           |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## RStudio Interface
 
@@ -156,7 +150,7 @@ Now that R has `weight_kg` saved in the Global Environment, we can run calculati
 
 You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is the function `c()`, which stands for combine or concatenate.
 
-First let's create a *vector* of weights in kilograms using `c()`. 
+First let's create a *vector* of weights in kilograms using `c()`.
 
 ```{r}
 # create a vector of weights in kilograms
@@ -171,7 +165,7 @@ Now convert the object `weight_kg` to pounds.
 weight_kg * 2.2
 ```
 
-Wouldn't it be helpful if we could save these new weights in pounds? This might be important information we may need to use for a future calculation. How would you save these new weights in pounds? 
+Wouldn't it be helpful if we could save these new weights in pounds? This might be important information we may need to use for a future calculation. How would you save these new weights in pounds?
 
 ```{r}
 # create a new object 
@@ -180,8 +174,7 @@ weight_lb <- weight_kg * 2.2
 weight_lb
 ```
 
-> **Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` can be tedious to type over and over. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide). 
-
+> **Quick Tip:** Shortcuts You will make lots of assignments and the operator `<-` can be tedious to type over and over. Instead, utilize **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automagically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
 
 ### Logical operators and expressions
 
@@ -203,9 +196,9 @@ weight_lb != 5
 
 ### Data structures in R
 
-Let's talk more about vectors. 
+Let's talk more about vectors.
 
-**A vector is the most common and most basic data structure in R**. The vector we will interact with the most during this course are **atomic vectors**. To put it simply, atomic vectors only contain elements of the *same* data type. 
+**A vector is the most common and most basic data structure in R**. The vector we will interact with the most during this course are **atomic vectors**. To put it simply, atomic vectors only contain elements of the *same* data type.
 
 Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the [Chapter Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
 
@@ -265,10 +258,9 @@ is.numeric(science_rocks) # returns FALSE
 is.character(science_rocks) # returns TRUE
 ```
 
-
 ## Running code in an R script
 
-So far we've been running code in the console, let's try running code in an R script. 
+So far we've been running code in the console, let's try running code in an R script.
 
 #### Creating an R script {.unnumbered .setup}
 
@@ -278,7 +270,6 @@ In your RStudio server session, follow these steps to set up your R script:
 -   Click "R Script" from the list of options
 
 Your RStudio should open your R script automatically after creating it. Notice a new pane appears above the console. This is called the **source pane** and is where we will write and edit R code and documents. This pane is only present if there are files open in the editor.
-
 
 ### R Functions
 
@@ -468,7 +459,6 @@ This means that you do not have an object called `myobject` saved in your enviro
 -   **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
 -   **not executing the line in your script**: remember that writing a line of code in a script or RMarkdown document is not the same as writing in the console, you have to execute the line of code using command + enter or using one of the several ways in the RStudio graphical user interface.
 
-
 ### Getting help using help pages
 
 What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
@@ -504,7 +494,6 @@ Not all functions have (or require) arguments:
 ```{r}
 date()
 ```
-
 
 ### R Packages
 
