@@ -180,20 +180,24 @@ weight_lb <- weight_kg * 2.2
 weight_lb
 ```
 
-### Data Structures in R
+### Data structures in R
 
 Let's talk more about vectors. 
 
-**A vector is the most common and most basic data structure in R**. There are two types of vectors: **atomic** and **lists**. The most significant difference between the two is that atomic vectors contain elements of the same data type, whereas lists can contain elements of multiple different data types.
+**A vector is the most common and most basic data structure in R**. The vector we will interact with the most during this course are **atomic vectors**. To put it simply, atomic vectors only contain elements of the *same* data type. 
+
+Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the [Chapter Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
+
+[![Source: Advanced R by Hadley Wickham](images/vector-data-structures-tree-hadley-wickham.png)](https://adv-r.hadley.nz/vectors-chap.html)
 
 ```{r}
-# atomic vector examples
+# atomic vector examples #
+# character vector
 chr_atomic_vector <- c("hello", "good bye", "see you later")
+# numeric vector
 numeric_atomic_vector <- c(5, 1.3, 10)
+# logical vector
 boolean_atomic_vector <- c(TRUE, FALSE, TRUE)
-
-# list vector examples
-all_data_types_list <- list(chr_atomic_vector, numeric_atomic_vector, boolean_atomic_vector)
 ```
 
 ### Data types in R
@@ -214,9 +218,7 @@ Some less common data types are (note we won't discuss these further in this cou
 
 -   `raw`: data are raw bytes.
 
-In the objects we created above, what do you think the data types are?
-
-Let's create an object that has been assigned words.
+Let's create an object that has been assigned a string.
 
 ```{r}
 science_rocks <- "yes it does!"
@@ -224,7 +226,7 @@ science_rocks <- "yes it does!"
 
 In R, this is called a "string", and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R pretty easily, thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
 
-Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. An object is a variable, function, data structure, or method that you have written to your environment. Again, you can see what objects you have created by looking in the Environment pane in RStudio. The operations you can do with an object will depend on what type of object it is. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings), for example.
+Strings and numbers lead us to an important concept in programming: that there are different "classes" or types of objects. Everything in R is an object - an object is a variable, function, data structure, or method that you have written to your environment. Again, you can see what objects you have created by looking in the Environment pane in RStudio. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings).
 
 Try running the following line in your console:
 
