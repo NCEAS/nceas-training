@@ -152,7 +152,7 @@ Now that R has `weight_kg` saved in the Global Environment, we can run calculati
 
 You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is with the function `c()`, which stands for combine or concatenate.
 
-First let's create a *vector* of weights in kilograms using `c()` (we'll talk more about vectors in the next section, [Data structures in R](#data_structures)).
+First let's create a *vector* of weights in kilograms using `c()` (we'll talk more about vectors in the next section, [Data structures in R](#data_structures).
 
 ```{r, results='hide'}
 # create a vector of weights in kilograms
@@ -319,7 +319,7 @@ Notice that after you finish typing your code, pressing enter doesn't run your c
 
 ### Use the `mean()` function to run a more complex calculation
 
-Since we just cleared our environment, let's recreate our weights object again. This time let's say we have three dog weights:
+Since we just cleared our environment, let's recreate our weight object again. This time let's say we have three dog weights in pounds:
 
 ```{r}
 weight_lb <- c(55, 25, 12)
@@ -327,7 +327,7 @@ weight_lb <- c(55, 25, 12)
 
 and use the `mean()` function to calculate the mean weight. As you might expect, this is a function that will take the mean of a set of numbers. Very convenient!
 
-```{r}
+```{r, results='hide'}
 mean(weight_lb)
 ```
 
@@ -337,7 +337,7 @@ Save the mean to an object called `mean_weight_lb`.
 mean_weight_lb <- mean(weight_lb)
 ```
 
-Let's say our dogs gained 5 pounds and we need to update our vector, so let's change our object's value by assigning it new and update values.
+Let's say each of the dogs gained 5 pounds and we need to update our vector, so let's change our object's value by assigning it new and update values.
 
 ```{r}
 weight_lb <- c(60, 30, 17)
@@ -349,7 +349,7 @@ Notice that `mean_weight_lb` did not change. This demonstrates an important prog
 
 Now, that we understand why the object's value hasn't changed - how do we update the value of `mean_weight_lb`? How is an R script useful for this?
 
-It's important to understand how an R script run - which is top to bottom. This order of operations is important because if you are running code line by line, the values in object may be unexpected. When you are done with an R script, it's good practice to clear your Global Environment and use the `Run` button and select "Run all" to test that your script successfully runs top to bottom.
+It's important to understand how an R script runs - which is top to bottom. This order of operations is important because if you are running code line by line, the values in object may be unexpected. When you are done writing your code in an R script, it's good practice to clear your Global Environment and use the `Run` button and select "Run all" to test that your script successfully runs top to bottom.
 
 ### Use the `read.csv()` function to read a file into R
 
@@ -388,7 +388,7 @@ bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv",
                     stringsAsFactors = FALSE)
 ```
 
-```{r, echo = F}
+```{r, eval = F}
 # relative file path
 bg_chem <- read.csv("data/BGchem2008data.csv", 
                     stringsAsFactors = FALSE)
@@ -396,7 +396,7 @@ bg_chem <- read.csv("data/BGchem2008data.csv",
 
 ### Using `data.frames`
 
-A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created is a `data.frame`. There are a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
+A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents an observation containing a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created is a `data.frame`. There are a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
 -   click on the word `bg_chem_dat` in the environment pane
 -   click on the arrow next to `bg_chem_dat` in the environment pane
@@ -405,25 +405,25 @@ A `data.frame` is a two dimensional data structure in R that mimics spreadsheet 
 
 Usually we will want to run functions on individual columns in a `data.frame`. To call a specific column, we use the list subset operator `$`. Say you want to look at the first few rows of the `Date` column only. This would do the trick:
 
-```{r}
+```{r, eval=FALSE}
 head(bg_chem_dat$Date)
 ```
 
 How about calculating the mean temperature of all the CTD samples?
 
-```{r}
+```{r, eval=FALSE}
 mean(bg_chem_dat$CTD_Temperature)
 ```
 
 Or, if we want to save this to a variable to use later:
 
-```{r}
+```{r, eval=FALSE}
 mean_temp <- mean(bg_chem_dat$CTD_Temperature)
 ```
 
 You can also create basic plots using the list subset operator.
 
-```{r}
+```{r, eval=FALSE}
 plot(x = bg_chem_dat$CTD_Depth, 
      y = bg_chem_dat$CTD_Temperature)
 ```
@@ -436,10 +436,10 @@ There are many more advanced tools and functions in R that will enable you to ma
 
 What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
 
-To access the help page for `mean()`, enter the following into your console:
+To access the help page for `read.csv`()`, enter the following into your console:
 
 ```{r, eval = F}
-?mean
+?read.csv
 ```
 
 The help pane will show up in the lower right hand corner of your RStudio.
@@ -464,8 +464,8 @@ And there's also help for when you only sort of remember the function name: doub
 
 Not all functions have (or require) arguments:
 
-```{r}
-date()
+```{r, eval=FALSE}
+?date()
 ```
 
 ## Error messages are your friends
