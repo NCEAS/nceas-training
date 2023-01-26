@@ -190,7 +190,7 @@ analysis, modeling, and visualization.
 ![](images/comp-workflow-1.png)
 
 In addition, these workflows are often not executed all at once, but rather are
-divided into multiple workflows, earch with its own purpose.  For example, a data
+divided into multiple workflows, each with its own purpose.  For example, a data
 acquistion and cleaning workflow often creates a derived and integrated data product
 that is then picked up and used by multiple downstream analytical workflows that
 produce specific scientific findings.  These workflows can each be archived as 
