@@ -177,7 +177,7 @@ weight_lb <- weight_kg * 2.2
 weight_lb
 ```
 
-> **Quick Tip:** You will make many objects and the assignment operator `<-` can be tedious to type over and over. Instead, use **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automatically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our MEDS workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
+> **Quick Tip:** You will make many objects and the assignment operator `<-` can be tedious to type over and over. Instead, use **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**. Notice that RStudio automatically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces. RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card. For more RStudio tips, check out our Master of Environmental Data Science (MEDS) workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
 
 ### Logical operators and expressions
 
@@ -357,7 +357,7 @@ So far we have learned how to assign values to objects in R, and what a function
 
 Since this is our first time using this function, first access the help page for `read.csv()`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
 
-#### Download a file from the Arctic Data Center
+#### Download a file from the Arctic Data Center {.unnumbered .setup}
 
 Follow these steps to get set up for the next exercise:
 
@@ -365,13 +365,16 @@ Follow these steps to get set up for the next exercise:
 2.  Download the first csv file called `BGchem2008data.csv` by clicking the "download" button next to the file.
 3.  Move this file from your `Downloads` folder into a place you can more easily find it. E.g.: a folder called `data` in your previously-created directory `training_yourname`.
 
-Now we have to tell `read.csv()` how to find the file. We do this using the `file` argument which you can see in the usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great auto-complete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `training_yourname` called `data`, and your working directory is your home directory (`~/`) your `read.csv` call will look like this:
+### Use `read.csv()` to read in Arctic Data Center data
+
+Now we have to tell `read.csv()` how to find the file. We do this using the `file` argument which you can see in the usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great auto-complete capabilities when using relative paths, so we will go that route. Assuming you have moved your file to a folder within `training_yourname` called `data`, and your working directory is your project directory (`training_yourname`) your `read.csv()` call will look like this:
 
 ```{r, eval = F}
-bg_chem <- read.csv("Documents/training/data/BGchem2008data.csv")
+# reading in data using relative paths
+bg_chem_dat <- read.csv("data/BGchem2008data.csv")
 ```
 
-You should now have an object of the class `data.frame` in your environment called `bg_chem`. Check your environment pane to ensure this is true.
+You should now have an object of the class `data.frame` in your environment called `bg_chem_dat`. Check your environment pane to ensure this is true. Or you can check the class using the function `class()` in the console.
 
 Note that in the help page there are a whole bunch of arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If you do not specify a `name = value` pair for that argument in your function call, the function will assume the default value (example: `header = TRUE` for `read.csv`). Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv()` is `file`.
 
@@ -380,77 +383,56 @@ You can always specify arguments in `name = value` form. But if you do not, R at
 Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
 
 ```{r, eval = F}
+# absolute file path
 bg_chem <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv",
                     stringsAsFactors = FALSE)
 ```
 
 ```{r, echo = F}
-bg_chem <- read.csv("../data/BGchem2008data.csv", 
+# relative file path
+bg_chem <- read.csv("data/BGchem2008data.csv", 
                     stringsAsFactors = FALSE)
 ```
 
 ### Using `data.frames`
 
-A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv()`, the object `bg_chem` that we created is a `data.frame`. There are a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
+A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created is a `data.frame`. There are a bunch of ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
--   click on the word `bg_chem` in the environment pane
--   click on the arrow next to `bg_chem` in the environment pane
--   execute `head(bg_chem)` in the console
--   execute `View(bg_chem)` in the console
+-   click on the word `bg_chem_dat` in the environment pane
+-   click on the arrow next to `bg_chem_dat` in the environment pane
+-   execute `head(bg_chem_dat)` in the console
+-   execute `View(bg_chem_dat)` in the console
 
 Usually we will want to run functions on individual columns in a `data.frame`. To call a specific column, we use the list subset operator `$`. Say you want to look at the first few rows of the `Date` column only. This would do the trick:
 
 ```{r}
-head(bg_chem$Date)
+head(bg_chem_dat$Date)
 ```
 
 How about calculating the mean temperature of all the CTD samples?
 
 ```{r}
-mean(bg_chem$CTD_Temperature)
+mean(bg_chem_dat$CTD_Temperature)
 ```
 
 Or, if we want to save this to a variable to use later:
 
 ```{r}
-mean_temp <- mean(bg_chem$CTD_Temperature)
+mean_temp <- mean(bg_chem_dat$CTD_Temperature)
 ```
 
 You can also create basic plots using the list subset operator.
 
 ```{r}
-plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
+plot(x = bg_chem_dat$CTD_Depth, 
+     y = bg_chem_dat$CTD_Temperature)
 ```
 
 There are many more advanced tools and functions in R that will enable you to make better plots using cleaner syntax, we will cover some of these later in the course.
 
-#### Your Turn
-
 > Exercise: Spend a few minutes exploring this dataset. Try out different functions on columns using the list subset operator and experiment with different plots.
 
-## Error messages are your friends
-
-There is an implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
-
-Remember that this is a language, not dissimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. Note that knowing how to Google is a skill and takes practice - use our [Masters of Environmental Data Science](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) (MEDS) program workshop [Teach Me How to Google](https://ucsb-meds.github.io/teach-me-how-to-google/#1) as a guide.
-
-::: {style="width:400px"}
-![](images/practicalDev_googleErrorMessage.jpg)
-:::
-
-And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
-
-#### R says my object is not found
-
-New users will frequently see errors that look like this: `Error in mean(myobject) : object 'myobject' not found`
-
-This means that you do not have an object called `myobject` saved in your environment. The common reasons for this are:
-
--   **typo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
--   **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
--   **not executing the line in your script**: remember that writing a line of code in a script or RMarkdown document is not the same as writing in the console, you have to execute the line of code using command + enter or using one of the several ways in the RStudio graphical user interface.
-
-### Getting help using help pages
+## Getting help using help pages
 
 What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
 
@@ -486,7 +468,29 @@ Not all functions have (or require) arguments:
 date()
 ```
 
-### R Packages
+## Error messages are your friends
+
+There is an implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
+
+Remember that this is a language, not dissimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. Note that knowing how to Google is a skill and takes practice - use our [Masters of Environmental Data Science](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) (MEDS) program workshop [Teach Me How to Google](https://ucsb-meds.github.io/teach-me-how-to-google/#1) as a guide.
+
+::: {style="width:400px"}
+![](images/practicalDev_googleErrorMessage.jpg)
+:::
+
+And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
+
+#### R says my object is not found
+
+New users will frequently see errors that look like this: `Error in mean(myobject) : object 'myobject' not found`
+
+This means that you do not have an object called `myobject` saved in your environment. The common reasons for this are:
+
+-   **typo**: make sure your object name is spelled exactly like what shows up in the console. Remember R is case sensitive.
+-   **not writing to a variable**: note that the object is only saved in the environment if you use the assignment operator, eg: `myobject <- read.csv(...)`
+-   **not executing the line in your script**: remember that writing a line of code in a script or RMarkdown document is not the same as writing in the console, you have to execute the line of code using command + enter or using one of the several ways in the RStudio graphical user interface.
+
+## R Packages
 
 R packages are the building blocks of computational reproducibility in R. Each package contains a set of related functions that enable you to more easily do a task or set of tasks in R. There are thousands of community-maintained packages out there for just about every imaginable use of R - including many that you have probably never thought of!
 
