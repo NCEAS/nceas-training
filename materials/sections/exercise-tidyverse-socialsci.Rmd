@@ -2,23 +2,24 @@
 
 ### Learning Objectives
 
-- practice tidyverse R skills
+-   practice tidyverse R skills
 
 ### Introduction
 
-In this session of R practice, we will continue working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V. ](https://doi.org/10.18739/A29Z90D3V)
+In this session of R practice, we will continue working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V)
 
 In this practice session, we will build upon the previous session by using `dplyr`, `tidyr`, and other packages form the tidyverse to create more summarizations of the survey answers.
 
 ### High level steps
 
-- work in the same Rmd you did during R practice I
-- using `group_by` and `summarize`, calculate how many responses there were to each unique answer for question 3 
-- create a `data.frame` containing the definitions to the answer codes in question 3
-    + use the metadata to get code-definition pairs
-    + create your `data.frame` either by writing a new file and reading it in, or by exploring the function `tribble` (see the examples)
-- use a `left_join` to join your definitions table to the summarized answers
-    
-#### Bonus {-}
+-   work in the same Rmd you did during R practice I
+-   add necessary headers and text to describe what you are doing during this practice
+-   using `group_by` and `summarize`, calculate how many responses there were to each unique answer for question 3
+-   create a `data.frame` containing the definitions to the answer codes in question 3
+    -   use the metadata to get code-definition pairs
+    -   create your `data.frame` either by writing a new file and reading it in, or by exploring the function `tribble` (see the examples)
+-   use a `left_join` to join your definitions table to the summarized answers
+
+#### Bonus {.unnumbered}
 
 Explore how you might summarize other questions in these survey results.
