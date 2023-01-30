@@ -52,6 +52,12 @@ The next three are a little more complex, but all are characteristics of the rel
 - Each column should contain only one type of information
 - Record a single piece of data only once; separate information collected at different scales into different tables.
 
+#### File and folder organization {-}
+
+Before moving on to discuss the last 3 rules, here is an example of how you might organize the files themselves following the simple rules above. Note that we have all open formats, plain text formats for data, sortable file names without special characters, scripts, and a special folder for raw files.
+
+![](images/file-organization.png)
+
 ### Recognizing untidy data
 
 Before we learn how to create a relational data model, let's look at how to recognize data that does not conform to the model.
