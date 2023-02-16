@@ -246,7 +246,7 @@ head(catch_data)
 Now that we have the data we are interested in using, we should do a little quality check to see that it seems as expected. One nice way of doing this is the `glimpse` function.
 
 ```{r}
-glimpse(catch_data)
+dplyr::glimpse(catch_data)
 ```
 
 
