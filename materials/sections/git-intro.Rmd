@@ -3,13 +3,13 @@
 
 In this lesson, you will learn:
 
-- Why `__git__` is useful for reproducible analysis
-- How to use `__git__` to track changes to your work over time
-- How to use __GitHub__ to collaborate with others
+- Why `Git` is useful for reproducible analysis
+- How to use `Git` to track changes to your work over time
+- How to use GitHub to collaborate with others
 - How to structure your commits so your changes are clear to others
 - How to write effective commit messages
 
-## Introduction to `git`
+## Introduction to `Git`
 
 ![](images/phd_comics_final.png)
 
@@ -23,80 +23,80 @@ You might think there is a better way, and you'd be right: __version control__.
 
 ### A Motivating Example
 
-Before diving into the details of `git` and how to use it, let's start with a motivating example that's representative of the types of problems `git` can help us solve.
+Before diving into the details of `Git` and how to use it, let's start with a motivating example that's representative of the types of problems `Git` can help us solve.
 
 Say, for example, you're working on an analysis in R and you've got it into a state you're pretty happy with.
 We'll call this version 1:
 
-![](images/git-intro-slide01.png)
+![](images/Git-intro-slide01.png)
 
 You come into the office the following day and you have an email from your boss, "Hey, you know what this model needs?"
 
-![](images/git-intro-slide02.png)
+![](images/Git-intro-slide02.png)
 
 You're not entirely sure what she means but you figure there's only one thing she could be talking about: more cowbell.
 So you add it to the model in order to really explore the space.
 
 But you're worried about losing track of the old model so, instead of editing the code in place, you comment out the old code and put as serious a warning as you can muster in a comment above it.
 
-![](images/git-intro-slide03.png)
+![](images/Git-intro-slide03.png)
 
 Commenting out code you don't want to lose is something probably all of us have done at one point or another but it's really hard to understand why you did this when you come back years later or when you send your script to a colleague.
 Luckily, there's a better way: Version control.
-Instead of commenting out the old code, we can change the code in place and tell `git` to _commit_ our change.
+Instead of commenting out the old code, we can change the code in place and tell `Git` to _commit_ our change.
 So now we have two distinct versions of our analysis and we can always see what the previous version(s) look like.
 
-![](images/git-intro-slide04.png)
+![](images/Git-intro-slide04.png)
 
 You may have noticed something else in the diagram above: Not only can we save a new version of our analysis, we can also write as much text as we like about the change in the _commit message_.
-In addition to the commit message, git also tracks who, when, and where the change was made.
+In addition to the commit message, Git also tracks who, when, and where the change was made.
 
 Imagine that some time has gone by and you've _committed_ a third version of your analysis, version 3, and a colleague emails with an idea: What if you used machine learning instead?
 
-![](images/git-intro-slide05.png)
+![](images/Git-intro-slide05.png)
 
-Maybe you're not so sure the idea will work out and this is where a tool like `git` shines.
-Without a tool like `git`, we might copy `analysis.R` to another file called `analysis-ml.R` which might end up having mostly the same code except for a few lines.
+Maybe you're not so sure the idea will work out and this is where a tool like `Git` shines.
+Without a tool like `Git`, we might copy `analysis.R` to another file called `analysis-ml.R` which might end up having mostly the same code except for a few lines.
 This isn't particularly problematic until you want to make a change to a bit of shared code and now you have to make changes in two files, if you even remember to.
 
-Instead, with `git`, we can start a _branch_.
+Instead, with `Git`, we can start a _branch_.
 Branches allow us to confidently experiment on our code, all while leaving the old code intact and recoverable.
 
-![](images/git-intro-slide06.png)
+![](images/Git-intro-slide06.png)
 
 So you've been working in a branch and have made a few commits on it and your boss emails again asking you to update the model in some way.
-If you weren't using a tool like `git`, you might panic at this point because you've rewritten much of your analysis to use a different method but your boss wants to change to the old method.
+If you weren't using a tool like `Git`, you might panic at this point because you've rewritten much of your analysis to use a different method but your boss wants to change to the old method.
 
-![](images/git-intro-slide07.png)
+![](images/Git-intro-slide07.png)
 
-But with `git` and branches, we can continue developing our main analysis at the same time as we are working on any experimental branches.
+But with `Git` and branches, we can continue developing our main analysis at the same time as we are working on any experimental branches.
 Branches are great for experiments but also great for organizing your work generally.
 
-![](images/git-intro-slide08.png)
+![](images/Git-intro-slide08.png)
 
 After all that hard work on the machine learning experiment, you and your colleague could decide to scrap it.
 It's perfectly fine to leave branches around and switch back to the main line of development but we can also delete them to tidy up.
 
-![](images/git-intro-slide09.png)
+![](images/Git-intro-slide09.png)
 
 If, instead, you and your colleague had decided you liked the machine learning experiment, you could also _merge_ the branch with your main development line.
 Merging branches is analogous to accepting a change in Word's Track Changes feature but way more powerful and useful.
 
-![](images/git-intro-slide10.png)
+![](images/Git-intro-slide10.png)
 
-A key takeaway here is that `git` can drastically increase your confidence and willingness to make changes to your code and help you avoid problems down the road.
+A key takeaway here is that `Git` can drastically increase your confidence and willingness to make changes to your code and help you avoid problems down the road.
 Analysis rarely follows a linear path and we need a tool that respects this.
 
-![](images/git-intro-slide11.png)
+![](images/Git-intro-slide11.png)
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used.
-Another really powerful feature of `git` is _tags_ which allows us to record a particular state of our analysis with a meaningful name.
+Another really powerful feature of `Git` is _tags_ which allows us to record a particular state of our analysis with a meaningful name.
 In this case, we are lucky because we tagged the version of our code we used to run the analysis.
 Even if we continue to develop beyond commit 5 (above) after we submit our manuscript, we can always go back and run the analysis as it was in the past.
 
 #### Summary
 
-With `git`, we can:
+With `Git`, we can:
 
 - Avoid using cryptic filenames and comments to keep track of our work
 - Describe our changes with as much information as we like so it's easier to understand why our code changed (commits)
@@ -104,18 +104,18 @@ With `git`, we can:
 - Go back in time to look at (and even run) older versions of our code
 - Tag specific versions of our code as meaningful (tags)
 
-And, as we'll see below, `git` has one extra superpower available to us: It's distributed.
+And, as we'll see below, `Git` has one extra superpower available to us: It's distributed.
 Multiple people can work on the same analysis at the same time on their own computer and everyone's changes can eventually be merged together.
 
 ###  Version control and Collaboration using `Git` and GitHub {-}
 
-First, just what are `git` and GitHub?
+First, just what are `Git` and GitHub?
 
-- `__git__`: version control software used to track files in a folder (a repository)
-    - `git` creates the versioned history of a repository
-- __GitHub__: web site that allows users to store their `git` repositories and share them with others
+- `Git`: version control software used to track files in a folder (a repository)
+    - `Git` creates the versioned history of a repository
+- __GitHub__: web site that allows users to store their `Git` repositories and share them with others
 
-![](images/vc-local-github.png)
+![](images/vc-local-Github.png)
 
 ### Let's look at a GitHub repository {-}
 
@@ -123,7 +123,7 @@ This screen shows the copy of a repository stored on GitHub,
 with its list of files, when the files and directories were last modified, 
 and some information on who made the most recent changes.  
 
-![](images/ss3sim-github.png)
+![](images/ss3sim-Github.png)
 If we drill into the 
 "commits" for the repository, we can see the history of changes made to all of 
 the files.  Looks like `kellijohnson` and `seananderson` were fixing things in
@@ -142,35 +142,35 @@ to accomplish a reproducible workflow.
 
 ### The `Git` lifecycle {-}
 
-As a `git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories.  Any given `git` repository can be cloned so that it exists both locally, and remotely.  But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `git`'s particular format.  For our purposes, we can consider a `git` repository as a folder with a bunch of additional version-related metadata.
+As a `Git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories.  Any given `Git` repository can be cloned so that it exists both locally, and remotely.  But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `Git`'s particular format.  For our purposes, we can consider a `Git` repository as a folder with a bunch of additional version-related metadata.
 
-In a local `git`-enabled folder, the folder contains a workspace containing the 
+In a local `Git`-enabled folder, the folder contains a workspace containing the 
 current version of all files in the repository. These working files are linked to
 a hidden folder containing the 'Local repository', which contains all of the other
 changes made to the files, along with the version metadata.
 
-So, when working with files using `git`, you can use `git` commands to indicate specifically
+So, when working with files using `Git`, you can use `Git` commands to indicate specifically
 which changes to the local working files should be staged for versioning 
-(using the `git add` command), and when to record those changes as a version in
-the local repository (using the command `git commit`).
+(using the `Git add` command), and when to record those changes as a version in
+the local repository (using the command `Git commit`).
 
 The remaining concepts are involved in synchronizing the changes in your local 
-repository with changes in a remote repository.  The `git push` command is used to
-send local changes up to a remote repository (possibly on GitHub), and the `git pull`
+repository with changes in a remote repository.  The `Git push` command is used to
+send local changes up to a remote repository (possibly on GitHub), and the `Git pull`
 command is used to fetch changes from a remote repository and merge them into the
 local repository.
 
-![](images/git-flowchart.png)
+![](images/Git-flowchart.png)
 
 - `git clone`: to copy a whole remote repository to local
-- `git add` (stage): notify `git` to track particular changes
+- `git add` (stage): notify `Git` to track particular changes
 - `git commit`: store those changes as a version
 - `git pull`: merge changes from a remote repository to our local repository
 - `git push`: copy changes from our local repository to a remote repository
 - `git status`: determine the state of all files in the local repository
 - `git log`: print the history of changes in a repository
 
-Those seven commands are the majority of what you need to successfully use `git`.  
+Those seven commands are the majority of what you need to successfully use `Git`.  
 But this is all super abstract, so let's explore with some real examples.
 
 ## Create a remote repository on GitHub
@@ -179,23 +179,23 @@ Let's start by creating a repository on GitHub, then we'll edit some files.
 
 ### Setup {- .setup}
 
-- Log into [GitHub](https://github.com)
+- Log into [GitHub](https://Github.com)
 - Click the New repository button
 - Name it `training_test`
 - Create a `README.md`
 - Set the LICENSE to Apache 2.0
-- Add a .gitignore file for `R`
+- Add a .Gitignore file for `R`
 
 ### {-}
 
 If you were successful, it should look something like this:
 
-![](images/new-repo-github.png)
+![](images/new-repo-Github.png)
 
 You've now created your first repository! It has a couple of files that GitHub created
-for you, like the `README.md` file, and the `LICENSE` file, and the `.gitignore` file.
+for you, like the `README.md` file, and the `LICENSE` file, and the `.Gitignore` file.
 
-![](images/github-test-repo.png)
+![](images/Github-test-repo.png)
 
 For simple changes to text files, you can make edits right in the GitHub web interface.
 
@@ -207,15 +207,15 @@ hit the `Commit changes` button.
 
 ### {-}
 
-![](images/github-test-edit.png)
+![](images/Github-test-edit.png)
 
-![](images/github-test-commit.png)
+![](images/Github-test-commit.png)
 
 Congratulations, you've now authored your first versioned commit.  If you navigate back to 
 the GitHub page for the repository, you'll see your commit listed there, as well as the
 rendered `README.md` file.
 
-![](images/github-test-displayed.png)
+![](images/Github-test-displayed.png)
 
 Let's point out a few things about this window.  It represents a view of the repository
 that you created, showing all of the files in the repository so far.  For each file,
@@ -231,7 +231,7 @@ to `clone` the repository onto your local machine so that you can edit the files
 in RStudio.  To do so, start by copying the GitHub URL, which represents the repository
 location:
 
-![](images/github-test-clone-url.png)
+![](images/Github-test-clone-url.png)
 
 
 
@@ -243,7 +243,7 @@ by using the `clone` command to copy the repository from GitHub to our local com
 which then allows us to `push` changes up to GitHub and `pull` down any changes that 
 have occurred.
 
-![](images/github-workflows-owner.png)
+![](images/Github-workflows-owner.png)
 
 We refer to the remote copy of the repository that is on GitHub as the `origin`
 repository (the one that we cloned from), and the copy on our local computer as
@@ -282,7 +282,7 @@ is configured, the location and size of the panes may differ, but they should al
 be present, including a *`Git`* tab and the normal *Files* tab listing the files that 
 had been created in the remote repository.
 
-![](images/github-rstudio-test.png)
+![](images/Github-rstudio-test.png)
 
 
 You'll note that there is one new file `training_test.Rproj`, and three files that we
@@ -292,7 +292,7 @@ In the *`Git`* tab, you'll note that two files are listed.  This is the status p
 that shows the current modification status of all of the files in the repository.
 In this case, the `.gitignore` file is listed as *M* for Modified, and `training_test.Rproj` 
 is listed with a *? ?* to indicate that the file is untracked.  This means that
-`git` has not stored any versions of this file, and knows nothing about the file.
+`Git` has not stored any versions of this file, and knows nothing about the file.
 As you make version control decisions in RStudio, these icons will change to reflect
 the current version status of each of the files.
 
@@ -308,7 +308,7 @@ changed in each of the two commits in this repository.
 
 __Commit a `README.md` change.__ Next let's make a change to the `README.md` file, this time from RStudio.
 
-Add a new section to your markdown using a header, and under it include a list of three advantages to using `git`.
+Add a new section to your markdown using a header, and under it include a list of three advantages to using `Git`.
 
 ### {-}
 
@@ -371,7 +371,7 @@ remote repository (`origin/HEAD`) are pointing at the same version in the histor
 So, if we go look at the commit history on GitHub, all the commits will be shown
 there as well.
 
-![](images/github-history.png)
+![](images/Github-history.png)
 
 ### Aside {- .aside}
 
@@ -401,10 +401,10 @@ researchers so that you can work on code, analyses, and models together.  When
 working together, you will need to pay careful attention to the state of the 
 remote repository to avoid and handle merge conflicts.  A *merge conflict* occurs
 when two collaborators make two separate commits that change the same lines of the
-same file.  When this happens, `git` can't merge the changes together automatically,
+same file.  When this happens, `Git` can't merge the changes together automatically,
 and will give you back an error asking you to resolve the conflict. Don't be afraid
 of merge conflicts, they are pretty easy to handle.  and there are some 
-[great](https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/) [guides](https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-git).
+[great](https://help.Github.com/articles/resolving-a-merge-conflict-using-the-command-line/) [guides](https://stackoverflow.com/questions/161813/how-to-resolve-merge-conflicts-in-Git).
 
 That said, it's truly painless if you can avoid merge conflicts in the first place.
 You can minimize conflicts by:
@@ -415,9 +415,9 @@ You can minimize conflicts by:
 - Coordinate with your collaborators on who is touching which files
   + You still need to communicate to collaborate
 
-## Setting up git on an existing project 
+## Setting up Git on an existing project 
 
-Now you have two projects set up in your RStudio environment, `training_{USERNAME}` and `training_test`. We set you up with the `training_test` project since we think it is an easy way to introduce you to git, but more commonly researchers will have an existing directory of code that they then want to make a `git` repository out of. For the last exercise of this session, we will do this with your `training_{USERNAME}` project.
+Now you have two projects set up in your RStudio environment, `training_{USERNAME}` and `training_test`. We set you up with the `training_test` project since we think it is an easy way to introduce you to Git, but more commonly researchers will have an existing directory of code that they then want to make a `Git` repository out of. For the last exercise of this session, we will do this with your `training_{USERNAME}` project.
 
 First, switch to your `training_{USERNAME}` project using the RStudio project switcher. The project switcher is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`training_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
 
@@ -429,13 +429,13 @@ When RStudio restarts, you should have a `Git` tab, with two untracked files (`.
 
 ### Challenge {- .exercise}
 
-Add and commit these two files to your `git` repository.
+Add and commit these two files to your `Git` repository.
 
 ### {-}
 
-Now we have your local repository all set up. You can make as many commits as you want on this repository, and it will likely still be helpful to you, but the power in `git` and GitHub is really in collaboration. As discussed, GitHub facilitates this, so let's get this repository on GitHub.
+Now we have your local repository all set up. You can make as many commits as you want on this repository, and it will likely still be helpful to you, but the power in `Git` and GitHub is really in collaboration. As discussed, GitHub facilitates this, so let's get this repository on GitHub.
 
-Go back to [GitHub](http://github.com), and click on the "New Repository" button. 
+Go back to [GitHub](http://Github.com), and click on the "New Repository" button. 
 
 In the repository name field, enter the **same** name as your R Project. So for me, this would be `training_dolinh`. Add a description, keep the repository public, and, most importantly:
 
@@ -455,9 +455,9 @@ This will open your empty repository with a page that conveniently gives you exa
 Click the clipboard icon to copy the code for the **middle** option of the three on this page. It should have three lines and look like this:
 
 ```
-git remote add origin https://github.com/jeanetteclark/training_dolinh.git
-git branch -M main
-git push -u origin main
+Git remote add origin https://Github.com/jeanetteclark/training_dolinh.Git
+Git branch -M main
+Git push -u origin main
 ```
 
 Back in RStudio, open the terminal by clicking the tab labeled as such next to the console tab. The prompt should look something like this: 
@@ -489,16 +489,16 @@ Go to your local repository (in RStudio) and pull the changes you made.
 There's a lot we haven't covered in this brief tutorial.  There are some great
 and much longer tutorials that cover advanced topics, such as:
 
-- Using `git` on the command line
+- Using `Git` on the command line
 - Resolving conflicts
 - Branching and merging
 - Pull requests versus direct contributions for collaboration
-- Using .gitignore to protect sensitive data
+- Using .Gitignore to protect sensitive data
 - GitHub Issues and why they are useful
 - and much, much more
 
-- [Try Git](https://try.github.io) is a great interactive tutorial
-- Software Carpentry [Version Control with Git](http://swcarpentry.github.io/git-novice/)
-- Codecademy [Learn Git](https://www.codecademy.com/learn/learn-git) (some paid)
+- [Try Git](https://try.Github.io) is a great interactive tutorial
+- Software Carpentry [Version Control with Git](http://swcarpentry.Github.io/Git-novice/)
+- Codecademy [Learn Git](https://www.codecademy.com/learn/learn-Git) (some paid)
 
 
