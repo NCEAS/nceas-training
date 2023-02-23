@@ -203,6 +203,8 @@ To capture the R packages and versions this project depends on, the `renv` packa
 
 Finally, the `rrtools` package also has a function called `rrtools::use_dockerfile()`, which will create a Dockerfile for your R project (slightly different than Binder), so that an image can be created for other uses. One of them, which `rrtools` sets up for you when you run that function, is to use it in a GitHub Action. Actions are processes that are triggered in GitHub events (like a push) that run automatically. In this case, the Action that is set up will make is so that your image is created on GitHub, some code that knits your paper is run, and an updated version of your paper is knit. This is called "continuous integration," and is extremely convenient for developing products like this, since the build step can be taken care of automatically as you push to your repository.
 
+To check out an example Binder, Ben Marwick (author of `rrtools`) has one for figures of of a paper he wrote at [benmarwick/JPA_Palaeolithic_Projectiles](https://github.com/benmarwick/JPA_Palaeolithic_Projectiles). As a warning, it may take a long time to spin up the image.
+
 ### The 5th Generation of Reproducible Papers {.unnumbered}
 
 ![](images/Living-paper.png)
