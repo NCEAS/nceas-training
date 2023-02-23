@@ -162,7 +162,7 @@ rrtools::use_analysis()
 
 This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper. To follow the structure `rrtools` has put in place for us. You'll notice a `paper` directory that contains a template Rmd, which references a journal citation style language (CSL) file  so that the paper is knitted to a word document formatted for the journal (the Journal of Archaeological Science, in this example). For this lesson, let's take things a step further with the `rticles` package. With that in mind, let's delete the existing `paper` directory. We'll create a new one shortly.
 
-### Reproducible Papers with `rticles`
+#### RMarkdown templates with `rticles`
 
 The [`rticles`](https://github.com/rstudio/rticles%20B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `install.packages('rticles')` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
 
@@ -193,7 +193,7 @@ And the rendered PDF:
 
 ![](images/paper-rendered.png)
 
-### Adding `renv`, Docker, Binder
+#### Adding `renv`, Docker, Binder
 
 `rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. If your R project has been initialized as a git repository, when you run `rrtools::use_readme_rmd()`, it will automatically create a special file called `Dockerfile` in a `.binder` directory. [Binder](https://mybinder.org/) is a platform that allows you to run notebooks in a repository in an executable environment using the cloud. This means that if I write a paper, host it on GitHub, and enable Binder, anyone can go to my repository, click the binder button, and be launched into an RStudio session online with all of my code ready to run and explore. This is an amazing technology, though there are limitations. Currently it is free, but it likely won't exist forever, especially in the current format where they are giving out lots of free computing time. Additionally, the memory limits are fairly low, 2 GB maximum, so any memory intensive analyses would probably crash. To check out real Binder, Ben Marwick (author of `rrtools`) has one for figures of of a paper he wrote at [benmarwick/JPA_Palaeolithic_Projectiles](https://github.com/benmarwick/JPA_Palaeolithic_Projectiles). As a warning, it may take a long time to spin up the image.
 
@@ -205,7 +205,7 @@ To capture the R packages and versions this project depends on, the `renv` packa
 
 Finally, the `rrtools` package also has a function called `rrtools::use_dockerfile()`, which will create a Dockerfile for your R project (slightly different than Binder), so that an image can be created for other uses. One of them, which `rrtools` sets up for you when you run that function, is to use it in a GitHub Action. Actions are processes that are triggered in GitHub events (like a push) that run automatically. In this case, the Action that is set up will make is so that your image is created on GitHub, some code that knits your paper is run, and an updated version of your paper is knit. This is called "continuous integration," and is extremely convenient for developing products like this, since the build step can be taken care of automatically as you push to your repository.
 
-![](github-actions.png)
+![](images/github-actions.png)
 
 ### The 5th Generation of Reproducible Papers {.unnumbered}
 
