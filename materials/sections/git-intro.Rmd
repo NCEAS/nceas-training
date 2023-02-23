@@ -89,7 +89,7 @@ Analysis rarely follows a linear path and we need a tool that respects this.
 ![](images/git-intro-slide11.png)
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used.
-Another really powerful feature of git is _tags_ which allow us to record a particular state of our analysis with a meaningful name.
+Another really powerful feature of git is _tags_ which allows us to record a particular state of our analysis with a meaningful name.
 In this case, we are lucky because we tagged the version of our code we used to run the analysis.
 Even if we continue to develop beyond commit 5 (above) after we submit our manuscript, we can always go back and run the analysis as it was in the past.
 
@@ -143,10 +143,10 @@ to accomplish a reproducible workflow.
 
 As a git user, you'll need to understand the basic concepts associated with versioned
 sets of changes, and how they are stored and moved across repositories.  Any given
-git repository can be cloned so that it exist both locally, and remotely.  But each of
+git repository can be cloned so that it exists both locally, and remotely.  But each of
 these cloned repositories is simply a copy of all of the files and change history
 for those files, stored in git's particular format.  For our purposes, we can consider
-a git repository just a folder with a bunch of additional version-related metadata.
+a git repository as a folder with a bunch of additional version-related metadata.
 
 In a local git-enabled folder, the folder contains a workspace containing the 
 current version of all files in the repository. These working files are linked to
@@ -312,7 +312,7 @@ changed in each of the two commits in this repository.
 
 __Commit a `README.md` change.__ Next let's make a change to the `README.md` file, this time from RStudio.
 
-Add a new section to your markdown using a header, and under it include a list three advantages to using git.
+Add a new section to your markdown using a header, and under it include a list of three advantages to using git.
 
 ### {-}
 
@@ -395,7 +395,7 @@ message.  The convention, however, is to always have a short, terse first senten
 followed by a more verbose explanation of the details and rationale for the change.
 This keeps the high level details readable in the version log.  I can't count the
 number of times I've looked at the commit log from 2, 3, or 10 years prior and
-been so grateful for diligence of my past self and collaborators.
+been so grateful for the diligence of my past self and collaborators.
 
 ### Collaboration and conflict free workflows {-}
 
