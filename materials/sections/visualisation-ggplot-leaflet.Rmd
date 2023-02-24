@@ -91,7 +91,7 @@ annual_esc <- esc %>%
 head(annual_esc)
 ```
 
-That command used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+The chunck above used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
 
 ### Static figures using `ggplot2`
@@ -101,14 +101,17 @@ Every graphic you make in `ggplot2` will have at least one aesthetic and at leas
 Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* (set using `aes()`) and a *geometry* to create your plot. Additional geometries/aesthetics and theme elements can be added to a `ggplot` object using `+`.
 
 ```{r plot_esc}
-ggplot(annual_esc, aes(x = Species, y = escapement)) +
+ggplot(annual_esc, 
+       aes(x = Species, y = escapement)) +
   geom_col()
 ```
 
-What if we want our bars to be blue instad of gray? You might think we could run this:
+What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r}
-ggplot(annual_esc, aes(x = Species, y = escapement, fill = "blue")) +
+ggplot(annual_esc, 
+       aes(x = Species, y = escapement, 
+           fill = "blue")) +
   geom_col()
 ```
 
@@ -119,7 +122,8 @@ Notice that we tried to set the fill color of the plot inside the mapping aesthe
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_bar` function, **outside** of the mapping aesthetics function call.
 
 ```{r}
-ggplot(annual_esc, aes(x = Species, y = escapement)) +
+ggplot(annual_esc, 
+       aes(x = Species, y = escapement)) +
   geom_col(fill = "blue")
 ```
 
@@ -128,7 +132,9 @@ What if we did want to map the color of the bars to a variable, such as region.
 `ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data.
 
 ```{r}
-ggplot(annual_esc, aes(x = Species, y = escapement, fill = SASAP.Region)) +
+ggplot(annual_esc, 
+       aes(x = Species, y = escapement, 
+           fill = SASAP.Region)) +
   geom_col()
 ```
 
@@ -163,7 +169,9 @@ kodiak_esc <- annual_esc %>%
 
 
 ```{r}
-ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+ggplot(kodiak_esc, 
+       aes(x = Year, y = escapement, 
+           color = Species)) + 
     geom_line() +
     geom_point() +
     ylab("Escapement") +
@@ -184,13 +192,16 @@ The built in theme functions change the default settings for many elements that 
 Let's look at an example of a `theme` call, where we change the position of our plot above from the right side to the bottom, and remove the title from the legend.
 
 ```{r}
-ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+ggplot(kodiak_esc, 
+       aes(x = Year, y = escapement, 
+           color = Species)) + 
     geom_line() +
     geom_point() +
     ylab("Escapement") +
     ggtitle("Kodiak Salmon Escapement") +
     theme_bw() +
-    theme(legend.position = "bottom", legend.title = element_blank())
+    theme(legend.position = "bottom", 
+          legend.title = element_blank())
 ```
 
 
@@ -200,11 +211,15 @@ You can also save the result of a series of `theme()` function calls to an objec
 
 ```{r}
 my_theme <- theme_bw() + 
-  theme(legend.position = "bottom", legend.title = element_blank())
+  theme(legend.position = "bottom", 
+        legend.title = element_blank())
 ```
 
 ```{r}
-ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+ggplot(kodiak_esc, 
+       aes(x = Year, 
+           y = escapement, 
+           color = Species)) + 
     geom_line() +
     geom_point() +
     ylab("Escapement") +
@@ -223,7 +238,10 @@ Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the p
 The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
 ```{r}
-ggplot(kodiak_esc, aes(x = Year, y = escapement, color = Species)) + 
+ggplot(kodiak_esc, 
+       aes(x = Year, 
+           y = escapement, 
+           color = Species)) + 
     geom_line() +
     geom_point() +
     scale_y_continuous(labels = comma) +
@@ -249,7 +267,10 @@ What if we wanted to generate a plot for every region? A fast way to do this use
 The default behaviour of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots. Here, we free the y scale. You can also specify the number of columns using the `n_col` argument.
 
 ```{r, fig.height = 7, fig.width = 6}
-ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) + 
+ggplot(annual_esc, 
+       aes(x = Year, 
+           y = escapement, 
+           color = Species)) + 
     geom_line() +
     geom_point() +
     scale_y_continuous(labels = comma) +
@@ -262,7 +283,7 @@ ggplot(annual_esc, aes(x = Year, y = escapement, color = Species)) +
 
 #### Tables {-}
 
-Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website created earlier in the week during [this lesson](publishing-analyses-to-the-web.html).
+Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website we created earlier [this lesson](publishing-analyses-to-the-web.html).
 
 First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
@@ -288,16 +309,18 @@ The `addTiles()` function without arguments will add base tiles to your map from
 ```{r simple_map}
 leaflet(locations) %>% 
   addTiles() %>% 
-  addMarkers(lng = ~Longitude, lat = ~Latitude, popup = ~ Location)
+  addMarkers(lng = ~Longitude, 
+             lat = ~Latitude, 
+             popup = ~ Location)
 ```
 
-You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/#getcapabilities) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments..
+You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments..
 
 ```{r}
 leaflet(locations) %>% 
-  addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?",
+  addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
               layers = 'GEBCO_LATEST',
-              attribution = "Imagery reproduced from the GEBCO_2014 Grid, version 20150318, www.gebco.net") %>%
+              attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net") %>%
   addCircleMarkers(lng = ~Longitude,
                    lat = ~Latitude,
                    popup = ~ Location,
