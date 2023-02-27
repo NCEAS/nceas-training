@@ -36,6 +36,10 @@ Practically speaking, reproducibility includes:
 - Documenting what you did
 - Describing how to interpret it all
 
+A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 56% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a sankey diagram of how code cleaning was able to fix common errors.
+
+![](images/code-reproducibility-trisovic.png)
+
 #### Computational Provenance and Workflows {-}
 
 Computational provenance refers to the origin and processing history of data including:
@@ -121,8 +125,6 @@ The key idea in Marwick et al. (2018) is that of the "research compendium": A si
 
 
 ![Research compendia from Marwick et al.](images/compendia.png)
-
-Research compendia from Marwick et al.
 
 
 Research compendia make it easy for researchers to do their work but also for others to inspect or even reproduce the work because all necessary materials are readily at hand due to being kept in one place. Rather than a constrained set of rules, the research compendium is a scaffold upon which to conduct reproducible research using open science tools such as:
