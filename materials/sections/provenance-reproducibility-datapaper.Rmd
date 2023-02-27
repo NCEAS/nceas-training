@@ -119,7 +119,12 @@ This lesson will draw from existing materials:
 
 The key idea in Marwick et al. (2018) is that of the "research compendium": A single container for not just the journal article associated with your research but also the underlying analysis, data, and even the required software environment required to reproduce your work.
 
+
 ![Research compendia from Marwick et al.](images/compendia.png)
+
+Research compendia from Marwick et al.
+
+
 Research compendia make it easy for researchers to do their work but also for others to inspect or even reproduce the work because all necessary materials are readily at hand due to being kept in one place. Rather than a constrained set of rules, the research compendium is a scaffold upon which to conduct reproducible research using open science tools such as:
 
 - [R](https://www.r-project.org/)
@@ -128,23 +133,24 @@ Research compendia make it easy for researchers to do their work but also for ot
 
 Fortunately for us, Ben Marwick (and others) have written an R package called [rrtools](https://github.com/benmarwick/rrtools) that helps us create a research compendium from scratch.
 
-To start a reproducible paper with `rrtools`, run:
+To start a reproducible paper with `rrtools`, first close your `username-training` project. In the project switcher dropdown, just click "close project." This will set your working directory back to your home directory.
 
-```{r use-compendium, eval=FALSE, echo=TRUE}
+```{r echo = FALSE}
 # install `tinytex` (See below)
 # Upgrade contentid to 0.12.0
 #remotes::install_github("cboettig/contentid")
 # Upgrade readr from 1.3.1 to 2.0.1
 #install.packages(c("readr"))
 #remotes::install_github("benmarwick/rrtools")
-setwd("..")
+```
+
+```{r use-compendium, eval=FALSE, echo=TRUE}
 rrtools::use_compendium("mypaper")
 ```
 
 
-`rrtools` has created the beginnings of a research compendium for us.
-At this point, it looks mostly the same as an R package.
-That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package. And this means our research compendium will be easy to install, just like an R package.
+`rrtools` has created the beginnings of a research compendium for us. At this point, it looks mostly the same as an R package. That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package (called `mypaper`). And this means our research compendium will be easy to install, just like an R package.
+
 
 `rrtools` also helps you set up some key information like:
 
@@ -158,17 +164,32 @@ rrtools::use_readme_rmd()
 rrtools::use_analysis()
 ```
 
-This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper.
-To follow the structure `rrtools` has put in place for us, here are some next steps you can take:
 
-- Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
-- Add any citations to `./analysis/paper/references.bib`
-- Add any longer R scripts that don't fit in your paper in an `R` folder at the top level
-- Add raw data to `./data/raw_data`
-- Write out any derived data (generated in `paper.Rmd`) to `./data/derived_data`
-- Write out any figures in `./analysis/figures`
+This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper. To follow the structure `rrtools` has put in place for us. You'll notice a `paper` directory that contains a template Rmd, which references a journal citation style language (CSL) file  so that the paper is knitted to a word document formatted for the journal (the Journal of Archaeological Science, in this example). For this lesson, let's take things a step further with the `rticles` package. With that in mind, let's delete the existing `paper` directory. We'll create a new one shortly.
 
-You can then write all of your R code in your RMarkdown, and generate your manuscript all in the format needed for your journal (using it's .csl file).
+#### RMarkdown templates with `rticles`
+
+The [`rticles`](https://github.com/rstudio/rticles%20B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `install.packages('rticles')` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
+
+![](images/rticles-new.png)
+
+Select the "PNAS" template, give the file a name and set the location of the files to be `mypaper`, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
+
+![](images/rticles-pnas.png)
+
+Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
+
+Here are more things we can do with our research compendium:
+
+-   Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
+-   Add any citations to `./analysis/paper/pnas-sample.bib`
+-   Add any longer R scripts that don't fit in your paper in an `R` folder at the top level
+-   Add raw data to `./data/raw_data`
+-   Write out any derived data (generated in `paper.Rmd`) to `./data/derived_data`
+-   Write out any figures in `./analysis/figures`
+
+
+You can then write all of your R code in your RMarkdown, and generate your manuscript all in the format needed for your journal (using it's .csl file, stored in the paper directory).
 
 Here is a look at the beginning of the Rmd:
 
@@ -178,18 +199,20 @@ And the rendered PDF:
 
 ![](images/paper-rendered.png)
 
-### Reproducible Papers with `rticles`
+#### Adding `renv`, Docker, Binder
 
-Note that the [`rticles`](https://github.com/rstudio/rticles
-B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `remotes::install_github("rstudio/rticles")` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
+`rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. If your R project has been initialized as a git repository, when you run `rrtools::use_readme_rmd()`, it will automatically create a special file called `Dockerfile` in a `.binder` directory. [Binder](https://mybinder.org/) is a platform that allows you to run notebooks in a repository in an executable environment using the cloud. This means that if I write a paper, host it on GitHub, and enable Binder, anyone can go to my repository, click the binder button, and be launched into an RStudio session online with all of my code ready to run and explore. This is an amazing technology, though there are limitations. Currently it is free, but it likely won't exist forever, especially in the current format where they are giving out lots of free computing time. Additionally, the memory limits are fairly low, 2 GB maximum, so any memory intensive analyses would probably crash. To check out real Binder, Ben Marwick (author of `rrtools`) has one for figures of of a paper he wrote at [benmarwick/JPA_Palaeolithic_Projectiles](https://github.com/benmarwick/JPA_Palaeolithic_Projectiles). As a warning, it may take a long time to spin up the image.
 
-![](images/rticles-new.png)
 
-Select the "PNAS" template, give the file a name and choose a location for the files, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
+Binder is built upon a technology called [Docker](http://www.docker.com). Docker containers are a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A container is an "image" of all the software specified, and this image can be run on other computers such that the software stack looks exactly as you specify. This is important when it comes to reproducibility, because if I'm running someone elses code, I may get different results or errors if I'm using different versions of software (like an old version of `dplyr`, for example) than they are. A Dockerfile contains the instructions for how to build the image. `rrtools` creates a Dockerfile that first loads a standard image for using R with binder, and then has more instructions for how to create the environment so that it has the very specific R packages and versions you need. Below is an example of a Dockerfile built by `rrtools` for Binder.
 
-![](images/rticles-pnas.png)
+![](images/binder-dockerfile.png)
 
-While `rticles` doesn't produce the detailed folder layout of `rrtools`, it is relatively simple to use the two packages together. Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
+To capture the R packages and versions this project depends on, the `renv` package is used. If you run `renv::init()`, it will initiate tracking of the R packages in your project. `renv::init()` automatically detects dependencies in your code (by looking for library calls, at the DESCRIPTION file, etc.) and installs them to a private project specific library. Importantly, this means that your project `mypaper` can use a different version of `dplyr` than another project which may need an older version without any hassle. `renv` also write the package dependencies to a special file in the repository called `renv.lock`. In the Dockerfile for Binder, the `renv.lock` file is read, and the versions of the packages needed are installed using `renv::restore()`. While you are developing code, if any of your packages get updated, `renv::snapshot()` will update the `renv.lock` file and your project-installed packages.
+
+Finally, the `rrtools` package also has a function called `rrtools::use_dockerfile()`, which will create a Dockerfile for your R project (slightly different than Binder), so that an image can be created for other uses. One of them, which `rrtools` sets up for you when you run that function, is to use it in a GitHub Action. Actions are processes that are triggered in GitHub events (like a push) that run automatically. In this case, the Action that is set up will make is so that your image is created on GitHub, some code that knits your paper is run, and an updated version of your paper is knit. This is called "continuous integration," and is extremely convenient for developing products like this, since the build step can be taken care of automatically as you push to your repository.
+
+![](images/github-actions.png)
 
 ### The 5th Generation of Reproducible Papers {-}
 
