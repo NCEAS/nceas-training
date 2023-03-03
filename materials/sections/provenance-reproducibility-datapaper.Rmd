@@ -218,7 +218,7 @@ FROM rocker/verse:4.1.0
 # required
 MAINTAINER Jeanette Clark <jclark@nceas.ucsb.edu>
 
-COPY . /mypaper2
+COPY . /mypaper
 
 # go into the repo directory
 RUN . /etc/environment \
