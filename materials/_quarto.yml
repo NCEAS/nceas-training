@@ -1,0 +1,56 @@
+project:
+  type: book
+  
+book: 
+  title: " NCEAS Learning Hub's coreR Course"
+  # date: "April 3, 2023"
+  reader-mode: false
+  
+  # NoteHD: cover image is not working
+  # cover-image: cover.png
+  # cover-image-alt: "Learning Hub logo in the shape of a hexagon with a bee in the center"
+  
+  favicon: cover.png # learning hub logo
+  
+  sidebar:
+    title: "Course Materials"
+    style: "floating"
+    search: true
+    tools:
+      - icon: house-door-fill
+        href: https://www.nceas.ucsb.edu/learning-hub
+      - icon: twitter
+        href: https://twitter.com/ucsb_nceas
+      - icon: github
+        href: https://github.com/NCEAS/core-r-course
+  
+  chapters:
+    - index.qmd
+    - rstudio-server-setup.qmd
+    - git-setup.qmd
+    - intro.qmd
+    - intro-r-programming.qmd
+    - intro-rmd.qmd
+    - fair-care-principles.qmd
+    - intro-git-github.qmd
+    - git-collab-merge-conflicts.qmd
+    - intro-tidy-data.qmd
+    - r-practice-tidy-data-joins.qmd
+    - data-viz-publish-github-pages.qmd
+    - clean-wrangle-data.qmd
+    - r-practice-clean-wrangle.qmd
+    - combined-metadata-publishing-dmp.qmd
+    - intro-sf-map-making.qmd
+    - r-practice-sf-wrangle-maps.qmd
+    - git-workflows.qmd
+    - reproducibility-provenance.qmd
+
+# bibliography: references.bib
+      
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
