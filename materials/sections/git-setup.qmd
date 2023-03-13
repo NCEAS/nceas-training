@@ -1,0 +1,77 @@
+---
+title: "`Git` and GitHub Setup"
+title-block-banner: true
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Set global options in your `.gitconfig` file
+-   Practice how to set up GitHub Authentication using a Personal Access Token (PAT)
+
+## Set up global options in `Git`
+
+Before using `Git`, you need to tell it who you are, also known as setting the **global options**. The only way to do this is through the command line. Newer versions of RStudio have a nice feature where you can open a terminal window in your RStudio session. Do this by selecting Tools \> Terminal \> New Terminal.
+
+A Terminal tab should now be open where your Console usually is.
+
+To set the global options, type the following into the command prompt, with your exact GitHub username, and press enter:
+
+``` bash
+git config --global user.name "hdolinh"
+```
+
+::: column-margin
+Note that **if it ran successfully, it will look like nothing happened**. We will check at the end to make sure it worked.
+:::
+
+Next, enter the following line, with the email address you used when you created your account on github.com:
+
+``` bash
+git config --global user.email "dolinh@nceas.ucsb.edu"
+```
+
+::: column-margin
+Note that these lines need to be run **one at a time**.
+:::
+
+::: callout-important
+## Case and spelling matters!
+
+When you add your username and email to the global options you **must** use the exact same spelling and case that you use on GitHub otherwise, `Git` won't be able to sync to your account to use.
+:::
+
+Next, we will set our credentials to not time out for a very long time. This is related to the way that our server operating system handles credentials - not doing this will make your Personal Access Token (which we will set up soon) expire immediately on the system, even though it is actually valid for a month.
+
+``` bash
+git config --global credential.helper 'cache --timeout=10000000'
+```
+
+Next, we will set the default branch name to `main` for any new repositories that are created moving forward. Why are we doing this? Previously, the default branch name was `master` and this racist terminology for git branches motivates us to update our default branch to `main` instead.
+
+``` bash
+git config --global init.defaultBranch main
+```
+
+Finally, check to make sure everything looks correct by entering this command, which will return the options that you have set.
+
+``` bash
+git config --global --list
+```
+
+## GitHub Authentication
+
+GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. The book [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) has a wealth of information related to working with `Git` in R, and these instructions are based off of [Chapter 9 Personal access token for HTTPS](https://happygitwithr.com/https-pat.html).
+
+We will be using a **Personal Access Token (PAT)** in this course. For better security and long term use, we recommend taking the extra steps to set up SSH keys (check out [Chapter 10 Set up Keys for SSH](https://happygitwithr.com/ssh-keys.html)).
+
+::: callout-tip
+## Setting up your PAT
+
+1.  Run `usethis::create_github_token()` in the Console.
+2.  A new browser window should open up to GitHub, showing all the scopes options. You can review the scopes, but you don't need to worry about which ones to select this time. Using `create_github_token()` automatically pre-selects some recommended scopes. **Go ahead and scroll to the bottom and click "Generate Token"**.
+3.  Copy the generated token.
+4.  Back in RStudio, run `gitcreds::gitcreds_set()` in the Console.
+5.  Finally, paste your PAT when the prompt asks for it.
+:::
+
+Congrats! Now that you've set up your authentication you should be able to work with GitHub in RStudio now.
