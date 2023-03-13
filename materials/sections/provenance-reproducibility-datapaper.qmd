@@ -21,7 +21,7 @@ Working in a reproducible manner:
 
 To enable others to fully interpret, reproduce or build upon our research, we need to provide more comprehensive information than is typically included in a figure or publication. The methods sections of papers are typically inadequate to fully reproduce the work described in the paper.
 
-![](images/Smith-et-al.png)
+![](../images/Smith-et-al.png)
 
 What data were used in this study? What methods applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? 
 
@@ -38,7 +38,7 @@ Practically speaking, reproducibility includes:
 
 A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 56% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a sankey diagram of how code cleaning was able to fix common errors.
 
-![](images/code-reproducibility-trisovic.png)
+![](../images/code-reproducibility-trisovic.png)
 
 #### Computational Provenance and Workflows {-}
 
@@ -54,16 +54,16 @@ When we put these all together with formal documentation, we create a **computat
 
 Here's an example of a computational workflow from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
 
-![](images/comp-workflow-1.png)
+![](../images/comp-workflow-1.png)
 
 
-![](images/provenance.png)
+![](../images/provenance.png)
 
 This screenshot of the dataset page shows how DataONE renders the workflow model information as part of our interactive user interface. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
 
 **From Provenance to Reproducibility**
 
-![](images/Prov-History.png)
+![](../images/Prov-History.png)
 
 
 At DataONE we facilitate reproducible science through provenance by: 
@@ -77,12 +77,12 @@ At DataONE we facilitate reproducible science through provenance by:
 
 **Introducing [ProvONE](http://purl.dataone.org/provone-v1-dev)**, an extension of W3C PROV
 
-![](images/Prov_ONE.png)
+![](../images/Prov_ONE.png)
 
 ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
 
 
-![](images/data-package.png)
+![](../images/data-package.png)
 
 <!--### Data Citation  {-}
 
@@ -106,7 +106,7 @@ We want to move towards a model such that when a user cites a research publicati
 - What was **derived** from it
 - **Who to credit** down the attribution stack
 
-![](images/Transitive-Credit.png)
+![](../images/Transitive-Credit.png)
 
 This is transitive credit. And it changes the way in which we think about science communication and traditional publications. 
 
@@ -173,11 +173,11 @@ This creates a standard, predictable layout for our code and data and outputs th
 
 The [`rticles`](https://github.com/rstudio/rticles%20B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. After installing `rticles` with a command like `install.packages('rticles')` and restarting your RStudio session, you will be able to create articles from these custom templates using the `File | New File | R Markdown...` menu, which shows the following dialog:
 
-![](images/rticles-new.png)
+![](../images/rticles-new.png)
 
 Select the "PNAS" template, give the file a name and set the location of the files to be `mypaper`, and click "OK". You can now Knit the Rmd file to see a highly-targeted article format, like this one for PNAS:
 
-![](images/rticles-pnas.png)
+![](../images/rticles-pnas.png)
 
 Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
 
@@ -195,11 +195,11 @@ You can then write all of your R code in your RMarkdown, and generate your manus
 
 Here is a look at the beginning of the Rmd:
 
-![](images/paper-rmd.png)
+![](../images/paper-rmd.png)
 
 And the rendered PDF:
 
-![](images/paper-rendered.png)
+![](../images/paper-rendered.png)
 
 #### Adding `renv`, Docker, GitHub Actions
 
@@ -237,11 +237,11 @@ RUN . /etc/environment \
 
 After running `rrtools::use_dockerfile()`, the package also sets up GitHub Actions for you. Actions are processes that are triggered in GitHub events (like a push) that run automatically. In this case, the Action that is set up will make is so that your image is created on GitHub, some code that knits your paper is run, and an updated version of your paper is knit. This is called "continuous integration," and is extremely convenient for developing products like this, since the build step can be taken care of automatically as you push to your repository.
 
-![](images/github-actions.png)
+![](../images/github-actions.png)
 
 ### The 5th Generation of Reproducible Papers {-}
 
-![](images/Living-paper.png)
+![](../images/Living-paper.png)
 
 **Whole Tale** simplifies computational reproducibility. It enables researchers to easily package and share 'tales'. Tales are executable research objects captured in a standards-based tale format complete with metadata. They can contain:
 
@@ -250,7 +250,7 @@ After running `rrtools::use_dockerfile()`, the package also sets up GitHub Actio
 - narrative (traditional science story)
 - compute environment (e.g. RStudio, Jupyter) 
 
-![](images/whole-tale-container.png)
+![](../images/whole-tale-container.png)
 
 By combining data, code and the compute environment, tales allow researchers to:
 
@@ -260,14 +260,14 @@ By combining data, code and the compute environment, tales allow researchers to:
 
 They also empower users to verify and extend results with different data, methods, and environments. You can browse existing tales, run and interact with published tales and create new tales via the [Whole Tale Dashboard](https://dashboard.wholetale.org/browse). 
 
-![](images/Tale-browser.png)
+![](../images/Tale-browser.png)
 
 By integrating with DataONE and Dataverse, Whole Tale includes over 90 major research repositories from which a user can select datasets to make those datasets the starting point of an interactive data exploration and analysis inside of one of the Whole Tale environments. Within DataONE, we are adding functionality to work with data in the Whole Tale environment directly from the dataset landing page.
 
-![](images/WT-Integration.png)
+![](../images/WT-Integration.png)
 
 
-![](images/Publish-Tale.png)
+![](../images/Publish-Tale.png)
 
 Full circle reproducibility can be achieved by publishing data, code AND the environment.
 
