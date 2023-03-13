@@ -24,7 +24,7 @@ In this model, the Collaborator will `clone` a copy of the Owner's repository fr
 GitHub, and the Owner will grant them Collaborator status, enabling the Collaborator
 to directly pull and push from the Owner's GitHub repository.
 
-![](images/github-workflows-collab.png)
+![](../images/github-workflows-collab.png)
 
 ## Collaborating with a trusted colleague **without conflicts**
 
@@ -40,7 +40,7 @@ Then, have the Owner visit their training repository created earlier,
 and visit the *Settings* page, and select the *Manage access* screen, and add
 the username of your Collaborator in the box.
 
-![](images/github-collaborators.png)
+![](../images/github-collaborators.png)
 
 Once the Collaborator has been added, they should check their email for an invitation
 from GitHub, and click on the acceptance link, which will enable them to collaborate
@@ -55,7 +55,7 @@ We will start by having the Collaborator make some changes and share those with 
 To be able to contribute to a repository, the Collaborator
 must clone the repository from the **Owner's** GitHub account. To do this, the Collaborator should visit the GitHub page for the Owner's repository, and then copy the clone URL. In R Studio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
 
-![](images/github-clone-url-owner.png)
+![](../images/github-clone-url-owner.png)
 
 ### Step 2: Collaborator Edits
 
@@ -67,7 +67,7 @@ With a clone copied locally, the Collaborator can now make changes to the
 To sync changes, the Collaborator will need to add, commit, and
 push their changes to the Owner's repository.  But before doing so, it's good practice to `pull` immediately before committing to ensure you have the most recent changes from the Owner.  So, in RStudio's `Git` tab, first click the "Diff" button to open the `Git` window, and then press the green "Pull" down arrow button. This will fetch any recent changes from the origin repository and merge them. Next, add the changed `index.Rmd` file to be committed by clicking the checkbox next to it, type in a commit message, and click "Commit".  Once that finishes, then the Collaborator can immediately click 'Push' to send the commits to the Owner's GitHub repository.
 
-![](images/rstudio-commit-push.png)
+![](../images/rstudio-commit-push.png)
 
 ### Step 4: Owner pull
 
@@ -122,7 +122,7 @@ and `Git` is there to warn you about potential problems.  And `Git` will not all
 you to overwrite one person's changes to a file with another's changes to the same
 file if they were based on the same version.
 
-![](images/git-conflict-00-lines-changed.png)
+![](../images/git-conflict-00-lines-changed.png)
 
 The main problem with merge conflicts is that, when the Owner and Collaborator
 both make changes to the same line of a file, `Git` doesn't know whose changes
@@ -166,7 +166,7 @@ file in the `Git` tab with an orange `U` icon, which indicates that the file is 
 and therefore awaiting your help to resolve the conflict. It delimits
 these blocks with a series of less than and greater than signs, so they are easy to find:
 
-![](images/rstudio-merge-conflict.png)
+![](../images/rstudio-merge-conflict.png)
 
 To resolve the conflicts, simply find all of these blocks, and edit them so that
 the file looks how you want (either pick your lines, your Collaborator's lines,
@@ -219,7 +219,7 @@ an error from GitHub. While the error message is long, it basically tells you ev
 needed (that the Owner's repository doesn't reflect the changes on GitHub, and that they
 need to *pull* before they can push).
 
-![](images/git-conflict-01-push-error.png)
+![](../images/git-conflict-01-push-error.png)
 
 #### Owner pulls from GitHub to get Collaborator changes
 
@@ -227,12 +227,12 @@ Doing what the message says, the Owner pulls the changes from GitHub, and gets
 another, different error message. In this case, it indicates that there is a merge 
 conflict because of the conflicting lines.
 
-![](images/git-conflict-02-pull-error.png)
+![](../images/git-conflict-02-pull-error.png)
 
 In the `Git` pane of RStudio, the file is also flagged with an orange `U`, which stands
 for an unresolved merge conflict.
 
-![](images/git-conflict-03-conflict.png)
+![](../images/git-conflict-03-conflict.png)
 
 #### Owner edits the file to resolve the conflict
 
@@ -242,13 +242,13 @@ with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, mergin
 changes are appropriate until the conflicting lines read how they should, and eliminate
 all of the marker lines with `<<<<<<<`, `=======`, and `>>>>>>>`.
 
-![](images/git-conflict-04-conflict-tags.png)
+![](../images/git-conflict-04-conflict-tags.png)
 
 Of course, for scripts and programs, resolving the changes means more than just 
 merging the text -- whoever is doing the merging should make sure that the code 
 runs properly and none of the logic of the program has been broken.
 
-![](images/git-conflict-05-resolved-file.png)
+![](../images/git-conflict-05-resolved-file.png)
 
 #### Owner commits the resolved changes
 
@@ -257,13 +257,13 @@ changes to be made, which changes the orange `U` to a blue `M` for modified, and
 commits the changes locally. The Owner now has a resolved version of the file on their
 system.
 
-![](images/git-conflict-06-commit-resolved.png)
+![](../images/git-conflict-06-commit-resolved.png)
 
 #### Owner pushes the resolved changes to GitHub
 
 Have the Owner push the changes, and it should replicate the changes to GitHub without error.
 
-![](images/git-conflict-07-push-resolved.png)
+![](../images/git-conflict-07-push-resolved.png)
 
 #### Collaborator pulls the resolved changes from GitHub
 
@@ -274,7 +274,7 @@ Finally, the Collaborator can pull from GitHub to get the changes the Owner made
 When either the Collaborator or the Owner view the history, the conflict, associated 
 branch, and the merged changes are clearly visible in the history. 
 
-![](images/git-conflict-08-history.png)
+![](../images/git-conflict-08-history.png)
 
 ### Merge Conflict Challenge {- .exercise}
 
