@@ -1,8 +1,6 @@
-## Publication Graphics
+## Publication Graphics {.unnumbered}
 
-### Learning Objectives
-
-In this lesson, you will learn:
+## Learning Objectives {.unnumbered}
 
 - The basics of the `ggplot2` package to create static plots
 - How to use `ggplot2`'s theming abilities to create publication-grade graphics
@@ -254,7 +252,8 @@ ggplot(kodiak_esc,
 
 Saving plots using ggplot is easy! The `ggsave` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc.
 
-```{r, eval = F}
+```{r}
+#| eval: false
 ggsave("kodiak_esc.png", width = 3, height = 3, units = "in")
 ```
 
