@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: _book
   
 book: 
   title: " NCEAS Learning Hub's coreR Course"
@@ -25,24 +26,25 @@ book:
         href: https://github.com/NCEAS/core-r-course
   
   chapters:
-    - materials/session_01.qmd
-    - materials/session_02.qmd
-    - materials/session_03.qmd
-    - materials/session_04.qmd
-    - materials/session_05.qmd
-    - materials/session_06.qmd
-    - materials/session_07.qmd
-    - materials/session_08.qmd
-    - materials/session_09.qmd
-    - materials/session_10.qmd
-    - materials/session_11.qmd
-    - materials/session_12.qmd
-    - materials/session_13.qmd
-    - materials/session_14.qmd
-    - materials/session_15.qmd
-    - materials/session_16.qmd
-    - materials/session_17.qmd
-    - materials/session_18.qmd
+    - index.qmd
+    - session_01.qmd
+    - session_02.qmd
+    - session_03.qmd
+    - session_04.qmd
+    - session_05.qmd
+    - session_06.qmd
+    - session_07.qmd
+    - session_08.qmd
+    - session_09.qmd
+    - session_10.qmd
+    - session_11.qmd
+    - session_12.qmd
+    - session_13.qmd
+    - session_14.qmd
+    - session_15.qmd
+    - session_16.qmd
+    - session_17.qmd
+    - session_18.qmd
 
 # bibliography: references.bib
       
