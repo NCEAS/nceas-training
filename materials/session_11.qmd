@@ -1,10 +1,9 @@
 ---
-title: "Data visualization & Publishing to the Web using GitHub Pages"
+title: "Collaborating using Git and GitHub & Merge Conflicts"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/git-github-publishing-analysis.qmd'}
+```{r, child = 'sections/git-collab-merge-conflicts.qmd'}
 ```
 
-```{r, child = 'sections/visualization-ggplot-leaflet.qmd'}
-```
+
