@@ -53,7 +53,11 @@ The first file we will use is a shapefile of regional boundaries in alaska deriv
 
 Now we can load the libraries we need:
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, results = "hide"}
+```{r}
+#| eval: false
+#| warning: false
+#| message: false
+#| results: hide
 lapply(names(sessionInfo()$otherPkgs), function(pkgs)
   detach(
     paste0('package:', pkgs),
@@ -64,7 +68,9 @@ lapply(names(sessionInfo()$otherPkgs), function(pkgs)
 ```
 
 
-```{r, warning = F, message = F}
+```{r}
+#| warning: false
+#| message: false
 library(sf)
 library(ggplot2)
 library(leaflet)
@@ -75,14 +81,19 @@ library(dplyr)
 
 Read in the data and look at a plot of it.
 
-```{r, eval = F}
+```{r}
+#| eval: false
+
 ## Read in shapefile using sf
 ak_regions <- read_sf("shapefiles/ak_regions_simp.shp")
 
 plot(ak_regions)  
 ```
 
-```{r read_shp_sf, echo = F}
+```{r read_shp_sf}
+#| eval: false
+#| echo: false
+
 ## Read in shapefile using sf
 ak_regions <- read_sf("../data/shapefiles/ak_regions_simp.shp")
 
@@ -92,6 +103,7 @@ plot(ak_regions)
 We can also examine it's class.
 
 ```{r}
+#| eval: false
 class(ak_regions)
 ```
 
@@ -100,6 +112,7 @@ class(ak_regions)
 Since our shapefile object has the `data.frame` class, viewing the contents of the object using the `head` function shows similar results to data we read in using `read.csv`.
 
 ```{r}
+#| eval: false
 head(ak_regions)
 ```
 
@@ -112,6 +125,7 @@ ESRI has a [blog post](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapp
 You can view what `crs` is set by using the function `st_crs`
 
 ```{r}
+#| eval: false
 st_crs(ak_regions)
 ```
 
@@ -127,6 +141,7 @@ You will often need to transform your geospatial data from one coordinate system
 
 
 ```{r}
+#| eval: false
 ak_regions_3338 <- ak_regions %>%
   st_transform(crs = 3338)
 
@@ -134,6 +149,7 @@ st_crs(ak_regions_3338)
 ```
 
 ```{r}
+#| eval: false
 plot(ak_regions_3338)
 ```
 
@@ -155,6 +171,7 @@ Since `sf` objects are data.frames, they play nicely with packages in the tidyve
 `select()`
 
 ```{r select}
+#| eval: false
 ak_regions_3338 %>%
   select(region)
 ```
@@ -164,6 +181,7 @@ Note the sticky geometry column! The geometry column will stay with your `sf` ob
 `filter()`
 
 ```{r filter}
+#| eval: false
 ak_regions_3338 %>%
   filter(region == "Southeast")
 ```
@@ -183,10 +201,12 @@ We have some population data, but it gives the number of people by city, not by 
 First, read in the population data as a regular `data.frame`. This data is derived from: Jeanette Clark, Sharis Ochs, Derek Strong, and National Historic Geographic Information System. 2018. Languages used in Alaskan households, 1990-2015. Knowledge Network for Biocomplexity. [doi:10.5063/F11G0JHX](https://doi.org/10.5063/F11G0JHX). Unnecessary columns were removed and the most recent year of data was selected.
 
 ```{r, eval = F}
+#| eval: false
 pop <- read.csv("shapefiles/alaska_population.csv")
 ```
 
 ```{r, echo = F}
+#| eval: false
 pop <- read.csv("../data/shapefiles/alaska_population.csv")
 ```
 
@@ -195,6 +215,7 @@ The `st_join` function is a spatial left join. The arguments for both the left a
 We can do this easily using the `st_as_sf` function, which takes as arguments the coordinates and the `crs`. The `remove = F` specification here ensures that when we create our `geometry` column, we retain our original `lat` `lng` columns, which we will need later for plotting. Although it isn't said anywhere explicitly in the file, let's assume that the coordinate system used to reference the latitude longitude coordinates is WGS84, which has a `crs` number of 4236.
 
 ```{r}
+#| eval: false
 pop_4326 <- st_as_sf(pop, 
                   coords = c('lng', 'lat'),
                   crs = 4326,
@@ -208,6 +229,7 @@ Now we can do our spatial join! You can specify what geometry function the join 
 In this case, we want to find what region each city falls within, so we will use `st_within`.
 
 ```{r, eval = F}
+#| eval: false
 pop_joined <- st_join(pop_4326, ak_regions_3338, join = st_within)
 ```
 
@@ -220,10 +242,12 @@ Error: st_crs(x) == st_crs(y) is not TRUE
 Turns out, this won't work right now because our coordinate reference systems are not the same. Luckily, this is easily resolved using `st_transform`, and projecting our population object into Alaska Albers.
 
 ```{r}
+#| eval: false
 pop_3338 <- st_transform(pop_4326, crs = 3338)
 ```
 
 ```{r}
+#| eval: false
 pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
 
 head(pop_joined)
@@ -238,6 +262,7 @@ Like we mentioned above, there are many different types of joins you can do with
 Next we compute the total population for each region. In this case, we want to do a `group_by` and `summarise` as this were a regular `data.frame` - otherwise all of our point geometries would be included in the aggreation, which is not what we want. Our goal is just to get the total population by region. We remove the sticky geometry using `as.data.frame`, on the advice of the `sf::tidyverse` help page.
 
 ```{r}
+#| eval: false
 pop_region <- pop_joined %>% 
   as.data.frame() %>% 
   group_by(region) %>% 
@@ -249,6 +274,7 @@ head(pop_region)
 And use a regular `left_join` to get the information back to the Alaska region shapefile. Note that we need this step in order to regain our region geometries so that we can make some maps.
 
 ```{r}
+#| eval: false
 pop_region_3338 <- left_join(ak_regions_3338, pop_region)
 
 #plot to check
@@ -263,6 +289,7 @@ The `group_by` and `summarize` functions can also be used on `sf` objects to sum
 Let's try some out. Say we want to calculate the population by Alaska management area, as opposed to region.
 
 ```{r}
+#| eval: false
 pop_mgmt_338 <- pop_region_3338 %>% 
   group_by(mgmt_area) %>% 
   summarize(total_pop = sum(total_pop))
@@ -275,6 +302,7 @@ Notice that the region geometries were combined into a single polygon for each m
 If we don't want to combine geometries, we can specify `do_union = F` as an argument.
 
 ```{r}
+#| eval: false
 pop_mgmt_3338 <- pop_region_3338 %>% 
   group_by(mgmt_area) %>% 
   summarize(total_pop = sum(total_pop), do_union = F)
@@ -286,7 +314,8 @@ plot(pop_mgmt_3338["total_pop"])
 
 Save the spatial object to disk using `write_sf()` and specifying the filename. Writing your file with the extension .shp will assume an ESRI driver [driver](http://www.gdal.org/ogr_formats.html), but there are many other format options available.
 
-```{r plot, eval = F}
+```{r plot}
+#| eval: false
 write_sf(pop_region_3338, "shapefiles/ak_regions_population.shp", delete_layer = TRUE)
 ```
 
@@ -297,6 +326,7 @@ write_sf(pop_region_3338, "shapefiles/ak_regions_population.shp", delete_layer =
 We can plot `sf` objects just like regular data.frames using `geom_sf`.
 
 ```{r}
+#| eval: false
 ggplot(pop_region_3338) +
   geom_sf(aes(fill = total_pop)) +
   theme_bw() +
@@ -309,13 +339,16 @@ We can also plot multiple shapefiles in the same plot. Say if we want to visuali
 
 The rivers shapefile is a simplified version of Jared Kibele and Jeanette Clark. Rivers of Alaska grouped by SASAP region, 2018. Knowledge Network for Biocomplexity. doi:10.5063/F1SJ1HVW.
 
-```{r, eval = F}
+```{r}
+#| eval: false
 rivers_3338 <- read_sf("shapefiles/ak_rivers_simp.shp")
 st_crs(rivers_3338)
 ```
 
 
-```{r, echo = F}
+```{r}
+#| eval: false
+#| echo: false
 rivers_3338 <- read_sf("../data/shapefiles/ak_rivers_simp.shp")
 st_crs(rivers_3338)
 ```
@@ -323,6 +356,7 @@ st_crs(rivers_3338)
 Note that although no EPSG code is set explicitly, with some sluething we can determine that this is `EPSG:3338`. [This site](https://epsg.io) is helpful for looking up EPSG codes.
 
 ```{r}
+#| eval: false
 ggplot() +
   geom_sf(data = pop_region_3338, aes(fill = total_pop)) +
   geom_sf(data = rivers_3338, aes(size = StrOrder), color = "black") +
@@ -340,6 +374,7 @@ The `ggmap` package has some functions that can render base maps (as raster obje
 We'll need to transform our shapefile with population data by community to `EPSG:3857` which is the CRS used for rendering maps in Google Maps, Stamen, and OpenStreetMap, among others.
 
 ```{r}
+#| eval: false
 pop_3857 <- pop_3338 %>%
   st_transform(crs = 3857)
 ```
@@ -348,7 +383,10 @@ Next, let's grab a base map from the Stamen map tile server covering the region 
 First we include a function that transforms the bounding box (which starts in `EPSG:4326`) to also be in the `EPSG:3857` CRS, which is the projection that the map raster is returned in from Stamen. This is an issue with `ggmap` described in more detail [here](https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208)
 
 
-```{r message=FALSE}
+```{r}
+#| eval: false
+#| message: false
+
 # Define a function to fix the bbox to be in EPSG:3857
 # See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
 ggmap_bbox_to_3857 <- function(map) {
@@ -373,7 +411,12 @@ ggmap_bbox_to_3857 <- function(map) {
 
 Next, we define the bounding box of interest, and use `get_stamenmap()` to get the basemap. Then we run our function defined above on the result of the `get_stamenmap()` call.
 
-```{r, message = F, warning = F}
+```{r}
+#| eval: false
+#| message: false
+#| warning: false
+
+
 bbox <- c(-170, 52, -130, 64)   # This is roughly southern Alaska
 ak_map <- get_stamenmap(bbox, zoom = 4)
 ak_map_3857 <- ggmap_bbox_to_3857(ak_map)
@@ -381,7 +424,10 @@ ak_map_3857 <- ggmap_bbox_to_3857(ak_map)
 
 Finally, plot both the base raster map with the population data overlayed, which is easy now that everything is in the same projection (3857):
 
-```{r message=FALSE}
+```{r}
+#| eval: false
+#| message: false
+
 ggmap(ak_map_3857) + 
   geom_sf(data = pop_3857, aes(color = population), inherit.aes = F) +
   scale_color_continuous(low = "khaki", high =  "firebrick", labels = comma)
@@ -398,6 +444,8 @@ Leaflet (unlike ggplot) will project data for you. The catch is that you have to
 Here we define a leaflet projection for Alaska Albers, and save it as a variable to use later.
 
 ```{r}
+#| eval: false
+
 epsg3338 <- leaflet::leafletCRS(
   crsClass = "L.Proj.CRS",
   code = "EPSG:3338",
@@ -408,18 +456,24 @@ epsg3338 <- leaflet::leafletCRS(
 You might notice that this looks familiar! The syntax is a bit different, but most of this information is also contained within the `crs` of our shapefile:
 
 ```{r}
+#| eval: false
+
 st_crs(pop_region_3338)
 ```
 
 Since `leaflet` requires that we use an unprojected coordinate system, let's use `st_transform` yet again to get back to WGS84.
 
 ```{r}
+#| eval: false
+
 pop_region_4326 <- pop_region_3338 %>% st_transform(crs = 4326)
 ```
 
 
 
 ```{r}
+#| eval: false
+
 m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
         addPolygons(data = pop_region_4326, 
                     fillColor = "gray",
@@ -431,6 +485,8 @@ m
 We can add labels, legends, and a color scale.
 
 ```{r}
+#| eval: false
+
 pal <- colorNumeric(palette = "Reds", domain = pop_region_4326$total_pop)
 
 m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
@@ -453,6 +509,7 @@ m
 We can also add the individual communities, with popup labels showing their population, on top of that!
 
 ```{r}
+#| eval: false
 
 pal <- colorNumeric(palette = "Reds", domain = pop_region_4326$total_pop)
 
