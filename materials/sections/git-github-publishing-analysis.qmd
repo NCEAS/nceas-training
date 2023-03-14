@@ -1,10 +1,16 @@
+---
+execute: 
+  eval: false
+  warning: false
+---
+
 ## Publishing Analyses to the Web {.unnumbered}
 
 ## Learning Objectives {.unnumbered}
 
 - How to use git, GitHub (+Pages), and (R)Markdown to publish an analysis to the web
 
-### Introduction
+## Introduction
 
 Sharing your work with others in engaging ways is an important part of the scientific process.
 So far in this course, we've introduced a small set of powerful tools for doing open science:
@@ -19,7 +25,7 @@ RMarkdown, in particular, is amazingly powerful for creating scientific reports 
 
 In this lesson, we're going to take an existing GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
 
-### A Minimal Example
+## A Minimal Example
 
 - Use your existing `training_username` repository
 - Add a new file at the top level called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.  Be sure to use the exact capitalization (lower case 'index') as different operating systems handle capitalization differently and it can interfere with loading your web page later.
@@ -51,7 +57,7 @@ Now that we've successfully published a web page from an RMarkdown document, let
 - Commit, push
 - Go back to https://{username}.github.io/{repo_name}/
 
-### Exercise: Sharing your work
+## Exercise: Sharing your work
 
 RMarkdown web pages are a great way to share work in progress with your colleagues.  To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed.  You can also include multiple pages and build a simple web site for walking through your work that is accessible to people who aren't all set up to open your content in R.  In this exercise, we'll publish another RMarkdown page, and create a table of contents on the main page to guide people to the main page.
 

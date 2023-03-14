@@ -40,7 +40,7 @@ An RMarkdown file has three main components:
 -   Text to display
 -   Code chunks to run
 
-![](../images/rmarkdown_structure.png)
+![](images/rmarkdown_structure.png)
 
 We are going to use Rmarkdown to run some analysis on data. We are specifically going to focus on the code chunk and text components. We will discuss more about the how the YAML works in an RMarkdown later in the course. For now, you just need to know that every RMarkdown file has a YAML and this sets guidelines on how your want the output of your document to look like.
 
@@ -60,7 +60,7 @@ Let's have a look at this file --- It looks a little different than a R script. 
 
 Let's go ahead and render this file by clicking the "Knit" button, the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Save it in the top level of your home directory on the server, and name it something that you will remember (like `rmarkdown-intro.Rmd`).
 
-![](../images/rmarkdown_side_by_side2.png)
+![](images/rmarkdown_side_by_side2.png)
 
 What do you notice between the two?
 
@@ -90,7 +90,7 @@ Notice the syntax in the document we just knitted:
 -   In an R script or inside an R code chunk, a hash indicates a comment that will not be evaluated. You can use as many as you want: `#` is equivalent to `######`. It's just a matter of style.
 -   In Markdown, a hash indicates a level of a header. And the number you use matters: `#` is a "level one header", meaning the biggest font and the top of the hierarchy. `###` is a level three header, and will show up nested below the `#` and `##` headers.
 
-![](../images/rmarkdown_headers.png)
+![](images/rmarkdown_headers.png)
 :::
 
 ::: callout-tip
@@ -108,7 +108,7 @@ To access the editor, click the Visual button in the upper left hand corner of y
 
 From the insert drop down, select "Citation." In the window that appears, there are several options in the left hand panel for the source of your citation. If you have a citation manager, such as Zotero, installed, this would be included in that list. For now, select "From DOI", and in the search bar enter a DOI of your choice (e.g.: 10.1038/s41467-020-17726-z), then select "Insert."
 
-![](../images/markdown-citation.png)
+![](images/markdown-citation.png)
 
 After selecting insert, a couple of things happen. First, the citation reference is inserted into your markdown text as `[@oke2020]`. Second, a file called references.bib containing the BibTex format of the citation is created. Third, that file is added to the YAML header of your RMarkdown document (`bibliography: references.bib`). Adding another citation will automatically update your `references.bib` file. So easy!
 

@@ -1,3 +1,9 @@
+---
+execute: 
+  eval: false
+  warning: false
+---
+
 ## Publication Graphics {.unnumbered}
 
 ## Learning Objectives {.unnumbered}
@@ -6,7 +12,7 @@
 - How to use `ggplot2`'s theming abilities to create publication-grade graphics
 - The basics of the `leaflet` package to create interactive maps
 
-### Overview
+## Overview
 
 ggplot2 is a popular package for visualizing data in R.
 From the [home page](http://ggplot2.tidyverse.org/):
@@ -15,7 +21,7 @@ From the [home page](http://ggplot2.tidyverse.org/):
 It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)).
 This lesson will introduce you to the basic components of working with ggplot2.
 
-#### ggplot vs base vs lattice vs XYZ... {-}
+### ggplot vs base vs lattice vs XYZ...
 
 R provides **many** ways to get your data into a plot.
 Three common ones are,
@@ -30,13 +36,16 @@ I use ggplot2 for most everything else.
 ggplot2 excels at making complicated plots easy and easy plots simple enough.
 
 
-#### Setup {- .setup}
+### Setup {.unnumbered}
 
 Open a new RMarkdown document and remove the filler text.
 
 First, let's load the packages we'll need:
 
-```{r load_packages, message = F, warning = F}
+```{r load_packages}
+#| eval: false
+#| message: false
+#| warning: false
   library(leaflet)
   library(dplyr)
   library(tidyr)
@@ -48,7 +57,10 @@ First, let's load the packages we'll need:
 
 Load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
-```{r read_data, warning = F, message = F, eval = F}
+```{r read_data}
+#| eval: false
+#| message: false
+#| warning: false
 data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
 
 esc <- tryCatch(
@@ -63,7 +75,8 @@ esc <- tryCatch(
 head(esc)
 ```
 
-```{r, echo = F}
+```{r}
+#| eval: false
 esc <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
@@ -79,6 +92,7 @@ Hint: try to use `separate` to extract the year, month, and day from the date co
 Here is the solution:
 
 ```{r mean_esc}
+#| eval: false
 annual_esc <- esc %>% 
   separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>% 
   mutate(Year = as.numeric(Year)) %>% 
@@ -99,6 +113,7 @@ Every graphic you make in `ggplot2` will have at least one aesthetic and at leas
 Now, let's plot our results using `ggplot`. `ggplot` uses a mapping *aesthetic* (set using `aes()`) and a *geometry* to create your plot. Additional geometries/aesthetics and theme elements can be added to a `ggplot` object using `+`.
 
 ```{r plot_esc}
+#| eval: false
 ggplot(annual_esc, 
        aes(x = Species, y = escapement)) +
   geom_col()
@@ -107,6 +122,7 @@ ggplot(annual_esc,
 What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r}
+#| eval: false
 ggplot(annual_esc, 
        aes(x = Species, y = escapement, 
            fill = "blue")) +
@@ -120,6 +136,7 @@ Notice that we tried to set the fill color of the plot inside the mapping aesthe
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_bar` function, **outside** of the mapping aesthetics function call.
 
 ```{r}
+#| eval: false
 ggplot(annual_esc, 
        aes(x = Species, y = escapement)) +
   geom_col(fill = "blue")
@@ -130,6 +147,7 @@ What if we did want to map the color of the bars to a variable, such as region.
 `ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data.
 
 ```{r}
+#| eval: false
 ggplot(annual_esc, 
        aes(x = Species, y = escapement, 
            fill = SASAP.Region)) +
@@ -145,6 +163,7 @@ Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into 
 Let's look at an example using a different geometry. Here, we use the pipe operator to pass in a filtered version of `annual_esc`, and make a line plot with points at each observation.
 
 ```{r}
+#| eval: false
 annual_esc %>% 
   filter(SASAP.Region == "Kodiak") %>% 
 ggplot(aes(x = Year, y = escapement, color = Species)) + 
@@ -161,12 +180,14 @@ Now let's work on making this plot look a bit nicer. Add a title using `ggtitle(
 For clarity in the next section, I'll save the filtered version of the annual escapement `data.frame` to it's own object.
 
 ```{r}
+#| eval: false
 kodiak_esc <- annual_esc %>% 
   filter(SASAP.Region == "Kodiak")
 ```
 
 
 ```{r}
+#| eval: false
 ggplot(kodiak_esc, 
        aes(x = Year, y = escapement, 
            color = Species)) + 
@@ -190,6 +211,7 @@ The built in theme functions change the default settings for many elements that 
 Let's look at an example of a `theme` call, where we change the position of our plot above from the right side to the bottom, and remove the title from the legend.
 
 ```{r}
+#| eval: false
 ggplot(kodiak_esc, 
        aes(x = Year, y = escapement, 
            color = Species)) + 
@@ -208,12 +230,14 @@ Note that the `theme()` call needs to come after any built in themes like `theme
 You can also save the result of a series of `theme()` function calls to an object to use on multiple plots. This prevents needing to copy paste the same lines over and over again!
 
 ```{r}
+#| eval: false
 my_theme <- theme_bw() + 
   theme(legend.position = "bottom", 
         legend.title = element_blank())
 ```
 
 ```{r}
+#| eval: false
 ggplot(kodiak_esc, 
        aes(x = Year, 
            y = escapement, 
@@ -236,6 +260,7 @@ Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the p
 The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
 ```{r}
+#| eval: false
 ggplot(kodiak_esc, 
        aes(x = Year, 
            y = escapement, 
@@ -266,6 +291,7 @@ What if we wanted to generate a plot for every region? A fast way to do this use
 The default behaviour of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots. Here, we free the y scale. You can also specify the number of columns using the `n_col` argument.
 
 ```{r, fig.height = 7, fig.width = 6}
+#| eval: false
 ggplot(annual_esc, 
        aes(x = Year, 
            y = escapement, 
@@ -288,6 +314,7 @@ First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
 
 ```{r uniq_locations}
+#| eval: false
 locations <- esc %>% 
   distinct(Location, Latitude, Longitude) %>% 
   drop_na()
@@ -296,6 +323,7 @@ locations <- esc %>%
 And display it as an interactive table using `datatable()` from the `DT` package.
 
 ```{r display_locations}
+#| eval: false
 datatable(locations)
 ```
 
@@ -306,6 +334,7 @@ Similar to `ggplot2`, you can make a basic `leaflet` map using just a couple lin
 The `addTiles()` function without arguments will add base tiles to your map from [OpenStreetMap](https://www.openstreetmap.org/). `addMarkers()` will add a marker at each location specified by the latitude and longitude arguments. Note that the `~` symbol is used here to model the coordinates to the map (similar to `facet_wrap` in ggplot).
 
 ```{r simple_map}
+#| eval: false
 leaflet(locations) %>% 
   addTiles() %>% 
   addMarkers(lng = ~Longitude, 
@@ -316,6 +345,7 @@ leaflet(locations) %>%
 You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments..
 
 ```{r}
+#| eval: false
 leaflet(locations) %>% 
   addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
               layers = 'GEBCO_LATEST',
