@@ -51,7 +51,8 @@ book:
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+    # Note HD: latex rendering issues, maybe with column-margin
+  # pdf:
+  #   documentclass: scrreprt
 
 editor: visual
