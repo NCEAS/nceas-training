@@ -26,25 +26,25 @@ book:
         href: https://github.com/NCEAS/core-r-course
   
   chapters:
-    - index.qmd
-    - session_01.qmd
-    - session_02.qmd
-    - session_03.qmd
-    - session_04.qmd
-    - session_05.qmd
-    - session_06.qmd
-    - session_07.qmd
-    - session_08.qmd
-    - session_09.qmd
-    - session_10.qmd
-    - session_11.qmd
-    - session_12.qmd
-    - session_13.qmd
-    - session_14.qmd
-    - session_15.qmd
-    - session_16.qmd
-    - session_17.qmd
-    - session_18.qmd
+    - index.qmd # preface
+    - session_01.qmd # rstudio server setup
+    - session_02.qmd # git setup
+    - session_03.qmd # coure intro / why r programming
+    - session_04.qmd # mini intro to R programming
+    - session_05.qmd # intro to rmd
+    - session_06.qmd # FAIR and CARE
+    - session_07.qmd # intro to git + github
+    - session_08.qmd # cleaning and wrangling data
+    - session_09.qmd # tidy data
+    - session_10.qmd # r practice: joins, tidy data
+    - session_11.qmd # git collab
+    - session_12.qmd # data viz + github pages
+    - session_13.qmd # r practice: wrangling, data viz, github pages
+    - session_14.qmd # combined dmp + metadata + publishing
+    - session_15.qmd # intro to sf + map making
+    - session_16.qmd # r practice: wrangling, sf, map
+    - session_17.qmd # git workflows
+    - session_18.qmd # reproducibility and provenance
 
 # bibliography: references.bib
       
