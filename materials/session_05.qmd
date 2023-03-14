@@ -1,0 +1,9 @@
+---
+title: "Introduction to RMarkdown"
+from: markdown+emoji
+title-block-banner: true
+---
+
+```{r, child = 'sections/r-intro-rmarkdown.qmd'}
+```
+

@@ -1,0 +1,10 @@
+---
+title: "Data visualization & Publishing to the Web using GitHub Pages"
+title-block-banner: true
+---
+
+```{r, child = 'sections/git-github-publishing-analysis.qmd'}
+```
+
+```{r, child = 'sections/visualization-ggplot-leaflet.qmd'}
+```

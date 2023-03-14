@@ -1,0 +1,57 @@
+project:
+  type: book
+  output-dir: _book
+  
+book: 
+  title: " NCEAS Learning Hub's coreR Course"
+  # date: "April 3, 2023"
+  reader-mode: false
+  
+  # NoteHD: cover image is not working
+  # cover-image: cover.png
+  # cover-image-alt: "Learning Hub logo in the shape of a hexagon with a bee in the center"
+  
+  favicon: cover.png # learning hub logo
+  
+  sidebar:
+    title: "Course Materials"
+    style: "floating"
+    search: true
+    tools:
+      - icon: house-door-fill
+        href: https://www.nceas.ucsb.edu/learning-hub
+      - icon: twitter
+        href: https://twitter.com/ucsb_nceas
+      - icon: github
+        href: https://github.com/NCEAS/core-r-course
+  
+  chapters:
+    - index.qmd # preface
+    - session_01.qmd # rstudio server setup
+    - session_02.qmd # git setup
+    - session_03.qmd # coure intro / why r programming
+    - session_04.qmd # mini intro to R programming
+    - session_05.qmd # intro to rmd
+    - session_06.qmd # FAIR and CARE
+    - session_07.qmd # intro to git + github
+    - session_08.qmd # cleaning and wrangling data
+    - session_09.qmd # tidy data
+    - session_10.qmd # r practice: joins, tidy data
+    - session_11.qmd # git collab
+    - session_12.qmd # data viz + github pages
+    - session_13.qmd # r practice: wrangling, data viz, github pages
+    - session_14.qmd # combined dmp + metadata + publishing
+    - session_15.qmd # intro to sf + map making
+    - session_16.qmd # r practice: wrangling, sf, map
+    - session_17.qmd # git workflows
+    - session_18.qmd # reproducibility and provenance
+
+# bibliography: references.bib
+      
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual

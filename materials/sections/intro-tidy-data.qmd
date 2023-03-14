@@ -1,0 +1,168 @@
+---
+bibliography: references.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Understand basics of relational data models aka tidy data
+-   Learn how to design and create effective data tables
+
+## Introduction
+
+In this lesson we are going to learn what relational data models are, and how they can be used to manage and analyze data efficiently. Relational data models are what relational databases use to organize tables. However, you don't have to be using a relational database (like mySQL, MariaDB, Oracle, or Microsoft Access) to enjoy the benefits of using a relational data model. Additionally, your data don't have to be large or complex for you to benefit. Here are a few of the benefits of using a relational data model:
+
+-   Powerful search and filtering
+-   Handle large, complex data sets
+-   Enforce data integrity
+-   Decrease errors from redundant updates
+
+### Simple guidelines for data management
+
+A great paper called *Some Simple Guidelines for Effective Data Management* [@borer2009] lays out exactly that - guidelines that make your data management, and your reproducible research, more effective. The first six guidelines are straightforward, but worth mentioning here:
+
+-   Use a scripted program (like R!)
+-   Non-proprietary file formats are preferred (eg: csv, txt)
+-   Keep a raw version of data
+-   Use descriptive file and variable names (without spaces!)
+-   Include a header line in your tabular data files
+-   Use plain ASCII text
+
+The next three are a little more complex, but all are characteristics of the relational data model:
+
+-   Design tables to add rows, not columns
+-   Each column should contain only one type of information
+-   Record a single piece of data only once; separate information collected at different scales into different tables.
+
+## Recognizing Untidy Data
+
+Before we learn how to create a relational data model, let's look at how to recognize data that does not conform to the model.
+
+### Data Organization
+
+This is a screenshot of an actual dataset that came across NCEAS. We have all seen spreadsheets that look like this - and it is fairly obvious that whatever this is, it isn't very tidy. Let's dive deeper in to exactly **why** we wouldn't consider it tidy.
+
+![](images/excel-org-01.png)
+
+### Multiple Tables
+
+Your human brain can see from the way this sheet is laid out that it has three tables within it. Although it is easy for us to see and interpret this, it is extremely difficult to get a computer to see it this way, which will create headaches down the road should you try to read in this information to R or another programming language.
+
+![](images/excel-org-02.png)
+
+### Inconsistent Observations
+
+Rows correspond to **observations**. If you look across a single row, and you notice that there are clearly multiple observations in one row, the data are likely not tidy.
+
+![](images/excel-org-03.png)
+
+### Inconsistent Variables
+
+Columns correspond to variables. If you look down a column, and see that multiple variables exist in the table, the data are not tidy. A good test for this can be to see if you think the column consists of only one unit type.
+
+![](images/excel-org-04.png)
+
+### Marginal Sums and Statistics
+
+Marginal sums and statistics also are not considered tidy, and they are not the same type of observation as the other rows. Instead, they are a combination of observations.
+
+![](images/excel-org-05.png)
+
+## Good Enough Data Modeling
+
+### Denormalized Data
+
+When data are "denormalized" it means that observations about different entities are combined.
+
+![](images/table-denorm.png)
+
+In the above example, each row has measurements about both the site at which observations occurred, as well as observations of two individual plants of possibly different species found at that site. This is **not normalized** data.
+
+People often refer to this as **wide** format, because the observations are spread across a wide number of columns. Note that, should one encounter a new species in the survey, we would have to add new columns to the table. This is difficult to analyze, understand, and maintain.
+
+### Tabluar Data
+
+**Observations**. A better way to model data is to organize the observations about each type of entity in its own table. This results in:
+
+-   Separate tables for each type of entity measured
+-   Each row represents a single observed entity
+-   Observations (rows) are all unique
+-   This is **normalized** data (aka **tidy** data)
+
+**Variables**. In addition, for normalized data, we expect the variables to be organized such that:
+
+-   All values in a column are of the same type
+-   All columns pertain to the same observed entity (e.g., row)
+-   Each column represents either an identifying variable or a measured variable
+
+::: callout-note
+## Challenge
+
+Try to answer the following questions:
+
+-   What are the observed entities in the example above?
+-   What are the measured variables associated with those observations?
+
+**Answer** ![](images/table-denorm-entity-var.png)
+:::
+
+If we use these questions to tidy our data, we should end up with:
+
+-   One table for each entity observed
+-   One column for each measured variable
+-   Additional columns for identifying variables (such as site ID)
+
+Here is what our tidy data look like:
+
+![](images/tables-norm.png){width="80%" fig-align="center"}
+
+Note that this normalized version of the data meets the three guidelines set by [@borer2009]:
+
+-   Design tables to add rows, not columns
+-   Each column should contain only one type of information
+-   Record a single piece of data only once; separate information collected at different scales into different tables.
+
+## Using Normalized Data
+
+Normalizing data by separating it into multiple tables often makes researchers really uncomfortable. This is understandable! The person who designed this study collected all of these measurements for a reason - so that they could analyze the measurements together. Now that our site and species information are in separate tables, how would we use site elevation as a predictor variable for species composition, for example? The answer is keys - and they are the cornerstone of relational data models.
+
+When one has normalized data, we often use unique identifiers to reference particular observations, which allows us to link across tables. Two types of identifiers are common within relational data:
+
+-   **Primary Key**: unique identifier for each observed entity, one per row
+-   **Foreign Key**: reference to a primary key in another table (linkage)
+
+::: callout-note
+## Challenge
+
+In our normalized tables below, identify the following:
+
+1.  The primary key for each table
+2.  Any foreign keys that exist
+
+![](images/tables-norm.png){width="80%" fig-align="center"}
+:::
+
+The primary key of the top table is `id`. The primary key of the bottom table is `site`.
+
+The `site` column is the **primary key** of that table because it uniquely identifies each row of the table as a unique observation of a site. In the first table, however, the `site` column is a **foreign key** that references the primary key from the second table. This linkage tells us that the first height measurement for the `DAPU` observation occurred at the site with the name `Taku`.
+
+![](images/tables-keys.png){width="80%" fig-align="center"}
+
+## Merging Data
+
+Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other.
+
+When conceptualizing merges, one can think of two tables, one on the **left** and one on the **right**. The most common (and often useful) join is when you merge the subset of rows that have matches in both the left table and the right table: this is called an **INNER JOIN**. Other types of join are possible as well. A **LEFT JOIN** takes all of the rows from the left table, and merges on the data from matching rows in the right table. Keys that don't match from the left table are still provided with a missing value (`NA`) from the right table. A **RIGHT JOIN** is the same, except that all of the rows from the right table are included with matching data from the left, or a missing value. Finally, a **FULL OUTER JOIN** includes all data from all rows in both tables, and includes missing values wherever necessary.
+
+![](images/join-diagrams.png){width="80%" fig-align="center"}
+
+Sometimes people represent these as Venn diagrams showing which parts of the left and right tables are included in the results for each join. These however, miss part of the story related to where the missing value come from in each result.
+
+![](images/sql-joins.png){width="80%" fig-align="center"}
+
+In the figure above, the blue regions show the set of rows that are included in the result. For the INNER JOIN, the rows returned are all rows in A that have a matching row in B.
+
+## Additonal Tidy Data Resources
+
+-   [White et al. 2013. Nine simple ways to make it easier to (re)use your data. Ideas in Ecology and Evolution 6.](https://doi.org/10.4033/iee.2013.6b.6.f)
+-   [Software Carpentry SQL Tutorial](https://swcarpentry.github.io/sql-novice-survey/)
+-   [Tidy Data](http://vita.had.co.nz/papers/tidy-data.pdf)

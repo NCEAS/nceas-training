@@ -1,0 +1,19 @@
+---
+title: "R Practice: Tidy Data & Joins"
+title-block-banner: true
+execute: 
+  eval: false
+  warning: false
+format:
+  html: 
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
+# bibliography: references.bib
+---
+
+```{r, child = 'sections/r-practice-tidy-data-joins.qmd'}
+```
+
+

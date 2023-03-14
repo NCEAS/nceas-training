@@ -1,0 +1,249 @@
+## Learning Objectives {.unnumbered}
+
+-   Practice joining data sets together
+-   Practice identifying primary and foreign keys
+-   Practice using common cleaning and wrangling functions
+
+::: callout-note
+## Acknowledgements
+
+These exercises come from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
+:::
+
+## Exercise: Practice Joins
+
+These exercises will be using bird survey data collected from the central Arizona-Phoenix metropolitan area by Arizona State University researchers [@warren2021].
+
+::: callout-tip
+## Setup
+
+1.  Load the following libraries at the top of your markdown
+
+```{r}
+#| code-fold: false
+library(readr)
+library(dplyr)
+library(lubridate) # for bonus question
+```
+
+2.  Obtain data sets from the EDI Data Portal [Ecological and social Interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following data sets:
+
+-   `52_pp52_birds_1.csv`
+-   `52_pp52_surveys_1.csv`
+-   `52_pp52_sites_1.csv`
+-   `52_pp52_taxalist_1.csv`
+
+Note: It's up to you on how you want to download the data! You can either use the data set links or manually download the data and then upload the files to RStudio server.
+:::
+
+### Read in the data
+
+::: callout-note
+## Question 1
+Read in the data sets and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
+:::
+
+```{r}
+#| eval: false
+
+# read in data using data set links
+bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
+sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
+surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=81bf72420e69077097fb0790dcdc63a6")
+taxalist <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=58f863b7e3066e68536a9cacdc7bd58e")
+
+# read in data from the data directory after manually downloading data 
+bird_observations <- read_csv("data/52_pp52_birds_1.csv")
+sites <- read_csv("data/52_pp52_sites_1.csv")
+surveys <- read_csv("data/52_pp52_surveys_1.csv")
+taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
+```
+
+### Get familiar with the data
+
+::: callout-note
+## Question 2
+What functions can you use to explore the data you just read in? 
+:::
+
+```{r}
+#| eval: false
+
+View(bird_observations)
+
+head(bird_observations)
+
+glimpse(bird_observations)
+
+summary(bird_observations)
+
+names(bird_observations)
+```
+
+::: callout-note
+## Question 3
+What are the primary and foreign keys for each data set?
+:::
+
+```{r}
+#| eval: false
+`bird_observations`: Does not have a primary key and foreign key is `survey_id`, `site_id`, `species_id`
+`sites`: Primary key is `site_id` and foreign key is `site_id`, `survey_id`
+`surveys`: Does not have a primary key and foreign key is `site_id`
+`taxalist`: Does not have a primary key and foreign key is `species_id`
+```
+
+
+### Create a subset of `bird_observations`
+
+::: callout-note
+## Question 4
+Create a subset of `bird_observations` called `birds_subset` that only contains observations for birds with species id `BHCO` and `RWBL`, and from sites with site ID `LI-W` and `NU-C`.
+
+Hint: What function do you use to subset data by rows?
+:::
+
+```{r}
+#| eval: false
+birds_subset <- bird_observations %>% 
+  filter(species_id %in% c("BHCO", "RWBL")) %>% 
+  filter(site_id %in% c("LI-W", "NU-C"))
+```
+
+### Use `left_join()` to merge `birds_subset` with the data sets `sites` and `taxalist`
+
+::: callout-note
+## Qustion 5
+Use left join(s) to update `birds_subset` so that it also includes sites and taxalist information. For each join, include an explicit argument saying which key you are joining by (even if it will just assume the correct one for you). Store the updated data frame as `birds_left`. Make sure to look at the output - is what it contains consistent with what you expected it to contain?
+:::
+
+```{r}
+#| eval: false
+birds_left <- birds_subset %>% 
+  left_join(y = sites, by = "site_id") %>% 
+  left_join(y = taxalist, by = "species_id")
+# don't see x = birds_subset here because piping in birds_subset means it automatically assumes birds_subset as x.
+```
+
+### Use `full_join()` to merge `birds_subset` and `sites` data
+
+::: callout-note 
+## Question 6
+First, answer: what do you expect a `full_join()` between `birds_subset` and `sites` to contain?
+:::
+
+```{r}
+#| eval: false
+I expect to see all columns and all observations from `birds_subset` and all columns from `sites` to be merged into one dataset because in a full join everything is kept. 
+```
+
+Write code to `full_join()` the `birds_subset` and `sites` data into a new object called `birds_full`. Explicitly include the variable you're joining by. Look at the output. Is it what you expected?
+
+```{r}
+#| eval: false
+birds_full <- birds_subset %>% 
+  full_join(x = birds_subset, y = sites, by = "site_id")
+```
+
+### Use `inner_join()` to merge `birds_subset` and `taxalist` data
+
+First, answer: what do you expect an `inner_join()` between `birds_subset` and `taxalist` to contain?
+
+```{r}
+#| eval: false
+I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the data set.
+```
+
+Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_inner.` Include an argument for what variable you'll be joining by.
+
+```{r}
+#| eval: false
+birds_inner <- birds_subset %>% 
+  inner_join(x = birds_subset, y = taxalist, by = "species_id")
+```
+
+What would you get if instead of `inner_join()` you'd used `left_join()` for this example? Write code for the left join and check.
+
+```{r}
+#| eval: false
+birds_inner_left <- birds_subset %>% 
+  left_join(x = birds_subset, y = taxalist, by = "species_id")
+```
+
+Why does that make sense for this scenario? In what case would you expect the outcome to differ from an `inner_join()`?
+
+```{r}
+#| eval: false
+I have the same dataset after using both `inner_join()` and `left_join()` where `x = birds_subset` and `y = taxalist`, `by = speices_id`. We expect the same here because there is no `species_id` in `birds_subset` that does not match in taxalist. If there was a `species_id` in `birds_subset` that did NOT exist in `taxalist`, then we would have expected it to see it in the left join because in the left join everything in the left (or `x`) is kept. If it was an inner join then we would not see the bird species id that did NOT exist in `taxalist`. It would be removed because inner only keeps what matches in both.
+```
+
+## Exercise: Practice Wrangling & Joining Data
+
+### Wrangle `bird_observations` data and merge the data with all the other data sets (`sites`, `surveys`, and `taxalist`)
+
+Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` dataset).
+
+```{r}
+#| eval: false
+bird_observations <- bird_observations %>% 
+  rename(bird_obs_notes = notes)
+```
+
+Then, create a subset that contains all observations in the `birds_observations` dataset, then join the `taxalist`, `sites` and `surveys` data sets to it, and finally limit to only columns `survey_date`, `common_name`, `park_name`, `bird_count`, and `observer`. You can decide the order that you want to create this in (e.g. limit the columns first, then join, or the other way around).
+
+Hint: What function do you use to subset data by columns?
+
+```{r}
+#| eval: false
+bird_obs_subset <- bird_observations %>% 
+  full_join(y = taxalist, by = "species_id") %>% 
+  full_join(y = sites, by = c("site_id", "survey_id")) %>% 
+  full_join(y = surveys, by = "site_id") %>%
+  select(c(survey_date, common_name, park_name, bird_count, observer))
+```
+
+### Explore `observer` data and fix the values within this column so that all values are in the same format
+
+First, use `unique()` to see the different unique values in the variable `observer`. How many observers are there? Which value is unlike the others?
+
+```{r}
+#| eval: false
+unique(bird_obs_subset$observer)
+```
+
+Replace "Josh Burns" with a format that matches the other observer names. Then use unique again to check your work.
+
+Hint: What function do you use when you are making a change to an entire column?
+
+```{r}
+#| eval: false
+bird_obs_subset <- bird_obs_subset %>% 
+  mutate(observer = if_else(observer == "Josh Burns", "J. Burns", observer))
+
+unique(bird_obs_subset$observer)
+```
+
+### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
+
+Hint: How do you learn about a new function?
+
+Use `lubridate::month()` to add a new column to `bird_obs_subset` called `survey_month`, containing only the month number. Then, convert the month number to a factor (again within `mutate()`).
+
+Use `dplyr::relocate()` to move the new `survey_month` column to immediately after the `survey_date` column. You can do this in a separate code chunk, or pipe straight into it from your existing code.
+
+Filter to only include parks `Lindo`, `Orme`, `Palomino`, and `Sonrisa`.
+
+Find the total number of birds observed by park and month (Hint: You can use `group_by()` and `summarize()`).
+
+```{r}
+#| eval: false
+bird_obs_subset <- bird_obs_subset %>% 
+  mutate(survey_month = lubridate::month(survey_date)) %>% 
+  mutate(survey_month = as.factor(survey_month)) %>% 
+  dplyr::relocate(survey_month, .after = survey_date) %>% 
+  filter(park_name %in% c("Lindo", "Orme", "Palomino", "Sonrisa")) %>% 
+  group_by(park_name, survey_month) %>% 
+  summarize(tot_bird_count_month = n())
+```
+
+Take a look at your final data set. Does it give you the outcome you expected? Is it informative? How would you improve your wrangling process?
