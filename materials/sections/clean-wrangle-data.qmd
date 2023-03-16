@@ -15,10 +15,10 @@ Analyses take many shapes, but they often conform to what is known as the Split-
 - **Apply**: Calculate some summary statistic on each group (e.g. mean total length by year)
 - **Combine**: Combine the groups back together into a single table
 
-![Figure 1: diagram of the split apply combine strategy](images/split-apply-combine-diagram.png)
+![](images/split-apply-combine-diagram.png){width="90%" fig-align="center"}
 
 
-As shown above (Figure 1), our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
+As shown above, our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
 
 `dplyr` provides a fast and powerful way to express this. Let’s look at a simple example of how this is done:
 
@@ -118,9 +118,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 ```
-:::
 
-::: column-margin
 **A note on loading packages**
 
 You may have noticed the following warning messages pop up when you ran your library chunk.
@@ -145,7 +143,7 @@ Being specific about which version of `filter()`, for example, you call is easy.
 ::: callout-note
 ## Challenge
 
-Warnings are important, but we might not want them in our final document. After you have read the packages in, adjust the chunk settings on your library chunk to suppress warnings and messages.
+Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages.
 :::
 
 Now that we have learned a little mini-lesson on functions, let's get the data that we are going to use for this lesson.
@@ -167,9 +165,7 @@ The code chunk you use to read in the data should look something like this:
 #| message: false
 catch_original <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
-:::
 
-::: column-margin
 **Note that Windows users** who want to use this method locally also need to use the `url()` function here with the argument `method = "libcurl"`
 
 ```{r}
@@ -199,16 +195,24 @@ Before we jump into learning `tidyr` and `dplyr`, we first need to explain the `
 
 Both the `tidyr` and the `dplyr` packages use the pipe operator (`%>%`), which may look unfamiliar. The pipe is a powerful way to efficiently chain together operations. The pipe will take the output of a previous statement, and use it as the input to the next statement.
 
-Say you want to both `filter()` out rows of a data set, and `select()` certain columns. Instead of writing
+Say you want to both `filter()` out rows of a data set, and `select()` certain columns.
 
-    df_filtered <- filter(df, ...)
-    df_selected <- select(df_filtered, ...)
+Instead of writing:
 
-You can write
+```{r}
+#| eval: false
+df_filtered <- filter(df, ...)
+df_selected <- select(df_filtered, ...)
+```
 
-    df_cleaned <- df %>% 
-                  filter(...) %>%
-                  select(...)
+You can write:
+
+```{r}
+#| eval: false
+df_cleaned <- df %>% 
+    filter(...) %>%
+    select(...)
+```
 
 If you think of the assignment operator (`<-`) as reading like "gets", then the pipe operator would read like "then".
 
@@ -226,7 +230,7 @@ RStudio has a keyboard shortcut for `%>%`
 - Mac: `cmd` + `shift` + `M`
 :::
 
-## Selecting or Removing columns using `select()`
+## Selecting or removing columns using `select()`
 
 The first issue is the extra columns `All` and `notesRegCode`. Let's select only the columns we want, and assign this to a variable called `catch_data`.
 
@@ -239,7 +243,7 @@ head(catch_data)
 
 Much better!
 
-`select()` also allows you to say which columns you *don't* want, by passing unquoted column names preceded by minus (-) signs:
+`select()` also allows you to say which columns you *don't* want, by passing unquoted column names preceded by minus (`-`) signs:
 
 ```{r}
 #| eval: false
@@ -343,12 +347,11 @@ catch_long <- catch_long %>%
 head(catch_long)
 ```
 
-::: column-margin
-**`names()` versus `rename()`**
+### `names()` versus `rename()`
 
 Many people use the base R function `names()` to rename columns, often in combination with column indexing that relies on columns being in a particular order. Column indexing is often also used to select columns instead of the `select()` function from `dplyr`. Although these methods both work just fine, they do have one major drawback: in most implementations they rely on you knowing exactly the column order your data is in.
 
-To illustrate why your knowledge of column order isn't reliable enough for these operations, considering the following scenario:
+**To illustrate why your knowledge of column order isn't reliable enough for these operations, considering the following scenario:**
 
 Your colleague emails you letting you know that she has an updated version of the conductivity-temperature-depth data from this year's research cruise, and sends it along. Excited, you re-run your scripts that use this data for your phytoplankton research. You run the script and suddenly all of your numbers seem off. You spend hours trying to figure out what is going on.
 
@@ -403,7 +406,7 @@ head(n_region)
 ```
 
 ::: column-margin
-**count()**
+**Quick Tip**
 If you are finding that you are reaching for this combination of `group_by()`, `summarise()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 :::
 
@@ -486,6 +489,7 @@ sites_df %>%
 ## Challenge
 
 Split the `city` column in the data frame `cities_df` into `city` and `state_code` columns
+
 ```{r}
 cities_df <- data.frame(city = c("Juneau AK", 
                                  "Sitka AK", 
@@ -510,7 +514,7 @@ dates_df %>%
   unite(date, year, month, day, sep = "-")
 ```
 
-## Summary
+## Altogether, now!
 
 We just ran through the various things we can do with `dplyr` and `tidyr` but if you're wondering how this might look in a real analysis. Let's look at that now:
 
