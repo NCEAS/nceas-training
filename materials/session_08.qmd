@@ -1,6 +1,9 @@
 ---
 title: "Cleaning & Wrangling Data"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
 ```{r, child = 'sections/clean-wrangle-data.qmd'}
