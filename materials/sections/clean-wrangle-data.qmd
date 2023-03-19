@@ -43,7 +43,7 @@ We can do this calculation using `dplyr` like this:
 #| eval: false
 length_data %>% 
   group_by(year) %>% 
-  summarise(mean_length_cm = mean(length_cm))
+  summarize(mean_length_cm = mean(length_cm))
 ```
 
 Another exceedingly common thing we need to do is "reshape" our data. Let's look at an example table that is in what we will call "wide" format:
@@ -88,11 +88,10 @@ In this lesson we're going to walk through the functions you'll most commonly us
 
     -   `mutate()`
     -   `group_by()`
-    -   `summarise()`
+    -   `summarize()`
     -   `select()`
     -   `filter()`
     -   `arrange()`
-    -   `left_join()`
     -   `rename()`
 
 -   `tidyr`
@@ -383,14 +382,14 @@ head(catch_long)
 
 We're now ready to start analyzing the data.
 
-## Summary statistics using `group_by()` and `summarise()`
+## Summary statistics using `group_by()` and `summarize()`
 
-As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarise()` functions:
+As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarize()` functions:
 
 ```{r}
 mean_region <- catch_long %>% 
   group_by(Region) %>%
-  summarise(catch_mean = mean(catch))
+  summarize(catch_mean = mean(catch))
 
 head(mean_region)
 ```
@@ -407,7 +406,7 @@ head(n_region)
 
 ::: column-margin
 **Quick Tip**
-If you are finding that you are reaching for this combination of `group_by()`, `summarise()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
+If you are finding that you are reaching for this combination of `group_by()`, `summarize()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 :::
 
 ::: callout-note
@@ -449,7 +448,7 @@ Let's re-calculate mean catch by region, and then `arrange()` the output by mean
 ```{r}
 mean_region <- catch_long %>% 
   group_by(Region) %>% 
-  summarise(mean_catch = mean(catch)) %>% 
+  summarize(mean_catch = mean(catch)) %>% 
   arrange(mean_catch)
 
 head(mean_region)
@@ -460,7 +459,7 @@ The default sorting order of `arrange()` is to sort in ascending order. To rever
 ```{r}
 mean_region <- catch_long %>% 
   group_by(Region) %>% 
-  summarise(mean_catch = mean(catch)) %>% 
+  summarize(mean_catch = mean(catch)) %>% 
   arrange(desc(mean_catch))
 
 head(mean_region)
