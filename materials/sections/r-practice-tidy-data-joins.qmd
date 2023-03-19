@@ -54,7 +54,7 @@ library(lubridate) # for bonus question
 ### Read in the data
 
 ::: callout-note
-## Question 1
+#### Question 1
 
 Read in the datasets and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
 :::
@@ -78,7 +78,7 @@ taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
 ### Get familiar with the data
 
 ::: callout-note
-## Question 2a
+#### Question 2a
 
 What functions can you use to explore the data you just read in?
 :::
@@ -109,7 +109,7 @@ unique(bird_observations$species_id)
 ```
 
 ::: callout-note
-## Question 2b
+#### Question 2b
 
 What are the primary and foreign keys for each datasets?
 
@@ -130,7 +130,7 @@ What are the primary and foreign keys for each datasets?
 ### Create a subset of `bird_observations`
 
 ::: callout-note
-## Question 3
+#### Question 3
 
 Write code to create a subset of `bird_observations` called `birds_subset` that only contains observations for birds with species id `BHCO` and `RWBL`, and from sites with site ID `LI-W` and `NU-C`.
 
@@ -147,7 +147,7 @@ birds_subset <- bird_observations %>%
 ### Use `left_join()` to merge `birds_subset` with the datasets `sites` and `taxalist`
 
 ::: callout-note
-## Qustion 4
+#### Qustion 4
 
 Use left join(s) to update `birds_subset` so that it also includes `sites` and `taxalist` information. For each join, include an explicit argument saying which key you are joining by (even if it will just assume the correct one for you). Store the updated data frame as `birds_left`. Make sure to look at the output - is what it contains consistent with what you expected it to contain?
 :::
@@ -163,7 +163,7 @@ birds_left <- birds_subset %>%
 ### Use `full_join()` to merge `birds_subset` and `sites` data
 
 ::: callout-note
-## Question 5a
+#### Question 5a
 
 First, answer: what do you expect a `full_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
 :::
@@ -177,7 +177,7 @@ I expect to see all columns and all observations from `birds_subset` and all col
 </details>
 
 ::: callout-note
-## Questions 5b
+#### Questions 5b
 
 Write code to `full_join()` the `birds_subset` and `sites` data into a new object called `birds_full`. Explicitly include the variable you're joining by. Look at the output. Is it what you expected?
 :::
@@ -192,7 +192,7 @@ birds_full <- birds_subset %>%
 ### Use `inner_join()` to merge `birds_subset` and `taxalist` data
 
 ::: callout-note
-## Question 6a
+#### Question 6a
 First, answer: what do you expect an `inner_join()` between `birds_subset` and `taxalist` to contain? Write this in your R Markdown or tell a neighbor.
 :::
 
@@ -205,7 +205,7 @@ I expect to only have data merge together based on `species_id` and since there 
 </details>
 
 ::: callout-note
-## Question 6b
+#### Question 6b
 Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_inner.` Include an argument for what variable you'll be joining by. Make sure you check the output.
 :::
 
@@ -216,7 +216,7 @@ birds_inner <- birds_subset %>%
 ```
 
 ::: callout-note
-## Question 6c
+#### Question 6c
 What would you get if instead of `inner_join()` you'd used `left_join()` for this example? Write code for the left join and check.
 :::
 
@@ -227,7 +227,7 @@ birds_inner_left <- birds_subset %>%
 ```
 
 ::: callout-note
-## Question 6d
+#### Question 6d
 Why does that make sense for this scenario? In what case would you expect the outcome to differ from an `inner_join()`? Write this in your R Markdown or tell a neighbor.
 :::
 
@@ -244,7 +244,7 @@ I have the same datasets after using both `inner_join()` and `left_join()` where
 ### Wrangle `bird_observations` data and merge the data with all the other datasets (`sites`, `surveys`, and `taxalist`)
 
 ::: callout-note
-## Question 7a
+#### Question 7a
 Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` datasets).
 :::
 
@@ -255,7 +255,7 @@ bird_observations <- bird_observations %>%
 ```
 
 ::: callout-note
-## Question 7b
+#### Question 7b
 
 - Create a subset that contains all observations in the `birds_observations` dataset, 
 - then join the `taxalist`, `sites` and `surveys` datasets to it, 
@@ -278,7 +278,7 @@ bird_obs_subset <- bird_observations %>%
 ### Explore `observer` data and fix the values within this column so that all values are in the same format
 
 ::: callout-note
-## Question 8a
+#### Question 8a
 Continuing with `bird_obs_subset`, first use `unique()` to see the different unique values in the column `observer`. How many observers are there? Which value is unlike the others?
 :::
 
@@ -288,7 +288,7 @@ unique(bird_obs_subset$observer)
 ```
 
 ::: callout-note
-## Question 8b
+#### Question 8b
 Replace "Josh Burns" with a format that matches the other observer names. Then use `unique()` again to check your work.
 
 **Hint:** What function do you use when you are making a change to an entire column?
@@ -307,7 +307,7 @@ unique(bird_obs_subset$observer)
 **Hint:** How do you learn about a new function or package?
 
 ::: callout-note
-## Bonus Question(s)
+#### Bonus Question(s)
 
 1. Use `lubridate::month()` to add a new column to `bird_obs_subset` called `survey_month`, containing only the month number. Then, convert the month number to a factor (again within `mutate()`).
 
