@@ -64,17 +64,6 @@ For this portion of the exercise, the owner will be working with the lobster abu
 
 ::: 
 
-```{r}
-lobs_clean <- lobster_traps %>%
-    mutate(traps = na_if(traps, -99999))
-```
-
-```{r}
-ggplot(lobs_clean,
-       aes(x = fishing_season, y = traps)) +
-    geom_col()
-```
-
 ### Create visually appealing and informative data visualization
 
 ::: panel-tabset
@@ -89,11 +78,24 @@ ggplot(lobs_clean,
 
 :::
 
-### Saving and sharing your work
+
+### Collaborate on a report and publish using GitHub pages
+
+Make sure your R Markdown is well organized and includes the following elements:
+
+-   citation of the data
+-   summary of the abstract
+-   owner analysis and visualization
+-   collaborator analysis and visualization
+-   code review!
+-   publish on github pages (from owner's repository)
+
+
+## Bonus Questions
 
 ::: panel-tabset
 
-#### Owner
+### Lobster Abundance & Size Data
 
 ```{r}
 #| code-fold: false
@@ -105,7 +107,7 @@ library(tidyverse)
 library(janitor)
 ```
 
-#### Collaborator
+### Lobster Trap Buoy Counts Data
 
 testing test
 
@@ -120,14 +122,3 @@ library(janitor)
 ```
 
 :::
-
-### Collaborate on a report and publish using GitHub pages
-
-Make sure your R Markdown is well organized and includes the following elements:
-
--   citation of the data
--   summary of the abstract
--   owner analysis and visualization
--   collaborator analysis and visualization
--   code review!
--   publish on github pages (from owner's repository)
