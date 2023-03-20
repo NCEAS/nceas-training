@@ -11,7 +11,6 @@ format: html
 2.  Load the following libraries at the top of your R Markdown file.
 
 ```{r}
-#| eval: true
 #| code-fold: false
 #| message: false
 library(readr)
@@ -35,7 +34,7 @@ lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ::: callout-note
 ### Question 1
 
-The variable `SIZE_MM` uses -99999 as the code for missing values. This has the potential to cause conflicts with our analyses, so let's convert -99999 to an NA value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. 
+The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an NA value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. 
 :::
 
 ```{r}
@@ -82,7 +81,7 @@ lobster_cm <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 5
-Find the mean using `mean()` of lobster carapace length, grouped by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` and check the arguments in `mean()`. 
+Find the mean using `mean()` of lobster carapace length, grouped by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). 
 :::
 
 ```{r}
@@ -103,110 +102,8 @@ max_lobster <- lobster_abundance %>%
 ```
 
 
-## Data visualization practice
-
-::: callout-note
-### Question 7
-Create a multi-panel plot of lobster carapace length (`SIZE_MM`) using `ggplot()`, `geom_histogram()`, and `facet_wrap()`. Use the variable `SITE` in `facet_wrap()`.
-:::
-
-```{r}
-#| eval: true
-#| message: false
-#| warning: false
-lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=f32823fba432f58f66c06b589b7efac6") %>% 
-    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
-
-ggplot(data = lobster_abundance, aes(x = SIZE_MM)) +
-    geom_histogram() +
-    facet_wrap(~SITE)
-```
 
 
-::: callout-note
-### Question 8
-Create a bar graph that shows the amount of small and large sized carapace lobsters at each `SITE` from 2019-2021.
-:::
-
-First, you'll need to create a new dataset subset:
-
-- `filter()` for the years 2019, 2020, and 2021
-- Add a new column called `SIZE_BIN` that contains the values "small" or "large".  A "small" carapace size is <= 70 mm, and a "large" carapace size is greater than 70 mm. Use `mutate()` and `if_else()`. Check your output
-- Remove the `NA` values from the subsetted data. Hint: check out `drop_na()`. Check your output
-
-```{r}
-#| eval: true
-lobster_size_lrg <- lobster_abundance %>% 
-    filter(YEAR %in% c(2019, 2020, 2021)) %>% 
-    mutate(SIZE_BIN = if_else(SIZE_MM <= 70, true = "small", false = "large")) %>% 
-    drop_na()
-```
-
-Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar()` automatically creates a stacked bar chart. Try using the argument `position = "dodge"` to make the bars side by side. Pick which bar position you like best.
-
-```{r}
-#| eval: true
-ggplot(data = lobster_size_lrg, aes(x = SITE, fill = SIZE_BIN)) +
-    geom_bar(position = "dodge")
-```
-
-::: callout-note
-### Question 9
-
-Create a ggplot graph of the number of total lobsters observed (y-axis) by year (x-axis) in the study, grouped by `SITE`
-:::
-
-First, you'll need to create a new dataset subset:
-
-- Group the data by `SITE` AND `YEAR`
-- Calculate 
-
-
-## Create a summary table that finds the total counts (see: n()), and mean carapace lengths of lobsters observed in the dataset by site and year.
-
-```{r}
-#| eval: true
-lobsters_summarize <- lobster_abundance %>% 
-  group_by(SITE, YEAR) %>% 
-  summarize(mean_lobster_length = mean(SIZE_MM, na.rm = TRUE),
-            count = n()) %>% 
-  ungroup()
-```
-
-
-```{r}
-#| eval: true
-ggplot(data = lobsters_summarize, aes(x = YEAR, y = count)) +
-  geom_point(aes(color = SITE)) +
-  geom_line(aes(color = SITE)) 
-```
-
-## Bonus
-
-Take the subset `lobster_size` and add a new column called `DESIGNATION` that contains “MPA” if the site is “IVEE” or “NAPL”, and “not MPA” for all other outcomes.
-
-```{r}
-lobster_mpa <- lobster_size_lrg %>% 
-    mutate(DESIGNATION = if_else(SITE %in% c("IVEE", "NAPL"), true = "MPA", false = "not MPA")) %>% 
-    select(c("YEAR", "SITE", "SIZE_MM", "SIZE_BIN", "DESIGNATION"))
-```
-
-What mpa has the largest
-
-```{r}
-ggplot(data = lobster_mpa, aes(x = SITE, Y = SIZE_BIN, fill = DESIGNATION)) +
-    geom_bar(position = "dodge")
-```
-
-```{r}
-lobster_legal <- lobster_abundance %>% 
-    filter(YEAR %in% c(2019, 2020, 2021)) %>% 
-    mutate(LEGAL = if_else(SIZE_MM > 79.76, true = "yes", false = "no")) %>% 
-    drop_na()
-
-ggplot(data = lobster_legal, aes(x = SITE, fill = LEGAL)) +
-    geom_bar(position = "dodge")
-```
 
 
 
