@@ -11,12 +11,14 @@ bibliography: references.bib
 ::: callout-note
 ## Acknowledgements
 
-These exercises come from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
+These exercises are adapted from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
 :::
 
-## Exercise: Practice Joins
+## About the data {.unnumbered}
 
 These exercises will be using bird survey data collected from the central Arizona-Phoenix metropolitan area by Arizona State University researchers [@warren2021].
+
+## Exercise: Practice Joins
 
 ::: callout-tip
 ## Setup
@@ -31,7 +33,6 @@ These exercises will be using bird survey data collected from the central Arizon
 
 ```{r}
 #| code-fold: false
-#| eval: false
 library(readr)
 library(dplyr)
 library(lubridate) # for bonus question
@@ -46,7 +47,7 @@ library(lubridate) # for bonus question
 -   `52_pp52_sites_1.csv`
 -   `52_pp52_taxalist_1.csv`
 
-**Note:** It's up to you on how you want to download the data! You can either use the datasets links or manually download the data and then upload the files to RStudio server.
+**Note:** It's up to you on how you want to download and load the data! You can either use the datasets links or manually download the data and then upload the files to RStudio server.
 
 4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
 :::
@@ -60,8 +61,6 @@ Read in the datasets and store the data frames as `bird_observations`, `sites`, 
 :::
 
 ```{r}
-#| eval: false
-
 # read in data using datasets links
 bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
 sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
@@ -84,8 +83,6 @@ What functions can you use to explore the data you just read in?
 :::
 
 ```{r}
-#| eval: false
-
 # view data in a spreadsheet-style viewer
 View(bird_observations)
 
@@ -138,7 +135,6 @@ Write code to create a subset of `bird_observations` called `birds_subset` that 
 :::
 
 ```{r}
-#| eval: false
 birds_subset <- bird_observations %>% 
   filter(species_id %in% c("BHCO", "RWBL")) %>% 
   filter(site_id %in% c("LI-W", "NU-C"))
@@ -153,7 +149,6 @@ Use left join(s) to update `birds_subset` so that it also includes `sites` and `
 :::
 
 ```{r}
-#| eval: false
 birds_left <- birds_subset %>% 
   left_join(y = sites, by = "site_id") %>% 
   left_join(y = taxalist, by = "species_id")
@@ -183,7 +178,6 @@ Write code to `full_join()` the `birds_subset` and `sites` data into a new objec
 :::
 
 ```{r}
-#| eval: false
 birds_full <- birds_subset %>% 
   full_join(x = birds_subset, y = sites, by = "site_id")
 ```
@@ -210,7 +204,6 @@ Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_in
 :::
 
 ```{r}
-#| eval: false
 birds_inner <- birds_subset %>% 
   inner_join(x = birds_subset, y = taxalist, by = "species_id")
 ```
@@ -221,7 +214,6 @@ What would you get if instead of `inner_join()` you'd used `left_join()` for thi
 :::
 
 ```{r}
-#| eval: false
 birds_inner_left <- birds_subset %>% 
   left_join(x = birds_subset, y = taxalist, by = "species_id")
 ```
@@ -249,7 +241,6 @@ Starting with your object `bird_observations`, rename the `notes` column to `bir
 :::
 
 ```{r}
-#| eval: false
 bird_observations <- bird_observations %>% 
   rename(bird_obs_notes = notes)
 ```
@@ -267,7 +258,6 @@ You can decide the order that you want to create this in (e.g. limit the columns
 :::
 
 ```{r}
-#| eval: false
 bird_obs_subset <- bird_observations %>% 
   full_join(y = taxalist, by = "species_id") %>% 
   full_join(y = sites, by = c("site_id", "survey_id")) %>% 
@@ -283,7 +273,6 @@ Continuing with `bird_obs_subset`, first use `unique()` to see the different uni
 :::
 
 ```{r}
-#| eval: false
 unique(bird_obs_subset$observer)
 ```
 
@@ -295,7 +284,6 @@ Replace "Josh Burns" with a format that matches the other observer names. Then u
 :::
 
 ```{r}
-#| eval: false
 bird_obs_subset <- bird_obs_subset %>% 
   mutate(observer = if_else(observer == "Josh Burns", "J. Burns", observer))
 
@@ -319,7 +307,6 @@ unique(bird_obs_subset$observer)
 :::
 
 ```{r}
-#| eval: false
 bird_obs_subset <- bird_obs_subset %>% 
   mutate(survey_month = lubridate::month(survey_date)) %>% 
   mutate(survey_month = as.factor(survey_month)) %>% 
