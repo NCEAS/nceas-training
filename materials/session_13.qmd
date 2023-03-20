@@ -1,6 +1,8 @@
 ---
-title: "R Practice: Cleaning, Wrangling & Visualizing Data"
+title: "R Practice: Collaborating on, Wrangling & Visualizing Data "
 title-block-banner: true
+execute: 
+  eval: false
 format:
   html:
     code-fold: true
@@ -8,5 +10,4 @@ format:
     code-overflow: wrap
 ---
 
-```{r, child = 'sections/r-practice-clean-wrangle-visualize.qmd'}
-```
+{{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}

@@ -3,7 +3,4 @@ title: "R Practice: Wrangling Spatial Data & Making Maps"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/r-practice-sf-wrangle-maps.qmd'}
-```
-
-
+{{< include /sections/r-practice-sf-wrangle-maps.qmd >}}

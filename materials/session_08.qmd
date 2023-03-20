@@ -6,7 +6,6 @@ format:
     code-overflow: wrap
 ---
 
-```{r, child = 'sections/clean-wrangle-data.qmd'}
-```
+{{< include /sections/clean-wrangle-data.qmd >}}
 
 

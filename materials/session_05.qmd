@@ -4,6 +4,4 @@ from: markdown+emoji
 title-block-banner: true
 ---
 
-```{r, child = 'sections/r-intro-rmarkdown.qmd'}
-```
-
+{{< include /sections/r-intro-rmarkdown.qmd >}}

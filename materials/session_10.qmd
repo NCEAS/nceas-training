@@ -1,9 +1,8 @@
 ---
 title: "R Practice: Tidy Data & Joins"
 title-block-banner: true
-# Note HD: execute and eval:false returns a blank page
-# execute:
-#   eval: false
+execute:
+  eval: false
 format:
   html: 
     code-link: true
@@ -12,7 +11,4 @@ format:
     code-overflow: wrap
 ---
 
-```{r, child = 'sections/r-practice-tidy-data-joins.qmd'}
-```
-
-
+{{< include /sections/r-practice-tidy-data-joins.qmd >}}

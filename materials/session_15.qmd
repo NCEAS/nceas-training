@@ -3,6 +3,4 @@ title: "Using `sf` for Spatial Analysis & Intro to Making Maps"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/geospatial-vector-analysis.qmd'}
- 
-```
+{{< include /sections/geospatial-vector-analysis.qmd >}}

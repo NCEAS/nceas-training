@@ -3,8 +3,5 @@ title: "Intro to R Programming"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/intro-r-programming.qmd'}
-
-```
-
+{{< include /sections/intro-r-programming.qmd >}}
 

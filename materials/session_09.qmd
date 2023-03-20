@@ -3,6 +3,4 @@ title: "Intro to Tidy Data"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/intro-tidy-data.qmd'}
-```
-
+{{< include /sections/intro-tidy-data.qmd >}}
