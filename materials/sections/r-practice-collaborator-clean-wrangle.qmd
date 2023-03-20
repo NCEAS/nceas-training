@@ -2,33 +2,106 @@
 format: html
 ---
 
-test
-
 ::: callout-tip
 ## Setup
 
 1.  Open the R Markdown file `collaborator-analysis.Rmd`
     a.  Check the `YAML` and add your name to the `author` field
-    
 2.  Load the following libraries at the top of your R Markdown file.
 
 ```{r}
+#| eval: true
 #| code-fold: false
 #| message: false
 library(readr)
 library(dplyr)
 library(ggplot2)
-# library(tidyverse)
-# library(janitor)
+library(tidyr)
 ```
 
 3.  Read in the dataset and store the data frame as `lobster_traps`
 
 ```{r}
 #| code-fold: false
-lobster_traps <- read_csv("../data/Lobster_Trap_Counts_All_Years_20210519.csv")
+lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=66dd61c75bda17c23a3bce458c56ed84")
+
+# lobster_traps <- read_csv("data/Lobster_Trap_Counts_All_Years_20210519.csv")
 ```
 
 :::
 
-other stuff
+## Convert missing values using `mutate()` and `na_if()`
+
+::: callout-note
+### Question 1
+
+The variable `TRAPS` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an NA value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. 
+:::
+
+```{r}
+lobster_traps <- lobster_traps %>% 
+    mutate(TRAPS = na_if(TRAPS, -99999))
+```
+
+## `filter()` practice
+
+::: callout-note
+### Question 2
+Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame.
+:::
+
+```{r}
+not_napl <- lobster_traps %>% 
+    filter(SITE != "NAPL")
+```
+
+::: callout-note
+### Question 3
+Create and store a subset with lobsters at Carpinteria Reef (`CARP`) OR number of commercial trap floats is greater than 20. Check your output.
+:::
+
+```{r}
+carp_20_traps <- lobster_traps %>% 
+    filter(SITE == "CARP", TRAPS > 20)
+```
+
+
+## `mutate()` practice
+
+::: callout-note
+### Question 4
+Using the object you created above (we called it `carp_20_traps`), add a new column that contains the proportion of lobster traps at site `CARP`. The total number you are using in your percent calculation is 801. Check your output.
+:::
+
+```{r}
+# total number of traps at site "CARP" and more than 20 traps counted
+lobster_carp_total <- sum(carp_20_traps$TRAPS, na.rm = TRUE)
+    
+lobster_percent <- carp_20_traps %>% 
+  mutate(PERCENT_TRAPS = (TRAPS / lobster_carp_total) * 100)
+```
+
+## `group_by() %>% summarize()` practice
+
+::: callout-note
+### Question 5
+Find the mean using `mean()` of lobster commercial trap floats, grouped by `SITE`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `mean()`). 
+:::
+
+```{r}
+mean_lobster_traps <- lobster_traps %>% 
+    group_by(SITE) %>%
+    summarize(MEAN_TRAPS = mean(TRAPS, na.rm = TRUE))
+```
+
+::: callout-note
+### Question 6
+Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. 
+:::
+
+```{r}
+max_lobster_traps <- lobster_traps %>% 
+    group_by(SITE, MONTH) %>%
+    summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
+```
+
