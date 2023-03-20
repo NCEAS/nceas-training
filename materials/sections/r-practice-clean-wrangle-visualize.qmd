@@ -16,82 +16,56 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 ## About the data {.unnumbered}
 
-These exercises will be using data on abundance, size and trap counts (fishing pressure) of California spiny lobster (*Panulirus interruptus*) and were collected along the mainland coast of the Santa Barbara Channel by Santa Barbara Coastal LTER researchers [@lter2022].
+These exercises will be using data on abundance, size, and trap counts (fishing pressure) of California spiny lobster (*Panulirus interruptus*) and were collected along the mainland coast of the Santa Barbara Channel by Santa Barbara Coastal LTER researchers [@lter2022].
 
 ## Exercise: Collaborate on an analysis and create a report to publish using GitHub Pages
 
 ::: callout-tip
-## Setup
-1. Create a new repository with a partner
-    a. Determine who is the owner and who is the collaborator
-    b. The owner creates a repository on GitHub titled with both your names (i.e. If Halina and Camila were partners, and Halina is the owner, she would create a repo called `halina-camila`)
-        i. When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
-    c. The owner adds the collaborator to the repo
-    d. Both the collaborator and the owner clone the repo into their RStudio
-    
+### Setup
+
+1.  Create a new repository with a partner
+    a.  Determine who is the owner and who is the collaborator
+    b.  The owner creates a repository on GitHub titled with both your names (i.e. If Halina and Camila were partners, and Halina is the owner, she would create a repo called `halina-camila`)
+        i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
+    c.  The owner adds the collaborator to the repo
+    d.  Both the collaborator and the owner clone the repo into their RStudio
+
 **Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the collaborator to complete, and Step 3 is for the owner to complete.**
-    
-2. **Collaborator** creates new files for exercise
-    a. The collaborator creates the following R Markdown files that will be used in the exercise:
-        i. Title it: "Owner Analysis" and save it as: `owner-analysis.Rmd`
+
+2.  **Collaborator** creates new files for exercise
+    a.  The collaborator creates the following R Markdown files that will be used in the exercise:
+        i.  Title it: "Owner Analysis" and save it as: `owner-analysis.Rmd`
         ii. Title it: "Collaborator Analysis" and save it as: `collaborator-analysis.Rmd`
         iii. Title it: "Lobster Report" and save it as: `lobster-report.Rmd`
-    b. After creating the files, the collaborator will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
-    c. The owner pulls the changes and R Markdown files into their local repository (their workspace)
-    
-3. **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8). 
-    a. Create two new folders one called `data` and one called `figs`
-    b. Download the following datasets and upload them to the `data` folder:
-        i. Time-series of lobster abundance and size 
-        ii. Time-series of lobster trap buoy counts 
-    c. After creating the `data` folder and adding the datasets, the owner will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
-    d. The collaborator pulls the changes and datasets into their local repository (their workspace)
+    b.  After creating the files, the collaborator will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
+    c.  The owner pulls the changes and R Markdown files into their local repository (their workspace)
+3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
+    a.  Create two new folders one called `data` and one called `figs`
+    b.  Download the following datasets and upload them to the `data` folder:
+        i.  Time-series of lobster abundance and size
+        ii. Time-series of lobster trap buoy counts
+    c.  After creating the `data` folder and adding the datasets, the owner will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
+    d.  The collaborator pulls the changes and datasets into their local repository (their workspace)
 :::
 
 ### Explore, clean and wrangle data
 
-::: {.panel-tabset}
+For this portion of the exercise, the owner will be working with the lobster abundance and size dataset, and the collaborator will be working with the lobster trap buoy counts dataset.
+
+::: panel-tabset
 
 #### Owner
 
-```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
-```
+{{< include /sections/r-practice-owner-clean-wrangle.qmd >}}
 
 #### Collaborator
 
-testing test
+{{< include /sections/r-practice-collaborator-clean-wrangle.qmd >}}
+
+::: 
 
 ```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
-```
-
-:::
-
-### Lobster Abundance and Size Data
-
-### Lobster Trap Buoy Counts Data
-
-```{r}
-lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=f32823fba432f58f66c06b589b7efac6") %>% clean_names()
-
-lobster_fishing_pressure <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=66dd61c75bda17c23a3bce458c56ed84") %>% clean_names()
-```
-
-```{r}
-lobs_clean <- lobster_fishing_pressure %>%
+lobs_clean <- lobster_traps %>%
     mutate(traps = na_if(traps, -99999))
 ```
 
@@ -103,39 +77,21 @@ ggplot(lobs_clean,
 
 ### Create visually appealing and informative data visualization
 
-::: {.panel-tabset}
+::: panel-tabset
 
 #### Owner
 
-```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
-```
+{{< include /sections/r-practice-owner-visualize.qmd >}}
 
 #### Collaborator
 
-testing test
-
-```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
-```
+{{< include /sections/r-practice-collaborator-visualize.qmd >}}
 
 :::
 
 ### Saving and sharing your work
 
-::: {.panel-tabset}
+::: panel-tabset
 
 #### Owner
 
