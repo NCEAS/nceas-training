@@ -34,7 +34,7 @@ lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ::: callout-note
 ### Question 1
 
-The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an NA value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. 
+The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an NA value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. Check your output data using `unique()`.
 :::
 
 ```{r}
@@ -81,7 +81,7 @@ lobster_cm <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 5
-Find the mean using `mean()` of lobster carapace length, grouped by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). 
+Find the mean using `mean()` of lobster carapace length, grouped by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output.
 :::
 
 ```{r}
@@ -92,7 +92,7 @@ lobster_mean <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 6
-Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. 
+Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output.
 :::
 
 ```{r}
