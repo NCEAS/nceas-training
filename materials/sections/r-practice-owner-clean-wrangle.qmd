@@ -3,12 +3,12 @@ format: html
 ---
 
 ::: callout-tip
-
 ## Setup
 
 1.  Open the R Markdown file `owner-analysis.Rmd`
     a.  Check the `YAML` and add your name to the `author` field
-2.  Load the following libraries at the top of your R Markdown file.
+    b.  Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
+2.  Load the following libraries at the top of your R Markdown file
 
 ```{r}
 #| code-fold: false
@@ -26,7 +26,6 @@ library(tidyr)
 #| message: false
 lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ```
-
 :::
 
 ## Convert missing values using `mutate()` and `na_if()`
@@ -46,9 +45,9 @@ lobster_abundance <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 2
+
 Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame.
 :::
-
 
 ```{r}
 not_napl <- lobster_abundance %>% 
@@ -57,6 +56,7 @@ not_napl <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 3
+
 Create and store a subset with lobsters at Arroyo Quemado (`AQUE`) OR with a carapace length greater than 70 mm. Check your output.
 :::
 
@@ -69,6 +69,7 @@ aque_70mm <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 4
+
 Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output.
 :::
 
@@ -81,7 +82,8 @@ lobster_cm <- lobster_abundance %>%
 
 ::: callout-note
 ### Question 5
-Find the mean using `mean()` of lobster carapace length, grouped by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output.
+
+Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output.
 :::
 
 ```{r}
@@ -90,20 +92,14 @@ lobster_mean <- lobster_abundance %>%
   summarize(MEAN_LENGTH = mean(SIZE_MM, na.rm = TRUE))
 ```
 
-::: callout-note
-### Question 6
-Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output.
-:::
+<!--# Extra Questions -->
+
+<!--# Question 6 -->
+<!--# Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output. -->
 
 ```{r}
+#| echo: false
 max_lobster <- lobster_abundance %>% 
   group_by(SITE, MONTH) %>% 
   summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
 ```
-
-
-
-
-
-
-
