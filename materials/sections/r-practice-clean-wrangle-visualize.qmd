@@ -52,6 +52,8 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 
 For this portion of the exercise, the owner will be working with the lobster abundance and size dataset, and the collaborator will be working with the lobster trap buoy counts dataset.
 
+Questions 1-5 you will be working independently since you're working with different datasets, but you're welcome to check in with each other.
+
 ::: panel-tabset
 
 #### Owner
@@ -81,44 +83,63 @@ For this portion of the exercise, the owner will be working with the lobster abu
 
 ### Collaborate on a report and publish using GitHub pages
 
+The final step! Time to work together again. Collaborate with your partner in `lobster-report.Rmd` to create a report to publish to GitHub pages.
+
+::: callout-important
+## Code Review
+As you're adding owner and collaborator code in the report document, conduct a [lightweight code review](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Quality/Code_Review#:~:text=Code%20review%20practices%20fall%20into,review%20and%20lightweight%20code%20review) and walk each other through your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot). 
+
+This is a lightweight code review, so think brief and give feedback on:
+
+- code readability
+- code logic
+:::
+
 Make sure your R Markdown is well organized and includes the following elements:
 
 -   citation of the data
--   summary of the abstract
--   owner analysis and visualization
--   collaborator analysis and visualization
--   code review!
--   publish on github pages (from owner's repository)
+-   brief summary of the abstract (i.e. 1-2 sentences)
+-   owner analysis and visualizations (you choose which plots you want to include)
+    - add alternative text to your plots
+-   collaborator analysis and visualizations (you choose which plots you want to include)
+    - add alternative text to your plots
+
+Finally, publish on GitHub pages (from owner's repository). Refer back to [Chapter 9](http://localhost:4769/session_12.html) for steps on how to publish using GitHub pages.
 
 
-## Bonus Questions
+## Bonus: Add marine protected area (MPA) designation to the data
+
+The sites `IVEE` and `NAPL` are marine protected areas (MPAs). Add this designation to your data set using a new function called `case_when()`. Then create some new plots using this new variable. Does it change how you think about the data? What new plots or analysis can you do with this new variable? 
 
 ::: panel-tabset
 
 ### Lobster Abundance & Size Data
 
+Use the object `lobster_abundance` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
+
 ```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
+lobster_mpa <- lobster_abundance %>% 
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"
+  ))
+    
 ```
+
 
 ### Lobster Trap Buoy Counts Data
 
-testing test
+Use the object `lobster_traps` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
 
 ```{r}
-#| code-fold: false
-#| message: false
-library(readr)
-library(dplyr)
-library(here)
-library(tidyverse)
-library(janitor)
+lobster_traps_mpa <- lobster_traps %>%
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"
+  ))
 ```
 
 :::
+
+
+
