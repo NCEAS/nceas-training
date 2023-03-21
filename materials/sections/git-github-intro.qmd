@@ -128,7 +128,7 @@ The remaining concepts are involved in synchronizing the changes in your local r
 -   `git status`: determine the state of all files in the local repository
 -   `git log`: print the history of changes in a repository
 
-Those seven commands are the majority of what you need to successfully use `Git.` But this is all super abstract, so let's explore with some real examples.
+Those seven commands are the majority of what you need to successfully use `Git`. But this is all super abstract, so let's explore with some real examples.
 
 ## Exercise 1: Create a remote repository on GitHub
 
@@ -137,7 +137,7 @@ Those seven commands are the majority of what you need to successfully use `Git.
 
 1.  Log into [GitHub](https://github.com/)
 2.  Click the New repository button
-3.  Name it `training_test`
+3.  Name it `{FIRSTNAME}_test`
 4.  Add a short description
 5.  Check the box to add a `README.md` file
 6.  Add a `.gitignore` file using the `R` template
@@ -157,7 +157,7 @@ For simple changes to text files, you can make edits right in the GitHub web int
 ::: callout-note
 ## Challenge
 
-Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. When done, add a commit message, and hit the "Commit changes" button.
+Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. Add a new level 2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the "Commit changes" button.
 :::
 
 ![](images/github-test-edit.png)
@@ -187,7 +187,9 @@ RStudio knows how to work with files under version control with `Git`, but only 
 ::: callout-tip
 ## Setup
 
-In the File menu, select "New Project". In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the remote repository Repository URL. While you can name the local copy of the repository anything, it's typical to use the same name as the GitHub repository to maintain the correspondence.
+- In the File menu, select "New Project"
+- In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the remote repository Repository URL
+- While you can name the local copy of the repository anything, it's typical to use the same name as the GitHub repository to maintain the correspondence
 
 ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"}
 :::
@@ -196,9 +198,9 @@ Once you hit "Create Project", a new RStudio window will open with all of the fi
 
 ![](images/github-rstudio-test.png)
 
-You'll note that there is one new file `training_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
+You'll note that there is one new file `halina_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
 
-In the `Git` tab, you'll note that two files are listed. This is the status pane that shows the current modification status of all of the files in the repository. In this case, the `.gitignore` file is listed as `M` for Modified, and `training_test.Rproj` is listed with a `??` to indicate that the file is untracked. This means that `Git` has not stored any versions of this file, and knows nothing about the file. As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
+In the `Git` tab, you'll note that two files are listed. This is the status pane that shows the current modification status of all of the files in the repository. In this case, the `.gitignore` file is listed as `M` for Modified, and `halina_test.Rproj` is listed with a `??` to indicate that the file is untracked. This means that `Git` has not stored any versions of this file, and knows nothing about the file. As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
 
 Inspect the history. For now, let's click on the History button in the `Git` tab, which will show the log of changes that occurred, and will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
 
@@ -207,13 +209,13 @@ Inspect the history. For now, let's click on the History button in the `Git` tab
 ::: callout-note
 ## Challenge
 
-1.  Commit a `README.md` change. Next let's make a change to the `README.md` file, this time from RStudio.
-2.  Add a new section to your markdown using a header, and under it include a list of three advantages to using `Git`.
+1.  Let's make a change to the `README.md` file, this time from RStudio, then commit the `README.md` change
+2.  Add a new section to your `README.md`  called "Creator" using a level 2 header, and under it include some information about yourself. **Bonus:** Add some contact information and link your email using Markdown syntax
 :::
 
 Once you save, you'll immediately see the `README.md` file show up in the `Git` tab, marked as a modification. You can select the file in the `Git` tab, and click Diff to see the differences that you saved (but which are not yet committed to your local repository).
 
-![](images/rstudio-status-pane.png){width="90%" fig-align="center"}
+![](images/rstudio-status-pane.png)
 
 And here's what the newly made changes look like compared to the original file. New lines are highlighted in green, while removed lines are in red.
 
@@ -223,7 +225,7 @@ And here's what the newly made changes look like compared to the original file. 
 
 ![](images/rstudio-commit-1.png)
 
-Note that some of the changes in the repository, namely `training_test.Rproj` are still listed as having not been committed. This means there are still pending changes to the repository. You can also see the note that says:
+Note that some of the changes in the repository, namely `halina_test.Rproj` are still listed as having not been committed. This means there are still pending changes to the repository. You can also see the note that says:
 
 `Your branch is ahead of ‘origin/main’ by 1 commit.`
 
@@ -239,7 +241,7 @@ When finished, you'll see that no changes remain in the `Git` tab, and the repos
 
 These 2 commits are the two we just made, and have not yet been pushed to GitHub. By clicking on the "History" button, we can see that there are now a total of four commits in the local repository (while there had only been two on GitHub).
 
-![](images/rstudio-commit-2.png)
+![](images/rstudio-history-2.png)
 
 **Push these changes to GitHub.** Now that everything has been changed as desired locally, you can push the changes to GitHub using the Push button. This will prompt you for your GitHub username and password, and upload the changes, leaving your repository in a totally clean and synchronized state. When finished, looking at the history shows all four commits, including the two that were done on GitHub and the two that were done locally on RStudio.
 
@@ -248,6 +250,19 @@ These 2 commits are the two we just made, and have not yet been pushed to GitHub
 And note that the labels indicate that both the local repository (`HEAD`) and the remote repository (`origin/HEAD`) are pointing at the same version in the history. So, if we go look at the commit history on GitHub, all the commits will be shown there as well.
 
 ![](images/github-history.png)
+
+::: callout-note
+## Last thing, some `Git` configuration
+
+When git released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our git with this line of code:
+
+```{.bash}
+git config pull.rebase false
+```
+
+`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
+:::
+
 
 ::: callout-important
 ## What should I write in my commit message?
@@ -259,9 +274,9 @@ While some of the changes we illustrated here were simple and so easily explaine
 
 ## Exercise 3: Setting up `Git` on an existing project
 
-Now you have two projects set up in your RStudio environment, `training_{USERNAME}` and `training_test`. We set you up with the `training_test` project since we think it is an easy way to introduce you to `Git`, but more commonly researchers will have an existing directory of code that they then want to make a `Git` repository out of. For the last exercise of this session, we will do this with your `training_{USERNAME}` project.
+Now you have two projects set up in your RStudio environment, `training_{USERNAME}` and `{FIRSTNAME}_test`. We set you up with the `{FIRSTNAME}_test` project since we think it is an easy way to introduce you to `Git`, but more commonly researchers will have an existing directory of code that they then want to make a `Git` repository out of. For the last exercise of this session, we will do this with your `training_{USERNAME}` project.
 
-First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project dropdown menu is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`training_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
+First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project dropdown menu is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
 
 ![](images/rstudio-project-switcher.png){width="80%" fig-align="center"}
 
@@ -278,7 +293,7 @@ Add and commit the `.gitignore` and `training_{USERNAME}.Rproj` files to your `G
 Now we have your local repository all set up. You can make as many commits as you want on this repository, and it will likely still be helpful to you, but the power in `Git` and GitHub is really in collaboration. As discussed, GitHub facilitates this, so let's get this repository on GitHub.
 
 ::: callout-tip
-## Instructions
+## Setup
 
 1.  Go to [GitHub](http://github.com/), and click on the "New Repository" button.
 2.  In the repository name field, enter the **same name as your R Project**. So for me, this would be `training_dolinh.`
