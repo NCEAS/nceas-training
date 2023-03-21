@@ -1,0 +1,110 @@
+---
+format: html
+---
+
+NOTES:
+- add a ggsave step
+- add instructions: FIRST you're going to create the subsets you need to create the visualizations, THEN you're going to make the graphs pretty
+- code fold graph outputs; add text "your graph should look something like this"
+
+::: callout-note
+### Question 7
+Create a multi-panel plot of lobster carapace length (`SIZE_MM`) using `ggplot()`, `geom_histogram()`, and `facet_wrap()`. Use the variable `SITE` in `facet_wrap()`.
+:::
+
+```{r}
+#| eval: true
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+
+lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=66dd61c75bda17c23a3bce458c56ed84") %>% 
+    mutate(TRAPS = na_if(TRAPS, -99999))
+
+ggplot(data = lobster_traps, aes(x = TRAPS)) +
+    geom_histogram() +
+    facet_wrap(~SITE)
+```
+
+
+::: callout-note
+### Question 8
+Create a bar graph that shows the amount of small and large sized carapace lobsters at each `SITE` from 2019-2021.
+:::
+
+First, you'll need to create a new dataset subset:
+
+- `filter()` for the years 2019, 2020, and 2021
+- Add a new column called `SIZE_BIN` that contains the values "small" or "large".  A "small" carapace size is <= 70 mm, and a "large" carapace size is greater than 70 mm. Use `mutate()` and `if_else()`. Check your output
+- Remove the `NA` values from the subsetted data. Hint: check out `drop_na()`. Check your output
+
+```{r}
+#| eval: true
+lobster_traps_5yrs <- lobster_traps %>% 
+    filter(YEAR %in% c(2017, 2018, 2019, 2020, 2021)) %>% 
+    group_by(FISHING_SEASON) %>% 
+    summarize(total_traps = sum(TRAPS))
+```
+
+Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar()` automatically creates a stacked bar chart. Try using the argument `position = "dodge"` to make the bars side by side. Pick which bar position you like best.
+
+```{r}
+#| eval: true
+# total number of traps at each site from the past three years
+ggplot(data = lobster_traps_5yrs, aes(x = FISHING_SEASON, y = total_traps)) +
+    geom_bar(stat = "identity")
+```
+
+::: callout-note
+### Question 9
+
+Create a ggplot graph of the number of total lobsters observed (y-axis) by year (x-axis) in the study, grouped by `SITE`
+:::
+
+First, you'll need to create a new dataset subset:
+
+- Group the data by `SITE` AND `YEAR`
+- Calculate 
+
+
+## Create a summary table that finds the total counts (see: n()), and mean carapace lengths of lobsters observed in the dataset by site and year.
+
+```{r}
+#| eval: true
+lobsters_traps_summarize <- lobster_traps %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(count = n()) %>% 
+  ungroup()
+```
+
+
+```{r}
+#| eval: true
+ggplot(data = lobsters_traps_summarize, aes(x = YEAR, y = count)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE)) 
+```
+
+## Bonus
+
+Take the subset `lobster_size` and add a new column called `DESIGNATION` that contains “MPA” if the site is “IVEE” or “NAPL”, and “not MPA” for all other outcomes.
+
+```{r}
+lobster_traps_mpa <- lobster_traps %>% 
+    mutate(DESIGNATION = if_else(SITE %in% c("IVEE", "NAPL"), true = "MPA", false = "not MPA")) %>% 
+    select(c("YEAR", "FISHING_SEASON", "SITE", "TRAPS", "DESIGNATION")) %>% 
+    filter(YEAR %in% c(2019, 2020, 2021))
+```
+
+What mpa has the largest
+
+```{r}
+ggplot(data = lobster_traps_mpa, aes(x = YEAR, Y = TRAPS, fill = DESIGNATION)) +
+    geom_bar(position = "dodge") +
+    facet_wrap(~SITE)
+```
+

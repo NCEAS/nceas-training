@@ -3,7 +3,4 @@ title: "Collaborating using Git and GitHub & Merge Conflicts"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/git-collab-merge-conflicts.qmd'}
-```
-
-
+{{< include /sections/git-collab-merge-conflicts.qmd >}}

@@ -3,6 +3,4 @@ title: "FAIR and CARE Principles"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/fair-care-principles.qmd'}
-```
-
+{{< include /sections/fair-care-principles.qmd >}}

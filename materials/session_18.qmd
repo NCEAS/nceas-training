@@ -3,6 +3,6 @@ title: "Reproducibility & Provenance"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/provenance-reproducibility-datapaper.qmd'}
-```
+{{< include /sections/provenance-reproducibility-datapaper.qmd >}}
+
 

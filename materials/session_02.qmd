@@ -3,5 +3,4 @@ title: "`Git` and GitHub Setup"
 title-block-banner: true
 ---
 
-```{r, child = 'sections/git-setup.qmd'}
-```
+{{< include /sections/git-setup.qmd >}}

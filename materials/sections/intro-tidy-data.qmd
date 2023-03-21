@@ -12,7 +12,7 @@ bibliography: references.bib
 In this lesson we are going to learn what relational data models are, and how they can be used to manage and analyze data efficiently. Relational data models are what relational databases use to organize tables. However, you don't have to be using a relational database (like mySQL, MariaDB, Oracle, or Microsoft Access) to enjoy the benefits of using a relational data model. Additionally, your data don't have to be large or complex for you to benefit. Here are a few of the benefits of using a relational data model:
 
 -   Powerful search and filtering
--   Handle large, complex data sets
+-   Handle large, complex datasets
 -   Enforce data integrity
 -   Decrease errors from redundant updates
 
@@ -126,6 +126,10 @@ Note that this normalized version of the data meets the three guidelines set by 
 Normalizing data by separating it into multiple tables often makes researchers really uncomfortable. This is understandable! The person who designed this study collected all of these measurements for a reason - so that they could analyze the measurements together. Now that our site and species information are in separate tables, how would we use site elevation as a predictor variable for species composition, for example? The answer is keys - and they are the cornerstone of relational data models.
 
 When one has normalized data, we often use unique identifiers to reference particular observations, which allows us to link across tables. Two types of identifiers are common within relational data:
+
+::: column-margin
+**Note** Is a primary key necessary to have in a dataset?
+:::
 
 -   **Primary Key**: unique identifier for each observed entity, one per row
 -   **Foreign Key**: reference to a primary key in another table (linkage)
