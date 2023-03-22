@@ -1,15 +1,14 @@
 ## Learning Objectives {.unnumbered}
 
 -   Introduce RMarkdown as a tool for literate analysis
--   Learn markdown syntax
--   Write and run R code in RMarkdown
+-   Learn markdown syntax and run R code in RMarkdown
 -   Build and knit an example document
 
 ## Introduction
 
 ## Literate Programming  
 
- All too often, computational methods are written in such a way as to be borderline incomprehensible even to the person who originally wrote the code! The reason for this is obvious, computers interpret information very differently than people do. In 1984, Donald Knuth introduced the concept of _Literate Programming_ [Knuth 1984](http://www.literateprogramming.com/knuthweb.pdf) reversal of the programming paradigm. 
+ All too often, computational methods are written in such a way as to be borderline incomprehensible even to the person who originally wrote the code! The reason for this is obvious, computers interpret information very differently than people do. In 1984, Donald Knuth proposed a reversal of the programming paradigm by introducing the concept of _Literate Programming_ ([Knuth 1984](http://www.literateprogramming.com/knuthweb.pdf)). 
 
 
 
@@ -54,8 +53,9 @@ An RMarkdown file has three main components:
 
 ![](images/rmarkdown_structure.png)
 
-We are going to use Rmarkdown to run some analysis on data. We are specifically going to focus on the code chunk and text components. We will discuss more about the how the YAML works in an RMarkdown later in the course. For now, you just need to know that every RMarkdown file has
-a YAML and this sets guidelines on how your want the output of your document to look like.
+Today we are going to use Rmarkdown to run some analysis on data. We are specifically going to focus on the code chunk and text components. We will discuss more about the how the YAML works in an RMarkdown later in the course. For now, you just need to know that every RMarkdown file has a YAML and this sets guidelines on how your want the output of your document to look like.
+
+Let's open an RMarkdown file following the instructions below.
 
 ::: callout-tip
 ## Setup
@@ -92,7 +92,7 @@ Notice how the code `plot(pressure)` is not shown in the HTML output because of 
 It is important to emphasize one more time that in an RMarkdown document, the gray areas of the document are *code*, in this case R code because that is what it is indicated in the \`\`\``{r}` syntax at the start of this gray area. And the white areas of this Rmd are in Markdown language.
 
 
-Let's  start by talking about Markdown. **Markdown is a formatting language for plain text**, and there are only around 15 rules to know.
+Let's start by talking about Markdown. **Markdown is a formatting language for plain text**, and there are only around 15 rules to know.
 
 Notice the syntax in the document we just knitted:
 
@@ -118,7 +118,7 @@ Notice the syntax in the document we just knitted:
 :::
 
 ::: callout-note
-## Excersise 
+## Exercise 
 
 1.  In Markdown, Write some italic text, make a numbered list, and add a
     few sub-headers. Use the Markdown Quick Reference (in the menu bar:
@@ -151,18 +151,33 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is a very useful chunk that will set the default R chunk options for your entire document. It is helpful to keep it in the document to easily modify default chunk options based on the audience. For example, if the document is going to be a report for a non-technical audience, a useful setup in this chunk might set `echo = FALSE`. That way all of the text, plots, and tables appear in the knitted document. The code, on the other hand, is still run, but doesn't display in the final document.
 
-Now let's practice with some R chunks. You can create a new chunk in your RMarkdown in one of these ways:
+Let's practice with some R chunks. You can create a new chunk in your RMarkdown in one of these ways:
 
 -   Click "Insert \> R" at the top of the editor pane
 -   Type by hand `{r}`
 -   Use the keyboard shortcut `command` + `option` + `i` (for Windows:
     `Ctrl` + `Alt` + `i`)
 
+::: callout-important
+
+## About code chunks
+
+Each code chunk needs to have an opening syntax \`\`\``{r}` and a closing syntax \`\`\`.
+Everything in between these lines will be identified as R code.
+
+:::
+
+
 Now, let's write some R code.
 
 ```{r}
-x <- 4 * 3
-x
+#| eval: false
+
+x <- 4 * 8
+
+hights_ft <- c(5.2, 6.0, 5.7)
+
+imp_coef <- 3.14
 ```
 
 Hitting return does not execute this command; remember, it's just a text file. To execute it, we need to get what we typed in the the R chunk (the grey R code) down into the console. How do we do it? There are several ways (let's do each of them):
@@ -178,13 +193,12 @@ Hitting return does not execute this command; remember, it's just a text file. T
 ::: callout-note
 ## Exercise 
 
-Add a few more commands to your code chunk. Execute them by trying the
-three ways above.
+Create a new code chunk and add few lines of code (more than one line). Execute them by trying the three ways above.
 
 What is the difference between running code using the green arrow in the chunk and the command-return keyboard shortcut?
 :::
 
-## Practice: Literate Analysis with some Seawater Chemistry Data
+## Practice: Literate Analysis with ocean water samples
 
 Now that we have gone over the basics, let's go a little deeper by building a simple, small RMarkdown document that represents a literate analysis using real data. We are going to work with the seawater chemistry data. We are going to download a file names `BGchem2008data.csv` from the Arctic Data Center repository. Please follow the steps below to download the data and then upload to your RStudio Server `data` folder.
 
@@ -196,12 +210,14 @@ Now that we have gone over the basics, let's go a little deeper by building a si
 -   Download the file `BGchem2008data.csv`
 -   Click the "Upload" button in your RStudio server file browser.
 -   In the dialog box, make sure the destination directory is the `data` directory in your R project, click "Choose File," and locate the `BGchem2008data.csv` file. Press "OK" to upload the file.
--   Check your file was successfully uploaded by navigating into your `data` folder in the `Files` pane.
+-   Check your file was successfully uploaded by navigating into your `data` folder in the **Files** pane.
 :::
 
 ### Developing code in RMarkdown
 
-Experienced R users who have never used RMarkdown often struggle a bit in the transition to developing analysis in RMarkdown - which makes sense! It is switching the code paradigm to a new way of thinking. Rather than starting an R chunk and putting all of your code in that single chunk, here blow we describe what we think is a better way.
+Experienced R users who have never used RMarkdown often struggle a bit in the transition to developing analysis in RMarkdown --- which makes sense! It is switching the code paradigm to a new way of thinking. 
+
+Rather than starting an R chunk and putting all of your code in that single chunk, below we describe what we think is a better way.
 
 1.  Open a document and block out the high-level sections you know
     you'll need to include using top level headers.
@@ -225,7 +241,7 @@ code steps:
 ::: callout-note
 ## Exercise
 
-Write a sentence saying where your data set came from, including a hyperlink, in the introduction section.
+Write a sentence saying where the data set came from, including a hyperlink, in the introduction section.
 
 Hint: Navigate to Help \> Markdown Quick Reference to look-up the
 hyperlink syntax.
@@ -237,7 +253,7 @@ Now that we have outlined our document, we can start writing code! To read the d
 
 To use a package in our analysis, we need to first make sure it is installed (you can install a package by running `install.package("name-of-package")`). Once installed you need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. **Loading the package is a key part of the _reproducible_ aspect of our Rmarkdown**, so we will include it as an R chunk. 
 
-::: {.callout-warning icon=false}
+::: {.callout-caution icon=false}
 
 ## Best Practice
 
@@ -252,8 +268,7 @@ The server should have already installed `readr`, so add a new R chunk below you
 library(readr)
 ```
 
-Now, below the introduction that you wrote, add a code chunk that uses the `read_csv()` function to read in your data file.
-
+Now, below the introduction that you wrote, add a code chunk that uses the `read_csv()` function to read in your data file. 
 
 ```{r}
 bg_chem <- read_csv("data/BGchem2008data.csv")
@@ -308,7 +323,7 @@ summary(bg_chem)
 ## Opens data frame in its own tab to see each row and column of the data
 View(bg_chem)
 
-## Prints unique values in a column
+## Prints unique values in a column (in this case Date)
 unique(bg_chem$Date)
 ```
 
@@ -329,20 +344,16 @@ In another chunk, use those variables to calculate the nitrogen: phosphate ratio
 ratio <- (nitrate + nitrite + amm)/phos
 ```
 
-You can access this variable in your Markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single backtick \`, the letter "r", whatever your simple R command is --here we will use `round(ratio)` to print the calculated ratio, and a closing backtick \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task. 
+You can access this variable in your Markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single backtick \`, followed by the letter "r", then whatever your simple R command is --- here we will use `round(ratio)` to print the calculated ratio, and finally a closing backtick \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task. 
 
 So, the text in you RMarkdown should look like this: 
 
 The Redfield ratio for this dataset is approximately: \`r `round(ratio)`\`
 
-```{r}
-#| eval: false
-`r round(ratio)`
-```
 
 And the rendered text like this:
 
-The Redfield ratio for this dataset is approximately !!`r round(ratio)`.!!
+The Redfield ratio for this dataset is approximately `r round(ratio)`.
 
 
 Finally, create a simple plot using base R that plots the ratio of the individual measurements, as opposed to looking at mean ratio.
@@ -362,25 +373,21 @@ as a chunk option.
 and observe the results.
 :::
 
-::: column-margin
-**How do I decide when to make a new code chunk?**
+::: callout-important
 
-Like many of life's great questions, there is no clear cut answer. My
-preference is to have one chunk per functional unit of analysis. This
-functional unit could be 50 lines of code or it could be 1 line, but
-typically it only does one "thing." This could be reading in data,
-making a plot, or defining a function. It could also mean calculating a
-series of related summary statistics (as we'll see below). Ultimately,
-the choice is one related to personal preference and style, but
-generally you should ensure that code is divided up such that it is
+## How do I decide when to make a new code chunk?
+
+Like many of life's great questions, there is no clear cut answer. A rule of thumb is to have one chunk per functional unit of analysis. This functional unit could be 50 lines of code or it could be 1 line, but typically it only does one "thing." This could be reading in data,
+making a plot, or defining a function. It could also mean calculating a series of related summary statistics (as we'll see below). Ultimately, the choice is one related to personal preference and style, but generally you should ensure that code is divided up such that it is
 easily explainable in a literate analysis as the code is run.
+
 :::
 
 
-::: callout-important
-## Recap on file paths and paths in Rmarkdown
 
-In computing, a path specifies the unique location of a file on the
+## Rmarkdown file paths and environement
+
+As we discussed earlier, in computing, a path specifies the unique location of a file on the
 filesystem. A path can come in one of two forms: absolute or relative.
 
 -   **Absolute paths** start at the very top of your file system, and
@@ -389,29 +396,16 @@ filesystem. A path can come in one of two forms: absolute or relative.
     In R, this point is set by your working directory.
 
 
-RMarkdown has a special way of handling relative paths that can be very
-handy. When working in an RMarkdown document, **R will set all paths
-relative to the location of the RMarkdown file**. This way, you don't
-have to worry about setting a working directory, or changing your
-colleagues absolute path structure with the correct user name, etc. If
-your RMarkdown is stored near where the data it analyses are stored
-(good practice, generally), setting paths becomes much easier!
+RMarkdown has a special way of handling relative paths that can be very handy. When working in an RMarkdown document, **R will set all paths relative to the location of the RMarkdown file**. This way, you don't have to worry about setting a working directory, or changing your
+colleagues absolute path structure with the correct user name, etc. If your RMarkdown is stored near where the data it analyses are stored (good practice, generally), setting paths becomes much easier!
 
-If you saved your "BGchem2008data.csv" data file in the same location as
-your Rmd, you can just write the following to read it in. Checkout the
-help page by typing `?read_csv()` in the console. This tells you that
-for this function the first argument should be a pointer to the file.
-Rstudio has some nice helpers to help you navigate paths. If you open
-quotes and press `tab` with your cursor between the quotes, a popup menu
-will appear showing you some options.
-:::
+If you saved your `BGchem2008data.csv` data file in the same location as your Rmd, you can just write the following to read it in. Checkout the help page by typing `?read_csv()` in the console. This tells you that for this function the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press `tab` with your cursor between the quotes, a popup menu will appear showing you some options.
 
 
-## Practice: RMarkdown and Environments
 
-Let's walk through an exercise with the document you built together to
-demonstrate how RMarkdown handles environments. We will be deliberately
-inducing some errors here for demonstration purposes.
+### Practice: RMarkdown and Environments
+
+Let's walk through an exercise with the document you built together to demonstrate how RMarkdown handles environments. We will be deliberately inducing some errors here for demonstration purposes.
 
 First, follow these steps:
 
@@ -428,11 +422,7 @@ Perhaps not surprisingly, we get an error:
       object 'bg_chem' not found
 :::
 
-This is because we have not run the chunk of code that reads in the
-`bg_chem` data. The R part of Rmarkdown works just like a regular R
-script. You have to execute the code, and the order that you run it in
-matters. It is relatively easy to get mixed up in a large RMarkdown
-document - running chunks out of order, or forgetting to run chunks.
+This is because we have not run the chunk of code that reads in the `bg_chem` data. The R part of Rmarkdown works just like a regular R script. You have to execute the code, and the order that you run it in matters. It is relatively easy to get mixed up in a large RMarkdown document --- running chunks out of order, or forgetting to run chunks.
 
 To resolve this, follow the next step:
 
@@ -444,9 +434,7 @@ To resolve this, follow the next step:
 4.  Observe the `bg_chem` variable in your environment
 :::
 
-This is one of my favorite ways to reset and re-run my code when things
-seem to have gone sideways. This is great practice to do periodically
-since it helps ensure you are writing code that actually runs.
+This is a great way to reset and re-run code when things seem to have gone sideways. It is great practice to do periodically since it helps ensure you are writing code that actually runs and it's reproducible.
 
 ::: callout-tip
 ## For the next exercise:
@@ -459,23 +447,9 @@ Assuming your document knitted and produced an html page, your code ran.
 Yet the environment pane is empty. What happened?
 :::
 
-The Knit button is rather special - it doesn't just run all of the code
-in your document. It actually spins up a fresh R environment separate
-from the one you have been working in, runs all of the code in your
-document, generates the output, and then closes the environment. This is
-one of the best ways RMarkdown helps ensure you have built a
-reproducible workflow. If, while you were developing your code, you ran
-a line in the console as opposed to adding it to your RMarkdown
-document, the code you develop while working actively in your
-environment will still work. However, when you knit your document, the
-environment RStudio spins up doesn't know anything about that working
-environment you were in. Thus, your code may error because it doesn't
-have that extra piece of information. Commonly, `library()` calls are
-the source of this kind of frustration when the author runs it in the
-console, but forgets to add it to the script.
+The Knit button is rather special --- it doesn't just run all of the code in your document. It actually spins up a fresh R environment separate from the one you have been working in, runs all of the code in your document, generates the output, and then closes the environment. This is one of the best ways RMarkdown helps ensure you have built a reproducible workflow. If, while you were developing your code, you ran a line in the console as opposed to adding it to your RMarkdown document, the code you develop while working actively in your environment will still work. However, when you knit your document, the environment RStudio spins up doesn't know anything about that working environment you were in. Thus, your code may error because it doesn't have that extra piece of information. Commonly, `library()` calls are the source of this kind of frustration when the author runs it in the console, but forgets to add it to the script.
 
-To further clarify the point on environments, perform the following
-steps:
+To further clarify the point on environments, perform the following steps:
 
 ::: callout-tip
 ## Setup continued
@@ -483,6 +457,8 @@ steps:
 3.  Select from the "Run" menu (top right of Rmarkdown editor) "Run All"
 4.  Observe all of the variables in your environment
 :::
+
+::: callout-important
 
 ## What about all my R Scripts?
 
@@ -505,9 +481,13 @@ R scripts anymore. Both `.R` and `.Rmd` have their roles to play in
 analysis. With practice, it will become more clear what works well in
 RMarkdown, and what belongs in a regular R script.
 
+:::
+
+Last but not leas, here an bonus exercise for you to practice all what we have learned in this lesson. 
+
 
 ::: callout-note
-## Exercise
+## Bonus Exercise
 
 Create an RMarkdown document with some of your own data. If you don't
 have a good dataset handy, use an example data set here:
