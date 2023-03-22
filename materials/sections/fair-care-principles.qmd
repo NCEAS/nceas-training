@@ -1,7 +1,5 @@
 ---
-editor: 
-  markdown: 
-    wrap: 72
+format: html
 ---
 
 ## Learning Objectives {.unnumbered}
@@ -42,12 +40,14 @@ We'll return in about an hour to discuss as a group.
 
 ## The FAIR and CARE Principles
 
-[![Source: Global Indigenous Data Alliance](images/FAIR_CARE.png){width="95%" fig-align="center"}](https://www.gida-global.org/whoweare)
+[![Source: Global Indigenous Data
+Alliance](images/FAIR_CARE.png){width="95%"
+fig-align="center"}](https://www.gida-global.org/whoweare)
 
 The idea behind these principles is to increase access and usage of
 complex and large datasets for innovation, discovery, and
 decision-making. This means making data available to machines,
-researchers, Indigenous communities, policy makers, etc.
+researchers, Indigenous communities, policy makers, and more.
 
 With the need to improve the infrastructure supporting the reuse of
 data, a group of diverse stakeholders from academia, funding agencies,
@@ -65,25 +65,22 @@ practices.
 
 ### What is FAIR?
 
-::: {layout-ncol=2}
-
-In facilitating use of data resources, the data stewardship community
-have converged on principles surrounding best practices for open data
+::: {layout-ncol="2"}
+With the rise of open science, and the use of open resources it is increasingly become more important to address accessibility and openness in multiple ways. The FAIR Principles focuses on *how* to prepare your data so that it can be reused by others (versus open access of research outputs). In 2016, the data stewardship community published principles surrounding best practices for open data
 management One set of these principles is the [FAIR
-principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/).FAIR stands for Findable, Accessible, Interoperable, and Reproducible.
+principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/). FAIR
+stands for Findable, Accessible, Interoperable, and Reproducible.
 
-[![Source: Fair Teaching Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-handbook/)
-
+[![Source: Fair Teaching
+Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-handbook/)
 :::
 
 | FAIR                  | Definition                                                                                    |
-|----------------|----------------------------------------------------|
+|------------------|------------------------------------------------------|
 | **(F) Findable**      | Metadata and data should be easy to find for both humans and computers.                       |
 | **(A) Accessible**    | Once someone finds the required data, they need to know how the data can be accessed.         |
 | **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. |
 | **(R) Reusable**      | Data should be well-described so they can be reused and replicated in different settings.     |
-
-
 
 ### FAIR Principles in Practice
 
@@ -91,9 +88,10 @@ principles](https://force11.org/info/guiding-principles-for-findable-accessible-
 
 <!-- NEED to IMPROVE THIS DESCRIPTION -->
 
-::: {layout-ncol=2}
-
-[![Source: Carroll, S.R., et al, 2020. The CARE Principles for Indigenous Data Governance](images/CAREsCARE.png)](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
+::: {layout-ncol="2"}
+[![Source: Carroll, S.R., et al, 2020. The CARE Principles for
+Indigenous Data
+Governance](images/CAREsCARE.png)](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
 
 "The 'CARE Principles for Indigenous Data Governance' were developed by
 the International Indigenous Data Sovereignty Interest Group (within the
@@ -122,11 +120,10 @@ September 2019).\]
 
 The CARE Principles stand for Collective benefits, Authority control,
 Responsibility and Ethics.
-
 :::
 
 | CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
-|----------------------|----------------------------------------------------|
+|----------------------|--------------------------------------------------|
 | **(C) Collective Benefit**   | Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data.                                                                                                                                                                                                                                                                        |
 | **(A) Authority to Control** | Indigenous Peoples' rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledge and geographical indicators, are represented and identified within data. |
 | **(R) Responsibility**       | Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples' self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.                                                                                        |
