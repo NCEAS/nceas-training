@@ -12,10 +12,7 @@ format: html
 
 ## But first, a reproducibility activity using LEGO®
 
-This activity is largely based on the [LEGO® Metadata for
-Reproducibility game pack](http://eprints.gla.ac.uk/196477/), which was
-developed by [Mary Donaldson](https://orcid.org/0000-0002-1936-3499) and
-[Matt Mahon](https://orcid.org/0000-0001-8950-8422).
+This activity is largely based on the [LEGO® Metadata for Reproducibility game pack](http://eprints.gla.ac.uk/196477/),  which was developed by [Mary Donaldson](https://orcid.org/0000-0002-1936-3499) and [Matt Mahon](https://orcid.org/0000-0001-8950-8422).
 
 ::: callout-tip
 ## Setup
@@ -41,35 +38,21 @@ We'll return in about an hour to discuss as a group.
 ## The FAIR and CARE Principles
 
 [![Source: Global Indigenous Data
-Alliance](images/FAIR_CARE.png){width="95%"
+Alliance](images/FAIR_CARE.png){width="92%"
 fig-align="center"}](https://www.gida-global.org/whoweare)
 
-The idea behind these principles is to increase access and usage of
-complex and large datasets for innovation, discovery, and
-decision-making. This means making data available to machines,
-researchers, Indigenous communities, policy makers, and more.
+The idea behind these principles is to increase access and usage of complex and large datasets for innovation, discovery, and decision-making. This means making data available to machines, researchers, Indigenous communities, policy makers, and more.
 
-With the need to improve the infrastructure supporting the reuse of
-data, a group of diverse stakeholders from academia, funding agencies,
-publishers and industry came together to jointly endorse measurable
-guidelines that enhance the reusability of data (@wilkinson_fair_2016).
-These guidelines became what we now know as the FAIR Data Principles.
+With the need to improve the infrastructure supporting the reuse of data, a group of diverse stakeholders from academia, funding agencies, publishers and industry came together to jointly endorse measurable guidelines that enhance the reusability of data (@wilkinson_fair_2016). These guidelines became what we now know as the FAIR Data Principles.
 
-Following the discussion about FAIR and incorporating activities and
-feedback from the Indigenous Data Sovereignty network, the Global
-Indigenous Data Alliance developed the CARE principles
-(@carroll_operationalizing_2021). The CARE principles for Indigenous
-Data Governance complement the more data-centric approach of the FAIR
-principles, introducing social responsibility to open data management
-practices.
+Following the discussion about FAIR and incorporating activities and feedback from the Indigenous Data Sovereignty network, the Global Indigenous Data Alliance developed the CARE principles (@carroll_operationalizing_2021). The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices.
+
+Together, these two principle encourage us to push open and other data movements to consider both people and purpose in their advocacy and pursuits. The goal is that researchers, stewards, and any users of data will be FAIR and CARE (@carroll_care_2020).
 
 ### What is FAIR?
 
 ::: {layout-ncol="2"}
-With the rise of open science, and the use of open resources it is increasingly become more important to address accessibility and openness in multiple ways. The FAIR Principles focuses on *how* to prepare your data so that it can be reused by others (versus open access of research outputs). In 2016, the data stewardship community published principles surrounding best practices for open data
-management One set of these principles is the [FAIR
-principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/). FAIR
-stands for Findable, Accessible, Interoperable, and Reproducible.
+With the rise of open science and more accessible data, it is becoming increasingly important to address accessibility and openness in multiple ways. The [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/) focuses on *how* to prepare your data so that it can be reused by others (versus just open access of research outputs). In 2016, the data stewardship community published principles surrounding best practices for open data management, including FAIR. FAIR stands for Findable, Accessible, Interoperable, and Reproducible. It is best to think about FAIR as a set of comprehensive standards for you to use while curating your data. And each principle of FAIR can be translated into a set of actions you can take during the entire lifecycle of research data management. 
 
 [![Source: Fair Teaching
 Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-handbook/)
@@ -84,42 +67,24 @@ Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-hand
 
 ### FAIR Principles in Practice
 
+- What are our top recommendations? 
+
+- There's a reason why **findable** is first. **If you can't find the data, how can you reuse it?** This means it's crucial to make sure both your metadata and data are easy to find by both humans and computers. When you use machine-readable metadata in combination with the use of metadata standards (consider standard specific to a field, i.e. EML is the environmental metadata standard), your data becomes more discoverable by people. To help with this, researchers came up with the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/). 
+
 ### What is CARE?
 
 <!-- NEED to IMPROVE THIS DESCRIPTION -->
+<!-- Citation \[Research Data Alliance International Indigenous Data Sovereignty Interest Group. CARE principles for Indigenous data governance. (The Global Indigenous Data Alliance, GIDA-global.org, September 2019).\] -->
 
 ::: {layout-ncol="2"}
 [![Source: Carroll, S.R., et al, 2020. The CARE Principles for
 Indigenous Data
 Governance](images/CAREsCARE.png)](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
 
-"The 'CARE Principles for Indigenous Data Governance' were developed by
-the International Indigenous Data Sovereignty Interest Group (within the
-Research Data Alliance) in consultation with Indigenous Peoples,
-scholars, non-profit organizations, and governments
-(@carroll_care_2020). They address concerns related to the people and
-purpose of data. It advocates for greater Indigenous control and
-oversight in order to share data on Indigenous Peoples' terms.
-
-These principles are people and purpose-oriented, reflecting the crucial
-role of data in advancing Indigenous innovation and self-determination.
-CARE details that the use of Indigenous data should result in tangible
-benefits for Indigenous collectives through inclusive development and
-innovation, improved governance and citizen engagement, and result in
-equitable outcomes"
-
-The CARE and FAIR principles complement each other, encouraging open and
-other data movements to consider both people and purpose in their
-advocacy and pursuits. The goal is that stewards and other users of
-Indigenous data will 'Be FAIR and CARE (@carroll_care_2020).
-
-Citation \[Research Data Alliance International Indigenous Data
-Sovereignty Interest Group. CARE principles for Indigenous data
-governance. (The Global Indigenous Data Alliance, GIDA-global.org,
-September 2019).\]
-
-The CARE Principles stand for Collective benefits, Authority control,
-Responsibility and Ethics.
+The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Governance were developed by
+the International Indigenous Data Sovereignty Interest Group in consultation with Indigenous Peoples,
+scholars, non-profit organizations, and governments (@carroll_care_2020). They address concerns related to the people and
+purpose of data. It advocates for greater Indigenous control and oversight in order to share data on Indigenous Peoples' terms. These principles are people and purpose-oriented, reflecting the crucial role data have in advancing Indigenous innovation and self-determination. CARE stands for Collective benefits, Authority control, Responsibility and Ethics. It details that the use of Indigenous data should result in tangible benefits for Indigenous collectives through inclusive development and innovation, improved governance and citizen engagement, and result in equitable outcomes.
 :::
 
 | CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -130,3 +95,5 @@ Responsibility and Ethics.
 | **(E) Ethics**               | Indigenous Peoples' rights and well being should be the primary concern at all stages of the data life cycle and across the data ecosystem.                                                                                                                                                                                                                                                   |
 
 ### CARE Principles in Practice
+
+- What are our top recommendations? 
