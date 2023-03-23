@@ -36,7 +36,7 @@ Practically speaking, reproducibility includes:
 - Documenting what you did
 - Describing how to interpret it all
 
-A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 56% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a sankey diagram of how code cleaning was able to fix common errors.
+A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 44% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a sankey diagram of how code cleaning was able to fix common errors.
 
 ![](images/code-reproducibility-trisovic.png)
 
@@ -50,7 +50,7 @@ Computational provenance refers to the origin and processing history of data inc
 - Figures
 - Methods, dataflow, and dependencies
 
-When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from inital data cleaning and integration, through analysis, modeling, and visualization. 
+When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from initial data cleaning and integration, through analysis, modeling, and visualization. 
 
 Here's an example of a computational workflow from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
 
