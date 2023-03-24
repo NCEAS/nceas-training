@@ -1,9 +1,8 @@
 ## Learning Objectives {.unnumbered}
 
-- What the Split-Apply-Combine strategy is and how it applies to data
-- The difference between wide vs. long table formats and how to convert between them
-- How to use `dplyr` and `tidyr` to clean and wrangle data for analysis
-- How to join multiple data frames together using `dplyr`
+- Learn about the Split-Apply-Combine strategy is and how it applies to data
+- Describe the difference between wide vs. long table formats and how to convert between them
+- Introduce `dplyr` and `tidyr` functions to clean and wrangle data for analysis
 
 ## Introduction
 
@@ -118,7 +117,9 @@ library(tidyr)
 library(readr)
 ```
 
-**A note on loading packages**
+::: callout-important
+
+## A note on loading packages
 
 You may have noticed the following warning messages pop up when you ran your library chunk.
 

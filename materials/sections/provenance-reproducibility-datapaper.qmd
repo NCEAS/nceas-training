@@ -36,7 +36,7 @@ Practically speaking, reproducibility includes:
 - Documenting what you did
 - Describing how to interpret it all
 
-A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 44% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a sankey diagram of how code cleaning was able to fix common errors.
+A recent study of publicly-available datasets in the Harvard Database repository containing R files found that only 26% of R files ran without error in the initial execution. 44% were able to be run after code cleaning, showing the importance of good programming practice [@trisovic2022]. The figure below from Trisovic et al. shows a _sankey diagram_ of how code cleaning was able to fix common errors.
 
 ![](images/code-reproducibility-trisovic.png)
 
@@ -61,6 +61,8 @@ Here's an example of a computational workflow from Mark Carls: [Mark Carls. Anal
 
 This screenshot of the dataset page shows how DataONE renders the workflow model information as part of our interactive user interface. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
 
+<!--
+
 **From Provenance to Reproducibility**
 
 ![](images/Prov-History.png)
@@ -80,7 +82,8 @@ At DataONE we facilitate reproducible science through provenance by:
 ![](images/Prov_ONE.png)
 
 ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
-
+-->
+**Data Packages**???
 
 ![](images/data-package.png)
 
@@ -151,7 +154,7 @@ rrtools::use_compendium("mypaper")
 ```
 
 
-`rrtools` has created the beginnings of a research compendium for us. At this point, it looks mostly the same as an R package. That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package (called `mypaper`). And this means our research compendium will be easy to install, just like an R package.
+`rrtools` has created the beginnings of a research compendium for us. The structure of this compendium is similar to the one needed to built an R package. That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package (called `mypaper`). And this means our research compendium will be easy to install, just like an R package.
 
 
 `rrtools` also helps you set up some key information like:
@@ -167,7 +170,7 @@ rrtools::use_analysis()
 ```
 
 
-This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper. To follow the structure `rrtools` has put in place for us. You'll notice a `paper` directory that contains a template Rmd, which references a journal citation style language (CSL) file  so that the paper is knitted to a word document formatted for the journal (the Journal of Archaeological Science, in this example). For this lesson, let's take things a step further with the `rticles` package. With that in mind, let's delete the existing `paper` directory. We'll create a new one shortly.
+This creates a standard, predictable layout for our code and data and outputs that multiple people can understand. At this point, we're ready to start writing the paper. To follow the structure `rrtools` has put in place for us. You'll notice a `analysis/templates` directory that contains a template Rmd, which references a journal citation style language (CSL) file  so that the paper is knitted to a word document formatted for the journal (the Journal of Archaeological Science, in this example). For this lesson, let's take things a step further with the `rticles` package. With that in mind, let's delete the existing `paper` directory. We'll create a new one shortly.
 
 #### RMarkdown templates with `rticles`
 
@@ -179,7 +182,7 @@ Select the "PNAS" template, give the file a name and set the location of the fil
 
 ![](images/rticles-pnas.png)
 
-Use `rrtools` to generate the core directory layout and approach to data handling, and then use `articles` to create the structure of the paper itself. The combination is incredibly flexible.
+Use `rrtools` to generate the core directory layout and approach to data handling, and then use `rticles` to create the structure of the paper itself. The combination is incredibly flexible.
 
 Here are more things we can do with our research compendium:
 
@@ -201,12 +204,17 @@ And the rendered PDF:
 
 ![](images/paper-rendered.png)
 
-#### Adding `renv`, Docker, GitHub Actions
+#### Adding `renv` to conserve your environment
 
 `rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. 
 
-To capture the R packages and versions this project depends on, the `renv` package is used. If you run `renv::init()`, it will initiate tracking of the R packages in your project. `renv::init()` automatically detects dependencies in your code (by looking for library calls, at the DESCRIPTION file, etc.) and installs them to a private project specific library. Importantly, this means that your project `mypaper` can use a different version of `dplyr` than another project which may need an older version without any hassle. `renv` also write the package dependencies to a special file in the repository called `renv.lock`. In the Dockerfile for Binder, the `renv.lock` file is read, and the versions of the packages needed are installed using `renv::restore()`. While you are developing code, if any of your packages get updated, `renv::snapshot()` will update the `renv.lock` file and your project-installed packages.
+To capture the R packages and versions this project depends on, the `renv` package is used. If you run `renv::init()`, it will initiate tracking of the R packages in your project.
+Once you run this function, you'll see a new folder called `renv` in your top directory.
 
+`renv::init()` automatically detects dependencies in your code (by looking for library calls, at the DESCRIPTION file, etc.) and installs them to a private project specific library. Importantly, this means that your project `mypaper` can use a different version of `dplyr` than another project which may need an older version without any hassle. `renv` also write the package dependencies to a special file in the repository called `renv.lock`. 
+In the Dockerfile for Binder, the `renv.lock` file is read, and the versions of the packages needed are installed using `renv::restore()`. While you are developing code, if any of your packages get updated, `renv::snapshot()` will update the `renv.lock` file and your project-installed packages.
+
+<!--
 The `rrtools` package then uses this `renv.lock` file to build what is called a Dockerfile. [Docker](http://www.docker.com) allows you to build what are called containers, a standard unit of software that packages up code and all its dependencies so an application runs quickly and reliably from one computing environment to another. A container is an "image" of all the software specified, and this image can be run on other computers such that the software stack looks exactly as you specify. This is important when it comes to reproducibility, because if I'm running someone elses code, I may get different results or errors if I'm using different versions of software (like an old version of `dplyr`, for example) than they are. A Dockerfile contains the instructions for how to build the image.
 
 `rrtools` has a function called `rrtools::use_dockerfile()` which creates a Dockerfile that first loads a standard image for using R with the tidyverse, and then has more instructions for how to create the environment so that it has the very specific R packages and versions you need. Notice in the file below the call to `renv::restore()`, as described above. The last line of the docker file renders our RMarkdown reproducible paper!
@@ -239,6 +247,9 @@ After running `rrtools::use_dockerfile()`, the package also sets up GitHub Actio
 
 ![](images/github-actions.png)
 
+
+ -->
+ 
 ### The 5th Generation of Reproducible Papers {-}
 
 ![](images/Living-paper.png)
