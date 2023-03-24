@@ -12,7 +12,10 @@ format: html
 
 ## But first, a reproducibility activity using LEGO®
 
-This activity is largely based on the [LEGO® Metadata for Reproducibility game pack](http://eprints.gla.ac.uk/196477/),  which was developed by [Mary Donaldson](https://orcid.org/0000-0002-1936-3499) and [Matt Mahon](https://orcid.org/0000-0001-8950-8422).
+This activity is largely based on the [LEGO® Metadata for
+Reproducibility game pack](http://eprints.gla.ac.uk/196477/), which was
+developed by [Mary Donaldson](https://orcid.org/0000-0002-1936-3499) and
+[Matt Mahon](https://orcid.org/0000-0001-8950-8422).
 
 ::: callout-tip
 ## Setup
@@ -26,7 +29,11 @@ We'll return in about an hour to discuss as a group.
 
 <details>
 
-<summary>Activity Discussion</summary>
+<summary>
+
+Activity Discussion
+
+</summary>
 
 -   Did you find this a simple way to document your process?
 -   Was there anything you found difficult to capture?
@@ -41,62 +48,213 @@ We'll return in about an hour to discuss as a group.
 Alliance](images/FAIR_CARE.png){width="92%"
 fig-align="center"}](https://www.gida-global.org/whoweare)
 
-The idea behind these principles is to increase access and usage of complex and large datasets for innovation, discovery, and decision-making. This means making data available to machines, researchers, Indigenous communities, policy makers, and more.
+The idea behind these principles is to increase access and usage of
+complex and large datasets for innovation, discovery, and
+decision-making. This means making data available to machines,
+researchers, Indigenous communities, policy makers, and more.
 
-With the need to improve the infrastructure supporting the reuse of data, a group of diverse stakeholders from academia, funding agencies, publishers and industry came together to jointly endorse measurable guidelines that enhance the reusability of data (@wilkinson_fair_2016). These guidelines became what we now know as the FAIR Data Principles.
+With the need to improve the infrastructure supporting the reuse of
+data, a group of diverse stakeholders from academia, funding agencies,
+publishers and industry came together to jointly endorse measurable
+guidelines that enhance the reusability of data (@wilkinson_fair_2016).
+These guidelines became what we now know as the FAIR Data Principles.
 
-Following the discussion about FAIR and incorporating activities and feedback from the Indigenous Data Sovereignty network, the Global Indigenous Data Alliance developed the CARE principles (@carroll_operationalizing_2021). The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices.
+Following the discussion about FAIR and incorporating activities and
+feedback from the Indigenous Data Sovereignty network, the Global
+Indigenous Data Alliance developed the CARE principles
+(@carroll_operationalizing_2021). The CARE principles for Indigenous
+Data Governance complement the more data-centric approach of the FAIR
+principles, introducing social responsibility to open data management
+practices.
 
-Together, these two principle encourage us to push open and other data movements to consider both people and purpose in their advocacy and pursuits. The goal is that researchers, stewards, and any users of data will be FAIR and CARE (@carroll_care_2020).
+Together, these two principle encourage us to push open and other data
+movements to consider both people and purpose in their advocacy and
+pursuits. The goal is that researchers, stewards, and any users of data
+will be FAIR and CARE (@carroll_care_2020).
 
 ### What is FAIR?
 
 <!-- I would have the text followed by the image instead of side-by side -->
 
 ::: {layout-ncol="2"}
-With the rise of open science and more accessible data, it is becoming increasingly important to address accessibility and openness in multiple ways. The [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/) focuses on *how* to prepare your data so that it can be reused by others (versus just open access of research outputs). In 2016, the data stewardship community published principles surrounding best practices for open data management, including FAIR. FAIR stands for Findable, Accessible, Interoperable, and Reproducible. It is best to think about FAIR as a set of comprehensive standards for you to use while curating your data. And each principle of FAIR can be translated into a set of actions you can take during the entire lifecycle of research data management. 
+With the rise of open science and more accessible data, it is becoming
+increasingly important to address accessibility and openness in multiple
+ways. The [FAIR
+principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/)
+focuses on *how* to prepare your data so that it can be reused by others
+(versus just open access of research outputs). In 2016, the data
+stewardship community published principles surrounding best practices
+for open data management, including FAIR. FAIR stands for Findable,
+Accessible, Interoperable, and Reproducible. It is best to think about
+FAIR as a set of comprehensive standards for you to use while curating
+your data. And each principle of FAIR can be translated into a set of
+actions you can take during the entire lifecycle of research data
+management.
 
 [![Source: Fair Teaching
 Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-handbook/)
 :::
 
-| FAIR                  | Definition                                                                                    |
-|------------------|------------------------------------------------------|
-| **(F) Findable**      | Metadata and data should be easy to find for both humans and computers.                       |
-| **(A) Accessible**    | Once someone finds the required data, they need to know how the data can be accessed.         |
-| **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. |
-| **(R) Reusable**      | Data should be well-described so they can be reused and replicated in different settings.     |
++----------------+-----------------------------------------------+
+| FAIR           | Definition                                    |
++================+===============================================+
+| **(F)          | Metadata and data should be easy to find for  |
+| Findable**     | both humans and computers.                    |
++----------------+-----------------------------------------------+
+| **(A)          | Once someone finds the required data, they    |
+| Accessible**   | need to know how the data can be accessed.    |
++----------------+-----------------------------------------------+
+| **(I) I        | The data needs to be easily integrated with   |
+| nteroperable** | other data for analysis, storage, and         |
+|                | processing.                                   |
++----------------+-----------------------------------------------+
+| **(R)          | Data should be well-described so they can be  |
+| Reusable**     | reused and replicated in different settings.  |
++----------------+-----------------------------------------------+
 
 ### FAIR Principles in Practice
 
-- What are our top recommendations? 
+-   What are our top recommendations?
 
 **Findable**
 
-- There's a reason why **findable** is first. **If you can't find the data, how can you reuse it?** This means it's crucial to make sure both your metadata and data are easy to find by both humans and computers. When you use machine-readable metadata in combination with the use of metadata standards (consider standard specific to a field, i.e. EML is the environmental metadata standard), your data becomes more discoverable by people. To help with this, researchers came up with the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/).
+-   There's a reason why **findable** is first. **If you can't find the
+    data, how can you reuse it?** This means it's crucial to make sure
+    both your metadata together with your data are easy to find by both
+    humans and computers. When you use machine-readable metadata in
+    combination with the use of metadata standards (consider standard
+    specific to a field, i.e. EML is the ecological metadata standard),
+    your data becomes more discoverable by people. To help with this,
+    researchers came up with the [**FAIRification
+    process**](https://www.go-fair.org/fair-principles/fairification-process/).
 
-- To increase the _findable_ aspect of your data, it is important that the metadata has a set of minimum descriptive information elements or “discovery metadata” to be able communicate the content of your data to others.
-
-- To make you data package (data + metadata) findable, it should be assigned a globally unique persistent and resolvable identifier. This identifier is a long-lasting reference to a resource that allows both humans and machines to find it. One of the most common identifiers are Digital Object Identifier (DOI). DOIs are persistent, maintained and governed so that they remain stable and direct the users to the same relevant object consistently over time.
-
-- When you upload your data(set) and/or metadata to a data repository, the data repository (or other service providers) usually assigns a DOI. Repositories ensure that the identifier continues to point to the same data or metadata, according to access terms and conditions you specified.
-
++------------------------------------------------------------------+
+| Guiding Questions                                                |
++==================================================================+
+| *Are you aware that your data and metadata should be assigned a  |
+| globally unique identifier when deposited with a data            |
+| repository?*                                                     |
+|                                                                  |
+| -   One of the most common identifiers are Digital Object        |
+|     Identifier (DOI). DOIs are persistent, maintained and        |
+|     governed so that they remain stable and direct the users to  |
+|     the same relevant object consistently over time.             |
++------------------------------------------------------------------+
+| *Have you provided rich metadata about your data?*               |
+|                                                                  |
+| -   To increase the *findable* aspect of your data, it is        |
+|     important that the metadata has a set of minimum descriptive |
+|     information elements or "discovery metadata" to be able      |
+|     communicate the content of your data to others.              |
++------------------------------------------------------------------+
+| *Is your metadata and data in a format and place where it can be |
+| registered or index in a searchable resource?*                   |
+|                                                                  |
+| -   Placing your metadata and data in a format and place where   |
+|     it can be searched allows for systems that collect (also     |
+|     known as harvesting) and aggregate data for search engines   |
+|     or databases (e.g., Google Search, Web of Science, or a      |
+|     university library collection) to find it. This way          |
+|     improving the chances of your data to be reuse and cited.    |
++------------------------------------------------------------------+
 
 **Accessible**
-- data in non-proprietary format
-- licence under which the data can be used
-- metadata available even if data is no longer available?
+
++-----------------------------------------------------------------------+
+| Guiding Questions                                                     |
++=======================================================================+
+| Does you metadata provide enough information for users to get access  |
+| to your data?                                                         |
++-----------------------------------------------------------------------+
+| Is you metadata and data in a place where it can be accessed and      |
+| interpreted by a human? Can it be accessed by a program or computer?  |
++-----------------------------------------------------------------------+
+| Is you metadata and data in a place and format where it can be openly |
+| accessed?                                                             |
++-----------------------------------------------------------------------+
+| Is you metadata in a place where it will available over time, even if |
+| the data is no longer accessible?                                     |
++-----------------------------------------------------------------------+
 
 **Interoperable**
-- controled vocabulary? "There are many different ways you can describe the same information when filling out the metadata for your deposit. To prevent ambiguity and facilitate better findability, interoperability, and machine-readability, you should use a controlled vocabulary to enter your metadata." (Fairaware)
 
++----------------------------------------------------------------------+
+| Guiding Questions                                                    |
++======================================================================+
+| *Does the metadata describing your data uses controlled              |
+| vocabularies?*                                                       |
+|                                                                      |
+| -   Using a standardized vocabulary to describe and represent your   |
+|     metadata prevents ambiguity and facilitates findability,         |
+|     interoperability, and machine-readability.                       |
++----------------------------------------------------------------------+
+| *Is your metadata in a format that machine can read it without       |
+| requiring specific translations of mapping?*                         |
+|                                                                      |
+| -   As an example, the Ecological Metadata Language (EML) defines a  |
+|     comprehensive vocabulary and uses XML markup syntax for          |
+|     documenting research data.                                       |
++----------------------------------------------------------------------+
+| *Does you metadata clearly stated provenance of your data,           |
+| referencing other metadata if appropriate?*                          |
+|                                                                      |
+| -   In the case that your data is connected to other data sources,   |
+|     it is important to provide information about organisations,      |
+|     people, places,\                                                 |
+|     projects or time periods that are related to the digital object  |
+|     that your metadata describes.                                    |
++----------------------------------------------------------------------+
 
 **Reusable**
 
-- Digital preservation of data
-- Provide provenance information about your data
-- "To ensure that your metadata can be broadly shared and understood within your research domain, we recommend using a community-endorsed standard."
-- "The main purpose of a community standard is to prevent misunderstandings due to ambiguity by making sure everyone is speaking the same language. By following the specifications of a community-endorsed standard for your metadata, you make sure that others can clearly understand and (re)use your data. It is easier to understand and reuse data that is similar to your own or that of others in the same field. Moreover, using a clearly defined structure and wording in your metadata can facilitate replication studies or meta-analyses." (Fairaware - https://fairaware.dans.knaw.nl/)
++----------------------------------------------------------------------+
+| Guiding Questions                                                    |
++======================================================================+
+| *Does you metadata provide a comprehensive description of your data  |
+| for others to interpret and understand?*                             |
+|                                                                      |
+| -   The quantity but also quality of the metadata is extremely       |
+|     important to enhance data reuseability. Is someone is not able   |
+|     to understand what your data is about then they won't be able to |
+|     use it.                                                          |
++----------------------------------------------------------------------+
+| *Have you define and stated in your metadata a clear licence under   |
+| which the data can be used?*                                         |
+|                                                                      |
+| -   It is important to define the conditions, obligations,           |
+|     restrictions under which your data can be used. Either if it is  |
+|     a public domain or if there are egitimate reasons not to share   |
+|     data (e.g., privacy protection, ethical, legal, or commercial    |
+|     constraints), this should be stated in your metadata.            |
++----------------------------------------------------------------------+
+| Does the metadata describing your data follows the specifications of |
+| a community-endorsed standard?                                       |
+|                                                                      |
+| -   "The main purpose of a community standard is to prevent          |
+|     misunderstandings due to ambiguity by making sure everyone is    |
+|     speaking the same language. By following the specifications of a |
+|     community-endorsed standard for your metadata, you make sure     |
+|     that others can clearly understand and (re)use your data."       |
++----------------------------------------------------------------------+
+| "Are you aware that keeping your data FAIR over time requires        |
+| professional data curation and digital preservation?"                |
++----------------------------------------------------------------------+
+
+<!--- Additional information about reuse
+
+-   Digital preservation of data
+
+-   Provide provenance information about your data
+
+-   "To ensure that your metadata can be broadly shared and understood
+    within your research domain, we recommend using a community-endorsed
+    standard." -->
+
+**Resources**
+
+-   [Fairaware](https://fairaware.dans.knaw.nl/)
+
+-   [FAIR Data Maturity Model](https://zenodo.org/record/3909563#.ZB3jKRXMJY6)
 
 ### What is CARE?
 
@@ -107,16 +265,55 @@ Handbook](images/FAIRsFAIR.png)](https://fairsfair.gitbook.io/fair-teaching-hand
 Indigenous Data
 Governance](images/CAREsCARE.png)](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
 
-The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Governance were developed by the International Indigenous Data Sovereignty Interest Group in consultation with Indigenous Peoples, scholars, non-profit organizations, and governments (@carroll_care_2020). They address concerns related to the people and purpose of data. It advocates for greater Indigenous control and oversight in order to share data on Indigenous Peoples' terms. These principles are people and purpose-oriented, reflecting the crucial role data have in advancing Indigenous innovation and self-determination. CARE stands for Collective benefits, Authority control, Responsibility and Ethics. It details that the use of Indigenous data should result in tangible benefits for Indigenous collectives through inclusive development and innovation, improved governance and citizen engagement, and result in equitable outcomes.
+The [CARE Principles](https://www.gida-global.org/care) for Indigenous
+Data Governance were developed by the International Indigenous Data
+Sovereignty Interest Group in consultation with Indigenous Peoples,
+scholars, non-profit organizations, and governments
+(@carroll_care_2020). They address concerns related to the people and
+purpose of data. It advocates for greater Indigenous control and
+oversight in order to share data on Indigenous Peoples' terms. These
+principles are people and purpose-oriented, reflecting the crucial role
+data have in advancing Indigenous innovation and self-determination.
+CARE stands for Collective benefits, Authority control, Responsibility
+and Ethics. It details that the use of Indigenous data should result in
+tangible benefits for Indigenous collectives through inclusive
+development and innovation, improved governance and citizen engagement,
+and result in equitable outcomes.
 :::
 
-| CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
-|----------------------|--------------------------------------------------|
-| **(C) Collective Benefit**   | Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data.                                                                                                                                                                                                                                                                        |
-| **(A) Authority to Control** | Indigenous Peoples' rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledge and geographical indicators, are represented and identified within data. |
-| **(R) Responsibility**       | Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples' self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.                                                                                        |
-| **(E) Ethics**               | Indigenous Peoples' rights and well being should be the primary concern at all stages of the data life cycle and across the data ecosystem.                                                                                                                                                                                                                                                   |
++-----------------+-------------------------------------------+
+| CARE            | Definition                                |
++=================+===========================================+
+| **(C)           | Data ecosystems shall be designed and     |
+| Collective      | function in ways that enable Indigenous   |
+| Benefit**       | Peoples to derive benefit from the data.  |
++-----------------+-------------------------------------------+
+| **(A) Authority | Indigenous Peoples' rights and interests  |
+| to Control**    | in Indigenous data must be recognized and |
+|                 | their authority to control such data be   |
+|                 | empowered. Indigenous data governance     |
+|                 | enables Indigenous Peoples and governing  |
+|                 | bodies to determine how Indigenous        |
+|                 | Peoples, as well as Indigenous lands,     |
+|                 | territories, resources, knowledge and     |
+|                 | geographical indicators, are represented  |
+|                 | and identified within data.               |
++-----------------+-------------------------------------------+
+| **(R)           | Those working with Indigenous data have a |
+| R               | responsibility to share how those data    |
+| esponsibility** | are used to support Indigenous Peoples'   |
+|                 | self-determination and collective         |
+|                 | benefit. Accountability requires          |
+|                 | meaningful and openly available evidence  |
+|                 | of these efforts and the benefits         |
+|                 | accruing to Indigenous Peoples.           |
++-----------------+-------------------------------------------+
+| **(E) Ethics**  | Indigenous Peoples' rights and well being |
+|                 | should be the primary concern at all      |
+|                 | stages of the data life cycle and across  |
+|                 | the data ecosystem.                       |
++-----------------+-------------------------------------------+
 
 ### CARE Principles in Practice
 
-- What are our top recommendations? 
+-   What are our top recommendations?
