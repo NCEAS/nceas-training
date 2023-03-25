@@ -85,20 +85,25 @@ In this lesson we're going to walk through the functions you'll most commonly us
 
 -   `dplyr`
 
-    -   `mutate()`
-    -   `group_by()`
-    -   `summarize()`
-    -   `select()`
-    -   `filter()`
-    -   `arrange()`
-    -   `rename()`
+
+| Function name   | Description |
+|--------|------|
+| `mutate()`  | Creates modify and deletes columns |   
+| `group_by()`  | Groups data by one or more variables |
+| `summarise()` | Summaries each group down to one row |
+|  `select()` | Keep or drop columns using their names  |
+| `filter()`  | Keeps rows that matches conditions |
+| `arrange()`  | order rows using columns variable |
+| `rename()`  | Rename a column |
 
 -   `tidyr`
 
-    -   `pivot_longer()`
-    -   `pivot_wider()`
-    -   `unite()`
-    -   `separate()`
+| Function name   | Description |
+|--------|------|
+| `pivot_longer()`  | transforms data from a wide to a long format |   
+| `pivot_wider()`  | transforms data from a long to a wide format |
+| `unite()` | Unite multiple columns into one by pasting strings together |
+|  `separate()` | Separate a character column into multiple columns with a regular expression or numeric locations |
 
 ## Data Cleaning Basics
 
@@ -141,12 +146,12 @@ Being specific about which version of `filter()`, for example, you call is easy.
 :::
 
 ::: callout-note
-## Challenge
+## Exercise
 
 Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages.
 :::
 
-Now that we have learned a little mini-lesson on functions, let's get the data that we are going to use for this lesson.
+Now that we have introduce some data wrangling functions, let's get the data that we are going to use for this lesson.
 
 ::: callout-tip
 ## Setup
@@ -163,10 +168,10 @@ The code chunk you use to read in the data should look something like this:
 
 ```{r}
 #| message: false
-catch_original <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
+catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
-**Note that Windows users** who want to use this method locally also need to use the `url()` function here with the argument `method = "libcurl"`
+**Note that Windows users** Keep in mind, if you want to replicate this workflow in your local computer you also need to use the `url()` function here with the argument `method = "libcurl"`. It would look like this:
 
 ```{r}
 #| eval: false
@@ -177,17 +182,43 @@ catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/obje
 This data set is relatively clean and easy to interpret as-is. While it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
 
 ::: callout-note
-## Challenge
+## Exercise
 
 Before we get too much further, spend a minute or two outlining your RMarkdown document so that it includes the following sections and steps:
 
 - Data Sources
   - Read in the data
+  - Explore data
 - Clean and Reshape data
   - Remove unnecessary columns
   - Check column typing
   - Reshape data
 :::
+
+## Explore data
+Similar to what we did in our Intro to Rmd lesson, it is good practice to skim through the data you just read. This is important to make sure the data is read as you were expecting and also it allows you to familiarize with the data.
+
+```{r}
+#| eval: false
+
+## Prints the column names of my data frame
+colnames(catch_original)
+
+## First 6 lines of the data frame
+head(catch_original)
+
+## Summary of each column of data
+summary(catch_original)
+
+## Prints unique values in a column (in this case Date)
+unique(catch_original$Year)
+
+## Opens data frame in its own tab to see each row and column of the data
+View(catch_original)
+
+```
+
+
 
 ## About the pipe (`%>%`) operator
 
@@ -218,7 +249,7 @@ If you think of the assignment operator (`<-`) as reading like "gets", then the 
 
 So you might think of the above chunk being translated as:
 
-The cleaned data frame gets the original data, and then a filter (of the original data), and then a select (of the filtered data).
+> The cleaned data frame gets the original data, and then a filter (of the original data), and then a select (of the filtered data).
 
 The benefits to using pipes are that you don't have to keep track of (or overwrite) intermediate data frames. The drawbacks are that it can be more difficult to explain the reasoning behind each step, especially when many operations are chained together. It is good to strike a balance between writing efficient code (chaining operations), while ensuring that you are still clearly explaining, both to your future self and others, what you are doing and why you are doing it.
 
@@ -300,7 +331,7 @@ catch_data[i,]
 
 Well that's odd: The value in `catch_thousands` is `I`. It turns out that this data set is from a PDF which was automatically converted into a `CSV` and this value of `I` is actually a 1.
 
-Let's fix it by incorporating the `ifelse()` function to our `mutate()` call, which will change the value of the `Chinook` column to 1 if the value is equal to `I`, otherwise it will use `as.numeric()` to turn the character representations of numbers into numeric typed values.
+Let's fix it by incorporating the `ifelse()` function to our `mutate()` call, which will change the value of the `Chinook` column to 1 if the value is equal to `I`, then will use `as.numeric()` to turn the character representations of numbers into numeric typed values.
 
 ```{r}
 catch_clean <- catch_data %>% 
@@ -312,27 +343,32 @@ head(catch_clean)
 
 ## Changing shape using `pivot_longer()` and `pivot_wider()`
 
-The next issue is that the data are in a wide format and, we want the data in a long format instead. `pivot_longer()` from the `tidyr` package helps us do just this conversion:
+The next issue is that the data are in a wide format and, we want the data in a long format instead. `pivot_longer()` from the `tidyr` package helps us do just this conversion. How does did work, if you do not remember all the arguments that go into this function you can always call the `help` page by typing `?pivot_longer` in the console.
 
 ```{r}
 catch_long <- catch_clean %>% 
-  pivot_longer(cols = -c(Region, Year), names_to = "species", values_to = "catch")
+  pivot_longer(cols = -c(Region, Year), #pivot longer all columns except Region and Year
+               names_to = "species", 
+               values_to = "catch")
 
 head(catch_long)
 ```
 
 The syntax we used above for `pivot_longer()` might be a bit confusing so let's walk though it.
 
-The first argument to `pivot_longer` is the columns over which we are pivoting. You can select these by listing either the names of the columns you do want to pivot, or the names of the columns you are not pivoting over. The `names_to` argument takes the name of the column that you are creating from the column **names** you are pivoting over. The `values_to` argument takes the name of the column that you are creating from the **values** in the columns you are pivoting over.
+The first argument to `pivot_longer` is the columns over which we are pivoting. You can select these by listing either the names of the columns you do want to pivot, or in this case, the names of the columns you are not pivoting over. The `names_to` argument takes the name of the column that you are creating from the column **names** you are pivoting over. The `values_to` argument takes the name of the column that you are creating from the **values** in the columns you are pivoting over.
 
 The opposite of `pivot_longer()`, `pivot_wider()`, works in a similar declarative fashion:
 
 ```{r}
 catch_wide <- catch_long %>% 
-  pivot_wider(names_from = species, values_from = catch)
+  pivot_wider(names_from = species, 
+              values_from = catch)
 
 head(catch_wide)
 ```
+
+Same than we did above we can pull up the documentation of the function to remind ourselves what goes in which argument. Type `?pivot_wider` in the console.
 
 ## Renaming columns with `rename()`
 
@@ -347,7 +383,9 @@ catch_long <- catch_long %>%
 head(catch_long)
 ```
 
-### `names()` versus `rename()`
+::: callout-important
+
+## `names()` versus `rename()`
 
 Many people use the base R function `names()` to rename columns, often in combination with column indexing that relies on columns being in a particular order. Column indexing is often also used to select columns instead of the `select()` function from `dplyr`. Although these methods both work just fine, they do have one major drawback: in most implementations they rely on you knowing exactly the column order your data is in.
 
@@ -358,6 +396,10 @@ Your colleague emails you letting you know that she has an updated version of th
 Unbeknownst to you, your colleagues bought a new sensor this year that measures dissolved oxygen. Because of the new variables in the data set, the column order is different. Your script which previously renamed the fourth column, `SAL_PSU` to `salinity` now renames the fourth column, `O2_MGpL` to `salinity`. No wonder your results looked so weird, good thing you caught it!
 
 If you had written your code so that it doesn't rely on column order, but instead renames columns using the `rename()` function, the code would have run just fine (assuming the name of the original salinity column didn't change, in which case the code would have thrown an error in an obvious way). This is an example of a defensive coding strategy, where you try to anticipate issues before they arise, and write your code in such a way as to keep the issues from happening.
+
+::: 
+
+
 
 ## Adding columns using `mutate()`
 
@@ -371,7 +413,7 @@ catch_long <- catch_long %>%
 head(catch_long)
 ```
 
-Now let's remove the `catch_thousands` column for now since we don't need it. Note that here we have added to the expression we wrote above by adding another function call (mutate) to our expression. This takes advantage of the pipe operator by grouping together a similar set of statements, which all aim to clean up the `catch_long` `data.frame`.
+Now let's remove the `catch_thousands` column for now since we don't need it. Note that here we have added to the expression we wrote above by adding another function call (mutate) to our expression. This takes advantage of the pipe operator by grouping together a similar set of statements, which all aim to clean up the `catch_clean` `data.frame`.
 
 ```{r}
 catch_long <- catch_long %>% 
@@ -385,7 +427,7 @@ We're now ready to start analyzing the data.
 
 ## Summary statistics using `group_by()` and `summarize()`
 
-As I outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarize()` functions:
+As we outlined in the Introduction, `dplyr` lets us employ the Split-Apply-Combine strategy and this is exemplified through the use of the `group_by()` and `summarize()` functions:
 
 ```{r}
 mean_region <- catch_long %>% 
@@ -411,7 +453,7 @@ If you are finding that you are reaching for this combination of `group_by()`, `
 :::
 
 ::: callout-note
-## Challenge
+## Exercise
 
 - Find another grouping and statistic to calculate for each group
 - Find out if you can group by multiple variables
@@ -424,14 +466,14 @@ If you are finding that you are reaching for this combination of `group_by()`, `
 Let's go back to our original `data.frame` and do some `filter()`ing:
 
 ```{r}
-SSE_catch <- catch_long %>% 
+sse_catch <- catch_long %>% 
   filter(Region == "SSE")
 
-head(SSE_catch)
+head(sse_catch)
 ```
 
 ::: callout-note
-## Challenge
+## Exercise
 
 - Filter to just catches of over one million fish
 - Filter to just Chinook from the SSE region
@@ -439,10 +481,10 @@ head(SSE_catch)
 
 ## Sorting your data using `arrange()`
 
-`arrange()` is how we sort the rows of a `data.frame`. In my experience, I use `arrange()` in two common cases:
+`arrange()` is how we sort the rows of a `data.frame`. Two common case to use `arrange()` are:
 
-- When I want to calculate a cumulative sum (with `cumsum()`) so row order matters
-- When I want to display a table (like in an `.Rmd` document) in sorted order
+- To calculate a cumulative sum (with `cumsum()`) so row order matters
+- To display a table (like in an `.Rmd` document) in sorted order
 
 Let's re-calculate mean catch by region, and then `arrange()` the output by mean catch:
 
@@ -454,6 +496,7 @@ mean_region <- catch_long %>%
 
 head(mean_region)
 ```
+
 
 The default sorting order of `arrange()` is to sort in ascending order. To reverse the sort order, wrap the column name inside the `desc()` function:
 
@@ -472,10 +515,10 @@ head(mean_region)
 
 This can come in really handle when we need to split a column into two pieces by a consistent separator (like a dash).
 
-Let's make a new `data.frame` with fake data to illustrate this. Here we have a set of site identification codes. with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
+Let's make a new `tibble` with fake data to illustrate this. Here we have a set of site identification codes. with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
 
 ```{r}
-sites_df <- data.frame(site = c("HAW-101",
+sites_df <- tibble(site = c("HAW-101",
                                 "HAW-103",
                                 "OAH-320",
                                 "OAH-219",
@@ -486,7 +529,7 @@ sites_df %>%
 ```
 
 ::: callout-note
-## Challenge
+## Excersise
 
 Split the `city` column in the data frame `cities_df` into `city` and `state_code` columns
 
@@ -520,15 +563,20 @@ We just ran through the various things we can do with `dplyr` and `tidyr` but if
 
 ```{r}
 #| catch: true
-catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
-region_defs <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", method = "libcurl")) %>% 
+catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
+                               method = "libcurl"))
+
+region_defs <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", 
+                            method = "libcurl")) %>% 
     select(code, mgmtArea)
 
 mean_region <- catch_original %>%
   select(-All, -notesRegCode) %>% 
   mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
   mutate(Chinook = as.numeric(Chinook)) %>% 
-  pivot_longer(-c(Region, Year), names_to = "species", values_to = "catch") %>%
+  pivot_longer(-c(Region, Year), 
+               names_to = "species", 
+               values_to = "catch") %>%
   mutate(catch = catch*1000) %>% 
   group_by(Region) %>% 
   summarize(mean_catch = mean(catch))
