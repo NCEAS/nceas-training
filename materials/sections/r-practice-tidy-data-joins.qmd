@@ -40,14 +40,14 @@ library(lubridate) # for bonus question
 # Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your Rmd.
 ```
 
-3.  Obtain datasets from the EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following datasets:
+3.  Obtain data from the EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following files:
 
 -   `52_pp52_birds_1.csv`
 -   `52_pp52_surveys_1.csv`
 -   `52_pp52_sites_1.csv`
 -   `52_pp52_taxalist_1.csv`
 
-**Note:** It's up to you on how you want to download and load the data! You can either use the datasets links (obtain by right-clicking the Download button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
+**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the Download button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
 
 4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
 :::
@@ -57,11 +57,11 @@ library(lubridate) # for bonus question
 ::: callout-note
 #### Question 1
 
-Read in the datasets and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
+Read in the data and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
 :::
 
 ```{r}
-# read in data using datasets links
+# read in data using download links
 bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
 surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
 sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=81bf72420e69077097fb0790dcdc63a6")
@@ -108,9 +108,7 @@ unique(bird_observations$species_id)
 ::: callout-note
 #### Question 2b
 
-What are the primary and foreign keys for each datasets? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
-
-**Hint:** Is a primary key necessary to have in a dataset?
+What are the primary and foreign keys for each table? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
 :::
 
 <details>
