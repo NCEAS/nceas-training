@@ -9,7 +9,6 @@ Imports:
     curl,
     dplyr,
     DT,
-    EML,
     ggplot2,
     ggforce,
     ggmap,
@@ -34,7 +33,6 @@ Imports:
     textdata,
     htmlwidgets,
     wordcloud,
-    viridis,
-    dataone
+    viridis
 Remotes: 
     rstudio/bookdown
