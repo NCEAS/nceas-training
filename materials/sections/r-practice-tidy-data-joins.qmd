@@ -4,7 +4,7 @@ bibliography: references.bib
 
 ## Learning Objectives {.unnumbered}
 
--   Practice joining datasets together
+-   Practice joining tables together
 -   Practice identifying primary and foreign keys
 -   Practice using common cleaning and wrangling functions
 
@@ -138,7 +138,7 @@ birds_subset <- bird_observations %>%
   filter(site_id %in% c("LI-W", "NU-C"))
 ```
 
-### Use `left_join()` to merge `birds_subset` with the datasets `sites` and `taxalist`
+### Use `left_join()` to merge `birds_subset` with the tables `sites` and `taxalist`
 
 ::: callout-note
 #### Qustion 4
@@ -153,7 +153,7 @@ birds_left <- birds_subset %>%
 # don't see x = birds_subset here because piping in birds_subset means it automatically assumes birds_subset as x.
 ```
 
-### Use `full_join()` to merge `birds_subset` and `sites` data
+### Use `full_join()` to merge `birds_subset` and `sites` tables
 
 ::: callout-note
 #### Question 5a
@@ -165,7 +165,7 @@ First, answer: what do you expect a `full_join()` between `birds_subset` and `si
 
 <summary>Answer:</summary>
 
-I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one dataset because in a full join everything is kept.
+I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept.
 
 </details>
 
@@ -196,7 +196,7 @@ First, answer: what do you expect an `inner_join()` between `birds_subset` and `
 
 <summary>Answer:</summary>
 
-I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the datasets.
+I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the joined table.
 
 </details>
 
@@ -249,11 +249,11 @@ You'd expect the outcome to differ from an `inner_join()` if `birds_subset` cont
 
 ## Exercise: Practice Wrangling & Joining Data
 
-### Wrangle `bird_observations` data and merge the data with all the other datasets (`sites`, `surveys`, and `taxalist`)
+### Wrangle `bird_observations` data and merge the data with all the other tables (`sites`, `surveys`, and `taxalist`)
 
 ::: callout-note
 #### Question 7a
-Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` datasets).
+Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` table).
 :::
 
 ```{r}
@@ -264,8 +264,8 @@ bird_observations <- bird_observations %>%
 ::: callout-note
 #### Question 7b
 
-- Create a subset that contains all observations in the `birds_observations` dataset, 
-- then join the `taxalist`, `sites` and `surveys` datasets to it, 
+- Create a subset that contains all observations in the `birds_observations` data frame, 
+- then join the `taxalist`, `sites` and `surveys` tables to it, 
 - and finally limit to only columns `survey_date`, `common_name`, `park_name`, `bird_count`, and `observer`. 
 
 **Hint:** What function do you use to subset data by columns?
@@ -332,4 +332,4 @@ bird_obs_subset <- bird_obs_subset %>%
   summarize(tot_bird_count_month = n())
 ```
 
-Take a look at your final dataset. Does it give you the outcome you expected? Is it informative? How would you improve this wrangling process?
+Take a look at your final data frame. Does it give you the outcome you expected? Is it informative? How would you improve this wrangling process?
