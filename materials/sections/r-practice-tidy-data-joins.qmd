@@ -4,7 +4,7 @@ bibliography: references.bib
 
 ## Learning Objectives {.unnumbered}
 
--   Practice joining datasets together
+-   Practice joining tables together
 -   Practice identifying primary and foreign keys
 -   Practice using common cleaning and wrangling functions
 
@@ -40,14 +40,14 @@ library(lubridate) # for bonus question
 # Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your Rmd.
 ```
 
-3.  Obtain datasets from the EDI Data Portal [Ecological and social Interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following datasets:
+3.  Obtain data from the EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following files:
 
 -   `52_pp52_birds_1.csv`
 -   `52_pp52_surveys_1.csv`
 -   `52_pp52_sites_1.csv`
 -   `52_pp52_taxalist_1.csv`
 
-**Note:** It's up to you on how you want to download and load the data! You can either use the datasets links or manually download the data and then upload the files to RStudio server.
+**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the Download button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
 
 4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
 :::
@@ -57,20 +57,20 @@ library(lubridate) # for bonus question
 ::: callout-note
 #### Question 1
 
-Read in the datasets and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
+Read in the data and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
 :::
 
 ```{r}
-# read in data using datasets links
+# read in data using download links
 bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
-sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
-surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=81bf72420e69077097fb0790dcdc63a6")
+surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
+sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=81bf72420e69077097fb0790dcdc63a6")
 taxalist <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=58f863b7e3066e68536a9cacdc7bd58e")
 
 # read in data from the data directory after manually downloading data 
 bird_observations <- read_csv("data/52_pp52_birds_1.csv")
-sites <- read_csv("data/52_pp52_sites_1.csv")
 surveys <- read_csv("data/52_pp52_surveys_1.csv")
+sites <- read_csv("data/52_pp52_sites_1.csv")
 taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
 ```
 
@@ -79,7 +79,7 @@ taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
 ::: callout-note
 #### Question 2a
 
-What functions can you use to explore the data you just read in?
+What functions can you use to explore the data you just read in? Think about which functions we've been using to explore the structure of the data frame, information about columns, unique observations, etc.
 :::
 
 ```{r}
@@ -108,9 +108,7 @@ unique(bird_observations$species_id)
 ::: callout-note
 #### Question 2b
 
-What are the primary and foreign keys for each datasets?
-
-**Hint:** Is a primary key necessary to have in a dataset?
+What are the primary and foreign keys for each table? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
 :::
 
 <details>
@@ -118,9 +116,9 @@ What are the primary and foreign keys for each datasets?
 <summary>Answer:</summary>
 
 -   `bird_observations`: Does not have a primary key and foreign key is `survey_id`, `site_id`, `species_id`
--   `sites`: Primary key is `site_id` and foreign key is `site_id`, `survey_id`
--   `surveys`: Does not have a primary key and foreign key is `site_id`
--   `taxalist`: Does not have a primary key and foreign key is `species_id`
+-   `sites`: Primary key is `site_id` and does not have a foreign key.
+-   `surveys`: Primary key is `survey_id` and foreign key is `site_id`.
+-   `taxalist`: Primary key is `species_id` and does not have a foreign key.
 
 </details>
 
@@ -140,7 +138,7 @@ birds_subset <- bird_observations %>%
   filter(site_id %in% c("LI-W", "NU-C"))
 ```
 
-### Use `left_join()` to merge `birds_subset` with the datasets `sites` and `taxalist`
+### Use `left_join()` to merge `birds_subset` with the tables `sites` and `taxalist`
 
 ::: callout-note
 #### Qustion 4
@@ -155,7 +153,7 @@ birds_left <- birds_subset %>%
 # don't see x = birds_subset here because piping in birds_subset means it automatically assumes birds_subset as x.
 ```
 
-### Use `full_join()` to merge `birds_subset` and `sites` data
+### Use `full_join()` to merge `birds_subset` and `sites` tables
 
 ::: callout-note
 #### Question 5a
@@ -167,7 +165,7 @@ First, answer: what do you expect a `full_join()` between `birds_subset` and `si
 
 <summary>Answer:</summary>
 
-I expect to see all columns and all observations from `birds_subset` and all columns from `sites` to be merged into one datasets because in a full join everything is kept.
+I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept.
 
 </details>
 
@@ -178,8 +176,12 @@ Write code to `full_join()` the `birds_subset` and `sites` data into a new objec
 :::
 
 ```{r}
+# syntax using pipe
 birds_full <- birds_subset %>% 
-  full_join(x = birds_subset, y = sites, by = "site_id")
+  full_join(y = sites, by = "site_id")
+
+# syntax without pipe
+birds_full <- full_join(x = birds_subset, y = sites, by = "site_id")
 ```
 
 
@@ -194,7 +196,7 @@ First, answer: what do you expect an `inner_join()` between `birds_subset` and `
 
 <summary>Answer:</summary>
 
-I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the datasets.
+I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the joined table.
 
 </details>
 
@@ -204,8 +206,12 @@ Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_in
 :::
 
 ```{r}
+# syntax using pipe
 birds_inner <- birds_subset %>% 
-  inner_join(x = birds_subset, y = taxalist, by = "species_id")
+  inner_join(y = taxalist, by = "species_id")
+
+# syntax without pipe
+birds_inner <- inner_join(x = birds_subset, y = taxalist, by = "species_id" )
 ```
 
 ::: callout-note
@@ -214,8 +220,12 @@ What would you get if instead of `inner_join()` you'd used `left_join()` for thi
 :::
 
 ```{r}
+# syntax using pipe
 birds_inner_left <- birds_subset %>% 
-  left_join(x = birds_subset, y = taxalist, by = "species_id")
+  left_join(y = taxalist, by = "species_id")
+
+# syntax without pipe
+birds_inner_left <- left_join(x = birds_subset, y = taxalist, by = "species_id")
 ```
 
 ::: callout-note
@@ -227,17 +237,23 @@ Why does that make sense for this scenario? In what case would you expect the ou
 
 <summary>Answer:</summary>
 
-I have the same datasets after using both `inner_join()` and `left_join()` where `x = birds_subset` and `y = taxalist`, `by = speices_id`. We expect the same here because there is no `species_id` in `birds_subset` that does not match in taxalist. If there was a `species_id` in `birds_subset` that did NOT exist in `taxalist`, then we would have expected it to see it in the left join because in the left join everything in the left (or `x`) is kept. If it was an inner join then we would not see the bird species id that did NOT exist in `taxalist`. It would be removed because inner only keeps what matches in both.
+You have the same resulting data set regardless of using `inner_join()` or `left_join()` to merge `bird_subset` and `taxalist`. The reasons for this are:
+
+- `inner_join()` keeps only the rows (observations) that have a matching key across both data sets - here, `species_id` is our key, and the only rows that match across both data sets are those where `species_id` equals `BHCO` or `RWBL`
+
+- `left_join()` keeps all rows from the left table (in our case, the left table is `birds_subset`) and merges on data with matching keys (`species_id`) on the right (here, the right table is `taxalist`). Because our left data set (`birds_subset`) only contains `species_id`s equal to `BHCO` or `RWBL`, only rows with those species will be kept from the right data set (`taxalist`)
+
+You'd expect the outcome to differ from an `inner_join()` if `birds_subset` contained an observation with a `species_id` that was *not* found in `taxalist`. If there was an observation of a `species_id` in `birds_subset` that was *not* in `taxalist`, then that observation would be kept, and `NA`s would be assigned to the `common_name` and `asu_itis` columns for that observations
 
 </details>
 
 ## Exercise: Practice Wrangling & Joining Data
 
-### Wrangle `bird_observations` data and merge the data with all the other datasets (`sites`, `surveys`, and `taxalist`)
+### Wrangle `bird_observations` data and merge the data with all the other tables (`sites`, `surveys`, and `taxalist`)
 
 ::: callout-note
 #### Question 7a
-Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` datasets).
+Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` table).
 :::
 
 ```{r}
@@ -248,11 +264,9 @@ bird_observations <- bird_observations %>%
 ::: callout-note
 #### Question 7b
 
-- Create a subset that contains all observations in the `birds_observations` dataset, 
-- then join the `taxalist`, `sites` and `surveys` datasets to it, 
+- Create a subset that contains all observations in the `birds_observations` data frame, 
+- then join the `taxalist`, `sites` and `surveys` tables to it, 
 - and finally limit to only columns `survey_date`, `common_name`, `park_name`, `bird_count`, and `observer`. 
-
-You can decide the order that you want to create this in (e.g. limit the columns first, then join, or the other way around).
 
 **Hint:** What function do you use to subset data by columns?
 :::
@@ -260,9 +274,9 @@ You can decide the order that you want to create this in (e.g. limit the columns
 ```{r}
 bird_obs_subset <- bird_observations %>% 
   full_join(y = taxalist, by = "species_id") %>% 
-  full_join(y = sites, by = c("site_id", "survey_id")) %>% 
-  full_join(y = surveys, by = "site_id") %>%
-  select(c(survey_date, common_name, park_name, bird_count, observer))
+  full_join(y = sites, by = "site_id") %>% 
+  full_join(y = surveys, by = c("site_id", "survey_id")) %>%  
+  select(survey_date, common_name, park_name, bird_count, observer)
 ```
 
 ### Explore `observer` data and fix the values within this column so that all values are in the same format
@@ -285,7 +299,9 @@ Replace "Josh Burns" with a format that matches the other observer names. Then u
 
 ```{r}
 bird_obs_subset <- bird_obs_subset %>% 
-  mutate(observer = if_else(observer == "Josh Burns", "J. Burns", observer))
+  mutate(observer = if_else(condition = observer == "Josh Burns", 
+                            true = "J. Burns", 
+                            false = observer))
 
 unique(bird_obs_subset$observer)
 ```
@@ -316,4 +332,4 @@ bird_obs_subset <- bird_obs_subset %>%
   summarize(tot_bird_count_month = n())
 ```
 
-Take a look at your final dataset. Does it give you the outcome you expected? Is it informative? How would you improve this wrangling process?
+Take a look at your final data frame. Does it give you the outcome you expected? Is it informative? How would you improve this wrangling process?
