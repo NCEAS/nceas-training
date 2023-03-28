@@ -330,7 +330,7 @@ unique(bird_obs_subset$observer)
 
 ::: callout-important
 ## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stoppoing point, use the workflow: ```Stage > Commit > Pull > Push```
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
 :::
 
 ### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
