@@ -47,9 +47,12 @@ library(lubridate) # for bonus question
 -   `52_pp52_sites_1.csv`
 -   `52_pp52_taxalist_1.csv`
 
-**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the Download button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
+**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the "Download" button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
 
 4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
+
+5. Use the `Git` workflow. After you've set up your project and uploaded your data go through the workflow: ```Stage > Commit > Pull > Push```
+    - **Note:** You also want to `Pull` when you first open a project.
 :::
 
 ### Read in the data
@@ -108,19 +111,20 @@ unique(bird_observations$species_id)
 ::: callout-note
 #### Question 2b
 
-What are the primary and foreign keys for each table? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
+What are the primary and foreign keys for the tables `bird_observations` and `taxalist`? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
+
+**Hint:** First identify the primary keys for all the tables, then identify the foreign keys.
 :::
 
 <details>
 
 <summary>Answer:</summary>
 
--   `bird_observations`: Does not have a primary key and foreign key is `survey_id`, `site_id`, `species_id`
--   `sites`: Primary key is `site_id` and does not have a foreign key.
--   `surveys`: Primary key is `survey_id` and foreign key is `site_id`.
+-   `bird_observations`: Primary key is a combination of `survey_id`, `site_id`, and `species_id`. The foreign key is `species_id`.
 -   `taxalist`: Primary key is `species_id` and does not have a foreign key.
 
 </details>
+
 
 ### Create a subset of `bird_observations`
 
@@ -141,16 +145,34 @@ birds_subset <- bird_observations %>%
 ### Use `left_join()` to merge `birds_subset` with the tables `sites` and `taxalist`
 
 ::: callout-note
-#### Qustion 4
+#### Question 4a
 
-Use left join(s) to update `birds_subset` so that it also includes `sites` and `taxalist` information. For each join, include an explicit argument saying which key you are joining by (even if it will just assume the correct one for you). Store the updated data frame as `birds_left`. Make sure to look at the output - is what it contains consistent with what you expected it to contain?
+First, answer: what do you expect a `left_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+I expect to see all columns and all observations from `birds_subset` and from `sites`, I expect to see the columns `park_code`, `park_district`, `park-name`, `point_code`, `point_location` and `park_acreage` and only observations for `NU-C` and `LI-W` because those are the only `site_id` values in `birds_subset` and in a left join only the observations matching the left table (in this case, `birds_subset` is the left table) will be kept.
+
+</details>
+
+
+::: callout-note
+#### Qustion 4b
+
+Use a left join to update `birds_subset` so that it also includes `sites` information. For each join, include an explicit argument saying which key you are joining by (even if it will just assume the correct one for you). Store the updated data frame as `birds_left`. Make sure to look at the output - is what it contains consistent with what you expected it to contain?
 :::
 
 ```{r}
+# syntax using pipe
 birds_left <- birds_subset %>% 
-  left_join(y = sites, by = "site_id") %>% 
-  left_join(y = taxalist, by = "species_id")
+  left_join(y = sites, by = "site_id")
 # don't see x = birds_subset here because piping in birds_subset means it automatically assumes birds_subset as x.
+
+# syntax without pipe
+birds_left <- left_join(x = birds_subset, y = sites, by = "site_id")
 ```
 
 ### Use `full_join()` to merge `birds_subset` and `sites` tables
@@ -305,6 +327,11 @@ bird_obs_subset <- bird_obs_subset %>%
 
 unique(bird_obs_subset$observer)
 ```
+
+::: callout-important
+## Save your work and use `Git`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stoppoing point, use the workflow: ```Stage > Commit > Pull > Push```
+:::
 
 ### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
 
