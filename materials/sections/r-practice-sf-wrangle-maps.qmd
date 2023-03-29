@@ -5,6 +5,7 @@
 - Practice visualizing spatial data and making maps
 
 ::: callout-note
+## Acknolwedgements
 These exercises are adapted from the [`lterdatasampler` package](https://lter.github.io/lterdatasampler/index.html).
 :::
 
@@ -25,16 +26,14 @@ These exercises will be using pika stress metrics and Colorado Rockies elevation
 2. Load the following libraries at the top of your R Markdown file.
 
 ```{r}
-#| warning: false
-#| message: false
+#| code-fold: false
 library(readr)
-library(tidyr)
 library(dplyr)
 library(sf)
-library(scales)
 library(ggplot2)
+library(scales)
 library(leaflet)
-library(stringr)
+library(ggmap)
 ```
 
 3. Obtain pika and elevation data from the [EDI Portal Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1). Download the following files:
@@ -110,7 +109,8 @@ We are going to be using some of the cleaning steps that the `lterdatasampler` d
 
 Let's start with the `pika` data.
 
-::: column-tip
+::: callout-note
+
 #### Question 3
 
 From the `pika` data we only want the columns:
@@ -124,7 +124,9 @@ From the `pika` data we only want the columns:
 - `Sex`
 
 Write code to subset the data so it only contains those columns and save it to an object called `pika_clean`.
+
 :::
+
 
 ```{r}
 pika_clean <- pika %>% 
@@ -134,7 +136,8 @@ pika_clean <- pika %>%
            -Biweek)
 ```
 
-::: column-tip
+
+::: callout-note
 #### Question 4
 
 Next, we want to convert data types. 
@@ -146,8 +149,8 @@ In the rest of these cleaning steps, we'll be overriding `pika_clean`, meaning y
 Check that the conversation worked using `class()`.
 :::
 
+
 ```{r}
-# wait to convert Date
 pika_clean <- pika_clean %>% 
     mutate(
         Station = as.factor(Station),
@@ -157,7 +160,7 @@ pika_clean <- pika_clean %>%
 ```
 
 
-::: column-tip
+::: callout-note
 #### Question 5
 
 Next, we want to spell out the abbreviations in `Site`. With `unique()`, we find that `Site` has three unique site IDs: `CG`, `WK`, `LL`. And from the metadata, we know that:
@@ -182,7 +185,7 @@ pika_clean <- pika_clean %>%
 ```
 
 
-::: callout-tip
+::: callout-note
 #### Question 6
 
 We're almost done! Take a look at the `pika_clean` data using `View()`. The table might be better organized if we had the variables `Station` and `Site` next to each other. We can change that using the function `relocate()`. `relocate()` is another useful function that allows us to change the column order using the arguments `.before` and `.after`. If needed, view the help page or use Google.
@@ -201,6 +204,7 @@ pika_clean <- pika_clean %>%
 We're done! These are the all the cleaning and wrangling steps we are going to do for `pika`. We completed these steps one by one in their own code chunks, but know that you could have piped into each step in a single code chunk. See the code chunk below:
 
 ```{r}
+#| code-summary: "Piped Sequence"
 # cleaning and wrangling using a piped sequence
 pika_clean <- pika %>% 
     # Question 3
@@ -229,7 +233,7 @@ pika_clean <- pika %>%
 
 Now let's clean and wrangle `elevation`.
 
-::: column-tip
+::: callout-note
 #### Question 7
 
 From the `elevation` data we only want the columns:
@@ -246,7 +250,7 @@ elevation_clean <- elevation %>%
            Elev_M)
 ```
 
-::: column-tip
+::: callout-note
 #### Question 8
 
 Lastly, we want to convert data types. 
@@ -268,16 +272,24 @@ elevation_clean <- elevation %>%
 If we combined these cleaning and wrangling steps in a piped sequence it would look like this:
 
 ```{r}
+#| code-summary: "Piped Sequence"
 # cleaning and wrangling using a piped sequence
 elevation_clean <- elevation %>% 
+    # Question 7
     select(Station,
            Elev_M) %>%
+    # Question 8
     mutate(Station = as.factor(Station))
 ```
 
 ### Join `pika_clean` and `elevation_clean`
 
+Finally, the last wrangling step we want to do is merge these two cleaned and subsetted tables. 
 
+::: callout-note
+#### Question 9
+Since we want all the information from our newly subsetted tables, use `full_join()` to merge the tables together. Explicitly include the variable you're joining by. Look at the output and check that it's what you expected.  
+:::
 
 ```{r}
 # using pipe
@@ -291,8 +303,146 @@ pikas <- full_join(x = pika_clean,
                    by = "Station")
 ```
 
+## Exercise: Spatial Exploration and Making Maps
+
+Let's use the data from the `pikas` table to practice some of the spatial functions we learned about from the `sf` package. We'll also practice making maps using `ggplot`, as well as interactive maps using `leaflet`, and adding basemaps using `ggmap`.
+
+### Converting to Simple Features
+
+If we run `class(pikas)`, we'll see that `pikas` has a class of table or data frame. However, if we want to create a map (or in the future run any spatial analysis), we need `pikas` to be a simple features (sf) object.
+
+::: callout-note
+#### Question 10
+
+Using the coordinates in the table `UTM_Easting` and `UTM_Northing` to convert `pikas` into an `sf` object. To do this, use the `sf` function `st_as_sf()` and save it to an object called `pikas_sf`. 
+
+What new column do you expect to appear? What happened to the `UTM_Easting` and `UTM_Northing` columns?
+
+Check the class of `pikas_sf` to make sure it's an `sf` object.
+:::
+
+```{r}
+pikas_sf <- st_as_sf(x = pikas,
+                     coords = c("UTM_Easting", "UTM_Northing")) # make sure it's in longitude, latitude order
+```
 
 
+### Setting a Coordinate Reference System (CRS)
+
+Run `st_crs(pikas_sf)` in the Console. The output we get is ```Coordinate Reference System: NA```. So while we now have a `geometry` column with spatial information, we still don't have a CRS associated with our points. This is necessary for making sure our data is represented accurately in 2D, as well as the Earth's surface, what units are being used and more. 
+
+::: callout-note
+#### Question 11
+
+Set the CRS for the geometry column in `pikas_sf` using `st_set_crs()` and the EPSG code 26913. 
+
+Use `st_crs()` to check that you successfully set the CRS to 26913.
+
+**Note:** This EPSG code is for North America, but knowing that the Niwot Ridge Research Station is located in north-central Colorado, you could search for this region on [epsg.io](https://epsg.io/) and use a more local EPSG code. However, if you want to change the CRS after setting it here, you will need to use `st_transform()` because replacing the EPSG code in `st_set_crs()` will not reproject the data.
+:::
+
+```{r}
+pikas_sf <- st_set_crs(pikas_sf, 26913)
+```
+
+### Plotting Points using `ggplot` and `geom_sf()`
+
+::: callout-note
+#### Question 12
+
+Create a basic map of the points using `geom_sf()` from `ggplot`. Don't worry about making the map look nice, just plot to make sure the CRS you chose is accurate and isn't causing any unintended distortion.
+:::
+
+```{r}
+ggplot(data = pikas_sf) +
+    geom_sf()
+```
+
+<details>
+<summary>Plot</summary>
+
+![](images/pika_points_map.png){width="75%" fig-align="center"}
+
+</details>
+
+::: callout-note
+#### Question 13
+
+Take some time to make your `ggplot` map look pretty. Consider the following:
+
+- Color by a variable (i.e. `Site`)
+- Adding labels (title, subtitle, axes, legend)
+- Change the shape of the points using the `shape` argument in `aes()`
+- Add a theme (i.e. `theme_light()`)
+- Customization of plot elements in `theme()`
+:::
+
+```{r}
+ggplot(data = pikas_sf) +
+    geom_sf(aes(color = Site, shape = Site), alpha = 0.6) +
+    theme_minimal() +
+    labs(
+        title = "Location of Pika Sampling Stations",
+        subtitle = "Niwot Ridge LTER",
+        x = "Latitude (Degrees)",
+        y = "Longitude (Degrees)"
+    ) +
+    theme(axis.text.x = element_text(angle = 30)) # tilt x-axis text so that the labels don't overlap
+```
+
+<details>
+<summary>Plot</summary>
+
+![](images/pika_points_map_pretty.png){width="75%" fig-align="center"}
+
+</details>
+
+### Add a basemap using `ggmap`
+
+::: callout-note
+#### Question 14
+Create a bounding box for the Niwot Ridge LTER Research Station using the bounds: 
+:::
+
+```{r}
+nwt_bbox <- c(left = -106, bottom = 39.8433, right = -105, top = 40.2339)
+```
+
+::: callout-note
+#### Question 15
+Make map with `ggplot` and `geom_sf()` and add a basemap using `ggmap`
+:::
+
+```{r}
+ggmap(get_stamenmap(nwt_bbox, zoom = 10, maptype = "terrain")) + 
+ geom_sf(data = pikas_sf, inherit.aes = FALSE) #+
+  #theme_minimal() +
+  #labs(title = "Location of Pika Sampling Stations", subtitle = "Niwot Ridge LTER", x = "Longitude (Degrees)", y = "Latitude (Degrees)") +
+   #scale_color_manual(values = c("black","red","purple")) # Choosing colors to make sure points are visible
+
+combined_map
+```
+
+```{r}
+combined_map <- ggmap(get_stamenmap(nwt_bbox, zoom = 10, maptype = "terrain")) + 
+ geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = Site, shape = Site)) +
+  theme_minimal() +
+  labs(title = "Location of Pika Sampling Stations", subtitle = "Niwot Ridge LTER", x = "Longitude (Degrees)", y = "Latitude (Degrees)") +
+   scale_color_manual(values = c("black","red","purple")) # Choosing colors to make sure points are visible
+
+combined_map
+```
+
+
+
+
+
+### Make an interactive map using `leaflet`
+
+
+::: callout-note
+#### Question 16
+:::
 
 
 
