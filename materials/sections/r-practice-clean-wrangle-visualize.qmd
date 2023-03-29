@@ -33,26 +33,29 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 **Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the collaborator to complete, and Step 3 is for the owner to complete.**
 
 2.  **Collaborator** creates new files for exercise
-    a.  The collaborator creates the following R Markdown files that will be used in the exercise:
-        i.  Title it: "Owner Analysis" and save it as: `owner-analysis.Rmd`
-        ii. Title it: "Collaborator Analysis" and save it as: `collaborator-analysis.Rmd`
-        iii. Title it: "Lobster Report" and save it as: `lobster-report.Rmd`
+    a. The collaborator creates the following directories:
+        i. `analysis` 
+    b. After creating the directories, create the following R Markdown files and store them in the listed folders:
+        i.  Title it: "Owner Analysis", save it as: `owner-analysis.Rmd`, and store in `analysis` folder
+        ii. Title it: "Collaborator Analysis", save it as: `collaborator-analysis.Rmd`, and store in `analysis` folder
+        iii. Title it: "Lobster Report" and save it as: `lobster-report.Rmd` (do not need to put in a folder)
     b.  After creating the files, the collaborator will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
     c.  The owner pulls the changes and R Markdown files into their local repository (their workspace)
+    
 3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
-    a.  Create two new folders one called `data` and one called `figs`
-    b.  Download the following datasets and upload them to the `data` folder:
+    a.  Create two new directories one called `data` and one called `figs`
+    b.  Download the following data and upload them to the `data` folder:
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
-    c.  After creating the `data` folder and adding the datasets, the owner will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
-    d.  The collaborator pulls the changes and datasets into their local repository (their workspace)
+    c.  After creating the `data` folder and adding the data, the owner will `stage`, `commit`, write a commit message, and `push` the files to the remote repository (on github)
+    d.  The collaborator pulls the changes and data into their local repository (their workspace)
 :::
 
 ### Explore, clean and wrangle data
 
-For this portion of the exercise, the owner will be working with the lobster abundance and size dataset, and the collaborator will be working with the lobster trap buoy counts dataset.
+For this portion of the exercise, the owner will be working with the lobster abundance and size data, and the collaborator will be working with the lobster trap buoy counts data
 
-Questions 1-5 you will be working independently since you're working with different datasets, but you're welcome to check in with each other.
+Questions 1-5 you will be working independently since you're working with different data frames, but you're welcome to check in with each other.
 
 ::: panel-tabset
 
@@ -87,22 +90,23 @@ The final step! Time to work together again. Collaborate with your partner in `l
 
 ::: callout-important
 ## Code Review
-As you're adding owner and collaborator code in the report document, conduct a [lightweight code review](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Quality/Code_Review#:~:text=Code%20review%20practices%20fall%20into,review%20and%20lightweight%20code%20review) and walk each other through your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot). 
+As you're working on the `lobster-report.Rmd` you will be conducting [two types of code reviews](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Quality/Code_Review#:~:text=Code%20review%20practices%20fall%20into,review%20and%20lightweight%20code%20review): (1) pair programming and (2) lightweight code review.
 
-This is a lightweight code review, so think brief and give feedback on:
+- Pair programming is where two people develop code together at the same workstation. One person is the "driver" and one person is the "navigator". The driver writes the code while the navigator observes the code being typed, points out any immediate quick fixes, and will also Google / troubleshoot if errors occur. Both the owner and the collaborator should experience both roles, so switch halfway through or at a meaningful stopping point.
 
-- code readability
-- code logic
+- A lightweight code review is brief and you will be giving feedback on code readability and code logic as you're adding owner and collaborator code from their respective `analysis.Rmd`s to the `lobster-report.Rmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
 :::
 
 Make sure your R Markdown is well organized and includes the following elements:
 
 -   citation of the data
--   brief summary of the abstract (i.e. 1-2 sentences)
+-   brief summary of the abstract (i.e. 1-2 sentences) from the [EDI Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
 -   owner analysis and visualizations (you choose which plots you want to include)
     - add alternative text to your plots
+    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
 -   collaborator analysis and visualizations (you choose which plots you want to include)
     - add alternative text to your plots
+    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
 
 Finally, publish on GitHub pages (from owner's repository). Refer back to [Chapter 9](http://localhost:4769/session_12.html) for steps on how to publish using GitHub pages.
 

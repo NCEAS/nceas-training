@@ -19,13 +19,18 @@ library(ggplot2)
 library(tidyr)
 ```
 
-3.  Read in the dataset and store the data frame as `lobster_traps`
+3.  Read in the data and store the data frame as `lobster_traps`
 
 ```{r}
 #| code-fold: false
 lobster_traps <- read_csv("data/Lobster_Trap_Counts_All_Years_20210519.csv")
 ```
 
+4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
+
+5. Use the Git workflow: ```Stage > Commit > Pull > Push```
+    - **Note:** You also want to `Pull` when you first open a project
+    
 :::
 
 ## Convert missing values using `mutate()` and `na_if()`
@@ -80,27 +85,30 @@ lobster_percent <- carp_20_traps %>%
   mutate(PERCENT_TRAPS = (TRAPS / lobster_carp_total) * 100)
 ```
 
-## `group_by() %>% summarize()` practice
-
-::: callout-note
-### Question 5
-Find the mean of lobster commercial trap floats using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `mean()`). Check your output.
+::: callout-important
+## Save your work and use `Git`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
 :::
 
+<!--# Extra Questions -->
+
+<!--# Question 5 -->
+<!--# Find the mean of lobster commercial trap floats using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `mean()`). Check your output.-->
+
 ```{r}
+#| echo: false
+# `group_by() %>% summarize()` practice
 mean_lobster_traps <- lobster_traps %>% 
     group_by(SITE) %>%
     summarize(MEAN_TRAPS = mean(TRAPS, na.rm = TRUE))
 ```
-
-
-<!--# Extra Questions -->
 
 <!--# Question 6 -->
 <!--# Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the `NA` values in `TRAPS`. Check your output. -->
 
 ```{r}
 #| echo: false
+# `group_by() %>% summarize()` practice
 max_lobster_traps <- lobster_traps %>% 
     group_by(SITE, MONTH) %>%
     summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
