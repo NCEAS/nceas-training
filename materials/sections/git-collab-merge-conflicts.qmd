@@ -87,20 +87,44 @@ while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 The Collaborator can now `pull` down those Owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
-::: callout-note
 ### Exercise: With a partner, collaborate in a repository using a conflict-free process {.unnumbered}
 
-Now that the instructors have demonstrated this conflict-free process, break into 
-pairs and try the same with your partner. Start by designating one person as the Owner and one as the Collaborator, and then repeat the steps described above:
+::: callout-note
+#### Instructions
 
-- Step 1: Setup permissions for your Collaborator
-- Step 2: Collaborator clones the Owner repository
-- Step 3: Collaborator edits the `README` file
-- Step 4: Collaborator commits and pushes the file to GitHub
+Now that the instructors have demonstrated this conflict-free process, break into 
+pairs and try the same with your partner. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
+
+- Step 0: Designate one person as the Owner and one as the Collaborator.
+
+**Round One:**
+
+- Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository (see Setup block above for detailed steps)
+- Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
+- Step 3: Collaborator edits the `README` file:
+    - Collaborator adds a new level 2 heading to `README` titled "`Git` Workflow"
+- Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
 - Step 5: Owner pulls the changes that the Collaborator made
-- Step 6: Owner edits, commits, and pushes some new changes
-- Step 7: Collaborator pulls the `Owners` changes from GitHub
-- Step 8: Switch roles, and go through Steps 1-7 again
+- Step 6: Owner edits the `README` file:
+    - Under "`Git` Workflow", Owner adds the steps of the `Git` workflow we've been practicing
+- Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
+- Step 8: Collaborator pulls the `Owners` changes from GitHub
+- Step 9: Go back to Step 0, switch roles, and then follow the steps in Round Two.
+
+**Round Two:**
+
+- Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository
+- Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
+- Step 3: Collaborator edits the `README` file:
+    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository" and adds the high level steps for creating a `Git` repository on GitHub
+- Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
+- Step 5: Owner pulls the changes that the Collaborator made
+- Step 6: Owner edits the `README` file:
+    - Under "How to Create a `Git` Repository", Owner adds the high level steps for creating a `Git` repository from an existing project on RStudio 
+- Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
+- Step 8: Collaborator pulls the `Owners` changes from GitHub
+
+**Hint:** If you don't remember how to create a `Git` repository, refer to the chapter [Intro to `Git` and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two `Git` repositories
 :::
 
 
@@ -277,28 +301,44 @@ branch, and the merged changes are clearly visible in the history.
 
 ![](images/git-conflict-08-history.png)
 
-### Exercise: With a partner, collaborate in a repository and resolve a merge conflict
+### Exercise: With a partner, collaborate in a repository and resolve a merge conflict {.unnumbered}
 
 ::: callout-note
 
-### Instructions
+#### Instructions
 
-Now it's your turn. In pairs, intentionally create a merge conflict, and then go 
-through the steps needed to resolve the issues and continue developing with the 
-merged files. See the sections above for help with each of these steps:
+Now it's your turn. In pairs, intentionally create a merge conflict, and then go through the steps needed to resolve the issues and continue developing with the merged files. See the sections above for help with each of the steps below. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
-- Step 1: Owner and Collaborator ensure all changes are updated
-- Step 2: Owner makes a change and commits
-- Step 3: Collaborator makes a change and commits **on the same line**
+- Step 0: Designate one person as the Owner and one as the Collaborator.
+
+**Round One:**
+
+- Step 1: Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
+- Step 2: Owner edits the `README` file and makes a change to the title and commits **do not push**
+- Step 3: **On the same line**, Collaborator edits the `README` file and makes a change to the title and commits 
 - Step 4: Collaborator pushes the file to GitHub
 - Step 5: Owner pushes their changes and gets an error
 - Step 6: Owner pulls from GitHub to get Collaborator changes
-- Step 7: Owner edits the file to resolve the conflict
+- Step 7: Owner edits the `README` file to resolve the conflict 
 - Step 8: Owner commits the resolved changes
 - Step 9: Owner pushes the resolved changes to GitHub
 - Step 10: Collaborator pulls the resolved changes from GitHub
-- Step 11: Both can view commit history
-- Step 12: Switch roles, and go through Steps 1-11 again
+- Step 11: Both view commit history
+- Step 12: Go back to Step 0, switch roles, and then follow the steps in Round Two.
+
+**Round Two:**
+
+- Step 1: Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
+- Step 2: Owner edits the `README` file and makes a change to line 2 and commits **do not push**
+- Step 3: **On the same line**, Collaborator edits the `README` file and makes a change to line 2 and commits 
+- Step 4: Collaborator pushes the file to GitHub
+- Step 5: Owner pushes their changes and gets an error
+- Step 6: Owner pulls from GitHub to get Collaborator changes
+- Step 7: Owner edits the `README` file to resolve the conflict 
+- Step 8: Owner commits the resolved changes
+- Step 9: Owner pushes the resolved changes to GitHub
+- Step 10: Collaborator pulls the resolved changes from GitHub
+- Step 11: Both view commit history
 
 :::
 
