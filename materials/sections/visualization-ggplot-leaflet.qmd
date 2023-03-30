@@ -37,7 +37,6 @@ Open a new RMarkdown document and remove the filler text.
 1. Load the packages we'll need:
 
 ```{r load_packages}
-#| eval: false
 #| message: false
 #| warning: false
   library(leaflet)
