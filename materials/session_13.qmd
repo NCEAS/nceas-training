@@ -1,13 +1,12 @@
 ---
-title: "R Practice: Collaborating on, Wrangling & Visualizing Data"
+title: "Intro to Data visualization"
 title-block-banner: true
-execute: 
+execute:
   eval: false
 format:
   html:
-    code-fold: true
-    code-summary: "Answer"
     code-overflow: wrap
 ---
 
-{{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}
+
