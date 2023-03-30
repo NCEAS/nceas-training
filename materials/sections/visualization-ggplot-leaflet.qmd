@@ -37,6 +37,7 @@ Open a new RMarkdown document and remove the filler text.
 1. Load the packages we'll need:
 
 ```{r load_packages}
+#| eval: false
 #| message: false
 #| warning: false
   library(leaflet)
@@ -71,7 +72,7 @@ head(esc)
 Otherwise, the straightforward code to load the data:
 
 ```{r}
-escape <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
+escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
 3. Before we continue, let's understand what this data is about by checking out the data package [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ)
