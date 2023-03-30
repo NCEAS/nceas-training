@@ -1,1 +1,595 @@
 ## Learning Objectives {.unnumbered}
+
+- Practice cleaning and wrangling spatial data
+- Practice visualizing spatial data and making maps
+- Practice adding a basemap to a map
+
+::: callout-note
+## Acknolwedgements
+These exercises are adapted from the [`lterdatasampler` package](https://lter.github.io/lterdatasampler/index.html).
+:::
+
+## About the data
+These exercises will be using pika stress metrics and Colorado Rockies elevation data collected by researchers at the Niwot Ridge LTER research site. Data will be accessed from the [EDI Portal Physiological stress of American pika (*Ochotona princeps*) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1). 
+
+## Exercise: 
+
+::: callout-tip
+## Setup
+
+0. Make sure you're in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub).
+
+1. Create a new R Markdown file.
+    a. Title it “R Practice: Spatial Data and Making Maps”.
+    b. Save the file and name it “r-practice-spatial-data-maps”.
+    
+2. Load the following libraries at the top of your R Markdown file.
+
+```{r}
+#| code-fold: false
+#| eval: true
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(scales)
+library(leaflet)
+library(ggmap)
+```
+
+3. Obtain pika and elevation data from the [EDI Portal Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1). Download the following files:
+    - `pika_fecal_glut.aw.data.csv` (Fecal glucocorticoid concentration)
+    - `pika_fecal_glut_habitat.aw.data.csv` (Habitat characteristics)
+    
+**Note:** It’s up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the “Download” button and select “Copy Link Address” for each data entity) or manually download the data and then upload the files to RStudio server.
+
+4. Organize your R Markdown in a meaningful way. This is up to you! Consider the different ways we’ve organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now.
+
+5. Use the `Git` workflow. After you've set up your project and uploaded your data go through the workflow: ```Stage > Commit > Pull > Push```
+    - **Note:** You also want to `Pull` when you first open a project.
+:::
+
+## Exercise: Practice Cleaning & Wrangling data
+
+### Read in the data
+
+::: callout-note
+#### Question 1
+
+Read in the data and store the data frame `pika_fecal_glut.aw.data.csv` (Fecal glucocorticoid concentration) to an object called `pika`, and store the second data frame `pika_fecal_glut_habitat.aw.data.csv` (Habitat characteristics) to an object called `elevation`
+:::
+
+```{r}
+# read in data using download links
+pika <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=43270add3532c7f3716404576cfb3f2c")
+
+elevation <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=6a10b35988119d0462837f9bfa31dd2f")
+
+# read in data from the data directory after manually downloading data 
+pika <- read_csv("data/pika_fecal_glut.aw.data.csv")
+elevation <- read_csv("data/pika_fecal_glut_habitat.aw.data.csv")
+```
+
+### Get familiar with the data
+
+::: callout-note
+#### Question 2
+
+Always, always look at your data. Use functions to explore the data you just read in. Think about which functions we've been using to see the data, access information about columns, unique observations, data types and structure of the data frame.
+
+**Note:** We will only use the columns `Station` and `Elev_M` from the `elevation` table, so spend more time explore the `pika` data. Also, some quick metadata: `Concentration_pg_g` in the `pika` table is the stress measurement and was taken from fecal pellets.
+:::
+
+```{r}
+# view data in a spreadsheet-style viewer
+View(pika)
+
+# returns dimensions of the dataframe by number of rows and number of cols
+dim(pika)
+
+# returns the top six rows of the dataframe
+head(pika)
+
+# returns all the columns and some info about the cols
+glimpse(pika)
+
+# similar to glimpse but returns some summary statistics about the cols
+summary(pika)
+
+# returns column names 
+names(pika)
+
+# returns unique values in a column. In this case we can see all the different bird species IDs
+unique(pika$Site)
+```
+
+
+### Clean & Wrangle `pika` and `elevation` tables
+
+We are going to be using some of the cleaning steps that the `lterdatasampler` developers used. Some of their cleaning steps may be beyond what we've covered in this course, but it's overall straightforward and we'll be guiding you through every step. 
+
+Let's start with the `pika` data.
+
+::: callout-note
+
+#### Question 3
+
+From the `pika` data we only want the columns:
+
+- `Date`
+- `Station`
+- `UTM_Easting`
+- `UTM_Northing`
+- `Concentration_pg_g`
+- `Site`
+- `Sex`
+
+Write code to subset the data so it only contains those columns and save it to an object called `pika_clean`.
+
+:::
+
+
+```{r}
+pika_clean <- pika %>% 
+    select(-Notes,
+           -Vial,
+           -Plate,
+           -Biweek)
+```
+
+
+::: callout-note
+#### Question 4
+
+Next, we want to convert data types. 
+
+The variables `Station`, `Site`, and `Sex` all have a class of `character` (you can find out what data type a variable is by using the function `class()` i.e. `class(pika_clean$Station)`). We want to convert these three variables so that they have a class of `factor`. Do this within a `mutate()` and use the function `as.factor()`. Don't forget you can always check the help page using `?`.
+
+In the rest of these cleaning steps, we'll be overriding `pika_clean`, meaning you don't need to create a new object.
+
+Check that the conversation worked using `class()`.
+:::
+
+
+```{r}
+pika_clean <- pika_clean %>% 
+    mutate(
+        Station = as.factor(Station),
+        Site = as.factor(Site),
+        Sex = as.factor(Sex)
+    )
+```
+
+
+::: callout-note
+#### Question 5
+
+Next, we want to spell out the abbreviations in `Site`. With `unique()`, we find that `Site` has three unique site IDs: `CG`, `WK`, `LL`. And from the metadata, we know that:
+
+- CG = Cable Gate
+- WK = West Knoll
+- LL = Long Lake
+
+Write code to spell out the abbreviations within a `mutate()` using the function `recode()`. `recode()` is an extremely useful function that allows you to replace values within a vector. View the help page or use Google.
+
+Check that your code worked using `unique()`.
+:::
+
+```{r}
+pika_clean <- pika_clean %>% 
+    mutate(Site = recode(
+        Site,
+        "CG" = "Cable Gate",
+        "WK" = "West Knoll",
+        "LL" = "Long Lake"
+    ))
+```
+
+
+::: callout-note
+#### Question 6
+
+We're almost done! Take a look at the `pika_clean` data using `View()`. The table might be better organized if we had the variables `Station` and `Site` next to each other. We can change that using the function `relocate()`. `relocate()` is another useful function that allows us to change the column order using the arguments `.before` and `.after`. If needed, view the help page or use Google.
+
+Let's change the order of the columns so that `Site` is before `Station`, and `Sex` is after `UTM-Northing`. This does not need to be within a `mutate()` because we are not changing any of the values within a column / variable.
+
+Check that your code worked by viewing `pika_clean` using `View()`.
+:::
+
+```{r}
+pika_clean <- pika_clean %>% 
+    relocate(Site, .before = Station) %>% 
+    relocate(Sex, .after = UTM_Northing)
+```
+
+We're done! These are the all the cleaning and wrangling steps we are going to do for `pika`. We completed these steps one by one in their own code chunks, but know that you could have piped into each step in a single code chunk. See the code chunk below:
+
+```{r}
+#| code-summary: "Piped Sequence"
+# cleaning and wrangling using a piped sequence
+pika_clean <- pika %>% 
+    # Question 3
+    select(-Notes, 
+           -Vial, 
+           -Plate, 
+           -Biweek) %>% 
+    mutate(
+        # Question 4
+        Station = as.factor(Station),
+        Site = as.factor(Site),
+        Sex = as.factor(Sex),
+        # Question 5 (Note: within the same mutate)
+        Site = recode(
+            Site,
+            "CG" = "Cable Gate",
+            "WK" = "West Knoll",
+            "LL" = "Long Lake"
+        )
+    ) %>%
+    # Question 6
+    relocate(Site, .before = Station) %>%
+    relocate(Sex, .after = UTM_Northing)
+```
+
+
+Now let's clean and wrangle `elevation`.
+
+::: callout-note
+#### Question 7
+
+From the `elevation` data we only want the columns:
+
+- `Station`
+- `Elev_M`
+
+Write code to subset the data so it only contains those columns and save it to an object called `elevation_clean`.
+:::
+
+```{r}
+elevation_clean <- elevation %>% 
+    select(Station, Elev_M)
+```
+
+::: callout-note
+#### Question 8
+
+Lastly, we want to convert data types. 
+
+The variable `Station` has a class of `character` (you can find out what data type a variable is by using the function `class()` i.e. `class(elevation_clean$Station)`). We want to convert this variable so that it has a class of `factor`. Do this within a `mutate()` and use the function `as.factor()`. Don't forget you can always check the help page using `?`.
+
+In the rest of these cleaning steps, we'll be overriding `elevation_clean`, meaning you don't need to create a new object.
+
+Check that the conversation worked using `class()`.
+:::
+
+```{r}
+elevation_clean <- elevation %>% 
+    mutate(Station = as.factor(Station))
+```
+
+If we combined these cleaning and wrangling steps in a piped sequence it would look like this:
+
+```{r}
+#| code-summary: "Piped Sequence"
+# cleaning and wrangling using a piped sequence
+elevation_clean <- elevation %>% 
+    # Question 7
+    select(Station, Elev_M) %>%
+    # Question 8
+    mutate(Station = as.factor(Station))
+```
+
+### Join `pika_clean` and `elevation_clean`
+
+Finally, the last wrangling step we want to do is merge these two cleaned and subsetted tables. 
+
+::: callout-note
+#### Question 9
+Since we want all the information from our newly subsetted tables, use `full_join()` to merge the tables together. Explicitly include the variable you're joining by. Look at the output and check that it's what you expected.  
+:::
+
+```{r}
+# using pipe
+pikas <- pika_clean %>% 
+    full_join(y = elevation_clean,
+              by = "Station")
+
+# without pipe
+pikas <- full_join(x = pika_clean,
+                   y = elevation_clean,
+                   by = "Station")
+```
+
+## Exercise: Spatial Exploration and Making Maps
+
+Let's use the data from the `pikas` table to practice some of the spatial functions we learned about from the `sf` package. We'll also practice making maps using `ggplot`, as well as interactive maps using `leaflet`, and adding basemaps using `ggmap`.
+
+### Converting to Simple Features
+
+If we run `class(pikas)`, we'll see that `pikas` has a class of table or data frame. However, if we want to create a map (or in the future run any spatial analysis), we need `pikas` to be a simple features (sf) object.
+
+::: callout-note
+#### Question 10
+
+Using the coordinates in the table `UTM_Easting` and `UTM_Northing` to convert `pikas` into an `sf` object. To do this, use the `sf` function `st_as_sf()` and save it to an object called `pikas_sf`. 
+
+What new column do you expect to appear? What happened to the `UTM_Easting` and `UTM_Northing` columns?
+
+Check the class of `pikas_sf` to make sure it's an `sf` object.
+:::
+
+```{r}
+pikas_sf <- st_as_sf(x = pikas,
+                     coords = c("UTM_Easting", "UTM_Northing")) 
+# make sure coords is in longitude, latitude order
+```
+
+
+### Setting a Coordinate Reference System (CRS)
+
+Run `st_crs(pikas_sf)` in the Console. The output we get is ```Coordinate Reference System: NA```. So while we now have a `geometry` column with spatial information, we still don't have a CRS associated with our points. We need a CRS to make sure our data is represented accurately in 2D, as well as on the Earth's surface, what units are being used and more. 
+
+::: callout-note
+#### Question 11
+
+Set the CRS for the geometry column in `pikas_sf` using `st_set_crs()` and the EPSG code 26913. 
+
+Use `st_crs()` to check that you successfully set the CRS to 26913.
+
+**Note:** This EPSG code is for North America, but knowing that the Niwot Ridge Research Station is located in north-central Colorado, you could search for this region on [epsg.io](https://epsg.io/) and use a more local EPSG code. However, if you want to change the CRS after setting it here, you will need to use `st_transform()` because replacing the EPSG code in `st_set_crs()` will not reproject the data.
+:::
+
+```{r}
+pikas_sf <- st_set_crs(pikas_sf, 26913)
+```
+
+### Plotting Points using `ggplot` and `geom_sf()`
+
+::: callout-note
+#### Question 12
+
+Create a basic map of the points using `geom_sf()` from `ggplot`. Don't worry about making the map look nice, just plot to make sure the CRS you chose is accurate and isn't causing any unintended distortion.
+:::
+
+```{r}
+ggplot(data = pikas_sf) +
+    geom_sf()
+```
+
+<details>
+<summary>ggplot Map</summary>
+
+![](images/pika_points_map.png){width="75%" fig-align="center"}
+
+</details>
+
+::: callout-note
+#### Question 13
+
+Now, take some time to make your `ggplot` map look pretty. Consider the following:
+
+- Color by a variable (i.e. `Site`)
+- Adding labels (title, subtitle, axes, legend)
+- Change the shape of the points using the `shape` argument in `aes()`
+- Add a theme (i.e. `theme_light()`)
+- Customization of plot elements in `theme()`
+:::
+
+```{r}
+ggplot(data = pikas_sf) +
+    geom_sf(aes(color = Site, shape = Site), alpha = 0.6) +
+    theme_minimal() +
+    labs(
+        title = "Location of Pika Sampling Stations",
+        subtitle = "Niwot Ridge LTER",
+        x = "Latitude (Degrees)",
+        y = "Longitude (Degrees)"
+    ) +
+    theme(axis.text.x = element_text(angle = 30)) # tilt x-axis text so that the labels don't overlap
+```
+
+<details>
+<summary>ggplot Map</summary>
+
+![](images/pika_points_map_pretty.png){width="75%" fig-align="center"}
+</details>
+
+### Add a basemap using `ggmap`
+
+::: callout-note
+#### Question 14
+
+Before we start on the basemap, we need to reproject our data using `st_transform()`. If you recall, our data is currently using the projected CRS NAD83/UTM Zone 13N with the EPSG code 26913. 
+
+However, online basemaps often use the WGS84 Web Mercator coordinate system. This motivates us to reproject our data to the WGS84 CRS using `st_transform()` so that it’s more compatible with third-party maps and therefore allows us to do more with our spatial data.
+
+Use `st_transform()` to reproject `pikas_sf` to WGS84 using the EPSG code 4326. Store it to a new object called `pikas_sf_4326`.
+:::
+
+```{r}
+pikas_sf_4326 <- st_transform(pikas_sf, 4326)
+```
+
+::: callout-note
+#### Question 15
+
+Create a bounding box for the Niwot Ridge LTER Research Station using left, right, top, and bottom coordinates. We found these coordinates for you using OpenStreetMap (see details steps below). Use the coordinates listed below to create a vector called `nwt_bbox`.
+
+- left = -105.65
+- bottom = 40.04
+- right = -105.55
+- top = 40.1
+:::
+
+```{r}
+nwt_bbox <- c(left = -105.65, bottom = 40.04, right = -105.55, top = 40.1)
+```
+
+
+::: {.callout-caution icon=false collapse="true"}
+##### Steps to obtain bounding box coordinates for Niwot Ridge Research Station using [OpenStreetMap](https://www.openstreetmap.org/#map=15/34.4146/-119.8681).
+
+1. Go to [openstreetmap.org](https://www.openstreetmap.org/#map=15/34.4146/-119.8681)
+2. In the search bar type "Niwot Mountain" 
+3. Click "Export" button in the top navigation bar 
+4. Under "Export" section click "Manually select a different area"
+    a. We have to do this because "Niwot Ridge Research Station" is not searchable but we can manually move the bounding box to where the research station is
+5. Copy the coordinates in the "Export" section and use them for your bounding box
+:::
+
+::: callout-note
+#### Question 16
+
+Next, we can use `ggmap()` and `get_stamenmap()` to get our basemap and plot it. 
+
+`get_stamenmap()` creates a ggmap raster object and `ggmap()` will plot this ggmap raster object. We can specify the bbox argument as the `nwt_bbox` object we defined earlier. The zoom argument determines the scale of the map, and will take some trial and error to get right. 
+
+You can also specify the basemap using the arguement `maptype`. There are three different map types: "terrain", "watercolor", and "toner". Explore these map types and choose one.
+
+First, obtain the basemap using `get_stamenmap()`, specify the arguements, and save it to an object called `nwt_basemap`. Then use `ggmap()` to plot `nwt_basemap`.
+:::
+
+```{r}
+nwt_basemap <- ggmap::get_stamenmap(nwt_bbox, zoom = 13, 
+                                    maptype = "terrain")
+
+ggmap(nwt_basemap)
+```
+
+
+<details>
+<summary>Basemap</summary>
+
+![](images/nwt_basemap_plot.png){width="75%" fig-align="center"}
+</details>
+
+::: callout-note
+#### Question 17
+
+`ggmap` and `ggplot` are compatible, so we can combine our `ggmap()` code with our `geom_sf()` code to create our final map with a basemap. 
+
+First, plot `ggmap` raster object `nwt_basemap`. Then combine it with `geom_sf()`.
+
+In `geom_sf()` we need to:
+
+- explicitly call `aes()` with the `mapping` argument because there is no plot mapping
+- in `aes()` set the `color` and `shape` arguments to `Site`
+- add the argument `inherit.aes = FALSE` to override the default aesthetics, instead of combining with them
+:::
+
+```{r}
+ggmap(nwt_basemap) +
+    geom_sf(pikas_sf_4326, 
+            mapping = aes(color = Site, shape = Site), 
+            inherit.aes = FALSE)
+```
+
+<details>
+<summary>Basemap and Pika Map</summary>
+
+![](images/nwt_basemap_pika_plot.png){width="80%" fig-align="center"}
+</details>
+
+
+::: callout-note
+#### Question 18
+
+Now, take some time to make your map look pretty. Consider the following:
+
+- Add a theme (i.e. `theme_light()`)
+- Add labels (title, subtitle, axes, legend)
+- Customize the colors of the sites using `scale_color_manual()`
+:::
+
+
+```{r}
+ggmap(nwt_basemap) +
+    geom_sf(pikas_sf_4326,
+            mapping = aes(color = Site, shape = Site),
+            inherit.aes = FALSE) +
+    theme_minimal() +
+    labs(
+        title = "Location of Pika Sampling Stations",
+        subtitle = "Niwot Ridge LTER",
+        x = "Longitude (Degrees)",
+        y = "Latitude (Degrees)"
+    ) +
+    # choosing colors to make sure points are visible
+    scale_color_manual(values = c("black", "red", "purple")) 
+```
+
+<details>
+<summary>Basemap and Pika Map</summary>
+
+![](images/nwt_basemap_pika_pretty_plot.png){width="80%" fig-align="center"}
+</details>
+
+### Bonus: Make an interactive map using `leaflet`
+
+::: callout-note
+#### Question 19
+
+Use the functions `leaflet()`, `addTiles()`, and `addCircles()` to create an interactive map. Use `pikas_sf_4326` as your data and `Station` as your `label`.
+
+If you want to add more styling to your interactive map, review the leaflet sections in [Chapter 12](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html), [Chapter 15](https://learning.nceas.ucsb.edu/2023-04-coreR/session_15.html), or check out the [`leaflet` cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/leaflet.pdf).  
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+pika <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=43270add3532c7f3716404576cfb3f2c")
+elevation <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=6a10b35988119d0462837f9bfa31dd2f")
+
+pika_clean <- pika %>% 
+    select(-Notes, 
+           -Vial, 
+           -Plate, 
+           -Biweek) %>% 
+    mutate(
+        Station = as.factor(Station),
+        Site = as.factor(Site),
+        Sex = as.factor(Sex),
+        Site = recode(
+            Site,
+            "CG" = "Cable Gate",
+            "WK" = "West Knoll",
+            "LL" = "Long Lake"
+        )
+    ) %>%
+    relocate(Site, .before = Station) %>%
+    relocate(Sex, .after = UTM_Northing)
+
+elevation_clean <- elevation %>% 
+    select(Station, Elev_M) %>%
+    mutate(Station = as.factor(Station))
+
+pikas <- full_join(x = pika_clean,
+                   y = elevation_clean,
+                   by = "Station")
+
+pikas_sf <- st_as_sf(x = pikas,
+                     coords = c("UTM_Easting", "UTM_Northing")) 
+
+pikas_sf <- st_set_crs(pikas_sf, 26913)
+
+pikas_sf_4326 <- st_transform(pikas_sf, 4326)
+```
+
+
+```{r}
+#| eval: true
+leaflet() %>% 
+  addTiles() %>% 
+  addCircles(data = pikas_sf_4326, label = ~Station)
+```
+ 
+
+
+
+
+
+
