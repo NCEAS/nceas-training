@@ -244,7 +244,7 @@ pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
 head(pop_joined)
 ```
 
-::: callout-important
+::: {.callout-caution icon="false"}
 ## Exploring types of joins
 
 There are many different types of joins you can do with geospatial data. Examine the help page for these joins (`?st_within()` will get you there). What other joins types might be appropriate for examining the relationship between points and polygyons? What about two sets of polygons?
