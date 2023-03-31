@@ -4,8 +4,6 @@ execute:
   warning: false
 ---
 
-## Publishing Analyses to the Web {.unnumbered}
-
 ## Learning Objectives {.unnumbered}
 
 - How to use git, GitHub (+Pages), and (R)Markdown to publish an analysis to the web
@@ -13,6 +11,7 @@ execute:
 ## Introduction
 
 Sharing your work with others in engaging ways is an important part of the scientific process.
+
 So far in this course, we've introduced a small set of powerful tools for doing open science:
 
 - R and its many packages
@@ -23,20 +22,28 @@ So far in this course, we've introduced a small set of powerful tools for doing 
 
 RMarkdown, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
 
-In this lesson, we're going to take an existing GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
+In this lesson, we're going to take our "training_lastname" GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
 
-## A Minimal Example
+::: callout-tip
+## Set up
 
-- Use your existing `training_username` repository
-- Add a new file at the top level called `index.Rmd`. The easiest way to do this is through the RStudio menu. Choose File -> New File -> RMarkdown...  This will bring up a dialog box. You should create a "Document" in "HTML" format. These are the default options.  Be sure to use the exact capitalization (lower case 'index') as different operating systems handle capitalization differently and it can interfere with loading your web page later.
-- Open `index.Rmd` (if it isn't already open)
-- Press Knit
-    - Observe the rendered output
-    - Notice the new file in the same directory `index.html`.
-    - This is our RMarkdown file rendered as HTML (a web page)
-- Commit your changes (to both index.Rmd and index.html) and push to GitHub
-- Open your web browser to the GitHub.com page for your repository
-- Go to Settings > GitHub Pages and turn on GitHub Pages for the `main` branch
+- **Step 0:** Make sure you are in `training_lastname` Rproj.
+
+- **Step 1:** Add a new file at the top level called `index.Rmd`.
+    + Go to the RStudio menu  File -> New File -> RMarkdown.
+    + This will bring up a dialog box. Create a "Document" in "HTML" format.
+- **Step 2:** Save the Rmd you just created. Use index.Rmd as the file name.
+    + Be sure to use the exact capitalization (**lower case 'index'**) as different operating systems handle capitalization differently and it can interfere with loading your web page later.
+- **Step 3:** Press Knit  and observe the rendered output.
+        - Notice the new file in the same directory `index.html`.
+        - This is our RMarkdown file rendered as HTML (a web page)
+- **Step 4:** Commit your changes (to both index.Rmd and index.html) and push to GitHub.
+- **Step 5:** Open your web browser to the GitHub.com page for your repository.
+- **Step 6:** Go to Settings > GitHub Pages and turn on GitHub Pages for the `main` branch
+
+**Note:** The index file represents the 'default' file for a web site, and is returned whenever you visit the web site but don't specify an explicit file to be returned.
+
+:::
 
 Now, the rendered website version of your repo will show up at a special URL.
     
@@ -49,7 +56,10 @@ Note that it will no longer be at github.com but github.io
 - Go to https://{username}.github.io/{repo_name}/ (Note the trailing `/`)
     Observe the awesome rendered output
     
-Now that we've successfully published a web page from an RMarkdown document, let's make a change to our RMarkdown document and follow the steps to actually publish the change on the web:
+Now that we've successfully published a web page from an RMarkdown document, let's make a change to our RMarkdown document and follow the steps to publish the change on the web:
+
+::: callout-tip
+## Update content in your published page
 
 - Go back to our `index.Rmd`
 - Delete all the content, except the YAML frontmatter
@@ -57,31 +67,41 @@ Now that we've successfully published a web page from an RMarkdown document, let
 - Commit, push
 - Go back to https://{username}.github.io/{repo_name}/
 
-## Exercise: Sharing your work
+:::
 
-RMarkdown web pages are a great way to share work in progress with your colleagues.  To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed.  You can also include multiple pages and build a simple web site for walking through your work that is accessible to people who aren't all set up to open your content in R.  In this exercise, we'll publish another RMarkdown page, and create a table of contents on the main page to guide people to the main page.
+Next, we will show how you can link different Rmds rendered into `html` so you can easily share different parts of your work. 
 
-First, in your training repository, create a new RMarkdown file that describes some piece of your work and note the name.  I'll use an RMarkdown named `data-cleaning.Rmd`.
+::: callout-note
+## Exercise
 
-Once you have an RMarkdown created, `Knit` the document which will create the HTML version of the file, which in this case will be named `data-cleaning.html`.  
+In this exercise, we'll create a table of contents with the lessons of this course on the main page, and link some of the files we have work on so far.
 
-Now, return to editing your `index.Rmd` file from the beginning of this lesson.  The index file represents the 'default' file for a web site, and is returned whenever you visit the web site but don't specify an explicit file to be returned.  Let's modify the index page, adding a bulleted list, and in that list, include a link to the new markdown page that we created:
+- Go back to the server and to your index.Rmd file
+- Create a table of contents with the names of the main technical lessons of this course
 
 ```
-## Analysis plan
+## coreR workshop
 
-- [Data Cleaning](data-cleaning.html)
-- Data Interpolation and Gap filling
-- Linear models
-- Animal movement models based on telemetry
-- Data visualization
+- Introduction to RMarkdown 
+- Cleaning and Wrangling data
+- Data Visualization
+- Spatial Analysis
 ```
 
-Commit and push the web page to GitHub.  Now when you visit your web site, you'll see the table of contents, and can navigate to the new data cleaning page.
+- Make sure you have the `html` version of your `intro-to-rmd` and `data-cleaning` files. If you only see the Rmd version, you'll have to knit your files.
+
+- In your `index.Rmd` let's and the links to the files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
+
+- Save then commit and push your changes to GitHub.  
+
+Now when you visit your web site, you'll see the table of contents, and can navigate to the others file you linked.
+
+:::
+
+
+RMarkdown web pages are a great way to share work in progress with your colleagues. Here we showed an example with the materials we have created in this course. However, you can use this same steps to share the different steps of a project you've been working. To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed. You can include multiple pages and build a simple web site  and make your work accessible to people who aren't all set up to open your content in R. Your site could look something like this:
+
 
 ![](images/git-index-page.png)
-
-
-
 
 
