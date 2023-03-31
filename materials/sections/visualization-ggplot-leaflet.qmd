@@ -34,10 +34,9 @@ Let's dive into crating and customizing plots with `ggplot2`.
 
 Open a new RMarkdown document and remove the filler text.
 
-1. Load the packages we'll need:
+- **Step 1:** Load the packages we'll need:
 
 ```{r load_packages}
-#| eval: false
 #| message: false
 #| warning: false
   library(leaflet)
@@ -49,7 +48,7 @@ Open a new RMarkdown document and remove the filler text.
 ```
 
 
-2. Load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
+- **Step 2:** Load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
 
 ```{r read_data}
 #| eval: false
@@ -72,10 +71,13 @@ head(esc)
 Otherwise, the straightforward code to load the data:
 
 ```{r}
+#| message: false
+#| warning: false
+
 escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
-3. Before we continue, let's understand what this data is about by checking out the data package [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ)
+- **Step 3:** Learn about the data. For this session we are going to be working with data on _daily salmon escapement counts in Alaska_. Check out the documentation [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
 
 4. Finally, let's explore the data we just read into our working environment. 
 
@@ -101,10 +103,18 @@ unique(escape$Species)
 
 :::
 
-Now that we have read out data and have done some exploration. Let's put our data wrangling skills to practice. 
-- We are going to calculate the annual escapement by species and region,
-- Then filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
+## Getting the data ready
 
+It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desire format.
+
+::: callout-tip
+## General instructions
+
+- Calculate the annual escapement by species and region,
+- Filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
+
+:::
+ 
 ```{r mean_esc}
 
 annual_esc <- esc %>% 
@@ -119,20 +129,22 @@ head(annual_esc)
 
 The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
+## Plotting with `ggplot2`
 
-### Static figures using `ggplot2`
+### Essentials components
+First, we’ll cover some `ggplot2` basics to create the foundation of our plot. Then, we’ll add on to make our great customized data visualization.
 
-First, we’ll cover some ggplot2 basics to create the foundation of our plot. Then, we’ll add on to make our great customized data visualization.
+::: {callout-caution icon=false}
 
-#### Essentials components
+## The basics
+
 1. Indicate we are using `ggplot` (call the `ggplot2::ggplot()` function)
 2. What data do we want to plot? (`data = my_data`)
 3. What is my mapping aesthetics? What variables do we want to plot? (define using`aes()` function)
 4. Define the geometry of our plot. This specifies the type of plot we're making (use `geom_*()` to indicate the type of plot e.g: point, bar, etc.)
 
-::: {callout-caution icon=false}
-## Keep in mind
- To add layers to our plot, for example, additional geometries/aesthetics and theme elements or any `ggplot` object using we use `+`.
+**Note**
+To add layers to our plot, for example, additional geometries/aesthetics and theme elements or any `ggplot` object using we use `+`.
 
 :::
 
@@ -143,17 +155,17 @@ For example, let's plot total escapement by species. We will show this by creati
 ```{r plot_esc}
 #| eval: false
 
-## Option 1
+## Option 1 - data and mapping called in the ggplot() function
 ggplot(data = annual_esc, 
        aes(x = Species, y = escapement)) +
   geom_col()
 
-## Option 2
+## Option 2 - data called in ggplot function; mapping called in geom
 ggplot(data = annual_esc)+
     geom_col(aes(x = Species, y = escapement))
 
 
-## Option 3
+## Option 3 - data and mapping called in geom
 ggplot()+
     geom_col(data = annual_esc,
              aes(x = Species, y = escapement))
@@ -170,6 +182,10 @@ ggplot(data = annual_esc,
   geom_col()
 ```
 
+### Looking at different geoms
+
+Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*`.
+
 
 ::: callout-important
 ## `ggplot2` and the pipe operator
@@ -179,12 +195,11 @@ Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into 
 This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
 :::
 
-Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*`.
-
-Next, we will use the pipe operator to pass in a filtered version of `annual_esc`, and make a plots with different geometries.
+Next, we will use the pipe operator to pass into `ggplot` a filtered version of `annual_esc`, and make a plots with different geometries.
 
 
 **Boxplot**
+
 ```{r}
 annual_esc %>% 
     filter(Year == 1974,
@@ -193,7 +208,9 @@ ggplot(aes(x = Species, y = escapement)) +
   geom_boxplot()
 ```
 
+
 **Violin plot**
+
 ```{r}
 annual_esc %>% 
     filter(Year == 1974,
@@ -205,6 +222,7 @@ ggplot(aes(x = Species, y = escapement)) +
 
 
 **Line and point**
+
 ```{r}
 annual_esc %>% 
     filter(Species  == "Sockeye",
@@ -215,7 +233,10 @@ ggplot(aes(x = Year, y = escapement)) +
     
 ```
 
-Now let's go back to our base bar graph. What if we want our bars to be blue instead of gray? You might think we could run this:
+
+### Customizing our plot
+
+Let's go back to our base bar graph. What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r}
 
@@ -229,7 +250,7 @@ Why did that happen?
 
 Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our dataframe, and then mapped it to the `fill` aesthetic, which then chose the default fill color of red. 
 
-What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_bar` function, **outside** of the mapping aesthetics function call.
+What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col` function, **outside** of the mapping aesthetics function call.
 
 ```{r}
 
@@ -249,14 +270,24 @@ ggplot(annual_esc,
   geom_col()
 ```
 
+::: {callout-caution icon=false}
+
+## Keep in mind
+
+- If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
+
+- If you are want to update your plot base on a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
+
+:::
+
 
 #### Creating multiple plots {-}
 
-We know that in the graph we just plotted, each bar has escapement for multiple years. Let leverage on the power of `ggplot` to plot more aspect of our data in one plot.
+We know that in the graph we just plotted, each bar includes escapements for multiple years. Let's leverage on the power of `ggplot` to plot more aspect of our data in one plot.
 
-We are going to plot escapement by species over time, since the year 2000, for each region. 
+We are going to plot escapement by species over time, for the time period 2000 to 2016, for each region. 
 
-A easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
+An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
 
 The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol = ` argument or number of rows using `nrow =`.
 
@@ -270,7 +301,7 @@ annual_esc_2000s <- annual_esc %>%
 unique(annual_esc_2000s$Year)
 
 
-## Plot
+## Plot with facets
 ggplot(annual_esc_2000s,
        aes(x = Year, 
            y = escapement, 
@@ -285,8 +316,13 @@ ggplot(annual_esc_2000s,
 
 #### Setting ggplot themes {-}
 
-Now let's work on making this plot look a bit nicer. Add a title using `ggtitle()`, adjust labels using `ylab()`, and include a built in theme using `theme_bw()`. There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
+Now let's work on making this plot look a bit nicer. We are going to"
 
+- Add a title using `ggtitle()`
+- Adjust labels using `ylab()`
+- Include a built in theme using `theme_bw()`
+
+There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio auto complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r}
@@ -309,13 +345,13 @@ You can see that the `theme_bw()` function changed a lot of the aspects of our p
 
 ## Exercise
 
-Use the RStudio autocomplete, the `ggplot2` documentation, a cheatsheet, or good old google to find other built in themes. Pick out your favorite one and add it to your plot.
+Use the RStudio auto complete, the `ggplot2` documentation, a cheatsheet, or good old Google to find other built in themes. Pick out your favorite one and add it to your plot.
 
 :::
 
-The built in theme functions (`theme_*`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just google "ggplot cheatsheet" and find one you like.
+The built in theme functions (`theme_*`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just Google "ggplot cheatsheet" and find one you like.
 
-Let's look at an example of a `theme` call, where we change the position of the legend from the right side to the bottom, and remove it's title.
+Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove it's title.
 
 ```{r}
 ggplot(annual_esc_2000s,
@@ -393,11 +429,35 @@ ggplot(annual_esc_2000s,
 
 ```
 
+
+The final thing we will do with our plot is to save it as an object. 
+
+<!--- !!!ADD Why and When this is Helpful!!! --->
+
+```{r}
+
+annual_region_plot <- ggplot(annual_esc_2000s,
+       aes(x = Year, 
+           y = escapement, 
+           color = Species)) + 
+    geom_line() +
+    geom_point() +
+    scale_y_continuous(labels = comma) +
+    facet_wrap(~SASAP.Region, 
+               scales = "free_y")+
+    ylab("Escapement") +
+    ggtitle("Annual Salmon Escapement by Region") +
+    my_theme
+
+```
+
+
+
 #### Reordering things
 
 `ggplot` loves putting things in alphabetical order. But generally, that's not the order you actually want things to be plotted.
 
-!!NEEDS DESCRITPTION!!!
+<!--- !NEEDS DESCRITPTION!!! -->
 
 ```{r}
 
@@ -441,6 +501,12 @@ ggsave("kodiak_esc.png", width = 3, height = 3, units = "in")
 ```
 
 
+We can also save our facet plot showing annual escapements by region calling the plot's object.
+
+```{r}
+#| eval: false
+ggsave("kodiak_esc.png", width = 3, height = 3, units = "in")
+```
 
 
 
