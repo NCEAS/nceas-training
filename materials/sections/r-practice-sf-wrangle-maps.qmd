@@ -304,7 +304,7 @@ pikas <- full_join(x = pika_clean,
 
 ## Exercise: Spatial Exploration and Making Maps
 
-Let's use the data from the `pikas` table to practice some of the spatial functions we learned about from the `sf` package. We'll also practice making maps using `ggplot`, as well as interactive maps using `leaflet`, and adding basemaps using `ggmap`.
+Let's use the data from the `pikas` table to practice some of the spatial functions we learned about from the `sf` package. We'll also practice making maps using `ggplot`, as well as adding basemaps using `ggmap`, and bonus content includes making an interactive map using `leaflet` and publishing to GitHub Pages.
 
 ### Converting to Simple Features
 
@@ -533,7 +533,9 @@ ggmap(nwt_basemap) +
 
 Use the functions `leaflet()`, `addTiles()`, and `addCircles()` to create an interactive map. Use `pikas_sf_4326` as your data and `Station` as your `label`.
 
-If you want to add more styling to your interactive map, review the leaflet sections in [Chapter 12](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html), [Chapter 15](https://learning.nceas.ucsb.edu/2023-04-coreR/session_15.html), or check out the [`leaflet` cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/leaflet.pdf).  
+If you want to add more styling to your interactive map, review the leaflet sections in [Intro to Data Viz](https://learning.nceas.ucsb.edu/2023-04-coreR/session_13.html), [Using `sf` for Spatial Data & Intro to Map Making](https://learning.nceas.ucsb.edu/2023-04-coreR/session_16.html), or check out the [`leaflet` cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/leaflet.pdf).  
+
+Finally, publish your `r-practice-spatial-data-maps.Rmd` on GitHub Pages. Refer back to [Publishing to the Web Using GitHub Pages](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html) for steps on how to publish using GitHub Pages.
 :::
 
 ```{r}
