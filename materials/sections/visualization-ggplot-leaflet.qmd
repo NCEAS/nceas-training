@@ -643,6 +643,22 @@ leaflet(locations) %>%
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
 
 
+## Publish the Data Vis lesson to your webpage
+
+::: callout-tip
+## Steps
+
+1. Save the Rmd you have been working on for  this lesson.
+2. Knit the Rmd. This is a good way to test everything in your code is working.
+3. Go to your `index.Rmd` and and the link to the html file with with lesson's content.
+4. Save and render `index.Rmd`
+3. Stage > Commit > Pull > Push
+
+:::
+
+
+
+
 ### Resources
 
 - [Why not to use two axes, and what to use instead: The case against dual axis charts](https://blog.datawrapper.de/dualaxis/) by Lisa Charlotte Rost.

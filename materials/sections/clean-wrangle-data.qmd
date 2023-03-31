@@ -122,6 +122,8 @@ library(tidyr)
 library(readr)
 ```
 
+:::
+
 ::: callout-important
 
 ## A note on loading packages
@@ -145,6 +147,8 @@ These are important warnings. They are letting you know that certain functions f
 Being specific about which version of `filter()`, for example, you call is easy. To explicitly call a function by its unambiguous name, you use the syntax `package_name::function_name(...)`. So, if I wanted to call the `stats` version of `filter()` in this Rmarkdown document, I would use the syntax `stats::filter(...)`.
 :::
 
+
+
 ::: callout-note
 ## Exercise
 
@@ -156,13 +160,11 @@ Now that we have introduce some data wrangling functions, let's get the data tha
 ::: callout-tip
 ## Setup
 
-1.  Navigate to the salmon catch data set: <https://knb.ecoinformatics.org/#view/df35b.304.2>
+- **Step 1:**  Navigate to the salmon catch data set: <https://knb.ecoinformatics.org/#view/df35b.304.2>
 
-2.  Right click the "Download" button for the file `byerlySalmonByRegion.csv`
+- **Step 2:** Select "Copy Link Address" from the dropdown menu
 
-3.  Select "Copy Link Address" from the dropdown menu
-
-4.  Paste the URL into the `read.csv()` function
+- **Step 3:** Paste the URL into the `read_csv()` function
 
 The code chunk you use to read in the data should look something like this:
 
@@ -171,12 +173,13 @@ The code chunk you use to read in the data should look something like this:
 catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
-**Note that Windows users** Keep in mind, if you want to replicate this workflow in your local computer you also need to use the `url()` function here with the argument `method = "libcurl"`. It would look like this:
+**Note ti=o Windows users** Keep in mind, if you want to replicate this workflow in your local computer you also need to use the `url()` function here with the argument `method = "libcurl"`. It would look like this:
 
 ```{r}
 #| eval: false
 catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
 ```
+
 :::
 
 This data set is relatively clean and easy to interpret as-is. While it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
@@ -253,7 +256,8 @@ So you might think of the above chunk being translated as:
 
 The benefits to using pipes are that you don't have to keep track of (or overwrite) intermediate data frames. The drawbacks are that it can be more difficult to explain the reasoning behind each step, especially when many operations are chained together. It is good to strike a balance between writing efficient code (chaining operations), while ensuring that you are still clearly explaining, both to your future self and others, what you are doing and why you are doing it.
 
-::: callout-tip
+::: {.callout-caution icon=false}
+
 ## Quick Tip
 RStudio has a keyboard shortcut for `%>%`
 
@@ -321,6 +325,7 @@ To investigate, let's isolate the issue. We can find out which values are NAs wi
 ```{r}
 i <- which(is.na(catch_clean$Chinook))
 i
+
 ```
 
 It looks like there is only one problem row, lets have a look at it in the original data.
@@ -329,16 +334,17 @@ It looks like there is only one problem row, lets have a look at it in the origi
 catch_data[i,]
 ```
 
-Well that's odd: The value in `catch_thousands` is `I`. It turns out that this data set is from a PDF which was automatically converted into a `CSV` and this value of `I` is actually a 1.
+Well that's odd: The value in `catch_thousands` is `I`. It turns out that this data set is from a PDF which was automatically converted into a `csv` and this value of `I` is actually a 1.
 
 Let's fix it by incorporating the `ifelse()` function to our `mutate()` call, which will change the value of the `Chinook` column to 1 if the value is equal to `I`, then will use `as.numeric()` to turn the character representations of numbers into numeric typed values.
 
 ```{r}
 catch_clean <- catch_data %>% 
-  mutate(Chinook = if_else(Chinook == "I", "1", Chinook)) %>% 
-  mutate(Chinook = as.integer(Chinook))
+  mutate(Chinook = if_else(Chinook == "I", "1", Chinook),
+         Chinook = as.integer(Chinook))
 
-head(catch_clean)
+##check
+catch_clean[i,]
 ```
 
 ## Changing shape using `pivot_longer()` and `pivot_wider()`
@@ -459,6 +465,21 @@ If you are finding that you are reaching for this combination of `group_by()`, `
 - Find out if you can group by multiple variables
 :::
 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Answer"
+#| eval: false
+
+## one example can be
+catch_year_sp <- catch_long %>% 
+    group_by(Year, species) %>% 
+    summarize(total_year = sum(catch, na.rm = T))
+
+```
+
+
+
 ## Filtering rows using `filter()`
 
 `filter()` is the verb we use to filter our `data.frame` to rows matching some condition. It's similar to `subset()` from base R.
@@ -478,6 +499,27 @@ head(sse_catch)
 - Filter to just catches of over one million fish
 - Filter to just Chinook from the SSE region
 :::
+
+```{r}
+#| code-fold: true
+#| code-summary: "Answer"
+#| eval: false
+
+## Catches over a million fish
+catch_million <- catch_long %>% 
+    filter(catch > 1000000)
+
+## Chinook from SSE data
+chinook_see <- catch_long %>% 
+    filter(Region == "SSE",
+           species == "Chinook")
+
+## OR
+chinook_see <- catch_long %>% 
+    filter(Region == "SSE" & species == "Chinook")
+
+```
+
 
 ## Sorting your data using `arrange()`
 
@@ -529,7 +571,7 @@ sites_df %>%
 ```
 
 ::: callout-note
-## Excersise
+## Exercise
 
 Split the `city` column in the data frame `cities_df` into `city` and `state_code` columns
 
@@ -539,6 +581,19 @@ cities_df <- data.frame(city = c("Juneau AK",
                                  "Anchorage AK"))
 ```
 :::
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Answer"
+#| eval: false
+colnames(cities_df)
+
+cities_clean <- cities_df %>% 
+    separate(city, c("city", "state_code"), " ")
+
+```
+
 
 `unite()` does just the reverse of `separate()`. If we have a data.frame that contains columns for year, month, and day, we might want to unite these into a single date column.
 
@@ -557,7 +612,7 @@ dates_df %>%
   unite(date, year, month, day, sep = "-")
 ```
 
-## Altogether, now!
+## Now, all together!
 
 We just ran through the various things we can do with `dplyr` and `tidyr` but if you're wondering how this might look in a real analysis. Let's look at that now:
 
@@ -583,4 +638,19 @@ mean_region <- catch_original %>%
 
 head(mean_region)
 ```
+
+
+We have completed our lesson on Cleaning and Wrangling data. Before we break, let's practice our Github workflow.
+
+::: callout-tip
+## Steps
+
+1. Save the Rmd you have been working on for  this lesson.
+2. Knit the Rmd. This is a good way to test everything in your code is working.
+3. Stage > Commit > Pull > Push
+
+:::
+
+
+
 

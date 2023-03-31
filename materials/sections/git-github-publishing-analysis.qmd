@@ -92,6 +92,12 @@ In this exercise, we'll create a table of contents with the lessons of this cour
 
 - In your `index.Rmd` let's and the links to the files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
 
+<details>
+  <summary>**Answer:**</summary>
+      `[Text you want to hiperlink](link)`
+</details>
+
+
 - Save then commit and push your changes to GitHub.  
 
 Now when you visit your web site, you'll see the table of contents, and can navigate to the others file you linked.
