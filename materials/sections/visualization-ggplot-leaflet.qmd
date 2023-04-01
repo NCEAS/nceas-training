@@ -10,45 +10,45 @@
 `ggplot2` is a popular package for visualizing data in R.
 From the [home page](http://ggplot2.tidyverse.org/):
 
-> ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+> `ggplot2` is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
 
-It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)). THe goal of this lesson is to introduce you to the basic components of working with ggplot2 and inspire you to go and explore this awsome resource for visualizing your data.
+It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)). The goal of this lesson is to introduce you to the basic components of working with `ggplot2` and inspire you to go and explore this awesome resource for visualizing your data.
 
 ::: callout-important
 
 ## `ggplot2` vs base graphics in R vs others
-There are many different ways to plot you data in R. All of them work! However, `ggplot2` excels at making complicated plots easy and easy plots simple enough
+There are many different ways to plot your data in R. All of them work! However, `ggplot2` excels at making complicated plots easy and easy plots simple enough
 
 Base R graphics  (`plot()`, `hist()`, etc) can be helpful for simple, quick and dirty plots. `ggplot2` can be used for almost everything else.
 
 :::
 
-Let's dive into crating and customizing plots with `ggplot2`.
+Let's dive into creating and customizing plots with `ggplot2`.
 
 ::: callout-tip
 ## Setup
 
-Open a new RMarkdown document and remove the filler text.
+0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new R Markdown document and remove the default text.
 
-- **Step 1:** Load the packages we'll need:
+1. Load the packages we'll need:
 
 ```{r load_packages}
 #| message: false
 #| warning: false
- 
-library(leaflet)
-library(dplyr)
+
 library(readr)
+library(dplyr)
 library(tidyr)
 library(forcats)
 library(ggplot2)
+library(leaflet)
 library(DT)
 library(scales)
 ```
 
 
-- **Step 2:** Load the data table directly from the KNB Data Repository, if it isn't already present on your local computer.  This technique only downloads the file if you need it.
+2. Load the data table directly from its [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ), if it isn't already present on your local computer. This code only downloads the file if you need it.
 
 ```{r read_data}
 #| eval: false
@@ -77,7 +77,7 @@ Otherwise, the straightforward code to load the data:
 escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
-- **Step 3:** Learn about the data. For this session we are going to be working with data on _daily salmon escapement counts in Alaska_. Check out the documentation [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
+3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out the documentation [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
 
 4. Finally, let's explore the data we just read into our working environment. 
 
@@ -98,36 +98,35 @@ tail(escape$sampleDate)
 
 ## Which species?
 unique(escape$Species)
-
 ```
 
 :::
 
 ## Getting the data ready
 
-It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desire format.
+It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
 
-::: callout-tip
-## General instructions
+::: callout-note
+### Exercise
 
-- Calculate the annual escapement by species and region,
+- Calculate the annual escapement by `Species` and `SASAP.Region`,
 - Filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
 
 :::
  
 ```{r mean_esc}
-
-annual_esc <- escape %>% 
-  separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>% 
-  mutate(Year = as.numeric(Year)) %>% 
-  group_by(Species, SASAP.Region, Year) %>% 
-  summarize(escapement = sum(DailyCount)) %>% 
-  filter(Species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
+#| message: false
+annual_esc <- escape %>%
+    separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>%
+    mutate(Year = as.numeric(Year)) %>%
+    group_by(Species, SASAP.Region, Year) %>%
+    summarize(escapement = sum(DailyCount)) %>%
+    filter(Species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
 
 head(annual_esc)
 ```
 
-The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate()` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by()` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize()` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
 ## Plotting with `ggplot2`
 
@@ -136,37 +135,37 @@ First, we’ll cover some `ggplot2` basics to create the foundation of our plot.
 
 ::: {.callout-caution icon=false}
 
-## The basics
+### The basics
 
-1. Indicate we are using `ggplot` (call the `ggplot2::ggplot()` function)
+1. Indicate we are using `ggplot()` (call the `ggplot2::ggplot()` function)
 2. What data do we want to plot? (`data = my_data`)
 3. What is my mapping aesthetics? What variables do we want to plot? (define using`aes()` function)
 4. Define the geometry of our plot. This specifies the type of plot we're making (use `geom_*()` to indicate the type of plot e.g: point, bar, etc.)
 
 **Note**
-To add layers to our plot, for example, additional geometries/aesthetics and theme elements or any `ggplot` object using we use `+`.
+To add layers to our plot, for example, additional geometries/aesthetics and theme elements or any `ggplot` object we use `+`.
 
 :::
 
 
-For example, let's plot total escapement by species. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a ggplot.
+For example, let's plot total escapement by species. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a `ggplot`.
 
 
 ```{r basic_esc_plot}
 #| eval: false
 
 ## Option 1 - data and mapping called in the ggplot() function
-ggplot(data = annual_esc, 
+ggplot(data = annual_esc,
        aes(x = Species, y = escapement)) +
-  geom_col()
+    geom_col()
 
 ## Option 2 - data called in ggplot function; mapping called in geom
-ggplot(data = annual_esc)+
+ggplot(data = annual_esc) +
     geom_col(aes(x = Species, y = escapement))
 
 
 ## Option 3 - data and mapping called in geom
-ggplot()+
+ggplot() +
     geom_col(data = annual_esc,
              aes(x = Species, y = escapement))
 
@@ -177,60 +176,58 @@ They all will create the same plot:
 ```{r esc_plot}
 #| echo: false
 
-ggplot(data = annual_esc, 
+ggplot(data = annual_esc,
        aes(x = Species, y = escapement)) +
-  geom_col()
+    geom_col()
 ```
 
 ### Looking at different geoms
 
-Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*`.
+Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*()`.
 
 
 ::: callout-important
-## `ggplot2` and the pipe operator
+### `ggplot2` and the pipe operator
 
 Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into the first argument of the `ggplot` function using the `%>%` operator.
 
 This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
 :::
 
-Next, we will use the pipe operator to pass into `ggplot` a filtered version of `annual_esc`, and make a plots with different geometries.
+Next, we will use the pipe operator to pass into `ggplot()` a filtered version of `annual_esc`, and make a plot with different geometries.
 
 
 **Boxplot**
 
 ```{r boxplot_ex}
-annual_esc %>% 
+annual_esc %>%
     filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>% 
-ggplot(aes(x = Species, y = escapement)) +
-  geom_boxplot()
+           Species %in% c("Chum", "Pink")) %>%
+    ggplot(aes(x = Species, y = escapement)) +
+    geom_boxplot()
 ```
 
 
 **Violin plot**
 
 ```{r violin_plot}
-annual_esc %>% 
+annual_esc %>%
     filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>% 
-ggplot(aes(x = Species, y = escapement)) +
+           Species %in% c("Chum", "Pink")) %>%
+    ggplot(aes(x = Species, y = escapement)) +
     geom_violin()
-
 ```
 
 
 **Line and point**
 
 ```{r line_poin_plot}
-annual_esc %>% 
+annual_esc %>%
     filter(Species  == "Sockeye",
-           SASAP.Region == "Bristol Bay") %>% 
-ggplot(aes(x = Year, y = escapement)) +
-    geom_line()+
+           SASAP.Region == "Bristol Bay") %>%
+    ggplot(aes(x = Year, y = escapement)) +
+    geom_line() +
     geom_point()
-    
 ```
 
 
@@ -239,53 +236,51 @@ ggplot(aes(x = Year, y = escapement)) +
 Let's go back to our base bar graph. What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r fill_blue}
-
-ggplot(annual_esc, 
-       aes(x = Species, y = escapement, 
+ggplot(annual_esc,
+       aes(x = Species, y = escapement,
            fill = "blue")) +
-  geom_col()
+    geom_col()
 ```
 
 Why did that happen?
 
-Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our dataframe, and then mapped it to the `fill` aesthetic, which then chose the default fill color of red. 
+Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our data frame, and then mapped it to the `fill` aesthetic, which then chose the default fill color of red. 
 
-What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col` function, **outside** of the mapping aesthetics function call.
+What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col()` function, **outside** of the mapping aesthetics function call.
 
 ```{r fill_blue_geom}
-
-ggplot(annual_esc, 
+ggplot(annual_esc,
        aes(x = Species, y = escapement)) +
-  geom_col(fill = "blue")
+    geom_col(fill = "blue")
 ```
 
-What if we did want to map the color of the bars to a variable, such as region. `ggplot` is really powerful because we can easily get this plot to visualize more aspects of our data. 
+What if we did want to map the color of the bars to a variable, such as region. `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data. 
 
 ```{r}
-ggplot(annual_esc, 
-       aes(x = Species, y = escapement, 
+ggplot(annual_esc,
+       aes(x = Species, y = escapement,
            fill = SASAP.Region)) +
-  geom_col()
+    geom_col()
 ```
 
 ::: {.callout-caution icon=false}
 
-## Keep in mind
+#### Keep in mind
 
 - If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
 
-- If you are want to update your plot base on a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
+- If you want to update your plot base on a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
 
 :::
 
 
 #### Creating multiple plots
 
-We know that in the graph we just plotted, each bar includes escapements for multiple years. Let's leverage on the power of `ggplot` to plot more aspect of our data in one plot.
+We know that in the graph we just plotted, each bar includes escapements for multiple years. Let's leverage the power of `ggplot` to plot more aspects of our data in one plot.
 
 We are going to plot escapement by species over time, from 2000 to 2016, for each region. 
 
-An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~variable_name`. The `~` (tilde) is a model operator which tells `facet_wrap` to model each unique value within `variable_name` to a facet in the plot.
+An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~{variable_name}`. The `~` (tilde) is a model operator which tells `facet_wrap()` to model each unique value within `variable_name` to a facet in the plot.
 
 The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol = ` argument or number of rows using `nrow =`.
 
@@ -293,8 +288,8 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 ```{r facet_base_plot}
 ## Subset with data from years 2000 to 2016
 
-annual_esc_2000s <- annual_esc %>% 
-           filter(Year %in% c(2000:2016))
+annual_esc_2000s <- annual_esc %>%
+    filter(Year %in% c(2000:2016))
 
 ## Quick check
 unique(annual_esc_2000s$Year)
@@ -302,13 +297,13 @@ unique(annual_esc_2000s$Year)
 
 ## Plot with facets
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y")
    
 ```
 
@@ -321,18 +316,18 @@ Now let's work on making this plot look a bit nicer. We are going to"
 - Adjust labels using `ylab()`
 - Include a built in theme using `theme_bw()`
 
-There are a wide variety of built in themes in ggplot that help quickly set the look of the plot. Use the RStudio auto complete `theme_` `<TAB>` to view a list of theme functions.
+There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r theme_bw_plot}
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
     theme_bw()
@@ -342,57 +337,55 @@ You can see that the `theme_bw()` function changed a lot of the aspects of our p
 
 ::: callout-note
 
-## Exercise
+#### Exercise
 
-Use the RStudio auto complete, the `ggplot2` documentation, a cheatsheet, or good old Google to find other built in themes. Pick out your favorite one and add it to your plot.
+Use the RStudio auto complete, the `ggplot2` documentation, a cheat sheet, or good old Google to find other built in themes. Pick out your favorite one and add it to your plot.
 
 :::
 
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Answer"
+#| code-summary: "Themes"
 #| eval: false
 
 ## Useful baseline themes are
 theme_minimal()
 theme_light()
 theme_classic()
-
 ```
 
 
 
-The built in theme functions (`theme_*`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great ggplot resources online so we don't have to remember all of these, just Google "ggplot cheatsheet" and find one you like.
+The built in theme functions (`theme_*()`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great `ggplot` resources online so we don't have to remember all of these, just Google ["ggplot cheat sheet"](https://www.google.com/search?q=ggplot+cheat+sheet&rlz=1C5CHFA_enUS989US989&oq=ggplot+chea&aqs=chrome.0.0i433i512j69i57j0i512l2j0i22i30i395l2.1681j1j7&sourceid=chrome&ie=UTF-8) and find one you like.
 
-Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove it's title.
+Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
 
 ```{r}
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
-    theme_light()+
-    theme(legend.position = "bottom", 
+    theme_light() +
+    theme(legend.position = "bottom",
           legend.title = element_blank())
 ```
 
 
-Note that the `theme()` call needs to come after any built in themes like `theme_bw()` are used. Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
+Note that the `theme()` call needs to come after any built-in themes like `theme_bw()` are used. Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
 
 You can also save the result of a series of `theme()` function calls to an object to use on multiple plots. This prevents needing to copy paste the same lines over and over again!
 
 ```{r save_theme}
-
-my_theme <- theme_light() + 
-  theme(legend.position = "bottom", 
-        legend.title = element_blank())
+my_theme <- theme_light() +
+    theme(legend.position = "bottom",
+          legend.title = element_blank())
 ```
 
 So now our code will look like this:
@@ -400,13 +393,13 @@ So now our code will look like this:
 
 ```{r}
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
     my_theme
@@ -414,13 +407,13 @@ ggplot(annual_esc_2000s,
 
 
 ::: callout-note
-## Exercise
+#### Exercise
 
  1. Using whatever method you like, figure out how to rotate the x-axis tick labels to a 45 degree angle.
 
-**Hint:** You can start by looking at the documentation if the function by typing `?theme()` in the console. And googling is a great way to figure out how to do the modifications you want to your plot.
+**Hint:** You can start by looking at the documentation of the function by typing `?theme()` in the console. And googling is a great way to figure out how to do the modifications you want to your plot.
 
-2. What changes do you expect to see in you plot by adding the following line of code? Discuss with your neighbor and then try it out!
+2. What changes do you expect to see in your plot by adding the following line of code? Discuss with your neighbor and then try it out!
 
 `scale_x_continuous(breaks = seq(2000,2016, 2))`
 
@@ -434,18 +427,18 @@ ggplot(annual_esc_2000s,
 
 ## Useful baseline themes are
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    scale_x_continuous(breaks = seq(2000,2016, 2))+
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
-    my_theme+
-    theme(axis.text.x = element_text(angle = 45, 
+    my_theme +
+    theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
 
 ```
@@ -455,49 +448,48 @@ ggplot(annual_esc_2000s,
 
 Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
 
-The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
+The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous()` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
 ```{r}
 
 ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+       aes(x = Year,
+           y = escapement,
+           color = Species)) +
     geom_line() +
     geom_point() +
-    scale_x_continuous(breaks = seq(2000,2016, 2))+
+    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     scale_y_continuous(labels = comma) +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
-    my_theme+
-    theme(axis.text.x = element_text(angle = 45, 
+    my_theme +
+    theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
 
 ```
 
 
-You can also save all your code into an object in your working environment by assigning a name to the ggplot code.
+You can also save all your code into an object in your working environment by assigning a name to the `ggplot()` code.
 
 
 ```{r}
-
 annual_region_plot <- ggplot(annual_esc_2000s,
-       aes(x = Year, 
-           y = escapement, 
-           color = Species)) + 
+                             aes(x = Year,
+                                 y = escapement,
+                                 color = Species)) +
     geom_line() +
     geom_point() +
-    scale_x_continuous(breaks = seq(2000,2016, 2))+
+    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     scale_y_continuous(labels = comma) +
-    facet_wrap(~SASAP.Region, 
-               scales = "free_y")+
+    facet_wrap( ~ SASAP.Region,
+                scales = "free_y") +
     ylab("Escapement") +
-    xlab("\nYear")+
+    xlab("\nYear") +
     ggtitle("Annual Salmon Escapement by Region") +
-    my_theme+
-    theme(axis.text.x = element_text(angle = 45, 
+    my_theme +
+    theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
 ```
 
@@ -510,16 +502,16 @@ annual_region_plot
 
 #### Reordering things
 
-`ggplot` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted if you have categorical groups. Let’s find some total years of data by species for Kuskokwim.
+`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted if you have categorical groups. Let’s find some total years of data by species for Kuskokwim.
 
 ```{r n_year_data}
 #| warning: false
 #| message: false
 
 ## Number Years of data for each salmon species at Kuskokwim
-n_years <- annual_esc %>% 
-    group_by(SASAP.Region, Species) %>% 
-    summarize(n = n()) %>% 
+n_years <- annual_esc %>%
+    group_by(SASAP.Region, Species) %>%
+    summarize(n = n()) %>%
     filter(SASAP.Region == "Kuskokwim")
 ```
 
@@ -528,28 +520,30 @@ Now let's plot this using `geom_bar()`.
 ```{r}
 ## base plot
 ggplot(n_years,
-       aes(x = Species, 
-           y = n))+
-    geom_bar(aes(fill = Species), 
+       aes(x = Species,
+           y = n)) +
+    geom_bar(aes(fill = Species),
              stat = "identity")
 ```
 
-Now, let's apply some of the customizations we have seen so far and learned a some new ones.
+Now, let's apply some of the customizations we have seen so far and learn some new ones.
 
 ```{r}
 
 ## Reordering, flipping coords and other customization
 ggplot(n_years,
-       aes(x = fct_reorder(Species, n), 
+       aes(
+           x = fct_reorder(Species, n),
            y = n,
-           fill = Species))+
-    geom_bar(stat = "identity")+
-    coord_flip()+
-    theme_minimal()+
+           fill = Species
+       )) +
+    geom_bar(stat = "identity") +
+    coord_flip() +
+    theme_minimal() +
     ## another way to customize labels
     labs(x = "Species",
-         y = "N years of data",
-         title = "Number of years of escapement data for salmon species in Kuskokwim")+
+         y = "Number of years of data",
+         title = "Number of years of escapement data for salmon species in Kuskokwim") +
     theme(legend.position = "none")
 
 ```
@@ -557,7 +551,7 @@ ggplot(n_years,
 
 #### Saving plots
 
-Saving plots using ggplot is easy! The `ggsave ()` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
+Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
 
 ```{r}
 #| eval: false
@@ -573,27 +567,24 @@ ggsave(annual_region_plot, "figures/annual_esc_region.png", width = 12, height =
 ```
 
 
-
 ## Interactive visualization
 
 ### Tables with `DT`
 
-Now that we know how to make great static visualizations, lets introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub pages, so at the end of this lesson we will publish our figures to the website we created earlier.
+Now that we know how to make great static visualizations, let's introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub Pages, so at the end of this lesson we will publish our figures to the website we created earlier.
 
 First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
 
 ```{r uniq_locations}
-
-locations <- escape %>% 
-  distinct(Location, Latitude, Longitude) %>% 
-  drop_na()
+locations <- escape %>%
+    distinct(Location, Latitude, Longitude) %>%
+    drop_na()
 ```
 
 And display it as an interactive table using `datatable()` from the `DT` package.
 
 ```{r display_locations}
-
 datatable(locations)
 ```
 
@@ -601,16 +592,17 @@ datatable(locations)
 
 Similar to `ggplot2`, you can make a basic `leaflet` map using just a couple lines of code. Note that unlike `ggplot2`, the `leaflet` package uses pipe operators (`%>%`) and not the additive operator (`+`).
 
-The `addTiles()` function without arguments will add base tiles to your map from [OpenStreetMap](https://www.openstreetmap.org/). `addMarkers()` will add a marker at each location specified by the latitude and longitude arguments. Note that the `~` symbol is used here to model the coordinates to the map (similar to `facet_wrap` in ggplot).
+The `addTiles()` function without arguments will add base tiles to your map from [OpenStreetMap](https://www.openstreetmap.org/). `addMarkers()` will add a marker at each location specified by the latitude and longitude arguments. Note that the `~` symbol is used here to model the coordinates to the map (similar to `facet_wrap()` in `ggplot`).
 
 
 ```{r simple_map}
-
-leaflet(locations) %>% 
-  addTiles() %>% 
-  addMarkers(lng = ~Longitude, 
-             lat = ~Latitude, 
-             popup = ~ Location)
+leaflet(locations) %>%
+    addTiles() %>%
+    addMarkers(
+        lng = ~ Longitude,
+        lat = ~ Latitude,
+        popup = ~ Location
+    )
 ```
 
 <br>
@@ -619,47 +611,47 @@ You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an exa
 
 
 ```{r}
-
-leaflet(locations) %>% 
-  addWMSTiles("https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
-              layers = 'GEBCO_LATEST',
-              attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net") %>%
-  addCircleMarkers(lng = ~Longitude,
-                   lat = ~Latitude,
-                   popup = ~ Location,
-                   radius = 5,
-                   # set fill properties
-                   fillColor = "salmon",
-                   fillOpacity = 1,
-                   # set stroke properties
-                   stroke = T,
-                   weight = 0.5,
-                   color = "white",
-                   opacity = 1)
+leaflet(locations) %>%
+    addWMSTiles(
+        "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
+        layers = 'GEBCO_LATEST',
+        attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net"
+    ) %>%
+    addCircleMarkers(
+        lng = ~ Longitude,
+        lat = ~ Latitude,
+        popup = ~ Location,
+        radius = 5,
+        # set fill properties
+        fillColor = "salmon",
+        fillOpacity = 1,
+        # set stroke properties
+        stroke = T,
+        weight = 0.5,
+        color = "white",
+        opacity = 1
+    )
 ```
 
 <br>
 
-Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the SASAP project, created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of RMarkdown and GitHub pages can be. 
+Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be. 
 
 
-## Publish the Data Vis lesson to your webpage
+## Publish the Data Visualization lesson to your webpage
 
 ::: callout-tip
-## Steps
+### Steps
 
-1. Save the Rmd you have been working on for  this lesson.
-2. Knit the Rmd. This is a good way to test everything in your code is working.
-3. Go to your `index.Rmd` and and the link to the html file with with lesson's content.
-4. Save and render `index.Rmd`
-3. Stage > Commit > Pull > Push
+1. Save the `Rmd` you have been working on for this lesson.
+2. "Knit" the `Rmd`. This is a good way to test if everything in your code is working.
+3. Go to your `index.Rmd` and the link to the `html` file with this lesson's content.
+4. Save and render `index.Rmd` to an `html`.
+5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
 
 :::
 
-
-
-
-### Resources
+## `ggplot2` Resources
 
 - [Why not to use two axes, and what to use instead: The case against dual axis charts](https://blog.datawrapper.de/dualaxis/) by Lisa Charlotte Rost.
 - [Customized Data Visualization in `ggplot2`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html#3_ggplot2_Basics_Review) by Allison Horst.
