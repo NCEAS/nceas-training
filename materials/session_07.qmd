@@ -1,6 +1,12 @@
 ---
-title: "Intro to `Git` and GitHub"
+title: "Cleaning & Wrangling Data"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
+    code-link: true
 ---
 
-{{< include /sections/git-github-intro.qmd >}}
+{{< include /sections/clean-wrangle-data.qmd >}}
+
+

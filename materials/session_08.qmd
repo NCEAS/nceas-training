@@ -1,12 +1,6 @@
 ---
-title: "Cleaning & Wrangling Data"
+title: "Intro to Tidy Data"
 title-block-banner: true
-format:
-  html:
-    code-overflow: wrap
-    code-link: true
 ---
 
-{{< include /sections/clean-wrangle-data.qmd >}}
-
-
+{{< include /sections/intro-tidy-data.qmd >}}

@@ -1,6 +1,10 @@
 ---
-title: "Publishing to the Web using GitHub Pages"
+title: "Intro to Data visualization"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
-{{< include /sections/git-github-publishing-analysis.qmd >}}
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}
+

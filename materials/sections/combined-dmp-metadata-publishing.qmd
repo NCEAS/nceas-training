@@ -326,7 +326,7 @@ Explore data packages published on KNB assess the quality of their metadata. Ima
     c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
 :::
 
-You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality, and (3) FAIRness and CAREness.
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
 
 ::: callout-note
 ### Exercise: Evaluate a data package on EDI Data Portal
@@ -338,11 +338,13 @@ You and your group will evaluate a data package for its: (1) metadata quality, (
         i. Is the documentation sufficient enough for reproducibility? Why or why not?
         ii. If not, how would you improve the data documentation? What's missing?
     c. **Identify elements of FAIR and CARE**
+        i. Is it clear that the data package used a FAIR and CARE lens? 
+        ii. If not, what documentation or considerations would you add?
 2. Elect someone to share back to the group the following:
     a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
     b. What documentation stood out to you? What did you like or not like about it?
     c. How well did these data packages uphold FAIR and CARE Principles?
-    d. Do you feel like you understand the research project enough to use the data yourself?
+    d. Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
     
 *If you and your group finish early, check out more datasets in the bonus question.*
 :::

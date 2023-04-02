@@ -1,6 +1,14 @@
 ---
-title: "Intro to Tidy Data"
+title: "R Practice: Tidy Data & Joins"
 title-block-banner: true
+execute:
+  eval: false
+format:
+  html: 
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
 ---
 
-{{< include /sections/intro-tidy-data.qmd >}}
+{{< include /sections/r-practice-tidy-data-joins.qmd >}}
