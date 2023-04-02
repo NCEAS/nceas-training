@@ -66,7 +66,8 @@ We will be using a **Personal Access Token (PAT)** in this course. For better se
 2.  A new browser window should open up to GitHub, showing all the scopes options. You can review the scopes, but you don't need to worry about which ones to select this time. Using `create_github_token()` automatically pre-selects some recommended scopes. **Go ahead and scroll to the bottom and click "Generate Token"**.
 3.  Copy the generated token.
 4.  Back in RStudio, run `gitcreds::gitcreds_set()` in the Console.
-5.  Finally, paste your PAT when the prompt asks for it.
+5.  Paste your PAT when the prompt asks for it.
+6. Last thing, run `usethis::git_sitrep()` in the Console to check your `Git` configuration and that you've successful stored your PAT. 
 :::
 
 Congrats! Now that you've set up your authentication you should be able to work with GitHub in RStudio now.
