@@ -72,6 +72,7 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 -   **Plan in collaboration:** high engagement of your team and stakeholders is not only a benefit to your project, but it also makes your DMP more resilient. When you include diverse expertise and perspectives to the planning stages, you're more likely to overcome obstacles in the future.
 -   **Utilize existing resources:** don't reinvent the wheel! There are many great DMP resources out there. Consider the article *Ten Simple Rules for Creating a Good Data Management Plan* [@michener2015], which has succinct guidelines on what to include in a DMP. Or use an online tool like [DMPTool](https://dmptool.org/), which provides official DMP templates from funders like NSF, example answers, and allows for collaboration.
 -   **Make revising part of the process:** Don't let your DMP collect dust after your initially write it. Make revising the DMP part of your research project and use it as a guide to ensure you're keeping on track.
+- **Include FAIR and CARE:** Think of the resources we discussed in the [FAIR and CARE Principles lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_06.htm). When you include FAIR and CARE in the planning process of your DMP, it will make it easier to include and maintain throughout the entire project. 
 
 ### What to include in a DMP
 
@@ -171,7 +172,7 @@ It's crucial to remember that a DMP is a *plan*. None of the information in it i
 
 It may be helpful to develop a policy where you and your team review the DMP and update it as needed. Or maybe the DMP is part of someone's responsibility on the team, maybe it's a rotating responsibility. There's a lot of flexibility here, and you should implement whatever policy or plan works best for you and your collaborators. 
 
-What is most important is that your DMP is an accurate reflection when you're finished with your project and are ready to submit your data. This will make the process of submitting data much smoother. 
+What is most important is that your DMP is an accurate reflection when you're finished with your project so you're ready to submit your data. This will make the process of submitting data much smoother. 
 
 ## Deep dive into Metadata & Publishing Data
 
@@ -179,7 +180,7 @@ So far we've discussed the high-level steps toward achieving an open science pro
 
 ### Metadata Best Practices
 
-Metadata (data about data) is an important part of the data life cycle because it enables data reuse long after the original collection. Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
+Metadata (data about data) is an important part of the Data Life Cycle because it enables data reuse long after the original collection. Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
 
@@ -248,7 +249,7 @@ Correctly assigning a way for your datasets to be cited and reused is the last p
 
 #### Metadata Standards
 
-So, how do you organize all this information? There are a number of metadata standards (think, templates) that you could use including:
+So, how does a computer organize all this information? There are a number of metadata standards that make your metadata machine readable and therefore easier for data curators to publish your data.
 
 -   [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/)
 -   [Geospatial Metadata Standards (ISO 19115 and ISO 19139)](https://www.fgdc.gov/metadata/iso-standards)
@@ -263,7 +264,7 @@ So, how do you organize all this information? There are a number of metadata sta
 
 #### Data Identifiers
 
-Many journals require a DOI - a digital object identifier - be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
+Many journals require a DOI (a digital object identifier) be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
 
 Some data repositories assign a DOI for each dataset you publish on their repository. But, if you need to update the datasets, check the policy of the data repository. Some repositories assign a new DOI after you update the dataset. If this is the case, researchers should cite the exact version of the dataset that they used in their analysis, even if there is a newer version of the dataset available.
 
@@ -314,26 +315,51 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 ## Exercise: Outline a DMP and Publish a Data Package on the KNB Repository
 
-**Goal of the exercise:** Practice outlining a DMP plan, identify quality metadata, and publish data on the KNB repository.
-
-### Instructions
-
-1.  Considering your group's research question and datasets outline a DMP for your project.
-    a.  **Use the google doc template from the Setup box below.**
-2.  Investigate the metadata in the provided data.
-    a.  Does the metadata meet the standards we talked about? How so?
-    b.  If not, how would you improve the metadata based on the standards we talked about?
-3.  Publish your project on NCEAS' [demo website](https://demo.nceas.ucsb.edu/) for the KNB repository.
-    a.  **Make sure to logon to KNB using your ORCiD.**
-4.  Elect someone to share back to the group the following:
-    a.  What went well?
-    b.  What was challenging?
-    c.  What did you like about submitting a data package? What features are missing?
+Explore data packages published on KNB assess the quality of their metadata. Imagine you're a data curator! The data packages you'll be looking into more deeply are datasets you're already familiar with through the R Practice Sessions. 
 
 ::: callout-tip
 ### Setup
 
-1.  Go to this google sheet and find your group number
-2.  Go to this google doc for DMP template
+1. Break into groups and use the following data packages:
+    a. **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+    b. **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+    c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
 :::
+
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality, and (3) FAIRness and CAREness.
+
+::: callout-note
+### Exercise: Evaluate a data package on EDI Data Portal
+1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a. **Investigate the metadata in the provided data**
+        i. Does the metadata meet the standards we talked about? How so?
+        ii. If not, how would you improve the metadata based on the standards we talked about?
+    b. **Investigate the overall data documentation in the data package**
+        i. Is the documentation sufficient enough for reproducibility? Why or why not?
+        ii. If not, how would you improve the data documentation? What's missing?
+    c. **Identify elements of FAIR and CARE**
+2. Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
+    b. What documentation stood out to you? What did you like or not like about it?
+    c. How well did these data packages uphold FAIR and CARE Principles?
+    d. Do you feel like you understand the research project enough to use the data yourself?
+    
+*If you and your group finish early, check out more datasets in the bonus question.*
+:::
+
+## Bonus: Investigate metadata and data documentation in other Data Repositories
+
+Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
+
+Evaluate the following data packages at these data repositories: 
+
+1. KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2. DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3. Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories? 
+
+
+
+
 

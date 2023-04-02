@@ -33,7 +33,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 **Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the collaborator to complete, and Step 3 is for the owner to complete.**
 
 2.  **Collaborator** creates new files for exercise
-    a. The collaborator creates the following directories:
+    a. The collaborator creates the following directory:
         i. `analysis` 
     b. After creating the directories, create the following R Markdown files and store them in the listed folders:
         i.  Title it: "Owner Analysis", save it as: `owner-analysis.Rmd`, and store in `analysis` folder
@@ -88,13 +88,13 @@ Questions 1-5 you will be working independently since you're working with differ
 
 The final step! Time to work together again. Collaborate with your partner in `lobster-report.Rmd` to create a report to publish to GitHub pages.
 
-::: callout-important
+::: {.callout-caution icon=false}
 ## Code Review
 As you're working on the `lobster-report.Rmd` you will be conducting [two types of code reviews](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Quality/Code_Review#:~:text=Code%20review%20practices%20fall%20into,review%20and%20lightweight%20code%20review): (1) pair programming and (2) lightweight code review.
 
 - Pair programming is where two people develop code together at the same workstation. One person is the "driver" and one person is the "navigator". The driver writes the code while the navigator observes the code being typed, points out any immediate quick fixes, and will also Google / troubleshoot if errors occur. Both the owner and the collaborator should experience both roles, so switch halfway through or at a meaningful stopping point.
 
-- A lightweight code review is brief and you will be giving feedback on code readability and code logic as you're adding owner and collaborator code from their respective `analysis.Rmd`s to the `lobster-report.Rmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
+- A lightweight code review is brief and you will be giving feedback on code readability and code logic as you're adding Owner and Collaborator code from their respective `analysis.Rmd`s to the `lobster-report.Rmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
 :::
 
 Make sure your R Markdown is well organized and includes the following elements:
