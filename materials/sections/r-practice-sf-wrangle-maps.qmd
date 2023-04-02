@@ -39,7 +39,7 @@ library(leaflet)
 library(ggmap)
 ```
 
-3. Obtain pika and elevation data from the [EDI Portal Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1). Download the following files:
+3. Obtain pika and elevation data from the EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1). Download the following files:
     - `pika_fecal_glut.aw.data.csv` (Fecal glucocorticoid concentration)
     - `pika_fecal_glut_habitat.aw.data.csv` (Habitat characteristics)
     
