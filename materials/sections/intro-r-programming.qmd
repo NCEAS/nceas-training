@@ -1,10 +1,10 @@
 ## Learning Objectives {.unnumbered}
 
 -   Get oriented with the RStudio interface
--   Run code and basic arithmetic in the console
--   Be introduced to built-in R functions
+-   Run code and basic arithmetic in the Console
 -   Practice writing code in an R Script
--   Use the help pages to look up function documentation
+-   Be introduced to built-in R functions
+-   Use the Help pages to look up function documentation
 
 ::: Acknowledgements
 This lesson is a combination of excellent lessons by others. Huge thanks to [Julie Lowndes](https://jules32.github.io/) for writing most of this content and letting us build on her material, which in turn was built on [Jenny Bryan's](https://jennybryan.org/about/) materials. We highly recommend reading through the original lessons and using them as reference (see in the resources section below).
@@ -223,7 +223,7 @@ For more RStudio tips, check out Master of Environmental Data Science (MEDS) wor
 | `boolean` (also called `logical`) | Data take on the value of either `TRUE`, `FALSE`, or `NA`. `NA` is used to represent missing values.                                                                                                                                   |
 | `character`                       | Data are string values. You can think of character strings as something like a word (or multiple words). A special type of character string is a `factor`, which is a string but with additional attributes (like levels or an order). |
 | `integer`                         | Data are whole numbers (those numbers without a decimal point). To explicitly create an integer data type, use the suffix `L` (e.g. `2L`).                                                                                             |
-| `numeric` (also called `double`)  | data are numbers that contain a decimal.                                                                                                                                                                                             |
+| `numeric` (also called `double`)  | Data are numbers that contain a decimal.                                                                                                                                                                                             |
 : Common data types in R {tbl-colwidths="[25,75]"}
 
 
