@@ -15,14 +15,16 @@
 > _"Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do."_
 
 
-If our aim is to make scientific research more transparent,the appeal of this paradigm reversal is immediately apparent. By switching to a literate analysis model, **you help enable human understanding of what the computer is doing**. As Knuth describes, in the literate analysis model, the author is an "_essayist_" who chooses variable names carefully, explains what they mean, and introduces concepts in the analysis in a way that facilitates understanding.
+If our aim is to make scientific research more transparent, the appeal of this paradigm reversal is immediately apparent. By switching to a literate analysis model, **you help enable human understanding of what the computer is doing**. As Knuth describes, in the literate analysis model, the author is an "_essayist_" who chooses variable names carefully, explains what they mean, and introduces concepts in the analysis in a way that facilitates understanding.
 
 
-RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. RMarkdown is a combination of two things R, the programming language, and markdown, a set of text formatting directives. In an R script, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by
-`#`). The paradigm shift of literate analysis comes in the switch to RMarkdown, where instead of assuming you are writing code, Rmarkdown assumes that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown,
+RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. RMarkdown is a combination of two things R, the programming language, and **markdown, a set of text formatting directives**. In an R script, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by
+`#`). 
+
+The paradigm shift of literate analysis comes in the switch to RMarkdown, where instead of assuming you are writing code, Rmarkdown assumes that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown,
 encourages the "essayist" to write understandable prose to accompany the code that explains to the human-beings reading the document what the author told the computer to do. This is in contrast to writing just R code, where the author telling to the computer what to do with maybe a smattering of terse comments explaining the code to a reader.
 
-Before we dive in deeper, let's look at an example of what a rendered literate analysis with RMarkdown can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of a real analysis workflow written using RMarkdown.
+Before we dive in deeper, let's look at an example of what a rendered literate analysis with RMarkdown can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of an analysis workflow written using RMarkdown.
 
 There are a few things to notice about this document, which assembles a set of similar data sources on salmon brood tables with different formatting into a single data source.
 
@@ -32,7 +34,8 @@ There are a few things to notice about this document, which assembles a set of s
 -   The document executes a set of formatting scripts in a directory to
     generate a single merged file.
 -   Some simple quality checks are performed (and their output shown) on
-    the merged data. -Simple analysis and plots are shown.
+    the merged data. 
+-   Simple analysis and plots are shown.
 
 In addition to achieving literate analysis, this document also
 represents a **reproducible analysis**. Because the entire merging and
@@ -399,13 +402,13 @@ filesystem. A path can come in one of two forms: absolute or relative.
 RMarkdown has a special way of handling relative paths that can be very handy. When working in an RMarkdown document, **R will set all paths relative to the location of the RMarkdown file**. This way, you don't have to worry about setting a working directory, or changing your
 colleagues absolute path structure with the correct user name, etc. If your RMarkdown is stored near where the data it analyses are stored (good practice, generally), setting paths becomes much easier!
 
-If you saved your `BGchem2008data.csv` data file in the same location as your Rmd, you can just write the following to read it in. Checkout the help page by typing `?read_csv()` in the console. This tells you that for this function the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press `tab` with your cursor between the quotes, a popup menu will appear showing you some options.
+If you saved your `BGchem2008data.csv` data file in the same location as your Rmd, you can just write `read_csv("BGchem2008data.csv")`  to read it in. Checkout the help page by typing `?read_csv()` in the console. This tells you that for this function the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press `tab` with your cursor between the quotes, a popup menu will appear showing you some options.
 
 
 
 ### Practice: RMarkdown and Environments
 
-Let's walk through an exercise with the document you built together to demonstrate how RMarkdown handles environments. We will be deliberately inducing some errors here for demonstration purposes.
+Let's walk through an exercise with the document we just created to demonstrate how RMarkdown handles environments. We will be deliberately inducing some errors here for demonstration purposes.
 
 First, follow these steps:
 
@@ -413,14 +416,14 @@ First, follow these steps:
 ## Setup
 
 -   Restart your R session (Session \> Restart R)
--   Run the last chunk in your Rmarkdown by pressing the play button on
-    the chunk
+-   Run the last chunk in your Rmarkdown by pressing the play button on the chunk
+
+:::
 
 Perhaps not surprisingly, we get an error:
 
     Error in plot(bg_chem$P, bg_chem$NO2 + bg_chem$NO3 + bg_chem$NH4) : 
       object 'bg_chem' not found
-:::
 
 This is because we have not run the chunk of code that reads in the `bg_chem` data. The R part of Rmarkdown works just like a regular R script. You have to execute the code, and the order that you run it in matters. It is relatively easy to get mixed up in a large RMarkdown document --- running chunks out of order, or forgetting to run chunks.
 
@@ -429,9 +432,9 @@ To resolve this, follow the next step:
 ::: callout-tip
 ## Setup continued
 
-3.  Select from the "Run" menu (top right of Rmarkdown editor) "Restart
-    R and run all chunks"
-4.  Observe the `bg_chem` variable in your environment
+-  Select from the "Run" menu (top right of Rmarkdown editor) "Run All."
+-  Observe the `bg_chem` variable in your environment
+
 :::
 
 This is a great way to reset and re-run code when things seem to have gone sideways. It is great practice to do periodically since it helps ensure you are writing code that actually runs and it's reproducible.
@@ -439,9 +442,9 @@ This is a great way to reset and re-run code when things seem to have gone sidew
 ::: callout-tip
 ## For the next exercise:
 
-1.  Restart your R session (Session \> Restart R)
-2.  Press "Knit" to run all of the code in your document
-3.  Observe the state of your environment pane
+-  Restart your R session (Session \> Restart R)
+-  Press "Knit" to run all of the code in your document
+-  Observe the state of your environment pane
 
 Assuming your document knitted and produced an html page, your code ran.
 Yet the environment pane is empty. What happened?
@@ -454,8 +457,8 @@ To further clarify the point on environments, perform the following steps:
 ::: callout-tip
 ## Setup continued
 
-3.  Select from the "Run" menu (top right of Rmarkdown editor) "Run All"
-4.  Observe all of the variables in your environment
+-  Select from the "Run" menu (top right of Rmarkdown editor) "Run All"
+-  Observe all of the variables in your environment
 :::
 
 ::: callout-important
