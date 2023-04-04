@@ -172,7 +172,7 @@ In the next section we'll use the GitHub URL for the GitHub repository you creat
 
 ![](images/github-test-clone-url.png){width="70%" fig-align="center"}
 
-## Exercise 2: `clone` your repository and use `git` locally in RStudio
+## Exercise 2: `clone` your repository and use `Git` locally in RStudio
 
 RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. In this next section,
 
@@ -254,7 +254,7 @@ And note that the labels indicate that both the local repository (`HEAD`) and th
 ::: callout-note
 ## Last thing, some `Git` configuration
 
-When git released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our git with this line of code:
+When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
 
 ```{.bash}
 git config pull.rebase false
@@ -358,6 +358,6 @@ and much, much more.
 ## Additional `Git` resources
 
 -   [GitHub Documentation](https://docs.github.com/en/get-started/quickstart/set-up-git)
--   [Learn Git Branching](https://learngitbranching.js.org/) is an interactive tool to learn git on the command line
--   [Software Carpentry Version Control with Git](https://swcarpentry.github.io/git-novice/)
--   Bitbucket's tutorials on [Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)
+-   [Learn `Git` Branching](https://learngitbranching.js.org/) is an interactive tool to learn `Git` on the command line
+-   [Software Carpentry Version Control with `Git`](https://swcarpentry.github.io/git-novice/)
+-   Bitbucket's tutorials on [`Git` Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)
