@@ -67,7 +67,7 @@ Next, create a line graph using `ggplot()` and `geom_line()`. Use `geom_point()`
 
 ```{r}
 # line plot
-gplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
   geom_line(aes(color = SITE)) 
 
 # line and point plot
@@ -111,11 +111,11 @@ Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar(
 ```{r}
 # bar plot
 ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
-    geom_bar(stat = "identity")
+    geom_col()
 
 # dodged bar plot
 ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
-    geom_bar(stat = "identity", position = "dodge")
+    geom_col(position = "dodge")
 ```
 
 <details>

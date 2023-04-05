@@ -116,11 +116,11 @@ Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar(
 ```{r}
 # bar plot
 ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FISHING_PRESSURE)) +
-    geom_bar(stat = "identity")
+    geom_col()
 
 # dodged bar plot
 ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FISHING_PRESSURE)) +
-    geom_bar(stat = "identity", position = "dodge")
+    geom_col(position = "dodge")
 ```
 
 <details>
