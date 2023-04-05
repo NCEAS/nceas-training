@@ -15,7 +15,7 @@ with the changes made by others.
 The simplest way to collaborate with `Git` is to use a shared repository on a hosting
 service such as [GitHub](https://github.com), and use this shared repository as
 the mechanism to move changes from one Collaborator to another.  While there are other
-more advanced ways to sync `git` repositories, this "hub and spoke" model works really 
+more advanced ways to sync `Git` repositories, this "hub and spoke" model works really 
 well due to its simplicity.
 
 In this model, the Collaborator will `clone` a copy of the Owner's repository from
@@ -46,6 +46,18 @@ These next steps are for the Owner:
 Now, the Collaborator will follow this step:
 
 - Check your email for an invitation to GitHub or check your notifications (likely under "Your Organizations") on GitHub to accept the invite to collaborate.
+:::
+
+::: {.callout-caution icon=false}
+### Last thing, some `Git` configuration
+
+When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
+
+```{.bash}
+git config pull.rebase false
+```
+
+`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
 :::
 
 We will start by having the Collaborator make some changes and share those with the Owner without generating any conflicts, In an ideal world, this would be the normal workflow. The instructors are going to demonstrate this in the next section.
@@ -154,7 +166,7 @@ take precedence.  You have to tell `Git` whose changes to use for that line.
 **1. Abort, abort, abort...**
 
 Sometimes you just made a mistake.  When you get a merge conflict, the repository
-is placed in a "Merging" state until you resolve it.  There's a terminal command
+is placed in a "Merging" state until you resolve it.  There's a Terminal command
 to abort doing the merge altogether:
 
 ``` bash
@@ -174,7 +186,7 @@ use either **your** changes (the person doing the `merge`), or **their** changes
 - keep your Collaborator's file: `git checkout --theirs conflicted_file.Rmd`
 - keep your own file: `git checkout --ours conflicted_file.Rmd`
 
-Once you have run that command, then run `add` (staging), `commit`, and `push` the changes as normal.
+Once you have run that command, then run `add` (staging), `commit`, `pull`, and `push` the changes as normal.
 
 **3. Pull and edit the file**
 
@@ -218,24 +230,18 @@ make sure that the `Git` tab in RStudio doesn't show any changes needing to be c
 ### Step 2: Owner makes a change and commits {.unnumbered}
 
 From that clean slate, the Owner first modifies and commits a small change including their
-name on a specific line of the `README.md` file (we will change line 4). Work to only change
+name on a specific line of the `README.md` file (we will change the first line, the title). Work to only change
 that one line, and add your username to the line in some form and commit the changes 
 (but DO NOT push). We are now in a situation where the Owner has unpushed changes that
 the Collaborator can not yet see.
 
 ### Step 3: Collaborator makes a change and commits **on the same line** {.unnumbered}
 
-Now the Collaborator also makes changes to the same (line 4) of the `README.md` file 
-in their RStudio copy of the project, adding their name to the line. They then commit.
-At this point, both the Owner and Collaborator have committed changes based on 
-their shared version of the `README.md` file, but neither has tried to share their changes
-via GitHub.
+Now the Collaborator also makes changes to the same line (the first line, the title) on the `README.md` file in their RStudio copy of the project, adding their name to the line. They then commit. At this point, both the Owner and Collaborator have committed changes based on their shared version of the `README.md` file, but neither has tried to share their changes via GitHub.
 
 ### Step 4: Collaborator pushes the file to GitHub {.unnumbered}
 
-Sharing starts when the Collaborator pushes their changes to the GitHub repo, which 
-updates GitHub to their version of the file. The Owner is now one revision behind,
-but doesn't know it yet.
+Sharing starts when the Collaborator pushes their changes to the GitHub repo, which updates GitHub to their version of the file. The Owner is now one revision behind, but doesn't know it yet.
 
 ### Step 5: Owner pushes their changes and gets an error {.unnumbered}
 
