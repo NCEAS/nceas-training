@@ -48,27 +48,7 @@ library(scales)
 ```
 
 
-2. Load the data table directly from its [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ), if it isn't already present on your local computer. This code only downloads the file if you need it.
-
-```{r read_data}
-#| eval: false
-#| message: false
-#| warning: false
-data_url <- "https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e"
-
-escape <- tryCatch(
-    read.csv("data/escapement.csv"),
-    error=function(cond) {
-        message(paste("Escapement file does not seem to exist, so get it from the KNB."))
-        esc <- read.csv(url(data_url, method = "libcurl"))
-        return(esc)
-    }
-)
-
-head(esc)
-```
-
-Otherwise, the straightforward code to load the data:
+2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
 
 ```{r}
 #| message: false
@@ -77,7 +57,7 @@ Otherwise, the straightforward code to load the data:
 escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
 
-3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out the documentation [here](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
+3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out [the documentation](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
 
 4. Finally, let's explore the data we just read into our working environment. 
 
@@ -101,6 +81,11 @@ unique(escape$Species)
 ```
 
 :::
+
+
+
+
+
 
 ## Getting the data ready
 
