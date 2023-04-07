@@ -133,7 +133,11 @@ Fortunately for us, Ben Marwick (and others) have written an R package called [r
 ##  Set up
 
 To start a reproducible paper with `rrtools`:
+
+
 1. Close your `username-training` project. Go to the project switcher dropdown, just click "close project." This will set your working directory back to your home directory.
+
+
 2. In console run the following line of code
 
 ```{r echo = FALSE}
@@ -251,15 +255,23 @@ You can then write all of your R code in your RMarkdown, and generate your manus
 
 ### Adding `renv` to conserve your environment
 
-`rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. 
+- `rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. 
 
-To capture the R packages and versions this project depends on, the `renv` package is used. 
+
+- To capture the R packages and versions this project depends on,  we can use the `renv` package. 
+
 - Running `renv::init()`, will initiate tracking of the R packages in your project.
-This unction will create a new folder called `renv` in your top directory.
-- `renv::init()` automatically detects dependencies in your code (by looking for library calls, at the DESCRIPTION file, etc.) and installs them to a private project specific library. This means that your project `mypaper` can use a different version of `dplyr` than another project which may need an older version without any hassle. 
+
+- This action will create a new folder called `renv` in your top directory.
+
+- `renv::init()` automatically detects dependencies in your code (by looking for library calls, at the DESCRIPTION file, etc.) and installs them to a private project specific library. This means that your project `mypaper` can use a different version of `dplyr` than another project which may need an older version without any hassle.
+
+
 - `renv` also write the package dependencies to a special file in the repository called `renv.lock`. 
 
- - If any of your packages you are using get updated, while your are working on your project, you can run `renv::snapshot()` to update the `renv.lock` file and your project-installed packages. 
+ - If any of your packages you are using is updated, while your are working on your project, you can run `renv::snapshot()` to update the `renv.lock` file and your project-installed packages. 
+ 
+ 
  - You can read the `renv.lock` file using `renv::restore()`, when needed. This will install the versions of the packages needed.
  
 ### Conserve your computational environement with Docker
@@ -272,11 +284,15 @@ This unction will create a new folder called `renv` in your top directory.
 
 
 **In practice**
+
 - Once you have your research compendium, you can called `rrtools::use_dockerfile()` 
+
 - This, first creates a Dockerfile that loads a standard image for using R with the tidyverse, 
+
 - And then has more instructions for how to create the environment so that it has the very specific R packages and versions you need.
 
 - If we look at the Dockerfile (example below), it calls to `renv::restore()`, as described above. 
+
 - The last line of the docker file renders our RMarkdown reproducible paper!
 
 
@@ -314,7 +330,7 @@ RUN . /etc/environment \
 
 
  
-### The 5th Generation of Reproducible Papers {-}
+### The 5th Generation of Reproducible Papers
 
 ![](images/Living-paper.png)
 
