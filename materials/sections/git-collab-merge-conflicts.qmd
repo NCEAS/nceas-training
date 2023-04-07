@@ -366,7 +366,7 @@ a lot of time and frustration. These are words our teams live by:
 
 A good workflow is encapsulated as follows:
 
-```Pull -> Edit -> Save -> Add (stage) -> Pull -> Commit -> Push```
+```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> Push```
 
 **Always start your working sessions with a `Pull` to get any outstanding changes, then
 start your work**. `Stage` your changes, but before you `Commit`, `Pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `Commit` and immediately `Push` your changes safely. 

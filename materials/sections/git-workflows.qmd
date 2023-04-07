@@ -2,148 +2,206 @@
 
 - Become familiar with additional mechanisms to collaborate using `Git`
 - Contribute code to a colleague’s repository using Pull Requests
-- Use branches to organize code and features in a project
-- Understand the difference between workflows and when to use them
 
-## Why understanding and learning `Git` workflows are important
+## Why `Git` workflows are important
 
-When working with a team on a Git-managed project, it’s important to make sure the team is all in agreement on how the flow of changes will be applied. To ensure the team is on the same page, an agreed-upon Git workflow should be developed or selected. There are several publicized Git workflows that may be a good fit for your team. Here, we will discuss some of these Git workflow options.
+![Source: Atlassian](images/git-workflows.png)
 
-The array of possible workflows can make it hard to know where to begin when implementing Git in the workplace. This page provides a starting point by surveying the most common Git workflows for software teams.
+When working with a team on a `Git`-managed project, it’s important to make sure the team is in agreement on how the flow of changes will be applied. To ensure the team is on the same page, an agreed-upon `Git` workflow should be developed or selected (maybe something to add your [DMP](https://learning.nceas.ucsb.edu/2023-04-coreR/session_14.html)). There are several documented `Git` workflows that may be a good fit for your team. In this lesson, we will discuss two of these `Git` workflow options:
 
-As you read through, remember that these workflows are designed to be guidelines rather than concrete rules. We want to show you what’s possible, so you can mix and match aspects from different workflows to suit your individual needs.
+1. [Branch Workflow](#branch-workflow)
+2. [Forking Workflow](#forking-workflow)
+
+Remember that these workflows are designed to be guidelines rather than concrete rules. We want to show you what’s possible, so you can mix and match aspects from different workflows to suit your project's needs.
 
 ## Pull Requests
 
-We've shown in other chapters how to directly collaborate on a repository with
-colleagues by granting them `write` privileges as a collaborator to your repository.
-This is useful with close collaborators, but also grants them tremendous latitude to
-change files and analyses, to remove files from the working copy, and to modify all
-files in the repository.  
+![Source: Atlassian](images/git-workflow-branch-pr.png){width="90%" fig-align="center"}
 
-Pull requests represent a mechanism to more judiciously collaborate, one in which 
-a collaborator can suggest changes to a repository, the owner and collaborator can 
-discuss those changes in a structured way, and the owner can then review and accept
-all or only some of those changes to the repository.  This is useful with open source
-code where a community is contributing to shared analytical software, to students in 
-a lab working on related but not identical projects, and to others who want the 
-capability to review changes as they are submitted.
+In previous chapters, we've gone over how to directly collaborate on a repository with colleagues by granting them `write` privileges as a Collaborator to your repository. This is useful with close collaborators, but also grants them tremendous latitude to change files and analyses, to remove files from the working copy, and to modify all files in the repository.  
 
-To use pull requests, the general procedure is as follows.  The collaborator first
-creates a `fork` of the owner's repository, which is a cloned copy of the original
-that is linked to the original.  This cloned copy is in the collaborator's GitHub
-account, which means they have the ability to make changes to it.  But they don't have
-the right to change the original owner's copy.  So instead, they `clone` their GitHub
-copy onto their local machine, which makes the collaborator's GitHub copy the `origin`
-as far as they are concerned. In this scenario, we generally refer to the Collaborator's
+Pull requests represent a mechanism to more judiciously collaborate, one in which:
+
+1. First, a Collaborator can suggest changes to a repository
+2. Then, the Owner and Collaborator can discuss those changes in a structured way
+3. Finally, the Owner can review and accept all or only some of those changes to the repository
+
+This is useful with open source code where a community is contributing to shared analytical software, to students in a lab working on related but not identical projects, and to others who want the capability to review changes as they are submitted.
+
+We'll be using Pull Requests in both the branch and forking workflow. Using pull requests with each of these workflows is slightly different, but the general process is as follows:
+
+1. A Collaborator creates a feature in their local repository
+2. Collaborator pushes the branch to the GitHub repository they're collaborating on
+3. Collaborator opens a Pull Request on GitHub
+4. Owner or the rest of the team reviews the code, discusses it, and alters it (as neded)
+5. Owner or project maintainer merges the feature into the repository and closes the Pull Request
+
+## Branch Workflow {#branch-workflow}
+
+Branches are a mechanism to isolate a set of changes in their own thread, allowing multiple types of work to happen in parallel on a repository at the same time. These are most often used for trying out experimental work, or for managing bug fixes for historical releases of software. Here's an example graph showing a `branch2.1` that has changes in parallel to the main branch of development:
+
+![](images/version-graph.png){width="80%" fig-align="center"}
+
+The default branch in almost all repositories is called `main`, and it is the branch that is typically shown in the GitHub interface and elsewhere. There are many mechanisms to create branches. The one we will try is through RStudio, in which we use the branch dialog to create and switch between branches.
+
+### How it Works
+
+The core idea behind the Branch Workflow is that all project development should take place in a dedicated branch instead of the `main` branch. This  makes it easy for multiple Collaborators to work on a particular part of the project without disturbing the `main` codebase. It also means the `main` branch will never contain broken code.
+
+In general a branch workflow follows these steps:
+
+::: {.callout-caution icon=false}
+#### BIG IDEA
+Owner and Collaborator work in the same repository, but in different branches outside of `main`
+:::
+
+#### Collaborator, in their workspace, creates a new branch for the feature or development they're working on
+
+This can be done directly in the RStudio interface within the `Git` pane using the new branch icon. Alternatively, you can run this line in the Terminal which will create a new branch and switch to it: ```git checkout -b ＜new-branch＞```  
+
+![](images/git-worfklows-new-branch-button.png){width="80%" fig-align="center"}
+
+After you click that icon, a new dialog box appears where you can create a new branch. Keep the setting to "origin" and keep the box "Sync branch with remote" checked.
+
+![](images/git-workflows-new-branch.png){width="80%" fig-align="center"}
+
+This new branch has effectively created a copy of the `main` in this new workspace where you can work on a new feature independently of the codebase in `main` without affecting it.
+
+#### When Collaborator has finalized their work, the will open and submit a Pull Request to the `main` branch
+
+When you go to GitHub to open a Pull Request, GitHub will recognize that a new change has been pushed to the remote repository and will suggest opening a pull request.
+
+![](images/git-workflows-notification-new-pr.png)
+
+When you open a new Pull Request, you will be pushing your changes from your new branch to `main`. The Pull Request will automatically compare the codebase for both workspaces to determine if the two can be successfully merged. If not, you will need to reconcile the merge conflict before completing the Pull Request. If you see that you are "Able to merge" the two branches, then move forward by clicking "Create pull request. 
+
+![](images/git-workflows-open-new-pr.png)
+
+#### Ideally, Owner reviews the Pull Request and discusses new code changes as necessary with Collaborator
+
+It's important to have a review process to avoid potential issues. In this case, the author of the Pull Request is being closed (and therefore not merged) since the pull request does not target the correct branch of the workflow. Ultimately, these discussions lead to greater successfull and smoother workflows on a collaborative project. 
+
+![](images/git-workflows-pr-not-accepted.png){width="80%" fig-align="center"}
+
+#### Owner merges the new feature or development into `main` and closes the Pull Request
+
+Once the Pull Request has been reviewed, the reviewer can merge in the new feature which automatically closes the pull request.
+
+![](images/git-workflows-pr-success-close.png)
+
+####  Everyone switches to `main` in their local workspace and `Pull`s so that they're in sync with the new changes in the remote `main`
+
+If you have merged all your new features into `main` from the new branch and will no longer need use the new branch, `pull` to sync up your local workspace (because merging creates a new commit and this commit exists on GitHub since it was created in GitHub). And to keep your repository clean, delete the branch. And note that you can always restore the branch if you need to return to it.
+
+Now pair up with a partner and try this flow out in the [Branch exercise](#branch_exercise).
+
+### Exercise: create a branch, make a change in a file, and submit a Pull Request {#branch_exercise}
+
+::: callout-tip
+#### Instructions
+0. Make sure you're in your `{ownerName}-{collaboratorName}` repository that you created in the [R Practice: Collaborating on, Wrangling & Visualizing Data](https://learning.nceas.ucsb.edu/2023-04-coreR/session_13.html) session
+1. Choose who is the Owner and who is the Collaborator 
+2. Have the Collaborator make a new branch called `new-data-viz`
+3. In the new, `new-data-viz` branch, the Collaborator will open the `lobster-report.Rmd` file and add some new visualization code to the file.
+4. Collaborator uses the `Git` workflow: ```Save -> Stage -> Commit -> Pull -> Push```
+5. Collaborator submits a Pull Request where they want to merge changes from `new-data-viz` to `main`
+6. Owner reviews the Pull Request and discusses new code with Collaborator, if needed
+7. After the review, Owner accepts the Pull Request, which will merge the new changes and close it
+8. Switch roles and repeat steps 1-8, where the Owner will add new vizualization code to the `lobster-report.Rmd`
+:::
+
+## Forking Workflow {#forking-workflow}
+
+The Forking Workflow is fundamentally different than other popular Git workflows. Instead of using a single `Git` repository to act as the "central" codebase, it gives every Collaborator their own repository to work in. This means they are not a Collaborator on the repository they have forked from and therefore do not have write access to that original repository.
+
+The Forking Workflow is most often seen in public open source projects.
+
+The main advantage of the Forking Workflow is that contributions can be integrated without the need for everybody to push to a single central repository. Collaborators push to their own repositories, and only the Owner can push to the official repository. This allows the Owner to accept commits from any Collaborator without giving them write access to the official codebase.
+
+The result is a distributed workflow that provides a flexible way for large, organic teams (including untrusted third-parties) to collaborate securely. This also makes it an ideal workflow for open source projects.
+
+### How it Works
+
+::: {.callout-caution icon=false}
+##### BIG IDEA
+Owner and Collaborator work in their own different repositories, where the Collaborator has `forked` the Owner's repository (aka the Owner repository is the "original" repository). The `fork` is a link to the original repository that allows the Collaborator to submit Pull Requests.
+:::
+
+In the following example, `mbjones` will be the repository Owner, and `metamattj` will be the Collaborator.
+
+#### Collaborator first creates a `fork` of the owner's repository
+
+This `fork` is a cloned copy of the Owner's repository that is separate but linked to the Owner's repository. Here we see that the `mbjones/training-test` repository has been `forked` once.
+
+To create a `forked` repository, visit the GitHub page for the Owner's repository that you'd like to make changes to, and click the `Fork` button. This will create a clone of that repository in your
+own GitHub account that can be `cloned` to your local computer.
+
+![](images/git-pr-01-owner-repo.png)
+
+#### Collaborator `clone`s their new `forked` repository into their local workspace
+
+This cloned copy is in the Collaborator's GitHub account, which means they have the ability to make changes to it.  But they don't have the right to change the original owner's copy.  So instead, they `clone` their GitHub copy onto their local machine, which makes the collaborator's GitHub copy the `origin` as far as they are concerned. In this scenario, we generally refer to the Collaborator's
 repository as the remote `origin`, and the Owner's repository as `upstream`.
 
-![](images/github-workflows-fork.png)
+#### Collaborator makes changes to `forked` repository
 
-Pull requests are a mechanism for someone that has a forked copy of a repository 
-to **request** that the original owner review and pull in their changes.  This 
-allows them to collaborate, but keeps the owner in control of exactly what changed.
+Again, these changes are independent of the Owner's repository that the Collaborator `forked` from. When they have completed their changes, they complete the `Git` workflow and `push` the changes to their remote forked repository.
 
-## Branch Workflow
-
-Branches are a mechanism to isolate a set of changes in their own thread, allowing multiple 
-types of work to happen in parallel on a repository at the same time.  These are most often
-used for trying out experimental work, or for managing bug fixes for historical releases
-of software.  Here's an example graph showing a `branch2.1` that has changes in parallel 
-to the main branch of development:
-
-![](images/version-graph.png)
-
-The default branch in almost all repositories is called `main`, and it is the
-branch that is typically shown in the GitHub interface and elsewhere.
-There are many mechanisms to create branches.  The one we will try is 
-through RStudio, in which we use the branch dialog to create and switch 
-between branches.
-
-### How it Works
-
-### Exercise: create a branch, make a change by adding a new file with some code?? then do a PR
-
-Create a new branch in your training repository called `exp-1`, and then make 
-changes to the RMarkdown files in the directory.  Commit and push those changes
-to the branch.  Now you can switch between branches using the github interface.
-
-![](images/git-branch-create.png)
-
-## Forking Workflow
-
-### How it Works
-
-### Exercise: Fork a repo, make a change, then PR, then sync
-
-In this exercise, work in pairs.  Each pair should create a `fork` of their partner's
-training repository, and then clone that onto their local machine.  Then they can make changes
-to that forked repository, and, from the GitHub interface, create a pull request that the
-owner can incorporate. We'll walk through the process from both the owner and the collaborator's
-perspectives.  In the following example, `mbjones` will be the repository owner, and `metamattj`
-will be the collaborator.
-
-1. *Change settings (Owner)*: Edit the github settings file for your `training-test` repository, and ensure that the collaborator does not have editing permission.  Also, be sure that all changes in your repository are committed and pushed to the `origin` server.
-
-2. *Fork (Collaborator)*: Visit the GitHub page for the owner's GitHub repository on which you'd like
-to make changes, and click the `Fork` button.  This will create a clone of that repository in your
-own GitHub account.  You will be able to make changes to this forked copy of the repository, but 
-you will not be able to make direct changes to the owner's copy. After you have forked the repository,
-visit your GitHub page for your forked repository, copy the url, and create a new RStudio project
-using that repository url.
-
-![](images/git-pr-02-forked-repo.png)
-
-3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
-file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
-has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
+At this point, the Collaborator's local repository and their GitHub copy both have the changes that they made, but the Owner's repository has not yet been changed.
 
 ![](images/git-pr-03-fork-changed.png)
 
-4. *Create Pull Request (Collaborator)*: At this point, click the aptly named `Pull Request` button to create a pull request which will be used to ask that the *owner* pull in your changes to their copy.
+#### Open a Pull Request to the `upstream` repository
+
+Similar to the branch workflow, Collaborator submits a Pull Request (there may be be a notification on their repository from GitHub saying to compare and open a pull request). But dissimilar from the branch workflow, the Pull Request will be asking to submit changes from the Collaborator's `forked` repository to the Owner's `upstream` repository. 
+
+When the Collaborator's visits their respository on GitHub, they will also see a message that says: `This branch is 1 commit ahead of mbjones:main.`
 
 ![](images/git-pr-04-config-pr.png)
 
-When you click `Create pull request`, provide a brief summary of the request, and a more detailed message to start a conversation about what you are requesting. It's helpful to be polite and concise while providing adequate context for your request. This will start a conversation with the owner in which you can discuss your changes, they can easily review the changes, and they can ask for further changes before the accept and pull them in.  The owner of the repository is in control and determines if and when the changes are merged.
+When the Collaborator clicks the named Pull Request button to create a pull request for the Owner to review, the Collaborator can provide a brief summary of the request, and a more detailed message to start a conversation about what you are requesting. It's helpful to be polite and concise while providing adequate context for your request. This will start a conversation with the Owner in which you can discuss your changes, they can easily review the changes, and they can ask for further changes before the accept and pull them in. The Owner of the repository is in control and determines if and when the changes are merged.
 
 ![](images/git-pr-05-create-pr.png)
 
-5. *Review pull request (Owner)*: The owner will get an email notification that the Pull Request was created, and can see the PR listed in their `Pull requests` tab of their repsoitory.
+#### Owner reviews Pull Request
+
+Owner will get an email or GitHub notification that the Pull Request was created, and can see the pull request listed in their "Pull requests" tab of their repository.
 
 ![](images/git-pr-06-pr-list.png)
 
-The owner can now initiate a conversation about the change, requesting further changes. The interface indicates whether there are any conflicts with the changes, and if not, gives the owner the option to `Merge pull request`.
+The Owner can initiate a conversation about the change, or request further changes. The GitHub interface indicates whether there are any conflicts with the changes, and if not, gives the Owner the option to "Merge pull request".
 
 ![](images/git-pr-07-pr-view.png)
 
-6. *Merge pull request (Owner)*: Once the owner thinks the changes look good, they can click the `Merge pull request` button to accept the changes and pull them into their repository copy. Edit the message, and then click `Confirm merge`.
+#### Owner merges Pull Request
+
+Once the Owner thinks the changes look good, they can click the "Merge pull request" button to accept the changes and pull them into their repository copy. The Owner can edit the message, and then click "Confirm merge".
 
 ![](images/git-pr-08-pr-merge.png)
 
-Congratulations, the PR request has now been merged into the owner's copy, and has been closed with a note indicating that the changes have been made.
+Yay, the Pull Request has now been merged into the Owner's copy, and has been closed with a note indicating that the changes have been made!
 
 ![](images/git-pr-09-merged.png)
 
-7. *Sync with owner (Collaborator)*: Now that the pull request has been merged, there is a 
-new merge commit in the Owner's repository that is not present in either of the 
-collaborator's repositories.  To fix that, 
-one needs to pull changes from the `upstream` repository into the collaborator's local
-repository, and then push those changes from that local repository to the collaborator's
-`origin` repository.
+#### Collaborator syncs their forked repository with Owner's repository
 
-To add a reference to the `upstream` remote (the repository you made your fork from), in the terminal, run:
+Now that the pull request has been merged, there is a new merge commit in the Owner's repository that is not present in either of the Collaborator's repositories. To fix that, Collaborator needs to `sync` changes from the `upstream` repository into the Collaborator's forked repository on GitHub, and then `pull` those changes into their local repository.
 
-`git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
+![](images/git-workflows-sync-fork.png){width="80%" fig-align="center"}
 
-Then to pull from the main branch of the `upstream` repository, in the terminal, run: 
+::: {.callout-caution icon=false}
+#### Using `Git` in the Terminal to set and `pull` from `upstream`
+To add a reference to the `upstream` remote (the repository you made your fork from) run this in the Terminal: ```git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git```
 
-`git pull upstream main`
+Then to `pull` from the `main` branch of the `upstream` repository run in the Terminal: ```git pull upstream main```
+:::
 
 At this point, the collaborator is fully up to date.
 
-![](images/github-workflows-upstream.png)
-
-There is no one-size-fits-all Git workflow. A workflow should be simple and enhance the productivity of your team.
+::: callout-important
+## Remember: there is more than one way to do it!
+There is no one-size-fits-all Git workflow, but ultimately a workflow should be simple and enhance the productivity of your team.
+:::
 
 ## Resources
 
