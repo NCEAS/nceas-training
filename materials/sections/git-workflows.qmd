@@ -2,8 +2,6 @@
 
 - Become familiar with additional mechanisms to collaborate using `Git`
 - Contribute code to a colleague’s repository using Pull Requests
-- Use branches to organize code and features in a project
-- Use a forked repository to add features to a colleague’s repository
 
 ## Why `Git` workflows are important
 
@@ -53,7 +51,7 @@ The core idea behind the Branch Workflow is that all project development should 
 In general a branch workflow follows these steps:
 
 ::: {.callout-caution icon=false}
-## BIG IDEA
+#### BIG IDEA
 Owner and Collaborator work in the same repository, but in different branches outside of `main`
 :::
 
@@ -114,87 +112,89 @@ Now pair up with a partner and try this flow out in the [Branch exercise](#branc
 
 ## Forking Workflow {#forking-workflow}
 
+The Forking Workflow is fundamentally different than other popular Git workflows. Instead of using a single `Git` repository to act as the "central" codebase, it gives every Collaborator their own repository to work in. This means they are not a Collaborator on the repository they have forked from and therefore do not have write access to that original repository.
+
+The Forking Workflow is most often seen in public open source projects.
+
+The main advantage of the Forking Workflow is that contributions can be integrated without the need for everybody to push to a single central repository. Collaborators push to their own repositories, and only the Owner can push to the official repository. This allows the Owner to accept commits from any Collaborator without giving them write access to the official codebase.
+
+The result is a distributed workflow that provides a flexible way for large, organic teams (including untrusted third-parties) to collaborate securely. This also makes it an ideal workflow for open source projects.
+
 ### How it Works
 
-Pull requests are a mechanism for someone that has a forked copy of a repository 
-to **request** that the original owner review and pull in their changes.  This 
-allows them to collaborate, but keeps the owner in control of exactly what changed.
+::: {.callout-caution icon=false}
+##### BIG IDEA
+Owner and Collaborator work in their own different repositories, where the Collaborator has `forked` the Owner's repository (aka the Owner repository is the "original" repository). The `fork` is a link to the original repository that allows the Collaborator to submit Pull Requests.
+:::
 
-To use pull requests, the general procedure is as follows.  The collaborator first
-creates a `fork` of the owner's repository, which is a cloned copy of the original
-that is linked to the original.  This cloned copy is in the collaborator's GitHub
-account, which means they have the ability to make changes to it.  But they don't have
-the right to change the original owner's copy.  So instead, they `clone` their GitHub
-copy onto their local machine, which makes the collaborator's GitHub copy the `origin`
-as far as they are concerned. In this scenario, we generally refer to the Collaborator's
+In the following example, `mbjones` will be the repository Owner, and `metamattj` will be the Collaborator.
+
+#### Collaborator first creates a `fork` of the owner's repository
+
+This `fork` is a cloned copy of the Owner's repository that is separate but linked to the Owner's repository. Here we see that the `mbjones/training-test` repository has been `forked` once.
+
+To create a `forked` repository, visit the GitHub page for the Owner's repository that you'd like to make changes to, and click the `Fork` button. This will create a clone of that repository in your
+own GitHub account that can be `cloned` to your local computer.
+
+![](images/git-pr-01-owner-repo.png)
+
+#### Collaborator `clone`s their new `forked` repository into their local workspace
+
+This cloned copy is in the Collaborator's GitHub account, which means they have the ability to make changes to it.  But they don't have the right to change the original owner's copy.  So instead, they `clone` their GitHub copy onto their local machine, which makes the collaborator's GitHub copy the `origin` as far as they are concerned. In this scenario, we generally refer to the Collaborator's
 repository as the remote `origin`, and the Owner's repository as `upstream`.
 
-![](images/github-workflows-fork.png)
+#### Collaborator makes changes to `forked` repository
 
-### Exercise: Fork a repo, make a change, then PR, then sync
+Again, these changes are independent of the Owner's repository that the Collaborator `forked` from. When they have completed their changes, they complete the `Git` workflow and `push` the changes to their remote forked repository.
 
-In this exercise, work in pairs.  Each pair should create a `fork` of their partner's
-training repository, and then clone that onto their local machine.  Then they can make changes
-to that forked repository, and, from the GitHub interface, create a pull request that the
-owner can incorporate. We'll walk through the process from both the owner and the collaborator's
-perspectives.  In the following example, `mbjones` will be the repository owner, and `metamattj`
-will be the collaborator.
-
-1. *Change settings (Owner)*: Edit the github settings file for your `training-test` repository, and ensure that the collaborator does not have editing permission.  Also, be sure that all changes in your repository are committed and pushed to the `origin` server.
-
-2. *Fork (Collaborator)*: Visit the GitHub page for the owner's GitHub repository on which you'd like
-to make changes, and click the `Fork` button.  This will create a clone of that repository in your
-own GitHub account.  You will be able to make changes to this forked copy of the repository, but 
-you will not be able to make direct changes to the owner's copy. After you have forked the repository,
-visit your GitHub page for your forked repository, copy the url, and create a new RStudio project
-using that repository url.
-
-![](images/git-pr-02-forked-repo.png)
-
-3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
-file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
-has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
+At this point, the Collaborator's local repository and their GitHub copy both have the changes that they made, but the Owner's repository has not yet been changed.
 
 ![](images/git-pr-03-fork-changed.png)
 
-4. *Create Pull Request (Collaborator)*: At this point, click the aptly named `Pull Request` button to create a pull request which will be used to ask that the *owner* pull in your changes to their copy.
+#### Open a Pull Request to the `upstream` repository
+
+Similar to the branch workflow, Collaborator submits a Pull Request (there may be be a notification on their repository from GitHub saying to compare and open a pull request). But dissimilar from the branch workflow, the Pull Request will be asking to submit changes from the Collaborator's `forked` repository to the Owner's `upstream` repository. 
+
+When the Collaborator's visits their respository on GitHub, they will also see a message that says: `This branch is 1 commit ahead of mbjones:main.`
 
 ![](images/git-pr-04-config-pr.png)
 
-When you click `Create pull request`, provide a brief summary of the request, and a more detailed message to start a conversation about what you are requesting. It's helpful to be polite and concise while providing adequate context for your request. This will start a conversation with the owner in which you can discuss your changes, they can easily review the changes, and they can ask for further changes before the accept and pull them in.  The owner of the repository is in control and determines if and when the changes are merged.
+When the Collaborator clicks the named Pull Request button to create a pull request for the Owner to review, the Collaborator can provide a brief summary of the request, and a more detailed message to start a conversation about what you are requesting. It's helpful to be polite and concise while providing adequate context for your request. This will start a conversation with the Owner in which you can discuss your changes, they can easily review the changes, and they can ask for further changes before the accept and pull them in. The Owner of the repository is in control and determines if and when the changes are merged.
 
 ![](images/git-pr-05-create-pr.png)
 
-5. *Review pull request (Owner)*: The owner will get an email notification that the Pull Request was created, and can see the PR listed in their `Pull requests` tab of their repsoitory.
+#### Owner reviews Pull Request
+
+Owner will get an email or GitHub notification that the Pull Request was created, and can see the pull request listed in their "Pull requests" tab of their repository.
 
 ![](images/git-pr-06-pr-list.png)
 
-The owner can now initiate a conversation about the change, requesting further changes. The interface indicates whether there are any conflicts with the changes, and if not, gives the owner the option to `Merge pull request`.
+The Owner can initiate a conversation about the change, or request further changes. The GitHub interface indicates whether there are any conflicts with the changes, and if not, gives the Owner the option to "Merge pull request".
 
 ![](images/git-pr-07-pr-view.png)
 
-6. *Merge pull request (Owner)*: Once the owner thinks the changes look good, they can click the `Merge pull request` button to accept the changes and pull them into their repository copy. Edit the message, and then click `Confirm merge`.
+#### Owner merges Pull Request
+
+Once the Owner thinks the changes look good, they can click the "Merge pull request" button to accept the changes and pull them into their repository copy. The Owner can edit the message, and then click "Confirm merge".
 
 ![](images/git-pr-08-pr-merge.png)
 
-Congratulations, the PR request has now been merged into the owner's copy, and has been closed with a note indicating that the changes have been made.
+Yay, the Pull Request has now been merged into the Owner's copy, and has been closed with a note indicating that the changes have been made!
 
 ![](images/git-pr-09-merged.png)
 
-7. *Sync with owner (Collaborator)*: Now that the pull request has been merged, there is a 
-new merge commit in the Owner's repository that is not present in either of the 
-collaborator's repositories.  To fix that, 
-one needs to pull changes from the `upstream` repository into the collaborator's local
-repository, and then push those changes from that local repository to the collaborator's
-`origin` repository.
+#### Collaborator syncs their forked repository with Owner's repository
 
-To add a reference to the `upstream` remote (the repository you made your fork from), in the terminal, run:
+Now that the pull request has been merged, there is a new merge commit in the Owner's repository that is not present in either of the Collaborator's repositories. To fix that, Collaborator needs to `sync` changes from the `upstream` repository into the Collaborator's forked repository on GitHub, and then `pull` those changes into their local repository.
 
-`git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
+![](images/git-workflows-sync-fork.png){width="80%" fig-align="center"}
 
-Then to pull from the main branch of the `upstream` repository, in the terminal, run: 
+::: {.callout-caution icon=false}
+#### Using `Git` in the Terminal to set and `pull` from `upstream`
+To add a reference to the `upstream` remote (the repository you made your fork from) run this in the Terminal: ```git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git```
 
-`git pull upstream main`
+Then to `pull` from the `main` branch of the `upstream` repository run in the Terminal: ```git pull upstream main```
+:::
 
 At this point, the collaborator is fully up to date.
 
