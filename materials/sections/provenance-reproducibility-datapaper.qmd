@@ -187,7 +187,7 @@ We are going to use two functions to start tracking our work in `git`, create a 
 ## Set up
 0. Make sure your are in "mypaper" Rproj.
 
-1. In the Console `run usethis::use_git()` to create a local git repo. Choose yes to both questions when prompted (to commit files, and to restart R). 
+1. In the Console run `usethis::use_git()` to create a local git repo. Choose yes to both questions when prompted (to commit files, and to restart R). 
 
 2. Then, in the Console, run `usethis::use_github()` to create an upstream remote repo (in GitHub).
 
