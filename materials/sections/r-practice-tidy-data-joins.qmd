@@ -1,0 +1,364 @@
+---
+bibliography: references.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Practice joining tables together
+-   Practice identifying primary and foreign keys
+-   Practice using common cleaning and wrangling functions
+
+::: callout-note
+## Acknowledgements
+
+These exercises are adapted from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
+:::
+
+## About the data {.unnumbered}
+
+These exercises will be using bird survey data collected from the central Arizona-Phoenix metropolitan area by Arizona State University researchers [@warren2021].
+
+## Exercise: Practice Joins
+
+::: callout-tip
+## Setup
+
+0. Make sure you're in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub).
+
+1. Create a new R Markdown file. 
+    a. Title it "R Practice: Tidy Data and Joins". 
+    b. Save the file and name it "r-practice-tidy-data-joins". 
+
+**Note:** Double check that you're in the right project. Where in RStudio can you check where you are?
+
+2.  Load the following libraries at the top of your R Markdown file.
+
+```{r}
+#| code-fold: false
+library(readr)
+library(dplyr)
+library(lubridate) # for bonus question
+
+# Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your Rmd.
+```
+
+3.  Obtain data from the EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following files:
+
+-   `52_pp52_birds_1.csv`
+-   `52_pp52_surveys_1.csv`
+-   `52_pp52_sites_1.csv`
+-   `52_pp52_taxalist_1.csv`
+
+**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the "Download" button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
+
+4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
+
+5. Use the `Git` workflow. After you've set up your project and uploaded your data go through the workflow: ```Stage > Commit > Pull > Push```
+    - **Note:** You also want to `Pull` when you first open a project.
+:::
+
+### Read in the data
+
+::: callout-note
+#### Question 1
+
+Read in the data and store the data frames as `bird_observations`, `sites`, `surveys`, and `taxalist` (it should be clear from the raw file names which is which).
+:::
+
+```{r}
+# read in data using download links
+bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
+surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
+sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=81bf72420e69077097fb0790dcdc63a6")
+taxalist <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=58f863b7e3066e68536a9cacdc7bd58e")
+
+# read in data from the data directory after manually downloading data 
+bird_observations <- read_csv("data/52_pp52_birds_1.csv")
+surveys <- read_csv("data/52_pp52_surveys_1.csv")
+sites <- read_csv("data/52_pp52_sites_1.csv")
+taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
+```
+
+### Get familiar with the data
+
+::: callout-note
+#### Question 2a
+
+What functions can you use to explore the data you just read in? Think about which functions we've been using to explore the structure of the data frame, information about columns, unique observations, etc.
+:::
+
+```{r}
+# view data in a spreadsheet-style viewer
+View(bird_observations)
+
+# returns dimensions of the dataframe by number of rows and number of cols
+dim(bird_observations)
+
+# returns the top six rows of the dataframe
+head(bird_observations)
+
+# returns all the columns and some info about the cols
+glimpse(bird_observations)
+
+# similar to glimpse but returns some summary statistics about the cols
+summary(bird_observations)
+
+# returns column names 
+names(bird_observations)
+
+# returns unique values in a column. In this case we can see all the different bird species IDs
+unique(bird_observations$species_id)
+```
+
+::: callout-note
+#### Question 2b
+
+What are the primary and foreign keys for the tables `bird_observations` and `taxalist`? Recall that a **primary key** is a unique identifier for each observed entity, one per row. And a **foreign key** references to a primary key in another table (linkage).
+
+**Hint:** First identify the primary keys for all the tables, then identify the foreign keys.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+-   `bird_observations`: Primary key is a combination of `survey_id`, `site_id`, and `species_id`. The foreign key is `species_id`.
+-   `taxalist`: Primary key is `species_id` and does not have a foreign key.
+
+</details>
+
+
+### Create a subset of `bird_observations`
+
+::: callout-note
+#### Question 3
+
+Write code to create a subset of `bird_observations` called `birds_subset` that only contains observations for birds with species id `BHCO` and `RWBL`, and from sites with site ID `LI-W` and `NU-C`.
+
+**Hint:** What function do you use to subset data by rows?
+:::
+
+```{r}
+birds_subset <- bird_observations %>% 
+  filter(species_id %in% c("BHCO", "RWBL")) %>% 
+  filter(site_id %in% c("LI-W", "NU-C"))
+```
+
+### Use `left_join()` to merge `birds_subset` with the tables `sites` and `taxalist`
+
+::: callout-note
+#### Question 4a
+
+First, answer: what do you expect a `left_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+I expect to see all columns and all observations from `birds_subset` and from `sites`, I expect to see the columns `park_code`, `park_district`, `park-name`, `point_code`, `point_location` and `park_acreage` and only observations for `NU-C` and `LI-W` because those are the only `site_id` values in `birds_subset` and in a left join only the observations matching the left table (in this case, `birds_subset` is the left table) will be kept.
+
+</details>
+
+
+::: callout-note
+#### Qustion 4b
+
+Use a left join to update `birds_subset` so that it also includes `sites` information. For each join, include an explicit argument saying which key you are joining by (even if it will just assume the correct one for you). Store the updated data frame as `birds_left`. Make sure to look at the output - is what it contains consistent with what you expected it to contain?
+:::
+
+```{r}
+# syntax using pipe
+birds_left <- birds_subset %>% 
+  left_join(y = sites, by = "site_id")
+# don't see x = birds_subset here because piping in birds_subset means it automatically assumes birds_subset as x.
+
+# syntax without pipe
+birds_left <- left_join(x = birds_subset, y = sites, by = "site_id")
+```
+
+### Use `full_join()` to merge `birds_subset` and `sites` tables
+
+::: callout-note
+#### Question 5a
+
+First, answer: what do you expect a `full_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept.
+
+</details>
+
+::: callout-note
+#### Questions 5b
+
+Write code to `full_join()` the `birds_subset` and `sites` data into a new object called `birds_full`. Explicitly include the variable you're joining by. Look at the output. Is it what you expected?
+:::
+
+```{r}
+# syntax using pipe
+birds_full <- birds_subset %>% 
+  full_join(y = sites, by = "site_id")
+
+# syntax without pipe
+birds_full <- full_join(x = birds_subset, y = sites, by = "site_id")
+```
+
+
+### Use `inner_join()` to merge `birds_subset` and `taxalist` data
+
+::: callout-note
+#### Question 6a
+First, answer: what do you expect an `inner_join()` between `birds_subset` and `taxalist` to contain? Write this in your R Markdown or tell a neighbor.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the joined table.
+
+</details>
+
+::: callout-note
+#### Question 6b
+Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_inner.` Include an argument for what variable you'll be joining by. Make sure you check the output.
+:::
+
+```{r}
+# syntax using pipe
+birds_inner <- birds_subset %>% 
+  inner_join(y = taxalist, by = "species_id")
+
+# syntax without pipe
+birds_inner <- inner_join(x = birds_subset, y = taxalist, by = "species_id" )
+```
+
+::: callout-note
+#### Question 6c
+What would you get if instead of `inner_join()` you'd used `left_join()` for this example? Write code for the left join and check.
+:::
+
+```{r}
+# syntax using pipe
+birds_inner_left <- birds_subset %>% 
+  left_join(y = taxalist, by = "species_id")
+
+# syntax without pipe
+birds_inner_left <- left_join(x = birds_subset, y = taxalist, by = "species_id")
+```
+
+::: callout-note
+#### Question 6d
+Why does that make sense for this scenario? In what case would you expect the outcome to differ from an `inner_join()`? Write this in your R Markdown or tell a neighbor.
+:::
+
+<details>
+
+<summary>Answer:</summary>
+
+You have the same resulting data set regardless of using `inner_join()` or `left_join()` to merge `bird_subset` and `taxalist`. The reasons for this are:
+
+- `inner_join()` keeps only the rows (observations) that have a matching key across both data sets - here, `species_id` is our key, and the only rows that match across both data sets are those where `species_id` equals `BHCO` or `RWBL`
+
+- `left_join()` keeps all rows from the left table (in our case, the left table is `birds_subset`) and merges on data with matching keys (`species_id`) on the right (here, the right table is `taxalist`). Because our left data set (`birds_subset`) only contains `species_id`s equal to `BHCO` or `RWBL`, only rows with those species will be kept from the right data set (`taxalist`)
+
+You'd expect the outcome to differ from an `inner_join()` if `birds_subset` contained an observation with a `species_id` that was *not* found in `taxalist`. If there was an observation of a `species_id` in `birds_subset` that was *not* in `taxalist`, then that observation would be kept, and `NA`s would be assigned to the `common_name` and `asu_itis` columns for that observations
+
+</details>
+
+## Exercise: Practice Wrangling & Joining Data
+
+### Wrangle `bird_observations` data and merge the data with all the other tables (`sites`, `surveys`, and `taxalist`)
+
+::: callout-note
+#### Question 7a
+Starting with your object `bird_observations`, rename the `notes` column to `bird_obs_notes` (so this doesn't conflict with `notes` in the `surveys` table).
+:::
+
+```{r}
+bird_observations <- bird_observations %>% 
+  rename(bird_obs_notes = notes)
+```
+
+::: callout-note
+#### Question 7b
+
+- Create a subset that contains all observations in the `birds_observations` data frame, 
+- then join the `taxalist`, `sites` and `surveys` tables to it, 
+- and finally limit to only columns `survey_date`, `common_name`, `park_name`, `bird_count`, and `observer`. 
+
+**Hint:** What function do you use to subset data by columns?
+:::
+
+```{r}
+bird_obs_subset <- bird_observations %>% 
+  full_join(y = taxalist, by = "species_id") %>% 
+  full_join(y = sites, by = "site_id") %>% 
+  full_join(y = surveys, by = c("site_id", "survey_id")) %>%  
+  select(survey_date, common_name, park_name, bird_count, observer)
+```
+
+### Explore `observer` data and fix the values within this column so that all values are in the same format
+
+::: callout-note
+#### Question 8a
+Continuing with `bird_obs_subset`, first use `unique()` to see the different unique values in the column `observer`. How many observers are there? Which value is unlike the others?
+:::
+
+```{r}
+unique(bird_obs_subset$observer)
+```
+
+::: callout-note
+#### Question 8b
+Replace "Josh Burns" with a format that matches the other observer names. Then use `unique()` again to check your work.
+
+**Hint:** What function do you use when you are making a change to an entire column?
+:::
+
+```{r}
+bird_obs_subset <- bird_obs_subset %>% 
+  mutate(observer = if_else(condition = observer == "Josh Burns", 
+                            true = "J. Burns", 
+                            false = observer))
+
+unique(bird_obs_subset$observer)
+```
+
+::: callout-important
+## Save your work and use `Git`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+:::
+
+### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
+
+**Hint:** How do you learn about a new function or package?
+
+::: callout-note
+#### Bonus Question(s)
+
+1. Use `lubridate::month()` to add a new column to `bird_obs_subset` called `survey_month`, containing only the month number. Then, convert the month number to a factor (again within `mutate()`).
+
+2. Use `dplyr::relocate()` to move the new `survey_month` column to immediately after the `survey_date` column. You can do this in a separate code chunk, or pipe straight into it from your existing code.
+
+3. Filter to only include parks `Lindo`, `Orme`, `Palomino`, and `Sonrisa`.
+
+4. Find the total number of birds observed by park and month (**Hint:** You can use `group_by()` and `summarize()`).
+:::
+
+```{r}
+bird_obs_subset <- bird_obs_subset %>% 
+  mutate(survey_month = lubridate::month(survey_date)) %>% 
+  mutate(survey_month = as.factor(survey_month)) %>% 
+  dplyr::relocate(survey_month, .after = survey_date) %>% 
+  filter(park_name %in% c("Lindo", "Orme", "Palomino", "Sonrisa")) %>% 
+  group_by(park_name, survey_month) %>% 
+  summarize(tot_bird_count_month = n())
+```
+
+Take a look at your final data frame. Does it give you the outcome you expected? Is it informative? How would you improve this wrangling process?

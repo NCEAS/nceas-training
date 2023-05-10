@@ -1,0 +1,612 @@
+## Learning Objectives {.unnumbered}
+
+-   Get oriented with the RStudio interface
+-   Run code and basic arithmetic in the Console
+-   Practice writing code in an R Script
+-   Be introduced to built-in R functions
+-   Use the Help pages to look up function documentation
+
+::: Acknowledgements
+This lesson is a combination of excellent lessons by others. Huge thanks to [Julie Lowndes](https://jules32.github.io/) for writing most of this content and letting us build on her material, which in turn was built on [Jenny Bryan's](https://jennybryan.org/about/) materials. We highly recommend reading through the original lessons and using them as reference (see in the resources section below).
+:::
+
+## Welcome to R Programming
+
+![Artwork by Allison Horst](images/allison-horst-code-kitchen.png)
+
+There is a vibrant community out there that is collectively developing increasingly easy to use and powerful open source programming tools. The changing landscape of programming is making learning how to code easier than it ever has been. Incorporating programming into analysis workflows not only makes science more efficient, but also more computationally reproducible. In this course, we will use the programming language R, and the accompanying integrated development environment (IDE) RStudio. R is a great language to learn for data-oriented programming because it is widely adopted, user-friendly, and (most importantly) open source!
+
+So what is the difference between R and RStudio? Here is an analogy to start us off. **If you were a chef, R is a knife**. You have food to prepare, and the knife is one of the tools that you'll use to accomplish your task.
+
+And **if R were a knife, RStudio is the kitchen**. RStudio provides a place to do your work! Other tools, communication, community, it makes your life as a chef easier. RStudio makes your life as a researcher easier by bringing together other tools you need to do your work efficiently - like a file browser, data viewer, help pages, terminal, community, support, the list goes on. So it's not just the infrastructure (the user interface or IDE), although it is a great way to learn and interact with your variables, files, and interact directly with git. It's also data science philosophy, R packages, community, and more. Although you can prepare food without a kitchen and we could learn R without RStudio, that's not what we're going to do. We are going to take advantage of the great RStudio support, and learn R and RStudio together.
+
+Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, learning words that mean the same as others, etc, just like everybody else. And just like any form of communication, there will be miscommunication that can be frustrating, but hands down we are all better off because of it.
+
+While language is a familiar concept, programming languages are in a different context from spoken languages and you will understand this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast." So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: "desayuno"). We will get you to expect that programming languages also have words (called functions in R) for concepts as well. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you to increase your expectations and learn to ask and find what you're looking for.
+
+## RStudio IDE
+
+Let's take a tour of the RStudio interface.
+
+![](images/RStudio_IDE.png)
+
+Notice the default panes:
+
+-   Console (entire left)
+-   Environment/History (tabbed in upper right)
+-   Files/Plots/Packages/Help (tabbed in lower right)
+
+::: {.callout-caution icon="false"}
+### Quick Tip
+
+You can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
+:::
+
+## Coding in the Console
+
+::: callout-important
+### But first, an important first question: **where are we?**
+
+If you've just opened RStudio for the first time, you'll be in your Home directory. This is noted by the `~/` at the top of the console. You can see too that the Files pane in the lower right shows what is in the Home directory where you are. You can navigate around within that Files pane and explore, but note that you won't change where you are: even as you click through you'll still be Home: `~/`.
+
+![](images/RStudio_IDE_homedir.png){width="80%" fig-align="center"}
+:::
+
+We can run code in a couple of places in RStudio, including the Console, let's start there.
+
+At it's most basic, we can use R as a calculator, let's try a couple of examples in the console.
+
+```{r}
+#| eval: false
+# run in the console
+# really basic examples
+3*4
+3+4
+3-4
+3/4
+```
+
+While there are many cases where it makes sense to type code directly in to the the console, it is not a great place to write most of your code since you can't save what you ran. **A better way is to create an R Script, and write your code there.** Then when you run your code from the script, you can save it when you are done. We're going to continue writing code in the Console for now, but we'll code in an R Script later in this lesson
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+When you're in the console you'll see a greater than sign (`>`) at the start of a line. This is called the "prompt" and when we see it, it means R is ready to accept commands. If you see a plus sign (`+`) in the Console, it means R is waiting on additional information before running. You can always press escape (`esc`) to return to the prompt. Try practicing this by running `3*` (or any incomplete expression) in the console.
+:::
+
+### Objects in R
+
+Let's say the value of 12 that we got from running `3*4` is a really important value we need to keep. To keep information in R, we need to create an **object**. The way information is stored in R is through objects.
+
+We can assign a value of a mathematical operation (and more!) to an object in R using the assignment operator, `<-` (greater than sign and minus sign). All objects in R are created using the assignment operator, following this form: `object_name <- value`.
+
+::: callout-note
+#### Exercise: Create an object
+
+Assign `3*4` to an object called `important_value` and then inspect the object you just created.
+:::
+
+```{r}
+# think of this code as someone saying "important_value gets 12".
+important_value <- 3*4
+```
+
+Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object, and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it out) or by using parentheses.
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+When you begin typing an object name RStudio will automatically show suggested completions for you that you can select by hitting `tab`, then press `return`.
+:::
+
+```{r}
+# printing the object by calling the object name
+important_value
+# printing the object by wrapping the assignment syntax in parentheses
+(important_value <- 3*4)
+```
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+When you're in the Console use the up and down arrow keys to call your command history, with the most recent commands being shown first.
+:::
+
+### Naming Conventions
+
+Before we run more calculations, let's talk about naming objects. For the object, `important_value` we used an underscore to separate the object name. This naming convention is called **snake case**. There are other naming conventions including, but not limited to:
+
+-   we_used_snake_case
+
+-   someUseCamelCase
+
+-   SomeUseUpperCamelCaseAlsoCalledPascalCase
+
+Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(programming)#:~:text=In%20computer%20programming%2C%20a%20naming,in%20source%20code%20and%20documentation) is a personal preference, but once you choose one - be consistent! A consistent naming convention will increase the readability of your code for others and your future self.
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+Object names cannot start with a digit and cannot contain certain characters such as a comma or a space.
+:::
+
+## Running code in an R Script
+
+So far we've been running code in the Console, let's try running code in an R Script. An R Script is a simple text file. RStudio uses an R Script by copying R commands from text in the file and pastes them into the Console as if you were manually entering commands yourself.
+
+::: callout-tip
+### Creating an R Script
+
+1.  From the "File" menu, select "New File"
+2.  Click "R Script" from the list of options
+
+RStudio should open your R Script automatically after creating it. Notice a new pane appears above the Console. This is called the **Source pane** and is where we write and edit R code and documents. This pane is only present if there are files open in the editor.
+
+3.  Save the R Script as `intro-to-programming.R`
+:::
+
+### How to run code in an R Script
+
+Running code in an R Script is different than running code in the Console (aka you can't just press `return` / `enter`). To interpret and run the code you've written, R needs you to send the code from the script (or editor) to the Console. Some common ways to run code in an R Script include:
+
+1.  Place your cursor on the line of code you want to run and use the shortcut `command` + `return` or click the `Run` button in the top right of the Source pane.
+
+2.  Highlight the code you want to run, then use the shortcut `command` + `return` or click the `Run` button.
+
+### R calculations with objects
+
+So we know that objects are how R stores information, and we know we create objects using the assignment operator `<-`. Let's build upon that and learn how to use an object in calculations.
+
+Imagine we have the weight of a dog in kilograms. Create the object `weight_kg` and assign it a value of 55.
+
+```{r}
+# weight of a dog in kilograms
+weight_kg <- 55 
+```
+
+Now that R has `weight_kg` saved in the Global Environment, we can run calculations with it.
+
+::: callout-note
+#### Exercise: Using `weight_kg` run a simple calculation
+
+Let's convert the weight into pounds. Weight in pounds is 2.2 times the weight in kg.
+:::
+
+```{r}
+# converting weight from kilograms to pounds
+2.2 * weight_kg
+```
+
+You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is with the function `c()`, which stands for combine or concatenate.
+
+First let's create a **vector** of weights in kilograms using `c()` (we'll talk more about vectors in the next section, [Data structures in R](#data_structures)).
+
+```{r}
+# create a vector of weights in kilograms
+weight_kg <- c(55, 25, 12)
+# call the object to inspect
+weight_kg
+```
+
+Now convert the vector `weight_kg` to pounds.
+
+```{r}
+# covert `weight_kg` to pounds 
+weight_kg * 2.2
+```
+
+Wouldn't it be helpful if we could save these new weight values we just converted? This might be important information we may need for a future calculation. How would you save these new weights in pounds?
+
+```{r}
+# create a new object 
+weight_lb <- weight_kg * 2.2
+# call `weight_lb` to check if the information you expect is there
+weight_lb
+```
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+You will make many objects and the assignment operator `<-` can be tedious to type over and over. Instead, use **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**.
+
+Notice that RStudio automatically surrounds `<-` with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces.
+
+RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Also, `option`+`Shift`+`K` brings up a keyboard shortcut reference card.
+
+For more RStudio tips, check out Master of Environmental Data Science (MEDS) workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
+:::
+
+## Data types in R
+
+| Data Type                         | Definition                                                                                                                                                                                                                             |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `boolean` (also called `logical`) | Data take on the value of either `TRUE`, `FALSE`, or `NA`. `NA` is used to represent missing values.                                                                                                                                   |
+| `character`                       | Data are string values. You can think of character strings as something like a word (or multiple words). A special type of character string is a `factor`, which is a string but with additional attributes (like levels or an order). |
+| `integer`                         | Data are whole numbers (those numbers without a decimal point). To explicitly create an integer data type, use the suffix `L` (e.g. `2L`).                                                                                             |
+| `numeric` (also called `double`)  | Data are numbers that contain a decimal.                                                                                                                                                                                             |
+: Common data types in R {tbl-colwidths="[25,75]"}
+
+
+| Data Type | Definition                                              |
+|-----------|---------------------------------------------------------|
+| `complex` | Data are complex numbers with real and imaginary parts. |
+| `raw`     |  Data are raw bytes.                                    |
+
+: Less common data types (we won't be going into these data types this course) {tbl-colwidths="[25,75]"}
+
+We've been using primarily `integer` or `numeric` data types so far. Let's create an object that has a string value or a `character` data type.
+
+```{r}
+science_rocks <- "yes it does!"
+```
+
+"yes it does!" is a string, and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R easily thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
+
+**This lead us to an important concept in programming:** As we now know, there are different "classes" or types of objects in R. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings).
+
+Also, everything in R is an object. An object is a variable, function, data structure, or method that you have written to your environment.
+
+Try running the following line in your script:
+
+```{r}
+#| eval: false
+"Hello world!" * 3
+```
+
+What happened? What do you see in the Console? Why?
+
+::: {.callout-caution icon="false"}
+### Quick Tip
+
+You can see what data type or class an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, `is.logical()`, and so on.
+
+```{r}
+#| eval: false
+class(science_rocks) # returns character
+is.numeric(science_rocks) # returns FALSE
+is.character(science_rocks) # returns TRUE
+```
+:::
+
+## Data structures in R {#data_structures}
+
+Okay, now let's talk about vectors.
+
+**A vector is the most common and most basic data structure in R**. Vectors can be thought of as a way R stores a collection of values or elements. Think back to our `weight_lb` vector. That was a vector of  three elements each with a data type or class of `numeric`.
+
+What we're describing is a specific type of vector called **atomic vectors**. To put it simply, atomic vectors *only* contain elements of the *same* data type. Atomic vectors are very common.
+
+Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the chapter [Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
+
+```{r}
+# atomic vector examples #
+# character vector
+chr_atomic_vector <- c("hello", "good bye", "see you later")
+# numeric vector
+numeric_atomic_vector <- c(5, 1.3, 10)
+# logical vector
+boolean_atomic_vector <- c(TRUE, FALSE, TRUE)
+```
+
+## R Functions
+
+So far we've learned some of the basic syntax and concepts of R programming, and how to navigate RStudio, but we haven't done any complicated or interesting programming processes yet. This is where functions come in!
+
+**A function is a way to group a set of commands together to undertake a task in a reusable way.** When a function is executed, it produces a return value. We often say that we are "calling" a function when it is executed. Functions can be user defined and saved to an object using the assignment operator, so you can write whatever functions you need, but R also has a mind-blowing collection of built-in functions ready to use. To start, we will be using some built in R functions.
+
+**All functions are called using the same syntax:** function name with parentheses around what the function needs in order to do what it was built to do. These "needs" are pieces of information called arguments, and are required to return an expected value.
+
+::: {.callout-caution icon=false}
+### Syntax of a function will look something like:
+
+```result_value <- function_name(argument1 = value1, argument2 = value2, ...)```
+:::
+
+Before we use a function, let's talk about Help pages.
+
+## Getting help using help pages
+
+What if you know the name of the function that you want to use, but don't know exactly how to use it? Thankfully RStudio provides an easy way to access the help documentation for functions.
+
+The next function we're about to use is the `mean()` function. 
+
+To access the help page for `mean()`, enter the following into your console:
+
+```{r}
+#| eval: false
+?mean
+```
+
+The Help pane will show up in the lower right hand corner of your RStudio.
+
+The Help page is broken down into sections:
+
+-   Description: An extended description of what the function does.
+-   Usage: The arguments of the function(s) and their default values.
+-   Arguments: An explanation of the data each argument is expecting.
+-   Details: Any important details to be aware of.
+-   Value: The data the function returns.
+-   See Also: Any related functions you might find useful.
+-   Examples: Some examples for how to use the function.
+
+And there's also help for when you only sort of remember the function name: double-question mark:
+
+```{r}
+#| eval: false
+??install 
+```
+
+::: {.callout-caution icon=false}
+#### Not all functions have (or require) arguments
+
+Check out the documentation or Help page for `date()`.
+
+```{r}
+#| eval: false
+?date()
+```
+
+:::
+
+## Examples using built-in R functions `mean()` and `read.csv()`
+
+### Use the `mean()` function to run a more complex calculation
+
+Let's override our weight object with some new values, and this time we'll assign it three dog weights in pounds:
+
+```{r}
+weight_lb <- c(55, 25, 12)
+```
+
+::: callout-note
+#### Exercise: Use the `mean()` function to calculate the mean weight.
+From the its Help page, we learned this function will take the mean of a set of numbers. Very convenient! 
+
+We also learned that `mean()` only has one argument we need to supply a value to (`x`). The rest of the arguments have default values.
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: "Code"
+mean(x = weight_lb)
+```
+
+::: callout-note
+#### Exercise: Save the mean to an object called `mean_weight_lb`
+**Hint:** What operator do we use to save values to an object?
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: "Code"
+
+# saving the mean using the assignment operator `<-`
+mean_weight_lb <- mean(x = weight_lb)
+```
+
+::: callout-note
+#### Exercise: Update `weight_lb`
+Let's say each of the dogs gained 5 pounds and we need to update our vector, so let's change our object's value by assigning it new values.
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: "Code"
+weight_lb <- c(60, 30, 17)
+```
+
+Call `mean_weight_lb` in the console or take a look at your Global Environment. Is that the value you expected? Why or why not?
+
+It wasn't the value we expected because `mean_weight_lb` did not change. This demonstrates an important programming concept: **Assigning a value to one object does not change the values of other objects.**
+
+Now, that we understand why the object's value hasn't changed - how do we update the value of `mean_weight_lb`? How is an R Script useful for this?
+
+This lead us to another important programming concept, specifically for R Scripts: **An R Script runs top to bottom.**
+
+This order of operations is important because if you are running code line by line, the values in object may be unexpected. When you are done writing your code in an R Script, it's good practice to clear your Global Environment and use the `Run` button and select "Run all" to test that your R Script successfully runs top to bottom.
+
+### Use the `read.csv()` function to read a file into R
+
+So far we have learned how to assign values to objects in R, and what a function is, but we haven't quite put it all together yet with real data yet. To do this, we will introduce the function `read.csv()`, which will be in the first lines of many of your future scripts. It does exactly what it says, it reads in a csv file to R.
+
+Since this is our first time using this function, first access the help page for `read.csv()`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
+
+::: callout-tip
+#### Download a file from the Arctic Data Center
+
+1.  Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+2.  Download the first csv file called `BGchem2008data.csv` by clicking the "download" button next to the file.
+3.  Move this file from your `Downloads` folder into the `data` directory we created in our R Project `training_{USERNAME}`.
+:::
+
+Now we have to tell `read.csv()` how to find the file. We do this using the `file` argument which you can see in the usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great auto-complete capabilities when using relative paths, so we will go that route. 
+
+Assuming you have moved your file to a folder within `training_{USERNAME}` called `data`, and your working directory is your project directory (`training_{USERNAME}`) your `read.csv()` call will look like this:
+
+```{r}
+#| eval: false
+
+# reading in data using relative paths
+bg_chem_dat <- read.csv(file = "data/BGchem2008data.csv")
+```
+
+You should now have an object of the class `data.frame` in your environment called `bg_chem_dat`. Check your environment pane to ensure this is true. Or you can check the class using the function `class()` in the console.
+
+::: {.callout-caution icon=false}
+##### Optional Arguments
+Notice that in the Help page there are many arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. 
+
+Optional arguments will be shown in the usage section with a `name = value` pair, with the default value shown. If you do not specify a `name = value` pair for that argument in your function call, the function will assume the default value (example: `header = TRUE` for `read.csv()`). 
+
+Required arguments will only show the name of the argument, without a value. Note that the only required argument for `read.csv()` is `file`.
+:::
+
+You can always specify arguments in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want `file = "data/BGchem2008data.csv"`, since file is the first argument. 
+
+If we explicitly called the `file` argument our code would like this:
+
+```{r}
+#| eval: false
+bg_chem_dat <- read.csv(file = "data/BGchem2008data.csv")
+```
+
+
+If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. 
+
+Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
+
+```{r}
+#| eval: false
+
+# relative file path
+bg_chem_dat <- read.csv("data/BGchem2008data.csv", 
+                    stringsAsFactors = FALSE)
+# absolute file path
+bg_chem_dat <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv",
+                    stringsAsFactors = FALSE)
+```
+
+
+::: {.callout-caution icon=false}
+##### Quick Tip
+
+For functions that are used often, you'll see many programmers will write code that does not explicitly call the first or second argument of a function.
+:::
+
+## Working with data frames in R using the Subset Operator `$`
+
+A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents an observation containing a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created is a `data.frame`. There are many ways R and RStudio help you explore data frames. Here are a few, give them each a try:
+
+-   Click on the word `bg_chem_dat` in the environment pane
+-   Click on the arrow next to `bg_chem_dat` in the environment pane
+-   Execute `head(bg_chem_dat)` in the Console
+-   Execute `View(bg_chem_dat)` in the Console
+
+Usually we will want to run functions on individual columns in a `data.frame`. To call a specific column, we use the list subset operator `$`. 
+
+Say you want to look at the first few rows of the `Date` column only: 
+
+```{r}
+#| eval: false
+head(bg_chem_dat$Date)
+```
+
+You can also use the subset operator `$` calculations. For example, let's calculated the mean temperature of all the CTD samples.
+
+```{r}
+#| eval: false
+mean(bg_chem_dat$CTD_Temperature)
+```
+
+You can also save this calculation to an object using the subset operator `$`. 
+
+```{r}
+#| eval: false
+mean_temp <- mean(bg_chem_dat$CTD_Temperature)
+```
+
+## Error messages are your friends
+
+There is an implicit contract with the computer/scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Pay attention to how you type.
+
+Remember that this is a language, not dissimilar to English! There are times you aren't understood -- it's going to happen. There are different ways this can happen. Sometimes you'll get an error. This is like someone saying 'What?' or 'Pardon'? Error messages can also be more useful, like when they say 'I didn't understand this specific part of what you said, I was expecting something else'. That is a great type of error message. Error messages are your friend. Google them (copy-and-paste!) to figure out what they mean. Note that knowing how to Google is a skill and takes practice - use our [Masters of Environmental Data Science](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) (MEDS) program workshop [Teach Me How to Google](https://ucsb-meds.github.io/teach-me-how-to-google/#1) as a guide.
+
+::: {layout-ncol=2}
+![](images/practicalDev_googleErrorMessage.jpg){width="30%"}
+
+[![](images/meds-teach-me-how-to-google-cover.png){width="50%"}](https://github.com/UCSB-MEDS/teach-me-how-to-google)
+:::
+
+And also know that there are errors that can creep in more subtly, without an error message right away, when you are giving information that is understood, but not in the way you meant. Like if I'm telling a story about tables and you're picturing where you eat breakfast and I'm talking about data. This can leave me thinking I've gotten something across that the listener (or R) interpreted very differently. And as I continue telling my story you get more and more confused... So write clean code and check your work as you go to minimize these circumstances!
+
+## R Packages
+
+![Artwork by Allison Horst](images/allison-horst-r-doorway.png){width="80%" fig-align="center"}
+
+R packages are the building blocks of computational reproducibility in R. Each package contains a set of related functions that enable you to more easily do a task or set of tasks in R. There are thousands of community-maintained packages out there for just about every imaginable use of R - including many that you have probably never thought of!
+
+To install a package, we use the syntax `install.packages("packge_name")`. A package only needs to be installed once, so this code can be run directly in the console if needed. Generally, you don't want to save your install package calls in a script, because when you run the script it will re-install the package, which you only need to do once, or if you need to update the package.
+
+## R Resources
+
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Learning R Resources | -   [Introduction to R](http://www.datacarpentry.org/R-ecology-lesson/01-intro-to-r.html) lesson in [Data Carpentry's R for data analysis](http://www.datacarpentry.org/R-ecology-lesson/) course |
+|                      | -   Jenny Bryan's Stat 545 [course materials](https://stat545.com/r-basics.html)                                                                                                                  |
+|                      | -   [Julie Lowndes' Data Science Training for the Ocean Health Index](http://ohi-science.org/data-science-training/)                                                                              |
+|                      | -   Learn R in the console with [swirl](https://swirlstats.com/)                                                                                                                                  |
+|                      | -   [Programming in R](http://ohi-science.org/data-science-training/programming.html)                                                                                                             |
+|                      | -   [R, RStudio, RMarkdown](http://ohi-science.org/data-science-training/rstudio.html)                                                                                                            |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Community Resources  | -   [NCEAS' EcoDataScience](https://eco-data-science.github.io/)                                                                                                                                  |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [R-Ladies](https://rladies.org/)                                                                                                                                                              |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [rOpenSci](https://ropensci.org/community/)                                                                                                                                                   |
+|                      |                                                                                                                                                                                                   |
+|                      | -   [Minorities in R (MiR)](https://mircommunity.com/)                                                                                                                                            |
+|                      |                                                                                                                                                                                                   |
+|                      | -   Twitter - there is *a lot* here but some hashtags to start with are:                                                                                                                          |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #rstats                                                                                                                                                                                   |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #TidyTuesday                                                                                                                                                                              |
+|                      |                                                                                                                                                                                                   |
+|                      |     -   #dataviz                                                                                                                                                                                  |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Cheatsheets          | -   [Base R Cheatsheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)                                                                                                     |
+|                      | -   [LaTeX Equation Formatting](https://www.caam.rice.edu/~heinken/latex/symbols.pdf)                                                                                                             |
+|                      | -   [MATLAB/R Translation Cheatsheet](http://mathesaurus.sourceforge.net/octave-r.html)                                                                                                           |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Awesome R Resources to Check out {tbl-colwidths="[20,80]"}
+
+## Bonus Content
+
+### Clearing the environment
+
+Take a look at the objects in your Environment (Workspace) in the upper right pane. The Workspace is where user-defined objects accumulate. There are a few useful commands for getting information about your Environment, which make it easier for you to reference your objects when your Environment gets filled with many, many objects.
+
+![](images/RStudio_IDE_env.png)
+
+You can get a listing of these objects with a couple of different R functions:
+
+```{r}
+objects()
+ls()
+```
+
+If you want to remove the object named `weight_kg`, you can do this:
+
+```{r}
+rm(weight_kg)
+```
+
+To remove everything (or click the Broom icon in the Environment pane):
+
+```{r}
+rm(list = ls())
+```
+
+::: {.callout-caution icon="false"}
+#### Quick Tip
+
+It's good practice to clear your environment. Over time your Global Environmental will fill up with many objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
+:::
+
+### Logical operators and expressions
+
+We can ask questions about an object using **logical operators and expressions**. Let's ask some "questions" about the `weight_lb` object we made.
+
+-   `==` means 'is equal to'
+-   `!=` means 'is not equal to'
+-   `<` means 'is less than'
+-   `>` means 'is greater than'
+-   `<=` means 'is less than or equal to'
+-   `>=` means 'is greater than or equal to'
+
+```{r}
+# examples using logical operators and expressions
+weight_lb == 2
+weight_lb >= 30
+weight_lb != 5
+```

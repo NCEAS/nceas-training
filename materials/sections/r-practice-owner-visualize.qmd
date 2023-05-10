@@ -1,0 +1,164 @@
+---
+format: html
+---
+
+::: callout-tip
+## Setup
+
+1. Stay in the R Markdown file `owner-analysis.Rmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
+
+**Structure of the data visualization exercises:** 
+
+- Questions 7-9 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
+- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.Rmd` (start with just one plot and if there's time add styling code to another plot).
+- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.Rmd`.
+:::
+
+```{r}
+#| echo: false
+
+## Run this chunk to test exercises ##
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=f32823fba432f58f66c06b589b7efac6") %>% 
+    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+```
+
+
+::: callout-note
+### Question 7
+Create a multi-panel plot of lobster carapace length (`SIZE_MM`) using `ggplot()`, `geom_histogram()`, and `facet_wrap()`. Use the variable `SITE` in `facet_wrap()`. Use the object `lobster_abundance`.
+:::
+
+```{r}
+ggplot(data = lobster_abundance, aes(x = SIZE_MM)) +
+    geom_histogram() +
+    facet_wrap(~SITE)
+```
+
+<details>
+<summary>Plots</summary>
+
+![](images/lobster_size_hist.png){width="75%" fig-align="center"}
+</details>
+
+::: callout-note
+### Question 8
+
+Create a line graph of the number of total lobsters observed (y-axis) by year (x-axis) in the study, grouped by `SITE`.
+:::
+
+First, you'll need to create a new dataset subset called `lobsters_summarize`:
+
+- Group the data by `SITE` AND `YEAR`
+- Calculate the total number of lobsters observed using `count()`
+
+```{r}
+lobsters_summarize <- lobster_abundance %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(COUNT = n())
+```
+
+Next, create a line graph using `ggplot()` and `geom_line()`. Use `geom_point()` to make the data points more distinct, but ultimately up to you if you want to use it or not. We also want `SITE` information on this graph, do this by specifying the variable in the `color` argument. Where should the `color` argument go? Inside or outside of `aes()`? Why or why not?
+
+```{r}
+# line plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_line(aes(color = SITE)) 
+
+# line and point plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE)) 
+```
+
+<details>
+<summary>Plots</summary>
+::: {#lobster-line-plots layout-ncol=2}
+![Line plot](images/lobster_line_total_plot.png){width="50%"} 
+
+![Line and point plot](images/lobster_point_line_total_plot.png){width="50%"}
+:::
+</details>
+
+::: callout-note
+### Question 9
+Create a bar graph that shows the amount of small and large sized carapace lobsters at each `SITE` from 2019-2021. **Note:** The small and large metrics are completely made up and are not based on any known facts.
+:::
+
+First, you'll need to create a new dataset subset called `lobster_size_lrg`:
+
+- `filter()` for the years 2019, 2020, and 2021
+- Add a new column called `SIZE_BIN` that contains the values "small" or "large".  A "small" carapace size is <= 70 mm, and a "large" carapace size is greater than 70 mm. Use `mutate()` and `if_else()`. Check your output
+- Calculate the number of "small" and "large" sized lobsters using `group()` and `summarize()`. Check your output 
+- Remove the `NA` values from the subsetted data. Hint: check out `drop_na()`. Check your output
+
+```{r}
+lobster_size_lrg <- lobster_abundance %>% 
+    filter(YEAR %in% c(2019, 2020, 2021)) %>% 
+    mutate(SIZE_BIN = if_else(SIZE_MM <= 70, true = "small", false = "large")) %>% 
+    group_by(SITE, SIZE_BIN) %>%
+    summarize(COUNT = n()) %>%
+    drop_na()
+```
+
+Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar()` automatically creates a stacked bar chart. Try using the argument `position = "dodge"` to make the bars side by side. Pick which bar position you like best.
+
+```{r}
+# bar plot
+ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
+    geom_col()
+
+# dodged bar plot
+ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
+    geom_col(position = "dodge")
+```
+
+<details>
+<summary>Plots</summary>
+::: {#lobster-bar-plots layout-ncol=2}
+
+![Bar plot](images/lobster_size_lrg_bar_plot.png){width="50%"} 
+
+![Dodged bar plot](images/lobster_size_lrg_dodged_plot.png){width="50%"}
+:::
+</details>
+
+::: callout-note
+### Question 10
+
+1. Go back to your visualization code and add some styling code (aka make your plots pretty!). Again, start with one plot and if there's time add styling code to additional plots. Here's a list of functions to help you get started (this is not an exhaustive list!) or revisit the [data visualization lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html):
+
+- `labs()`: modifying axis, legend and plot labels
+- `theme_()`: add a complete theme to your plot (i.e. `theme_light()`)
+- `theme()`: use to customize non-data components of a plot. We've listed out some parameters here, but run `?theme` to see the full list (there's a lot of customization you can do!)
+    - `axis.title.y`
+    - `panel.background`
+    - `plot.background`
+    - `panel.grid.major.*`
+    - `text`
+- `scale_*_date()`: use with dates and update breaks, limits, and labels
+- `scale_*_continuous()`: use with continuous variables and update breaks, limits, and labels
+- `scale_*_discrete()`: use with discrete variables and update breaks, limits, and labels
+- `scales` package: use this within the above scale functions and you can do things like add percents to axes labels
+- `geom_()` within a geom function you can modify:
+    - `fill`: updates fill colors (e.g. column, density, violin, & boxplot interior fill color)
+    - `color`: updates point & border line colors (generally)
+    - `shape`: update point style
+    - `alpha`: update transparency (0 = transparent, 1 = opaque)
+    - `size`: point size or line width
+    - `linetype`: update the line type (e.g. "dotted", "dashed", "dotdash", etc.)
+    
+2. Once you're happy with how your plot looks, assign it to an object, and save it to the `figs` directory using `ggsave()`
+:::
+
+::: callout-important
+## Save your work and use `Git`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+:::
+
+

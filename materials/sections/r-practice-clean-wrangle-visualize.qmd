@@ -1,0 +1,150 @@
+---
+bibliography: references.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Practice using common cleaning and wrangling functions
+-   Practice creating plots using common visualization functions in `ggplot`
+-   Practice saving and sharing data visualizations
+
+::: callout-note
+## Acknowledgements
+
+These exercises are adapted from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
+:::
+
+## About the data {.unnumbered}
+
+These exercises will be using data on abundance, size, and trap counts (fishing pressure) of California spiny lobster (*Panulirus interruptus*) and were collected along the mainland coast of the Santa Barbara Channel by Santa Barbara Coastal LTER researchers [@lter2022].
+
+## Exercise: Collaborate on an analysis and create a report to publish using GitHub Pages
+
+::: callout-tip
+### Setup
+
+1.  Create a new repository with a partner
+    a.  Determine who is the Owner and who is the Collaborator
+    b.  The Owner creates a repository on GitHub titled with both your names (i.e. If Halina and Camila were partners, and Halina is the Owner, she would create a repo called `halina-camila`)
+        i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
+    c.  The Owner adds the Collaborator to the repo
+    d.  Both the Collaborator and the Owner clone the repo into their RStudio
+    e. Both the Collaborator and the Owner clone the repo into their RStudio run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
+
+**Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the Collaborator to complete, and Step 3 is for the Owner to complete.**
+
+2.  **Collaborator** creates new files for exercise
+    a. The Collaborator creates the following directory:
+        i. `analysis` 
+    b. After creating the directories, create the following R Markdown files and store them in the listed folders:
+        i.  Title it: "Owner Analysis", save it as: `owner-analysis.Rmd`, and store in `analysis` folder
+        ii. Title it: "Collaborator Analysis", save it as: `collaborator-analysis.Rmd`, and store in `analysis` folder
+        iii. Title it: "Lobster Report" and save it as: `lobster-report.Rmd` (do not need to put in a folder)
+    b.  After creating the files, the Collaborator will `stage`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
+    c.  The Owner `pull`s the changes and R Markdown files into their local repository (their workspace)
+    
+3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
+    a.  Create two new directories one called `data` and one called `figs`
+    b.  Download the following data and upload them to the `data` folder:
+        i.  Time-series of lobster abundance and size
+        ii. Time-series of lobster trap buoy counts
+    c.  After creating the `data` folder and adding the data, the Owner will `stage`, `commit`, write a commit message,`pull`, and `push` the files to the remote repository (on GitHub)
+    d.  The Collaborator `pull`s the changes and data into their local repository (their workspace)
+:::
+
+### Explore, clean and wrangle data
+
+For this portion of the exercise, the Owner will be working with the lobster abundance and size data, and the Collaborator will be working with the lobster trap buoy counts data
+
+Questions 1-3 you will be working independently since you're working with different data frames, but you're welcome to check in with each other.
+
+::: panel-tabset
+
+#### Owner
+
+{{< include /sections/r-practice-owner-clean-wrangle.qmd >}}
+
+#### Collaborator
+
+{{< include /sections/r-practice-collaborator-clean-wrangle.qmd >}}
+
+::: 
+
+### Create visually appealing and informative data visualization
+
+::: panel-tabset
+
+#### Owner
+
+{{< include /sections/r-practice-owner-visualize.qmd >}}
+
+#### Collaborator
+
+{{< include /sections/r-practice-collaborator-visualize.qmd >}}
+
+:::
+
+
+### Collaborate on a report and publish using GitHub pages
+
+The final step! Time to work together again. Collaborate with your partner in `lobster-report.Rmd` to create a report to publish to GitHub pages.
+
+::: {.callout-caution icon=false}
+## Code Review
+As you're working on the `lobster-report.Rmd` you will be conducting [two types of code reviews](https://en.wikibooks.org/wiki/Introduction_to_Software_Engineering/Quality/Code_Review#:~:text=Code%20review%20practices%20fall%20into,review%20and%20lightweight%20code%20review): (1) pair programming and (2) lightweight code review.
+
+- **Pair programming** is where two people develop code together at the same workstation. One person is the "driver" and one person is the "navigator". The driver writes the code while the navigator observes the code being typed, points out any immediate quick fixes, and will also Google / troubleshoot if errors occur. Both the Owner and the Collaborator should experience both roles, so switch halfway through or at a meaningful stopping point.
+
+- A **lightweight code review** is brief and you will be giving feedback on code readability and code logic as you're adding Owner and Collaborator code from their respective `analysis.Rmd`s to the `lobster-report.Rmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
+:::
+
+Make sure your R Markdown is well organized and includes the following elements:
+
+-   citation of the data
+-   brief summary of the abstract (i.e. 1-2 sentences) from the [EDI Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+-   Owner analysis and visualizations (you choose which plots you want to include)
+    - add alternative text to your plots
+    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
+-   Collaborator analysis and visualizations (you choose which plots you want to include)
+    - add alternative text to your plots
+    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
+
+Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 9](http://localhost:4769/session_12.html) for steps on how to publish using GitHub pages.
+
+
+## Bonus: Add marine protected area (MPA) designation to the data
+
+The sites `IVEE` and `NAPL` are marine protected areas (MPAs). Add this designation to your data set using a new function called `case_when()`. Then create some new plots using this new variable. Does it change how you think about the data? What new plots or analysis can you do with this new variable? 
+
+::: panel-tabset
+
+### Lobster Abundance & Size Data
+
+Use the object `lobster_abundance` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
+
+```{r}
+lobster_mpa <- lobster_abundance %>% 
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"
+  ))
+    
+```
+
+
+### Lobster Trap Buoy Counts Data
+
+Use the object `lobster_traps` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
+
+```{r}
+lobster_traps_mpa <- lobster_traps %>%
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"
+  ))
+```
+
+:::
+
+
+

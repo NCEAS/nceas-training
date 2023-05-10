@@ -1,9 +1,0 @@
-bookdown::gitbook:
-  css: style.css
-  split_bib: no
-  #number_sections: false
-  config:
-    toc:
-      collapse: section
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>

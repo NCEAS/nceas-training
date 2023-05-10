@@ -1,0 +1,367 @@
+---
+bibliography: references.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Understand the major components of the data life cycle and the data management plan
+-   Practice identifying metadata guidelines that are best for reproducibility
+-   Become familiar with environmental data repositories for accessing and publishing data
+
+## The Big Idea
+
+The ultimate goal of this lesson is to provide you with a framework to achieve open science that is FAIR, CARE, and reproducible. And while this hugely important, it is challenging in practice. 
+
+The framework we'll talk about in this lesson contains the following elements:
+
+- Data Life Cycle
+- Data Management Plan (DMP)
+- Data ethics: FAIR and CARE Principles as a lens
+- Rich metadata
+- Meaningful data publishing
+
+We'll be going over each of these elements in detail and how they each fit into the reproducible open science framework we've been focusing on. It's important to note that each of these elements are all connected to each other and can be achieved and utilized simultaneously.
+
+We think of this framework as a three step process:
+
+1. Split your research project into meaningful steps using the Data Life Cycle
+2. Document your project using a DMP
+3. Iterate, iterate, iterate 
+
+Let's dive deeper into each of these steps now.
+
+## Split your research project into meaningful steps using the Data Life Cycle
+
+### The Data Life Cycle
+
+The Data Life Cycle is a tool for facilitating successful management and preservation of data throughout a research project. Multiple versions of the data life cycle exist and vary in practice across domains or communities. For example, a meta-analysis project may only focus on the Discover, Integrate, and Analyze phases of the cycle.
+
+::: column-margin
+[![Source: DataOne](images/data-life-cycle.png){fig-alt="Data Life Cycle graphic with each stage following the next to create a circle." fig-align="right"}](https://dataoneorg.github.io/Education/bestpractices/)
+:::
+
+DataOne's [Data Management Skillbuilding Hub](https://dataoneorg.github.io/Education/bestpractices/) offers several best practices on how to effectively work with your data throughout all stages of the data life cycle.
+
+**A way to use the Data Life Cycle in practice is to:**
+
+- Think about the end goal, outcomes, and products of your project
+- Think and decide steps in the Data Life Cycle you need to include in your project
+- Review [best practices](https://dataoneorg.github.io/Education/bestpractices/) for that step in the cycle and start outlining action items in each of those steps 
+
+## Document your project using a DMP
+
+Now let's make these steps in the Data Life Cycle tangible using a DMP. 
+
+### Writing DMPs
+
+A Data Management Plan is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. **Often a DMP encompasses all phases of the Data Life Cycle** - from planning, to collecting, to analyzing and ultimately to preservation and storage of the data.
+
+These are important project aspects to deeply consider because a well-thought-out plan means you are more likely to:
+
+-   stay organized
+-   work efficiently
+-   truly share data
+-   engage your team
+-   meet funder requirements as DMPs are becoming common in the submission process for proposals
+
+A DMP is both a straightforward blueprint for how you manage your data, *and* provides guidelines for your and your team on policies, access, roles, and more. While it is important to plan, it is equally important to recognize that no plan is perfect as change is inevitable. To make your DMP as robust as possible, treat it as a "living document" that you periodically review with your team and adjust as the needs of the project change.
+
+### How to Plan
+
+-   **Plan early:** research shows that over time, information is lost and this is inevitable so it's important to think about long-term plans for your research at the beginning before you're deep in your project. And ultimately, you'll save more time.
+-   **Plan in collaboration:** high engagement of your team and stakeholders is not only a benefit to your project, but it also makes your DMP more resilient. When you include diverse expertise and perspectives to the planning stages, you're more likely to overcome obstacles in the future.
+-   **Utilize existing resources:** don't reinvent the wheel! There are many great DMP resources out there. Consider the article *Ten Simple Rules for Creating a Good Data Management Plan* [@michener2015], which has succinct guidelines on what to include in a DMP. Or use an online tool like [DMPTool](https://dmptool.org/), which provides official DMP templates from funders like NSF, example answers, and allows for collaboration.
+-   **Make revising part of the process:** Don't let your DMP collect dust after your initially write it. Make revising the DMP part of your research project and use it as a guide to ensure you're keeping on track.
+- **Include FAIR and CARE:** Think of the resources we discussed in the [FAIR and CARE Principles lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_06.htm). When you include FAIR and CARE in the planning process of your DMP, it will make it easier to include and maintain throughout the entire project. 
+
+### What to include in a DMP
+
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DMP Section                           | Guiding Questions                                                                                                                                                                                 |
++=======================================+===================================================================================================================================================================================================+
+| Funder Requirements                   | -   Does the funder have a template or specific DMP guidelines?                                                                                                                                   |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Do you thoroughly understand all the requirements? Or do you need to reach out for clarification?                                                                                             |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Is there a page-limit to what you can submit in your proposal? Would it beneficial to have an appendix or a longer version of your DMP for internal use elsewhere (and not for submission)?   |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Study Design                          | -   What analytical methods do you plan to use?                                                                                                                                                   |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What experiments, if any, are needed to answer your research question?                                                                                                                        |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What are the end products you plan to produce?                                                                                                                                                |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What ethical considerations do you have about your project?                                                                                                                                   |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Data Collection                       | -   What type of data do you plan to collect (text, audio files, images, models, spreadsheets)?                                                                                                   |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Where do you plan to source your data? Is it observational, already existing, or does it need to be collected? Do you need to obtain a license to access the data? Do you need an IRB review? |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   How much data do you plan to collect or use?                                                                                                                                                  |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What format is the data in? Is it open source or is it proprietary?                                                                                                                           |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Data Organization                     | -   How will you manage your data? Will you be using open source or proprietary software programs?                                                                                                |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Do you need a database to manage your data? Are there existing databases you can utilize or do you need to build one?                                                                         |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What software tools do you plan to use to manage and organize your data?                                                                                                                      |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Quality Assurance and Quality Control | -   How will you ensure that your data is of quality?                                                                                                                                             |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   How will you maintain data integrity throughout your analysis?                                                                                                                                |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What tests will you run on your raw data and processed data?                                                                                                                                  |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Will you be utilizing outside partners to implement testing or QA/QC measures?                                                                                                                |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Data Policies                         | -   What licenses do you plan to use for your data? Are there open source licenses that meet your funders requirements?                                                                           |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What are the policies for sharing, retaining, and licensing the data? Whose responsibility is that?                                                                                           |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Are there any legal or ethical restrictions on your data? Do you have sensitive data that cannot be shared? Is a metadata documentation appropriate?                                          |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Data documentation & Metadata         | -   What information is required for you and others to accurately interpret, reuse, and access your data?                                                                                         |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Will you be using a metadata standard?                                                                                                                                                        |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What information is needed for you to write comprehensive metadata?                                                                                                                           |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Where and how will you maintain this documentation? Is it possible for you to have the documentation open source?                                                                             |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Data Sharing                          | -   How will the data be shared after the project ends? Is this an accessible location?                                                                                                           |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   When will the data and project be available? Immediately after the project ends or a time period after?                                                                                       |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Will you be publishing the project and the data to a journal?                                                                                                                                 |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What data products do you plan to share?                                                                                                                                                      |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Roles and Responsibilities            | -   Who is in charge of collecting the data? Managing it? Storing it? Archiving it? Running quality control? Overall project management? There are lots of roles to consider here.                |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What kind of expertise is needed for these roles?                                                                                                                                             |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   What happens if a role needs to change? How do you plan to handle this kind of change?                                                                                                        |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Long-term Storage & Data Preservation | -   Where do you plan to archive your data?                                                                                                                                                       |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   How long will the data be accessible?                                                                                                                                                         |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   How will the data be accessed for future use?                                                                                                                                                 |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   How will you be storing the data during your project? Is this different than where you will store it after the project ends?                                                                  |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Does your institution or funder have long-term storage options for you to use?                                                                                                                |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Budget                                | -   Do you need to purchase any proprietary software?                                                                                                                                             |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Do you need to purchase any hardware?                                                                                                                                                         |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Do you need to pay for any services?                                                                                                                                                          |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Will you need to hire employees? Consultants?                                                                                                                                                 |
+|                                       |                                                                                                                                                                                                   |
+|                                       | -   Do you anticipate that you will need to pay for any professional development or training either for yourself or your team?                                                                    |
++---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[20,80\]"}
+
+## Iterate, iterate, iterate
+
+It's crucial to remember that a DMP is a *plan*. None of the information in it is set in stone and you should change and update it as needed. For example, your initial DMP may have it written to store the final datasets in a physical hard drive, but later on you find an online repository like [KNB](https://knb.ecoinformatics.org/). An online data repository is a better option, and you should update your plan to reflect it! 
+
+It may be helpful to develop a policy where you and your team review the DMP and update it as needed. Or maybe the DMP is part of someone's responsibility on the team, maybe it's a rotating responsibility. There's a lot of flexibility here, and you should implement whatever policy or plan works best for you and your collaborators. 
+
+What is most important is that your DMP is an accurate reflection when you're finished with your project so you're ready to submit your data. This will make the process of submitting data much smoother. 
+
+## Deep dive into Metadata & Publishing Data
+
+So far we've discussed the high-level steps toward achieving an open science project that is FAIR, CARE, and reproducible. However, there are many sub-steps within those three steps and much of metadata and data publishing are deeply intertwined with all those steps. Meaning metadata and data publishing alone play a huge role in all aspects of the Data life cycle and DMP, so it's worth discussing these two aspects in more detail. 
+
+### Metadata Best Practices
+
+Metadata (data about data) is an important part of the Data Life Cycle because it enables data reuse long after the original collection. Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
+
+The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
+
+#### Overall Guidelines
+
+Another way to think about metadata is to answer the following questions with the documentation:
+
+-   What was measured?
+-   Who measured it?
+-   When was it measured?
+-   Where was it measured?
+-   How was it measured?
+-   How is the data structured?
+-   Why was the data collected?
+-   Who should get credit for this data (researcher AND funding agency)?
+-   How can this data be reused (licensing)?
+
+#### Bibliographic Guidelines
+
+The details that will help your data be cited correctly are:
+
+-   Global identifier like a digital object identifier (DOI)
+-   Descriptive title that includes information about the topic, the geographic location, the dates, and if applicable, the scale of the data
+-   Descriptive abstract that serves as a brief overview off the specific contents and purpose of the data package
+-   Funding information like the award number and the sponsor
+-   People and organizations like the creator of the dataset (i.e. who should be cited), the person to contact about the dataset (if different than the creator), and the contributors to the dataset
+
+#### Discovery Guidelines
+
+The details that will help your data be discovered correctly are:
+
+-   Geospatial coverage of the data, including the field and laboratory sampling locations, place names and precise coordinates
+-   Temporal coverage of the data, including when the measurements were made and what time period (ie the calendar time or the geologic time) the measurements apply to
+-   Taxonomic coverage of the data, including what species were measured and what taxonomy standards and procedures were followed
+-   Any other contextual information as needed
+
+#### Interpretation Guidelines
+
+The details that will help your data be interpreted correctly are:
+
+-   Collection methods for both field and laboratory data the full experimental and project design as well as how the data in the dataset fits into the overall project
+-   Processing methods for both field and laboratory samples
+-   All sample quality control procedures
+-   Provenance information to support your analysis and modelling methods
+-   Information about the hardware and software used to process your data, including the make, model, and version
+-   Computing quality control procedures like testing or code review
+
+#### Data Structure and Contents
+
+-   Everything needs a description: the data model, the data objects (like tables, images, matricies, spatial layers, etc), and the variables all need to be described so that there is no room for misinterpretation.
+-   Variable information includes the definition of a variable, a standardized unit of measurement, definitions of any coded values (i.e. 0 = not collected), and any missing values (i.e. 999 = NA).
+
+Not only is this information helpful to you and any other researcher in the future using your data, but it is also helpful to search engines. The semantics of your dataset are crucial to ensure your data is both discoverable by others and interoperable (that is, reusable).
+
+For example, if you were to search for the character string "carbon dioxide flux" in a data repository, not all relevant results will be shown due to varying vocabulary conventions (i.e., "CO2 flux" instead of "carbon dioxide flux") across disciplines --- only datasets containing the exact words "carbon dioxide flux" are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it CO2 flux WOULD be included in that search.
+
+#### Rights and Attribution
+
+Correctly assigning a way for your datasets to be cited and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
+
+-   Citation format to be used when giving credit for the data
+-   Attribution expectations for the dataset
+-   Reuse rights, which describe who may use the data and for what purpose
+-   Redistribution rights, which describe who may copy and redistribute the metadata and the data
+-   Legal terms and conditions like how the data are licensed for reuse.
+
+#### Metadata Standards
+
+So, how does a computer organize all this information? There are a number of metadata standards that make your metadata machine readable and therefore easier for data curators to publish your data.
+
+-   [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/)
+-   [Geospatial Metadata Standards (ISO 19115 and ISO 19139)](https://www.fgdc.gov/metadata/iso-standards)
+    -   See [NOAA's ISO Workbook](http://www.ncei.noaa.gov/sites/default/files/2020-04/ISO%2019115-2%20Workbook_Part%20II%20Extentions%20for%20imagery%20and%20Gridded%20Data.pdf)
+-   [Biological Data Profile (BDP)](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf)
+-   [Dublin Core](https://www.dublincore.org/)
+-   [Darwin Core](https://dwc.tdwg.org/)
+-   [PREservation Metadata: Implementation Strategies (PREMIS)](https://www.loc.gov/standards/premis/)
+-   [Metadata Encoding Transmission Standard (METS)](https://www.loc.gov/standards/mets/)
+
+*Note this is not an exhaustive list.*
+
+#### Data Identifiers
+
+Many journals require a DOI (a digital object identifier) be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
+
+Some data repositories assign a DOI for each dataset you publish on their repository. But, if you need to update the datasets, check the policy of the data repository. Some repositories assign a new DOI after you update the dataset. If this is the case, researchers should cite the exact version of the dataset that they used in their analysis, even if there is a newer version of the dataset available.
+
+#### Data Citation
+
+Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
+
+### Publishing Data
+
+#### Data Sharing & Preservation
+
+![](images/WhyManage-small.png)
+
+#### Data Repositories: Built for Data (and code)
+
+-   GitHub is not an archival location
+-   Examples of dedicated data repositories:
+    -   KNB
+    -   Arctic Data Center
+    -   tDAR
+    -   EDI
+    -   Zenodo
+-   Dedicated data repositories are:
+    -   Rich in metadata
+    -   Archival in their mission
+    -   [Certified](https://www.coretrustseal.org/)
+-   Data papers, e.g., Scientific Data
+-   [re3data](https://www.re3data.org/) is a global registry of research data repositories
+-   [Repository Finder](https://repositoryfinder.datacite.org/) is a pilot project and tool to help researchers find an appropriate repository for their work
+
+#### Data Packages
+
+We define a data package as a scientifically useful collection of data and metadata that a researcher wants to preserve. Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define a data package as having one or more data files, software files, and other scientific products such as graphs and images, all tied together with a descriptive metadata document.
+
+These data repositories all assign a unique identifier to every version of every data file, similarly to how it works with source code commits in GitHub. Those identifiers usually take one of two forms. A DOI identifier is often assigned to the metadata and becomes a publicly citable identifier for the package. Each of the other files gets a global identifier, often a UUID that is globally unique. In the graphic to the side, the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual files have their own identifiers as well.
+
+::: column-margin
+![](images/data-package.png)
+:::
+
+#### DataOne Federation
+
+DataONE is a federation of dozens of data repositories that work together to make their systems interoperable and to provide a single unified search system that spans the repositories. DataONE aims to make it simpler for researchers to publish data to one of its member repositories, and then to discover and download that data for reuse in synthetic analyses.
+
+DataONE can be [searched on the web](https://search.dataone.org/), which effectively allows a single search to find data from the dozens of members of DataONE, rather than visiting each of the (currently 44!) repositories one at a time.
+
+![](images/DataONECNs.png)
+
+## Exercise: Evaluate a Data Package on the KNB Repository
+
+Explore data packages published on KNB assess the quality of their metadata. Imagine you're a data curator! The data packages you'll be looking into more deeply are datasets you're already familiar with through the R Practice Sessions. 
+
+::: callout-tip
+### Setup
+
+1. Break into groups and use the following data packages:
+    a. **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+    b. **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+    c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+:::
+
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
+
+::: callout-note
+### Exercise: Evaluate a data package on EDI Data Portal
+1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a. **Investigate the metadata in the provided data**
+        i. Does the metadata meet the standards we talked about? How so?
+        ii. If not, how would you improve the metadata based on the standards we talked about?
+    b. **Investigate the overall data documentation in the data package**
+        i. Is the documentation sufficient enough for reproducibility? Why or why not?
+        ii. If not, how would you improve the data documentation? What's missing?
+    c. **Identify elements of FAIR and CARE**
+        i. Is it clear that the data package used a FAIR and CARE lens? 
+        ii. If not, what documentation or considerations would you add?
+2. Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
+    b. What documentation stood out to you? What did you like or not like about it?
+    c. How well did these data packages uphold FAIR and CARE Principles?
+    d. Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
+    
+*If you and your group finish early, check out more datasets in the bonus question.*
+:::
+
+## Bonus: Investigate metadata and data documentation in other Data Repositories
+
+Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
+
+Evaluate the following data packages at these data repositories: 
+
+1. KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2. DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3. Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories? 
+
+
+
+
+
