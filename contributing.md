@@ -2,10 +2,18 @@
 
 :tada: First off, thanks for contributing! :tada:
 
+- [Definitions](#definitions)
 - [Types of contributions](#types-of-contributions)
 - [Getting started](#getting-started)
-- [Pull Requests](#pull-requests)
-- [Development Workflow](#development-workflow)
+- [Fixing a bug or contributing to a lesson or files in `nceas-training`](#fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training)
+- [Adding a training event](#adding-a-training-event)
+- [Materials Development Workflow](#materials-development-workflow)
+- [Building the book](#building-the-book)
+
+## Definitions
+
+- forked repository: this refers to your forked copy of the `NCEAS/nceas-training` repository which has the path `{yourUsername}/nceas-training`
+- upstream repository: this refers to the original repository that contributors fork from which is `NCEAS/nceas-training` 
 
 ## Types of contributions
 
@@ -16,7 +24,9 @@ We welcome all types of contributions, including bug fixes, new lessons, lesson 
 - Add a training event with a Pull Request
 
 ## Getting started
-For this repository, contributors use a [forking workflow](https://learning.nceas.ucsb.edu/2023-04-coreR/session_17.html#forking-workflow). This means contributors make edits to the materials from this repository in their forked copy of `nceas-training` and to merge these edits to `NCEAS/nceas-training` (the original repository) then they open a pull request (PR).
+For this repository, contributors use a [forking workflow](https://learning.nceas.ucsb.edu/2023-04-coreR/session_17.html#forking-workflow). This means contributors make edits to files from the `NCEAS/nceas-training` repository in their forked copy of `nceas-training`, and to merge these edits to `NCEAS/nceas-training` (the original repository) they open a pull request (PR). 
+
+We use pull requests to review and discuss changes before merging contributor's additions or new features into `NCEAS/nceas-training`. See documentation on pull requests [here]((https://help.github.com/articles/about-pull-requests/) and [here](https://www.atlassian.com/git/tutorials/making-a-pull-request).
 
 To contribute to this repository, use these steps to get started:
 
@@ -33,17 +43,32 @@ To contribute to this repository, use these steps to get started:
     a. Once you've identified which branch you want to work in check that the branch in your forked repository is in "Sync" with `NCEAS/nceas-training` (aka the upstream repository) *before* you start making changes. This will ensure that your forked repository (`{yourUsername}/nceas-training`) and the upstream repository (`NCEAS/nceas-training`) are in the same state and will prevent merge conflicts from occurring when you PR. For more detailed instructions on how to sync your forked repository, see the section [Syncing your forked repository with the upstream repository](#syncing-your-forked-repository-with-the-upstream-repository)
 
 4. Make your changes and `push` changes to your forked repository 
-5. Open a Pull Request (PR). Make sure that the base repository is `NCEAS/nceas-training` and the head repository is `{yourUsername}/nceas-training`. It's also important to double check that the base branch of the `NCEAS/nceas-training` matches up with the compare branch in `{yourUsername}/nceas-training`. Aka make sure that you're merging in the right branches
+5. Open a Pull Request (PR). Make sure that the base repository is `NCEAS/nceas-training` and the head repository is `{yourUsername}/nceas-training`. It's also important to double check that the base branch of `NCEAS/nceas-training` matches up with the compare branch in `{yourUsername}/nceas-training`. Aka make sure that you're PRing (and ultimately, merging) the right branches
 6. Assign someone from the NCEAS GitHub Organization to review your changes
 7. Your reviewer may request changes before merging in the changes and closing the PR. This discussion can take place in the "Conversation" tab of the PR webpage
 8. Once changes have been confirmed, the reviewer will merge in the changes and close the PR, and you're done!
 
 ## Adding a training event
 
+Each branch in the `NCEAS/nceas-training` repository represents a specific training event. This allows for curriculum and additional training event materials to be selected, remixed, and adapted to fit the specific needs of each event.
+
+* **`main`**: The `main` branch represents the most recent version of materials used in the most recent training event. 
+* **YYYY-MM-org**: Event branches are named with the year and month in which the event takes place, and the organization or name of the event. For example, the branch name for the October 2020 Arctic Data Center training event would be 2020-10-arctic. This branch also contains all the training materials used in that training event.
+
+To add a training event, follow these steps:
+
+1. **Make sure your forked repository is up-to-date and sync your forked repository with the main branch from the upstream repository.**
+2. Create a branch in the upstream respository (it's probably easiest to do this on GitHub)
+3. In your local workspace, create a new branch. You can create a new branch in the Terminal or in RStudio, but in either case make sure the remote setup is to origin and NOT the upstream.
+    a. Create a branch in the Terminal by running `git checkout -b {newBranchName}` and then setup the remote and push the new branch to the remote by running `git push --set-upstream origin {newBranchName}`
+    b. Click the new branch button (see in red box) and create new branch and keep remote set to origin
+    <img width="418" alt="create-branch-rstudio" src="https://github.com/hdolinh/nceas-training/assets/88209419/7b2f36fc-9087-4fac-abab-60bc31735717">
+
+5. Now the new branch exists in both the upstream repository and your forked repository. This means you can now sync or pull changes from the upstream repository. That's it!
 
 ## Syncing your forked repository with the upstream repository 
 
-These are detailed instructions building off step two in the Fixing a bug or contributing to a lesson or files in `nceas-training` section and step {BLANK} in the Adding a training event section. These instructions provide two methods for syncing your forked repository (`{yourUsername}/nceas-training`) with upstream repository (`NCEAS/nceas-training`).
+These are detailed instructions building off step two in the [Fixing a bug or contributing to a lesson or files in `nceas-training`](fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training) section and step one in the [Adding a training event](#adding-a-training-event) section. These instructions provide two methods for syncing your forked repository (`{yourUsername}/nceas-training`) with upstream repository (`NCEAS/nceas-training`).
     
 **1. One way to sync your forked repository is through GitHub, where you click "Sync fork" on the main page of your git repository on GitHub.** On GitHub, you'll either see a message informing you that either your forked repository is up to date with the upstream repository or it is not (when it's not it'll either specify if the branch you're working in is either "ahead" or "behind" the upstream repository). You'll need to `pull` these changes when you first open your workspace, so that your local repository is in the same state as your origin repository. 
     <img width="996" alt="sync-fork-uptodate" src="https://github.com/hdolinh/nceas-training/assets/88209419/dff48db5-3c03-4e54-a44e-ae40b8f5aa26">
@@ -62,29 +87,7 @@ Run `git remote -v` again to confirm that you successfully setup the upstream re
 
 Now that your upstream is setup, to sync your forked repository with the upstream repository run `git pull upstream {branchName}` to get the most recent changes from `NCEAS/nceas-training` in your workspace. To have this reflected on your remote repository on GitHub, you will need to push these changes by running `git push`. You do not need to `push` to the upstream repository, you will use a PR to merge changes from your forked repo to `NCEAS/nceas-training`.
 
-## Pull Requests
-We use pull requests to review and discuss changes before merging contributor's additions or new feature into `NCEAS/nceas-training`
-
-We use the pull-request model for contributions. See [GitHub's help on pull-requests](https://help.github.com/articles/about-pull-requests/).
-
-In short:
-
-- add an [issue](https://github.com/NCEAS/nceas-training/issues) describing your planned changes, or add a comment to an existing issue;
-- on GitHub, fork the [nceas-training repository](https://github.com/NCEAS/nceas-training)
-- on your computer, clone your forked copy of the nceas-training repository
-- checkout the appropriate event branch and commit your changes, or create a new branch
-- push your branch to your forked repository, and submit a pull-request against the event branch on nceas-training
-- our team will be notified of your Pull Request and will review your changes
-- our team may request changes before we will approve the Pull Request, or we will make them for you
-- once the code is reviewed, our team will merge in your changes and you're done!
-
 ## Materials Development Workflow
-
-Changes to materials, including adding lessons or events, are managed through the git repository at https://github.com/NCEAS/nceas-training. The repository is organized into several branches, each corresponding to a specific training event. This allows for material to be selected, remixed, and adapted to fit the specific needs of each event.
-
-**master**. The `master` branch represents the most recent version of materials used in any event. 
-
-**YYYY-MM-org**. Event branches are named with the year and month in which the event takes place, and the organization or name of the event. For example, the October 2020 Arctic Data Center training event materials are located under 2020-10-arctic.
 
 ### Material Development Guidelines
 
