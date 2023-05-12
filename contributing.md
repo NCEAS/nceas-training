@@ -2,7 +2,7 @@
 
 :tada: First off, thanks for contributing! :tada:
 
-- [1. Definitions](#definitions)
+- [1. Definitions](#1-definitions)
 - [2. Types of contributions](#types-of-contributions)
 - [3. Getting started](#getting-started)
 - [4. Fixing a bug or contributing to a lesson or files in `nceas-training`](#fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training)
