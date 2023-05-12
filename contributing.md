@@ -2,19 +2,27 @@
 
 :tada: First off, thanks for contributing! :tada:
 
-- [1. Definitions](#1-definitions)
-- [2. Types of contributions](#types-of-contributions)
-- [3. Getting started](#getting-started)
-- [4. Fixing a bug or contributing to a lesson or files in `nceas-training`](#fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training)
-- [5. Adding a training event](#adding-a-training-event)
-- [6. Syncing your forked repository with the upstream repository](#syncing-your-forked-repository-with-the-upstream-repository)
-- [7. Materials Development Workflow](#materials-development-workflow)
-- [8. Building the book](#building-the-book)
+[1. Definitions](#1-definitions)
+
+[2. Types of contributions](#2-types-of-contributions)
+
+[3. Getting started](#3-getting-started)
+
+[4. Fixing a bug or contributing to a lesson or files](#4-fixing-a-bug-or-contributing-to-a-lesson-or-files)
+
+[5. Adding a training event](#5-adding-a-training-event)
+
+[6. Syncing your forked repository with the upstream repository](#6-syncing-your-forked-repository-with-the-upstream-repository)
+
+[7. Materials Development Workflow](#7-materials-development-workflow)
+
+[8. Building the book](#8-building-the-book)
 
 ## 1. Definitions
 
 - **forked repository**: this refers to contributors' forked copy of the `NCEAS/nceas-training` repository which is specified with the path `{yourUsername}/nceas-training`
 - **upstream repository**: this refers to the original repository that contributors fork from which is `NCEAS/nceas-training` 
+- **origin or remote repository**: this refers to your forked repository on GitHub
 
 ## 2. Types of contributions
 
@@ -38,14 +46,14 @@ To contribute to this repository, use these steps to get started:
     b. If you need access to more branches than `main` in the `NCEAS/nceas-training` repository, uncheck "Copy the `main` branch only"
     
 2. Clone `{yourUsername}/nceas-training` (this is your forked copy) into your workspace onto your computer
-3. Sync your forked repository with the upstream repository. [See section 6](#syncing-your-forked-repository-with-the-upstream-repository)
+3. Sync your forked repository with the upstream repository. It's important to note that no matter how you are contributing, you should check that the branch you're working on in your forked repository is in the same state as the same branch in the upstream repository. [See section 6 for more detailed instructions on how to sync your forked respository with the upstream repository](#6-syncing-your-forked-repository-with-the-upstream-repository)
 
-## 4. Fixing a bug or contributing to a lesson or files in `nceas-training`
+## 4. Fixing a bug or contributing to a lesson or files
 
 1. Add an [issue](https://github.com/NCEAS/nceas-training/issues) describing your planned changes, or add a comment to an existing issue
-2. **Make sure you're working in the right branch and sync changes / pull from the upstream respository before you start making changes** 
+2. **Make sure you're working in the right branch and sync changes / pull from the upstream respository before you start making changes.** [See section 6](#6-syncing-your-forked-repository-with-the-upstream-repository) 
 
-    a. Once you've identified which branch you want to work in check that the branch in your forked repository is in "Sync" with `NCEAS/nceas-training` (aka the upstream repository) *before* you start making changes. This will ensure that your forked repository (`{yourUsername}/nceas-training`) and the upstream repository (`NCEAS/nceas-training`) are in the same state and will prevent merge conflicts from occurring when you PR. For more detailed instructions on how to sync your forked repository, see the section [Syncing your forked repository with the upstream repository](#syncing-your-forked-repository-with-the-upstream-repository)
+    a. Once you've identified which branch you want to work in check that the branch in your forked repository is in "Sync" with `NCEAS/nceas-training` (aka the upstream repository) *before* you start making changes. This will ensure that your forked repository (`{yourUsername}/nceas-training`) and the upstream repository (`NCEAS/nceas-training`) are in the same state and will prevent merge conflicts from occurring when you PR.
 
 4. Make your changes and `push` changes to your forked repository 
 5. Open a Pull Request (PR). Make sure that the base repository is `NCEAS/nceas-training` and the head repository is `{yourUsername}/nceas-training`. It's also important to double check that the base branch of `NCEAS/nceas-training` matches up with the compare branch in `{yourUsername}/nceas-training`. Aka make sure that you're PRing (and ultimately, merging) the right branches
@@ -62,7 +70,7 @@ Each branch in the `NCEAS/nceas-training` repository represents a specific train
 
 **To add a training event, follow these steps:**
 
-1. **Make sure your forked repository is up-to-date and sync your forked repository with the main branch from the upstream repository.**
+1. **Make sure your forked repository is up-to-date and sync your forked repository with the main branch from the upstream repository.** [See section 6](#6-syncing-your-forked-repository-with-the-upstream-repository)
 2. Create a branch in the upstream respository (it's probably easiest to do this on GitHub)
 3. In your local workspace, create a new branch. You can create a new branch in the Terminal or in RStudio, but in either case make sure the remote setup is to origin and NOT the upstream.
 
@@ -83,7 +91,7 @@ Each branch in the `NCEAS/nceas-training` repository represents a specific train
 
 ## 6. Syncing your forked repository with the upstream repository 
 
-These are detailed instructions building off step two in the [Fixing a bug or contributing to a lesson or files in `nceas-training`](fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training) section and step one in the [Adding a training event](#adding-a-training-event) section. These instructions provide two methods for syncing your forked repository (`{yourUsername}/nceas-training`) with upstream repository (`NCEAS/nceas-training`).
+These instructions provide two methods for syncing your forked repository (`{yourUsername}/nceas-training`) with upstream repository (`NCEAS/nceas-training`).
     
 **1. One way to sync your forked repository is through GitHub, where you click "Sync fork" on the main page of your git repository on GitHub.** On GitHub, you'll either see a message informing you that either your forked repository is up to date with the upstream repository or it is not (when it's not it'll either specify if the branch you're working in is either "ahead" or "behind" the upstream repository). You'll need to `pull` these changes when you first open your workspace, so that your local repository is in the same state as your origin repository. 
     <img width="996" alt="sync-fork-uptodate" src="https://github.com/hdolinh/nceas-training/assets/88209419/dff48db5-3c03-4e54-a44e-ae40b8f5aa26">
@@ -117,12 +125,12 @@ In developing content for a new event you will likely need to:
 
 - create top level Rmd files in `materials/` that select the sections you are teaching
 - edit `materials/index.Rmd` to customize introductory material to your event
-- edit `materials/_bookdown.yml` to include the chapters in `materials/` that you are teaching.
+- edit `materials/_bookdown.yml` to include the chapters in `materials/` that you are teaching
 
 We ask that you not:
 
-- delete content wholesale. Content that you are not teaching can remain in the repository without needing to be deleted. Instead, select content via your chapters in `materials/` and the content of `materials/_bookdown.yml`.
-- commit very large data or presentation files.
+- delete content wholesale. Content that you are not teaching can remain in the repository without needing to be deleted. Instead, select content via your chapters in `materials/` and the content of `materials/_bookdown.yml`
+- commit very large data or presentation files
 
 ## 8. Building the book
 
