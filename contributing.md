@@ -2,21 +2,21 @@
 
 :tada: First off, thanks for contributing! :tada:
 
-- [Definitions](#definitions)
-- [Types of contributions](#types-of-contributions)
-- [Getting started](#getting-started)
-- [Fixing a bug or contributing to a lesson or files in `nceas-training`](#fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training)
-- [Adding a training event](#adding-a-training-event)
-- [Syncing your forked repository with the upstream repository](#syncing-your-forked-repository-with-the-upstream-repository)
-- [Materials Development Workflow](#materials-development-workflow)
-- [Building the book](#building-the-book)
+- [1. Definitions](#definitions)
+- [2. Types of contributions](#types-of-contributions)
+- [3. Getting started](#getting-started)
+- [4. Fixing a bug or contributing to a lesson or files in `nceas-training`](#fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training)
+- [5. Adding a training event](#adding-a-training-event)
+- [6. Syncing your forked repository with the upstream repository](#syncing-your-forked-repository-with-the-upstream-repository)
+- [7. Materials Development Workflow](#materials-development-workflow)
+- [8. Building the book](#building-the-book)
 
-## Definitions
+## 1. Definitions
 
 - **forked repository**: this refers to contributors' forked copy of the `NCEAS/nceas-training` repository which is specified with the path `{yourUsername}/nceas-training`
 - **upstream repository**: this refers to the original repository that contributors fork from which is `NCEAS/nceas-training` 
 
-## Types of contributions
+## 2. Types of contributions
 
 We welcome all types of contributions, including bug fixes, new lessons, lesson improvements, and new training events.
 
@@ -24,7 +24,7 @@ We welcome all types of contributions, including bug fixes, new lessons, lesson 
 - Fix a bug or contribute a lesson with a Pull Request
 - Add a training event with a Pull Request
 
-## Getting started
+## 3. Getting started
 For this repository, contributors use a [forking workflow](https://learning.nceas.ucsb.edu/2023-04-coreR/session_17.html#forking-workflow). This means contributors make edits to files from the `NCEAS/nceas-training` repository in their forked repository `{yourUsername}/nceas-training`, and to merge these edits to `NCEAS/nceas-training` (the original repository) they open a pull request (PR). 
 
 We use pull requests to review and discuss changes before merging contributor's additions or new features into `NCEAS/nceas-training`. See documentation on pull requests [here](https://help.github.com/articles/about-pull-requests/) and [here](https://www.atlassian.com/git/tutorials/making-a-pull-request).
@@ -38,8 +38,9 @@ To contribute to this repository, use these steps to get started:
     b. If you need access to more branches than `main` in the `NCEAS/nceas-training` repository, uncheck "Copy the `main` branch only"
     
 2. Clone `{yourUsername}/nceas-training` (this is your forked copy) into your workspace onto your computer
+3. Sync your forked repository with the upstream repository. [See section 6](#syncing-your-forked-repository-with-the-upstream-repository)
 
-## Fixing a bug or contributing to a lesson or files in `nceas-training`
+## 4. Fixing a bug or contributing to a lesson or files in `nceas-training`
 
 1. Add an [issue](https://github.com/NCEAS/nceas-training/issues) describing your planned changes, or add a comment to an existing issue
 2. **Make sure you're working in the right branch and sync changes / pull from the upstream respository before you start making changes** 
@@ -52,7 +53,7 @@ To contribute to this repository, use these steps to get started:
 7. Your reviewer may request changes before merging in the changes and closing the PR. This discussion can take place in the "Conversation" tab of the PR webpage
 8. Once changes have been confirmed, the reviewer will merge in the changes and close the PR, and you're done!
 
-## Adding a training event
+## 5. Adding a training event
 
 Each branch in the `NCEAS/nceas-training` repository represents a specific training event. This allows for curriculum and additional training event materials to be selected, remixed, and adapted to fit the specific needs of each event.
 
@@ -80,7 +81,7 @@ Each branch in the `NCEAS/nceas-training` repository represents a specific train
 4. In the Terminal, run `git pull upstream {newBranchName}`.
 5. Check on GitHub that you have successfully pushed the new branch and any new changes to your forked repository
 
-## Syncing your forked repository with the upstream repository 
+## 6. Syncing your forked repository with the upstream repository 
 
 These are detailed instructions building off step two in the [Fixing a bug or contributing to a lesson or files in `nceas-training`](fixing-a-bug-or-contributing-to-a-lesson-or-files-in-nceas-training) section and step one in the [Adding a training event](#adding-a-training-event) section. These instructions provide two methods for syncing your forked repository (`{yourUsername}/nceas-training`) with upstream repository (`NCEAS/nceas-training`).
     
@@ -101,7 +102,7 @@ Run `git remote -v` again to confirm that you successfully setup the upstream re
 
 Now that your upstream is setup, to sync your forked repository with the upstream repository run `git pull upstream {branchName}` to get the most recent changes from `NCEAS/nceas-training` in your workspace. To have this reflected on your remote repository on GitHub, you will need to push these changes by running `git push`. You do not need to `push` to the upstream repository, you will use a PR to merge changes from your forked repo to `NCEAS/nceas-training`.
 
-## Materials Development Workflow
+## 7. Materials Development Workflow
 
 ### Material Development Guidelines
 
@@ -123,7 +124,7 @@ We ask that you not:
 - delete content wholesale. Content that you are not teaching can remain in the repository without needing to be deleted. Instead, select content via your chapters in `materials/` and the content of `materials/_bookdown.yml`.
 - commit very large data or presentation files.
 
-## Building the book
+## 8. Building the book
 
 While there are many workflows for building the Rmd files into the rendered bookdown,
 probably the simplest to use during authoring is to run `bookdown::serve_book('materials')`,
