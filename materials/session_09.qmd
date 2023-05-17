@@ -1,5 +1,5 @@
 ---
-title: "R Practice: Tidy Data & Joins"
+title: "Data Modeling Essentials"
 title-block-banner: true
 execute:
   eval: false
@@ -11,4 +11,6 @@ format:
     code-overflow: wrap
 ---
 
-{{< include /sections/r-practice-tidy-data-joins.qmd >}}
+
+
+{{< include /sections/intro-tidy-data.qmd >}}

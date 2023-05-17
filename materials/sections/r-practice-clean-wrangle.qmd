@@ -1,0 +1,114 @@
+---
+format: html
+---
+
+::: callout-tip
+## Setup
+
+1.  Open the R Markdown file `owner-analysis.Rmd`
+    a.  Check the `YAML` and add your name to the `author` field
+    b.  Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
+2.  Load the following libraries at the top of your R Markdown file
+
+```{r}
+#| code-fold: false
+#| message: false
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+3.  Read in the data and store the data frame as `lobster_abundance`
+
+```{r}
+#| code-fold: false
+#| message: false
+lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
+```
+
+4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
+
+5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
+    - **Note:** You also want to `Pull` when you first open a project
+
+:::
+
+## Convert missing values using `mutate()` and `na_if()`
+
+::: callout-note
+### Question 1
+
+The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an `NA` value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. Check your output data using `unique()`.
+:::
+
+```{r}
+lobster_abundance <- lobster_abundance %>% 
+    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+```
+
+## `filter()` practice
+
+::: callout-note
+### Question 2
+
+Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame.
+:::
+
+```{r}
+not_napl <- lobster_abundance %>% 
+    filter(SITE != "NAPL")
+```
+
+::: callout-note
+### Question 3
+
+Create and store a subset with lobsters at Arroyo Quemado (`AQUE`) OR with a carapace length greater than 70 mm. Check your output.
+:::
+
+```{r}
+aque_70mm <- lobster_abundance %>% 
+    filter(SITE == "AQUE", SIZE_MM >= 70)
+```
+
+::: callout-important
+## Save your work and use `Git`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+:::
+
+
+<!--# Extra Questions -->
+
+
+<!--# Question 4 -->
+<!--# Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output. -->
+
+```{r}
+#| echo: false
+#| # `mutate()` practice
+lobster_cm <- lobster_abundance %>% 
+  mutate(SIZE_CM = SIZE_MM / 10)
+```
+
+<!--# Question 5 -->
+<!--# Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output. -->
+
+```{r}
+#| echo: false
+# `group_by() %>% summarize()` practice
+lobster_mean <- lobster_abundance %>% 
+  group_by(SITE) %>% 
+  summarize(MEAN_LENGTH = mean(SIZE_MM, na.rm = TRUE))
+```
+
+
+<!--# Question 6 -->
+<!--# Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output. -->
+
+```{r}
+#| echo: false
+#| # `group_by() %>% summarize()` practice
+max_lobster <- lobster_abundance %>% 
+  group_by(SITE, MONTH) %>% 
+  summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
+```
