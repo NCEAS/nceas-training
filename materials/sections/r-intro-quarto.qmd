@@ -344,10 +344,7 @@ phos <- mean(bg_chem$P)
 In another chunk, use those variables to calculate the nitrogen: phosphate ratio (Redfield ratio).
 
 ```{r}
-
 ratio <- (nitrate + nitrite + amm)/phos
-
-
 ```
 
 You can access this variable in your Markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single backtick \`, followed by the letter "r", then whatever your simple R command is --- here we will use `round(ratio)` to print the calculated ratio, and finally a closing backtick \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task. 
@@ -359,8 +356,7 @@ The Redfield ratio for this dataset is approximately: \`r `round(ratio)`\`
 
 And the rendered text like this:
 
-The Redfield ratio for this dataset is approximately `r round(ratio)`
-
+The Redfield ratio for this dataset is approximately \`r `round(ratio)`\`.
 
 
 Finally, create a simple plot using base R that plots the ratio of the individual measurements, as opposed to looking at mean ratio.
