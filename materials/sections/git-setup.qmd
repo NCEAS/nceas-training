@@ -12,7 +12,7 @@ A Terminal tab should now be open where your Console usually is.
 To set the global options, type the following into the command prompt, with your exact GitHub username, and press enter:
 
 ``` bash
-git config --global user.name "hdolinh"
+git config --global user.name "my-user-name"
 ```
 
 ::: column-margin
@@ -22,7 +22,7 @@ Note that **if it ran successfully, it will look like nothing happened**. We wil
 Next, enter the following line, with the email address you used when you created your account on github.com:
 
 ``` bash
-git config --global user.email "dolinh@nceas.ucsb.edu"
+git config --global user.email "myemail@nceas.ucsb.edu"
 ```
 
 ::: column-margin
