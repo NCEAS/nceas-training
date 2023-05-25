@@ -1,19 +1,14 @@
-### Learning Objectives
+## Learning Objectives {.unnumbered}
 
-In this lesson, you will learn:
-
-* Why we strive for reproducible data access
-* How content identifiers differ from DOIs
-* How content identifiers make research more reproducible
-* Ways to register and resolve content identifiers for unpublished data
-* How content identifiers can resolve to published data sources
+-  Why we strive for reproducible data access
+-  How content identifiers differ from DOIs
+-  How content identifiers make research more reproducible
+-  Ways to register and resolve content identifiers for unpublished data
+-  How content identifiers can resolve to published data sources
 
 ## Reproducible Data Access
 
-```{r}
-
-#| label: contentid_load_packages
-#| echo: false
+```{r, contentid_load_packages, echo=FALSE}
 
 library(readr)
 library(pins)
@@ -30,11 +25,7 @@ library(dataone)
 Traditional ways of working with data -- as files on a file system -- limit the 
 reproducibility of code to local compute environments. A typical R analysis file will load one or many data files from the local disk with code like this:
 
-```{r, eval=FALSE}
-
-#| eval: false
-#| label: contentid-file-load
-
+```{r, contentid-file-load, eval=FALSE}
 
 delta_catch <- readr::read_csv('/Users/jkresearcher/Projects/2018/Delta_Analysis/delta_catch.csv')
 delta_taxa <- readr::read_csv('../../Delta_2021/delta_taxa.csv')
@@ -46,23 +37,19 @@ Which of those file paths are the most portable? And which will run unmodified o
 
 The Web partly solves this problem, because it allows code to access data that is located somewhere on the Internet with a web URI. For example, loading data from a web site can be much more portable than loading the equivalent data from a local computer.
 
-```{r}
-
-#| label: contentid-load-web
-#| eval: true
+```{r, contentid-load-web, eval=TRUE}
 
 delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
+
 delta_sites <- readr::read_csv(delta_sites_edi, show_col_types = FALSE)
+
 head(delta_sites)
 
 ```
 
 In theory, that code will work from anyone's computer with an internet connection. But code that downloads data each and every time it is run is not particularly efficient, and will be prohibitive for all but the smallest datasets. A simple solution to this issue is to cache a local copy of the dataset, and only retrieve the original from the web when we don't have a local copy. In this way, people running code or a script will download the data the first time their code is run, but use a local copy from thence forward. While this can be accomplished with some simple conditional logic in R, the pattern has been simplified using the `pins` package:
 
-```{r}
-
-#| laberl: contentid-pins
-#| eval: true
+```{r, contentid-pins, eval=TRUE}
 
 delta_sites_edi <- pins::pin('https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d')
 
@@ -113,25 +100,26 @@ It contains several data files, each of which is at a specific web URI, includin
 - Trap Effort
 - Site locations
 
-```{r}
-
-#| label: contentid-dataone-uris
-#| echo:false
+```{r, contentid-dataone-uris, echo=FALSE}
 
 delta_catch_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F015e494911cf35c90089ced5a3127334"
+
 delta_taxa_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F0532048e856d4bd07deea11583b893dd"
+
 delta_effort_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2Face1ef25f940866865d24109b7250955"
+
 delta_sites_url <- "https://cn.dataone.org/cn/v2/resolve/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fdata%2Feml%2Fedi%2F233%2F2%2F6a82451e84be1fe82c9821f30ffc2d7d"
+
 ```
 
-```{r}
-
-#| label: contentid-edi-uris
-#| echo: true
+```{r, contentid-edi-uris, echo=TRUE}
 
 delta_catch_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=015e494911cf35c90089ced5a3127334'
+
 delta_taxa_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=0532048e856d4bd07deea11583b893dd'
+
 delta_effort_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=ace1ef25f940866865d24109b7250955'
+
 delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d'
 ```
 
@@ -139,14 +127,14 @@ delta_sites_edi <- 'https://portal.edirepository.org/nis/dataviewer?packageid=ed
 
 Use the `contentid` package for portable access to data. First, using a web URI, store the content identifier in your local content registry to cache it on your machine. The `contentid::store()` function retrieves the data from the URL, calculates a hash value for the content, and stores both in a local registry on your machine. This is very similar to the `pins::pin` function, but it uses the content identifier to point to the data.
 
-```{r}
-
-#| label: contentid_store
-#| eval: true
+```{r, contentid_store, eval=TRUE}
 
 delta_catch_id <- store(delta_catch_url)
+
 delta_taxa_id <- store(delta_taxa_url)
+
 delta_effort_id <- store(delta_effort_url)
+
 delta_sites_id <- store(delta_sites_url)
 
 print(c(delta_catch_id=delta_catch_id, 
@@ -156,17 +144,18 @@ print(c(delta_catch_id=delta_catch_id,
 ```
 
 
-```{r}
-
-#| label: contentid-remote-build 
-#| eval: false
-#| include: false
+```{r, contentid-remote-build, eval=FALSE, include=FALSE}
 
 delta_catch_id <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+
 delta_catch_id <- 'hash://sha256/e0dc10d7f36cfc5ac147956abb91f24f2b2df9f914a004bbf1e85e7d9cf52f41'
+
 delta_taxa_id <- 'hash://sha1/1bf0da8443e5bf8c9e7d16bf715a33129c9ff169'
+
 delta_taxa_id <- 'hash://sha256/1473de800f3c5577da077507fb006be816a9194ddd417b1b98836be92eaea49d'
+
 delta_effort_id <- 'hash://sha256/f2433efab802f55fa28c4aab628f3d529f4fdaf530bbc5c3a67ab92b5e8f71b2'
+
 delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c8abcdd6f5cef55a9b'
 ```
 
@@ -174,12 +163,12 @@ delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c
 
 Once you have the content identifier for a data file of interest (e.g., `delta_catch_id` in this case), you can call `contentid::resolve()` to find the locations where that data is stored. Because you already have it stored locally, it returns the file path to the file on your local registry, which you can then use to load the data into a data frame or process the data as needed.
 
-```{r}
+```{r, contentid-resolve}
 
-#| label: contentid-resolve
+ delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
 
-delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
 delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
+
 head(delta_catch)
 
 # And two more examples
@@ -195,14 +184,12 @@ This approach is **portable**, as anyone can run it without having the data loca
 This approach is **persistent**, because it pulls data from these persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
 <!-- WARNING MBJ: currently set to only use local repos, switch back before final build -->
-```{r}
-
-#| label: list_sources
-#| eval: false
+```{r, list_sources, eval=FALSE}
 
 contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 
 # [BUG FILED](https://github.com/cboettig/contentid/issues/81): `query_sources should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
+
 ```
 
 This approach is **reproducible**, as the exact version of the data will be used every time (even if someone changes the data at the original web URI, which would require a new content identifier).
@@ -213,9 +200,7 @@ This approach is **traceable** because there is a reference in the code to the s
 
 Because not all data are already published, it is also helpful to being working with content identifiers before the data are made public on the web. This is easily accomplished by storing a file in the local regitry, and then using its content identifier during analysis.
 
-```{r}
-
-#| label: register_local
+```{r, register_local}
 
 # Store a local file
 vostok_co2 <- system.file("extdata", "vostok.icecore.co2", package = "contentid")
@@ -223,6 +208,7 @@ id <- store(vostok_co2)
 vostok <- retrieve(id)
 co2 <- read.table(vostok, col.names = c("depth", "age_ice", "age_air", "co2"), skip = 21)
 head(co2)
+
 ```
 
 Later, when the data file is published to a DataONE repository, or registered in Hash Archive, the script will work for other people trying to access it via `contentid::resolve()`.
@@ -233,11 +219,7 @@ The `contentid` package is a work in progress, but holds tremendous potential to
 
 First, content identifiers are not well-linked to DOIs. DOIs are the current standard for citing data, and carry the citation metadata for data packages (such as author, title, publication year, etc.). But the `contentid` package currently lacks a mechanism to determine the citation for a file that is used in a script. Because data networks like [DataONE](https://dataone.org) maintain the association between each content-identifier that is registered there with the assigned DOI for the Dataset that the object is part of, it would be technically feasible to extend the contentid package to retrieve the citation for a given content identifier. 
 
-```{r}
-
-#| label: contentid_get_citation
-#| echo: false
-#| eval: false
+```{r, contentid_get_citation, echo=FALSE, eval=FALSE}
 
 # Function to return the text of a citation for a given contentid
 get_citation <- function(contentid) {
@@ -291,17 +273,15 @@ get_citation <- function(contentid) {
 
 For example, if the data is on DataONE, we could write a function to print the citation:
 
-```{r}
-
-#| label: contentid-print-citation 
-#| eval:false
+```{r, contentid-print-citation, eval=FALSE}
 
 get_citation(id)
+
 ```
 
 And this can even be displayed inline in the markdown text. For example, this chapter used data from:
 
-> `get_citation(id)`
+> \`get_citation(id)`\`
 
 Second, content identifiers are **opaque**, and not particularly transparent. For many researchers, seeing the long hash value in a script will not be very meaningful. The `contentid` package needs mechanisms to transparently indicate what a content identifier refers to. Again, we have this information available dynamically through the metadata collated in networks like [DataONE](https://dataone.org). Another useful extension to `contentid` would be to provide functions for displaying detailed metadata about a content identifier when it is available, as well as a mechanism to provide more human-readable aliases for the identifier.
 
