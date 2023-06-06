@@ -2,13 +2,36 @@
 format: html
 ---
 
+## Learning Objectives {.unnumbered}
+
+NAME OJJECTIVES
+
+::: callout-note
+## Acknowledgements
+
+These exercises are adapted from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
+:::
+
+## About the data {.unnumbered}
+
+These exercises will be using data on abundance, size, and trap counts (fishing pressure) of California spiny lobster (*Panulirus interruptus*) and were collected along the mainland coast of the Santa Barbara Channel by Santa Barbara Coastal LTER researchers [@lter2022].
+
 ::: callout-tip
 ## Setup
 
-1.  Open the R Markdown file `owner-analysis.Rmd`
-    a.  Check the `YAML` and add your name to the `author` field
-    b.  Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
-2.  Load the following libraries at the top of your R Markdown file
+1.  Create a new repository on GitHub
+    i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
+2.  Clone the repository to RStudio
+3. Download data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
+    a.  In Rstudio, create directory one called `data`
+    b.  Download the following data and upload them to the `data` folder:
+        i.  Time-series of lobster abundance and size
+        ii. Time-series of lobster trap buoy counts
+    c.  After creating the `data` folder and adding the data
+3.  __Open a new Quarto file__
+4.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` all new files (.qmd and data) to the remote repository (on GitHub)
+
+Open the R Markdown file `owner-analysis.Rmd` a. Check the `YAML` and add your name to the `author` field b. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data" 2. Load the following libraries at the top of your R Markdown file
 
 ```{r}
 #| code-fold: false
@@ -27,11 +50,11 @@ library(tidyr)
 lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ```
 
-4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
+4.  Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
 
-5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
-    - **Note:** You also want to `Pull` when you first open a project
+5.  Use the `Git` workflow: `Stage > Commit > Pull > Push`
 
+    -   **Note:** You also want to `Pull` when you first open a project
 :::
 
 ## Convert missing values using `mutate()` and `na_if()`
@@ -73,14 +96,14 @@ aque_70mm <- lobster_abundance %>%
 
 ::: callout-important
 ## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
-:::
 
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`
+:::
 
 <!--# Extra Questions -->
 
-
 <!--# Question 4 -->
+
 <!--# Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output. -->
 
 ```{r}
@@ -91,6 +114,7 @@ lobster_cm <- lobster_abundance %>%
 ```
 
 <!--# Question 5 -->
+
 <!--# Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output. -->
 
 ```{r}
@@ -101,8 +125,8 @@ lobster_mean <- lobster_abundance %>%
   summarize(MEAN_LENGTH = mean(SIZE_MM, na.rm = TRUE))
 ```
 
-
 <!--# Question 6 -->
+
 <!--# Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output. -->
 
 ```{r}
