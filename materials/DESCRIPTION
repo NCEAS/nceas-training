@@ -6,7 +6,9 @@ Imports:
     bibtex,
     bookdown,
     broom,
+    contentid,
     curl,
+    dataone,
     dplyr,
     DT,
     EML,
@@ -23,20 +25,22 @@ Imports:
     knitcitations,
     leaflet,
     pdftools,
+    pins,
     qualtRics,
     readr,
     reshape2,
     udunits2,
     sf,
     scales,
+    solrium,
     stringr,
     tidyr,
     tidytext,
     textdata,
     htmlwidgets,
     wordcloud,
-    viridis,
-    dataone
+    viridis
+    
 Remotes: 
     rstudio/bookdown
 License: Apache License (>= 2)
