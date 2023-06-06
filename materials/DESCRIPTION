@@ -8,7 +8,6 @@ Imports:
     broom,
     contentid,
     curl,
-    dataone,
     dplyr,
     DT,
     EML,
@@ -39,7 +38,8 @@ Imports:
     textdata,
     htmlwidgets,
     wordcloud,
-    viridis
+    viridis,
+    dataone
     
 Remotes: 
     rstudio/bookdown
