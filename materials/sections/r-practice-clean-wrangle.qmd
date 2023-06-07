@@ -4,7 +4,7 @@ format: html
 
 ## Learning Objectives {.unnumbered}
 
-NAME OJJECTIVES
+NAME OJECTIVES
 
 ::: callout-note
 ## Acknowledgements
@@ -16,11 +16,13 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 These exercises will be using data on abundance, size, and trap counts (fishing pressure) of California spiny lobster (*Panulirus interruptus*) and were collected along the mainland coast of the Santa Barbara Channel by Santa Barbara Coastal LTER researchers [@lter2022].
 
-::: callout-tip
 ## Setup
 
+::: callout-tip
+## GitHub - R workflow
+
 1.  Create a new repository on GitHub
-    i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
+    i.  When creating the repository, add a brief description (i.e. R practice session cleaning and wrangling data during Delta Science Program Synthesis and Training session 1), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
 2.  Clone the repository to RStudio
 3. Download data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
     a.  In Rstudio, create directory one called `data`
@@ -28,10 +30,19 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
     c.  After creating the `data` folder and adding the data
-3.  __Open a new Quarto file__
+3.  Open a new Quarto file
+    a. Give it a title and add your name to the `author` field
+    b. Delete the default text
+    c. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
+    d. Save this file (eg. `exercise-clean-wrangle.qmd`)
 4.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` all new files (.qmd and data) to the remote repository (on GitHub)
+:::
 
-Open the R Markdown file `owner-analysis.Rmd` a. Check the `YAML` and add your name to the `author` field b. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data" 2. Load the following libraries at the top of your R Markdown file
+
+::: callout-tip
+## Read and Explore Data
+
+1. Load the following libraries at the top of your Quarto file
 
 ```{r}
 #| code-fold: false
@@ -42,7 +53,7 @@ library(ggplot2)
 library(tidyr)
 ```
 
-3.  Read in the data and store the data frame as `lobster_abundance`
+2.  Read in the data and store the data frame as `lobster_abundance`
 
 ```{r}
 #| code-fold: false
@@ -50,12 +61,13 @@ library(tidyr)
 lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ```
 
-4.  Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
+3.  Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
 
-5.  Use the `Git` workflow: `Stage > Commit > Pull > Push`
+4.  Use the `Git` workflow: `Stage > Commit > Pull > Push`
 
     -   **Note:** You also want to `Pull` when you first open a project
 :::
+
 
 ## Convert missing values using `mutate()` and `na_if()`
 
@@ -75,7 +87,7 @@ lobster_abundance <- lobster_abundance %>%
 ::: callout-note
 ### Question 2
 
-Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame.
+Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame (hint: `unique()` gives you the unique values in a column).
 :::
 
 ```{r}
@@ -100,38 +112,33 @@ aque_70mm <- lobster_abundance %>%
 Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`
 :::
 
-<!--# Extra Questions -->
 
-<!--# Question 4 -->
+### Question 4
 
-<!--# Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output. -->
+Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output.
 
 ```{r}
-#| echo: false
-#| # `mutate()` practice
+
 lobster_cm <- lobster_abundance %>% 
   mutate(SIZE_CM = SIZE_MM / 10)
 ```
 
-<!--# Question 5 -->
+### Question 5
 
-<!--# Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output. -->
+Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output.
 
 ```{r}
-#| echo: false
-# `group_by() %>% summarize()` practice
 lobster_mean <- lobster_abundance %>% 
   group_by(SITE) %>% 
   summarize(MEAN_LENGTH = mean(SIZE_MM, na.rm = TRUE))
 ```
 
-<!--# Question 6 -->
+### Question 6
 
-<!--# Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output. -->
+Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output.
 
 ```{r}
-#| echo: false
-#| # `group_by() %>% summarize()` practice
+
 max_lobster <- lobster_abundance %>% 
   group_by(SITE, MONTH) %>% 
   summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
