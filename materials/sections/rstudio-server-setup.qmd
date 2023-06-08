@@ -11,6 +11,7 @@
 We'll be using the Zoom "Non Verbal Feedback" buttons throughout this session. We will ask you to put a green check by your name when you're all set and ready to move on, and a red x by your name if you're stuck or need assistance. These buttons can be found in the Reaction menu on the toolbar. When you're asked to answer using these buttons, please ensure that you select one so that the instructor has the feedback that they need to either continue the lesson or pause until everyone gets back on the same page.
 
 ![](images/non-verbal-feedback.png)
+
 ### Questions and Getting Help
 
 When you need to ask a question, please do so in one of the following ways:
@@ -96,11 +97,12 @@ There are two types of paths in computing: **absolute paths** and **relative pat
 This is not only convenient for you, but also when working collaboratively. For example if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `/home/vargas-poulsen/training_vargas/data/samples.csv` to `/home/jones/training_jones/data/samples.csv`. 
 
 
+Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
+
+
 ::: column-margin
 `setwd()` sets your working directory to specified file path (aka directory).
 :::
-
-Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
 
 Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
 
