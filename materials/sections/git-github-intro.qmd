@@ -4,15 +4,26 @@
 -   Practice the `Git` workflow: `pull`, `stage`, `commit`,`pull`, `push`
 -   Practice setting up a `Git` repository using different workflows
 
-## Introduction to `Git`
+## Introduction to Version Control
 
 ![](images/phd_comics_final.png){width="70%" fig-align="center"}
 
-Every file in the scientific process changes. Manuscripts are edited. Figures get revised. Code gets fixed when problems are discovered. Data files get combined together, then errors are fixed, and then they are split and combined again. In the course of a single analysis, one can expect thousands of changes to files. And yet, all we use to track this are simplistic filenames.
+Every file in the scientific process changes. Manuscripts are edited. Figures get revised. Code gets fixed when bugs are discovered. Sometimes those fixes lead to even more bugs, leading to more changes in the codebase. Data files get combined together. Sometimes those same files are split and combined again. All that to say - in just one research project, we can expect thousands of changes to occur.
 
-You might think there is a better way, and you'd be right: **version control**.
+These changes are important to track, and yet, we often use simplistic filenames to track them. Many of us have experienced renaming a document or script multiple times with the ingenuine addition of "final" to the filename (like the comic above demonstrates).
 
-## A Motivating Example
+You might think there is a better way, and you'd be right: **version control**. Version control provides an organized and transparent way to track changes in code and additional files. This practice was designed for software development, but is easily applicable to scientific programming.
+
+There are many benefits to using a version control software including:
+
+-   Maintain a history of your research project's development while keeping your workspace clean
+-   Facilitate collaboration and transparency when working on teams
+-   Explore bugs or new features without disrupting your team members' work
+-   and more!
+
+The version control system we'll be diving into is `Git`, the most widely used modern version control system in the world.
+
+## Introduction to `Git` + GitHub through a Motivating Example
 
 Before diving into the details of `Git` and how to use it, let's start with a motivating example that's representative of the types of problems `Git` can help us solve.
 
@@ -34,13 +45,11 @@ Commenting out code you don't want to lose is something probably all of us have 
 
 ![](images/git-intro-slide04.png)
 
-
 You may have noticed something else in the diagram above: Not only can we save a new version of our analysis, we can also write as much text as we like about the change in the commit message. In addition to the commit message, `Git` also tracks who, when, and where the change was made.
 
 Imagine that some time has gone by and you've committed a third version of your analysis, version 3, and a colleague emails with an idea: What if you used machine learning instead?
 
 ![](images/git-intro-slide05.png)
-
 
 Maybe you're not so sure the idea will work out and this is where a tool like `Git` shines. Without a tool like `Git`, we might copy analysis.R to another file called analysis-ml.R which might end up having mostly the same code except for a few lines. This isn't particularly problematic until you want to make a change to a bit of shared code and now you have to make changes in two files, if you even remember to.
 
@@ -48,26 +57,21 @@ Instead, with `Git`, we can start a branch. Branches allow us to confidently exp
 
 ![](images/git-intro-slide06.png)
 
-
 So you've been working in a branch and have made a few commits on it and your boss emails again asking you to update the model in some way. If you weren't using a tool like `Git`, you might panic at this point because you've rewritten much of your analysis to use a different method but your boss wants change to the old method.
 
 ![](images/git-intro-slide07.png)
-
 
 But with `Git` and branches, we can continue developing our main analysis at the same time as we are working on any experimental branches. Branches are great for experiments but also great for organizing your work generally.
 
 ![](images/git-intro-slide08.png)
 
-
 After all that hard work on the machine learning experiment, you and your colleague could decide to scrap it. It's perfectly fine to leave branches around and switch back to the main line of development but we can also delete them to tidy up.
 
 ![](images/git-intro-slide09.png)
 
-
 If, instead, you and your colleague had decided you liked the machine learning experiment, you could also merge the branch with your main development line. Merging branches is analogous to accepting a change in Word's Track Changes feature but way more powerful and useful.
 
 ![](images/git-intro-slide10.png)
-
 
 A key takeaway here is that `Git` can drastically increase your confidence and willingness to make changes to your code and help you avoid problems down the road. Analysis rarely follows a linear path and we need a tool that respects this.
 
@@ -75,7 +79,7 @@ A key takeaway here is that `Git` can drastically increase your confidence and w
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used. Another really powerful feature of `Git` is tags which allow us to record a particular state of our analysis with a meaningful name. In this case, we are lucky because we tagged the version of our code we used to run the analysis. Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
 
-### Summary
+### Summary {.unnumbered}
 
 With `Git`, we can:
 
@@ -87,21 +91,43 @@ With `Git`, we can:
 
 And, as we'll see below, `Git` has one extra superpower available to us: It's distributed. Multiple people can work on the same analysis at the same time on their own computer and everyone's changes can eventually merged together.
 
-## Version control and Collaboration using `Git` and GitHub
+## So what *exactly* are `Git` and GitHub?
 
-First, just what are `Git` and GitHub?
+::: {layout-ncol="2"}
+![](images/git-intro.png)
 
--   **`Git`**: version control software used to track files in a folder (a repository)
-    -   `Git` creates the versioned history of a repository
--   **GitHub**: web site that allows users to store their `Git` repositories and share them with others
+-   version control software that tracks files in a folder (a repository)
+-   creates the versioned history of a repository
+-   maybe one more thing?
 
-![](images/vc-local-github.png)
+![](images/github-intro.png)
 
-## Let's Look at a GitHub Repository
+-   website that allows users to store their `Git` repositories and share them with others
+-   another thing I'll add here
+-   and one more thing
+-   room for one more on a single line
+:::
+
+### The `Git` Life cycle {.unnumbered}
+
+As a `Git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories. Any given `Git` repository can be cloned so that it exists both locally, and remotely. But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `Git`'s particular format. For our purposes, we can consider a `Git` repository as a folder with a bunch of additional version-related metadata.
+
+In a local `Git`-enabled folder, the folder contains a workspace containing the current version of all files in the repository. These working files are linked to a hidden folder containing the 'Local repository', which contains all of the other changes made to the files, along with the version metadata.
+
+So, when working with files using `Git`, you can use `Git` commands to indicate specifically which changes to the local working files should be staged for versioning (using the `git add` command), and when to record those changes as a version in the local repository (using the command `git commit`).
+
+The remaining concepts are involved in synchronizing the changes in your local repository with changes in a remote repository. The `git push` command is used to send local changes up to a remote repository (possibly on GitHub), and the `git pull` command is used to fetch changes from a remote repository and merge them into the local repository.
+
+![](images/git-flowchart.png)
+
+![](images/allison-horst-git-workflow.png)
+
+
+### Let's Look at a GitHub Repository {.unnumbered}
 
 This screen shows the copy of a repository stored on GitHub, with its list of files, when the files and directories were last modified, and some information on who made the most recent changes.
 
-![](images/ss3sim-github.png) 
+![](images/ss3sim-github.png)
 
 If we drill into the "commits" for the repository, we can see the history of changes made to all of the files. Looks like `kellijohnson` was working on the project and fixing errors in December:
 
@@ -113,17 +139,28 @@ And finally, if we drill into one of the changes made on December 20, we can see
 
 Tracking these changes, how they relate to released versions of software and files is exactly what `Git` and GitHub are good for. And we will show how they can really be effective for tracking versions of scientific code, figures, and manuscripts to accomplish a reproducible workflow.
 
-### The `Git` Life cycle
 
-As a `Git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories. Any given `Git` repository can be cloned so that it exists both locally, and remotely. But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `Git`'s particular format. For our purposes, we can consider a `Git` repository as a folder with a bunch of additional version-related metadata.
+### `Git` Vocabulary & Commands {.unnumbered}
 
-In a local `Git`-enabled folder, the folder contains a workspace containing the current version of all files in the repository. These working files are linked to a hidden folder containing the 'Local repository', which contains all of the other changes made to the files, along with the version metadata.
+|                |                  |                                                                                                   |
+|---------------|-------------|--------------------------------------------------------|
+| Term           | Terminal Command | Definition                                                                                        |
+| Add            | git add          | the process of selecting a file for inclusion in version history                                  |
+| Branch         | git branch       | a separate set of changes to version history allowing users to work in parallel on the same files |
+| Commit         | git commit       | a snapshot of changes to be added to version history                                              |
+| Commit message | git commit - m   | user-specified description of the changes made in a commit                                        |
+| Conflict       |                  | a problem arising when changes from different sources cannot be combined automatically            |
+| Fork           |                  | a remote repository derived from another project that can be used for collaboration               |
+| Merge          | git merge        | combining changes that originate from different repositories or branches                          |
+| Pull           | git pull         | an action that synchronises the local repository with remote changes                              |
+| Push           | git push         | an action that synchronizes the remote repository with local changes                              |
+| Remote         |                  | an external repository that can be synchronised with local changes                                |
+| Repository     |                  | a directory containing the files under version control                                            |
+| Stage          |                  | the process of selecting a file for inclusion in version history                                  |
+|                | git clone        |                                                                                                   |
+|                | git status       |                                                                                                   |
+|                | git log          |                                                                                                   |
 
-So, when working with files using `Git`, you can use `Git` commands to indicate specifically which changes to the local working files should be staged for versioning (using the `git add` command), and when to record those changes as a version in the local repository (using the command `git commit`).
-
-The remaining concepts are involved in synchronizing the changes in your local repository with changes in a remote repository. The `git push` command is used to send local changes up to a remote repository (possibly on GitHub), and the `git pull` command is used to fetch changes from a remote repository and merge them into the local repository.
-
-![](images/git-flowchart.png)
 
 `Git` commands to use in the terminal:
 
@@ -194,9 +231,9 @@ RStudio knows how to work with files under version control with `Git`, but only 
 ::: callout-tip
 ## Setup
 
-- In the File menu, select "New Project"
-- In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the remote repository Repository URL
-- While you can name the local copy of the repository anything, it's typical to use the same name as the GitHub repository to maintain the correspondence
+-   In the File menu, select "New Project"
+-   In the dialog that pops up, select the "Version Control" option, and paste the GitHub URL that you copied into the field for the remote repository Repository URL
+-   While you can name the local copy of the repository anything, it's typical to use the same name as the GitHub repository to maintain the correspondence
 
 ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"}
 :::
@@ -217,7 +254,7 @@ Inspect the history. For now, let's click on the History button in the `Git` tab
 ## Challenge
 
 1.  Let's make a change to the `README.md` file, this time from RStudio, then commit the `README.md` change
-2.  Add a new section to your `README.md`  called "Creator" using a level 2 header, and under it include some information about yourself. **Bonus:** Add some contact information and link your email using Markdown syntax
+2.  Add a new section to your `README.md` called "Creator" using a level 2 header, and under it include some information about yourself. **Bonus:** Add some contact information and link your email using Markdown syntax
 :::
 
 Once you save, you'll immediately see the `README.md` file show up in the `Git` tab, marked as a modification. You can select the file in the `Git` tab, and click Diff to see the differences that you saved (but which are not yet committed to your local repository).
@@ -263,13 +300,12 @@ And note that the labels indicate that both the local repository (`HEAD`) and th
 
 When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
 
-```{.bash}
+``` bash
 git config pull.rebase false
 ```
 
-`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
+`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can't it will show a merge conflict
 :::
-
 
 ::: callout-important
 ## What should I write in my commit message?
@@ -362,7 +398,7 @@ There's a lot we haven't covered in this brief tutorial. There are some great an
 
 and much, much more.
 
-## Additional `Git` resources
+## `Git` resources
 
 -   [GitHub Documentation](https://docs.github.com/en/get-started/quickstart/set-up-git)
 -   [Learn `Git` Branching](https://learngitbranching.js.org/) is an interactive tool to learn `Git` on the command line
