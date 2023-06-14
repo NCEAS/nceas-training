@@ -79,33 +79,41 @@ A key takeaway here is that `Git` can drastically increase your confidence and w
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used. Another really powerful feature of `Git` is tags which allow us to record a particular state of our analysis with a meaningful name. In this case, we are lucky because we tagged the version of our code we used to run the analysis. Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
 
-### Summary {.unnumbered}
+### With `Git` we can enhance our workflow: {.unnumbered}
 
-With `Git`, we can:
+- Eliminate the need for cryptic filenames and comments to track our work.
+- Provide detailed descriptions of our changes through commits, making it easier to understand the reasons behind code modifications.
+- Work on multiple branches simultaneously, allowing for parallel development, and optionally merge them together.
+- Use commits to access and even execute older versions of our code.
+- Assign meaningful tags to specific versions of our code.
+- Additionally, `Git` offers a powerful distributed feature. Multiple individuals can work on the same analysis concurrently on their own computers, with the ability to merge everyone's changes together.
 
--   Avoid using cryptic filenames and comments to keep track of our work
--   Describe our changes with as much information as we like so it's easier to understand why our code changed (commits)
--   Work on multiple, simultaneous development (branches) of our code at the same time and, optionally, merge them together
--   Go back in time to look at (and even run) older versions of our code
--   Tag specific versions of our code as meaningful (tags)
+### So what *exactly* are `Git` and GitHub? {.unnumbered}
 
-And, as we'll see below, `Git` has one extra superpower available to us: It's distributed. Multiple people can work on the same analysis at the same time on their own computer and everyone's changes can eventually merged together.
+#### `Git`: {.unnumbered}
 
-## So what *exactly* are `Git` and GitHub?
+-   an open-source distributed version control software
+- designed to manage the versioning and tracking of source code files and project history
+-   operates locally on your computer, allowing you to create repositories, track changes, and collaborate with others
+- provides features such as committing changes, branching and merging code, reverting to previous versions, and managing project history
+- works directly with the files on your computer and does not require a network connection to perform most operations
+- primarily used through the command-line interface (CLI, e.g. Terminal), but also has various GUI tools available (e.g. RStudio IDE)
 
-::: {layout-ncol="2"}
+::: {.column-margin}
 ![](images/git-intro.png)
+:::
 
--   version control software that tracks files in a folder (a repository)
--   creates the versioned history of a repository
--   maybe one more thing?
+#### GitHub: {.unnumbered}
+-   online platform and service built around `Git`
+- provides a centralized hosting platform for Git repositories
+- allows us to store, manage, and collaborate on their `Git` repositories in the cloud
+-  offers additional features on top of `Git`, such as a web-based interface, issue tracking, project management tools, pull requests, code review, and collaboration features
+-   enables easy sharing of code with others, facilitating collaboration and contribution to open source projects
+-   provides a social aspect, allowing users to follow projects, star repositories, and discover new code
 
+
+::: {.column-margin}
 ![](images/github-intro.png)
-
--   website that allows users to store their `Git` repositories and share them with others
--   another thing I'll add here
--   and one more thing
--   room for one more on a single line
 :::
 
 ### The `Git` Life cycle {.unnumbered}
@@ -118,10 +126,13 @@ So, when working with files using `Git`, you can use `Git` commands to indicate 
 
 The remaining concepts are involved in synchronizing the changes in your local repository with changes in a remote repository. The `git push` command is used to send local changes up to a remote repository (possibly on GitHub), and the `git pull` command is used to fetch changes from a remote repository and merge them into the local repository.
 
-![](images/git-flowchart.png)
+[A basic git workflow represented as two islands, one with "local repo" and "working directory", and another with "remote repo." Bunnies move file boxes from the working directory to the staging area, then with Commit move them to the local repo. Bunnies in rowboats move changes from the local repo to the remote repo (labeled "PUSH") and from the remote repo to the working directory (labeled "PULL").]{.aside}
 
-![](images/allison-horst-git-workflow.png)
+<!--# ![](images/git-flowchart.png) -->
 
+[![Artwork by Allison Horst](images/allison-horst-git-workflow.png)](https://twitter.com/allison_horst)
+
+<!--#![](images/allison-horst-git-workflow.png)-->
 
 ### Let's Look at a GitHub Repository {.unnumbered}
 
@@ -139,40 +150,37 @@ And finally, if we drill into one of the changes made on December 20, we can see
 
 Tracking these changes, how they relate to released versions of software and files is exactly what `Git` and GitHub are good for. And we will show how they can really be effective for tracking versions of scientific code, figures, and manuscripts to accomplish a reproducible workflow.
 
-
 ### `Git` Vocabulary & Commands {.unnumbered}
 
-|                |                  |                                                                                                   |
-|---------------|-------------|--------------------------------------------------------|
-| Term           | Terminal Command | Definition                                                                                        |
-| Add            | git add          | the process of selecting a file for inclusion in version history                                  |
-| Branch         | git branch       | a separate set of changes to version history allowing users to work in parallel on the same files |
-| Commit         | git commit       | a snapshot of changes to be added to version history                                              |
-| Commit message | git commit - m   | user-specified description of the changes made in a commit                                        |
-| Conflict       |                  | a problem arising when changes from different sources cannot be combined automatically            |
-| Fork           |                  | a remote repository derived from another project that can be used for collaboration               |
-| Merge          | git merge        | combining changes that originate from different repositories or branches                          |
-| Pull           | git pull         | an action that synchronises the local repository with remote changes                              |
-| Push           | git push         | an action that synchronizes the remote repository with local changes                              |
-| Remote         |                  | an external repository that can be synchronised with local changes                                |
-| Repository     |                  | a directory containing the files under version control                                            |
-| Stage          |                  | the process of selecting a file for inclusion in version history                                  |
-|                | git clone        |                                                                                                   |
-|                | git status       |                                                                                                   |
-|                | git log          |                                                                                                   |
+We know the world of `Git` and GitHub can be daunting. Use this table as a reference while you use `Git` and GitHub, and we encourage you to build upon this list as you become more comfortable with these tools.
 
+This table includes only a selection of common `Git` terms and commands. `Git` has a rich set of commands and features, and there are many more terms beyond this list.
 
-`Git` commands to use in the terminal:
+| Term               | `Git` Command(s)           | Definition                                                                                         |
+|--------------------|--------------------------|----------------------------------------------------------------------------------------------------|
+| Add                | `git add [file]`         | Stages or adds file changes to the next commit. `git add .` will stage or add all files.                                                   |
+| Branch             | `git branch`             | Lists existing branches or creates a new branch.                                                   |
+| Checkout           | `git checkout [branch]`  | Switches to a different branch or restores files from a specific commit.                            |
+| Clone              | `git clone [repository]` | Creates a local copy of a remote repository.                                                       |
+| Commit             | `git commit`             | Records changes to the repository with a descriptive message.                                      |
+| Commit Message     | `git commit -m`                        | A descriptive message explaining the changes made in a commit.                                     |
+| Diff               | `git diff`               | Shows differences between files, commits, or branches.                                             |
+| Fetch              | `git fetch`              | Retrieves changes from a remote repository but does not merge them.                                |
+| Fork               | -                        | Creates a personal copy of a repository under your GitHub account for independent development.      |
+| Log                | `git log`                | Displays the commit history of the repository.                                                     |
+| Merge              | `git merge [branch]`     | Integrates changes from one branch into another branch.                                            |
+| Merge Conflict     | -                        | Occurs when Git cannot automatically merge changes from different branches, requiring manual resolution. |
+| Pull               | `git pull`               | Retrieves and merges changes from a remote repository to the current branch.                        |
+| Pull Request (PR)  | -                        | A request to merge changes from a branch into another branch, typically in a collaborative project. |
+| Push               | `git push`               | Sends local commits to a remote repository.                                                        |
+| Rebase             | `git rebase`             | Integrates changes from one branch onto another by modifying commit history.                       |
+| Remote             | `git remote`             | Manages remote repositories linked to the local repository.                                        |
+| Repository         | `git init`               | A directory where Git tracks and manages files and their versions.                                 |
+| Stage              | -                        | The process of preparing and selecting changes to be included in the next commit.                   |
+| Stash              | `git stash`              | Temporarily saves changes that are not ready to be committed.                                      |
+| Status             | `git status`             | Shows the current status of the repository, including changes and branch information.               |
+| Tag                | `git tag`                | Assigns a label or tag to a specific commit.                                                       |
 
--   `git clone`: to copy a whole remote repository to local
--   `git add` (stage): notify `Git` to track particular changes
--   `git commit`: store those changes as a version
--   `git pull`: merge changes from a remote repository to our local repository
--   `git push`: copy changes from our local repository to a remote repository
--   `git status`: determine the state of all files in the local repository
--   `git log`: print the history of changes in a repository
-
-Those seven commands are the majority of what you need to successfully use `Git`. But this is all super abstract, so let's explore with some real examples.
 
 ## Exercise 1: Create a remote repository on GitHub
 
@@ -298,7 +306,7 @@ And note that the labels indicate that both the local repository (`HEAD`) and th
 ::: callout-note
 ## Last thing, some `Git` configuration
 
-When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
+When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull (essentially), otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
 
 ``` bash
 git config pull.rebase false
@@ -310,9 +318,25 @@ git config pull.rebase false
 ::: callout-important
 ## What should I write in my commit message?
 
-Clearly, good documentation of what you've done is critical to making the version history of your repository meaningful and helpful. It's tempting to skip the commit message altogether, or to add some stock blurb like "Updates". It's better to use messages that will be helpful to your future self in deducing not just what you did, but why you did it. Also, commit messages are best understood if they follow the active verb convention. For example, you can see that my commit messages all started with a past tense verb, and then explained what was changed.
+Writing effective `Git` commit messages is essential for creating a meaningful and helpful version history in your repository. It is crucial to avoid skipping commit messages or resorting to generic phrases like "Updates." When it comes to following best practices, there are several guidelines to enhance the readability and maintainability of the codebase.
 
-While some of the changes we illustrated here were simple and so easily explained in a short phrase, for more complex changes, it's best to provide a more complete message. The convention, however, is to always have a short, terse first sentence, followed by a more verbose explanation of the details and rationale for the change. This keeps the high level details readable in the version log. I can't count the number of times I've looked at the commit log from 2, 3, or 10 years prior and been so grateful for the diligence of my past self and collaborators.
+Here are some guidelines for writing effective `Git` commit messages:
+
+1. **Be descriptive and concise**: Provide a clear and concise summary of the changes made in the commit. Aim to convey the purpose and impact of the commit in a few words.
+
+2. **Use imperative tense**: Write commit messages in the imperative tense, as if giving a command. For example, use "Add feature" instead of "Added feature" or "Adding feature." This convention aligns with other `Git` commands and makes the messages more actionable.
+
+3. **Separate subject and body**: Start with a subject line, followed by a blank line, and then provide a more detailed explanation in the body if necessary. The subject line should be a short, one-line summary, while the body can provide additional context, motivation, or details about the changes.
+
+4. **Limit the subject line length**: Keep the subject line within 50 characters or less. This ensures that the commit messages are easily scannable and fit well in tools like `Git` logs.
+
+5. **Capitalize and punctuate properly**: Begin the subject line with a capital letter and use proper punctuation. This adds clarity and consistency to the commit messages.
+
+6. **Focus on the "what" and "why"**: Explain what changes were made and why they were made. Understanding the motivation behind a commit helps future researchers and collaborators (including you!) comprehend its purpose.
+
+7. **Use present tense for subject, past tense for body**: Write the subject line in present tense as it represents the current state of the codebase. Use past tense in the body to describe what has been done.
+
+8. **Reference relevant issues**: If the commit is related to a specific issue or task, include a reference to it. For example, you can mention the issue number or use keywords like "Fixes," "Closes," or "Resolves" followed by the issue number.
 :::
 
 ## Exercise 3: Setting up `Git` on an existing project
