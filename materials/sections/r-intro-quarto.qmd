@@ -1,8 +1,8 @@
 ## Learning Objectives {.unnumbered}
 
--   Introduce literate analysis using Quarto and RMarkdown
+-   Introduce literate analysis using Quarto (an extension of R Markdown's best features)
 -   Learn markdown syntax and run R code using Quarto
--   Build and knit an example analysis
+-   Build and render an example analysis
 
 ## Introduction
 
@@ -18,13 +18,11 @@
 If our aim is to make scientific research more transparent, the appeal of this paradigm reversal is immediately apparent. By switching to a literate analysis model, **you help enable human understanding of what the computer is doing**. As Knuth describes, in the literate analysis model, the author is an "_essayist_" who chooses variable names carefully, explains what they mean, and introduces concepts in the analysis in a way that facilitates understanding.
 
 
-RMarkdown is an excellent way to generate literate analysis, and a reproducible workflow. RMarkdown is a combination of two things R, the programming language, and **markdown, a set of text formatting directives**. In an R script, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by
-`#`). 
+Quarto and RMarkdown are an excellent way to generate literate analysis, and a reproducible workflow. These types of files, combine R the programming language, and **markdown, a set of text formatting directives**. 
 
-The paradigm shift of literate analysis comes in the switch to RMarkdown, where instead of assuming you are writing code, Rmarkdown assumes that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown,
-encourages the "essayist" to write understandable prose to accompany the code that explains to the human-beings reading the document what the author told the computer to do. This is in contrast to writing just R code, where the author telling to the computer what to do with maybe a smattering of terse comments explaining the code to a reader.
+In an R script, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by `#`). The paradigm shift of literate analysis comes in the switch to RMarkdown or Quarto, where instead of assuming you are writing code, they assume that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown, encourages the "essayist" to write understandable prose to accompany the code that explains to the human-beings reading the document what the author told the computer to do. This is in contrast to writing just R code, where the author telling to the computer what to do with maybe a smattering of terse comments explaining the code to a reader.
 
-Before we dive in deeper, let's look at an example of what a rendered literate analysis with RMarkdown can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of an analysis workflow written using RMarkdown.
+Before we dive in deeper, let's look at an example of what a rendered literate analysis with RMarkdown can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of an analysis workflow written using Quarto. <!-- UPDATE THE LINK TO QUARTO ANALYISIS-->
 
 There are a few things to notice about this document, which assembles a set of similar data sources on salmon brood tables with different formatting into a single data source.
 
@@ -39,26 +37,62 @@ There are a few things to notice about this document, which assembles a set of s
 
 In addition to achieving literate analysis, this document also
 represents a **reproducible analysis**. Because the entire merging and
-quality control of the data is done using the R code in the RMarkdown,
+quality control of the data is done using the R code in the Quarto file,
 if a new data source and formatting script are added, the document can
 be run all at once with a single click to re-generate the quality
 control, plots, and analysis of the updated data.
 
-RMarkdown is an amazing tool to use for collaborative research, so we will spend some time learning it well now, and use it through the rest of the course.
+::: callout-important
+## A note on reproducibility
 
-### RMarkdown Syntax
+Reproducible analysis allow you to automatize how the figures and the statistics in your analysis are generated. This process also helps your collaborators, your readers and your future self to follow your code trail the leads to the original data, increasing the transparency of your science. 
 
-An RMarkdown file has three main components:
+Literate analysis help reduce the mistakes from copying and pasting across software, keeps results and models in sync, and allows you to provide interested readers with more information about the different approaches and analyses you tried before coming up with the final results [CITE: https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf]. 
 
--   YAML metadata to guide the RMarkdown build process
--   Text to display
+:::
+
+
+Quarto is an amazing tool to use for collaborative research, so we will spend some time learning it well now, and use it through the rest of the course.
+
+### RMarkdown and Quarto
+
+You can identify a Quarto file with the `.qmd` extension. On the other hand, am R Markdown file has a `.Rmd` extension. Both have similar structures and both combine prose with code.
+
+
+![images/quarto-rmd-logo.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+
+
+Now, let's take a look at the structure of each of these files. The both look for the most part the same with minor differences.
+
+![images/quarto-rmd-structure.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+
+Finally, lets compare each of these files when knitted/rendered.
+
+![images/quarto-rmd-rendered.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+
+Again, we see similar outcoumes, with minor differences mainly in formatting (font, style of showing code chunks, etc.)
+
+
+Both type of documents have three main components:
+
+-   YAML metadata to guide the document's build process
 -   Code chunks to run
+-   Prose (Text to display)
 
-![](images/rmarkdown_structure.png)
+Today we are going to use Quarto to run some analysis on data. We are specifically going to focus on the code chunk and text components. We will discuss more about the how the YAML works in an Quarto later in the course.
 
-Today we are going to use Rmarkdown to run some analysis on data. We are specifically going to focus on the code chunk and text components. We will discuss more about the how the YAML works in an RMarkdown later in the course. For now, you just need to know that every RMarkdown file has a YAML and this sets guidelines on how your want the output of your document to look like.
+::: callout-important
+## The YAML
+Is the document's metadata which sets guidelines on how your want the output of your document to look like. It is located  at the top of your file, delineated by three dashes (---) at the
+top and at the bottom of it. It can be used to specify:
+- Characteristics of your documents such at title, author, date of creation.
+- Argument to pass on the building process to control the format of the output.
+- Add additional information such as the bibliography file (and formatting of the references)
+- Specific parameters for your report (eg: just used a subset of the data).
+:::
 
-Let's open an RMarkdown file following the instructions below.
+ 
+Let's open an Quarto file following the instructions below.
 
 ::: callout-tip
 ## Setup
