@@ -162,24 +162,13 @@ These techniques provide different benefits and are used in various collaboratio
 
 ## Merge conflicts
 
-So things can go wrong, which usually starts with a **merge conflict**, due to 
-both collaborators making incompatible changes to a file. While the error messages
-from merge conflicts can be daunting, getting things back to a normal state can be
-straightforward once you've got an idea where the problem lies.
+**Merge conflicts** occur when both collaborators make conflicting changes to the same file. Resolving merge conflicts involves identifying the root of the problem and restoring the project to a normal state. Good communication, discussing file sections to work on, and avoiding overlaps can help prevent merge conflicts. However, if conflicts do arise, `Git` warns about potential issues and ensures that changes from different collaborators based on the same file version are not overwritten. To resolve conflicts, you need to explicitly specify whose changes should be used for each conflicting line in the file.
 
-A merge conflict occurs when both the Owner and Collaborator change the same
-lines in the same file without first pulling the changes that the other has made.
-This is most easily avoided by good communication about who is working on various
-sections of each file, and trying to avoid overlaps.  But sometimes it happens, 
-and `Git` is there to warn you about potential problems.  And `Git` will not allow
-you to overwrite one person's changes to a file with another's changes to the same
-file if they were based on the same version.
+In this image, we see collaborators `mbjones` and `metamattj` have both made changes to the same line in the same `README.md` file. This is causing a merge conflict because `Git` doesn't know whose changes came first. To resolve it, we need to tell `Git` whose changes to keep for that line, and whose changes to discard. 
 
 ![](images/git-conflict-00-lines-changed.png)
 
-The main problem with merge conflicts is that, when the Owner and Collaborator
-both make changes to the same line of a file, `Git` doesn't know whose changes
-take precedence.  You have to tell `Git` whose changes to use for that line.
+
 
 ### Common ways to resolve a merge conflict
 
