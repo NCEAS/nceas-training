@@ -42,6 +42,8 @@ if a new data source and formatting script are added, the document can
 be run all at once with a single click to re-generate the quality
 control, plots, and analysis of the updated data.
 
+
+
 ::: callout-important
 ## A note on reproducibility
 
@@ -54,21 +56,22 @@ Literate analysis help reduce the mistakes from copying and pasting across softw
 
 Quarto is an amazing tool to use for collaborative research, so we will spend some time learning it well now, and use it through the rest of the course.
 
-### RMarkdown and Quarto
+
+## RMarkdown and Quarto
 
 You can identify a Quarto file with the `.qmd` extension. On the other hand, am R Markdown file has a `.Rmd` extension. Both have similar structures and both combine prose with code.
 
 
-![images/quarto-rmd-logo.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+![](images/quarto-rmd-logo.png){fig-alt="Bui & Csik, 2023, SORTEE"}
 
 
 Now, let's take a look at the structure of each of these files. The both look for the most part the same with minor differences.
 
-![images/quarto-rmd-structure.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+![](images/quarto-rmd-structure.png){fig-alt="Bui & Csik, 2023, SORTEE"}
 
 Finally, lets compare each of these files when knitted/rendered.
 
-![images/quarto-rmd-rendered.png]{fig-alt="Bui & Csik, 2023, SORTEE"}
+![](images/quarto-rmd-rendered.png){fig-alt="Bui & Csik, 2023, SORTEE"}
 
 Again, we see similar outcoumes, with minor differences mainly in formatting (font, style of showing code chunks, etc.)
 
@@ -91,42 +94,52 @@ top and at the bottom of it. It can be used to specify:
 - Specific parameters for your report (eg: just used a subset of the data).
 :::
 
+## Practice Litarete Analysis
  
 Let's open an Quarto file following the instructions below.
 
 ::: callout-tip
 ## Setup
 
-- Open a new RMarkdown file using the following prompts: File \> New File \> RMarkdown
+- Open a new Quarto file using the following prompts: File \> New File \> Quarto Document
 - A popup window will appear. 
-- Give your file a new title, e.g "Introduction to RMarkdown".
-- Leave the output format as HTML.
--  Then click the OK button.
+- Give your file a new title, e.g "Introduction to Quarto".
+- Leave the output format as HTML and Engine set to Knitr.
+-  Then click the "Create" button.
 :::
 
-The first thing to notice is that by opening a file, we see the fourth pane of the RStudio pops up. This is our RMarkdown document which is essentially  a text editor.
+The first thing to notice is that by opening a file, we see the fourth pane of the RStudio pops up. This is our Quarto document which is essentially  a text editor. We also see in the upper left side that we are looking at the document under the "Visual editor". This is probably a familiar way of looking at a text document. To introduce the **markdown** syntax, we re going to move to the source editor and then come back to the visual editor. In the upper left corner, click on Source. See how the formatting changed? In the Source editor we are looking at the same text, but in markdown syntax. The visual editor on the other hand, allows us to see how markdown is rendered, therefore how is it going to look in our output document.
 
-Let's have a look at this file --- It looks a little different than a R script. It's not blank; there is some initial text already provided for you. Lets identify the three main components in the image above. We have the YAML a the top, in between the two sets of dashed lines. Then we also see white and grey sections. The gray sections are R code chunks
+
+Let's have a look at this file --- As we saw in the examples above, it looks a little different than a R script. It's not blank; there is some initial text already provided for you. Lets identify the three main components we introduces before. We have the YAML a the top, in between the two sets of dashed lines. Then we also see white and grey sections. The gray sections are R code chunks
 and the white sections are plain text.
 
-Let's go ahead and render this file by clicking the "Knit" button, the blue yarn at the top of the RMarkdown file. When you first click this button, RStudio will prompt you to save this file. Save it in the top level of your home directory on the server, and name it something that you will remember (like `rmarkdown-intro.Rmd`).
+Let's go ahead and render this file by clicking the "Render" button, next to the blue arrow at the top of the Quarto file. When you first click this button, RStudio will prompt you to save this file. Save it in the top level of your home directory on the server, and name it something that you will remember (like `quarto-intro.Rmd`).
 
-![](images/rmarkdown_side_by_side2.png)
+![](images/quarto-side-by-side.png)
 
 What do you notice between the two?
 
-First, the knit process produced a second file (an HTML file) that popped up in a second window. You'll also see this file in your directory with the same name as your Rmd, but with the html extension. In it's simplest format, RMarkdown files come in pairs the RMarkdown file, and its rendered version. In this case, we are knitting, or rendering, the file into HTML. You can also knit to PDF or Word files.
+First, the render process produced a second file (an HTML file) that popped up in a second window in the browser. You'll also see this file in your directory with the same name as your qmd, but with the .html extension. In it's simplest format, Quarto files come in pairs (same than RMarkdown files) the Quarto document, and its rendered version. In this case, we are rendering, the file into HTML. You can also knit to PDF or Word files and others.
 
-Notice how the grey **R code chunks** are surrounded by 3 back-ticks and `{r LABEL}`. These are evaluated and return the output text in the case of `summary(cars)` and the output plot in the case of `plot(pressure)`. The label next to the letter r in the code chunk syntax is a chunk label - this can help you navigate your RMarkdown document using the drop-down menu at the bottom of the editor pane.
+Notice how the grey **R code chunks** are surrounded by 3 back-ticks and `{r LABEL}`. The first chunk, in this case `1+1`, is evaluated and return the output number (2). Notice the line in the second chunk that says `#| echo: false`? This is a code chunk option that indicates not to print the code. In the rendered version, we can see the outcome of `2*2` but not the executed code that created the outcome.
 
-Notice how the code `plot(pressure)` is not shown in the HTML output because of the R code chunk option `echo = FALSE`. RMarkdown has lots of chunk options:
+Some of the options available to customizing outputs are: <!-- Add table from https://quarto.org/docs/computations/execution-options.html??-->
 
--   Allow for code to be run but not shown `(echo = FALSE)`
--   Code to be shown but not run `(eval = FALSE)`
--   Code to be run, but results not shown `(results = 'hide')`
+-   Allow for code to be run but not shown `#| echo: false`
+-   Code to be shown but not run `#| eval: false`
+-   Code to be run, but results not shown `#| results: hide`
 -   Or any combination of the above and more.
 
-It is important to emphasize one more time that in an RMarkdown document, the gray areas of the document are *code*, in this case R code because that is what it is indicated in the \`\`\``{r}` syntax at the start of this gray area. And the white areas of this Rmd are in Markdown language.
+
+::: callout-important
+One important difference between Quarto documents and R Markdown documents is that in Quarto, chunk options are written in special comment format (`#|`) at the top of code chunks rather than within the wiggly brackets next to `r` at the begging of the chunk. For example:
+
+<!--ADD EXAMPLE IMAGE-->
+:::
+
+
+It is important to emphasize one more time that in an Quarto and R Markdown document, the gray areas of the document are *code*, in this case R code because that is what it is indicated in the \`\`\``{r}` syntax at the start of this gray area. And the white areas of a qmd are in Markdown language.
 
 
 Let's start by talking about Markdown. **Markdown is a formatting language for plain text**, and there are only around 15 rules to know.
