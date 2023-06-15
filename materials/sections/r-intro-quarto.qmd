@@ -1,15 +1,7 @@
----
-editor: 
-  markdown: 
-    wrap: 72
-editor_options: 
-  chunk_output_type: console
----
 
 ## Learning Objectives {.unnumbered}
 
--   Introduce literate analysis using Quarto (an extension of R
-    Markdown's features)
+-   Introduce literate analysis using Quarto (an extension of RMarkdown's features)
 -   Learn markdown syntax and run R code using Quarto
 -   Build and render an example analysis
 
@@ -54,8 +46,9 @@ author told the computer to do. This is in contrast to writing just R
 code, where the author telling to the computer what to do with maybe a
 smattering of terse comments explaining the code to a reader.
 
+<!-- NEED to update -->
 Before we dive in deeper, let's look at an example of what a rendered
-literate analysis with RMarkdown can look like using a real example.
+literate analysis with Quarto/RMarkdown?? can look like using a real example.
 [Here is an
 example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html)
 of an analysis workflow written using Quarto.
@@ -101,7 +94,7 @@ results
 ## RMarkdown and Quarto
 
 You can identify a Quarto file with the `.qmd` extension. On the other
-hand, am R Markdown file has a `.Rmd` extension. Both have similar
+hand, am RMarkdown file has a `.Rmd` extension. Both have similar
 structures and both combine prose with code.Quarto provides a rich
 support to languages other than R such as Python, Observable, and Julia.
 It also excels in formatting and layout. Allowing users to customize in
@@ -233,7 +226,7 @@ Note that you can also combine these options by adding more than one to
 a code chunk.
 
 ::: callout-important
-One important difference between Quarto documents and R Markdown
+One important difference between Quarto documents and RMarkdown
 documents is that in Quarto, chunk options are written in special
 comment format (`#|`) at the top of code chunks rather than within the
 wiggly brackets next to \`\`\``{r}` at the begging of the chunk. For
@@ -243,20 +236,19 @@ example:
 ![](images/quarto-code-options.png){width=60%}
 
 
-#### R Markdown code options syntax {.unnumbered} 
+#### RMarkdown code options syntax {.unnumbered} 
 ![](images/rmd-code-options.png){width=60%}
 
 :::
 
-It is important to emphasize one more time that in an Quarto (and R
-Markdown) document, the gray areas of the document are *code*, in this
+It is important to emphasize one more time that in an Quarto (and RMarkdown) document, the gray areas of the document are *code*, in this
 case R code because that is what it is indicated in the \`\`\``{r}`
 syntax at the start of this gray area. And the white areas of a qmd are
-in Markdown language.
+in markdown language.
 
 ## Markdown Syntax
 
-Let's start by talking about Markdown. **Markdown is a formatting
+Let's start by talking about markdown. **Markdown is a formatting
 language for plain text**, and there are only around 15 rules to know.
 
 Notice the syntax in the document we just knitted:
@@ -270,12 +262,12 @@ to get you started, and here is one built into RStudio: Go to Help \>
 Markdown Quick Reference.
 
 ::: callout-important
-**The hash symbol \# is used differently in Markdown and in R**
+**The hash symbol \# is used differently in markdown and in R**
 
 -   In an R script or inside an R code chunk, a hash indicates a comment
     that will not be evaluated. You can use as many as you want: `#` is
     equivalent to `######`. It's just a matter of style.
--   In Markdown, a hash indicates a level of a header. And the number
+-   In markdown, a hash indicates a level of a header. And the number
     you use matters: `#` is a "level one header", meaning the biggest
     font and the top of the hierarchy. `###` is a level three header,
     and will show up nested below the `#` and `##` headers.
@@ -286,7 +278,7 @@ Markdown Quick Reference.
 ::: callout-note
 ## Exercise
 
-1.  In Markdown, Write some italic text, make a numbered list, and add a
+1.  In markdown, Write some italic text, make a numbered list, and add a
     few sub-headers. Use the Markdown Quick Reference (in the menu bar:
     Help \> Markdown Quick Reference).
 2.  Re-knit your html file and observe your edits.
@@ -294,12 +286,11 @@ Markdown Quick Reference.
 
 ## The Visual Editor
 
-Quarto has a "what you see is what you get" (wysiwyg) editor or Visual
+Quarto has a "what you see is what you mean" (WYSIWYM) editor or Visual
 editor, which can be a nice way to write markdown without remembering
 all of the markdown rules. Since there aren't many rules for markdown,
 we recommend just learning them especially since markdown is used in
-many, many other contexts besides RMarkdown (formatting GitHub comments,
-for example).
+many, many other contexts besides Quarto and RMarkdown. For example, formatting GitHub comments and README files.
 
 To access the editor, click the Visual button in the upper left hand
 corner of your editor pane. You'll notice that your document is now
@@ -324,10 +315,10 @@ After selecting insert, a couple of things happen. First, the citation
 reference is inserted into your markdown text as `[@oke2020]`. Second, a
 file called references.bib containing the BibTex format of the citation
 is created. Third, that file is added to the YAML header of your
-RMarkdown document (`bibliography: references.bib`). Adding another
+Quarto document (`bibliography: references.bib`). Adding another
 citation will automatically update your `references.bib` file. So easy!
 
-### Adding table in Markdown
+### Adding table in markdown
 
 The second task that the visual editor is convenient for is generating
 tables. Markdown tables are a bit finicky and annoying to type, and
@@ -583,7 +574,7 @@ phosphate ratio (Redfield ratio).
 ratio <- (nitrate + nitrite + amm)/phos
 ```
 
-You can access this variable in your Markdown text by using R in-line in
+You can access this variable in your markdown text by using R in-line in
 your text. The syntax to call R in-line (as opposed to as a chunk) is a
 single backtick \`, followed by the letter "r", then whatever your
 simple R command is --- here we will use `round(ratio)` to print the
@@ -592,7 +583,7 @@ access the value stored in this variable in our explanatory text without
 resorting to the evaluate-copy-paste method so commonly used for this
 type of task.
 
-So, the text in you RMarkdown should look like this:
+So, the text in you Quarto document should look like this:
 
 The Redfield ratio for this dataset is approximately: \`r
 `round(ratio)`\`
@@ -663,7 +654,7 @@ a popup menu will appear showing you some options.
 ### Practice: Quarto and Environments
 
 Let's walk through an exercise with the document we just created to
-demonstrate how RMarkdown handles environments. We will be deliberately
+demonstrate how Quarto handles environments. We will be deliberately
 inducing some errors here for demonstration purposes.
 
 First, follow these steps:
@@ -672,7 +663,7 @@ First, follow these steps:
 ## Setup
 
 -   Restart your R session (Session \> Restart R)
--   Run the last chunk in your Rmarkdown by pressing the play button on
+-   Run the last chunk in your Quarto document by pressing the play button on
     the chunk
 :::
 
@@ -751,7 +742,7 @@ don't need to be explained very much. For example, in the document shown
 in the beginning of this lesson, 15 different excel files needed to be
 reformatted in slightly different, mundane ways, like renaming columns
 and removing header text. Instead of including these tasks in the
-primary markdown, the authors chose to write one R script per file and
+primary Quarto document, the authors chose to write one R script per file and
 stored them all in a directory. Then, took the contents of one script and
 included it in the literate analysis, using it as an example to explain
 what the scripts did, and then used the `source()` function to run them
