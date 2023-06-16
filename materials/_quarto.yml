@@ -29,24 +29,24 @@ book:
     - index.qmd # preface
     - session_01.qmd # rstudio server setup + mini intro to R programming
     - session_02.qmd # git setup
-    - session_20.qmd # team communicaition
+    # - session_20.qmd # team communicaition
     - session_03.qmd # r intro to quarto
     - session_04.qmd # LEGO® reproducibility activity
-    # - session_05.qmd # Accesing and publishing data
-    # - session_06.qmd # logic modeling
+    - session_05.qmd # Accesing and publishing data
+    - session_06.qmd # logic modeling
     - session_07.qmd # git and github intro
-    # - session_08.qmd # programmatic data access
-    # - session_09.qmd # data modeling essentials
-    # - session_10.qmd # synthesis
-    # - session_11.qmd # clean and wrangle data
-    # - session_12.qmd # r practice: clean and wrangling
-    # - session_13.qmd # synthesis
-    # - session_14.qmd # r functions
-    # - session_15.qmd # r packages
-    # - session_16.qmd # FAIR and CARE
+    - session_08.qmd # programmatic data access
+    - session_09.qmd # data modeling essentials
+    - session_10.qmd # synthesis
+    - session_11.qmd # clean and wrangle data
+    - session_12.qmd # r practice: clean and wrangling
+    - session_13.qmd # synthesis
+    - session_14.qmd # r functions
+    - session_15.qmd # r packages
+    - session_16.qmd # FAIR and CARE
     - session_17.qmd # git collab
-    # - session_18.qmd # synthesis
-    # - session_19.qmd # reproducible papers
+    - session_18.qmd # synthesis
+    - session_19.qmd # reproducible papers
 
 bibliography: book.bib
       
