@@ -23,17 +23,15 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 
 1.  Create a new repository on GitHub
     i.  When creating the repository, add a brief description (i.e. R practice session cleaning and wrangling data during Delta Science Program Synthesis and Training session 1), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
-2.  Clone the repository to RStudio
+2.  Clone the repository to a new project in RStudio
 3. Download data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
-    a.  In Rstudio, create directory one called `data`
-    b.  Download the following data and upload them to the `data` folder:
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
-    c.  After creating the `data` folder and adding the data
-3.  Open a new Quarto file
-    a. Give it a title and add your name to the `author` field
+4. In Rstudio, create directory one called `data`and upload data into this folder:
+5.  Open a new Quarto file
+    a. Give it a title (Eg: "Exercise: Explore, Clean, and Wrangle Data") and add your name to the `author` field
     b. Delete the default text
-    c. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
+    c. <!-- create outline for analysis--> Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
     d. Save this file (eg. `exercise-clean-wrangle.qmd`)
 4.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` all new files (.qmd and data) to the remote repository (on GitHub)
 :::
