@@ -1,3 +1,4 @@
+
 ### Learning Objectives
 
 In this lesson, you will learn:
@@ -24,7 +25,6 @@ The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a
 ### Install and load packages
 
 ```{r}
-
 #| eval: false
 
 library(devtools)
@@ -38,7 +38,6 @@ Thanks to the great [usethis](https://github.com/r-lib/usethis) package, it only
 `mytools`, all you do is:
 
 ```{r, eval=FALSE}
-
 #| eval: false
 
 setwd('..')
@@ -66,10 +65,10 @@ you can use it's various utility methods for setting a specific license file, su
 as the `Apacxhe 2` license:
 
 ```{r}
-
 #| eval: false 
 
 usethis::use_apache_license()
+
 ```
 
     ✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
@@ -79,7 +78,6 @@ usethis::use_apache_license()
 Once your license has been chosen, and you've edited your DESCRIPTION file with your contact information, a title, and a description, it will look like this:
 
 ```{r, eval=FALSE}
-
 #| eval: false
 
 Package: mytools
@@ -108,7 +106,6 @@ usethis::use_r("custom_theme")
 creates the file `R/custom_theme`, which you can then modify to add the implementation fo the following function from the functions lesson:
 
 ```{r}
-
 #| eval: false
 
 custom_theme <- function(base_size = 9) {
@@ -134,7 +131,6 @@ above, we depend on the `ggplot2` package, and so we need to list it as a depend
 Once again, `usethis` provides a handy helper method:
 
 ```{r}
-
 #| eval: false
 
 usethis::use_package("ggplot2")
@@ -258,7 +254,6 @@ You can now add tests to the `test-fahr_to_celsius.R`, and you can run all of th
 tests using `devtools::test()`.  For example, if you add a test to the `test-fahr_to_celsius.R` file:
 
 ```{r, eval=FALSE}
-
 #| eval: false
 
 test_that("fahr_to_celsius works", {
@@ -296,7 +291,6 @@ Yay, all tests passed!
 Now that your package is built, you can check it for consistency and completeness using `check()`, and then you can install it locally using `install()`, which needs to be run from the parent directory of your module.
 
 ```{r, eval=FALSE}
-
 #| eval: false
 
 devtools::check()
