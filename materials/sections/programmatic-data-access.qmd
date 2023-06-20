@@ -10,6 +10,8 @@
 
 ```{r}
 #| echo: false
+#| warning: false
+#| message: false
 
 library(readr)
 library(pins)
@@ -174,8 +176,9 @@ delta_sites_id <- 'hash://sha256/e25498ffc0208c3ae0e31a23204b856a9309f32ced2c87c
 Once you have the content identifier for a data file of interest (e.g., `delta_catch_id` in this case), you can call `contentid::resolve()` to find the locations where that data is stored. Because you already have it stored locally, it returns the file path to the file on your local registry, which you can then use to load the data into a data frame or process the data as needed.
 
 ```{r, contentid-resolve}
+#| warning: false
 
- delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
+delta_catch_file <- contentid::resolve(delta_catch_id, store = TRUE)
 
 delta_catch <- readr::read_csv(delta_catch_file, show_col_types=FALSE)
 
@@ -193,14 +196,10 @@ This approach is **portable**, as anyone can run it without having the data loca
 
 This approach is **persistent**, because it pulls data from these persistent archives, and can take advantage of archive redundancy. For example, here is the list of locations that can be currently used to retrieve this data file:
 
-<!-- WARNING MBJ: currently set to only use local repos, switch back before final build -->
 ```{r, list_sources}
-#| eval: false
+#| eval: true
 
-contentid::query_sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
-
-# [BUG FILED](https://github.com/cboettig/contentid/issues/81): `query_sources should not return an error on inaccessible repos -- it should skip them and produce a warning, so that the local repo will still work when disconnected from the internet
-
+contentid::sources(delta_catch_id, cols=c("identifier", "source", "date", "status", "sha1", "sha256"))
 ```
 
 This approach is **reproducible**, as the exact version of the data will be used every time (even if someone changes the data at the original web URI, which would require a new content identifier).
@@ -224,7 +223,7 @@ head(co2)
 
 Later, when the data file is published to a DataONE repository, or registered in Hash Archive, the script will work for other people trying to access it via `contentid::resolve()`.
 
-### Improvements to content identifiers
+### Bonus: Improvements to content identifiers
 
 The `contentid` package is a work in progress, but holds tremendous potential to provide portable, persistent data access. However, some issues still remain to be worked out. 
 
@@ -232,7 +231,7 @@ First, content identifiers are not well-linked to DOIs. DOIs are the current sta
 
 ```{r, contentid_get_citation}
 #| echo: false
-#| eval: false
+#| eval: true
 
 # Function to return the text of a citation for a given contentid
 get_citation <- function(contentid) {
@@ -241,7 +240,7 @@ get_citation <- function(contentid) {
     solr <- SolrClient$new(host = "cn.dataone.org", path = "/cn/v2/query/solr/", scheme = "https", port=443)
     
     # Use query_sources to determine if a copy is on DataONE or amenable repository (based on the URL pattern)
-    d1_locations <- query_sources(contentid, cols=c("identifier", "source", "date", "status", "sha1", "sha256", "md5")) %>%
+    d1_locations <- contentid::sources(contentid, cols=c("identifier", "source", "date", "status", "sha1", "sha256", "md5")) %>%
         filter(grepl('cn.dataone.org|v2/object|v2/resolve', source))
     
     if (nrow(d1_locations) > 0) {
@@ -295,8 +294,16 @@ get_citation(id)
 
 And this can even be displayed inline in the markdown text. For example, this chapter used data from:
 
-> \`get_citation(id)`\`
+> `r get_citation(delta_catch_id)`
 
 Second, content identifiers are **opaque**, and not particularly transparent. For many researchers, seeing the long hash value in a script will not be very meaningful. The `contentid` package needs mechanisms to transparently indicate what a content identifier refers to. Again, we have this information available dynamically through the metadata collated in networks like [DataONE](https://dataone.org). Another useful extension to `contentid` would be to provide functions for displaying detailed metadata about a content identifier when it is available, as well as a mechanism to provide more human-readable aliases for the identifier.
 
 These types of ideas for extension are how the R ecosystem advances. Anyone who sees a better way to extend packages like `contentid` can do so, or even create their own packages to ecplore new approaches to reproducible data access.
+
+## R Packages for Data Access
+
+TODO: MBJ to add back sections on DataONE and ROpensci packages for data access
+
+- dataone
+- rfishbase
+- ...
