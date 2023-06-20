@@ -590,8 +590,8 @@ The Redfield ratio for this dataset is approximately: \`r
 
 And the rendered text like this:
 
-<!-- need to change 6 back to `r round(ratio)`-->
-The Redfield ratio for this dataset is approximately 6.
+
+The Redfield ratio for this dataset is approximately `r round(ratio)`.
 
 Finally, create a simple plot using base R that plots the ratio of the
 individual measurements, as opposed to looking at mean ratio.

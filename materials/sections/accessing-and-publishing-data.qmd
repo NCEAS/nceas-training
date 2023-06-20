@@ -1,29 +1,28 @@
-
 ## Learning Objectives {.unnumbered}
 
--   Gain understanding about metadata guidelines and best practices for reproducibility
+-   Understanding metadata guidelines and best practices for reproducibility
 -   Become familiar with environmental data repositories for accessing and publishing data
 -   Interpret metadata for reusing data for synthesis science
 
 ## The Big Idea
 
-The ultimate goal of this lesson is to provide you with a framework to achieve open science that is FAIR, CARE, and reproducible. And while this hugely important, it is challenging in practice. 
+The ultimate goal of this lesson is to provide you with a framework to achieve open science that is FAIR, CARE, and reproducible. And while this hugely important, it is challenging in practice.
 
 The framework we'll talk about in this lesson contains the following elements:
 
-- Data Life Cycle
-- Data Management Plan (DMP)
-- Data ethics: FAIR and CARE Principles as a lens
-- Rich metadata
-- Meaningful data publishing
+-   Data Life Cycle
+-   Data Management Plan (DMP)
+-   Data ethics: FAIR and CARE Principles as a lens
+-   Rich metadata
+-   Meaningful data publishing
 
 We'll be going over each of these elements in detail and how they each fit into the reproducible open science framework we've been focusing on. It's important to note that each of these elements are all connected to each other and can be achieved and utilized simultaneously.
 
 We think of this framework as a three step process:
 
-1. Split your research project into meaningful steps using the Data Life Cycle
-2. Document your project using a DMP
-3. Iterate, iterate, iterate 
+1.  Split your research project into meaningful steps using the Data Life Cycle
+2.  Document your project using a DMP
+3.  Iterate, iterate, iterate
 
 Let's dive deeper into each of these steps now.
 
@@ -41,13 +40,13 @@ DataOne's [Data Management Skillbuilding Hub](https://dataoneorg.github.io/Educa
 
 **A way to use the Data Life Cycle in practice is to:**
 
-- Think about the end goal, outcomes, and products of your project
-- Think and decide steps in the Data Life Cycle you need to include in your project
-- Review [best practices](https://dataoneorg.github.io/Education/bestpractices/) for that step in the cycle and start outlining action items in each of those steps 
+-   Think about the end goal, outcomes, and products of your project
+-   Think and decide steps in the Data Life Cycle you need to include in your project
+-   Review [best practices](https://dataoneorg.github.io/Education/bestpractices/) for that step in the cycle and start outlining action items in each of those steps
 
 ## Document your project using a DMP
 
-Now let's make these steps in the Data Life Cycle tangible using a DMP. 
+Now let's make these steps in the Data Life Cycle tangible using a DMP.
 
 ### Writing DMPs
 
@@ -69,7 +68,7 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 -   **Plan in collaboration:** high engagement of your team and stakeholders is not only a benefit to your project, but it also makes your DMP more resilient. When you include diverse expertise and perspectives to the planning stages, you're more likely to overcome obstacles in the future.
 -   **Utilize existing resources:** don't reinvent the wheel! There are many great DMP resources out there. Consider the article *Ten Simple Rules for Creating a Good Data Management Plan* [@michener2015], which has succinct guidelines on what to include in a DMP. Or use an online tool like [DMPTool](https://dmptool.org/), which provides official DMP templates from funders like NSF, example answers, and allows for collaboration.
 -   **Make revising part of the process:** Don't let your DMP collect dust after your initially write it. Make revising the DMP part of your research project and use it as a guide to ensure you're keeping on track.
-- **Include FAIR and CARE:** Think of the resources we discussed in the [FAIR and CARE Principles lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_06.htm). When you include FAIR and CARE in the planning process of your DMP, it will make it easier to include and maintain throughout the entire project. 
+-   **Include FAIR and CARE:** Think of the resources we discussed in the [FAIR and CARE Principles lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_06.htm). When you include FAIR and CARE in the planning process of your DMP, it will make it easier to include and maintain throughout the entire project.
 
 ### What to include in a DMP
 
@@ -165,15 +164,15 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 
 ## Iterate, iterate, iterate
 
-It's crucial to remember that a DMP is a *plan*. None of the information in it is set in stone and you should change and update it as needed. For example, your initial DMP may have it written to store the final datasets in a physical hard drive, but later on you find an online repository like [KNB](https://knb.ecoinformatics.org/). An online data repository is a better option, and you should update your plan to reflect it! 
+It's crucial to remember that a DMP is a *plan*. None of the information in it is set in stone and you should change and update it as needed. For example, your initial DMP may have it written to store the final datasets in a physical hard drive, but later on you find an online repository like [KNB](https://knb.ecoinformatics.org/). An online data repository is a better option, and you should update your plan to reflect it!
 
-It may be helpful to develop a policy where you and your team review the DMP and update it as needed. Or maybe the DMP is part of someone's responsibility on the team, maybe it's a rotating responsibility. There's a lot of flexibility here, and you should implement whatever policy or plan works best for you and your collaborators. 
+It may be helpful to develop a policy where you and your team review the DMP and update it as needed. Or maybe the DMP is part of someone's responsibility on the team, maybe it's a rotating responsibility. There's a lot of flexibility here, and you should implement whatever policy or plan works best for you and your collaborators.
 
-What is most important is that your DMP is an accurate reflection when you're finished with your project so you're ready to submit your data. This will make the process of submitting data much smoother. 
+What is most important is that your DMP is an accurate reflection when you're finished with your project so you're ready to submit your data. This will make the process of submitting data much smoother.
 
 ## Deep dive into Metadata & Publishing Data
 
-So far we've discussed the high-level steps toward achieving an open science project that is FAIR, CARE, and reproducible. However, there are many sub-steps within those three steps and much of metadata and data publishing are deeply intertwined with all those steps. Meaning metadata and data publishing alone play a huge role in all aspects of the Data life cycle and DMP, so it's worth discussing these two aspects in more detail. 
+So far we've discussed the high-level steps toward achieving an open science project that is FAIR, CARE, and reproducible. However, there are many sub-steps within those three steps and much of metadata and data publishing are deeply intertwined with all those steps. Meaning metadata and data publishing alone play a huge role in all aspects of the Data life cycle and DMP, so it's worth discussing these two aspects in more detail.
 
 ### Metadata Best Practices
 
@@ -312,37 +311,46 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 ## Exercise: Evaluate a Data Package on the KNB Repository
 
-Explore data packages published on KNB assess the quality of their metadata. Imagine you're a data curator! The data packages you'll be looking into more deeply are datasets you're already familiar with through the R Practice Sessions. 
+Explore data packages published on KNB assess the quality of their metadata. Imagine you're a data curator! The data packages you'll be looking into more deeply are datasets you're already familiar with through the R Practice Sessions.
 
 ::: callout-tip
 ### Setup
 
-1. Break into groups and use the following data packages:
-    a. **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
-    b. **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
-    c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+Break into groups and use the following data packages:
+
+-   **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+
+-   **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+
+-   **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+
+-   **Group D:** EDI Portal [North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=33&revision=37)
+
+<!-- consider thia other data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1) OR
+
+Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.
+https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3
+
+-->
 :::
 
-You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
+You and your group will evaluate a data package for its: (1) metadata quality, and (2) data documentation quality for reusability.
 
 ::: callout-note
 ### Exercise: Evaluate a data package on EDI Data Portal
-1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
-    a. **Investigate the metadata in the provided data**
-        i. Does the metadata meet the standards we talked about? How so?
+
+1.  Open our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a.  **Investigate the metadata in the provided data**
+        i.  Does the metadata meet the standards we talked about? How so?
         ii. If not, how would you improve the metadata based on the standards we talked about?
-    b. **Investigate the overall data documentation in the data package**
-        i. Is the documentation sufficient enough for reproducibility? Why or why not?
+    b.  **Investigate the overall data documentation in the data package**
+        i.  Is the documentation sufficient enough for reusing the data? Why or why not?
         ii. If not, how would you improve the data documentation? What's missing?
-    c. **Identify elements of FAIR and CARE**
-        i. Is it clear that the data package used a FAIR and CARE lens? 
-        ii. If not, what documentation or considerations would you add?
-2. Elect someone to share back to the group the following:
+2.  Elect someone to share back to the group the following:
     a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
-    b. What documentation stood out to you? What did you like or not like about it?
-    c. How well did these data packages uphold FAIR and CARE Principles?
-    d. Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
-    
+    b.  What documentation stood out to you? What did you like or not like about it?
+    c.  Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
+
 *If you and your group finish early, check out more datasets in the bonus question.*
 :::
 
@@ -350,15 +358,10 @@ You and your group will evaluate a data package for its: (1) metadata quality, (
 
 Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
 
-Evaluate the following data packages at these data repositories: 
+Evaluate the following data packages at these data repositories:
 
-1. KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
-2. DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
-3. Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+1.  KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2.  DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3.  Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
 
-How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories? 
-
-
-
-
-
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories?

@@ -1,6 +1,3 @@
----
-format: html
----
 
 ## Learning Objectives {.unnumbered}
 
@@ -24,16 +21,13 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 1.  Create a new repository on GitHub
     i.  When creating the repository, add a brief description (i.e. R practice session cleaning and wrangling data during Delta Science Program Synthesis and Training session 1), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
 2.  Clone the repository to a new project in RStudio
-3. Download data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
-        i.  Time-series of lobster abundance and size
-        ii. Time-series of lobster trap buoy counts
-4. In Rstudio, create directory one called `data`and upload data into this folder:
-5.  Open a new Quarto file
+3.  For this exercise we are going to use the [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) data. Navigate to this link and briefly explore the data packege.
+4.  Go back to RStudio and open a new Quarto file
     a. Give it a title (Eg: "Exercise: Explore, Clean, and Wrangle Data") and add your name to the `author` field
     b. Delete the default text
-    c. <!-- create outline for analysis--> Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
+    c. Using level 2 headers, create an outline for this exercise (Include: About the data, Read and Explore data, Question 1, Question 2 , ... Quartion 6).
     d. Save this file (eg. `exercise-clean-wrangle.qmd`)
-4.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` all new files (.qmd and data) to the remote repository (on GitHub)
+5.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` this file to the remote repository (on GitHub)
 :::
 
 
@@ -53,10 +47,12 @@ library(tidyr)
 
 2.  Read in the data and store the data frame as `lobster_abundance`
 
+Navigate to the [data package site](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) and copy the  the url to access the *Time-series of lobster abundance and size* data. Hover over the Download button --> right click --> "Copy Link Address". Read the data directly from the url.
+
 ```{r}
 #| code-fold: false
 #| message: false
-lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
+lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=f32823fba432f58f66c06b589b7efac6")
 ```
 
 3.  Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
