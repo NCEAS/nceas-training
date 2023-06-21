@@ -29,53 +29,75 @@ Before diving into the details of `Git` and how to use it, let's start with a mo
 
 Say, for example, you're working on an analysis in R and you've got it into a state you're pretty happy with. We'll call this version 1:
 
+:::{.column-body-outset-right}
 ![](images/git-intro-slide01.png)
+:::
 
 You come into the office the following day and you have an email from your boss, "Hey, you know what this model needs?"
 
+:::{.column-body-outset}
 ![](images/git-intro-slide02.png)
+:::
 
 You're not entirely sure what she means but you figure there's only one thing she could be talking about: more cowbell. So you add it to the model in order to really explore the space.
 
 But you're worried about losing track of the old model so, instead of editing the code in place, you comment out the old code and put as serious a warning as you can muster in a comment above it.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide03.png)
+:::
 
 Commenting out code you don't want to lose is something probably all of us have done at one point or another but it's really hard to understand why you did this when you come back years later or you when you send your script to a colleague. Luckily, there's a better way: Version control. Instead of commenting out the old code, we can change the code in place and tell `Git` to commit our change. So now we have two distinct versions of our analysis and we can always see what the previous version(s) look like.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide04.png)
+:::
 
 You may have noticed something else in the diagram above: Not only can we save a new version of our analysis, we can also write as much text as we like about the change in the commit message. In addition to the commit message, `Git` also tracks who, when, and where the change was made.
 
 Imagine that some time has gone by and you've committed a third version of your analysis, version 3, and a colleague emails with an idea: What if you used machine learning instead?
 
+:::{.column-body-outset}
 ![](images/git-intro-slide05.png)
+:::
 
 Maybe you're not so sure the idea will work out and this is where a tool like `Git` shines. Without a tool like `Git`, we might copy analysis.R to another file called analysis-ml.R which might end up having mostly the same code except for a few lines. This isn't particularly problematic until you want to make a change to a bit of shared code and now you have to make changes in two files, if you even remember to.
 
 Instead, with `Git`, we can start a branch. Branches allow us to confidently experiment on our code, all while leaving the old code in tact and recoverable.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide06.png)
+:::
 
 So you've been working in a branch and have made a few commits on it and your boss emails again asking you to update the model in some way. If you weren't using a tool like `Git`, you might panic at this point because you've rewritten much of your analysis to use a different method but your boss wants change to the old method.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide07.png)
+:::
 
 But with `Git` and branches, we can continue developing our main analysis at the same time as we are working on any experimental branches. Branches are great for experiments but also great for organizing your work generally.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide08.png)
+:::
 
 After all that hard work on the machine learning experiment, you and your colleague could decide to scrap it. It's perfectly fine to leave branches around and switch back to the main line of development but we can also delete them to tidy up.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide09.png)
+:::
 
 If, instead, you and your colleague had decided you liked the machine learning experiment, you could also merge the branch with your main development line. Merging branches is analogous to accepting a change in Word's Track Changes feature but way more powerful and useful.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide10.png)
+:::
 
 A key takeaway here is that `Git` can drastically increase your confidence and willingness to make changes to your code and help you avoid problems down the road. Analysis rarely follows a linear path and we need a tool that respects this.
 
+:::{.column-body-outset}
 ![](images/git-intro-slide11.png)
+:::
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used. Another really powerful feature of `Git` is tags which allow us to record a particular state of our analysis with a meaningful name. In this case, we are lucky because we tagged the version of our code we used to run the analysis. Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
 
@@ -132,55 +154,66 @@ The remaining concepts are involved in synchronizing the changes in your local r
 
 [![Artwork by Allison Horst](images/allison-horst-git-workflow.png)](https://twitter.com/allison_horst)
 
-<!--#![](images/allison-horst-git-workflow.png)-->
-
 ### Let's Look at a GitHub Repository {.unnumbered}
 
 This screen shows the copy of a repository stored on GitHub, with its list of files, when the files and directories were last modified, and some information on who made the most recent changes.
 
+:::{.column-page}
 ![](images/ss3sim-github.png)
+:::
 
 If we drill into the "commits" for the repository, we can see the history of changes made to all of the files. Looks like `kellijohnson` was working on the project and fixing errors in December:
 
+:::{.column-page}
 ![](images/ss3sim-commits.png)
+:::
 
 And finally, if we drill into one of the changes made on December 20, we can see exactly what was changed in each file:
 
+:::{.column-page}
 ![](images/ss3sim-diff.png)
+:::
 
 Tracking these changes, how they relate to released versions of software and files is exactly what `Git` and GitHub are good for. And we will show how they can really be effective for tracking versions of scientific code, figures, and manuscripts to accomplish a reproducible workflow.
 
 ### `Git` Vocabulary & Commands {.unnumbered}
 
-We know the world of `Git` and GitHub can be daunting. Use this table as a reference while you use `Git` and GitHub, and we encourage you to build upon this list as you become more comfortable with these tools.
+We know the world of `Git` and GitHub can be daunting. Use these tables as references while you use `Git` and GitHub, and we encourage you to build upon this list as you become more comfortable with these tools.
 
-This table includes only a selection of common `Git` terms and commands. `Git` has a rich set of commands and features, and there are many more terms beyond this list.
+This table contains essential terms and commands that complement intro to `Git` skills. They will get you far on personal and individual projects.
 
 | Term               | `Git` Command(s)           | Definition                                                                                         |
 |--------------------|--------------------------|----------------------------------------------------------------------------------------------------|
 | Add                | `git add [file]`         | Stages or adds file changes to the next commit. `git add .` will stage or add all files.                                                   |
+| Commit             | `git commit`             | Records changes to the repository with a descriptive message.                                      |
+| Commit Message     | `git commit -m`                        | A descriptive message explaining the changes made in a commit. The message must be within quotes (e.g. "This is my commit message.").                               |
+| Fetch              | `git fetch`              | Retrieves changes from a remote repository but does not merge them.                                |
+| Pull               | `git pull`               | Retrieves and merges changes from a remote repository to the current branch.                        |
+| Push               | `git push`               | Sends local commits to a remote repository.                                                        |
+| Stage              | -                        | The process of preparing and selecting changes to be included in the next commit.                   |
+| Status             | `git status`             | Shows the current status of the repository, including changes and branch information.               |
+
+
+This table includes more advanced `Git` terms and commands that are commonly used in both individual and collaborative projects.
+
+| Term               | `Git` Command(s)           | Definition                                                                                         |
+|--------------------|--------------------------|----------------------------------------------------------------------------------------------------|
 | Branch             | `git branch`             | Lists existing branches or creates a new branch.                                                   |
 | Checkout           | `git checkout [branch]`  | Switches to a different branch or restores files from a specific commit.                            |
 | Clone              | `git clone [repository]` | Creates a local copy of a remote repository.                                                       |
-| Commit             | `git commit`             | Records changes to the repository with a descriptive message.                                      |
-| Commit Message     | `git commit -m`                        | A descriptive message explaining the changes made in a commit.                                     |
 | Diff               | `git diff`               | Shows differences between files, commits, or branches.                                             |
-| Fetch              | `git fetch`              | Retrieves changes from a remote repository but does not merge them.                                |
 | Fork               | -                        | Creates a personal copy of a repository under your GitHub account for independent development.      |
 | Log                | `git log`                | Displays the commit history of the repository.                                                     |
 | Merge              | `git merge [branch]`     | Integrates changes from one branch into another branch.                                            |
 | Merge Conflict     | -                        | Occurs when Git cannot automatically merge changes from different branches, requiring manual resolution. |
-| Pull               | `git pull`               | Retrieves and merges changes from a remote repository to the current branch.                        |
 | Pull Request (PR)  | -                        | A request to merge changes from a branch into another branch, typically in a collaborative project. |
-| Push               | `git push`               | Sends local commits to a remote repository.                                                        |
 | Rebase             | `git rebase`             | Integrates changes from one branch onto another by modifying commit history.                       |
 | Remote             | `git remote`             | Manages remote repositories linked to the local repository.                                        |
 | Repository         | `git init`               | A directory where Git tracks and manages files and their versions.                                 |
-| Stage              | -                        | The process of preparing and selecting changes to be included in the next commit.                   |
 | Stash              | `git stash`              | Temporarily saves changes that are not ready to be committed.                                      |
-| Status             | `git status`             | Shows the current status of the repository, including changes and branch information.               |
 | Tag                | `git tag`                | Assigns a label or tag to a specific commit.                                                       |
 
+`Git` has a rich set of commands and features, and there are many more terms beyond either table.
 
 ## Exercise 1: Create a remote repository on GitHub
 
