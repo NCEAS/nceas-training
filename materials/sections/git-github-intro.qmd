@@ -193,6 +193,8 @@ This table contains essential terms and commands that complement intro to `Git` 
 | Stage              | -                        | The process of preparing and selecting changes to be included in the next commit.                   |
 | Status             | `git status`             | Shows the current status of the repository, including changes and branch information.               |
 
+: Essential `Git` Commands 
+
 
 This table includes more advanced `Git` terms and commands that are commonly used in both individual and collaborative projects.
 
@@ -213,6 +215,8 @@ This table includes more advanced `Git` terms and commands that are commonly use
 | Stash              | `git stash`              | Temporarily saves changes that are not ready to be committed.                                      |
 | Tag                | `git tag`                | Assigns a label or tag to a specific commit.                                                       |
 
+: Advanced `Git` Commands
+
 `Git` has a rich set of commands and features, and there are many more terms beyond either table.
 
 ## Exercise 1: Create a remote repository on GitHub
@@ -231,11 +235,15 @@ This table includes more advanced `Git` terms and commands that are commonly use
 
 If you were successful, it should look something like this:
 
+:::{.column-body-outset}
 ![](images/new-repo-github.png)
+:::
 
 You've now created your first repository! It has a couple of files that GitHub created for you, like the `README.md` file, and the `LICENSE` file, and the `.gitignore` file.
 
+:::{.column-body-outset}
 ![](images/github-test-repo.png)
+:::
 
 For simple changes to text files, you can make edits right in the GitHub web interface.
 
@@ -245,27 +253,35 @@ For simple changes to text files, you can make edits right in the GitHub web int
 Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. Add a new level 2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the "Commit changes" button.
 :::
 
+:::{.column-page}
 ![](images/github-test-edit.png)
+:::
 
 Congratulations, you've now authored your first versioned commit! If you navigate back to the GitHub page for the repository, you'll see your commit listed there, as well as the rendered `README.md` file.
 
+:::{.column-page}
 ![](images/github-test-displayed.png)
+:::
 
 Let's point out a few things about this window. It represents a view of the repository that you created, showing all of the files in the repository so far. For each file, it shows when the file was last modified, and the commit message that was used to last change each file. This is why it is important to write good, descriptive commit messages. In addition, the header above the file listing shows the most recent commit, along with its commit message, and its SHA identifier. That SHA identifier is the key to this set of versioned changes. If you click on the SHA identifier (6c18e0a), it will display the set of changes made in that particular commit.
 
 In the next section we'll use the GitHub URL for the GitHub repository you created to `clone` the repository onto your local machine so that you can edit the files in RStudio. To do so, start by copying the GitHub URL, which represents the repository location:
 
+:::{.column-body-outset}
 ![](images/github-test-clone-url.png){width="70%" fig-align="center"}
+:::
 
 ## Exercise 2: `clone` your repository and use `Git` locally in RStudio
 
-RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. In this next section,
+RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. 
 
-we will `clone` the repository that you created on GitHub into a local repository as an RStudio project. Here's what we're going to do
+In this next section, we will `clone` the repository that you created on GitHub into a local repository as an RStudio project. Here's what we're going to do
 
 ![](images/github-workflows-owner.png)
 
+::: {.callout-important title="An important distinction"}
 We refer to the remote copy of the repository that is on GitHub as the origin repository (the one that we cloned from), and the copy on our local computer as the local copy.
+:::
 
 RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. In this next section, we will `clone` the repository that you created on GitHub into a local repository as an RStudio project. Here's what we're going to do:
 
@@ -281,7 +297,9 @@ RStudio knows how to work with files under version control with `Git`, but only 
 
 Once you hit "Create Project", a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present, including a `Git` tab and the normal Files tab listing the files that had been created in the remote repository.
 
+:::{.column-body-outset}
 ![](images/github-rstudio-test.png)
+:::
 
 You'll note that there is one new file `halina_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
 
@@ -330,11 +348,15 @@ These 2 commits are the two we just made, and have not yet been pushed to GitHub
 
 **Push these changes to GitHub.** Now that everything has been changed as desired locally, you can push the changes to GitHub using the Push button. This will prompt you for your GitHub username and password, and upload the changes, leaving your repository in a totally clean and synchronized state. When finished, looking at the history shows all four commits, including the two that were done on GitHub and the two that were done locally on RStudio.
 
+:::{.column-body-outset}
 ![](images/rstudio-history-3.png)
+:::
 
 And note that the labels indicate that both the local repository (`HEAD`) and the remote repository (`origin/HEAD`) are pointing at the same version in the history. So, if we go look at the commit history on GitHub, all the commits will be shown there as well.
 
+:::{.column-page}
 ![](images/github-history.png)
+:::
 
 ::: callout-note
 ## Last thing, some `Git` configuration
@@ -348,7 +370,7 @@ git config pull.rebase false
 `pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can't it will show a merge conflict
 :::
 
-::: callout-important
+::: {.callout-caution icon=false}
 ## What should I write in my commit message?
 
 Writing effective `Git` commit messages is essential for creating a meaningful and helpful version history in your repository. It is crucial to avoid skipping commit messages or resorting to generic phrases like "Updates." When it comes to following best practices, there are several guidelines to enhance the readability and maintainability of the codebase.
@@ -408,7 +430,9 @@ Here is what your page should look like:
 
 This will open your empty repository with a page that conveniently gives you exactly the instructions you need. In our case, we are going to "push an existing repository from the command line."
 
+:::{.column-page}
 ![](images/setup-empty-repo.png)
+:::
 
 Click the clipboard icon to copy the code for the middle option of the three on this page. It should have three lines and look like this:
 
@@ -451,7 +475,7 @@ There's a lot we haven't covered in this brief tutorial. There are some great an
 -   Branching and merging
 -   Pull requests versus direct contributions for collaboration
 -   Using `.gitignore` to protect sensitive data
--   GitHub Issues and why they are useful
+-   GitHub Issues - how to use them for project management and collaboration
 
 and much, much more.
 
