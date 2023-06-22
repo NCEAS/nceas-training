@@ -226,12 +226,12 @@ We will explain the steps to drawing a simplified E-R model with our previous pl
 *Step 1: Identify the entities in the relational database and add each one in a box.*
 In our case, entities are [plants] and [sites], since we are gathering observations about both of these.
 
-![](images/tidy-data-images/relational_data_models/ER_diagram_1.png)
+![](images/tidy-data-images/relational_data_models/ER_diagram_1.png){fig-align="center" width=50%}
 
 *Step 2: Add variables for each entity and identify keys.*
 Add the variables as a list inside each box. Then, identify the primary and foreign keys in each of the boxes. To visualize this, we have indicated the primary key of each entity in red and any foreign keys in blue.
 
-![](images/tidy-data-images/relational_data_models/ER_diagram_2.png)
+![](images/tidy-data-images/relational_data_models/ER_diagram_2.png){fig-align="center" width=50%}
 
 *Step 3: Add relationships between entities.*
 
@@ -242,16 +242,16 @@ Using the previous diagram we can see that “site” is the primary key of [sit
 
 - Add a word describing how [box1] is related to [box2] above the line connecting the two boxes. So, for example, we need to describe how [plants] is related to [sites]. The relation is “a plant is located in a site”, so we write “located” above the line indicating the relationship between [plants] and [sites].
 
-![](images/tidy-data-images/relational_data_models/ER_diagram_3.png)
+![](images/tidy-data-images/relational_data_models/ER_diagram_3.png){fig-align="center" width=50%}
 
 *Step 4: Add cardinality to every relationship in the diagram.*
 At this step we want to quantify how many items in an entity are related to another entity. This is easiest if we reuse the description we found in the previous step. For example, “a plant is located in one site”. Then we add the symbol for “one” at the end of the line going from [plants] to [sites].
 
-![](images/tidy-data-images/relational_data_models/ER_diagram_4.png)
+![](images/tidy-data-images/relational_data_models/ER_diagram_4.png){fig-align="center" width=50%}
 
 To finish, we also indicate how many plants are related to a single site. Since “a site has many plants”, we add the symbol for “many” at the end of the line going from [sites] to [plants]
 
-![](images/tidy-data-images/relational_data_models/ER_diagram_5.png)
+![](images/tidy-data-images/relational_data_models/ER_diagram_5.png){fig-align="center" width=50%}
 
 That’s it! The symbols we used at the end of the lines are called **ERD “crow’s foot”**. You can see all the existing ones together with an example in the next diagram.
 
@@ -317,7 +317,7 @@ Choose the primary key for each table based on your understanding of the data an
 
 For a big relational database, an **Entity-Relationship model** can be an effective way to explain how different tables and their keys are related to each other. If we need to merge tables we can do it using different types of **joins**. 
 
-## More on data management
+## More on Data Management
 Tidy data is one very important step to data management best practices. However there is more to consider. Here we provide some **extra advice** from a great paper called ['Some Simple Guidelines for Effective Data Management'](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9623-90.2.205):
 
 - Design tables to add rows, not columns
