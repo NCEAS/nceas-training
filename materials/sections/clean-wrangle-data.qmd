@@ -13,35 +13,21 @@ To be efficient analysts, we should have good tools for reformatting data for ou
 The `dplyr` and `tidyr` R packages provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly. 
 Learning these tools well will greatly increase your efficiency as an analyst.
 
-Analyses take many shapes, but they often conform to what is known as the Split-Apply-Combine strategy. This strategy follows a usual set of steps:
+Let's look at two motivating examples. 
 
-- **Split**: Split the data into logical groups (e.g., area, stock, year)
-- **Apply**: Calculate some summary statistic on each group (e.g. mean total length by year)
-- **Combine**: Combine the groups back together into a single table
-
-![](images/split-apply-combine-diagram.png){width="90%" fig-align="center"}
-
-
-As shown above, our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
-
-The `dplyr` R library provides a fast and powerful way to express this. Let’s look at a simple example of how this is done.
-
-Assuming our length data is already loaded in a `data.frame` called `length_data`:
+::: {.callout-note appearance="minimal" icon=false}
+## Example 1
+ Suppose you have the following `data.frame` called `length_data` with data about salmon lenght and want to calculate the average length per year. 
 
 |  year|  length\_cm|
 |-----:|-----------:|
-|  1991|    5.673318|
+|  1990|    5.673318|
 |  1991|    3.081224|
 |  1991|    4.592696|
 |  1992|    4.381523|
 |  1992|    5.597777|
 |  1992|    4.900052|
-|  1992|    4.139282|
-|  1992|    5.422823|
-|  1992|    5.905247|
-|  1992|    5.098922|
-
-We can do this calculation using `dplyr` like this:
+The `dplyr` R library provides a fast and powerful way to do this calculation in a few lines of code:
 
 ```{r}
 #| eval: false
@@ -49,8 +35,12 @@ length_data %>%
   group_by(year) %>% 
   summarize(mean_length_cm = mean(length_cm))
 ```
+:::
 
-Another common process we need to do is "reshape" our data. Let's look at an example table that is in what we will call "wide" format:
+
+::: {.callout-note appearance="minimal" icon=false}
+## Example 2
+ Another process we often need to do is to "reshape" our data. Consider the following table that is in what we call "wide" format:
 
 | site   | 1990 | 1991 | ... | 1993 |
 |--------|------|------|-----|------|
@@ -59,19 +49,11 @@ Another common process we need to do is "reshape" our data. Let's look at an exa
 | ...    | ...  | ...  | ... | ...  |
 | dredge | 100  | 118  | ... | 112  |
 
-You are probably quite familiar with data in the above format, where values of the variable being observed are spread out across columns. 
+You are probably familiar with data in the above format, where values of the variable being observed are spread out across columns. 
 In this example we have a different column per year. 
-Another way of describing this is that there is more than one measurement per row. This wide format works well for data entry and sometimes works well for analysis but we quickly outgrow it when using R. 
-For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run:
-
-```{r}
-#| eval: false
-lm(length ~ year)
-```
-
+This wide format works well for data entry and sometimes works well for analysis but we quickly outgrow it when using R (and know it is not tidy data!). 
+For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run `lm(length ~ year)`.
 But this won't work on our wide data because `lm()` needs `length` and `year` to be columns in our table.
-
-Or how would we make a separate plot for each year? We could call `plot()` one time for each year but this is tedious if we have many years of data and hard to maintain as we add more years of data to our data set.
 
 The `tidyr` package allows us to quickly switch between wide format and long format using the `pivot_longer()` function:
 
@@ -88,8 +70,9 @@ site_data %>%
 | dredge | 1990 |     144|
 | ...    | ...  |     ...|
 | dredge | 1993 |     145|
+:::
 
-In this lesson we're going to walk through the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
+In this lesson we're going to walk through examples as the previous ones to learn the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
 
 | Function name   | Description |
 |--------|------|
