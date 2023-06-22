@@ -195,10 +195,13 @@ Don't forget the `Git` workflow! After you've completed the exercises or reached
 ## Bonus
 
 ::: callout-note
+### Question 7
+
 What would you do to fix the issues with the values in the `total_traps` column? Discuss with your neighbor when in your script you would include this step.
 :::
 
 ```{r}
+## Replace -99999 values for NAs at the beginning of the script, similar to what we did in question 1 but for lobster_traps data frame. Then re run all the other steps.
 lobster_traps <- lobster_traps %>% 
     mutate(TRAPS = na_if(TRAPS, -99999))
 ```
