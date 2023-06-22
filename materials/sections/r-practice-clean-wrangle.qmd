@@ -1,13 +1,10 @@
 
 ## Learning Objectives {.unnumbered}
 
-NAME OJECTIVES
+-   Practice using common cleaning and wrangling functions
+-   Practice joining two data frames
+-   Practice git and GitHub workflow
 
-::: callout-note
-## Acknowledgements
-
-These exercises are adapted from Allison Horst's EDS 221: Scientific Programming Essentials Course for the Bren School's Master of Environmental Data Science program.
-:::
 
 ## About the data {.unnumbered}
 
@@ -21,20 +18,20 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 1.  Create a new repository on GitHub
     i.  When creating the repository, add a brief description (i.e. R practice session cleaning and wrangling data during Delta Science Program Synthesis and Training session 1), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
 2.  Clone the repository to a new project in RStudio
-3.  For this exercise we are going to use the [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) data. Navigate to this link and briefly explore the data packege.
-4.  Go back to RStudio and open a new Quarto file
-    a. Give it a title (Eg: "Exercise: Explore, Clean, and Wrangle Data") and add your name to the `author` field
+3.  Go back to RStudio and open a new Quarto file
+    a. Give it a title (Eg: "Exercise: Explore, Clean, and Wrangle Data") and add your name to the `author` field. Press "Create".
     b. Delete the default text
-    c. Using level 2 headers, create an outline for this exercise (Include: About the data, Read and Explore data, Question 1, Question 2 , ... Quartion 6).
+    c. Using level 2 headers, create an outline for this exercise (Include: About the data, Setup, Read and Explore data, Question 1, Question 2 , ... Question 6).
     d. Save this file (eg. `exercise-clean-wrangle.qmd`)
+4.  For this exercise we are going to use the [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) data. Navigate to this link and briefly explore the data packege. Write a short description of the data in your `.qmd` file, add a link to the data and mention the data you access the data.
 5.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` this file to the remote repository (on GitHub)
 :::
 
 
 ::: callout-tip
-## Read and Explore Data
+## Set up and Read Data
 
-1. Load the following libraries at the top of your Quarto file
+1. Under the Setup section, load the following libraries in a new code chunk. 
 
 ```{r}
 #| code-fold: false
@@ -45,17 +42,20 @@ library(ggplot2)
 library(tidyr)
 ```
 
-2.  Read in the data and store the data frame as `lobster_abundance`
+2.  Read in the data and store each data frame as `lobster_abundance` and `lobster_traps` accordingly.
 
-Navigate to the [data package site](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) and copy the  the url to access the *Time-series of lobster abundance and size* data. Hover over the Download button --> right click --> "Copy Link Address". Read the data directly from the url.
+Navigate to the [data package site](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) and copy the  the url to access the *Time-series of lobster abundance and size* data. Hover over the Download button --> right click --> "Copy Link Address". Read the data directly from the url. In a new code chunk under the Read Data header, read in the data using the URL you just copied. Do the same with *Time-series of lobster trap buoy counts*.
 
 ```{r}
 #| code-fold: false
 #| message: false
 lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=f32823fba432f58f66c06b589b7efac6")
+
+lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-sbc.77.8&entityid=66dd61c75bda17c23a3bce458c56ed84")
+
 ```
 
-3.  Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
+3.  Look at each data frame. Take a minute to explore the data structure, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
 
 4.  Use the `Git` workflow: `Stage > Commit > Pull > Push`
 
@@ -66,7 +66,7 @@ lobster_abundance <- read_csv("https://portal.edirepository.org/nis/dataviewer?p
 ## Convert missing values using `mutate()` and `na_if()`
 
 ::: callout-note
-### Question 1
+### Question 1: `lobster_abundance`
 
 The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata or use `unique()`). This has the potential to cause conflicts with our analyses, so let's convert -99999 to an `NA` value. Do this using `mutate()` and `na_if()`. Look up the help page to see how to use `na_if()`. Check your output data using `unique()`.
 :::
@@ -79,18 +79,7 @@ lobster_abundance <- lobster_abundance %>%
 ## `filter()` practice
 
 ::: callout-note
-### Question 2
-
-Create and store a subset that does NOT include observations from Naples Reef (`NAPL`). Check your output data frame to ensure that `NAPL` is NOT in the data frame (hint: `unique()` gives you the unique values in a column).
-:::
-
-```{r}
-not_napl <- lobster_abundance %>% 
-    filter(SITE != "NAPL")
-```
-
-::: callout-note
-### Question 3
+### Question 2: `lobster_abundance`
 
 Create and store a subset with lobsters at Arroyo Quemado (`AQUE`) OR with a carapace length greater than 70 mm. Check your output.
 :::
@@ -100,6 +89,24 @@ aque_70mm <- lobster_abundance %>%
     filter(SITE == "AQUE", SIZE_MM >= 70)
 ```
 
+::: callout-note
+### Question 3: `lobster_traps`
+Create and store a subset with traps at all sites where there is abundance data. Note you first have to identify which are these sites.
+
+:::
+
+```{r}
+## Creates a vector with unique sites in lobster_abundance
+abundance_sites <- unique(lobster_abundance$SITE)
+
+## filters sites in vector above
+traps_subset <- lobster_traps %>% 
+    filter(SITE %in% abundance_sites)
+    
+```
+
+
+
 ::: callout-important
 ## Save your work and use `Git`
 
@@ -107,33 +114,94 @@ Don't forget the `Git` workflow! After you've completed the exercises or reached
 :::
 
 
-### Question 4
+## Calculate totals by site and year
 
-Add a new column that contains lobster carapace length converted to centimeters. There are 10 millimeters in 1 centimeter. Check your output.
 
-```{r}
-
-lobster_cm <- lobster_abundance %>% 
-  mutate(SIZE_CM = SIZE_MM / 10)
-```
-
-### Question 5
-
-Find the mean of lobster carapace length using `mean()`, and group by `SITE`. Think about how you want to treat the `NA` values in `SIZE_MM` (Hint: check the arguments in `mean()`). Check your output.
+::: callout-note
+### Question 4: `lobster_abundance` and `traps_subset`
+For each data frame, calculate the total count and traps, respectively by site, month and year. Hint: `group_by()` and `summarize()`
+:::
 
 ```{r}
-lobster_mean <- lobster_abundance %>% 
-  group_by(SITE) %>% 
-  summarize(MEAN_LENGTH = mean(SIZE_MM, na.rm = TRUE))
+total_abundance <- lobster_abundance %>% 
+    group_by(SITE, YEAR) %>% 
+    summarize(total_lobsters = sum(COUNT, na.rm = T))
+
+
+total_traps <- traps_subset %>% 
+    group_by(SITE, YEAR) %>% 
+    summarize(total_traps = sum(TRAPS, na.rm = T))
+
 ```
 
+
+
+## Joining two data frames
+
+::: callout-note
+### Question 5: `total_abundance` and `total_traps`
+
+Use one of the `join_` functions to get an output data frame with the following columns:
+`SITE`, `YEAR`, `total_lobsters`, `total_traps`.
+
+
+Discuss with your neighbor how does the output data frame varies when you do a `left_join()` from a `full_join()`. What happens when you do an `inner_join()`?
+
+
+Do you notice anything not right in the outcome data frame?
+
+:::
+
+```{r}
+abundance_traps <- total_abundance %>% 
+  left_join(total_traps, by = c("SITE", "YEAR"))
+
+##  Or
+
+abundance_traps <- total_abundance %>% 
+  full_join(total_traps, by = c("SITE", "YEAR"))
+
+## Or
+
+abundance_traps <- total_abundance %>% 
+  inner_join(total_traps, by = c("SITE", "YEAR"))
+
+```
+
+## Adding a new column
+
+::: callout-note
 ### Question 6
 
-Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM`. Check your output.
+The sites `IVEE` and `NAPL` are marine protected areas (MPAs). Add this designation to your data set using a new function called `case_when()`. Note you will have to create a new column with this information, what other function you have to used?
+:::
 
 ```{r}
-
-max_lobster <- lobster_abundance %>% 
-  group_by(SITE, MONTH) %>% 
-  summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
+lobster_mpa <- abundance_traps %>% 
+    mutate(DESIGNATION = case_when(
+    SITE %in% c("IVEE", "NAPL") ~ "MPA",
+    SITE %in% c("AQUE", "CARP", "MOHK") ~ "not MPA"))
+    
 ```
+
+
+::: callout-important
+## Save your work and use `Git`
+
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`
+:::
+
+
+## Bonus
+
+::: callout-note
+What would you do to fix the issues with the values in the `total_traps` column? Discuss with your neighbor when in your script you would include this step.
+:::
+
+```{r}
+lobster_traps <- lobster_traps %>% 
+    mutate(TRAPS = na_if(TRAPS, -99999))
+```
+
+
+
