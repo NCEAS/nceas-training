@@ -23,9 +23,11 @@ There are many benefits to using a version control software including:
 
 The version control system we'll be diving into is `Git`, the most widely used modern version control system in the world.
 
-## Introduction to `Git` + GitHub through a Motivating Example
+## Introduction to `Git` + GitHub
 
 Before diving into the details of `Git` and how to use it, let's start with a motivating example that's representative of the types of problems `Git` can help us solve.
+
+### A Motivating Example
 
 Say, for example, you're working on an analysis in R and you've got it into a state you're pretty happy with. We'll call this version 1:
 
@@ -101,7 +103,7 @@ A key takeaway here is that `Git` can drastically increase your confidence and w
 
 Finally, imagine that, years later, your colleague asks you to make sure the model you reported in a paper you published together was actually the one you used. Another really powerful feature of `Git` is tags which allow us to record a particular state of our analysis with a meaningful name. In this case, we are lucky because we tagged the version of our code we used to run the analysis. Even if we continued to develop beyond commit 5 (above) after we submitted our manuscript, we can always go back and run the analysis as it was in the past.
 
-### With `Git` we can enhance our workflow: {.unnumbered}
+#### With `Git` we can enhance our workflow: {.unnumbered}
 
 - Eliminate the need for cryptic filenames and comments to track our work.
 - Provide detailed descriptions of our changes through commits, making it easier to understand the reasons behind code modifications.
@@ -110,7 +112,7 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 - Assign meaningful tags to specific versions of our code.
 - Additionally, `Git` offers a powerful distributed feature. Multiple individuals can work on the same analysis concurrently on their own computers, with the ability to merge everyone's changes together.
 
-### So what *exactly* are `Git` and GitHub? {.unnumbered}
+### What *exactly* are `Git` and GitHub?
 
 #### `Git`: {.unnumbered}
 
@@ -138,7 +140,7 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 ![](images/github-intro.png)
 :::
 
-### The `Git` Life cycle {.unnumbered}
+### The `Git` Life cycle 
 
 As a `Git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories. Any given `Git` repository can be cloned so that it exists both locally, and remotely. But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `Git`'s particular format. For our purposes, we can consider a `Git` repository as a folder with a bunch of additional version-related metadata.
 
@@ -154,7 +156,7 @@ The remaining concepts are involved in synchronizing the changes in your local r
 
 [![Artwork by Allison Horst](images/allison-horst-git-workflow.png)](https://twitter.com/allison_horst)
 
-### Let's Look at a GitHub Repository {.unnumbered}
+### Let's Look at a GitHub Repository
 
 This screen shows the copy of a repository stored on GitHub, with its list of files, when the files and directories were last modified, and some information on who made the most recent changes.
 
@@ -176,7 +178,7 @@ And finally, if we drill into one of the changes made on December 20, we can see
 
 Tracking these changes, how they relate to released versions of software and files is exactly what `Git` and GitHub are good for. And we will show how they can really be effective for tracking versions of scientific code, figures, and manuscripts to accomplish a reproducible workflow.
 
-### `Git` Vocabulary & Commands {.unnumbered}
+### `Git` Vocabulary & Commands
 
 We know the world of `Git` and GitHub can be daunting. Use these tables as references while you use `Git` and GitHub, and we encourage you to build upon this list as you become more comfortable with these tools.
 
@@ -265,25 +267,48 @@ Congratulations, you've now authored your first versioned commit! If you navigat
 
 Let's point out a few things about this window. It represents a view of the repository that you created, showing all of the files in the repository so far. For each file, it shows when the file was last modified, and the commit message that was used to last change each file. This is why it is important to write good, descriptive commit messages. In addition, the header above the file listing shows the most recent commit, along with its commit message, and its SHA identifier. That SHA identifier is the key to this set of versioned changes. If you click on the SHA identifier (6c18e0a), it will display the set of changes made in that particular commit.
 
-In the next section we'll use the GitHub URL for the GitHub repository you created to `clone` the repository onto your local machine so that you can edit the files in RStudio. To do so, start by copying the GitHub URL, which represents the repository location:
+::: {.callout-caution icon=false}
+## What should I write in my commit message?
+
+Writing effective `Git` commit messages is essential for creating a meaningful and helpful version history in your repository. It is crucial to avoid skipping commit messages or resorting to generic phrases like "Updates." When it comes to following best practices, there are several guidelines to enhance the readability and maintainability of the codebase.
+
+Here are some guidelines for writing effective `Git` commit messages:
+
+1. **Be descriptive and concise**: Provide a clear and concise summary of the changes made in the commit. Aim to convey the purpose and impact of the commit in a few words.
+
+2. **Use imperative tense**: Write commit messages in the imperative tense, as if giving a command. For example, use "Add feature" instead of "Added feature" or "Adding feature." This convention aligns with other `Git` commands and makes the messages more actionable.
+
+3. **Separate subject and body**: Start with a subject line, followed by a blank line, and then provide a more detailed explanation in the body if necessary. The subject line should be a short, one-line summary, while the body can provide additional context, motivation, or details about the changes.
+
+4. **Limit the subject line length**: Keep the subject line within 50 characters or less. This ensures that the commit messages are easily scannable and fit well in tools like `Git` logs.
+
+5. **Capitalize and punctuate properly**: Begin the subject line with a capital letter and use proper punctuation. This adds clarity and consistency to the commit messages.
+
+6. **Focus on the "what" and "why"**: Explain what changes were made and why they were made. Understanding the motivation behind a commit helps future researchers and collaborators (including you!) comprehend its purpose.
+
+7. **Use present tense for subject, past tense for body**: Write the subject line in present tense as it represents the current state of the codebase. Use past tense in the body to describe what has been done.
+
+8. **Reference relevant issues**: If the commit is related to a specific issue or task, include a reference to it. For example, you can mention the issue number or use keywords like "Fixes," "Closes," or "Resolves" followed by the issue number.
+:::
+
+
+## Exercise 2: `clone` your repository and use `Git` locally in RStudio
+
+In this exercise, we'll use the GitHub `URL` for the GitHub repository you created to `clone` the repository onto your local machine so that you can edit the files in RStudio. 
+
+Start by copying the GitHub `URL`, which represents the repository location:
 
 :::{.column-body-outset}
 ![](images/github-test-clone-url.png){width="70%" fig-align="center"}
 :::
 
-## Exercise 2: `clone` your repository and use `Git` locally in RStudio
+RStudio knows how to work with files under version control with `Git`, but only if you are working within an R project folder. 
 
-RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. 
-
-In this next section, we will `clone` the repository that you created on GitHub into a local repository as an RStudio project. Here's what we're going to do
-
-![](images/github-workflows-owner.png)
+Next, let's `clone` the repository created on GitHub so we have it accessible as an R project in RStudio.
 
 ::: {.callout-important title="An important distinction"}
-We refer to the remote copy of the repository that is on GitHub as the origin repository (the one that we cloned from), and the copy on our local computer as the local copy.
+We refer to the remote copy of the repository that is on GitHub as the origin repository (the one that we cloned from), and the copy on our local computer as the local repository.
 :::
-
-RStudio knows how to work with files under version control with `Git`, but only if you are working within an RStudio project folder. In this next section, we will `clone` the repository that you created on GitHub into a local repository as an RStudio project. Here's what we're going to do:
 
 ::: callout-tip
 ## Setup
@@ -368,30 +393,6 @@ git config pull.rebase false
 ```
 
 `pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can't it will show a merge conflict
-:::
-
-::: {.callout-caution icon=false}
-## What should I write in my commit message?
-
-Writing effective `Git` commit messages is essential for creating a meaningful and helpful version history in your repository. It is crucial to avoid skipping commit messages or resorting to generic phrases like "Updates." When it comes to following best practices, there are several guidelines to enhance the readability and maintainability of the codebase.
-
-Here are some guidelines for writing effective `Git` commit messages:
-
-1. **Be descriptive and concise**: Provide a clear and concise summary of the changes made in the commit. Aim to convey the purpose and impact of the commit in a few words.
-
-2. **Use imperative tense**: Write commit messages in the imperative tense, as if giving a command. For example, use "Add feature" instead of "Added feature" or "Adding feature." This convention aligns with other `Git` commands and makes the messages more actionable.
-
-3. **Separate subject and body**: Start with a subject line, followed by a blank line, and then provide a more detailed explanation in the body if necessary. The subject line should be a short, one-line summary, while the body can provide additional context, motivation, or details about the changes.
-
-4. **Limit the subject line length**: Keep the subject line within 50 characters or less. This ensures that the commit messages are easily scannable and fit well in tools like `Git` logs.
-
-5. **Capitalize and punctuate properly**: Begin the subject line with a capital letter and use proper punctuation. This adds clarity and consistency to the commit messages.
-
-6. **Focus on the "what" and "why"**: Explain what changes were made and why they were made. Understanding the motivation behind a commit helps future researchers and collaborators (including you!) comprehend its purpose.
-
-7. **Use present tense for subject, past tense for body**: Write the subject line in present tense as it represents the current state of the codebase. Use past tense in the body to describe what has been done.
-
-8. **Reference relevant issues**: If the commit is related to a specific issue or task, include a reference to it. For example, you can mention the issue number or use keywords like "Fixes," "Closes," or "Resolves" followed by the issue number.
 :::
 
 ## Exercise 3: Setting up `Git` on an existing project
