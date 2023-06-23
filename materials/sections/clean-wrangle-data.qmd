@@ -17,7 +17,7 @@ Let's look at two motivating examples.
 
 ::: {.callout-note appearance="minimal" icon=false}
 ## Example 1
- Suppose you have the following `data.frame` called `length_data` with data about salmon lenght and want to calculate the average length per year. 
+Suppose you have the following `data.frame` called `length_data` with data about salmon length and want to calculate the average length per year. 
 
 |  year|  length\_cm|
 |-----:|-----------:|
@@ -72,7 +72,7 @@ site_data %>%
 | dredge | 1993 |     145|
 :::
 
-In this lesson we're going to walk through examples as the previous ones to learn the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
+This lesson will cover examples to learn about the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
 
 | Function name   | Description |
 |--------|------|
