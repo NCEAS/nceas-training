@@ -13,35 +13,21 @@ To be efficient analysts, we should have good tools for reformatting data for ou
 The `dplyr` and `tidyr` R packages provide a fairly complete and extremely powerful set of functions for us to do this reformatting quickly. 
 Learning these tools well will greatly increase your efficiency as an analyst.
 
-Analyses take many shapes, but they often conform to what is known as the Split-Apply-Combine strategy. This strategy follows a usual set of steps:
+Let's look at two motivating examples. 
 
-- **Split**: Split the data into logical groups (e.g., area, stock, year)
-- **Apply**: Calculate some summary statistic on each group (e.g. mean total length by year)
-- **Combine**: Combine the groups back together into a single table
-
-![](images/split-apply-combine-diagram.png){width="90%" fig-align="center"}
-
-
-As shown above, our original table is split into groups by `year`, we calculate the mean length for each group, and finally combine the per-year means into a single table.
-
-The `dplyr` R library provides a fast and powerful way to express this. Let’s look at a simple example of how this is done.
-
-Assuming our length data is already loaded in a `data.frame` called `length_data`:
+::: {.callout-note appearance="minimal" icon=false}
+## Example 1
+ Suppose you have the following `data.frame` called `length_data` with data about salmon lenght and want to calculate the average length per year. 
 
 |  year|  length\_cm|
 |-----:|-----------:|
-|  1991|    5.673318|
+|  1990|    5.673318|
 |  1991|    3.081224|
 |  1991|    4.592696|
 |  1992|    4.381523|
 |  1992|    5.597777|
 |  1992|    4.900052|
-|  1992|    4.139282|
-|  1992|    5.422823|
-|  1992|    5.905247|
-|  1992|    5.098922|
-
-We can do this calculation using `dplyr` like this:
+The `dplyr` R library provides a fast and powerful way to do this calculation in a few lines of code:
 
 ```{r}
 #| eval: false
@@ -49,8 +35,12 @@ length_data %>%
   group_by(year) %>% 
   summarize(mean_length_cm = mean(length_cm))
 ```
+:::
 
-Another common process we need to do is "reshape" our data. Let's look at an example table that is in what we will call "wide" format:
+
+::: {.callout-note appearance="minimal" icon=false}
+## Example 2
+ Another process we often need to do is to "reshape" our data. Consider the following table that is in what we call "wide" format:
 
 | site   | 1990 | 1991 | ... | 1993 |
 |--------|------|------|-----|------|
@@ -59,19 +49,11 @@ Another common process we need to do is "reshape" our data. Let's look at an exa
 | ...    | ...  | ...  | ... | ...  |
 | dredge | 100  | 118  | ... | 112  |
 
-You are probably quite familiar with data in the above format, where values of the variable being observed are spread out across columns. 
+You are probably familiar with data in the above format, where values of the variable being observed are spread out across columns. 
 In this example we have a different column per year. 
-Another way of describing this is that there is more than one measurement per row. This wide format works well for data entry and sometimes works well for analysis but we quickly outgrow it when using R. 
-For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run:
-
-```{r}
-#| eval: false
-lm(length ~ year)
-```
-
+This wide format works well for data entry and sometimes works well for analysis but we quickly outgrow it when using R (and know it is not tidy data!). 
+For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run `lm(length ~ year)`.
 But this won't work on our wide data because `lm()` needs `length` and `year` to be columns in our table.
-
-Or how would we make a separate plot for each year? We could call `plot()` one time for each year but this is tedious if we have many years of data and hard to maintain as we add more years of data to our data set.
 
 The `tidyr` package allows us to quickly switch between wide format and long format using the `pivot_longer()` function:
 
@@ -88,8 +70,9 @@ site_data %>%
 | dredge | 1990 |     144|
 | ...    | ...  |     ...|
 | dredge | 1993 |     145|
+:::
 
-In this lesson we're going to walk through the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
+In this lesson we're going to walk through examples as the previous ones to learn the functions you'll most commonly use from the `dplyr` and `tidyr` packages:
 
 | Function name   | Description |
 |--------|------|
@@ -228,8 +211,8 @@ head(catch_original)
 ## Summary of each column of data
 summary(catch_original)
 
-## Prints unique values in a column (in this case Date)
-unique(catch_original$Year)
+## Prints unique values in a column (in this case, the region)
+unique(catch_original$Region)
 
 ## Opens data frame in its own tab to see each row and column of the data
 View(catch_original)
@@ -461,15 +444,55 @@ We're now ready to start analyzing the data.
 
 ## Summary statistics using `group_by()` and `summarize()`
 
-As we outlined in the introduction, `dplyr` lets us employ the **Split-Apply-Combine** strategy and this is exemplified through the use of the `group_by()` and `summarize()` functions:
+Suppose we are now interested in getting the average catch per region. 
+In our initial data exploration we saw there are 18 regions, we can easily see their names again:
+
+```{r}
+unique(catch_original$Region)
+```
+
+Think about how we would calculate the average catch per region "by hand". It would be something like this: 
+
+0. We start with our table and notice there are multiple regions in the "Regions" column. 
+
+
+1. We split our original table to group all observations from the same region together. 
+
+
+2. We calculate the average catch for each of the groups we form. 
+
+
+3. Then we combine the values for average catch per region into a single table. 
+
+:::{.column-body-outset}
+![](images/regions-split-apply-combine.png){ fig-align="center"}
+:::
+
+Analyses like this conform to what is known as the **Split-Apply-Combine strategy**. This strategy follows the three steps we explained above:
+
+1. **Split**: Split the data into logical groups (e.g., region, species, etc.)
+2. **Apply**: Calculate some summary statistic on each group (e.g. mean catch *by* year, number of individuals *per* species)
+3. **Combine**: Combine the statistic calculated on each group back together into a single table
+
+The `dplyr` library lets us easily employ the Split-Apply-Combine strategy by using the `group_by()` and `summarize()` functions:
 
 ```{r}
 mean_region <- catch_long %>%
     group_by(Region) %>%
-    summarize(catch_mean = mean(catch))
+    summarize(mean_catch = mean(catch))
 
 head(mean_region)
 ```
+
+Let's see how the previous code implements the Split-Apply-Combine strategy:
+
+1. `group_by(Region)`: this is telling R to **split** the dataframe and create a group for each different value in the column `Region`. R just keeps track of the groups, it doesn't return separate dataframes per region. 
+
+
+2. `mean(catch)`: here `mean` is the function we want to **apply** to the column `catch` in each group.
+
+
+3. `summarize(catch = mean(catch))` the function `summarize()` is used to **combine** the results of `mean(catch)` in each group into a single table. The argument `mean_catch = mean(catch)` indicates that the column having the results of `mean(catch)` will be named `mean_catch`. 
 
 Another common use of `group_by()` followed by `summarize()` is to count the number of rows in each group. We have to use a special function from `dplyr`, `n()`.
 
@@ -481,16 +504,17 @@ n_region <- catch_long %>%
 head(n_region)
 ```
 
-::: column-margin
-**Quick Tip**
+::: callout-note
+## Tip
+
 If you are finding that you are reaching for this combination of `group_by()`, `summarize()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 :::
 
 ::: callout-note
 ## Exercise
 
-- Find another grouping and statistic to calculate for each group
-- Find out if you can group by multiple variables
+- Find another grouping and statistic to calculate for each group.
+- Find out if you can group by multiple variables.
 :::
 
 
@@ -499,7 +523,7 @@ If you are finding that you are reaching for this combination of `group_by()`, `
 #| code-summary: "Answer"
 #| eval: false
 
-## one example can be
+## for example:
 catch_year_sp <- catch_long %>%
     group_by(Year, species) %>%
     summarize(total_year = sum(catch, na.rm = T))
