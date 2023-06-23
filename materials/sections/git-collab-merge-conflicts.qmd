@@ -3,7 +3,7 @@
 - Apply the principles, features, and collaboration tools of `Git` and GitHub to effectively collaborate with colleagues on code
 - Analyze and evaluate common causes of conflicts that arise when collaborating on repositories 
 - Demonstrate the ability to resolve conflicts using `Git` conflict resolution techniques
-- Evaluate and recommend workflows that minimize conflicts on collaborative repositories 
+- Apply workflows and best practices that minimize conflicts on collaborative repositories
 
 ## Introduction to `Git` and GitHub Tools for Collaboration
 
@@ -71,7 +71,7 @@ while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 The Collaborator can now `pull` down those Owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
-## Exercise: With a partner, collaborate in a repository using a conflict-free process
+## Exercise 1: With a partner collaborate in a repository without a merge conflict{#ex1-no-conflict}
 
 ::: callout-tip
 ### Setup
@@ -108,8 +108,7 @@ git config pull.rebase false
 ::: callout-note
 ### Instructions
 
-Now that the instructors have demonstrated this conflict-free process, break into 
-pairs and try the same with your partner. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
+You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
 - Step 0: Designate one person as the Owner and one as the Collaborator.
 
@@ -132,11 +131,11 @@ pairs and try the same with your partner. You will do the exercise twice, where 
 - Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository
 - Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
 - Step 3: Collaborator edits the `README` file:
-    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository from an existing project" and adds the high level steps for creating a `Git` repository on GitHub
+    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository from an existing project" and adds the high level steps for this workflow
 - Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
 - Step 5: Owner pulls the changes that the Collaborator made
 - Step 6: Owner edits the `README` file:
-    - Under "How to Create a `Git` Repository", Owner adds the high level steps for creating a `Git` repository from an existing project on RStudio 
+    - Under "How to Create a `Git` Repository", Owner adds the high level steps for this workflow
 - Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
 - Step 8: Collaborator pulls the `Owners` changes from GitHub
 
@@ -316,7 +315,9 @@ branch, and the merged changes are clearly visible in the history.
 
 ![](images/git-conflict-08-history.png)
 
-## Exercise: With a partner, collaborate in a repository and resolve a merge conflict {.unnumbered}
+## Exercise 2: With a partner collaborate in a repository and resolve a merge conflict
+
+Note you will only need to complete the Setup and `Git` configuration steps again if you are working in a new repository. Return to [Exercise 1](@ex1-no-conflict) for Setup and `Git` configuration steps.
 
 ::: callout-note
 
@@ -357,27 +358,26 @@ Now it's your turn. In pairs, intentionally create a merge conflict, and then go
 
 :::
 
-## Workflows to avoid merge conflicts
+## Best practices to avoid merge conflicts
 
-Some basic rules of thumb can avoid the vast majority of merge conflicts, saving 
-a lot of time and frustration. These are words our teams live by:
+Some basic rules of thumb can avoid the vast majority of merge conflicts, saving a lot of time and frustration. These are words our teams live by:
 
 ::: column-margin
 [![XKCD 1597](images/git-xkcd-comic.png)](https://xkcd.com/1597/)
 :::
 
-- Communicate often
+- Communicate often and set up effective communication channels
 - Tell each other what you are working on
-- Start you working session with a pull
-- Pull immediately before you commit or push
-- Commit often in small chunks
-- Make sure you and who your collaborating with all **fully** understand the `Git` workflow you're using aka make sure you're on the same page before you start!
+- Start your working session with a `pull`
+- `Pull` immediately before you `commit` or `push`
+- `Commit` often in small chunks (this helps you organize your work!)
+- Make sure you and who you are collaborating with all **fully** understand the `Git` workflow you're using aka make sure you're on the same page before you start!
 
 A good workflow is encapsulated as follows:
 
 ```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> Push```
 
-**Always start your working sessions with a `Pull` to get any outstanding changes, then
-start your work**. `Stage` your changes, but before you `Commit`, `Pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `Commit` and immediately `Push` your changes safely. 
+**Always start your working sessions with a `pull` to get any outstanding changes, then
+start your work**. `Stage` your changes, but before you `commit`, `pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `commit` and immediately `push` your changes safely. 
 
 Good luck, and try to not get frustrated. Once you figure out how to handle merge conflicts, they can be avoided or dispatched when they occur, but it does take a bit of practice.
