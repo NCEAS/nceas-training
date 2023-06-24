@@ -13,7 +13,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 ## Setup
 
 ::: callout-tip
-## GitHub - R workflow
+## GitHub & R setup
 
 1.  Create a new repository on GitHub. Use the following settings:
 
@@ -46,7 +46,7 @@ Write a short description of the data in your `.qmd` file, including a link to t
 
 
 ::: callout-tip
-## Set up and Read Data
+## Read in data
 
 1. Under the Setup section, load the following libraries in a new code chunk. 
 
@@ -108,17 +108,17 @@ lobster_abundance <- lobster_abundance %>%
 ::: callout-note
 ### Exercise 2: `lobster_abundance`
 
-Create and store a subset with lobsters at Arroyo Quemado (`AQUE`) OR with a carapace length greater than 70 mm. Check your output.
+Create a subset with the data for the lobsters at Arroyo Quemado (`AQUE`) that have a carapace length greater than 70 mm.
 :::
 
 ```{r}
 aque_70mm <- lobster_abundance %>% 
-    filter(SITE == "AQUE", SIZE_MM >= 70)
+    filter(SITE == "AQUE" & SIZE_MM >= 70)
 ```
 
 ::: callout-note
 ### Exercise 3: `lobster_traps`
-Create and store a subset with traps at all sites where there is abundance data. Note that you first have to identify which are these sites.
+Create a subset with traps at all sites where there is abundance data. Note that you first have to identify which are these sites.
 
 :::
 
@@ -146,7 +146,7 @@ Don't forget the `Git` workflow! After you've completed the exercises or reached
 
 ::: callout-note
 ### Exercise 4: `lobster_abundance` and `traps_subset`
-For each data frame, calculate the total count and total traps by site and year. 
+For each data frame, calculate the total count and total traps by site and year (i.e. for every combination of site and year).
 Store these summary statistics in separate data frames.
 
 Hint: use `group_by()` and `summarize()`.
