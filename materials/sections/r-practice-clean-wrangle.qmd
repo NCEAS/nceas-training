@@ -31,11 +31,13 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
     
     b. Delete the default text in the new Quarto file.
     
-    c. Using level 2 headers, create an outline for this exercise. Include headers for the following sections: About the data, Setup, Read and Explore data, Question 1, Question 2 , ... Question 6.
+    c. Using level 2 headers, create an outline for this exercise. Include headers for the following sections: About the data, Setup, Read and explore data, Exercise 1, Exercise 2 , ... Exercise 6.
     
     d. Save this file with a meaningful name, eg. `exercise-clean-wrangle.qmd`.
     
-4.  For this exercise we are going to use the [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus)](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) data. 
+4.  For this exercise we are going to use the 
+<a href="https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8" target="_blank">SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (*Panulirus interruptus*)</a>
+ data. 
 Navigate to this link and briefly explore the data package. 
 Write a short description of the data in your `.qmd` file, including a link to the data and the access date. 
 
@@ -59,7 +61,7 @@ library(tidyr)
 
 2.  Read in the data.
 
-    a. Create a new code chunk under the Read Data header.
+    a. Create a new code chunk under the Read and explore ata header.
     
     b. Navigate to the [data package site](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) and copy the  the URL to access the *Time-series of lobster abundance and size* data. To copy the URL: hover over the Download button --> right click --> "Copy Link Address".
     
@@ -78,7 +80,7 @@ lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packa
 
 ```
 
-3.  Look at each data frame. Take a minute to explore the data structure, find out which data types are in the data frame, or use a function to get a high-level summary of the data.
+3.  Look at each data frame. Take a minute to explore their data structure, find out which data types are in the data frame, or use a function to get a high-level summary of the data.
 
 4.  Use the `Git` workflow: `Stage > Commit > Pull > Push`.
 :::
@@ -221,7 +223,7 @@ lobster_mpa <- abundance_traps %>%
 ::: callout-important
 ## Save your work and use `Git`
 
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`.
 :::
 
 
