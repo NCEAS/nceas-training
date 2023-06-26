@@ -461,14 +461,14 @@ So, just because you know Quarto now, doesn't mean you won't be using R scripts 
 
 ## Additional Quarto Resources
 
--   Posit (the organization that developed Quarto) has great documentation, check out [Quarto.org](quarto.org)
+-   Posit (the organization that developed Quarto) has great documentation, check out [Quarto.org](https://quarto.org/)
 -   R for Data Science (2e) (Wickham et al, 2023), this is an awesome book for all R related things. Chapter [29 and 30](https://r4ds.hadley.nz/quarto.html) are specific to Quarto.
 -   [Quarto Gallery:](https://quarto.org/docs/gallery/) Example of different outputs created using Quarto
 - [Hello Quarto: share, collaborate, teach, reimagine](https://openscapes.org/blog/2022-08-10-quarto-keynote/). A talk by Julia Stewart Lowndes and Mine Cetinkaya-Runde. 
 
 
 
-<!--## Troubleshooting: My RMarkdown Won't Knit to PDF
+## Troubleshooting: My RMarkdown Won't Knit to PDF
 
 If you get an error when trying to knit to PDF that says your computer
 doesn't have a LaTeX installation, one of two things is likely
@@ -506,5 +506,5 @@ sudo chown -R `whoami`:admin /usr/local/bin
 
 and then try the above install instructions again. Learn more about
 `tinytex` from [Yihui Xie's online book
-*TinyTeX*](https://yihui.org/tinytex/). -->
+*TinyTeX*](https://yihui.org/tinytex/).
 ````
