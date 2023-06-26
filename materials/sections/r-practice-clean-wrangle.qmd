@@ -24,7 +24,9 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
     c. Initialize the repository with a `README` file and an R `.gitignore` template.
     
 2.  Clone the repository to a new project in RStudio.
+<!--
 -   **Note:** We know this is a new, empty repository, so there's nothing to pull from it. In general, it is a best practice to `Pull` when you first open a project.
+-->
 
 3.  Create a new Quarto file in RStudio. Follow these steps:
     a. Add a title to the new Quarto file, for example: "Exercise: Explore, Clean, and Wrangle Data". Add your name to the `author` field. Press "Create".
@@ -34,21 +36,23 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
     c. Using level 2 headers, create an outline for this exercise. Include headers for the following sections: About the data, Setup, Read and explore data, Exercise 1, Exercise 2 , ... Exercise 6.
     
     d. Save this file with a meaningful name, eg. `exercise-clean-wrangle.qmd`.
-    
-4.  For this exercise we are going to use the 
-<a href="https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8" target="_blank">SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (*Panulirus interruptus*)</a>
- data. 
-Navigate to this link and briefly explore the data package. 
-Write a short description of the data in your `.qmd` file, including a link to the data and the access date. 
 
-5.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` this file to the remote repository (on GitHub).
+4.  After saving the file, `stage`, `commit`, write a commit message, `pull`, and `push` this file to the remote repository (on GitHub).
 :::
 
 
 ::: callout-tip
 ## Read in data
 
-1. Under the Setup section, load the following libraries in a new code chunk. 
+    
+1.  For this exercise we are going to use the 
+<a href="https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8" target="_blank">SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (*Panulirus interruptus*)</a>
+ data. 
+Navigate to this link and briefly explore the data package. 
+
+2. Under the "About the data" section in the `.qmd` file, write a short description of the data,  including a link to the data and the access date. 
+
+2. Under the "Setup" section, load the following libraries in a new code chunk. 
 
 ```{r}
 #| code-fold: false
@@ -59,15 +63,15 @@ library(ggplot2)
 library(tidyr)
 ```
 
-2.  Read in the data.
+3.  Read in the data.
 
-    a. Create a new code chunk under the Read and explore ata header.
+    a. Create a new code chunk under the "Read and explore data" header.
     
-    b. Navigate to the [data package site](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8) and copy the  the URL to access the *Time-series of lobster abundance and size* data. To copy the URL: hover over the Download button --> right click --> "Copy Link Address".
+    b. Navigate to the <a href="https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8" target="_blank"> data package site </a> and copy the  the URL to access the *Time-series of lobster abundance and size* data. To copy the URL: hover over the Download button --> right click --> "Copy Link Address".
     
     c. Read in the data from the URL using the `read_csv` function and store it as `lobster_abundance`. 
     
-    e. Read in the *Time-series of lobster trap buoy counts* data as `lobster_traps` by repeating setps b and c. 
+    e. Read in the *Time-series of lobster trap buoy counts* data as `lobster_traps` by repeating setps (b) and (c). 
 
 ```{r}
 #| code-fold: false
@@ -80,9 +84,9 @@ lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packa
 
 ```
 
-3.  Look at each data frame. Take a minute to explore their data structure, find out which data types are in the data frame, or use a function to get a high-level summary of the data.
+4.  Look at each data frame. Take a minute to explore their data structure, find out which data types are in the data frame, or use a function to get a high-level summary of the data.
 
-4.  Use the `Git` workflow: `Stage > Commit > Pull > Push`.
+5.  Use the `Git` workflow: `Stage > Commit > Pull > Push`.
 :::
 
 
@@ -148,10 +152,12 @@ Don't forget the `Git` workflow! After you've completed the exercises or reached
 
 ::: callout-note
 ### Exercise 4: `lobster_abundance` and `traps_subset`
-For each data frame, calculate the total count and total traps by site and year (i.e. for every combination of site and year).
+For each data frame, calculate the total count and total traps by site and year (i.e. total traps for every combination of site and year).
 Store these summary statistics in separate data frames.
 
 HINT: use `group_by()` and `summarize()`.
+
+Do you notice anything not right in the outcome data frame? We'll get to it in exercise 7. 
 :::
 
 ```{r}
@@ -181,10 +187,6 @@ Use one of the `join_` functions to get an output data frame with the following 
 
 Discuss with your neighbor how the output data frame varies when you do a `left_join()` or a `full_join()`. 
 What happens when you do an `inner_join()`?
-
-
-Do you notice anything not right in the outcome data frame? We'll get to it in exercise 7. 
-
 :::
 
 ```{r}
