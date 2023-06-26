@@ -1,0 +1,415 @@
+<style>
+    .reveal section p {
+    display: inline-block;
+    font-size: 0.6em;
+    line-height: 1.2em;
+    vertical-align: center;
+  }
+  
+  .v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+</style>
+
+---
+title: "Data Modeling Essentials"
+author: "NCEAS Open Science Synthesis for the Delta Science Program"
+format: revealjs
+---
+
+# Learning Objectives {.unnumbered}
+
+Learn how to design and create effective data tables by: 
+
+- applying tidy and normalized data principles, 
+- following best practices to format data tables' content, 
+- relating tables following relational data models principles, and 
+- understanding how to perform table joins.
+
+
+# Tidy Data
+
+##
+
+![tidy images by Allison Horst](tidy-data-images/tidy_data/make-tidy-friends.jpg){fig-align="center"}
+
+## Values, variables, observations, and entities
+
+A dataset is a collection of **values**, with each value belonging to an observation and a variable. 
+
+- An **observation** groups all the values measured for an individual **entity**. For example, an observation about a plant could include the species name, date of collection and altitude of the place where the plant was found. The plants found would be the entity.
+
+- A **variable** groups all the values that measure the same attribute. In the previous example, the variables would be the date of collection, altitude and species name. 
+
+
+::: callout-note
+“Variable” is a general term that covers multiple types of attributes. 
+
+For example, when collecting data to investigate a causal relationship, variables include both *explanatory variables* (also called independent variables) and *response variables* (also called dependent variables). We could also have a classifier variable that assigns a unique identifier to each observation. 
+:::
+
+## What is tidy data?
+
+Tidy data is a standardized way of organizing data tables that allows us to manage and analyze data efficiently, because it makes it straightforward to understand the corresponding variable and observation of each value.
+The [**tidy data principles**](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)  are:
+
+1. Every column is a variable.
+2. Every row is an observation.
+3. Every cell is a single value.
+
+##
+
+<center>
+
+![](tidy-data-images/tidy_data/tidy_data.png){fig-align="center" width=50%}
+![](tidy-data-images/tidy_data/tidy_variables.png){fig-align="center" width=50%}
+![](tidy-data-images/tidy_data/tidy_observations.png){fig-align="center" width=50%}
+![](tidy-data-images/tidy_data/tidy_values.png){fig-align="center" width=50%}
+
+</center>
+
+## Recognizing untidy data
+Anything that does not follow the three tidy data principles is **untidy data**. 
+
+There are *many* ways in which data can become untidy, some can be noticed right away, while others are more subtle.
+
+![tidy images by Allison Horst](tidy-data-images/tidy_data/untidy-vs-tidy.jpg){fig-align="center"}
+
+# Example 1
+
+## 
+Actual dataset that came across NCEAS. 
+
+![](tidy-data-images/tidy_data/excel-org-01.png)
+
+## Multiple tables
+
+![](tidy-data-images/tidy_data/excel-org-02.png)
+
+**Having multiple tables immediately breaks the tidy data principles**, as we will see next.
+
+
+## Inconsistent columns
+
+In tidy data, **each column corresponds to a single variable**. 
+
+![](tidy-data-images/tidy_data/excel-org-04.png)
+
+## Inconsistent rows
+
+The second principle of tidy data is: **every column must be a single observation**. 
+
+![](tidy-data-images/tidy_data/excel-org-03.png)
+
+## Marginal sums and statistics 
+
+**Marginal sums and statistics are not considered tidy**. They break principles one and two.
+
+![](tidy-data-images/tidy_data/excel-org-05.png)
+
+##
+
+![tidy images by Allison Horst](tidy-data-images/tidy_data/why-tidy-data.jpg){fig-align="center"}
+
+# Example 2
+
+## 
+![](tidy-data-images/tidy_data/untidy_1.png)
+
+- *id*: id of row
+- *date*: date when a species was observed
+- *site*: site where a species was observed
+- *name*: site’s name
+- *altitude*: site’s altitude
+- *sp1code*, *sp2code*: species code for two plants observed 
+- *sp1height*, *sp2height*: height of the animals observed
+
+
+
+## Multiple Observations 
+Remember: an observation is all the values measured for an individual **entity**. 
+
+If our entity is a single observed animal, then the values we measured are date and site of observation, the altitude, and the species code and height. 
+
+This table breaks the second tidy data principles: Every row is an observation. 
+
+![](tidy-data-images/tidy_data/untidy_2.png)
+
+##
+
+![](tidy-data-images/tidy_data/untidy_2.png)
+
+People often refer to this as “**wide format**”, because the observations are spread across a wide number of columns. 
+
+Note that, should one encounter a new species in the survey, we would have to add new columns to the table. This is difficult to analyze, understand, and maintain. 
+
+##
+
+![](tidy-data-images/tidy_data/untidy_2.png)
+
+To solve this problem, we can create a single column for species code and a single column for species height as in the following table.
+
+![](tidy-data-images/tidy_data/tidy_not_normal.png)
+
+
+
+# Data Normalization
+
+## What is data normalization?
+**Data normalization** is the process of creating **normalized data**, which are datasets free from data redundancy to simplify query, analysis, storing, and maintenance. In normalized data we organize data so that :
+
+- Each table follows the tidy data principles
+- We have separate tables for each type of entity measured
+- Observations (rows) are all unique
+- Each column represents either an identifying variable or a measured variable
+
+In **denormalized data** observations about different entities are combined. A good indication that a data table is denormalized and needs normalization is seeing the same column values repeated across multiple rows. 
+
+# Example
+
+##
+
+In **denormalized data** observations about different entities are combined. 
+
+A good indication that a data table is denormalized and needs normalization is seeing the same column values repeated across multiple rows. 
+
+What about our previous table?
+
+![](tidy-data-images/tidy_data/tidy_not_normal.png)
+
+## 
+In the previous data table the row values for the last three columns are repeated. 
+
+![](tidy-data-images/data_normalization/denormalized.png){fig-align="center" width=80%}
+
+This means the data is denormalized and it happens because each row has measurements about multiple entities:
+
+![](tidy-data-images/data_normalization/two_entities.png){fig-align="center" width=80%}
+
+## 
+
+If we use this information to normalize our data, we should end up with:
+
+- one tidy table for each entity observed, and
+- additional columns for identifying variables (such as site ID).
+
+Here’s how our normalized data would look like:
+
+![](tidy-data-images/data_normalization/normalized.png)
+
+Notice that each table also satisfies the tidy data principles. 
+
+## 
+
+Normalizing data by separating it into multiple tables often makes researchers really uncomfortable. This is understandable! 
+
+The person who designed this study collected all of these measurements for a reason - so that they could analyze the measurements together. 
+
+Now that our site and plant information are in separate tables, how would we use site temperature as a predictor variable for species composition, for example? 
+
+We will go over a solution in the next section.
+
+![tidy images by Allison Horst](tidy-data-images/data_normalization/tidy-assembly.jpg){fig-align="center"}
+
+# Relational Data Models
+
+## What are relational data models?
+A **relational data model** is a way of encoding links between multiple tables in a database. A database organized following a relational data model is a **relational database**. A few of the advantages of using a relational data model are:
+
+-   Enabling powerful search and filtering
+-   Ability to handle large, complex data sets
+-   Enforcing data integrity
+-   Decreasing errors from redundant updates
+
+Relational data models are used by relational databases (like mySQL, MariaDB, Oracle, or Microsoft Access) to organize tables. However, you don't have to be using a relational database or handling large and complex  data to enjoy the benefits of using a relational data model. 
+
+
+## Primary and foreign keys
+The main way in which relational data models encode relationships between different tables is by using keys. **Keys** are variables whose values uniquely identify observations. 
+
+For tidy data, where variables and columns are equivalent, a column is a key if it has a different value in each row. This allows us to use keys as unique identifiers that reference particular observations and create links across tables. 
+
+Two types of keys are common within relational data models:
+
+- **Primary Key**: chosen key for a table, uniquely identifies each observation in the table, 
+- **Foreign Key**: reference to a primary key in another table, used to create links between tables.
+
+# Example
+
+## 
+On our previously normalized data for plants and sites, let’s choose primary keys for these tables and then identify any foreign keys. 
+
+![](tidy-data-images/data_normalization/normalized.png)
+
+Remeber:  
+**Primary Key**: chosen key for a table, uniquely identifies each observation in the table, 
+
+**Foreign Key**: reference to a primary key in another table, used to create links between tables.
+
+
+##
+
+**Primary keys**
+
+Notice that the columns ‘date’, ‘site’ and ‘sp_code’ cannot be primary keys because they have repeated values across rows. 
+
+The columns ‘sp_height’ and ‘id’ both have different values in each row, so both are candidates for primary keys. 
+
+However, the decimal values of ‘sp_height’ don’t make it as useful for referencing observations. 
+
+So we chose ‘id’ as the primary key for this table.
+
+For the sites table, all three columns could be keys. We chose ‘site’ as the primary key because it is the most succinct and it also allows us to link the sites table with the plants table.
+
+![](tidy-data-images/relational_data_models/primary_keys.png)
+
+## 
+
+**Foreign keys**
+
+The 'site' column is the *primary key* of that table because it uniquely identifies each row of the table as a unique observation of a site. In the first table, however, the 'site' column is a *foreign key* that references the primary key from the second table. This linkage tells us that the first height measurement for the DAPU observation occurred at the site with the name Taku.
+
+![](tidy-data-images/relational_data_models/primary_foreign_keys.png)
+
+## Surrogate, natural, and compound keys
+
+In the plants data table from the previous example, we noticed that ‘id’ and ‘sp_height’ are variables whose values uniquely identify the rows. In other words, ‘id’ and ‘sp_height’ are keys. However, ‘id’ and ‘sp_height’ are very different keys since the values in ‘id’ are “made up”, while ‘sp_height’ has actual observed values. This leads us to the following key types:
+
+- **Surrogate Key**:  a key whose values do not exist in the real world,
+- **Natural Key**: a key whose values exist in the real world.
+
+A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
+
+![](tidy-data-images/relational_data_models/surrogate_natural_keys.png)
+
+
+## 
+Finally, it can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows. This is called a
+
+- **Compound Key**: a key that is made up of more than one variable. 
+
+For example, the ‘site’ and ‘sp_code’ columns in the plants table cannot be keys on their own, since each has repeated values. However, when we look at their combined values (1-DAPU, 1-DAMA, 2-DAMA, 2-DAPU) we see each row has a unique value. So ‘site’ and ‘sp_code’ together form a compound key.
+
+![](tidy-data-images/relational_data_models/compound_key.png)
+
+There are different advantages and disadvantages to choosing surrogate, natural, or compound keys as primary keys. You can read more about this in [this article](https://www.databasestar.com/database-keys/).
+
+### Entity-Relationship models
+
+An **Entity-Relationship model (E-R model)**, also known as an E-R diagram, is a way to draw a compact diagram that reflects the structure and relationships of the tables in a relational database. These can be particularly useful for big databases that have many tables and complex relationships between them.
+
+We will explain the steps to drawing a simplified E-R model with our previous plants and sites tables. 
+
+
+*Step 1: Identify the entities in the relational database and add each one in a box.*
+In our case, entities are [plants] and [sites], since we are gathering observations about both of these.
+
+![](images/tidy-data-images/relational_data_models/ER_diagram_1.png){fig-align="center" width=50%}
+
+*Step 2: Add variables for each entity and identify keys.*
+Add the variables as a list inside each box. Then, identify the primary and foreign keys in each of the boxes. To visualize this, we have indicated the primary key of each entity in red and any foreign keys in blue.
+
+![](images/tidy-data-images/relational_data_models/ER_diagram_2.png){fig-align="center" width=50%}
+
+*Step 3: Add relationships between entities.*
+
+- Draw a line between the boxes of any two entities that have a relationship.
+
+- Identify  which box has the primary key of the other as a foreign key. Let’s call the box that has the foreign key [box1] and the other box [box2].
+Using the previous diagram we can see that “site” is the primary key of [sites] and appears as a foreign key in [plants]. So [plants] is [box1] and [sites] is [box2]. 
+
+- Add a word describing how [box1] is related to [box2] above the line connecting the two boxes. So, for example, we need to describe how [plants] is related to [sites]. The relation is “a plant is located in a site”, so we write “located” above the line indicating the relationship between [plants] and [sites].
+
+![](images/tidy-data-images/relational_data_models/ER_diagram_3.png){fig-align="center" width=50%}
+
+*Step 4: Add cardinality to every relationship in the diagram.*
+At this step we want to quantify how many items in an entity are related to another entity. This is easiest if we reuse the description we found in the previous step. For example, “a plant is located in one site”. Then we add the symbol for “one” at the end of the line going from [plants] to [sites].
+
+![](images/tidy-data-images/relational_data_models/ER_diagram_4.png){fig-align="center" width=50%}
+
+To finish, we also indicate how many plants are related to a single site. Since “a site has many plants”, we add the symbol for “many” at the end of the line going from [sites] to [plants]
+
+![](images/tidy-data-images/relational_data_models/ER_diagram_5.png){fig-align="center" width=50%}
+
+That’s it! The symbols we used at the end of the lines are called **ERD “crow’s foot”**. You can see all the existing ones together with an example in the next diagram.
+
+![](images/tidy-data-images/relational_data_models/ERD_Relationship_Symbols_Quick_Reference.png)
+
+::: callout-note
+If you need to produce a publishable E-R model such as the one above, [Mermaid](https://mermaid.js.org/intro/) is a great option. Read more about how to use this tool to create diagrams [here](https://mermaid.js.org/syntax/entityRelationshipDiagram.html).
+:::
+
+## Merging Data
+
+Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other. Regardless of the join we will perform, we need to start by identifying the primary key in each table and how these appear as foreign keys in other tables.
+
+When conceptualizing merges, one can think of two tables, one on the *left* and one on the *right*.
+
+![](images/tidy-data-images/merging_data/join-diagrams-separate.png)
+
+### Inner Join
+An *INNER JOIN*  is when you merge the subset of rows that have matches in both the left table and the right table.
+
+![](images/tidy-data-images/merging_data/join-diagrams-inner.png)
+
+### Left Join
+A *LEFT JOIN* takes all of the rows from the left table, and merges on the data from matching rows in the right table. Keys that don't match from the left table are still provided with a missing value (na) from the right table. 
+
+![](images/tidy-data-images/merging_data/join-diagrams-left.png)
+
+### Right Join
+A *RIGHT JOIN* is the same as a left join, except that all of the rows from the right table are included with matching data from the left, or a missing value. Notice that left and right joins can ultimately be the same depending on the positions of the tables
+
+![](images/tidy-data-images/merging_data/join-diagrams-right.png)
+
+
+### Full Outer Join
+Finally, a *FULL OUTER JOIN* includes all data from all rows in both tables, and includes missing values wherever necessary.
+
+![](images/tidy-data-images/merging_data/join-diagrams-full.png)
+
+Sometimes people represent joins as Venn diagrams, showing which parts of the left and right tables are included in the results for each join. This representation is useful, however, they miss part of the story related to where the missing value comes from in each result.
+
+![Image source: R for Data Science, Wickham & Grolemund.](images/tidy-data-images/merging_data/join-venn.png)
+
+We suggest [this resource](https://r4ds.had.co.nz/relational-data.html#join-problems) for more examples and best practices about joins.
+
+## Best Practices Summary
+This is a summary of what we have covered, and some extra advice!
+
+The **tidy data principles** are:
+
+1. Every column is a variable.
+2. Every row is an observation.
+3. Every cell is a single value.
+
+In **normalized data** we organize data so that :
+
+- We have separate tables for each type of entity measured
+- Observations (rows) are all unique
+- Each column represents either an identifying variable or a measured variable
+- Each table follows the tidy data principles
+
+Creating **relational data models** by assigning **primary and foreign keys** to each table allows us to maintain relationships between separate normalized tables. 
+Choose the primary key for each table based on your understanding of the data and take efficiency into account. Once you choose a column as the primary key, make sure that all the values in that column are there! 
+
+For a big relational database, an **Entity-Relationship model** can be an effective way to explain how different tables and their keys are related to each other. If we need to merge tables we can do it using different types of **joins**. 
+
+## More on Data Management
+Tidy data is one very important step to data management best practices. However there is more to consider. Here we provide some **extra advice** from a great paper called ['Some Simple Guidelines for Effective Data Management'](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9623-90.2.205):
+
+- Design tables to add rows, not columns
+- Use a scripted program (like R!)
+- Non-proprietary file formats are preferred (eg: csv, txt)
+- Keep a raw version of data
+- Use descriptive files and variable names (without spaces!)
+- Include a header line in your tabular data files
+- Use plain ASCII text
+
+In the Cleaning & Wrangling chapter we will cover more best practices for cleaning irregular and missing data and how to implement them using R. 
+
+## Activity
+
