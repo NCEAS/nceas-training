@@ -2,15 +2,15 @@
 
 - Provide an overview of Logic Models
 - Apply the principles of Logic Models to synthesis development
+- Refine synthesis group challenges
 
 ## Logic Models
 
-Logic models are a planning tool that are designed to support program development by depicting the flow of resources and processes leading to a desired result. They are also used for outcomes-based evaluation of a program and are often requested as part of an evaluation planning process by funders or stakeholders.  
+Logic models are a planning tool that are designed to support program development by depicting the flow of resources and processes leading to a desired result. They are also used for outcomes-based evaluation of a program and are often requested as part of an evaluation planning process by funders or stakeholders.
 
 A simplified logic models comprise three main parts: Inputs, Outputs and Outcomes.
 
 ![](images/LM1.png)
-
 
 Inputs reflect ***what is invested***, outputs are ***what is done*** and outcomes are the ***results of the program***.
 
@@ -18,21 +18,17 @@ In a more detailed logic model, outputs and outcomes are further broken down. Ou
 
 ![](images/LM2.png)
 
-
-Defining the inputs, outputs and outcomes early in a planning process enables teams to visualize the workflow from activity to results and can help mitigate potential challenges. Logic models can be thought of as having an 'if this then that' structure where inputs -> outputs -> outcomes.
+Defining the inputs, outputs and outcomes early in a planning process enables teams to visualize the workflow from activity to results and can help mitigate potential challenges. Logic models can be thought of as having an 'if this then that' structure where inputs -\> outputs -\> outcomes.
 
 ![](images/LM3.png)
 
-
-In the example below we have constructed a simple logic model for a hypothetical project where training materials are being developed for a group of educators to implement at their respective institutions. 
+In the example below we have constructed a simple logic model for a hypothetical project where training materials are being developed for a group of educators to implement at their respective institutions.
 
 ![](images/LM4.png)
-
 
 Linkages are not always sequential and can be within categories, bi-directional and/or include feedback loops. Detailing this complexity of relationships, or theory of action, can be time consuming but is a valuable part of the thought process for project planning. In exploring all relationships, logic modeling also allows for assessing program feasibility.
 
 ![](images/LM5.png)
-
 
 The above graphics include two sections within Outputs - Activities and Participants - and this is quite common. There is variation in logic model templates, including versions with a third type of output - "Products'. Sometimes description of these products is contained within the Activities section - for example, 'develop curricula', 'produce a report' - however calling these out explicitly is beneficial for teams focused on product development.
 
@@ -40,21 +36,19 @@ Program development (and logic modeling) occurs in response to a given 'Situatio
 
 ![](images/LM6.png)
 
-
 In summary:
 
 Logic models support program development and evaluation and comprise three primary steps in the workflow:
 
-- **Inputs:** Resources, contributions, and investments required for a program;
-- **Outputs:** Activities conducted, participants reached, and products produced; and
-- **Outcomes:** Results or expected changes arising from the program structured as short-, medium- and long-term.
-
+-   **Inputs:** Resources, contributions, and investments required for a program;
+-   **Outputs:** Activities conducted, participants reached, and products produced; and
+-   **Outcomes:** Results or expected changes arising from the program structured as short-, medium- and long-term.
 
 ## Logic models for synthesis development
 
 Logic models are one tool for program development and have sufficient flexibility for a variety of situations, including planning a for a research collaboration. While some logic model categories may feel less relevant (can we scale up to a long-term outcome from a published synthesis?), the process of articulating the research objective, proposed outcome, associated resources and activities has value. Below are examples of questions that a typical logic model (LM) will ask, and how these might be reframed for a research collaboration (RC).
 
-**Objective/Problem Statement** 
+**Objective/Problem Statement**
 
 LM: What is the problem? Why is this a problem? Who does this impact?
 
@@ -76,7 +70,7 @@ RC: What activities are needed to conduct the research? This could be high level
 
 LM: Who will we reach? Clients, Participants, Customers..
 
-RC: Who is the target audience? Who will be impacted by this work? Who is positioned to leverage this work? 
+RC: Who is the target audience? Who will be impacted by this work? Who is positioned to leverage this work?
 
 **Outputs - Products**
 
@@ -86,13 +80,13 @@ RC: What research products are planned / expected? Consider this in relation to 
 
 **Short-term Outcomes**
 
-LM: What short-term outcomes are anticipated among participants. These can include changes in awareness, knowledge, skills, attitudes, opinions and intent. 
+LM: What short-term outcomes are anticipated among participants. These can include changes in awareness, knowledge, skills, attitudes, opinions and intent.
 
-RC: Will this work represent a significant contribution to current understanding? 
+RC: Will this work represent a significant contribution to current understanding?
 
 **Medium-term Outcomes**
 
-LM: What medium-term outcomes are predicted among participants? These might include changes in behaviors, decision-making and actions. 
+LM: What medium-term outcomes are predicted among participants? These might include changes in behaviors, decision-making and actions.
 
 RC: Will this work promote increased research activity or open new avenues of inquiry?
 
@@ -102,8 +96,53 @@ LM: What long-term benefits, or impacts, are expected? Changes in social, econom
 
 RC: Will this work result in local, regional or national policy change? What will be the long-term impact of increased investment in the ecosystem?
 
+::: {.callout-tip title="Breakout: Synthesis planning with logic models"}
+Breakout groups will focus on refining ideas for synthesis topcis using the logic modeling tools described in this section. The goal for this session is to develop one or more high-level logic models that:
+
+1.  Summarize the synthesis challenge
+2.  Define the inputs needed to approach the synthesis
+3.  Define the outputs, including activities and products that would would be needed to address the issue
+4.  Define the short term outcomes and longer-term impacts of the work
+
+Often it is helpful to start with a brainstorming activity to list activities and products that might be used to address the synthesis challenge, then connect those in terms of outcomes and impacts, and then circle back to the resource and data inputs needed to feed the logic model. Thinking of the whole model as a workflow can help conceptualize the dependencies among step.
+
+Tools:
+
+- Powerpoint [logic model template](https://docs.google.com/presentation/d/1MBUy35QIAkA5FNCdRzWJM2aPaFXfUmGl/edit?usp=sharing&ouid=113328660159760492310&rtpof=true&sd=true)
+- [Mermaid flowcharts](https://mermaid.js.org/syntax/flowchart.html) embedded in [Quarto documents](https://quarto.org/docs/authoring/diagrams.html#mermaid)
+
+```{mermaid}
+flowchart LR
+    INPUTS --> ACTIVITIES --> OUTPUTS --> OUTCOMES/IMPACTS
+
+    Scenario{{Accelerate synthesis via data science training}}
+
+    R1[Instructor] & R2[Classroom space] & R3[Projector] --> B{Data Science Workshop}
+    B --> C(Workshop Curriculum)
+    B --> D(Presentations and Practice)
+    
+    C & D --> E[/Improved Delta management/] & F[/Increased analytic efficiency/]
+```
+
+Source
+
+```` mermaid
+```{mermaid}
+flowchart LR
+    INPUTS --> ACTIVITIES --> OUTPUTS --> OUTCOMES/IMPACTS
+
+    Scenario{{Accelerate synthesis via data science training}}
+
+    R1[Instructor] & R2[Classroom space] & R3[Projector] --> B{Data Science Workshop}
+    B --> C(Workshop Curriculum)
+    B --> D(Presentations and Practice)
+    
+    C & D --> E[/Improved Delta management/] & F[/Increased analytic efficiency/]
+```
+````
+:::
+
 ## Resources
 
-- [Logic model template](https://deltacouncil.sharepoint.com/:p:/r/sites/Extranet-Science/_layouts/15/Doc.aspx?sourcedoc=%7BB1F16AA0-0938-4623-AD23-5E50BF376B68%7D&file=logic_model_template.pptx&action=edit&mobileredirect=true) (ppt) on Sharepoint
-
-
+-   [Logic model template](https://deltacouncil.sharepoint.com/:p:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/2023/2023-06-week-1/logic_model_template.pptx?d=w32341d669685448d96b70e61e7e5e187&csf=1&web=1&e=2ojEmj) (ppt) on Sharepoint
+    -   Same [Logic model template](https://docs.google.com/presentation/d/1MBUy35QIAkA5FNCdRzWJM2aPaFXfUmGl/edit?usp=sharing&ouid=113328660159760492310&rtpof=true&sd=true) on Google Drive
