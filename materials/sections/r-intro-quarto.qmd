@@ -18,9 +18,8 @@ Quarto and RMarkdown are an excellent way to generate literate analysis, and a r
 
 In an R script, the language assumes that you are writing R code, unless you specify that you are writing prose (using a comment, designated by `#`). The paradigm shift of literate analysis comes in the switch to RMarkdown or Quarto, where instead of assuming you are writing code, they assume that you are writing prose unless you specify that you are writing code. This, along with the formatting provided by markdown, encourages the "essayist" to write understandable prose to accompany the code that explains to the human-beings reading the document what the author told the computer to do. This is in contrast to writing just R code, where the author telling to the computer what to do with maybe a smattering of terse comments explaining the code to a reader.
 
-<!-- NEED to update -->
 
-Before we dive in deeper, let's look at an example of what a rendered literate analysis with RMarkdown can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of an analysis workflow written using RMarkdown. Note that if this analysis would be in Quarto, the render version it would be similar, except for formatting and layout (eg: the default fornt in Quarto is different).  <!-- UPDATE THE LINK TO QUARTO ANALYISIS-->
+Before we dive in deeper, let's look at an example of what a rendered literate analysis can look like using a real example. [Here is an example](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/example-brood-table-analysis.html) of an analysis workflow written using RMarkdown. Note that if this analysis would be in Quarto, the render version it would be similar, except for formatting and layout (eg: the default font in Quarto is different).  
 
 There are a few things to notice about this document, which assembles a set of similar data sources on salmon brood tables with different formatting into a single data source.
 
@@ -464,8 +463,11 @@ So, just because you know Quarto now, doesn't mean you won't be using R scripts 
 
 -   Posit (the organization that developed Quarto) has great documentation, check out [Quarto.org](quarto.org)
 -   R for Data Science (2e) (Wickham et al, 2023), this is an awesome book for all R related things. Chapter [29 and 30](https://r4ds.hadley.nz/quarto.html) are specific to Quarto.
+-   [Quarto Gallery:](https://quarto.org/docs/gallery/) Example of different outputs created using Quarto
+- [Hello Quarto: share, collaborate, teach, reimagine](https://openscapes.org/blog/2022-08-10-quarto-keynote/). A talk by Julia Stewart Lowndes and Mine Cetinkaya-Runde. 
 
-````{=html}
+
+
 <!--## Troubleshooting: My RMarkdown Won't Knit to PDF
 
 If you get an error when trying to knit to PDF that says your computer
