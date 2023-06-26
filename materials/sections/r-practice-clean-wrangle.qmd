@@ -118,7 +118,9 @@ aque_70mm <- lobster_abundance %>%
 
 ::: callout-note
 ### Exercise 3: `lobster_traps`
-Create a subset with traps at all sites where there is abundance data. Note that you first have to identify which are these sites.
+Create a subset with the traps' information at all sites where abundance data is not `NA`. Note that you first have to identify which are these sites.
+
+HINT: use `%in%`.
 
 :::
 
@@ -137,7 +139,7 @@ traps_subset <- lobster_traps %>%
 ::: callout-important
 ## Save your work and use `Git`
 
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`
+Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: `Stage > Commit > Pull > Push`.
 :::
 
 
