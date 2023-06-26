@@ -15,14 +15,11 @@ The ultimate goal of this lesson is to provide an overview of a reproducible ope
 
 We will discuss how these topics relate to each other and why they are the building block for you to use others' data and for others to access, interpret, and use your data in the future.
 
-
 ## The Data Life Cycle
 
-The Data Life Cycle gives you an overview of meaningful steps in a research project. This step-by-step breakdown facilitates successful management and preservation of data throughout a project. Some research activities might use only part of the life cycle. For example, a meta-analysis might focus on the Discover, Integrate, and Analyze steps, while a project focused on primary data collection and analysis might bypass the Discover and Integrate steps. 
-
+The Data Life Cycle gives you an overview of meaningful steps in a research project. This step-by-step breakdown facilitates successful management and preservation of data throughout a project. Some research activities might use only part of the life cycle. For example, a meta-analysis might focus on the Discover, Integrate, and Analyze steps, while a project focused on primary data collection and analysis might bypass the Discover and Integrate steps.
 
 [![Source: DataOne](images/data-life-cycle.png){fig-alt="Data Life Cycle graphic with each stage following the next to create a circle." fig-align="right"}](https://dataoneorg.github.io/Education/bestpractices/)
-
 
 The first step to working with data is identifying where my project is starting in the Data Life Cycle. Using the data life cycle stages, create your own cycle that best fits your project needs.
 
@@ -34,14 +31,11 @@ The first step to working with data is identifying where my project is starting 
 
 DataOne's [Data Management Skillbuilding Hub](https://dataoneorg.github.io/Education/bestpractices/) offers several best practices on how to effectively work with your data throughout all stages of the data life cycle.
 
-
-No matter how your data life cycle looks like, _Plan_ should be at the top of the cycle. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered. The following section will discuss more in-depth data management and how to plan accordingly
-
+No matter how your data life cycle looks like, *Plan* should be at the top of the cycle. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered. The following section will discuss more in-depth data management and how to plan accordingly
 
 ## Managing your data
 
-Successfully managing your data throughout a research project helps ensures its preservation for future use. 
-
+Successfully managing your data throughout a research project helps ensures its preservation for future use.
 
 ### Why manage your data?
 
@@ -70,12 +64,9 @@ Successfully managing your data throughout a research project helps ensures its 
 
 -   Ensure sustainability and accessibility in long term for re-use in science
 
-
-
 ### Tools to Manage your Data
 
 A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs are living documents and should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
-
 
 A well-thought-out plan means you are more likely to:
 
@@ -99,12 +90,11 @@ More details on what to include in a Data Management Plan in [Additional Resourc
 
 ## Metadata Best Practices
 
-Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection. 
+Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection.
 
 Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
-
 
 ### Overall Guidelines
 
@@ -194,28 +184,21 @@ Some data repositories assign a DOI for each dataset you publish on their reposi
 
 Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
 
-
 ## Data Sharing & Preservation
 
 ![](images/WhyManage-small.png)
 
 ### Data Packages
 
-> We define a data package as a scientifically useful collection of data and metadata that a researcher wants to preserve. 
-
+> We define a data package as a scientifically useful collection of data and metadata that a researcher wants to preserve.
 
 Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define a data package as having one or more data files, software files, and other scientific products such as graphs and images, all tied together with a descriptive metadata document.
 
-Many data repositories assign a unique identifier to every version of every data file, similarly to how it works with source code commits in GitHub. Those identifiers usually take one of two forms. A DOI identifier, often assigned to the metadata and becomes a publicly citable identifier for the package. Each of the other files gets a global identifier, often a UUID that is globally unique.
-This allows to identify a digital entity within a data package.
-
+Many data repositories assign a unique identifier to every version of every data file, similarly to how it works with source code commits in GitHub. Those identifiers usually take one of two forms. A DOI identifier, often assigned to the metadata and becomes a publicly citable identifier for the package. Each of the other files gets a global identifier, often a UUID that is globally unique. This allows to identify a digital entity within a data package.
 
 In the graphic to the side, the package can be cited with the DOI `doi:10.5063/F1Z1899CZ`,and each of the individual files have their own identifiers as well.
 
-
 ![](images/data-package.png)
-
-
 
 ### Data Repositories: Built for Data (and code)
 
@@ -234,7 +217,6 @@ In the graphic to the side, the package can be cited with the DOI `doi:10.5063/F
 -   [re3data](https://www.re3data.org/) is a global registry of research data repositories
 -   [Repository Finder](https://repositoryfinder.datacite.org/) is a pilot project and tool to help researchers find an appropriate repository for their work
 
-
 #### DataOne Federation
 
 DataONE is a federation of dozens of data repositories that work together to make their systems interoperable and to provide a single unified search system that spans the repositories. DataONE aims to make it simpler for researchers to publish data to one of its member repositories, and then to discover and download that data for reuse in synthetic analyses.
@@ -242,8 +224,6 @@ DataONE is a federation of dozens of data repositories that work together to mak
 DataONE can be [searched on the web](https://search.dataone.org/), which effectively allows a single search to find data from the dozens of members of DataONE, rather than visiting each of the (currently 44!) repositories one at a time.
 
 ![](images/DataONECNs.png)
-
-
 
 ## Summary
 
@@ -253,20 +233,21 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 -   Document everything. Having rich metadata is a key factor to enable data reuse. Describe your data and files and use an appropriate metadata standard.
 -   Publish your data in a stable long live repository and assign a unique identifier.
 
-
-
 ## Data Users Example
 
 **Data Life Cycle**
+
 -   Plan
+
 -   Discover: Finding and understanding data
+
 -   Integrate: Accessing Data
+
 -   Analyze
+
 -   Describe: Metadata, Citing data (provenance)
+
 -   Preserve: Publishing a derived data package
-
-
-
 
 ## Exercise: Evaluate a Data Package on the EDI Repository
 
@@ -284,11 +265,9 @@ Break into groups and use the following data packages:
 -   **Group C:** [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
 
 -   **Group D:** [Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3)
-
 :::
 
-
-
+```{=html}
 <!-- ther data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1)
 
 OR
@@ -296,13 +275,13 @@ OR
 [North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=33&revision=37)
 
 -->
-
+```
 You and your group will evaluate a data package for its: (1) metadata quality, and (2) data documentation quality for reusability.
 
 ::: callout-note
 ### Exercise: Evaluate a data package
 
-1.  Open our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) (Note: Evaluate only the Metadata Documentation and Quality section), make copy and: 
+1.  Open our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) (Note: Evaluate only the Metadata Documentation and Quality section), make copy and:
     a.  **Investigate the metadata in the provided data**
         i.  Does the metadata meet the standards we talked about? How so?
         ii. If not, how would you improve the metadata based on the standards we talked about?
@@ -328,7 +307,6 @@ Evaluate the following data packages at these data repositories:
 3.  Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
 
 How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories?
-
 
 ## Additional Resouces
 
@@ -423,5 +401,3 @@ How different are these data repositories from the EDI Data Portal? Would you co
 +---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 : {tbl-colwidths="\[20,80\]"}
-
-
