@@ -6,25 +6,25 @@
 
 ## The Big Idea
 
-The ultimate goal of this lesson is to provide an overview of a reproducible open science framework for your research. Either you are accessing published data (data user) to -- for example use it for synthesis or you want to publish your own data (data author), it is necessary to learn about:
+The ultimate goal of this lesson is to provide an overview of a reproducible open science framework for your research, when either you are accessing published data (data user) to -- for example use it for synthesis or you want to publish your own data (data author). To achieve this, we are going to talk about the following topics.
 
 -   The Data Life Cycle
 -   The importance of data management
 -   Metadata best practices
 -   Data preservation
 
-These topics interconnect with each other and can be use and apply simultaneously.
+We will discuss how these topics relate to each other and why they are the building block for you to use others' data and for others to access, interpret, and use your data in the future.
 
 
 ## The Data Life Cycle
 
-The Data Life Cycle gives you an overview of meaningful steps in a research project. This step-by-step breakdown, facilitates successful management and preservation of data throughout a project. It is not necessary for researchers to move through the data life cycle in a cyclical fashion and some research activities might use only part of the life cycle. For instance, a project involving meta-analysis might focus on the Discover, Integrate, and Analyze steps, while a project focused on primary data collection and analysis might bypass the Discover and Integrate steps. 
+The Data Life Cycle gives you an overview of meaningful steps in a research project. This step-by-step breakdown facilitates successful management and preservation of data throughout a project. Some research activities might use only part of the life cycle. For example, a meta-analysis might focus on the Discover, Integrate, and Analyze steps, while a project focused on primary data collection and analysis might bypass the Discover and Integrate steps. 
 
 
 [![Source: DataOne](images/data-life-cycle.png){fig-alt="Data Life Cycle graphic with each stage following the next to create a circle." fig-align="right"}](https://dataoneorg.github.io/Education/bestpractices/)
 
 
-A first step to working with data is identifying where in the Data Life Cycle my project is starting at. Using the steps of the data life cycle, create your own cycle that fits best your project needs.
+The first step to working with data is identifying where my project is starting in the Data Life Cycle. Using the data life cycle stages, create your own cycle that best fits your project needs.
 
 **A way to use the Data Life Cycle in practice is to:**
 
@@ -35,8 +35,7 @@ A first step to working with data is identifying where in the Data Life Cycle my
 DataOne's [Data Management Skillbuilding Hub](https://dataoneorg.github.io/Education/bestpractices/) offers several best practices on how to effectively work with your data throughout all stages of the data life cycle.
 
 
-No matter how your data life cycle looks like, _Plan_ should be at the top of the the cycle as it is advisable to initiate your data management planning at the beginning of your research process, before any data has been collected or discovered. In the next section will discuss more in-depth about data management and how to plan accordingly.
-
+No matter how your data life cycle looks like, _Plan_ should be at the top of the cycle. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered. The following section will discuss more in-depth data management and how to plan accordingly
 
 
 ## Managing your data
@@ -91,11 +90,12 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 ### How to Plan
 
 -   **Plan early:** research shows that over time, information is lost and this is inevitable so it's important to think about long-term plans for your research at the beginning before you're deep in your project. And ultimately, you'll save more time.
--   **Plan in collaboration:** high engagement of your team and stakeholders is not only a benefit to your project, but it also makes your DMP more resilient. When you include diverse expertise and perspectives to the planning stages, you're more likely to overcome obstacles in the future.
+-   **Plan in collaboration:** high engagement of your team and other important contributors is not only a benefit to your project, but it also makes your DMP more resilient. When you include diverse expertise and perspectives to the planning stages, you're more likely to overcome obstacles in the future.
 -   **Utilize existing resources:** don't reinvent the wheel! There are many great DMP resources out there. Consider the article *Ten Simple Rules for Creating a Good Data Management Plan* [@michener2015], which has succinct guidelines on what to include in a DMP. Or use an online tool like [DMPTool](https://dmptool.org/), which provides official DMP templates from funders like NSF, example answers, and allows for collaboration.
 -   **Make revising part of the process:** Don't let your DMP collect dust after your initially write it. Make revising the DMP part of your research project and use it as a guide to ensure you're keeping on track.
--   **Include tidy and ethical lens:** It is important to start thinking through this lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project. We will discuss in depth about [tidy data](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html), [FAIR principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-fair) and data ethics though the [CARE principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-care) latter this week.
+-   **Include tidy and ethical lens:** It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project. We will discuss in depth about [tidy data](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html), [FAIR principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-fair) and data ethics though the [CARE principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-care) later this week.
 
+More details on what to include in a Data Management Plan in [Additional Resources](https://learning.nceas.ucsb.edu/2023-06-delta/session_05.html#additional-resouces)
 
 ## Metadata Best Practices
 
@@ -106,7 +106,7 @@ Imagine that you're writing your metadata for a typical researcher (who might ev
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
 
 
-#### Overall Guidelines
+### Overall Guidelines
 
 Another way to think about metadata is to answer the following questions with the documentation:
 
@@ -120,48 +120,48 @@ Another way to think about metadata is to answer the following questions with th
 -   Who should get credit for this data (researcher AND funding agency)?
 -   How can this data be reused (licensing)?
 
-#### Bibliographic Guidelines
+### Bibliographic Guidelines
 
 The details that will help your data be cited correctly are:
 
--   Global identifier like a digital object identifier (DOI)
--   Descriptive title that includes information about the topic, the geographic location, the dates, and if applicable, the scale of the data
--   Descriptive abstract that serves as a brief overview off the specific contents and purpose of the data package
--   Funding information like the award number and the sponsor
--   People and organizations like the creator of the dataset (i.e. who should be cited), the person to contact about the dataset (if different than the creator), and the contributors to the dataset
+-   **Global identifier** like a digital object identifier (DOI)
+-   Descriptive **title** that includes information about the topic, the geographic location, the dates, and if applicable, the scale of the data
+-   Descriptive **abstract** that serves as a brief overview off the specific contents and purpose of the data package
+-   **Funding information** like the award number and the sponsor
+-   **People and organizations** like the creator of the dataset (i.e. who should be cited), the person to **contact** about the dataset (if different than the creator), and the contributors to the dataset
 
-#### Discovery Guidelines
+### Discovery Guidelines
 
 The details that will help your data be discovered correctly are:
 
--   Geospatial coverage of the data, including the field and laboratory sampling locations, place names and precise coordinates
--   Temporal coverage of the data, including when the measurements were made and what time period (ie the calendar time or the geologic time) the measurements apply to
--   Taxonomic coverage of the data, including what species were measured and what taxonomy standards and procedures were followed
--   Any other contextual information as needed
+-   **Geospatial coverage** of the data, including the field and laboratory sampling locations, place names and precise coordinates
+-   **Temporal coverage** of the data, including when the measurements were made and what time period (ie the calendar time or the geologic time) the measurements apply to
+-   **Taxonomic coverage** of the data, including what species were measured and what taxonomy standards and procedures were followed
+-   Any other **contextual information** as needed
 
-#### Interpretation Guidelines
+### Interpretation Guidelines
 
 The details that will help your data be interpreted correctly are:
 
--   Collection methods for both field and laboratory data the full experimental and project design as well as how the data in the dataset fits into the overall project
--   Processing methods for both field and laboratory samples
--   All sample quality control procedures
--   Provenance information to support your analysis and modelling methods
--   Information about the hardware and software used to process your data, including the make, model, and version
--   Computing quality control procedures like testing or code review
+-   **Collection methods** for both field and laboratory data the full experimental and project design as well as how the data in the dataset fits into the overall project
+-   **Processing methods** for both field and laboratory samples
+-   All sample **quality control procedures**
+-   **Provenance** information to support your analysis and modelling methods
+-   Information about the **hardware and software** used to process your data, including the make, model, and version
+-   **Computing quality control** procedures like testing or code review
 
-#### Data Structure and Contents
+### Data Structure and Contents
 
--   Everything needs a description: the data model, the data objects (like tables, images, matricies, spatial layers, etc), and the variables all need to be described so that there is no room for misinterpretation.
--   Variable information includes the definition of a variable, a standardized unit of measurement, definitions of any coded values (i.e. 0 = not collected), and any missing values (i.e. 999 = NA).
+-   **Everything needs a description**: the data model, the data objects (like tables, images, matrices, spatial layers, etc), and the variables all need to be described so that there is no room for misinterpretation.
+-   **Variable information** includes the definition of a variable, a standardized unit of measurement, definitions of any coded values (i.e. 0 = not collected), and any missing values (i.e. 999 = NA).
 
 Not only is this information helpful to you and any other researcher in the future using your data, but it is also helpful to search engines. The semantics of your dataset are crucial to ensure your data is both discoverable by others and interoperable (that is, reusable).
 
 For example, if you were to search for the character string "carbon dioxide flux" in a data repository, not all relevant results will be shown due to varying vocabulary conventions (i.e., "CO2 flux" instead of "carbon dioxide flux") across disciplines --- only datasets containing the exact words "carbon dioxide flux" are returned. With correct semantic annotation of the variables, your dataset that includes information about carbon dioxide flux but that calls it CO2 flux WOULD be included in that search.
 
-#### Rights and Attribution
+### Rights and Attribution
 
-Correctly assigning a way for your datasets to be cited and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
+Correctly **assigning a way for your datasets to be cited** and reused is the last piece of a complete metadata document. This section sets the scientific rights and expectations for the future on your data, like:
 
 -   Citation format to be used when giving credit for the data
 -   Attribution expectations for the dataset
@@ -169,9 +169,9 @@ Correctly assigning a way for your datasets to be cited and reused is the last p
 -   Redistribution rights, which describe who may copy and redistribute the metadata and the data
 -   Legal terms and conditions like how the data are licensed for reuse.
 
-#### Metadata Standards
+### Metadata Standards
 
-So, how does a computer organize all this information? There are a number of metadata standards that make your metadata machine readable and therefore easier for data curators to publish your data.
+So, **how does a computer organize all this information?** There are a number of metadata standards that make your metadata machine readable and therefore easier for data curators to publish your data.
 
 -   [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/)
 -   [Geospatial Metadata Standards (ISO 19115 and ISO 19139)](https://www.fgdc.gov/metadata/iso-standards)
@@ -184,13 +184,13 @@ So, how does a computer organize all this information? There are a number of met
 
 *Note this is not an exhaustive list.*
 
-#### Data Identifiers
+### Data Identifiers
 
 Many journals require a DOI (a digital object identifier) be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
 
 Some data repositories assign a DOI for each dataset you publish on their repository. But, if you need to update the datasets, check the policy of the data repository. Some repositories assign a new DOI after you update the dataset. If this is the case, researchers should cite the exact version of the dataset that they used in their analysis, even if there is a newer version of the dataset available.
 
-#### Data Citation
+### Data Citation
 
 Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
 
@@ -201,9 +201,16 @@ Researchers should get in the habit of citing the data that they use (even if it
 
 ### Data Packages
 
-We define a data package as a scientifically useful collection of data and metadata that a researcher wants to preserve. Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define a data package as having one or more data files, software files, and other scientific products such as graphs and images, all tied together with a descriptive metadata document.
+> We define a data package as a scientifically useful collection of data and metadata that a researcher wants to preserve. 
 
-These data repositories all assign a unique identifier to every version of every data file, similarly to how it works with source code commits in GitHub. Those identifiers usually take one of two forms. A DOI identifier is often assigned to the metadata and becomes a publicly citable identifier for the package. Each of the other files gets a global identifier, often a UUID that is globally unique. In the graphic to the side, the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual files have their own identifiers as well.
+
+Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define a data package as having one or more data files, software files, and other scientific products such as graphs and images, all tied together with a descriptive metadata document.
+
+Many data repositories assign a unique identifier to every version of every data file, similarly to how it works with source code commits in GitHub. Those identifiers usually take one of two forms. A DOI identifier, often assigned to the metadata and becomes a publicly citable identifier for the package. Each of the other files gets a global identifier, often a UUID that is globally unique.
+This allows to identify a digital entity within a data package.
+
+
+In the graphic to the side, the package can be cited with the DOI `doi:10.5063/F1Z1899CZ`,and each of the individual files have their own identifiers as well.
 
 
 ![](images/data-package.png)
@@ -228,7 +235,6 @@ These data repositories all assign a unique identifier to every version of every
 -   [Repository Finder](https://repositoryfinder.datacite.org/) is a pilot project and tool to help researchers find an appropriate repository for their work
 
 
-
 #### DataOne Federation
 
 DataONE is a federation of dozens of data repositories that work together to make their systems interoperable and to provide a single unified search system that spans the repositories. DataONE aims to make it simpler for researchers to publish data to one of its member repositories, and then to discover and download that data for reuse in synthetic analyses.
@@ -237,39 +243,66 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 ![](images/DataONECNs.png)
 
+
+
+## Summary
+
+-   The Data Life Cycle help us see the big picture of our data project.
+-   Once we identify the necessary steps it is helpful to think through each one and plan accordingly.
+-   It is extremely helpful to develop a data management plan is to stay organized.
+-   Document everything. Having rich metadata is a key factor to enable data reuse. Describe your data and files and use an appropriate metadata standard.
+-   Publish your data in a stable long live repository and assign a unique identifier.
+
+
+
+## Data Users Example
+
+**Data Life Cycle**
+-   Plan
+-   Discover: Finding and understanding data
+-   Integrate: Accessing Data
+-   Analyze
+-   Describe: Metadata, Citing data (provenance)
+-   Preserve: Publishing a derived data package
+
+
+
+
 ## Exercise: Evaluate a Data Package on the EDI Repository
 
-Explore data packages published on EDI assess the quality of their metadata. Imagine you're a data curator!
+Explore data packages published on EDI assess the quality of their metadata. Imagine you are planning on using this data for a synthesis project.
 
 ::: callout-tip
 ### Setup
 
 Break into groups and use the following data packages:
 
--   **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+-   **Group A:** [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
 
--   **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+-   **Group B:** [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
 
--   **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+-   **Group C:** [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
 
--   **Group D:** EDI Portal [North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=33&revision=37)
+-   **Group D:** [Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3)
 
-```{=html}
-<!-- consider thia other data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1) OR
+:::
 
-Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.
-https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3
+
+
+<!-- ther data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1)
+
+OR
+
+[North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=33&revision=37)
 
 -->
-```
-:::
 
 You and your group will evaluate a data package for its: (1) metadata quality, and (2) data documentation quality for reusability.
 
 ::: callout-note
-### Exercise: Evaluate a data package on EDI Data Portal
+### Exercise: Evaluate a data package
 
-1.  Open our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+1.  Open our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) (Note: Evaluate only the Metadata Documentation and Quality section), make copy and: 
     a.  **Investigate the metadata in the provided data**
         i.  Does the metadata meet the standards we talked about? How so?
         ii. If not, how would you improve the metadata based on the standards we talked about?
