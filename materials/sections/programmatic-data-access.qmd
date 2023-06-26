@@ -272,7 +272,7 @@ get_citation <- function(contentid) {
         # for returning the citation information (text string, bibtex, CSL-formatted string))
         # Currently this only returns the first result as a POC, needs work
         citation_text <- paste0(datasets$origin[[1]], ". ", format(as.Date(datasets$pubDate[[1]]), "%Y"), ". ", 
-                               datasets$title[[1]], ". ", repo_list[[1]]@name, ". ", datasets$identifier, " ",
+                               datasets$title[[1]], ". ", repo_list[[1]]@name, ". ", datasets$identifier[[1]], " ",
                                paste0("https://search.dataone.org/view/", datasets$identifier[[1]]))
         return(citation_text)
     } else {
@@ -294,7 +294,7 @@ get_citation(id)
 
 And this can even be displayed inline in the markdown text. For example, this chapter used data from:
 
-> `r get_citation(delta_catch_id)`
+> `r get_citation(id)`
 
 Second, content identifiers are **opaque**, and not particularly transparent. For many researchers, seeing the long hash value in a script will not be very meaningful. The `contentid` package needs mechanisms to transparently indicate what a content identifier refers to. Again, we have this information available dynamically through the metadata collated in networks like [DataONE](https://dataone.org). Another useful extension to `contentid` would be to provide functions for displaying detailed metadata about a content identifier when it is available, as well as a mechanism to provide more human-readable aliases for the identifier.
 
