@@ -200,9 +200,9 @@ This means the data is denormalized and it happens because each row has measurem
 
 If we use this information to normalize our data, we should end up with:
 
-one tidy table for each entity observed, and
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; one tidy table for each entity observed, and
 
-additional columns for identifying variables (such as site ID).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; additional columns for identifying variables (such as site ID).
 
 ::: {.fragment}
 ![](tidy-data-images/data_normalization/normalized.png){fig-align="center" width=55%}
@@ -313,24 +313,34 @@ Finally, it can also be the case that a variable is not a key, but by combining 
 
 An **Entity-Relationship model (E-R model)**, also known as an E-R diagram, is a way to draw a compact diagram that reflects the structure and relationships of the tables in a relational database. These can be particularly useful for big databases that have many tables and complex relationships between them.
 
+![ER-Model from Mermaid documentation](tidy-data-images/relational_data_models/mermaid_diagram.png){fig-align="center"}
+
+# Example 
+
 We will explain the steps to drawing a simplified E-R model with our previous plants and sites tables. 
 
-##
 
+#
 
 *Step 1: Identify the entities in the relational database and add each one in a box.*
 
-In our case, entities are [plants] and [sites], since we are gathering observations about both of these.
+![](tidy-data-images/relational_data_models/primary_foreign_keys.png){fig-align="center" width=50%}
 
 ::: {.fragment}
-![](tidy-data-images/relational_data_models/ER_diagram_1.png){fig-align="center" width=50%}
+
+In our case, entities are [plants] and [sites], since we are gathering observations about both of these.
+
+
+![](tidy-data-images/relational_data_models/ER_diagram_0.png){fig-align="center" width=40%}
 :::
 
 ##
 
 *Step 2: Add variables for each entity and identify keys.*
 
-Add the variables as a list inside each box. Then, identify the primary and foreign keys in each of the boxes. To visualize this, we have indicated the primary key of each entity in red and any foreign keys in blue.
+Add the variables as a list inside each box. Then, identify the primary and foreign keys in each of the boxes. 
+
+![](tidy-data-images/relational_data_models/primary_foreign_keys.png){fig-align="center" width=40%}
 
 ::: {.fragment}
 ![](tidy-data-images/relational_data_models/ER_diagram_2.png){fig-align="center" width=50%}
@@ -343,12 +353,23 @@ Add the variables as a list inside each box. Then, identify the primary and fore
 - Draw a line between the boxes of any two entities that have a relationship.
 
 - Identify  which box has the primary key of the other as a foreign key. Let’s call the box that has the foreign key [box1] and the other box [box2].
-Using the previous diagram we can see that “site” is the primary key of [sites] and appears as a foreign key in [plants]. So [plants] is [box1] and [sites] is [box2]. 
-
-- Add a word describing how [box1] is related to [box2] above the line connecting the two boxes. So, for example, we need to describe how [plants] is related to [sites]. The relation is “a plant is located in a site”, so we write “located” above the line indicating the relationship between [plants] and [sites].
 
 ::: {.fragment}
-![](tidy-data-images/relational_data_models/ER_diagram_3.png){fig-align="center" width=50%}
+![](tidy-data-images/relational_data_models/ER_diagram_6.png){fig-align="center" width=70%}
+
+:::
+
+##
+
+*Step 3: Add relationships between entities. (continued)*
+
+Add a word describing how [box1] is related to [box2] above the line connecting the two boxes. So, for example, we need to describe how [plants] is related to [sites]. 
+
+
+::: {.fragment}
+The relation is “a plant is located in a site”, so we write “located” above the line indicating the relationship between [plants] and [sites].
+
+![](tidy-data-images/relational_data_models/ER_diagram_3.png){fig-align="center" width=70%}
 :::
 
 ##
@@ -413,27 +434,28 @@ Sometimes people represent joins as Venn diagrams, showing which parts of the le
 
 # Best Practices Summary
 
-##
-
-This is a summary of what we have covered, and some extra advice!
+## Summary
 
 The **tidy data principles** are:
 
-1. Every column is a variable.
-2. Every row is an observation.
-3. Every cell is a single value.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1) Every column is a variable.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2) Every row is an observation.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) Every cell is a single value.
 
 In **normalized data** we organize data so that :
 
-- We have separate tables for each type of entity measured
-- Observations (rows) are all unique
-- Each column represents either an identifying variable or a measured variable
-- Each table follows the tidy data principles
+1. We have separate tables for each type of entity measured  
 
-Creating **relational data models** by assigning **primary and foreign keys** to each table allows us to maintain relationships between separate normalized tables. 
-Choose the primary key for each table based on your understanding of the data and take efficiency into account. Once you choose a column as the primary key, make sure that all the values in that column are there! 
+2. Observations (rows) are all unique  
 
-For a big relational database, an **Entity-Relationship model** can be an effective way to explain how different tables and their keys are related to each other. If we need to merge tables we can do it using different types of **joins**. 
+3. Each column represents either an identifying variable or a measured variable
+
+4. Each table follows the tidy data principles
+
+**Relational data models** with **primary and foreign keys** in each table allow us to maintain relationships between separate normalized tables. 
+Choose primary keys based on your understanding of the data and take efficiency into account.
+
+An **Entity-Relationship model** can be an effective way to explain how different tables and their keys are related. If we need to merge tables we can do it using different types of **joins**. 
 
 # Activity
 
