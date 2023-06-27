@@ -145,7 +145,7 @@ So, if we wanted to call the `stats` version of `filter()` in this Rmarkdown doc
 ::: callout-note
 ## Note
 
-Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages.
+Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages by adding `#| warning: false`.
 :::
 
 Now that we have introduced some data wrangling libraries, let's get the data that we are going to use for this lesson.
