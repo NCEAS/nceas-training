@@ -241,9 +241,11 @@ The main way in which relational data models encode relationships between differ
 
 For tidy data, where variables and columns are equivalent, a column is a key if it has a different value in each row. This allows us to use keys as unique identifiers that reference particular observations and create links across tables. 
 
+::: {.fragment}
 Two types of keys are common within relational data models:
 
 - **Primary Key**: chosen key for a table, uniquely identifies each observation in the table, 
+:::
 
 ::: {.fragment}
 - **Foreign Key**: reference to a primary key in another table, used to create links between tables.
@@ -266,17 +268,17 @@ Remeber:
 
 **Example - Primary keys**
 
-Notice that the columns ‘date’, ‘site’ and ‘sp_code’ cannot be primary keys because they have repeated values across rows. 
+‘date’, ‘site’ and ‘sp_code’ cannot be primary keys because they have repeated values across rows. 
 
-The columns ‘sp_height’ and ‘id’ both have different values in each row, so both are candidates for primary keys. 
+‘sp_height’ and ‘id’ both have different values in each row, so both are candidates for primary keys. 
 
-However, the decimal values of ‘sp_height’ don’t make it as useful for referencing observations. 
+the decimal values of ‘sp_height’ don’t make it as useful for referencing observations. 
 
 So we chose ‘id’ as the primary key for this table.
 
 For the sites table, all three columns could be keys. We chose ‘site’ as the primary key because it is the most succinct and it also allows us to link the sites table with the plants table.
 
-![](tidy-data-images/relational_data_models/primary_keys.png)
+![](tidy-data-images/relational_data_models/primary_keys.png){fig-align="center"}
 
 ## 
 
@@ -284,18 +286,18 @@ For the sites table, all three columns could be keys. We chose ‘site’ as the
 
 The 'site' column is the *primary key* of that table because it uniquely identifies each row of the table as a unique observation of a site. In the first table, however, the 'site' column is a *foreign key* that references the primary key from the second table. This linkage tells us that the first height measurement for the DAPU observation occurred at the site with the name Taku.
 
-![](tidy-data-images/relational_data_models/primary_foreign_keys.png)
+![](tidy-data-images/relational_data_models/primary_foreign_keys.png){fig-align="center"}
 
 ## Surrogate and natural keys
-
-In the plants data table from the previous example, we noticed that ‘id’ and ‘sp_height’ are variables whose values uniquely identify the rows. In other words, ‘id’ and ‘sp_height’ are keys. However, ‘id’ and ‘sp_height’ are very different keys since the values in ‘id’ are “made up”, while ‘sp_height’ has actual observed values. This leads us to the following key types:
 
 - **Surrogate Key**:  a key whose values do not exist in the real world,
 - **Natural Key**: a key whose values exist in the real world.
 
 A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
 
+::: {.fragment}
 ![](tidy-data-images/relational_data_models/surrogate_natural_keys.png)
+:::
 
 
 ## Compound keys
@@ -304,8 +306,9 @@ Finally, it can also be the case that a variable is not a key, but by combining 
 
 - **Compound Key**: a key that is made up of more than one variable. 
 
-
+::: {.fragment}
 ![](tidy-data-images/relational_data_models/compound_key.png){fig-align="center"}
+:::
 
 # Entity-Relationship models
 
@@ -390,10 +393,18 @@ To finish, we also indicate how many plants are related to a single site. Since 
 
 ##
 
-That’s it! The symbols we used at the end of the lines are called **ERD “crow’s foot”**. You can see all the existing ones together with an example in the next diagram.
+:::: {.columns}
 
-![](tidy-data-images/relational_data_models/ERD_Relationship_Symbols_Quick_Reference.png){fig-align="center"}
+::: {.column width="30%"}
+That’s it! 
 
+The symbols we used at the end of the lines are called **ERD “crow’s foot”**. You can see all the existing ones together with an example in the next diagram.
+:::
+
+::: {.column width="70%"}
+![](tidy-data-images/relational_data_models/ERD_Relationship_Symbols_Quick_Reference.png){fig-align="center" width=75%}
+:::
+:::
 
 # Merging Data
 
