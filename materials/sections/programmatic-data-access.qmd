@@ -61,9 +61,9 @@ In theory, that code will work from anyone's computer with an internet connectio
 ```{r, contentid-pins}
 #| eval: true
 
-delta_sites_edi <- pins::pin('https://portal.edirepository.org/nis/dataviewer?packageid=edi.233.2&entityid=6a82451e84be1fe82c9821f30ffc2d7d')
+delta_sites_pin <- pins::pin(delta_sites_edi)
 
-delta_sites <- readr::read_csv(delta_sites_edi, show_col_types = FALSE)
+delta_sites <- readr::read_csv(delta_sites_pin, show_col_types = FALSE)
 head(delta_sites)
 ```
 
@@ -198,7 +198,7 @@ co2 <- read.table(vostok, col.names = c("depth", "age_ice", "age_air", "co2"), s
 head(co2)
 ```
 
-For this point forward, we can 
+From this point forward, we can view the repository sources that have a copy of the data associated with this content identifier:
 
 ```{r show_sources}
 contentid::sources(vostok_id)
