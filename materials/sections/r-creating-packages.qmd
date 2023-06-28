@@ -40,8 +40,7 @@ Thanks to the great [usethis](https://github.com/r-lib/usethis) package, it only
 ```{r, eval=FALSE}
 #| eval: false
 
-setwd('..')
-create_package("mytools")
+usethis::create_package("~/mytools")
 ```
 
     ✔ Setting active project to '/Users/jones/development/mytools'
@@ -62,7 +61,7 @@ including your own contact information.
 Information about choosing a LICENSE is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
 The DESCRIPTION file expects the license to be chose from a predefined list, but
 you can use it's various utility methods for setting a specific license file, such
-as the `Apacxhe 2` license:
+as the `MIT` license or the `Apache 2` license:
 
 ```{r}
 #| eval: false 
@@ -93,7 +92,7 @@ LazyData: true
 
 ### Add your code
 
-The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `cutsom_theme` that contains a function `custom_theme()` that you might want to reuse. The `usethis::use_r()` function will help set up you files in the right places.  For example, running:
+The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `custom_theme` that contains a function `custom_theme()` that you might want to reuse. The `usethis::use_r()` function will help set up you files in the right places.  For example, running:
 
 ```{r eval=FALSE}
 #| eval: false
@@ -117,7 +116,7 @@ custom_theme <- function(base_size = 9) {
       legend.position  = 'right',
       panel.border     = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major = ggplot2::element_line(colour = 'grey90', size = .25),
+      panel.grid.major = ggplot2::element_line(colour = 'grey90', linewidth = .25),
       legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
       axis.line        = ggplot2::element_blank()
       )
@@ -144,7 +143,7 @@ usethis::use_package("ggplot2")
 You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts. Be sure to define the overall purpose of the function, and each of its parameters.
 
 ```{r}
-#' A function set a custom ggplot theme.
+#' Set a custom ggplot theme.
 #'
 #' This function sets ggplot theme elements that I like, with the ability to change
 #' the base size of the text.
