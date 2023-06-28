@@ -178,7 +178,7 @@ custom_theme <- function(base_size = 9) {
       legend.position  = 'right',
       panel.border     = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major = ggplot2::element_line(colour = 'grey90', size = .25),
+      panel.grid.major = ggplot2::element_line(colour = 'grey90', linewidth = .25),
       legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
       axis.line        = ggplot2::element_blank()
       )
