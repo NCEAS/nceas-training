@@ -145,7 +145,7 @@ So, if we wanted to call the `stats` version of `filter()` in this Rmarkdown doc
 ::: callout-note
 ## Note
 
-Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages.
+Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages by adding `#| warning: false`.
 :::
 
 Now that we have introduced some data wrangling libraries, let's get the data that we are going to use for this lesson.
@@ -342,7 +342,7 @@ catch_clean <- catch_data %>%
     mutate(Chinook = if_else(condition = Chinook == "I", 
                              true = "1", 
                              false = Chinook),
-           Chinook = as.integer(Chinook))
+           Chinook = as.numeric(Chinook))
 
 ##check
 catch_clean[i, ]
@@ -369,8 +369,10 @@ head(catch_long)
 The syntax we used above for `pivot_longer()` might be a bit confusing so let's walk though it.
 
 - The first argument to `pivot_longer` is the columns over which we are pivoting. You can select these by listing either the names of the columns you do want to pivot, or in this case, the names of the columns you are not pivoting over. 
-- The `names_to` argument takes the name of the column that you are creating from the column **names** you are pivoting over. 
-- The `values_to` argument takes the name of the column that you are creating from the **values** in the columns you are pivoting over.
+
+- The `names_to` argument: this is the name of the column that you are creating from the column **names** of the columns you are pivoting over. 
+
+- The `values_to` argument: the name of the column that you are creating from the **values** in the columns you are pivoting over.
 
 The opposite of `pivot_longer()` is the `pivot_wider()` function. It works in a similar declarative fashion:
 
@@ -603,14 +605,14 @@ head(mean_region)
 
 ## Splitting a column using `separate()` and `unite()`
 
-The `separate()` function and its complement the `unite()` function allow us to easily split a single column into numerous (or numerous into a single).
+The `separate()` function allow us to easily split a single column into numerous. Its complement, the `unite()` function, allows ys to combine multiple columns into a single one.
 
 This can come in really handy when we need to split a column into two pieces by a consistent separator (like a dash).
 
-Let's make a new `tibble` with fake data to illustrate this. Here we have a set of site identification codes with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
+Let's make a new `data.frame` with fake data to illustrate this. Here we have a set of site identification codes with information about the island where the site is (the first 3 letters) and a site number (the 3 numbers). If we want to group and summarize by island, we need a column with just the island information.
 
 ```{r}
-sites_df <- tibble(site = c("HAW-101",
+sites_df <- data.frame(site = c("HAW-101",
                             "HAW-103",
                             "OAH-320",
                             "OAH-219",
@@ -646,7 +648,7 @@ cities_clean <- cities_df %>%
 ```
 
 
-The `unite()` function does just the reverse of `separate()`. If we have a data.frame that contains columns for year, month, and day, we might want to unite these into a single date column.
+The `unite()` function does just the reverse of `separate()`. If we have a `data.frame` that contains columns for year, month, and day, we might want to unite these into a single date column.
 
 ```{r}
 dates_df <- data.frame(
@@ -675,10 +677,6 @@ We just ran through the various things we can do with `dplyr` and `tidyr` but if
 catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
                                method = "libcurl"))
 
-region_defs <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", 
-                            method = "libcurl")) %>% 
-    select(code, mgmtArea)
-
 mean_region <- catch_original %>%
   select(-All, -notesRegCode) %>% 
   mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
@@ -688,7 +686,8 @@ mean_region <- catch_original %>%
                values_to = "catch") %>%
   mutate(catch = catch*1000) %>% 
   group_by(Region) %>% 
-  summarize(mean_catch = mean(catch))
+  summarize(mean_catch = mean(catch)) %>% 
+  arrange(desc(mean_catch))
 
 head(mean_region)
 ```

@@ -30,7 +30,7 @@ When we want to document our values, we must think of the best way to organize t
 ### What is tidy data?
 
 Tidy data is a standardized way of organizing data tables that allows us to manage and analyze data efficiently, because it makes it straightforward to understand the corresponding variable and observation of each value.
-The [**tidy data principles**](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)  are:
+The <a href=https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html target="_blank"> **tidy data principles** </a>  are:
 
 1. Every column is a variable.
 2. Every row is an observation.
@@ -99,7 +99,7 @@ It shows data about species observed at a specific site and date. The column hea
 - *name*: site’s name
 - *altitude*: site’s altitude
 - *sp1code*, *sp2code*: species code for two plants observed 
-- *sp1height*, *sp2height*: height of the animals observed
+- *sp1height*, *sp2height*: height of the plants observed
 
 Take a moment to see why this is not tidy data.
 
@@ -107,7 +107,7 @@ Take a moment to see why this is not tidy data.
 
 ##### Multiple Observations 
 Remember that an observation is all the values measured for an individual **entity**. 
-If our entity is a single observed animal, then the values we measured are date and site of observation, the temperature, and the species code and height. 
+If our entity is a single observed plant, then the values we measured are date and site of observation, the altitude, and the species code and height. 
 This table breaks the second tidy data principles: Every row is an observation. 
 
 ![](images/tidy-data-images/tidy_data/untidy_2.png)
@@ -150,7 +150,7 @@ If we use this information to normalize our data, we should end up with:
 
 Here’s how our normalized data would look like:
 
-![](images/tidy-data-images/data_normalization/normalized.png)
+![](images/tidy-data-images/data_normalization/normalized.png){fig-align="center" width=70%}
 
 Notice that each table also satisfies the tidy data principles. 
 
@@ -193,18 +193,18 @@ For the sites table, all three columns could be keys. We chose ‘site’ as the
 
 The 'site' column is the *primary key* of that table because it uniquely identifies each row of the table as a unique observation of a site. In the first table, however, the 'site' column is a *foreign key* that references the primary key from the second table. This linkage tells us that the first height measurement for the DAPU observation occurred at the site with the name Taku.
 
-![](images/tidy-data-images/relational_data_models/primary_foreign_keys.png)
+![](images/tidy-data-images/relational_data_models/primary_foreign_keys.png){fig-align="center" width=70%}
 
 ### Surrogate, natural, and compound keys
 
-In the plants data table from the previous example, we noticed that ‘id’ and ‘sp_height’ are variables whose values uniquely identify the rows. In other words, ‘id’ and ‘sp_height’ are keys. However, ‘id’ and ‘sp_height’ are very different keys since the values in ‘id’ are “made up”, while ‘sp_height’ has actual observed values. This leads us to the following key types:
+In the sites data table from the previous example, we noticed that ‘site’ and ‘name’ are variables whose values uniquely identify the rows. In other words, ‘site’ and ‘name’ are keys. However, ‘site’ and ‘name’ are very different keys since the values in ‘site’ are “made up”, while ‘name’ has values that are used in the external world, unrelated to the table. This leads us to the following key types:
 
 - **Surrogate Key**:  a key whose values do not exist in the real world,
 - **Natural Key**: a key whose values exist in the real world.
 
 A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
 
-![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png)
+![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png){fig-align="center" width=70%}
 
 Finally, it can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows. This is called a
 
@@ -214,7 +214,7 @@ For example, the ‘site’ and ‘sp_code’ columns in the plants table cannot
 
 ![](images/tidy-data-images/relational_data_models/compound_key.png)
 
-There are different advantages and disadvantages to choosing surrogate, natural, or compound keys as primary keys. You can read more about this in [this article](https://www.databasestar.com/database-keys/).
+There are different advantages and disadvantages to choosing surrogate, natural, or compound keys as primary keys. You can read more about this in <a href=https://www.databasestar.com/database-keys/ target="_blank"> this article</a>.
 
 ### Entity-Relationship models
 
@@ -258,7 +258,7 @@ That’s it! The symbols we used at the end of the lines are called **ERD “cro
 ![](images/tidy-data-images/relational_data_models/ERD_Relationship_Symbols_Quick_Reference.png)
 
 ::: callout-note
-If you need to produce a publishable E-R model such as the one above, [Mermaid](https://mermaid.js.org/intro/) is a great option. Read more about how to use this tool to create diagrams [here](https://mermaid.js.org/syntax/entityRelationshipDiagram.html).
+If you need to produce a publishable E-R model such as the one above, <a href=https://mermaid.js.org/intro/ target="_blank"> Mermaid </a> is a great option. Read more about how to use this tool to create diagrams <a href=https://mermaid.js.org/syntax/entityRelationshipDiagram.html target="_blank"> here </a>.
 :::
 
 ## Merging Data
@@ -294,7 +294,7 @@ Sometimes people represent joins as Venn diagrams, showing which parts of the le
 
 ![Image source: R for Data Science, Wickham & Grolemund.](images/tidy-data-images/merging_data/join-venn.png)
 
-We suggest [this resource](https://r4ds.had.co.nz/relational-data.html#join-problems) for more examples and best practices about joins.
+We suggest reading<a href=https://r4ds.had.co.nz/relational-data.html#join-problems target="_blank"> the Relational Data chapter in the "R for Data Science" book </a> for more examples and best practices about joins.
 
 ## Best Practices Summary
 This is a summary of what we have covered, and some extra advice!
@@ -318,7 +318,7 @@ Choose the primary key for each table based on your understanding of the data an
 For a big relational database, an **Entity-Relationship model** can be an effective way to explain how different tables and their keys are related to each other. If we need to merge tables we can do it using different types of **joins**. 
 
 ## More on Data Management
-Tidy data is one very important step to data management best practices. However there is more to consider. Here we provide some **extra advice** from a great paper called ['Some Simple Guidelines for Effective Data Management'](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9623-90.2.205):
+Tidy data is one very important step to data management best practices. However there is more to consider. Here we provide some **extra advice** from a great paper called <a href=https://esajournals.onlinelibrary.wiley.com/doi/full/10.1890/0012-9623-90.2.205 target="_blank"> 'Some Simple Guidelines for Effective Data Management'</a>.
 
 - Design tables to add rows, not columns
 - Use a scripted program (like R!)
@@ -331,4 +331,7 @@ Tidy data is one very important step to data management best practices. However 
 In the Cleaning & Wrangling chapter we will cover more best practices for cleaning irregular and missing data and how to implement them using R. 
 
 ## Activity
+We will work on an in-person, offline activity to practice identifying tidy data, normalizing data, draing E-R models, and performing joins. The data tables we will use  have been adapted from the following dataset for teaching purposes:
+
+Warren, P.S., A. Kinzig, C.A. Martin, and L. Machabee. 2021. Ecological and social Interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area ver 10. Environmental Data Initiative. <a href=https://doi.org/10.6073/pasta/f6f004bc7112ce266fde2b80fad19ff4 target="_blank"> https://doi.org/10.6073/pasta/f6f004bc7112ce266fde2b80fad19ff4 </a> (Accessed 2023-06-28).
 
