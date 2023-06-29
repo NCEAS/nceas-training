@@ -92,6 +92,28 @@ Now, create a function named `celsius_to_fahr` that does the reverse, it takes t
 
 Did you encounter any issues with rounding or precision?
 
+::: {.callout-note collapse=true}
+
+#### Solution, but don't peek! {.unnumbered}
+
+Don't peek until you write your own...
+
+```{r}
+#| label: f2c-func-solution
+
+# Your code goes here
+celsius_to_fahr <- function(celsius) {
+    fahr <- celsius*9/5 + 32
+    return(fahr)
+}
+
+result <- celsius_to_fahr(celsius)
+airtemps == result
+```
+
+:::
+
+
 ### Documenting R functions
 
 Functions need documentation so that we can communicate what they do, and why. The `roxygen2` package provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
@@ -123,23 +145,6 @@ Note the use of the `@param` keyword to define the expectations of input data, a
 -   Functions are useful to reduce redundancy, reuse code, and reduce errors
 -   Build functions with the `function` function
 -   Document functions with `roxygen2` comments
-
-#### Spoiler -- the exercise answered {.unnumbered}
-
-Don't peek until you write your own...
-
-```{r}
-#| label: f2c-func-solution
-
-# Your code goes here
-celsius_to_fahr <- function(celsius) {
-    fahr <- celsius*9/5 + 32
-    return(fahr)
-}
-
-result <- celsius_to_fahr(celsius)
-airtemps == result
-```
 
 ### Examples: Minimizing work with functions
 
