@@ -1,7 +1,5 @@
 ## Learning Objectives {.unnumbered}
 
-In this lesson, we will:
-
 - Discuss the concept of reproducible workflows including computational reproducibility and provenance metadata
 - Learn how to use R to package your work by building a reproducible paper in RMarkdown
 - Introduce tools and techniques for reproducibility supported by the NCEAS and DataONE
@@ -123,6 +121,7 @@ Research compendium makes it easy for researchers to do their work but also for 
 
 - [R](https://www.r-project.org/)
 - [RMarkdown](https://rmarkdown.rstudio.com/)
+- [Quarto](https://quarto.org/)
 - [git](https://git-scm.com/) and [GitHub](https://github.com)
 
 Fortunately for us, Ben Marwick (and others) have written an R package called [rrtools](https://github.com/benmarwick/rrtools) that helps us create a research compendium from scratch.
@@ -249,7 +248,7 @@ Things we can do with our research compendium:
 -   Write out any figures in `./analysis/figures`
 
 
-You can then write all of your R code in your RMarkdown, and generate your manuscript all in the format needed for your journal (using it's .csl file, stored in the paper directory).
+You can then write all of your R code in your RMarkdown/Quarto, and generate your manuscript all in the format needed for your journal (using it's .csl file, stored in the paper directory).
 
 
 
@@ -293,17 +292,17 @@ You can then write all of your R code in your RMarkdown, and generate your manus
 
 - If we look at the Dockerfile (example below), it calls to `renv::restore()`, as described above. 
 
-- The last line of the docker file renders our RMarkdown reproducible paper!
+- The last line of the docker file renders our Quarto/RMarkdown reproducible paper!
 
 
 ```
 # get the base image, the rocker/verse has R, RStudio and pandoc
-FROM rocker/verse:4.1.0
+FROM rocker/verse:4.2.2
 
 # required
-MAINTAINER Jeanette Clark <jclark@nceas.ucsb.edu>
+MAINTAINER Your Name <your_email@somewhere.com>
 
-COPY . /mypaper
+COPY . /<REPO>
 
 # go into the repo directory
 RUN . /etc/environment \
@@ -313,11 +312,12 @@ RUN . /etc/environment \
   && sudo apt-get install libudunits2-dev -y \
   # build this compendium package
   && R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
-  && R -e "install.packages(c('renv', 'rmarkdown'))" \
+  && R -e "remotes::install_github(c('rstudio/renv', 'quarto-dev/quarto-r'))" \
   # install pkgs we need
   && R -e "renv::restore()" \
-  # render the manuscript into a pdf,
-  && R -e "rmarkdown::render('mypaper/analysis/paper/paper.Rmd')"
+  # render the manuscript into a docx, you'll need to edit this if you've
+  # customised the location and name of your main qmd file
+  && R -e "quarto::quarto_render('/<REPO>/analysis/paper/paper.qmd')"
 ```
 
 - After running `rrtools::use_dockerfile()`, the package also sets up GitHub Actions for you. 
