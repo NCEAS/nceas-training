@@ -285,7 +285,7 @@ You can then write all of your R code in your RMarkdown, and generate your manus
 
 **In practice**
 
-- Once you have your research compendium, you can called `rrtools::use_dockerfile()` 
+- Once you have your research compendium, you can called `rrtools::use_dockerfile()`. If needed, re-install `rrtools` directly from GitHub `remotes::install_github("benmarwick/rrtools")`
 
 - This, first creates a Dockerfile that loads a standard image for using R with the tidyverse, 
 
@@ -349,14 +349,9 @@ By combining data, code and the compute environment, tales allow researchers to:
 - Achieve computational reproducibility 
 - “Set the default to reproducible.”
 
-They also empower users to verify and extend results with different data, methods, and environments. You can browse existing tales, run and interact with published tales and create new tales via the [Whole Tale Dashboard](https://dashboard.wholetale.org/browse). 
-
-![](images/Tale-browser.png)
-
-By integrating with DataONE and Dataverse, Whole Tale includes over 90 major research repositories from which a user can select datasets to make those datasets the starting point of an interactive data exploration and analysis inside of one of the Whole Tale environments. DataONE, is adding functionality to work with data in the Whole Tale environment directly from the dataset landing page.
 
 
-**Full circle reproducibility can be achieved by publishing data, code AND the environment.**
+**Full circle reproducibility can be achieved by publishing data, code AND the computational environment.**
 
 ### Resources
 
