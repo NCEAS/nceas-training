@@ -107,8 +107,10 @@ Take a moment to see why this is not tidy data.
 
 ##### Multiple Observations 
 Remember that an observation is all the values measured for an individual **entity**. 
+
 If our entity is a single observed plant, then the values we measured are date and site of observation, the altitude, and the species code and height. 
 This table breaks the second tidy data principles: Every row is an observation. 
+
 
 ![](images/tidy-data-images/tidy_data/untidy_2.png)
 

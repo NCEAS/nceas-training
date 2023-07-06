@@ -304,6 +304,7 @@ Your package is now available for use in your local environment.
 
 - **CRAN**: If your package might be broadly useful, also consider releasing it to CRAN, using the `release()` method from `devtools()`. Releasing a package to CRAN requires a significant amount of work to ensure it follows the standards set by the R community, but it is entirely tractable and a valuable contribution to the science community.  If you are considering releasing a package more broadly, you may find that the supportive community at [ROpenSci](https://ropensci.org) provides incredible help and valuable feeback through their onboarding process.
 
+
 - **R-Universe**: A newer approach is to link your package release to [R-Universe](https://r-universe.dev), which is an effective way to make it easy to test and maintain packages so that many people can install them using the familiar `install.pacakges()` function in R. In R-Universe, people and organizations can [create their own *universe* of packages](https://github.com/r-universe-org/help#how-to-setup-your-personal-universe), which represent a collection of packages that appear as a CRAN-compatible repository in R. For example, in DataONE we maintaine the DataONE R-Universe (https://dataoneorg.r-universe.dev), which lists the packages we actively maintain as an organization. So, any R-user that wants to install these packages can do so by adding our universe to their list of repositories, and then installing packages as normal. For example, to install the `codyn` package, one could use:
 
 ```{r}

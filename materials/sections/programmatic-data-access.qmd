@@ -200,6 +200,7 @@ head(co2)
 
 From this point forward, we can view the repository sources that have a copy of the data associated with this content identifier:
 
+
 ```{r show_sources}
 contentid::sources(vostok_id)
 ```
