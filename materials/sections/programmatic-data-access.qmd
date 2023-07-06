@@ -198,7 +198,6 @@ co2 <- read.table(vostok, col.names = c("depth", "age_ice", "age_air", "co2"), s
 head(co2)
 ```
 
-
 From this point forward, we can view the repository sources that have a copy of the data associated with this content identifier:
 
 
