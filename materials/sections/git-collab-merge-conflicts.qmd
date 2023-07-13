@@ -1,71 +1,43 @@
 ## Learning Objectives {.unnumbered}
 
-- How to use `Git` and GitHub to collaborate with colleagues on code
-- What typically causes conflicts when collaborating
-- How to resolve a conflict
-- Workflows to avoid conflicts
+- Apply the principles, features, and collaboration tools of `Git` and GitHub to effectively collaborate with colleagues on code
+- Analyze and evaluate common causes of conflicts that arise when collaborating on repositories 
+- Demonstrate the ability to resolve conflicts using `Git` conflict resolution techniques
+- Apply workflows and best practices that minimize conflicts on collaborative repositories
 
-## Introduction
+## Introduction to `Git` and GitHub Tools for Collaboration
 
-`Git` is a great tool for working on your own, but even better for working with friends
-and colleagues.  `Git` allows you to work with confidence on your own local copy of files
-with the confidence that you will be able to successfully synchronize your changes
-with the changes made by others.
+[![Artwork by Allison Horst](images/allison-horst-jenny-bryan-quote.png)](https://twitter.com/allison_horst)
 
-The simplest way to collaborate with `Git` is to use a shared repository on a hosting
-service such as [GitHub](https://github.com), and use this shared repository as
-the mechanism to move changes from one Collaborator to another.  While there are other
-more advanced ways to sync `Git` repositories, this "hub and spoke" model works really 
-well due to its simplicity.
+`Git` is not only a powerful tool for individual work but also an excellent choice for collaborating with friends and colleagues. `Git` ensures that after you've completed your contributions to a repository, you can confidently synchronize your changes with changes made by others.
 
-In this model, the Collaborator will `clone` a copy of the Owner's repository from
+One of the easiest and most effective ways to collaborate using `Git` is by utilizing a shared repository on a hosting service like [GitHub](https://github.com). This shared repository acts as a central hub, enabling collaborators to effortlessly exchange and merge their changes. With `Git` and a shared repository, you can collaborate seamlessly and work confidently, knowing that your changes will be integrated smoothly with those of your collaborators.
+
+[![Graphic from Atlassian](images/git-collab-repos.svg)](https://www.atlassian.com/git/tutorials/syncing){width="80%" fig-align="center"}
+
+There are many advanced techniques for synchronizing `Git` repositories, but let's start with a simple example.
+
+In this example, the Collaborator will `clone` a copy of the Owner's repository from
 GitHub, and the Owner will grant them Collaborator status, enabling the Collaborator
 to directly pull and push from the Owner's GitHub repository.
 
-![](images/github-workflows-collab.png){width="80%" fig-align="center"}
-
 ## Collaborating with a trusted colleague **without conflicts**
 
-We start by enabling collaboration with a trusted colleague. We will designate the Owner as the person who owns the shared repository, and the Collaborator as the person that they wish to grant the ability to make changes to their repository. We start by giving that person access to our GitHub repository.
+We start our collaboration by giving a trusted colleague access to our repository on GitHub. In this example, we define the **Owner as the individual who owns the repository**, and the **Collaborator as the person whom the Owner chooses to give permission to make changes to their repository**.
 
-::: callout-tip
-### Setup
+The Collaborator will make changes to the repository and then `push` those changes to the shared repository on GitHub. The Owner will then use `pull` to retrieve the changes without encountering any conflicts. This is the most ideal workflow. 
 
-- Get into pairs, then choose one person as the Owner and one as the Collaborator
-- Both logon to [GitHub](https://github.com)
+The instructors will demonstrate this process in the next section.
 
-These next steps are for the Owner:
+### Step 0: Owner adds Collaborator to shared repository {.unnumbered}
 
-- Navigate to the `{FIRSTNAME}_test` repository
-- Go to "Settings" and navigate to "Collaborators" in the "Access" section on the left-hand side
-- Under "Manage Access" click the button "Add people" and type the username of your Collaborator in the search box
-- Once you've found the correct username, click "Add {Collaborator username} to this repository
+The Owner must change the settings of the repository and give the Collaborator access to the repository by inviting them as a collaborator to the repository. Once the Collaborator has accepted the invite, they can contribute to the repository.
 
 ![](images/github-collaborators.png){width="80%" fig-align="center"}
 
-Now, the Collaborator will follow this step:
-
-- Check your email for an invitation to GitHub or check your notifications (likely under "Your Organizations") on GitHub to accept the invite to collaborate.
-:::
-
-::: {.callout-caution icon=false}
-### Last thing, some `Git` configuration
-
-When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
-
-```{.bash}
-git config pull.rebase false
-```
-
-`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
-:::
-
-We will start by having the Collaborator make some changes and share those with the Owner without generating any conflicts, In an ideal world, this would be the normal workflow. The instructors are going to demonstrate this in the next section.
-
 ### Step 1: Collaborator clone {.unnumbered}
 
-To be able to contribute to a repository, the Collaborator
-must clone the repository from the **Owner's** GitHub account. To do this, the Collaborator should visit the GitHub page for the Owner's repository, and then copy the clone URL. In R Studio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
+To be able to contribute to a repository, the Collaborator must clone the repository from the **Owner's** GitHub account. To do this, the Collaborator should visit the GitHub page for the Owner's repository, and then copy the clone URL. In R Studio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
 
 ![](images/github-clone-url-owner.png)
 
@@ -99,13 +71,44 @@ while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
 The Collaborator can now `pull` down those Owner changes, 
 and all copies are once again fully synced.  And you're off to collaborating.
 
-### Exercise: With a partner, collaborate in a repository using a conflict-free process {.unnumbered}
+## Exercise 1: With a partner collaborate in a repository without a merge conflict{#ex1-no-conflict}
+
+::: callout-tip
+### Setup
+
+- Get into pairs, then choose one person as the Owner and one as the Collaborator
+- Both logon to [GitHub](https://github.com)
+
+These next steps are for the Owner:
+
+- Navigate to the `{FIRSTNAME}_test` repository
+- Go to "Settings" and navigate to "Collaborators" in the "Access" section on the left-hand side
+- Under "Manage Access" click the button "Add people" and type the username of your Collaborator in the search box
+- Once you've found the correct username, click "Add {Collaborator username} to this repository
+
+![](images/github-collaborators.png){width="80%" fig-align="center"}
+
+Now, the Collaborator will follow this step:
+
+- Check your email for an invitation to GitHub or check your notifications (likely under "Your Organizations") on GitHub to accept the invite to collaborate.
+:::
+
+::: {.callout-caution icon=false}
+### Last thing, some `Git` configuration
+
+When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
+
+```{.bash}
+git config pull.rebase false
+```
+
+`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
+:::
 
 ::: callout-note
-#### Instructions
+### Instructions
 
-Now that the instructors have demonstrated this conflict-free process, break into 
-pairs and try the same with your partner. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
+You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
 - Step 0: Designate one person as the Owner and one as the Collaborator.
 
@@ -128,38 +131,43 @@ pairs and try the same with your partner. You will do the exercise twice, where 
 - Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository
 - Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
 - Step 3: Collaborator edits the `README` file:
-    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository" and adds the high level steps for creating a `Git` repository on GitHub
+    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository from an existing project" and adds the high level steps for this workflow
 - Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
 - Step 5: Owner pulls the changes that the Collaborator made
 - Step 6: Owner edits the `README` file:
-    - Under "How to Create a `Git` Repository", Owner adds the high level steps for creating a `Git` repository from an existing project on RStudio 
+    - Under "How to Create a `Git` Repository", Owner adds the high level steps for this workflow
 - Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
 - Step 8: Collaborator pulls the `Owners` changes from GitHub
 
 **Hint:** If you don't remember how to create a `Git` repository, refer to the chapter [Intro to `Git` and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two `Git` repositories
 :::
 
+## A Note on Advanced Collaboration Techniques
+
+There are many `Git` and GitHub collaboration techniques, some more advanced than others. We won't be covering advanced strategies in this course. But here is a table for your reference on a few popular `Git` collaboration workflow strategies and tools. 
+
+| Collaboration Technique | Benefits | When to Use | When Not to Use |
+|-------------------------|----------|-------------|-----------------|
+| Branch Management Strategies | 1. Enables parallel development and experimentation<br>2. Facilitates isolation of features or bug fixes<br>3. Provides flexibility and control over project workflows | When working on larger projects with multiple features or bug fixes simultaneously.<br>When you want to maintain a stable main branch while developing new features or resolving issues on separate branches.<br>When collaborating with teammates on different aspects of a project and later integrating their changes. | When working on small projects with a single developer or limited codebase.<br>When the project scope is simple and doesn't require extensive branch management.<br>When there is no need to isolate features or bug fixes. |
+| Code Review Practices | 1. Enhances code quality and correctness through feedback<br>2. Promotes knowledge sharing and learning within the team<br>3. Helps identify bugs, improve performance, and ensure adherence to coding standards | When collaborating on a codebase with team members to ensure code quality and maintain best practices.<br>When you want to receive feedback and suggestions on your code to improve its readability, efficiency, or functionality.<br>When working on critical or complex code that requires an extra layer of scrutiny before merging it into the main branch. | When working on personal projects or small codebases with no collaboration involved.<br>When time constraints or project size make it impractical to conduct code reviews.<br>When the codebase is less critical or has low complexity. |
+| Forking                 | 1. Enables independent experimentation and development<br>2. Provides a way to contribute to a project without direct access<br>3. Allows for creating separate, standalone copies of a repository | When you want to contribute to a project without having direct write access to the original repository.<br>When you want to work on an independent variation or extension of an existing project.<br>When experimenting with changes or modifications to a project while keeping the original repository intact. | When collaborating on a project with direct write access to the original repository.<br>When the project does not allow external contributions or forking.<br>When the project size or complexity doesn't justify the need for independent variations. |
+| Pull Requests           | 1. Facilitates code review and discussion<br>2. Allows for collaboration and feedback from team members<br>3. Enables better organization and tracking of proposed changes | When working on a shared repository with a team and wanting to contribute changes in a controlled and collaborative manner.<br>When you want to propose changes to a project managed by others and seek review and approval before merging them into the main codebase. | When working on personal projects or individual coding tasks without the need for collaboration.<br>When immediate changes or fixes are required without review processes.<br>When working on projects with a small team or single developer with direct write access to the repository. |
+
+: {tbl-colwidths="[15,28,28,28]"}
+
+The "When Not to Use" column provides insights into situations where it may be less appropriate to use each collaboration technique, helping you make informed decisions based on the specific context and requirements of your project.
+
+These techniques provide different benefits and are used in various collaboration scenarios, depending on the project's needs and team dynamics.
 
 ## Merge conflicts
 
-So things can go wrong, which usually starts with a **merge conflict**, due to 
-both collaborators making incompatible changes to a file. While the error messages
-from merge conflicts can be daunting, getting things back to a normal state can be
-straightforward once you've got an idea where the problem lies.
+**Merge conflicts** occur when both collaborators make conflicting changes to the same file. Resolving merge conflicts involves identifying the root of the problem and restoring the project to a normal state. Good communication, discussing file sections to work on, and avoiding overlaps can help prevent merge conflicts. However, if conflicts do arise, `Git` warns about potential issues and ensures that changes from different collaborators based on the same file version are not overwritten. To resolve conflicts, you need to explicitly specify whose changes should be used for each conflicting line in the file.
 
-A merge conflict occurs when both the Owner and Collaborator change the same
-lines in the same file without first pulling the changes that the other has made.
-This is most easily avoided by good communication about who is working on various
-sections of each file, and trying to avoid overlaps.  But sometimes it happens, 
-and `Git` is there to warn you about potential problems.  And `Git` will not allow
-you to overwrite one person's changes to a file with another's changes to the same
-file if they were based on the same version.
+In this image, we see collaborators `mbjones` and `metamattj` have both made changes to the same line in the same `README.md` file. This is causing a merge conflict because `Git` doesn't know whose changes came first. To resolve it, we need to tell `Git` whose changes to keep for that line, and whose changes to discard. 
 
 ![](images/git-conflict-00-lines-changed.png)
 
-The main problem with merge conflicts is that, when the Owner and Collaborator
-both make changes to the same line of a file, `Git` doesn't know whose changes
-take precedence.  You have to tell `Git` whose changes to use for that line.
+
 
 ### Common ways to resolve a merge conflict
 
@@ -307,11 +315,13 @@ branch, and the merged changes are clearly visible in the history.
 
 ![](images/git-conflict-08-history.png)
 
-### Exercise: With a partner, collaborate in a repository and resolve a merge conflict {.unnumbered}
+## Exercise 2: With a partner collaborate in a repository and resolve a merge conflict
+
+Note you will only need to complete the Setup and `Git` configuration steps again if you are working in a new repository. Return to [Exercise 1](@ex1-no-conflict) for Setup and `Git` configuration steps.
 
 ::: callout-note
 
-#### Instructions
+### Instructions
 
 Now it's your turn. In pairs, intentionally create a merge conflict, and then go through the steps needed to resolve the issues and continue developing with the merged files. See the sections above for help with each of the steps below. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
@@ -348,27 +358,26 @@ Now it's your turn. In pairs, intentionally create a merge conflict, and then go
 
 :::
 
-## Workflows to avoid merge conflicts
+## Best practices to avoid merge conflicts
 
-Some basic rules of thumb can avoid the vast majority of merge conflicts, saving 
-a lot of time and frustration. These are words our teams live by:
+Some basic rules of thumb can avoid the vast majority of merge conflicts, saving a lot of time and frustration. These are words our teams live by:
 
 ::: column-margin
 [![XKCD 1597](images/git-xkcd-comic.png)](https://xkcd.com/1597/)
 :::
 
-- Communicate often
+- Communicate often and set up effective communication channels
 - Tell each other what you are working on
-- Start you working session with a pull
-- Pull immediately before you commit or push
-- Commit often in small chunks
-- Make sure you and who your collaborating with all **fully** understand the `Git` workflow you're using aka make sure you're on the same page before you start!
+- Start your working session with a `pull`
+- `Pull` immediately before you `commit` or `push`
+- `Commit` often in small chunks (this helps you organize your work!)
+- Make sure you and who you are collaborating with all **fully** understand the `Git` workflow you're using aka make sure you're on the same page before you start!
 
 A good workflow is encapsulated as follows:
 
 ```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> Push```
 
-**Always start your working sessions with a `Pull` to get any outstanding changes, then
-start your work**. `Stage` your changes, but before you `Commit`, `Pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `Commit` and immediately `Push` your changes safely. 
+**Always start your working sessions with a `pull` to get any outstanding changes, then
+start your work**. `Stage` your changes, but before you `commit`, `pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `commit` and immediately `push` your changes safely. 
 
 Good luck, and try to not get frustrated. Once you figure out how to handle merge conflicts, they can be avoided or dispatched when they occur, but it does take a bit of practice.

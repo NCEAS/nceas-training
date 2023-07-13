@@ -1,37 +1,8 @@
----
-format: html
----
-
 ## Learning Objectives {.unnumbered}
 
 -   Introduce FAIR and CARE principles and the value it provides to data
 -   Provide a FAIR and CARE lens that can be applied to your data-focused work
 -   Evaluate the FAIRness and CAREness of your work and the work of others
-
-## But first, a reproducibility activity using LEGO®
-
-This activity is largely based on the [LEGO® Metadata for Reproducibility game pack](http://eprints.gla.ac.uk/196477/), which was developed by [Mary Donaldson](https://orcid.org/0000-0002-1936-3499) and [Matt Mahon](https://orcid.org/0000-0001-8950-8422).
-
-::: callout-tip
-## Setup
-
-1.  Get into groups
-2.  Get LEGO® blocks and template
-3.  Follow directions on template
-:::
-
-We'll return in about an hour to discuss as a group.
-
-<details>
-
-<summary>Activity Discussion</summary>
-
--   Did you find this a simple way to document your process?
--   Was there anything you found difficult to capture?
--   Did those replicating the builds find it straightforward to follow?
--   Did you encounter any ambiguity in the instructions?
-
-</details>
 
 ## The FAIR and CARE Principles
 
@@ -51,20 +22,20 @@ With the rise of open science and more accessible data, it is becoming increasin
 
 [![Source: Fair Teaching Handbook](images/FAIRsFAIR.png){width="80%" fig-align="center"}](https://fairsfair.gitbook.io/fair-teaching-handbook/)
 
-| FAIR                                                                                                                      | Definition                                                                                |
-|-----------------|-------------------------------------------------------|
-| **(F) Findable**                                                                                                          | Metadata and data should be easy to find for both humans and computers.                   |
-| **(A) Accessible**                                                                                                        | Once someone finds the required data, they need to know how the data can be accessed.     |
-| **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. | |                                                                                           |
-| **(R) Reusable**                                                                                                          | Data should be well-described so they can be reused and replicated in different settings. |
+| FAIR                  | Definition                                                                                    |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **(F) Findable**      | Metadata and data should be easy to find for both humans and computers.                       |
+| **(A) Accessible**    | Once someone finds the required data, they need to know how the data can be accessed.         |
+| **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. |
+| **(R) Reusable**      | Data should be well-described so they can be reused and replicated in different settings.     |
 
 ### FAIR Principles in Practice
 
-This is not an exhaustive list of actions for applying FAIR Principles to your research, but these are important big picture concepts you should always keep in mind. We'll be going through the resources linked below so that you know how to use them in your own work. 
+This is not an exhaustive list of actions for applying FAIR Principles to your research, but these are important big picture concepts you should always keep in mind. We'll be going through the resources linked below so that you know how to use them in your own work.
 
--   **It's all about the metadata.** To make your data and research as findable and as accessible as possible, it's crucial that you are providing rich metadata. This includes, using a field-specific metadata standard (i.e. EML or Ecological Metadata Language for earth and environmental sciences), adding a globally unique identifier (i.e. a Digital Object Identifier) to your datasets, and more. We'll be discussing more metadata best practices in a [later lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_14.html), but it's important to understand that quality metadata goes a long way in making your data FAIR. To help with this, researchers use a workflow called the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/).
+-   **It's all about the metadata.** To make your data and research as findable and as accessible as possible, it's crucial that you are providing rich metadata. This includes, using a field-specific metadata standard (i.e. EML or Ecological Metadata Language for earth and environmental sciences), adding a globally unique identifier (i.e. a Digital Object Identifier) to your datasets, and more. As discussed in a [previous lesson](https://learning.nceas.ucsb.edu/2023-06-delta/session_05.html), quality metadata goes a long way in making your data FAIR. One tool to help implement FAIR principles to non-FAIR data is the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/). This workflow was developed by GoFAIR, a self-governed initiative that aims to help implement the FAIR data principles.
 -   **Assess the FAIRness of your research.** The FAIR Principles are a lens to apply to your work. And it's important to ask yourself questions about finding and accessing your data, about how machine-readable your datasets and metadata are, and how reusable it is throughout the entirety of your project. This means you should be re-evaluating the FAIRness of your work over and over again. One way to check the FAIRness of your work, is to use tools like [FAIR-Aware](https://fairaware.dans.knaw.nl/) and the [FAIR Data Maturity Model](https://zenodo.org/record/3909563#.ZCC5kuzMJb_). These tools are self-assessments and can be thought of as a checklists for FAIR and will provide guidance if you're missing anything.
--   **Make FAIR decisions during the planning process.** You can ensure FAIR Principles are going to implemented in your work by thinking about it and making FAIR decisions early on. A way to document this planning process, is by writing a Data Management Plan (DMP). We'll talk more about DMPs in a [later lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_14.html#writing-data-management-plans-dmps), but know that all aspects of FAIR can be documented in a DMP.
+-   **Make FAIR decisions during the planning process.** You can ensure FAIR Principles are going to implemented in your work by thinking about it and making FAIR decisions early on and throughout the data life cycle. As you document your data always keep in mind the FAIR lense.
 
 ### What is CARE?
 
@@ -73,7 +44,7 @@ The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Gove
 [![Source: Carroll, S.R., et al, 2020. The CARE Principles for Indigenous Data Governance](images/CAREsCARE.png){width="80%" fig-align="center"}](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
 
 | CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
-|-------------|-----------------------------------------------------------|
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **(C) Collective Benefit**   | Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data.                                                                                                                                                                                                                                                                        |
 | **(A) Authority to Control** | Indigenous Peoples' rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledge and geographical indicators, are represented and identified within data. |
 | **(R) Responsibility**       | Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples' self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.                                                                                        |
@@ -81,18 +52,37 @@ The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Gove
 
 ### CARE Principles in Practice
 
-- **Make your data access to Indigenous groups**. Much of the CARE Principles are about sharing and making data accessible to Indigenous Peoples. To do so, consider publish your data on Indigenous founded data repositories such as:
-    - [Collaborative Indigenous Research Digital Garden (CIRDG)](https://www.oise.utoronto.ca/collaborativeindigenousresearch/research)
-    - [Mukurtu Wumpurrarni-kari Archive](https://mukurtu.org/about/)
-    
-- **Use Traditional Knowledge (TK) and Biocultural (BC) Labels** How do we think of intellectual property for Traditional and Biocultural Knowledge? Knowledge that outdates any intellectual property system. In many cases institution, organizations, outsiders hold the copy rights of this knowledge and data that comes from their lands, territories, waters and traditions. Traditional Knowledge and Biocultural Labels are digital tags that establish Indigenous cultural authority and governance over Indigenous data and collections by adding provenance information and contextual metadata (including community names), protocols, and permissions for access, use, and circulation. This way mark cultural authority so is recorded in a way that recognizes the inherent sovereignty that Indigenous communities have over knowledge. Giving Indigenous groups more control over their cultural material and guide users what an appropriate behavior looks like. A global initiative that support Indigenous communities with tools that attribute their cultural heritage is [Local Contexts](https://localcontexts.org/).
+-   **Make your data access to Indigenous groups**. Much of the CARE Principles are about sharing and making data accessible to Indigenous Peoples. To do so, consider publish your data on Indigenous founded data repositories such as:
 
+    -   [Collaborative Indigenous Research Digital Garden (CIRDG)](https://www.oise.utoronto.ca/collaborativeindigenousresearch/research)
+    -   [Mukurtu Wumpurrarni-kari Archive](https://mukurtu.org/about/)
 
-- **Assess the CAREness of your research.** Like FAIR, CARE Principles are a lens to apply to your work. With CARE, it's important to center human well-being in addition to open science and data sharing. To do this, reflect on how you're giving access to Indigenous groups, on who your data impacts and the relationships you have with them, and the ethical concerns in your work. The Arctic Data Center, a data repository for Arctic research, now requires an [Ethical Research Practices Statement](https://arcticdata.io/all/blog/2022/04/applying-care-documenting-ethical-data-procedures-and-sensitive-data-at-the-arctic-data-center/) when submitting data to them. They also have multiple [guidelines](https://arcticdata.io/data-ethics/) on how to write and what to include in an Ethical Research Practices Statement.
+-   **Use Traditional Knowledge (TK) and Biocultural (BC) Labels** How do we think of intellectual property for Traditional and Biocultural Knowledge? Knowledge that outdates any intellectual property system. In many cases institution, organizations, outsiders hold the copy rights of this knowledge and data that comes from their lands, territories, waters and traditions. Traditional Knowledge and Biocultural Labels are digital tags that establish Indigenous cultural authority and governance over Indigenous data and collections by adding provenance information and contextual metadata (including community names), protocols, and permissions for access, use, and circulation. This way mark cultural authority so is recorded in a way that recognizes the inherent sovereignty that Indigenous communities have over knowledge. Giving Indigenous groups more control over their cultural material and guide users what an appropriate behavior looks like. A global initiative that support Indigenous communities with tools that attribute their cultural heritage is [Local Contexts](https://localcontexts.org/).
+
+-   **Assess the CAREness of your research.** Like FAIR, CARE Principles are a lens to apply to your work. With CARE, it's important to center human well-being in addition to open science and data sharing. To do this, reflect on how you're giving access to Indigenous groups, on who your data impacts and the relationships you have with them, and the ethical concerns in your work. The Arctic Data Center, a data repository for Arctic research, now requires an [Ethical Research Practices Statement](https://arcticdata.io/all/blog/2022/04/applying-care-documenting-ethical-data-procedures-and-sensitive-data-at-the-arctic-data-center/) when submitting data to them. They also have multiple [guidelines](https://arcticdata.io/data-ethics/) on how to write and what to include in an Ethical Research Practices Statement.
+
+## Thinking with CARE lenses
 
 ::: callout-note
 ## CARE Exercise
 
-Explore the Arctic Data Center's guidelines on writing an Ethical Research Practices Statement. Then write an Ethical Research Practices Statement for your current research. Switch statements with a partner and assess their statement.
+Explore the [Arctic Data Center's guidelines on writing an Ethical Research Practices Statement](https://arcticdata.io/data-ethics/). Then write an Ethical Research Practices Statement for your current research. Switch statements with a partner and assess their statement.
 :::
 
+## Evaluating FAIR
+
+::: callout-note
+## FAIR Exercise
+
+Now that we reviewed the FAIR principles in detail, go back to the EDI data package you looked into at the beginning of the week and carefully evaluate the FAIRness of the data package using our [Data package assesment rubric, Evidence for FAIR and CARE](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit).
+
+-   **Group A:** [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+
+-   **Group B:** [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+
+-   **Group C:** [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+
+-   **Group D:** [Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3)
+
+<!-- consider thia other data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1)-->
+:::

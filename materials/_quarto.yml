@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: " NCEAS Learning Hub's coreR Course"
+  title: "NCEAS Open Science Synthesis for the Delta Science Program"
   # date: "April 3, 2023"
   reader-mode: false
   
@@ -23,30 +23,31 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/core-r-course
+        href: https://github.com/NCEAS/nceas-training/tree/2023-06-delta
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # rstudio server setup
+    - session_01.qmd # rstudio server setup + mini intro to R programming
     - session_02.qmd # git setup
-    - session_03.qmd # why r programming +mini intro to R programming
-    - session_04.qmd # intro to rmd
-    - session_05.qmd # FAIR and CARE
-    - session_06.qmd # intro to git + github
-    - session_07.qmd # cleaning and wrangling data
-    - session_08.qmd # tidy data
-    - session_09.qmd # r practice: joins, tidy data
-    - session_10.qmd # git collab
-    - session_11.qmd # publish github pages
-    - session_12.qmd # intro data viz 
-    - session_13.qmd # r practice: wrangling, data viz, github pages
-    - session_14.qmd # combined dmp + metadata + publishing
-    - session_15.qmd # intro to sf + map making
-    - session_16.qmd # r practice: wrangling, sf, map
-    - session_17.qmd # git workflows
-    - session_18.qmd # reproducibility and provenance
+    - session_03.qmd # r intro to quarto
+    - session_04.qmd # LEGO® reproducibility activity
+    - session_05.qmd # Accesing and publishing data
+    - session_06.qmd # logic modeling
+    - session_10.qmd # synthesis
+    - session_09.qmd # data modeling essentials
+    - session_16.qmd # FAIR and CARE
+    - session_07.qmd # git and github intro
+    - session_08.qmd # programmatic data access
+    - session_13.qmd # synthesis
+    - session_11.qmd # clean and wrangle data
+    - session_12.qmd # r practice: clean and wrangling
+    - session_14.qmd # r functions
+    - session_15.qmd # r packages
+    - session_13.qmd # synthesis
+    - session_19.qmd # reproducible papers
+    
 
-# bibliography: references.bib
+bibliography: book.bib
       
 format:
   html:
