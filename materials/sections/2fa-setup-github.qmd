@@ -1,0 +1,53 @@
+## Learning Objectives {.unnumbered}
+
+-   Successfully setup two-factor authentication on GitHub
+-   Recognize two-factor authentication jargon
+
+## Why Set up Two-factor Authentication (2FA)
+
+1.  Prevents unauthorized access
+2.  Strengthens your web security, especially if you have a compromised password
+3.  It is an increasing requirement for most websites and online applications or services
+
+In March 2023, GitHub announced that it will require 2FA for "all developers who contribute code on GitHub.com" ([GitHub Blog](https://github.blog/2023-03-09-raising-the-bar-for-software-security-github-2fa-begins-march-13/)). This rollout will be completed by the end of 2023.
+
+All users have the flexibility to use their preferred 2FA method, including: TOTP, SMS, security keys, or GitHub Mobile app. GitHub strongly recommends using security keys and TOTPs. While SMS-based 2FA is available to use, it does not provide the same level of protection, and is no longer recommended under [NIST (National Institute of Standards and Technology) 800-63B](https://csrc.nist.gov/publications/detail/sp/800-63b/final).
+
+### Additional information about 2FA on GitHub:
+
+-   [Securing your account with two-factor authentication (2FA)](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa)
+-   [Configuring two-factor authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication)
+-   [Raising the bar for software security: GitHub 2FA begins March 13](https://github.blog/2023-03-09-raising-the-bar-for-software-security-github-2fa-begins-march-13/)
+-   [Software security starts with the developer: Securing developer accounts with 2FA](https://github.blog/2022-05-04-software-security-starts-with-the-developer-securing-developer-accounts-with-2fa/)
+
+::: {.callout-caution icon="false" title="For Your Reference"}
+Review the [Glossary](#glossary) table to see a comprehensive list of two-factor authentication related terms and definitions
+:::
+
+## Steps for Configuring 2FA Using a TOTP App
+
+::: {.callout-note title="Additional Resource"}
+GitHub outlines these steps online in an article: [Configuring two-factor authentication](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication).
+:::
+
+1.  Download a TOTP app
+2.  Navigate to your account Settings (click your profile photo in the top right-hand corner)
+3.  In the "Access" section, click "Password and Authenticate"
+4.  In the "Two-factor authentication" section, click Enable two-factor authentication
+5.  Under "Setup authenticator app", either:
+    a.  Scan the QR code with your TOTP app. After scanning, the app displays a six-digit code that you can enter on GitHub
+    b.  If you can't scan the QR code, click "enter this text code" to see a code that you can manually enter in your TOTP app instead
+6.  On GitHub, type the code into the field under "Verify the code from the app"
+7.  Under "Save your recovery codes", click "Download" to download your recovery codes. Save them to a secure location because your recovery codes can help you get back into your account if you lose access.
+    a.  After saving your two-factor recovery codes, click "I have saved my recovery codes" to enable two-factor authentication for your account
+8.  Configure additional 2FA methods, if desired
+
+## Glossary {#glossary}
+
+| Term                                | Definition                                                                                                                         |
+|------------------|------------------------------------------------------|
+| Quick Response (QR) Code            | A type of two-dimensional matrix barcode that contains specific information                                                        |
+| Recovery Code                       | A unique code(s) used to reset passwords or regain access to accounts                                                              |
+| Short Message Service (SMS)         | A text messaging service that allows mobile devices to exchange short text messages                                                |
+| Time-based one-time password (TOTP) | A string of unique codes that changes based on time. Often, these appear as six-digit numbers that regenerate every 30 seconds     |
+| Two-factor Authentication (2FA)     | An identity and access management security method that requires two forms of identification to access accounts, resources, or data |
