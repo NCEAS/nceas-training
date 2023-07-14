@@ -27,15 +27,15 @@ book:
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # collaborating with github
+    - session_01.qmd # collaborating using git & github and merge conflicts
     - session_02.qmd # social aspects of collaboration
     - session_03.qmd # thinking preferences
     - session_04.qmd # synthesis
     - session_05.qmd # publishing to web
-    - session_06.qmd # data vis
+    # - session_06.qmd # data vis
     - session_07.qmd # systematic reviews
     - session_08.qmd # synthesis
-    - session_09.qmd # spatial data
+    # - session_09.qmd # spatial data
     - session_10.qmd # intro to meta-analysis
     - session_11.qmd # text data
     - session_12.qmd # census data
@@ -43,6 +43,7 @@ book:
     - session_14.qmd # spatial demographis specialist
     - session_15.qmd # synthesis
     - session_16.qmd # shiny
+    - session_17.qmd # 2FA setup
     
 
 bibliography: book.bib
