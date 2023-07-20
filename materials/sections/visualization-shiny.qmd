@@ -1,0 +1,607 @@
+### Learning Objectives
+In this lesson we will:
+
+- review the capabilities in Shiny applications
+- learn about the basic layout for Shiny interfaces
+- learn about the server component for Shiny applications
+- build a simple shiny application for interactive plotting
+
+### Overview
+
+[Shiny](http://shiny.rstudio.com/) is an R package for creating interactive data visualizations embedded in a web application that you and your colleagues can view with just a web browser. Shiny apps are relatively easy to construct, and provide interactive features for letting others share and explore data and analyses.
+
+There are some really great examples of what Shiny can do on the RStudio webite like [this one exploring movie metadata](https://shiny.rstudio.com/gallery/movie-explorer.html). A more scientific example is a tool from the SASAP project exploring [proposal data from the Alaska Board of Fisheries](https://sasap-data.shinyapps.io/board_of_fisheries/). There is also an app for [Delta monitoring efforts](https://deltascience.shinyapps.io/monitoring/).
+
+
+![](images/shiny-sasap-app.png)
+
+
+Most any kind of analysis and visualization that you can do in R can be turned into a useful interactive visualization for the web that lets people explore your data more intuitively  But, a Shiny application is not the best way to preserve or archive your data.  Instead, for preservation use a repository that is archival in its mission like the [KNB Data Repository](https://knb.ecoinformatics.org), [Zenodo](https://zenodo.org), or [Dryad](https://datadryad.org). This will assign a citable identifier to the specific version of your data, which you can then read in an interactive visualiztion with Shiny.
+
+For example, the data for the Alaska Board of Fisheries application is published on the KNB and is citable as:
+
+Meagan Krupa, Molly Cunfer, and Jeanette Clark. 2017. Alaska Board of Fisheries Proposals 1959-2016. Knowledge Network for Biocomplexity. [doi:10.5063/F1QN652R](https://doi.org/10.5063/F1QN652R). 
+
+While that is the best citation and archival location of the dataset, using Shiny, one can also provide an easy-to-use exploratory web application that you use to make your point that directly loads the data from the archival site.  For example, the Board of Fisheries application above lets people who are not inherently familiar with the data to generate graphs showing the relationships between the variables in the dataset.
+
+We're going to create a simple shiny app with two sliders so we can interactively control inputs to an R function.  These sliders will allow us to interactively control a plot.
+
+### Create a sample shiny application
+
+- File > New > Shiny Web App...
+- Set some fields:
+![creating a new Shiny app with RStudio](images/shiny-new-app.png)
+    - Name it "myapp" or something else
+    - Select "Single File"
+    - Choose to create it in a new folder called 'shiny-demo'
+    - Click Create
+
+RStudio will create a new file called `app.R` that contains the Shiny application.  
+Run it by choosing `Run App` from the RStudio editor header bar.  This will bring up
+the default demo Shiny application, which plots a histogram and lets you control
+the number of bins in the plot.
+
+![](images/shiny-default-app.png)
+
+Note that you can drag the slider to change the number of bins in the histogram.
+
+### Shiny architecture
+
+A Shiny application consists of two functions, the `ui` and the `server`.  The `ui`
+function is responsible for drawing the web page, while the `server` is responsible 
+for any calculations and for creating any dynamic components to be rendered.
+
+Each time that a user makes a change to one of the interactive widgets, the `ui`
+grabs the new value (say, the new slider min and max) and sends a request to the
+`server` to re-render the output, passing it the new `input` values that the user
+had set.  These interactions can sometimes happen on one computer (e.g., if the 
+application is running in your local RStudio instance).  Other times, the `ui` runs on
+the web browser on one computer, while the `server` runs on a remote computer somewhere
+else on the Internet (e.g., if the application is deployed to a web server).
+
+![](images/shiny-architecture.png)
+
+
+### Interactive scatterplots
+
+Let's modify this application to plot Yolo bypass secchi disk data in a time-series, and allow aspects of the plot to be interactively changed.
+
+#### Load data for the example
+
+Use this code to load the data at the top of your `app.R` script. Note we are using `contentId` again, and we have filtered
+for some species of interest.
+
+```{r load_bgchem, eval = FALSE}
+library(shiny)
+library(contentid)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+names(delta_data)
+    
+```
+
+#### Add a simple timeseries using ggplot
+
+We know there has been a lot of variation through time in the delta, so let's plot a time-series of Secchi depth. We do so by switching out the histogram code for a simple ggplot, like so:
+
+```{r server_chunk, eval=FALSE}
+server <- function(input, output) {
+    
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            theme_light()
+    })
+}
+```
+
+If you now reload the app, it will display the simple time-series instead of
+the histogram.  At this point, we haven't added any interactivity.
+
+In a Shiny application, the `server` function provides the part of the application
+that creates our interactive components, and returns them to the user interface (`ui`)
+to be displayed on the page.
+
+#### Add sliders to set the start and end date for the X axis
+
+To make the plot interactive, first we need to modify our user interface to include
+widgits that we'll use to control the plot.  Specifically, we will add a new slider
+for setting the `minDate` parameter, and modify the existing slider to be used for
+the `maxDate` parameter.  To do so, modify the `sidebarPanel()` call to include two
+`sliderInput()` function calls:
+
+```{r ui_chunk, eval=FALSE}
+sidebarPanel(
+    sliderInput("minDate",
+                "Min Date:",
+                min = as.Date("1998-01-01"),
+                max = as.Date("2020-01-01"),
+                value = as.Date("1998-01-01")),
+    sliderInput("maxDate",
+                "Max Date:",
+                min = as.Date("1998-01-01"),
+                max = as.Date("2020-01-01"),
+                value = as.Date("2005-01-01"))
+)
+```
+
+If you reload the app, you'll see two new sliders, but if you change them, they don't
+make any changes to the plot. Let's fix that.
+
+#### Connect the slider values to the plot
+
+Finally, to make the plot interactive, we can use the `input` and `output` variables
+that are passed into the `server` function to access the current values of the sliders.
+In Shiny, each UI component is given an input identifier when it is created, which is used as the name of the value in the input list.  So, we can access the minimum depth as `input$minDate` and the max as `input$maxDate`.  Let's use these values now by adding limits to our X axis
+in the ggplot:
+
+```{r shiny_ggplot_interactive, eval=FALSE}
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$minDate,input$maxDate)) +
+            theme_light()
+```
+
+At this point, we have a fully interactive plot, and the sliders can be used to change the
+min and max of the Depth axis.
+
+![](images/shiny-yolo-1.png)
+
+Looks so shiny!
+
+#### Reversed Axes?
+
+What happens if a clever user sets the minimum for the X axis at a greater value than the maximum?
+You'll see that the direction of the X axis becomes reversed, and the plotted points display right
+to left.  This is really an error condition.  Rather than use two independent sliders, we can modify
+the first slider to output a range of values, which will prevent the min from being greater than
+the max.  You do so by setting the value of the slider to a vector of length 2, representing 
+the default min and max date for the slider, such as `c(as.Date("1998-01-01"), as.Date("2020-01-01"))`.  So, delete the second slider,
+rename the first, and provide a vector for the value, like this:
+
+```{r shiny_sidebar, eval=FALSE}
+sliderInput("date",
+            "Date:",
+            min = as.Date("1998-01-01"),
+            max = as.Date("2020-01-01"),
+            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
+)
+```
+
+Now, modify the ggplot to use this new `date` slider value, which now will be returned
+as a vector of length 2. The first element of the depth vector is the min, and the
+second is the max value on the slider.
+
+```{r shiny_limvector, eval=FALSE}
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$date[1],input$date[2])) +
+            theme_light()
+```
+
+![](images/shiny-yolo-2.png)
+
+
+### Extending the user interface with dynamic plots
+
+If you want to display more than one plot in your application, and provide
+a different set of controls for each plot, the current layout would be too simple.
+Next we will extend the application to break the page up into vertical sections, and
+add a new plot in which the user can choose which variables are plotted.  The current
+layout is set up such that the `FluidPage` contains the title element, and then
+a `sidebarLayout`, which is divided horizontally into a `sidebarPanel` and a 
+`mainPanel`.
+
+![](images/shiny-layout-1.png)
+
+#### Vertical layout
+
+To extend the layout, we will first nest the existing `sidebarLayout` in a new
+`verticalLayout`, which simply flows components down the page vertically.  Then
+we will add a new `sidebarLayout` to contain the bottom controls and graph.
+
+![](images/shiny-layout-2.png)
+
+This mechanism of alternately nesting vertical and horizontal panels can be used 
+to segment the screen into boxes with rules about how each of the panels is resized,
+and how the content flows when the browser window is resized.  The `sidebarLayout`
+works to keep the sidebar about 1/3 of the box, and the main panel about 2/3, which 
+is a good proportion for our controls and plots.  Add the verticalLayout, and the
+second sidebarLayout for the second plot as follows:
+
+```{r shiny_vertical, eval=FALSE}
+    verticalLayout(
+        # Sidebar with a slider input for depth axis
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("date",
+                            "Date:",
+                            min = as.Date("1998-01-01"),
+                            max = as.Date("2020-01-01"),
+                            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
+            ),
+            # Show a plot of the generated distribution
+            mainPanel(
+               plotOutput("distPlot")
+            )
+        ),
+
+        tags$hr(),
+
+        sidebarLayout(
+            sidebarPanel(
+                selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                selectInput("color_variable", "Color", cols, selected = "CommonName")
+            ),
+
+            # Show a plot with configurable axes
+            mainPanel(
+                plotOutput("varPlot")
+            )
+        ),
+        tags$hr()
+```
+
+Note that the second `sidebarPanel` uses three `selectInput` elements to provide dropdown
+menus with the variable columns (`cols`) from our data frame.  To manage that, we need to
+first set up the cols variable, which we do by saving the variables names
+from the `delta_data` data frame to a variable:
+
+```{r shiny_cols_2, eval=FALSE, echo=TRUE}
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+cols <- names(delta_data)
+```
+
+
+#### Add the dynamic plot
+
+Because we named the second plot `varPlot` in our UI section, we now need to modify
+the server to produce this plot.  Its very similar to the first plot, but this time
+we want to use the selected variables from the user controls to choose which
+variables are plotted. These variable names from the `$input` are character
+strings, and so would not be recognized as symbols in the `aes` mapping in ggplot. As recommended by the tidyverse authors, we use the [non-standard evaluation](https://dplyr.tidyverse.org/articles/programming.html) syntax of `.data[["colname"]]` to access the variables.
+
+```{r shiny_aes_string, eval=FALSE, echo=TRUE}
+    output$varPlot <- renderPlot({
+      ggplot(delta_data, aes(x = .data[[input$x_variable]],
+                             y = .data[[input$y_variable]],
+                             color = .data[[input$color_variable]])) +
+        geom_point(size = 4)+
+        theme_light()
+    })
+```
+
+
+### Finishing touches: data citation
+
+Citing the data that we used for this application is the right thing to do, and easy.
+You can add arbitrary HTML to the layout using utility functions in the `tags` list.
+
+```{r shiny_citation, eval=FALSE}
+    # Application title
+    titlePanel("Yolo Bypass Fish and Water Quality Data"),
+    p("Data for this application are from: "),
+    tags$ul(
+        tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
+        )
+    ),
+    tags$br(),
+    tags$hr(),
+```
+
+
+The final application shows the data citation, the depth plot, and the 
+configurable scatterplot in three distinct panels.
+
+![](images/shiny-yolo-app.png)
+
+### Publishing Shiny applications
+
+Once you've finished your app, you'll want to share it with others. To do so, you need to
+publish it to a server that is set up to [handle Shiny apps](https://shiny.rstudio.com/deploy/).  
+Your main choices are:
+
+- [shinyapps.io](http://www.shinyapps.io/) (Hosted by RStudio)
+    - This is a service offered by RStudio, which is initially free for 5 or fewer apps
+      and for limited run time, but has paid tiers to support more demanding apps.  You 
+      can deploy your app using a single button push from within RStudio.
+- [Shiny server](https://www.rstudio.com/products/shiny/shiny-server/) (On premises)
+    - This is an open source server which you can deploy for free on your own hardware.
+      It requires more setup and configuration, but it can be used without a fee.
+- [RStudio connect](https://www.rstudio.com/products/connect/) (On premises)
+    - This is a paid product you install on your local hardware, and that contains the most
+      advanced suite of services for hosting apps and RMarkdown reports.  You can
+      publish using a single button click from RStudio.
+      
+A comparison of [publishing features](https://rstudio.com/products/shiny/shiny-server/) is available from RStudio.
+
+#### Publishing to shinyapps.io
+
+The easiest path is to create an account on shinyapps.io, and then configure RStudio to
+use that account for publishing.  Instructions for enabling your local RStudio to publish
+to your account are displayed when you first log into shinyapps.io:
+
+![](images/shiny-io-account.png)
+
+Once your account is configured locally, you can simply use the `Publish` button from the
+application window in RStudio, and your app will be live before you know it!
+
+![](images/shiny-publish.png)
+
+### Summary
+
+Shiny is a fantastic way to quickly and efficiently provide data exploration for your
+data and code.  We highly recommend it for its interactivity, but an archival-quality
+repository is the best long-term home for your data and products.  In this example, 
+we used data drawn directly from the [EDI repository](http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f)
+in our Shiny app, which offers both the preservation guarantees of an archive, plus
+the interactive data exploration from Shiny.  You can utilize the full power of R and
+the tidyverse for writing your interactive applications.
+
+### Full source code for the final application
+
+```{r shinyapp_source, eval=FALSE}
+
+library(shiny)
+library(contentid)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+# read in the data from EDI
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName))
+
+cols <- names(delta_data)
+    
+
+
+# Define UI for application that draws a two plots
+ui <- fluidPage(
+    
+    # Application title and data  source
+    titlePanel("Sacramento River floodplain fish and water quality dataa"),
+    p("Data for this application are from: "),
+    tags$ul(
+        tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
+        )
+    ),
+    tags$br(),
+    tags$hr(),
+    
+    verticalLayout(
+        # Sidebar with a slider input for time axis
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("date",
+                            "Date:",
+                            min = as.Date("1998-01-01"),
+                            max = as.Date("2020-01-01"),
+                            value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
+            ),
+            # Show a plot of the generated timeseries
+            mainPanel(
+                plotOutput("distPlot")
+            )
+        ),
+        
+        tags$hr(),
+        
+        sidebarLayout(
+            sidebarPanel(
+                selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                selectInput("color_variable", "Color", cols, selected = "CommonName")
+            ),
+            
+            # Show a plot with configurable axes
+            mainPanel(
+                plotOutput("varPlot")
+            )
+        ),
+        tags$hr()
+    )
+)
+
+# Define server logic required to draw the two plots
+server <- function(input, output) {
+    
+    #  turbidity plot
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$date[1],input$date[2])) +
+            theme_light()
+    })
+    
+    # mix and  match plot
+    output$varPlot <- renderPlot({
+      ggplot(delta_data, aes(x = .data[[input$x_variable]],
+                             y = .data[[input$y_variable]],
+                             color = .data[[input$color_variable]])) +
+        geom_point(size = 4) +
+        theme_light()
+    })
+}
+
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+
+### A shinier app with tabs and a map!
+
+```{r, eval = F}
+library(shiny)
+library(contentid)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(shinythemes)
+library(sf)
+library(leaflet)
+library(snakecase)
+
+# read in the data from EDI
+sha1 <- 'hash://sha1/317d7f840e598f5f3be732ab0e04f00a8051c6d0'
+delta.file <- contentid::resolve(sha1, registries=c("dataone"), store = TRUE)
+
+# fix the sample date format, and filter for species of interest
+delta_data <- read.csv(delta.file) %>% 
+    mutate(SampleDate = mdy(SampleDate))  %>% 
+    filter(grepl("Salmon|Striped Bass|Smelt|Sturgeon", CommonName)) %>% 
+    rename(DissolvedOxygen = DO,
+           Ph = pH,
+           SpecificConductivity = SpCnd)
+
+cols <- names(delta_data)
+
+sites <- delta_data %>% 
+    distinct(StationCode, Latitude, Longitude) %>% 
+    drop_na() %>% 
+    st_as_sf(coords = c('Longitude','Latitude'), crs = 4269,  remove = FALSE)
+
+
+
+# Define UI for application
+ui <- fluidPage(
+    navbarPage(theme = shinytheme("flatly"), collapsible = TRUE,
+               HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">Sacramento River Floodplain Data</a>'), id="nav",
+               windowTitle = "Sacramento River floodplain fish and water quality data",
+               
+               tabPanel("Data Sources",
+                        verticalLayout(
+                            # Application title and data  source
+                            titlePanel("Sacramento River floodplain fish and water quality data"),
+                            p("Data for this application are from: "),
+                            tags$ul(
+                                tags$li("Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2018.",
+                                        tags$a("doi:10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f", href="http://doi.org/10.6073/pasta/b0b15aef7f3b52d2c5adc10004c05a6f")
+                                )
+                            ),
+                            tags$br(),
+                            tags$hr(),
+                            p("Map of sampling locations"),
+                            mainPanel(leafletOutput("map"))
+                        )
+               ),
+               
+               tabPanel(
+                   "Explore",
+                   verticalLayout(
+                       mainPanel(
+                           plotOutput("distPlot"),
+                           width =  12,
+                           absolutePanel(id = "controls",
+                                         class = "panel panel-default",
+                                         top = 175, left = 75, width = 300, fixed=TRUE,
+                                         draggable = TRUE, height = "auto",
+                                         sliderInput("date",
+                                                     "Date:",
+                                                     min = as.Date("1998-01-01"),
+                                                     max = as.Date("2020-01-01"),
+                                                     value = c(as.Date("1998-01-01"), as.Date("2020-01-01")))
+                                         
+                           )
+                       ),
+                       
+                       tags$hr(),
+                       
+                       sidebarLayout(
+                           sidebarPanel(
+                               selectInput("x_variable", "X Variable", cols, selected = "SampleDate"),
+                               selectInput("y_variable", "Y Variable", cols, selected = "Count"),
+                               selectInput("color_variable", "Color", cols, selected = "CommonName")
+                           ),
+                           
+                           # Show a plot with configurable axes
+                           mainPanel(
+                               plotOutput("varPlot")
+                           )
+                       ),
+                       tags$hr()
+                   )
+               )
+    )
+)
+
+# Define server logic required to draw the two plots
+server <- function(input, output) {
+    
+    
+    output$map <- renderLeaflet({leaflet(sites) %>% 
+            addTiles() %>% 
+            addCircleMarkers(data = sites,
+                             lat = ~Latitude,
+                             lng = ~Longitude,
+                             radius = 10, # arbitrary scaling
+                             fillColor = "gray",
+                             fillOpacity = 1,
+                             weight = 0.25,
+                             color = "black",
+                             label = ~StationCode)
+    })
+    
+    #  turbidity plot
+    output$distPlot <- renderPlot({
+        
+        ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
+            geom_point(colour="red", size=4) +
+            xlim(c(input$date[1],input$date[2])) +
+            labs(x = "Sample Date", y = "Secchi Depth (m)") +
+            theme_light()
+    })
+    
+    # mix and  match plot
+    output$varPlot <- renderPlot({
+        ggplot(delta_data, mapping = aes(x = .data[[input$x_variable]],
+                                         y = .data[[input$y_variable]],
+                                         color = .data[[input$color_variable]])) +
+            labs(x = to_any_case(input$x_variable, case = "title"),
+                 y = to_any_case(input$y_variable, case = "title"),
+                 color = to_any_case(input$color_variable, case = "title")) +
+            geom_point(size=4) +
+            theme_light()
+    })
+}
+
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+
+### Resources
+
+- [Main Shiny site](http://shiny.rstudio.com/)
+- [Official Shiny Tutorial](http://shiny.rstudio.com/tutorial/)
