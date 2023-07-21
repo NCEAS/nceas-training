@@ -1,7 +1,4 @@
 
-
-## Extracting Data for Text Analysis
-
 ### Learning Objectives
 
 - What a token is and how they are used
@@ -36,9 +33,9 @@ library(reshape2)
 Load the survey data back in using the code chunks below:
 
 ```{r, echo = F}
-survey_raw <- read_csv("../data/survey_data.csv", show_col_types = FALSE)
+survey_raw <- read_csv("data/survey_data.csv", show_col_types = FALSE)
 
-events <- read_csv("../data/events.csv", show_col_types = FALSE)
+events <- read_csv("data/events.csv", show_col_types = FALSE)
 ```
 
 ```{r, eval = F}
@@ -240,7 +237,7 @@ Then you can run the `unnest` on the column of split values we just created.
 
 ```{r}
 x_df_flat <- x_df %>% 
-  unnest(cols = x)
+  tidyr::unnest(cols = x)
 
 x_df_flat
 ```
@@ -249,7 +246,7 @@ Now that we know how this works, let's do it on our dataset with the double newl
 ```{r}
 txt_clean <- txt_clean %>%
   mutate(value = str_split(value, "\n\n")) %>% 
-  unnest(cols = value)
+  tidyr::unnest(cols = value)
 ```
 
 ```{r}
