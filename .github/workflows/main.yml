@@ -10,10 +10,9 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-    - name: Set branch name to variable
-      run: |
-        branch=$(echo "${{ steps.pr_details.outputs.data.base.ref }}")
-        echo "BRANCH=$branch" >> $GITHUB_ENV
+    - name: Get branch name from pull request
+      id: extract_branch
+      run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       
     - name: Dispatch to RRC
       run: |
