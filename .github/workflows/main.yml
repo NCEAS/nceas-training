@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Get branch name from pull request
       id: extract_branch
-      run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       
     - name: Dispatch to RRC
       run: |
