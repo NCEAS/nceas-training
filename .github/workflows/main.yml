@@ -20,5 +20,5 @@ jobs:
         curl -X POST -H "Authorization: token ${{ secrets.RRCOURSE }}" \
         -H "Content-Type: application/json" \
         -H "Accept: application/vnd.github.everest-preview+json" \
-        --data '{"event_type": "quarto", "ref": "develop", \"branch\": \"$BRANCH\"}'
+        --data "{"event_type": "quarto", "ref": "develop", \"branch\": \"$BRANCH\"}" \
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
