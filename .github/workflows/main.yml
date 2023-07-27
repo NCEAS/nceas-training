@@ -3,14 +3,31 @@ name: Dispatcher
 on:
   push:
     branches: ['**']
+  pull_request:
+    types: [closed]
     
 jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+    - name: Get pull request details
+      id: pr_details
+      uses: octokit/request-action@v2.x
+      with:
+        route: GET /repos/:NCEAS/:nceas-training/pulls/:pull_number
+        pull_number: ${{ github.event.pull_request.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.RRCOURSE }}
+
+    - name: Set branch name to variable
+      run: |
+        branch=$(echo "${{ steps.pr_details.outputs.data.base.ref }}")
+        echo "BRANCH=$branch" >> $GITHUB_ENV
+      
     - name: Dispatch to RRC
       run: |
         curl -X POST -H "Authorization: token ${{ secrets.RRCOURSE }}" \
+        -H "Content-Type: application/json" \
         -H "Accept: application/vnd.github.everest-preview+json" \
+        --data '{"event_type": "quarto", "ref": "develop", \"branch\": \"$BRANCH\"}'
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
-        --data '{"event_type": "quarto"}'
