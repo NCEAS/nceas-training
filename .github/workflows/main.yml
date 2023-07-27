@@ -3,22 +3,18 @@ name: Dispatcher
 on:
   push:
     branches: ['**']
-  pull_request:
-    types: [closed]
     
 jobs:
   dispatch:
     runs-on: ubuntu-latest
-    steps:
-    - name: Get branch name from pull request
-      id: extract_branch
-      run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-      
+    steps:   
+    - name: Check name of branch
+      run: |
+        echo $GITHUB_HEAD_REF
     - name: Dispatch to RRC
-      if: github.ref == 'refs/heads/develop'
       run: |
         curl -X POST -H "Authorization: token ${{ secrets.RRCOURSE }}" \
         -H "Content-Type: application/json" \
         -H "Accept: application/vnd.github.everest-preview+json" \
-        --data "{"event_type": "quarto", \"branch\": \"$BRANCH\", "client_payload": {"branch": "develop"}}" \
+        --data "{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_HEAD_REF"}}" \
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
