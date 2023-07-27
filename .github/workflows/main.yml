@@ -1,4 +1,4 @@
-name: invoke build in gha-website-test
+name: invoke build action in RRC
 
 on:
   push:
@@ -17,9 +17,8 @@ jobs:
             owner: 'NCEAS',
             repo: 'repro-research-course',
             workflow_id: 'workflow.yml',
-            ref: 'master',
+            ref: 'develop',
             inputs: {
-              event_type: 'quarto',
-              branch: $GITHUB_HEAD_REF
+              event_type: 'quarto'
             }
           })
