@@ -3,6 +3,8 @@ name: Dispatcher
 on:
   pull_request:
     branches: ['**']
+    types:
+      - closed
     
 jobs:
   dispatch:
