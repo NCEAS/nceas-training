@@ -15,7 +15,7 @@ jobs:
         echo $GITHUB_HEAD_REF
     - name: Dispatch to RRC
       run: |
-        curl -X POST -H "Authorization: token ${{ secrets.RRCOURSE }}" \
+        curl -X POST -H "Authorization: Bearer ${{ secrets.RRCOURSE }}" \
         -H "Accept: application/vnd.github.everest-preview+json" \
         --data "{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_HEAD_REF"}}" \
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
