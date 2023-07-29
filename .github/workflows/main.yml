@@ -10,7 +10,7 @@ jobs:
     steps:   
     - name: Check name of branch
       run: |
-        echo $GITHUB_HEAD_REF
+        echo $GITHUB_REF
         
     - name: Dispatch to RRC
       run: |
