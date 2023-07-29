@@ -16,4 +16,10 @@ jobs:
         
     - name: Dispatch to RRC
       run: |
-          curl -XPOST -u "${{ secrets.RRUSER}}:${{secrets.RRCOURSE}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/nceas/repro-research-course/dispatches --data '{"event_type": "bookdown"}'
+        curl -X POST -H "Authorization: token ${{ secrets.RRCOURSE }}" \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Content-Type: application/json" \
+        https://api.github.com/repos/nceas/repro-research-course/dispatches \
+        --data "{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_HEAD_REF"}}"
+        
+    
