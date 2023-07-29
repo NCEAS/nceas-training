@@ -1,8 +1,10 @@
 name: Dispatcher
 
 on:
-  push:
+  pull_request:
     branches: ['**']
+    types:
+      - closed
     
 jobs:
   dispatch:
@@ -10,7 +12,7 @@ jobs:
     steps:   
     - name: Check name of branch
       run: |
-        echo $GITHUB_REF
+        echo $GITHUB_HEAD_REF
         
     - name: Dispatch to RRC
       run: |
