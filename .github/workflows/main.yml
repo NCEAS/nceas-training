@@ -3,10 +3,6 @@ name: Dispatcher
 on:
   push:
     branches: ['**']
-  pull_request:
-    branches: ['**']
-    types:
-      - closed
     
 jobs:
   dispatch:
