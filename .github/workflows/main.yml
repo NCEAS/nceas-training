@@ -11,6 +11,7 @@ jobs:
     - name: Check name of branch
       run: |
         echo $GITHUB_REF_NAME
+        echo ${{ toJson(github.event.client_payload) }}
         
     - name: Dispatch to RRC
       run: |
