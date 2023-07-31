@@ -19,7 +19,7 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: token ${{ secrets.RRCOURSE }}" \
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
-        -d '{"event_type": "quarto", "client_payload": {"branch": "{{ $GITHUB_REF_NAME }}"}}'
+        -d {"event_type": "quarto", "client_payload": {"branch": "{{ $GITHUB_REF_NAME }}"}}
         
     - name: Check client payload
       run:
