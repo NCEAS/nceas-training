@@ -1,10 +1,8 @@
 name: Dispatcher
 
 on:
-  pull_request:
+  push:
     branches: ['**']
-    types:
-      - closed
     
 jobs:
   dispatch:
@@ -12,7 +10,7 @@ jobs:
     steps:   
     - name: Check name of branch
       run: |
-        echo $GITHUB_HEAD_REF
+        echo $GITHUB_REF_NAME
         
     - name: Dispatch to RRC
       run: |
@@ -21,6 +19,6 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: token ${{ secrets.RRCOURSE }}" \
         https://api.github.com/repos/nceas/repro-research-course/dispatches \
-        -d '{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_HEAD_REF"}}'
+        -d '{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_REF_NAME"}}'
         
     
