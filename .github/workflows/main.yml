@@ -7,11 +7,7 @@ on:
 jobs:
   dispatch:
     runs-on: ubuntu-latest
-    steps:   
-    - name: Check name of branch
-      run: |
-        echo $GITHUB_REF_NAME
-        
+    steps:
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v2
       with:
@@ -21,4 +17,5 @@ jobs:
         client-payload: '{"branch": "${{ github.ref_name }}"}'
         
     - name: Check client payload
-      run: echo github.event.client_payload.branch
+      run: |
+        echo ${{ github.event.client_payload.branch }}
