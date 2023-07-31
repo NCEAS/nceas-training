@@ -1,15 +1,26 @@
-# Webook to build course website
+name: Dispatcher
 
-name: webhook
-on: 
-  push:
-    branches: [ '**' ]
-
+on:
+  pull_request:
+    branches: ['**']
+    types:
+      - closed
+    
 jobs:
-  build-page:
+  dispatch:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Invoke workflow in another repo with inputs
-        run: |
-          curl -XPOST -u "${{ secrets.RRUSER}}:${{secrets.RRCOURSE}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/nceas/repro-research-course/dispatches --data '{"event_type": "bookdown"}'
+    steps:   
+    - name: Check name of branch
+      run: |
+        echo $GITHUB_HEAD_REF
+        
+    - name: Dispatch to RRC
+      run: |
+        curl -L \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: token ${{ secrets.RRCOURSE }}" \
+        https://api.github.com/repos/nceas/repro-research-course/dispatches \
+        -d '{"event_type": "quarto", "client_payload": {"branch": "$GITHUB_HEAD_REF"}}'
+        
+    
