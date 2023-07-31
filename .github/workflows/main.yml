@@ -21,4 +21,4 @@ jobs:
         client-payload: '{"branch": "${{ github.ref_name }}"}'
         
     - name: Check client payload
-      run: echo ${{ github.event.client_payload.branch }}
+      run: echo github.event.client_payload.branch
