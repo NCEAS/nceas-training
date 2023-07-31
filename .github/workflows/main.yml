@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@v2.1.1
       with:
         token: ${{ secrets.RRCOURSE }}
         repository: nceas/repro-research-course
