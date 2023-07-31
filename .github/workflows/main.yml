@@ -18,7 +18,7 @@ jobs:
         token: ${{ secrets.RRCOURSE }}
         repository: nceas/repro-research-course
         event-type: quarto
-        client-payload: '{"branch": "${{ github.ref.name }}"}'
+        client-payload: '{"branch": "${{ toJSON($GITHUB_REF_NAME) }}"}'
         
     - name: Check client payload
       run: echo ${{ github.event.client_payload.branch }}
