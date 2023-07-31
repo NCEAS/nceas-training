@@ -15,7 +15,7 @@ jobs:
     - name: Dispatch to RRC
       run: |
         echo '{"event_type": "quarto", "client_payload": {"branch": $GITHUB_REF_NAME}}'
-        curl -L "
+        curl -L
         -X POST \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: token ${{ secrets.RRCOURSE }}" \
