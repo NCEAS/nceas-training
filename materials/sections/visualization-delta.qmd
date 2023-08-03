@@ -230,6 +230,7 @@ daily_visits_loc %>%
 <!-- NOT WORKING CHECK **Line and point**
 
 ```{r line_poin_plot}
+#| eval: false
 daily_visits_loc %>%
     separate(date, c("year", "month", "day"), sep = "-") %>%
     mutate(month = as.numeric(month)) %>% 
@@ -259,6 +260,7 @@ Notice that we tried to set the fill color of the plot inside the mapping aesthe
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col()` function, **outside** of the mapping aesthetics function call.
 
 ```{r fill_blue_geom}
+#| eval: false
 ggplot(annual_esc,
        aes(x = Species, y = delta_visitsment)) +
     geom_col(fill = "blue")
