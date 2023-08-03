@@ -245,6 +245,7 @@ daily_visits_loc %>%
 Let's go back to our base bar graph. What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r fill_blue}
+#| eval: false
 ggplot(annual_esc,
        aes(x = Species, y = delta_visitsment,
            fill = "blue")) +
@@ -266,6 +267,7 @@ ggplot(annual_esc,
 What if we did want to map the color of the bars to a variable, such as region. `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data. 
 
 ```{r}
+#| eval: false
 ggplot(annual_esc,
        aes(x = Species, y = delta_visitsment,
            fill = SASAP.Region)) +
@@ -295,6 +297,7 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 
 
 ```{r facet_base_plot}
+#| eval: false
 ## Subset with data from years 2000 to 2016
 
 annual_esc_2000s <- annual_esc %>%
@@ -329,6 +332,7 @@ There are a wide variety of built in themes in `ggplot` that help quickly set th
 
 
 ```{r theme_bw_plot}
+#| eval: false
 ggplot(annual_esc_2000s,
        aes(x = Year,
            y = delta_visitsment,
@@ -362,6 +366,7 @@ The built in theme functions (`theme_*()`) change the default settings for many 
 Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
 
 ```{r}
+#| eval: false
 ggplot(annual_esc_2000s,
        aes(x = Year,
            y = delta_visitsment,
@@ -392,6 +397,7 @@ So now our code will look like this:
 
 
 ```{r}
+#| eval: false
 ggplot(annual_esc_2000s,
        aes(x = Year,
            y = delta_visitsment,
@@ -451,7 +457,7 @@ Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the p
 The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous()` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
 ```{r}
-
+#| eval: false
 ggplot(annual_esc_2000s,
        aes(x = Year,
            y = delta_visitsment,
@@ -475,6 +481,7 @@ You can also save all your code into an object in your working environment by as
 
 
 ```{r}
+#| eval: false
 annual_region_plot <- ggplot(annual_esc_2000s,
                              aes(x = Year,
                                  y = delta_visitsment,
@@ -496,6 +503,7 @@ annual_region_plot <- ggplot(annual_esc_2000s,
 And then call your object to see your plot.
 
 ```{r}
+#| eval: false
 annual_region_plot
 ```
 
@@ -505,6 +513,7 @@ annual_region_plot
 `ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted if you have categorical groups. Let’s find some total years of data by species for Kuskokwim.
 
 ```{r n_year_data}
+#| eval: false
 #| warning: false
 #| message: false
 
@@ -518,6 +527,7 @@ n_years <- annual_esc %>%
 Now let's plot this using `geom_bar()`.
 
 ```{r}
+#| eval: false
 ## base plot
 ggplot(n_years,
        aes(x = Species,
@@ -529,7 +539,7 @@ ggplot(n_years,
 Now, let's apply some of the customizations we have seen so far and learn some new ones.
 
 ```{r}
-
+#| eval: false
 ## Reordering, flipping coords and other customization
 ggplot(n_years,
        aes(
@@ -577,9 +587,10 @@ First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
 
 ```{r uniq_locations}
-locations <- delta_visits %>%
-    distinct(Location, Latitude, Longitude) %>%
-    drop_na()
+locations <- visits_long %>%
+    distinct(restore_loc, .keep_all = T) %>%
+    select(restore_loc, latitude, longitude)
+
 ```
 
 And display it as an interactive table using `datatable()` from the `DT` package.
@@ -599,9 +610,9 @@ The `addTiles()` function without arguments will add base tiles to your map from
 leaflet(locations) %>%
     addTiles() %>%
     addMarkers(
-        lng = ~ Longitude,
-        lat = ~ Latitude,
-        popup = ~ Location
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ resore_loc
     )
 ```
 
@@ -611,6 +622,7 @@ You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an exa
 
 
 ```{r}
+#| eval: false
 leaflet(locations) %>%
     addWMSTiles(
         "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
