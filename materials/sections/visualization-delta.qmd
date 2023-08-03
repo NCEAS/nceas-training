@@ -1,5 +1,7 @@
 ## Learning Objectives {.unnumbered}
 
+**REVISE**
+
 - The basics of the `ggplot2` package to create static plots
 - How to use `ggplot2`'s `theme` abilities to create publication-grade graphics
 - The basics of the `leaflet` package to create interactive maps
@@ -12,7 +14,7 @@ From the [home page](http://ggplot2.tidyverse.org/):
 > `ggplot2` is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
 
-It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)). The goal of this lesson is to introduce you to the basic components of working with `ggplot2` and inspire you to go and explore this awesome resource for visualizing your data.
+It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)). The goal of this lesson is to explain the fundamentals of how `ggplot2` work, introduce useful functions for customizing your plots and inspire you to go and explore this awesome resource for visualizing your data.
 
 ::: callout-important
 
@@ -47,13 +49,14 @@ library(scales) # scale functions for visualization
 ```
 
 
-2. Load the data directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
+2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address".
 
 ```{r}
 #| message: false
 #| warning: false
 
-escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
+delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f")
+
 ```
 
 3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out [the documentation](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
