@@ -46,6 +46,7 @@ library(ggplot2)
 library(leaflet) # interactive maps
 library(DT) # interactive tables
 library(scales) # scale functions for visualization
+library(janitor) # expedite cleaning and exploring data
 ```
 
 
@@ -55,37 +56,35 @@ library(scales) # scale functions for visualization
 #| message: false
 #| warning: false
 
-delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f")
+delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f") %>% 
+    clean_names()
 
 ```
 
-3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out [the documentation](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
+3. Learn about the data. For this session we are going to be working with data on **Socioecological Monitoring on the Sacramento-San Joaquin Delta**. Check out [the documentation](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1).
 
 4. Finally, let's explore the data we just read into our working environment. 
 
 ```{r}
 #| eval: false
 ## Check out column names
-colnames(escape)
+colnames(delta_visits)
 
 ## Peak at each column and class
-glimpse(escape)
+glimpse(delta_visits)
 
 ## From when to when
-range(escape$sampleDate)
+range(delta_visits$date)
 
-## How frequent?
-head(escape$sampleDate)
-tail(escape$sampleDate)
+## First and last rows
+head(delta_visits$date)
+tail(delta_visits$date)
 
-## Which species?
-unique(escape$Species)
+## Which time of day?
+unique(delta_visits$time_of_day)
 ```
 
 :::
-
-
-
 
 
 
@@ -93,27 +92,45 @@ unique(escape$Species)
 
 It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
 
+With the [tidy data principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html#tidy-data) in mind. Is this data tidy?
+
+1. Every column is a variable.
+2. Every row is an observation.
+3. Every cell is a single value.
+
+`ggplot2` for the most part likes data input to be in a long format (aka "tidy"). So let go ahead and make this data frame long instead of wide. Do you remember the name of the function we can use?
+
+```{r}
+
+visits_long <- delta_visits %>% 
+    pivot_longer(cols = c("sm_boat", "med_boat", "lrg_boat", "bank_angler", "scientist", "cars"),
+                 names_to = "visitor_type",
+                 values_to = "quantity") %>% 
+    rename(restore_loc = eco_restore_approximate_location) %>% 
+    select(-notes)
+
+```
+
+
+
 ::: callout-note
 ### Exercise
 
-- Calculate the annual escapement by `Species` and `SASAP.Region`,
-- Filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
+- Calculate the daily visits by `visit_type` and `restore_loc``,
 
 :::
  
 ```{r mean_esc}
 #| message: false
-annual_esc <- escape %>%
-    separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>%
-    mutate(Year = as.numeric(Year)) %>%
-    group_by(Species, SASAP.Region, Year) %>%
-    summarize(escapement = sum(DailyCount)) %>%
-    filter(Species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
+daily_visits_loc <- visits_long %>%
+    group_by(restore_loc, date, visitor_type) %>% 
+    summarise(daily_visits = sum(quantity))
+    
+head(daily_visits_loc)
 
-head(annual_esc)
 ```
 
-The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate()` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by()` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize()` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+The chunk above usees some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarize()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
 
 ## Plotting with `ggplot2`
 
@@ -135,26 +152,27 @@ To add layers to our plot, for example, additional geometries/aesthetics and the
 :::
 
 
-For example, let's plot total escapement by species. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a `ggplot`.
+For example, let's plot total daily visits by restoration location. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a `ggplot`.
 
 
 ```{r basic_esc_plot}
 #| eval: false
 
 ## Option 1 - data and mapping called in the ggplot() function
-ggplot(data = annual_esc,
-       aes(x = Species, y = escapement)) +
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits))+
     geom_col()
 
+
 ## Option 2 - data called in ggplot function; mapping called in geom
-ggplot(data = annual_esc) +
-    geom_col(aes(x = Species, y = escapement))
+ggplot(data = daily_visits_loc) +
+    geom_col(aes(x = restore_loc, y = daily_visits))
 
 
 ## Option 3 - data and mapping called in geom
 ggplot() +
-    geom_col(data = annual_esc,
-             aes(x = Species, y = escapement))
+    geom_col(data = daily_visits_loc,
+             aes(x = restore_loc, y = daily_visits))
 
 ```
 
@@ -163,8 +181,8 @@ They all will create the same plot:
 ```{r esc_plot}
 #| echo: false
 
-ggplot(data = annual_esc,
-       aes(x = Species, y = escapement)) +
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits)) +
     geom_col()
 ```
 
@@ -181,16 +199,18 @@ Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into 
 This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
 :::
 
-Next, we will use the pipe operator to pass into `ggplot()` a filtered version of `annual_esc`, and make a plot with different geometries.
+We will use the pipe operator to pass into `ggplot()` a filtered version of `daily_visit_loc`, and make a plot with different geometries.
 
 
 **Boxplot**
+_Note: These examples are to demonstrate case uses of wrangling function proir to plotting. They are not necessarily plotting best practices._
 
 ```{r boxplot_ex}
-annual_esc %>%
-    filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>%
-    ggplot(aes(x = Species, y = escapement)) +
+daily_visits_loc %>%
+    separate(date, c("year", "month", "day"), sep = "-") %>%
+    filter(daily_visits < 30,
+           visitor_type %in% c("sm_boat", "med_boat", "lrg_boat")) %>%
+    ggplot(aes(x = visitor_type, y = daily_visits)) +
     geom_boxplot()
 ```
 
@@ -198,25 +218,27 @@ annual_esc %>%
 **Violin plot**
 
 ```{r violin_plot}
-annual_esc %>%
-    filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>%
-    ggplot(aes(x = Species, y = escapement)) +
+daily_visits_loc %>%
+    separate(date, c("year", "month", "day"), sep = "-") %>%
+    filter(daily_visits < 30,
+           visitor_type %in% c("sm_boat", "med_boat", "lrg_boat")) %>%
+    ggplot(aes(x = visitor_type, y = daily_visits)) +
     geom_violin()
 ```
 
 
-**Line and point**
+<!-- NOT WORKING CHECK **Line and point**
 
 ```{r line_poin_plot}
-annual_esc %>%
-    filter(Species  == "Sockeye",
-           SASAP.Region == "Bristol Bay") %>%
-    ggplot(aes(x = Year, y = escapement)) +
+daily_visits_loc %>%
+    separate(date, c("year", "month", "day"), sep = "-") %>%
+    mutate(month = as.numeric(month)) %>% 
+    filter(restore_loc == "Wildlands") %>%
+    ggplot(aes(x = month, y = daily_visits)) +
     geom_line() +
     geom_point()
 ```
-
+-->
 
 ### Customizing our plot
 
@@ -224,7 +246,7 @@ Let's go back to our base bar graph. What if we want our bars to be blue instead
 
 ```{r fill_blue}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement,
+       aes(x = Species, y = delta_visitsment,
            fill = "blue")) +
     geom_col()
 ```
@@ -237,7 +259,7 @@ What we really wanted to do was just change the color of the bars. If we want do
 
 ```{r fill_blue_geom}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement)) +
+       aes(x = Species, y = delta_visitsment)) +
     geom_col(fill = "blue")
 ```
 
@@ -245,7 +267,7 @@ What if we did want to map the color of the bars to a variable, such as region. 
 
 ```{r}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement,
+       aes(x = Species, y = delta_visitsment,
            fill = SASAP.Region)) +
     geom_col()
 ```
@@ -263,9 +285,9 @@ ggplot(annual_esc,
 
 #### Creating multiple plots
 
-We know that in the graph we just plotted, each bar includes escapements for multiple years. Let's leverage the power of `ggplot` to plot more aspects of our data in one plot.
+We know that in the graph we just plotted, each bar includes delta_visitsments for multiple years. Let's leverage the power of `ggplot` to plot more aspects of our data in one plot.
 
-We are going to plot escapement by species over time, from 2000 to 2016, for each region. 
+We are going to plot delta_visitsment by species over time, from 2000 to 2016, for each region. 
 
 An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~{variable_name}`. The `~` (tilde) is a model operator which tells `facet_wrap()` to model each unique value within `variable_name` to a facet in the plot.
 
@@ -285,7 +307,7 @@ unique(annual_esc_2000s$Year)
 ## Plot with facets
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
@@ -309,30 +331,21 @@ There are a wide variety of built in themes in `ggplot` that help quickly set th
 ```{r theme_bw_plot}
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ylab("delta_visitsment") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     theme_bw()
 ```
 
 You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package.
 
-::: callout-note
-
-#### Exercise
-
-Use the RStudio auto complete, the `ggplot2` documentation, a cheat sheet, or good old Google to find other built in themes. Pick out your favorite one and add it to your plot.
-
-:::
-
 
 ```{r}
-#| code-fold: true
 #| code-summary: "Themes"
 #| eval: false
 
@@ -351,14 +364,14 @@ Let's look at an example of a `theme()` call, where we change the position of th
 ```{r}
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ylab("delta_visitsment") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     theme_light() +
     theme(legend.position = "bottom",
           legend.title = element_blank())
@@ -381,14 +394,14 @@ So now our code will look like this:
 ```{r}
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ylab("delta_visitsment") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     my_theme
 ```
 
@@ -415,15 +428,15 @@ ggplot(annual_esc_2000s,
 ## Useful baseline themes are
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
     scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ylab("delta_visitsment") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -441,7 +454,7 @@ The `scales` package provides some nice helper functions to easily rescale and r
 
 ggplot(annual_esc_2000s,
        aes(x = Year,
-           y = escapement,
+           y = delta_visitsment,
            color = Species)) +
     geom_line() +
     geom_point() +
@@ -449,8 +462,8 @@ ggplot(annual_esc_2000s,
     scale_y_continuous(labels = comma) +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ylab("delta_visitsment") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -464,7 +477,7 @@ You can also save all your code into an object in your working environment by as
 ```{r}
 annual_region_plot <- ggplot(annual_esc_2000s,
                              aes(x = Year,
-                                 y = escapement,
+                                 y = delta_visitsment,
                                  color = Species)) +
     geom_line() +
     geom_point() +
@@ -472,9 +485,9 @@ annual_region_plot <- ggplot(annual_esc_2000s,
     scale_y_continuous(labels = comma) +
     facet_wrap( ~ SASAP.Region,
                 scales = "free_y") +
-    ylab("Escapement") +
+    ylab("delta_visitsment") +
     xlab("\nYear") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    ggtitle("Annual Salmon delta_visitsment by Region") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -530,7 +543,7 @@ ggplot(n_years,
     ## another way to customize labels
     labs(x = "Species",
          y = "Number of years of data",
-         title = "Number of years of escapement data for salmon species in Kuskokwim") +
+         title = "Number of years of delta_visitsment data for salmon species in Kuskokwim") +
     theme(legend.position = "none")
 
 ```
@@ -546,7 +559,7 @@ ggsave("figures/nyears_data_kus.jpg", width = 8, height = 6, units = "in")
 ```
 
 
-We can also save our facet plot showing annual escapements by region calling the plot's object.
+We can also save our facet plot showing annual delta_visitsments by region calling the plot's object.
 
 ```{r}
 #| eval: false
@@ -564,7 +577,7 @@ First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
 
 ```{r uniq_locations}
-locations <- escape %>%
+locations <- delta_visits %>%
     distinct(Location, Latitude, Longitude) %>%
     drop_na()
 ```
