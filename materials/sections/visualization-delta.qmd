@@ -614,7 +614,7 @@ leaflet(locations) %>%
     addMarkers(
         lng = ~ longitude,
         lat = ~ latitude,
-        popup = ~ resore_loc
+        popup = ~ restore_loc
     )
 ```
 
