@@ -605,6 +605,8 @@ We can ask questions about an object using **logical operators and expressions**
 -   `>=` means 'is greater than or equal to'
 
 ```{r}
+#| eval: false
+
 # examples using logical operators and expressions
 weight_lb == 2
 weight_lb >= 30

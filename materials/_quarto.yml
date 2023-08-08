@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS Open Science Synthesis for the Delta Science Program"
+  title: "UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills"
   # date: "April 3, 2023"
   reader-mode: false
   
@@ -14,7 +14,7 @@ book:
   favicon: cover.png # learning hub logo
   
   sidebar:
-    title: "Course Materials"
+    title: "Training Materials"
     style: "floating"
     search: true
     tools:
@@ -23,27 +23,21 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-06-delta
+        href: https://github.com/NCEAS/nceas-training/tree/2023-08-usgs
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # collaborating using git & github and merge conflicts
-    - session_02.qmd # social aspects of collaboration
-    - session_03.qmd # thinking preferences
-    - session_04.qmd # synthesis
-    - session_05.qmd # publishing to web
-    - session_06.qmd # data vis
-    - session_07.qmd # systematic reviews
-    - session_08.qmd # synthesis
-    - session_09.qmd # spatial data
-    - session_10.qmd # intro to meta-analysis
-    - session_11.qmd # text data
-    - session_12.qmd # census data
-    - session_13.qmd # reproducible surveys
-    - session_14.qmd # spatial demographis specialist
-    - session_15.qmd # synthesis
-    - session_16.qmd # shiny
-    - session_17.qmd # 2FA setup
+    - session_01.qmd # team science essentials
+    - session_02.qmd # intro to R programming
+    - session_03.qmd # fair & care
+    - session_04.qmd # writing DMPs
+    - session_05.qmd # intro to literate analysis
+    - session_06.qmd # tidy data
+    - session_07.qmd # accessing & finding data (programmatic data access?)
+    - session_08.qmd # intro `Git` & GitHub
+    - session_09.qmd # clean wrangle data
+    - session_10.qmd # collab `Git` & GitHub
+    - session_11.qmd # appendix
     
 
 bibliography: book.bib
@@ -51,6 +45,7 @@ bibliography: book.bib
 format:
   html:
     theme: cosmo
+    css: style.css
     # Note HD: latex rendering issues, maybe with column-margin
   # pdf:
   #   documentclass: scrreprt

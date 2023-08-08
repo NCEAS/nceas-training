@@ -1,63 +1,59 @@
-# Overview {.unnumbered}
+# Seminar Series Overview {.unnumbered}
+
+*Week One: September 11 - 15, 2023*
 
 ::: column-margin
 ![](cover.png){width="80%" fig-align="center"}
 
-![](images/delta/delta-logo.png){width="80%" fig-align="center"}
-
+![](images/logo-ucsb-office-research.png){width="80%" fig-align="center"}
 :::
 
-## About this training
+Hosted by the [National Center for Ecological Anlysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/) and in partnership with [UCSB's Office of Research](https://www.research.ucsb.edu/), this seminar series is a training program where participants engage in synthesis research in a small cohort. It will equip participants with data science and team science tools, and provide them with a platform to conduct collaborative synthesis research. The overall aim is to grow cross-departmental relationships and interdisciplinary research outputs.
 
-NCEAS Open Science Synthesis training consists of three 1-week long workshops, geared towards early career researchers. Participants engage in a mix of lectures, exercises, and synthesis research groups to undertake synthesis while learning and implementing best practices for open data science.
+## NCEAS Expertise
 
+NCEAS, a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach). NCEAS has over 25 years of success with this model among working groups and environmental professionals.
 
-<!-- CoreR A five-day immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists.-->
+## Week One: Crafting Your Synthesis Research Question
 
-## Why NCEAS
-The [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/), a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach).
+*September 11 - 15, 2023*
 
-NCEAS has over 25 years of success with this model among working groups and environmental professionals. Together with the Delta Science Program and the Delta Stewardship Council we are excited to pass along skills, workflows, mindsets learn throughout the years.
+### Learning Objectives
 
+-   Participants will develop research ideas and utilize environmental data science (EDS) skills to test the feasibility of the project and assess the quality of data associated with it
+-   Participants will create a Data Management Plan as a tool for adaptive research, and apply new EDS skills and tools to progress research and synthesis research products
 
-### Week 2: Open Tools for Analysis and Visualization
+### Schedule
 
-*Aug 28 - Sep 1, 2023*
-
-- Strengthen core knowledge of version control and workflow
-- Introduce metaanalysis concepts and tools
-- Approaches for geospatial visualization
-- Data tools for qualitative data
- 
-
-## Schedule
-
-UPDATE IMAGE WITH WEEK 2 SCHEDULE
-
-:::{.column-page}
+::: column-page
 <!--![](images/schedule.png)-->
 :::
 
+## Full Schedule
 
++-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
+| Session                                                           | Dates                 | Location        | Time            |
++===================================================================+=======================+=================+=================+
+| Session One                                                       | September 11-15, 2023 | NCEAS           | 9:00AM-5:00PM   |
++-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
+| Session Two                                                       | October 10, 2023      | Remote via Zoom | 3:00PM-5:00PM   |
+|                                                                   |                       |                 |                 |
+| *Remote session every second Tuesday throughout October-February* | November 14, 2023     |                 |                 |
+|                                                                   |                       |                 |                 |
+|                                                                   | December 12, 2023     |                 |                 |
+|                                                                   |                       |                 |                 |
+|                                                                   | January 9, 2024       |                 |                 |
+|                                                                   |                       |                 |                 |
+|                                                                   | February 13, 2024     |                 |                 |
++-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
+| Session Three                                                     | March 25-28, 2024     | NCEAS           | 9:00AM-5:00PM   |
++-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
 
-## Next training
-
-
-### Week 3: Scaling up and presenting synthesis
-
-*October 23 – 27, 2023*
-
-- Handling missing data
-- Big data workflows and parallel computing
-- Building scientific websites with R and Shiny
-- Synthesis presentations and next steps
-
+: {tbl-colwidths="\[25,25,25,25\]"}
 
 ## Code of Conduct
 
 By participating in this activity you agree to abide by the [NCEAS Code of Conduct](https://www.nceas.ucsb.edu/sites/default/files/2021-11/NCEAS_Code-of-Conduct_Nov2021_0.pdf).
-
-
 
 ## About this book
 
@@ -65,9 +61,8 @@ These written materials are the result of a continuous and collaborative effort 
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
+**Citation:** Samantha Csik, Halina Do-Linh, Camila Vargas Poulsen (2023). UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills. NCEAS Learning Hub. URL learning.nceas.ucsb.edu/2023-09-ucsb-faculty.
 
-**Citation:** Halina Do-Linh, Carmen Galaz García, Matthew B. Jones, Camila Vargas Poulsen. 2023. Open Science Synthesis training Week 2. NCEAS Learning Hub & Delta Stewardship Council.
-
-**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden,  Jeanette Clark, Samantha Csik, Stephanie Hampton, Natasha Haycock-Chavez, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden, Jeanette Clark, Carmen Galaz García, Stephanie Hampton, Natasha Haycock-Chavez, Matthew B. Jones, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.
