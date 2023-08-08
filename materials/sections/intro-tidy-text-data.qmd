@@ -60,9 +60,11 @@ By using tidy data principles, we can apply many "tidy" R packages including dpy
 Text analysis workflow using tidy data principles
 
 ```{r}
-library(gutenbergr) # add to description and ask Nick to add to included crab
-library(tidyverse)
+library(gutenbergr)
+library(tidyr)
+library(dplyr)
 library(tidytext)
+library(ggplot2)
 ```
 
 ```{r}
