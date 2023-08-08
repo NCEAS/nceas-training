@@ -1,17 +1,21 @@
 ## Learning Objectives {.unnumbered}
 
-- Describe principles of tidy text 
-- Employ strategies to wrangle unstructured text data into a tidy format using the `tidytext` package
-- Become familiar with text analysis (or text mining) methods and when to use them
+-   Describe principles of tidy text
+-   Employ strategies to wrangle unstructured text data into a tidy format using the `tidytext` package
+-   Become familiar with text analysis (or text mining) methods and when to use them
 
-::: {.callout-note}
+::: callout-note
 ### Acknowledgements
-Much of the content in this lesson has been adapted from the book, [Welcome to Text Mining with R](https://www.tidytextmining.com/) by [Julia Silge](https://juliasilge.com/) and [David Robinson](http://varianceexplained.org/). Julia and David are also the developers of the [`tidytext`](https://juliasilge.github.io/tidytext/) package.
+
+This lesson has been adapted from the following resources:
+
+-   [Welcome to Text Mining with R](https://www.tidytextmining.com/) by [Julia Silge](https://juliasilge.com/) and [David Robinson](http://varianceexplained.org/). Julia and David are also the developers of the [`tidytext`](https://juliasilge.github.io/tidytext/) package.
+-   [Computational Social Science: Theory & Application, Version: 17 June, 2021](https://bookdown.org/paul/2021_computational_social_science/) by Paul C. Bauer
 :::
 
 ## What is text data?
 
-Text data is information stored as character or string data types. It comes in various different forms including books, emails, social media posts, interview transcripts, newspapers, government reports, and much more. 
+Text data is information stored as character or string data types. It comes in various different forms including books, emails, social media posts, interview transcripts, newspapers, government reports, and much more.
 
 ### How do we talk about text data?
 
@@ -19,33 +23,25 @@ There's a lot of jargon that comes with working with text data. What do we know 
 
 Here is a list of text data or text analysis terms we'll be referring to throughout this lesson. Note this is not a comprehensive list of text analysis terms that are used beyond this lesson.
 
-Corpus (corpora, plural): Collection or database of text or multiple texts. These types of objects typically contain raw strings annotated with additional metadata and details.
-
-Document-term matrix: This is a sparse matrix describing a collection (i.e., a corpus) of documents with one row for each document and one column for each term. The value in the matrix is typically word count or tf-idf (see Chapter 3).
-
-Natural Language Processing (NLP): natural language processing is an interdisciplinary field used in computer science, data science, linguistics, and others to analyze, categorize, and work with computerized text.
-
-String: Specific type of data whose values are enclosed within a set of quotes. Typically values or elements are characters (e.g. "Hello World!").
-
-Text analysis: The process of deriving high-quality information or patterns from text through evaluation and interpretation of the output. Also referred to as "text mining" or "text analytics".
-
-Token: A meaningful unit of text, such as a word, to use for analysis.
-
-Tokenization: The process of splitting text into tokens.
-
-- document term matrix
-- text mining
+| Term                              | Definition                                                                                                                                                                                       |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Corpus (corpora, plural)          | Collection or database of text or multiple texts. These types of objects typically contain raw strings annotated with additional metadata and details.                                           |
+| Document-term matrix              | Represents the relationship between terms and documents, where each row stands for a term and each column for a document, and an entry is the number of occurrences of the term in the document. |
+| Natural Language Processing (NLP) | NLP is an interdisciplinary field used in computer science, data science, linguistics, and others to analyze, categorize, and work with computerized text.                                       |
+| String                            | Specific type of data whose values are enclosed within a set of quotes. Typically values or elements are characters (e.g. "Hello World!").                                                       |
+| Text analysis                     | The process of deriving high-quality information or patterns from text through evaluation and interpretation of the output. Also referred to as "text mining" or "text analytics".               |
+| Token                             | A meaningful unit of text, such as a word, to use for analysis.                                                                                                                                  |
+| Tokenization                      | The process of splitting text into tokens.                                                                                                                                                       |
 
 ### How is text data used in the environmental field?
-
 
 ## What is tidy text data?
 
 Let's recall what are the three tidy data principles:
 
-1. Every column is a variable.
-2. Every row is an observation. 
-3. Every cell is a single value. 
+1.  Every column is a variable.
+2.  Every row is an observation.
+3.  Every cell is a single value.
 
 Keeping that in mind, Silge and Robinson define the tidy text format as **being a table with one-token-per-row**.
 
@@ -57,10 +53,11 @@ By using tidy data principles, we can apply many "tidy" R packages including dpy
 
 ### What is the `tidytext` R package?
 
-
 ### PROJECT GUTENBERG - practice putting text data in tidy text format using classic horror books
 
-Text analysis workflow using tidy data principles 
+![](images/intro-tidy-text-workflow-1.png)
+
+Text analysis workflow using tidy data principles
 
 ```{r}
 library(gutenbergr) # add to description and ask Nick to add to included crab
@@ -139,7 +136,6 @@ ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
 ```{r}
 
 ```
-
 
 ## Unstructured text data
 
