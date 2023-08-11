@@ -5,22 +5,30 @@
 ## Overview
 (Chapter 1 - 5 min)
 - General view of US Census Data
-- What is an API and how to access
+- Decennial US Census
+- American Community Survey (ACS)
+
+"While the decennial US Census and American Community Survey are the most popular and widely used datasets produced by the US Census Bureau, the Bureau conducts hundreds of other surveys and disseminates data on a wide range of subjects to the public. These datasets include economic and business surveys, housing surveys, international data, population estimates and projections, and much more; a full listing is available on the Census website."
+
+- How is Census data available
+- The Census API
 
 ## Introduction to `tidycensus`
-(Chapter 2 - 25-30 min)
+(Chapter 2 - 5 min)
+"The `tidycensus` is an R package that provides an interface to access and work with the United States Census Bureau data. It simplifies the process of retrieving and analyzing census data by allowing users to query data directly from the Census Bureau's API and then organize the data into a tidy format for easy manipulation and analysis."
 
+## Querying data
 - Basic data requests
 - Fundamentals of data package and the options it offers
 
 ## Getting Census Data ready for analysis
-(Chapter 3 - 20-25 min)
+(Chapter 3 - 10 min)
 
-- Data wranglw again? Yes!
+- Applying data wrangling skills
 - Handling errors in data
 
 ## Visualizing Censis Data with `ggplot2`
-(Chapter 4 - 20 min)
+(Chapter 4 - 10 min)
 
 ## Maps and Census Data
 ( Chapter 5 and 6 - 10 min?)
