@@ -1,10 +1,9 @@
 ## Learning Objectives {.unnumbered}
 
-**REVISE**
 
-- The basics of the `ggplot2` package to create static plots
-- How to use `ggplot2`'s `theme` abilities to create publication-grade graphics
-- The basics of the `leaflet` package to create interactive maps
+- Understand the fundamentals of how the `ggplot2` package works
+- Use `ggplot2`'s `theme` and other customization functions create publication-grade graphics
+- Introduce the `leaflet` and `DT` package to create interactive maps and tables respectively
 
 ## Overview
 
@@ -77,8 +76,8 @@ glimpse(delta_visits)
 range(delta_visits$date)
 
 ## First and last rows
-head(delta_visits$date)
-tail(delta_visits$date)
+head(delta_visits)
+tail(delta_visits)
 
 ## Which time of day?
 unique(delta_visits$time_of_day)
@@ -90,7 +89,7 @@ unique(delta_visits$time_of_day)
 
 ## Getting the data ready
 
-It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
+It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. After reading and exploring our data, we'll put our data wrangling skills to practice to get our data in the desired format.
 
 With the [tidy data principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html#tidy-data) in mind. Is this data tidy?
 
@@ -100,14 +99,19 @@ With the [tidy data principles](https://learning.nceas.ucsb.edu/2023-06-delta/se
 
 `ggplot2` for the most part likes data input to be in a long format (aka "tidy"). So let go ahead and make this data frame long instead of wide. Do you remember the name of the function we can use?
 
+Let's refresh our memory on how this function works by accessing the `help` page. Type `?pivot_long()` in the console to see the documentation for this function.
+
 ```{r}
 
 visits_long <- delta_visits %>% 
     pivot_longer(cols = c("sm_boat", "med_boat", "lrg_boat", "bank_angler", "scientist", "cars"),
                  names_to = "visitor_type",
-                 values_to = "quantity") %>% 
+                 values_to = "quantity") %>%
     rename(restore_loc = eco_restore_approximate_location) %>% 
     select(-notes)
+
+## Checking the outcome
+head(visits_long)
 
 ```
 
@@ -130,7 +134,7 @@ head(daily_visits_loc)
 
 ```
 
-The chunk above usees some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarize()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
+The chunk above uses some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarize()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
 
 ## Plotting with `ggplot2`
 
@@ -152,7 +156,7 @@ To add layers to our plot, for example, additional geometries/aesthetics and the
 :::
 
 
-For example, let's plot total daily visits by restoration location. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a `ggplot`.
+Now, let's plot total daily visits by restoration location. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the 4 essential pieces of a `ggplot`.
 
 
 ```{r basic_esc_plot}
@@ -177,6 +181,8 @@ ggplot() +
 ```
 
 They all will create the same plot:
+
+(Apologies for the crumble text on the x-axis, we will learn how to make this look better soon)
 
 ```{r esc_plot}
 #| echo: false
@@ -227,29 +233,28 @@ daily_visits_loc %>%
 ```
 
 
-<!-- NOT WORKING CHECK **Line and point**
+ **Line and point**
 
 ```{r line_poin_plot}
 #| eval: false
 daily_visits_loc %>%
-    separate(date, c("year", "month", "day"), sep = "-") %>%
-    mutate(month = as.numeric(month)) %>% 
-    filter(restore_loc == "Wildlands") %>%
-    ggplot(aes(x = month, y = daily_visits)) +
+    filter(restore_loc == "Decker Island",
+           visitor_type == "med_boat") %>%
+    ggplot(aes(x = date, y = daily_visits)) +
     geom_line() +
     geom_point()
 ```
--->
+
 
 ### Customizing our plot
 
 Let's go back to our base bar graph. What if we want our bars to be blue instead of gray? You might think we could run this:
 
 ```{r fill_blue}
-#| eval: false
-ggplot(annual_esc,
-       aes(x = Species, y = delta_visitsment,
-           fill = "blue")) +
+
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = "blue"))+
     geom_col()
 ```
 
@@ -260,20 +265,22 @@ Notice that we tried to set the fill color of the plot inside the mapping aesthe
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col()` function, **outside** of the mapping aesthetics function call.
 
 ```{r fill_blue_geom}
-#| eval: false
-ggplot(annual_esc,
-       aes(x = Species, y = delta_visitsment)) +
+
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits))+
     geom_col(fill = "blue")
+
 ```
 
-What if we did want to map the color of the bars to a variable, such as region. `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data. 
+What if we did want to map the color of the bars to a variable, such as `visitor_type`. `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data. 
 
 ```{r}
-#| eval: false
-ggplot(annual_esc,
-       aes(x = Species, y = delta_visitsment,
-           fill = SASAP.Region)) +
+
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
     geom_col()
+
 ```
 
 ::: {.callout-caution icon=false}
@@ -287,65 +294,32 @@ ggplot(annual_esc,
 :::
 
 
-#### Creating multiple plots
-
-We know that in the graph we just plotted, each bar includes delta_visitsments for multiple years. Let's leverage the power of `ggplot` to plot more aspects of our data in one plot.
-
-We are going to plot delta_visitsment by species over time, from 2000 to 2016, for each region. 
-
-An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~{variable_name}`. The `~` (tilde) is a model operator which tells `facet_wrap()` to model each unique value within `variable_name` to a facet in the plot.
-
-The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol = ` argument or number of rows using `nrow =`.
-
-
-```{r facet_base_plot}
-#| eval: false
-## Subset with data from years 2000 to 2016
-
-annual_esc_2000s <- annual_esc %>%
-    filter(Year %in% c(2000:2016))
-
-## Quick check
-unique(annual_esc_2000s$Year)
-
-
-## Plot with facets
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y")
-   
-```
-
-
 #### Setting ggplot themes
 
-Now let's work on making this plot look a bit nicer. We are going to"
+We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to"
 
-- Add a title using `ggtitle()`
-- Adjust labels using `ylab()`
 - Include a built in theme using `theme_bw()`
+- Flip the x and y axis to better read the graph
+- Add a title, subtitle and adjust labels using `labs()`
 
-There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
+
+There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio auto-complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r theme_bw_plot}
-#| eval: false
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
-    theme_bw()
+
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")
+    
 ```
 
 You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package.
@@ -368,62 +342,57 @@ The built in theme functions (`theme_*()`) change the default settings for many 
 Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
 
 ```{r}
-#| eval: false
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
-    theme_light() +
-    theme(legend.position = "bottom",
-          legend.title = element_blank())
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    theme(legend.position = "bottom")
 ```
 
 
 Note that the `theme()` call needs to come after any built-in themes like `theme_bw()` are used. Otherwise, `theme_bw()` will likely override any theme elements that you changed using `theme()`.
 
+
 You can also save the result of a series of `theme()` function calls to an object to use on multiple plots. This prevents needing to copy paste the same lines over and over again!
 
 ```{r save_theme}
-my_theme <- theme_light() +
+my_theme <- theme_bw(base_size = 14) +
     theme(legend.position = "bottom",
-          legend.title = element_blank())
+          axis.ticks.x = element_blank())
 ```
 
 So now our code will look like this:
 
 
 ```{r}
-#| eval: false
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    coord_flip()+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
     my_theme
+
 ```
 
 
 ::: callout-note
 #### Exercise
 
- 1. Using whatever method you like, figure out how to rotate the x-axis tick labels to a 45 degree angle.
+What changes do you expect to see in your plot by adding the following line of code? Discuss with your neighbor and then try it out!
 
-**Hint:** You can start by looking at the documentation of the function by typing `?theme()` in the console. And googling is a great way to figure out how to do the modifications you want to your plot.
-
-2. What changes do you expect to see in your plot by adding the following line of code? Discuss with your neighbor and then try it out!
-
-`scale_x_continuous(breaks = seq(2000,2016, 2))`
+`scale_y_continuous(breaks = seq(0,120, 20))`
 
 :::
 
@@ -431,137 +400,114 @@ ggplot(annual_esc_2000s,
 ```{r}
 #| code-fold: true
 #| code-summary: "Answer"
-#| eval: false
 
-## Useful baseline themes are
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
-    my_theme +
-    theme(axis.text.x = element_text(angle = 45,
-                                     vjust = 0.5))
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20))+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
 
 ```
 
-
-#### Smarter tick labels using `scales`
-
-Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
-
-The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous()` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
+Finally we are going to expand the bars all the way to the axis line. In other words, remove the gap between the bars and the vertical "x-axis" line.
 
 ```{r}
-#| eval: false
-ggplot(annual_esc_2000s,
-       aes(x = Year,
-           y = delta_visitsment,
-           color = Species)) +
-    geom_line() +
-    geom_point() +
-    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
-    scale_y_continuous(labels = comma) +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
-    my_theme +
-    theme(axis.text.x = element_text(angle = 45,
-                                     vjust = 0.5))
+ggplot(data = daily_visits_loc,
+       aes(x = restore_loc, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
 
 ```
 
-
-You can also save all your code into an object in your working environment by assigning a name to the `ggplot()` code.
-
-
-```{r}
-#| eval: false
-annual_region_plot <- ggplot(annual_esc_2000s,
-                             aes(x = Year,
-                                 y = delta_visitsment,
-                                 color = Species)) +
-    geom_line() +
-    geom_point() +
-    scale_x_continuous(breaks = seq(2000, 2016, 2)) +
-    scale_y_continuous(labels = comma) +
-    facet_wrap( ~ SASAP.Region,
-                scales = "free_y") +
-    ylab("delta_visitsment") +
-    xlab("\nYear") +
-    ggtitle("Annual Salmon delta_visitsment by Region") +
-    my_theme +
-    theme(axis.text.x = element_text(angle = 45,
-                                     vjust = 0.5))
-```
-
-And then call your object to see your plot.
-
-```{r}
-#| eval: false
-annual_region_plot
-```
 
 
 #### Reordering things
 
-`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted if you have categorical groups. Let’s find some total years of data by species for Kuskokwim.
+`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted. One way to do this is to use the `fct_reorder()` function from the `forcats` package. `forcats` provide tools for working with categorical variables. In this case, we want to reorder or categorical variable of "Restoration Location" base on the total number of visits.
 
-```{r n_year_data}
-#| eval: false
-#| warning: false
-#| message: false
-
-## Number Years of data for each salmon species at Kuskokwim
-n_years <- annual_esc %>%
-    group_by(SASAP.Region, Species) %>%
-    summarize(n = n()) %>%
-    filter(SASAP.Region == "Kuskokwim")
-```
-
-Now let's plot this using `geom_bar()`.
+The fist thing we need to do is to add a column to our data with the _total number of visits_ by location.
 
 ```{r}
-#| eval: false
-## base plot
-ggplot(n_years,
-       aes(x = Species,
-           y = n)) +
-    geom_bar(aes(fill = Species),
-             stat = "identity")
+daily_visits_totals <- daily_visits_loc %>% 
+    group_by(restore_loc) %>%
+    mutate(n = sum(daily_visits)) %>% 
+    ungroup()
+
+head(daily_visits_totals)
 ```
 
-Now, let's apply some of the customizations we have seen so far and learn some new ones.
+Next, we will run the code for our plot adding the `fct_reorder()` function.
 
 ```{r}
-#| eval: false
-## Reordering, flipping coords and other customization
-ggplot(n_years,
-       aes(
-           x = fct_reorder(Species, n),
-           y = n,
-           fill = Species
-       )) +
-    geom_bar(stat = "identity") +
-    coord_flip() +
-    theme_minimal() +
-    ## another way to customize labels
-    labs(x = "Species",
-         y = "Number of years of data",
-         title = "Number of years of delta_visitsment data for salmon species in Kuskokwim") +
-    theme(legend.position = "none")
+ggplot(data = daily_visits_totals,
+       aes(x = fct_reorder(restore_loc, n), y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
 
 ```
+
+What if you want to plot the other way around? In this case from least to greater? We add the `desc()` to the variable we are sorting by.
+
+```{r}
+ggplot(data = daily_visits_totals,
+       aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
+
+```
+
+<!--- INCLUDE??
+:::callout-important
+Note how `coord_flip()` changes the parameters
+:::
+--->
+
+?? Add somthing about reordering the legend??
+
+#### Colors
+Color can be fun and overwhelming 
+Introduce color pallets
+things to keep in mind (how many colors you need)
+Provide resources
 
 
 #### Saving plots
+
+UDPDATE CODE
 
 Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
 
@@ -577,6 +523,52 @@ We can also save our facet plot showing annual delta_visitsments by region calli
 #| eval: false
 ggsave(annual_region_plot, "figures/annual_esc_region.png", width = 12, height = 8, units = "in")
 ```
+
+
+
+
+#### Creating multiple plots
+
+UPDATE TEXT
+
+We know that in the graph we just plotted, each bar includes visit for multiple days. Let's leverage the power of `ggplot` to plot more aspects of our data in one plot.
+
+We are going to plot visits by **species over time, from 2000 to 2016, for each region. **
+
+An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~{variable_name}`. The `~` (tilde) is a model operator which tells `facet_wrap()` to model each unique value within `variable_name` to a facet in the plot.
+
+The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol = ` argument or number of rows using `nrow =`.
+
+
+ADD TEXT ABOUT SCALES
+
+```{r}
+ggplot(data = daily_visits_totals,
+       aes(x = visitor_type, y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    facet_wrap(~restore_loc,
+               scales = "free_y",
+               ncol = 5,
+               nrow = 2)+
+    labs(x = "Type of visitor",
+         y = "Number of Visits",
+         title = "Total Number of Visits to Delta Restoration Areas",
+         subtitle = "Sum of all visits during study period")+
+    theme_bw()+
+    theme(legend.position = "bottom",
+          axis.ticks.x = element_blank(),
+          axis.text.x = element_blank())
+```
+
+
+
+#### Smarter tick labels using `scales`
+
+Fixing tick labels in `ggplot` can be super annoying. The y-axis labels in the plot above don't look great. We could manually fix them, but it would likely be tedious and error prone.
+
+The `scales` package provides some nice helper functions to easily rescale and relabel your plots. Here, we use `scale_y_continuous()` from `ggplot2`, with the argument `labels`, which is assigned to the function name `comma`, from the `scales` package. This will format all of the labels on the y-axis of our plot with comma-formatted numbers.
 
 
 ## Interactive visualization
