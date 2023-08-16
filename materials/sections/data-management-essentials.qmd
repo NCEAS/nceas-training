@@ -79,7 +79,7 @@ As you can see there is a lot happening around the Data Life Cycle. This is why 
 
 In order to better plan and keep track of all the moving pieces when working with data, a good place to start is creating a Data Management Plan. However, this is not only the starting point. This is a "living" document that should be consulted and updated throughout the project.
 
-A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs are living documents and should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
+A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
 
 A well-thought-out plan means you are more likely to:
 
@@ -97,7 +97,7 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 -   Plan early - overtime information gets loss. Think about your data needs as you are starting your project.
 -   Plan in collaboration - engaging all the team makes your plan more resilient, including diverse expertise and perspectives.
 -   Make revision part of the process - adapt as needed, revising your plan helps you make sure your are on track.
--   Include a tidy data and data ethic lens **!!EXPAND**
+-   Include a tidy data and data ethic lens <!--**!!EXPAND**-->
 :::
 
 ```{=html}
@@ -106,16 +106,86 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
         -       [FAIR principle](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-fair)
         -       Data ethics lens though the [CARE principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-care) later this week. -->
 ```
-### What to include in a DMP
+### Creating a Good Data management Plan
 
-**Ten simple rules to start planning for your plan** 1. Determine what are the USGS requirements 2. Identify the desired/necessary data sets for the project 3. Define how the data will be organized 4. Explain how the data will be documented 5. Describe how data quality will be assured 6. Have a data storage strategy 7. Define the project's data policies 8. What data products will be made available and how? 9. Assign roles and responsibilities 10. Is there a cost associated to managing your data? 11. Data preservation plan
+The article *Ten Simple Rules for Creating a Good Data Management Plan* \[\@michener2015\] outlines the main ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources to help you achieve this "rules" and write an awesome DMP.
 
-**Additional information**
+1.  Determine what are the organization and/or sponsor requirements
+
+-   Generally, each organization or funding agency have specific expectations on how to manage and disseminate data. Even though a DMP is a good idea to keep you organize. It will save you significant time and effort by first understanding the specific requirements set by the organization you are working for. Each organization often provide templates on how to structure your DMP.
+
+-   **Resources:**
+
+    -   The [DMPTool](https://dmptool.org/) provides templates for different funding agencies plan requirements.
+    -   USGS has multiple resources on DMPs. Here the [Data Policy and Guidance](https://www.usgs.gov/programs/climate-adaptation-science-centers/data-policy-and-guidance) for the Climate Adaptation Science Centers
+
+2.  Identify the desired/necessary data sets for the project
+
+-   Data is the ultimate reason why we create a DMP. Identifying what data will be use is crusial to planning. Key aspects of the data to consider are:
+
+    -   Type (text, spatial, images, tabualar, etc)
+
+    -   Source (where does the data currently live?, is it propertary data?)
+
+    -   Volume (10 terabytes, 10 megabytes?)
+
+    -   Format (csv, xlsx, shapefiles, etc)
+
+-   Resource
+
+    -   Here is a template spreadsheet to collect all information about the data set you intent to use for your synthesis project. Please adapt as needed. <!-- ADD LINK -->
+
+3.  Define how the data will be organized
+
+-   Once you know the data you will be using (rule #2) it is time to define how are you going to work with your data. Where will the raw data live? How are the different collaborators going to access the data? The needs vary widely from one project to another depending on the data. When drafting your DMP is helpful to focus on identifying what products and software you will be using. When collaborating with a team it is important to identify f there are any limitations to accessing any software or tool.
+
+-   Resource
+
+-   [Here is an example](https://nceas.github.io/scicomp.github.io/tutorial_server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
+
+4.  Explain how the data will be documented
+
+-   We know documenting data is very important. To successfully achieve this we need a plan in place. Three main steps to plan accordingly are:
+
+    -   Identifying the type of infoomation you want/need to collect to document your data throughly
+
+    -   Determine if the is a metadata standard or schema (organized set of elements) you will follow (eg. EML, Dublin Core, ISO 19115, ect). In many cases this relates with what data repository you intend to archive your data.
+
+    -   Establish tools that can help you create and manage metadata content.
+
+-   Resource
+
+    -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
+
+5.  Describe how data quality will be assured
+
+-   Quality assurance and quality control (QA/QC) are the procedures taken to ensure data looks how we expect it to be. The ultimate goal is to improve the quality of the data products. Some fields of study, data types or funding organizations have specific set of guidelines for QA/QCing data. However, when writing your DMP it is important to describe what measures you plan to take to QA/QC the data (e.g: instrument calibration, verification tests, visualization approaches for error detection, etc.)
+
+-   Resources
+
+Environmental Data Initiative (EDI) description and examples of [Quality Assurance](https://edirepository.org/resources/quality-assurance) and [Quality Control](https://edirepository.org/resources/cleaning-data-and-quality-control)
+
+6.  Have a data storage strategy
+
+-   
+
+-   Define the project's data policies
+
+-   What data products will be made available and how?
+
+-   Assign roles and responsibilities
+
+-   Is there a cost associated to managing your data?
+
+-   Data preservation plan
+
+```{=html}
+<!-- **Additional information**
 
 Project details - Project title - Abstract - Research domain - Start and end date - Funder
 
-Collaborators - Name - Contact information -
-
+Collaborators - Name - Contact information --->
+```
 ## Metadata Best Practices
 
 Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection.
@@ -212,7 +282,7 @@ Some data repositories assign a DOI for each dataset you publish on their reposi
 
 Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
 
-## Data Sharing & Preservation
+## Data Preservation & Sharing
 
 ![](images/WhyManage-small.png)
 
@@ -256,19 +326,43 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 ## Summary
 
 -   The Data Life Cycle help us see the big picture of our data project.
--   Once we identify the necessary steps it is helpful to think through each one and plan accordingly.
--   It is extremely helpful to develop a data management plan is to stay organized.
+-   It is extremely helpful to develop a data management plan describing each step of the data life cycle to stay organized.
 -   Document everything. Having rich metadata is a key factor to enable data reuse. Describe your data and files and use an appropriate metadata standard.
+-   Identify software and tools that will help you and your team organize and document the project's data life cycle.
 -   Publish your data in a stable long live repository and assign a unique identifier.
 
-## Activity: Let's think about the Data Life Cycle for your project
+## Activity
 
-GOAL: Get them to start thinking about the data needs of their project and how they envision prpating for each step.
-
--   Looking into your logic models: What are the data needs?
-
--   How can we start planning the way we are goingt o organize these data sets
+### 1. Familiarize with a DMP
 
 -   Look into DPM examples
 
--   Answer guided question to outline a DMP plan
+### 2. How will Data Life Cycle look for your project?
+
+A. Look at the Data Life Cycle diagram and discuss with your neighbor ideas that come to mind on how to plan for each of the stages.
+
+B. Use the logic model you created during the Monday session and answer the following questions:
+
+*Note: Remember this is just a starting point. It is ok to answer to the best of your capacity at the stage where you are with your project*
+
+-   Is there any data going to be created? If yes describe what kind of data and how is it going to be created?
+-   Roles and Responsibilities
+    -   Who will be the main contact person responsible to keeping the DMP up to date?
+    -   Who will be the Data Manages?
+    -   Who will be the person responsible for writing and maintaining metadata for the project?
+-   What tools and software are you going to use to access, process and check your data?
+-   Provide a description of the data that will be used in this project.
+    -   Use template <!-- provide link -->
+    -   "Description, source, use restrictions, format, fees, quality checks, data processing and scientific workflows, backup and storage, data volume estimates, and data citation. OR Provide a description about how & where this information will be documented throughout the project."
+-   Are there any costs associated to data or tools you plan to use?
+-   What models do you plan on using for this project? Provide a brief description.
+    -   Where will this information de documented?
+-   Provide a description/abstract of the data product for your project.
+-   Any ideas on how to QA/QC your data? Describe the process for managing the quality of the data throughout the project.
+-   Which metadata standard ar you planning on using and why?
+-   How will the metadata be created? How will this process be documented though the project?
+-   Access and use constraints for your project's data products
+    -   Will the re be any requirements or legal restrictions for accessing the data products?
+    -   Will the re be any requirements or legal restrictions for usings the data products?
+-   Where do you envision archiving the data products for their long-term preservation?
+-   How will the data be shared
