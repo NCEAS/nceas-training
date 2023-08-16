@@ -10,7 +10,7 @@
 
 This lesson aims to get you thinking about how are you going to manage your data. Even though you are in the early stages of defining you research project, we believe that when it comes to data management, the earlier you start thinking about it the better.
 
-*!!!In this lesson we will...!!*
+<!--*!!!In this lesson we will...!!*-->
 
 ## Introduction
 
@@ -108,13 +108,13 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 ```
 ### Creating a Good Data management Plan
 
-The article *Ten Simple Rules for Creating a Good Data Management Plan* \[\@michener2015\] outlines the main ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources to help you achieve this "rules" and write an awesome DMP.
+The article *Ten Simple Rules for Creating a Good Data Management Plan* {@michener2015} outlines the main ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources to help you achieve this "rules" and write an awesome DMP.
 
 1.  Determine what are the organization and/or sponsor requirements
 
 -   Generally, each organization or funding agency have specific expectations on how to manage and disseminate data. Even though a DMP is a good idea to keep you organize. It will save you significant time and effort by first understanding the specific requirements set by the organization you are working for. Each organization often provide templates on how to structure your DMP.
 
--   **Resources:**
+-   Resources
 
     -   The [DMPTool](https://dmptool.org/) provides templates for different funding agencies plan requirements.
     -   USGS has multiple resources on DMPs. Here the [Data Policy and Guidance](https://www.usgs.gov/programs/climate-adaptation-science-centers/data-policy-and-guidance) for the Climate Adaptation Science Centers
@@ -141,7 +141,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* \[\@mich
 
 -   Resource
 
--   [Here is an example](https://nceas.github.io/scicomp.github.io/tutorial_server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
+    -   [Here is an example](https://nceas.github.io/scicomp.github.io/tutorial_server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
 
 4.  Explain how the data will be documented
 
@@ -163,29 +163,34 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* \[\@mich
 
 -   Resources
 
-Environmental Data Initiative (EDI) description and examples of [Quality Assurance](https://edirepository.org/resources/quality-assurance) and [Quality Control](https://edirepository.org/resources/cleaning-data-and-quality-control)
+    -   Environmental Data Initiative (EDI) description and examples of [Quality Assurance](https://edirepository.org/resources/quality-assurance) and [Quality Control](https://edirepository.org/resources/cleaning-data-and-quality-control)
 
-6.  Have a data storage strategy
+6.  Have a data storage strategy (short and long term)
 
--   
+-   Papers get lost, hardware disk crash, URLs break, different media format degrade. It's inevitable! Plan ahead and think on where your data will live in the long-term to ensure the access and use of this data long after the project. <!-- ADD SHORT TEMR BLURB + RESOURCES-->
 
--   Define the project's data policies
+7.  Define the project's data policies
 
--   What data products will be made available and how?
+-   "Many research sponsors require that DMPs include explicit policy statements about how data will be managed and shared. Such policies include:
 
--   Assign roles and responsibilities
+    -   licensing or sharing arrangements that pertain to the use of preexisting materials;
 
--   Is there a cost associated to managing your data?
+    -   plans for retaining, licensing, sharing, and embargoing (i.e., limiting use by others for a period of time) data, code, and other materials; and
 
--   Data preservation plan
+    -   legal and ethical restrictions on access and use of human subject and other sensitive data". <!-- REVISE AND ADD RESOURCE -->
 
-```{=html}
-<!-- **Additional information**
+8.  What data products will be made available and how?
 
-Project details - Project title - Abstract - Research domain - Start and end date - Funder
+-   "A good dissemination plan includes a few concise statements. State when, how, and what data products will be made available. Generally, making data available to the greatest extent and with the fewest possible restrictions at the time of publication or project completion is encouraged". <!--REVISE AND ADD RESOURCE -->
 
-Collaborators - Name - Contact information --->
-```
+9.  Assign roles and responsibilities
+
+-   "A comprehensive DMP clearly articulates the roles and responsibilities of every named individual and organization associated with the project. Roles may include data collection, data entry, QA/QC, metadata creation and management, backup, data preparation and submission to an archive, and systems administration." <!--- Revise and ADD RESOURCE -->
+
+10. Is there a cost associated to managing your data?
+
+-   "Data management takes time and costs money in terms of software, hardware, and personnel. Review your plan and make sure that there are lines in the budget to support the people that manage the data as well as pay for the requisite hardware, software, and services." <!-- REVISE and ADD RESOURCE -->
+
 ## Metadata Best Practices
 
 Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection.
@@ -333,11 +338,11 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 ## Activity
 
-### 1. Familiarize with a DMP
+## Familiarize with a DMP
 
 -   Look into DPM examples
 
-### 2. How will Data Life Cycle look for your project?
+### How will Data Life Cycle look for your project?
 
 A. Look at the Data Life Cycle diagram and discuss with your neighbor ideas that come to mind on how to plan for each of the stages.
 
