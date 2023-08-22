@@ -2,7 +2,7 @@
 
 -   Understand the importance of data management for successfully preserving data
 -   Review the Data Life Cycle and how it can guide the data management in a project
--   Familiarize with data management plans and start drafting one for your project
+-   Familiarize with data management plans and start thinking about one for your project
 -   Learn about metadata guidelines and best practices for reproducibility
 -   Become familiar with environmental data repositories for accessing and publishing data
 
@@ -14,7 +14,7 @@ This lesson aims to get you thinking about how are you going to manage your data
 
 ## Introduction
 
-Data management is the process of handling, organizing, documenting, and preserving data used in a research project. This is particularly important in synthesis science given the nature of synthesis, which involves combining data and information from multiple sources to answer broader questions, generate knowledge and provide insights into a particular problem or phenomenon.
+Data management is the process of handling, organizing, documenting, and preserving data used in a research project. This is **particularly important in synthesis science** given the nature of synthesis, which involves combining data and information from multiple sources to answer broader questions, generate knowledge and provide insights into a particular problem or phenomenon.
 
 ### Benefits of managing your data
 
@@ -58,14 +58,14 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 | *Plan*               | Map out the processes and resources for all activities related to the handling of the project's data assets. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans for each step.                                                                                                                                       | Data Management Plan (DPM)                             |
 | *Acquire & Discover* | Activities needed to collect new or existing data. You can structure the process of collecting data upfront to better implement data management. Consider data policies and best practices that maintain the provenance and integrity of the data.                                                                                                                                                                                             | Identifying data sources and mechanisms to access data |
 | *Process*            | Every step needed to prepare new or existing data to be able to use it as an input for synthesis. Consider the structure of the data, unit transformation, extrapolations, etc                                                                                                                                                                                                                                                                 | Cleaning & Wrangling data skills                       |
-| *Integrate*          | Data from multiple sources are combined into a form that can be readily analyzed. For example, you could combine citizen science project data with other sources of data to enable new analyses and investigations. Successful data integration depends on documentation of the integration process, clearly citing and making accessible the data you are using, and employing good data management practices throughout the Data Life Cycle. | Modeling & Interpretation                              |
+| *Integrate*          | Data from multiple sources are combined into a form that can be readily analyzed. Successful data integration depends on documentation of the integration process, clearly citing and making accessible the data you are using, and employing good data management practices throughout the Data Life Cycle. | Modeling & Interpretation                              |
 | *Analyze*            | Create analyses and visualizations to identify patterns, test hypotheses, and illustrate findings. During this process, record your methods, document data processing steps, and ensure your data are reproducible. Learn about these best practices and more.                                                                                                                                                                                 | Modeling, Interpretation & Statistics                  |
 | *Preserve*           | Plan on how you are going to store your data for long-term use and accessibility so others can access, interpret, and use the data in the future. Decide what data to preserve, where to preserve it, and what documentation needs to accompany the data.                                                                                                                                                                                      | Data packages & repositories                           |
 | *Publish and Share*  | Publication and distribution of your data through the web or in data catalogs, social media or other venues to increase the chances of your data being discovered. Data is a research product as publications are.                                                                                                                                                                                                                             | DOIs and citations                                     |
 
 ### Cross-Cutting Elements
 
-These elements are involved across all stages describes above. They need to constantly by addressed throughout all the Data Life Cycle, making sure effetive data management is in place.
+These elements are involved across all stages describes above. They need to constantly by addressed throughout all the Data Life Cycle, making sure effective data management is in place.
 
 | Step                | Description                                                                                                                                                                                                                                                                                                                                                                                                        | Tool                                             |
 |------------------|------------------------------------|------------------|
@@ -91,10 +91,10 @@ A well-thought-out plan means you are more likely to:
 
 A DMP is both a straightforward blueprint for how you manage your data, *and* provides guidelines for you and your team on policies, roles and responsibilities. While it is important to plan, it is equally important to recognize that no plan is perfect, as change is inevitable. To make your DMP as robust as possible, review it periodically with your team and adjust as the needs of the project change.
 
-::: callout-tip
+::: callout-note
 ## How to plan
 
--   Plan early - overtime information gets loss. Think about your data needs as you are starting your project.
+-   Plan early - information gets lost over time. Think about your data needs as you are starting your project.
 -   Plan in collaboration - engaging all the team makes your plan more resilient, including diverse expertise and perspectives.
 -   Make revision part of the process - adapt as needed, revising your plan helps you make sure your are on track.
 -   Include a tidy data and data ethic lens <!--**!!EXPAND**-->
@@ -110,7 +110,7 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 
 The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michener2015) outlines the main ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources to help you achieve this "rules" and write an awesome DMP.
 
-1.  Determine what are the organization and/or sponsor requirements
+#### Determine what are the organization and/or sponsor requirements
 
 -   Generally, each organization or funding agency have specific expectations on how to manage and disseminate data. Even though a DMP is a good idea to keep you organize. It will save you significant time and effort by first understanding the specific requirements set by the organization you are working for. Each organization often provide templates on how to structure your DMP.
 
@@ -119,7 +119,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
     -   The [DMPTool](https://dmptool.org/) provides templates for different funding agencies plan requirements.
     -   USGS has multiple resources on DMPs. Here the [Data Policy and Guidance](https://www.usgs.gov/programs/climate-adaptation-science-centers/data-policy-and-guidance) for the Climate Adaptation Science Centers
 
-2.  Identify the desired/necessary data sets for the project
+#### Identify the desired/necessary data sets for the project
 
 -   Data is the ultimate reason why we create a DMP. Identifying what data will be use is crusial to planning. Key aspects of the data to consider are:
 
@@ -133,9 +133,9 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 -   Resource
 
-    -   Here is a template spreadsheet to collect all information about the data set you intent to use for your synthesis project. Please adapt as needed. <!-- ADD LINK -->
+    -   Here is a template spreadsheet to collect all information about the data set you intent to use for your synthesis project. Please make a copy and adapt as needed. <!-- ADD LINK -->
 
-3.  Define how the data will be organized
+#### Define how the data will be organized
 
 -   Once you know the data you will be using (rule #2) it is time to define how are you going to work with your data. Where will the raw data live? How are the different collaborators going to access the data? The needs vary widely from one project to another depending on the data. When drafting your DMP is helpful to focus on identifying what products and software you will be using. When collaborating with a team it is important to identify f there are any limitations to accessing any software or tool.
 
@@ -143,7 +143,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
     -   [Here is an example](https://nceas.github.io/scicomp.github.io/tutorial_server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
 
-4.  Explain how the data will be documented
+#### Explain how the data will be documented
 
 -   We know documenting data is very important. To successfully achieve this we need a plan in place. Three main steps to plan accordingly are:
 
@@ -156,8 +156,9 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 -   Resource
 
     -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
+    -   EDI uses ezEML <!-- ADD LINK AND EXPLANATION -->
 
-5.  Describe how data quality will be assured
+#### Describe how data quality will be assured
 
 -   Quality assurance and quality control (QA/QC) are the procedures taken to ensure data looks how we expect it to be. The ultimate goal is to improve the quality of the data products. Some fields of study, data types or funding organizations have specific set of guidelines for QA/QCing data. However, when writing your DMP it is important to describe what measures you plan to take to QA/QC the data (e.g: instrument calibration, verification tests, visualization approaches for error detection, etc.)
 
@@ -165,9 +166,15 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
     -   Environmental Data Initiative (EDI) description and examples of [Quality Assurance](https://edirepository.org/resources/quality-assurance) and [Quality Control](https://edirepository.org/resources/cleaning-data-and-quality-control)
 
-6.  Have a data storage strategy (short and long term)
+#### Have a data storage strategy (short and long term)
 
--   Papers get lost, hardware disk crash, URLs break, different media format degrade. It's inevitable! Plan ahead and think on where your data will live in the long-term to ensure the access and use of this data long after the project. <!-- ADD SHORT TEMR BLURB + RESOURCES-->
+-   Papers get lost, hardware disk crash, URLs break, different media format degrade. It's inevitable! Plan ahead and think on where your data will live in the short and long-term to ensure the access and use of this data during and long after the project. It is important to have a backup mechanism in place during the project to avoid losing any information.
+
+
+-   Resource
+
+    -   Remote locations to store your data during your project are: institutionla repositories or servers or commercial services such as Amazone, Dropbox, Google, Microsoft, Box, etc.
+    -   Long-term storage: identify an appropriate and stable data repository for your research domain (See section 3.6 [Data Preservation and Sharing](https://learning.nceas.ucsb.edu/2023-08-usgs/session_03.html#data-preservation-sharing))
 
 7.  Define the project's data policies
 
