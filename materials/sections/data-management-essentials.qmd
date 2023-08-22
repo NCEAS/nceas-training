@@ -176,27 +176,32 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
     -   Remote locations to store your data during your project are: institutionla repositories or servers or commercial services such as Amazone, Dropbox, Google, Microsoft, Box, etc.
     -   Long-term storage: identify an appropriate and stable data repository for your research domain (See section 3.6 [Data Preservation and Sharing](https://learning.nceas.ucsb.edu/2023-08-usgs/session_03.html#data-preservation-sharing))
 
-7.  Define the project's data policies
+#### Define the project's data policies
 
--   "Many research sponsors require that DMPs include explicit policy statements about how data will be managed and shared. Such policies include:
+-   Many organizations and institutions require to include an explicit policy statement about how data will be managed and shared. Including licensing or sharing arrangements and legal and ethical restrictions on access and use of human subject and other sensitive data. It is valuable to establish a shared agreement around handling of data when embarking on collaborative projects. Collaborative research brings together data from across research projects with different data management plans and can include publicly accessible data from repositories where no management plan is available. For these reasons, a discussion and agreement around the handling of data brought into and resulting from the collaboration is warranted and management of this new data may benefit from going through a data management planning process.
 
-    -   licensing or sharing arrangements that pertain to the use of preexisting materials;
+-   Resource
 
-    -   plans for retaining, licensing, sharing, and embargoing (i.e., limiting use by others for a period of time) data, code, and other materials; and
+    -   [Template](https://docs.google.com/document/d/16wNpk9vJiWqQQStmaEG66YgawU39hGC8x9KnbUqbyO4/edit?usp=sharing) provided by the [Arctic Data Center](https://arcticdata.io/), including sections for individual data not in the public domain, individual data with public access, derived data resulting from the project.
 
-    -   legal and ethical restrictions on access and use of human subject and other sensitive data". <!-- REVISE AND ADD RESOURCE -->
+#### What data products will be made available and how?
 
-8.  What data products will be made available and how?
+-   This portion of the DMP tries to ensure that the data products of your project will be disseminated. This can be achieved by stating how, when and where these products will be available. We encourage open data practices, this means making data extensively available and with the least restrictions possible.
 
--   "A good dissemination plan includes a few concise statements. State when, how, and what data products will be made available. Generally, making data available to the greatest extent and with the fewest possible restrictions at the time of publication or project completion is encouraged". <!--REVISE AND ADD RESOURCE -->
+- Examples
 
-9.  Assign roles and responsibilities
+    -   Publishing the data in an open repository or archive
+    -   Submitting the data (or subsets thereof) as appendices or supplements to journal articles
+    -   Publishing the data, metadata, and relevant code as a “data paper”
+
+#### Assign roles and responsibilities
 
 -   "A comprehensive DMP clearly articulates the roles and responsibilities of every named individual and organization associated with the project. Roles may include data collection, data entry, QA/QC, metadata creation and management, backup, data preparation and submission to an archive, and systems administration." <!--- Revise and ADD RESOURCE -->
 
-10. Is there a cost associated to managing your data?
+#### Prepare a realistic budget
 
 -   "Data management takes time and costs money in terms of software, hardware, and personnel. Review your plan and make sure that there are lines in the budget to support the people that manage the data as well as pay for the requisite hardware, software, and services." <!-- REVISE and ADD RESOURCE -->
+
 
 ## Metadata Best Practices
 
