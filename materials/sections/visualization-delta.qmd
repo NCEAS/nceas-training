@@ -46,17 +46,18 @@ library(leaflet) # interactive maps
 library(DT) # interactive tables
 library(scales) # scale functions for visualization
 library(janitor) # expedite cleaning and exploring data
+library(veridis) # colorblind friendly color pallet
 ```
 
 
-2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address".
+2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address". _Note:_ `janitor::clean_names()` is an awesome function to transform all column names into the same format.
 
 ```{r}
 #| message: false
 #| warning: false
 
 delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f") %>% 
-    janitor::clean_names()
+    janitor::clean_names() ## Introducing this new package!
 
 ```
 
@@ -134,7 +135,7 @@ head(daily_visits_loc)
 
 ```
 
-The chunk above uses some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarize()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
+The chunk above uses some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarise()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
 
 ## Plotting with `ggplot2`
 
@@ -296,15 +297,11 @@ ggplot(data = daily_visits_loc,
 
 #### Setting ggplot themes
 
-We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to"
+We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
 - Add a title, subtitle and adjust labels using `labs()`
 - Flip the x and y axis to better read the graph
 - Include a built in theme using `theme_bw()`
-
-
-
-There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio auto-complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r theme_bw_plot}
@@ -324,7 +321,7 @@ ggplot(data = daily_visits_loc,
     
 ```
 
-You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package.
+You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package that help quickly set the look of the plot. Use the RStudio auto-complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r}
@@ -341,7 +338,7 @@ theme_classic()
 
 The built in theme functions (`theme_*()`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great `ggplot` resources online so we don't have to remember all of these, just Google ["ggplot cheat sheet"](https://www.google.com/search?q=ggplot+cheat+sheet&rlz=1C5CHFA_enUS989US989&oq=ggplot+chea&aqs=chrome.0.0i433i512j69i57j0i512l2j0i22i30i395l2.1681j1j7&sourceid=chrome&ie=UTF-8) and find one you like.
 
-Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
+Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove the ticks of our Locations axis.
 
 ```{r}
 ggplot(data = daily_visits_loc,
@@ -356,7 +353,7 @@ ggplot(data = daily_visits_loc,
     coord_flip()+
     theme_bw()+
     theme(legend.position = "bottom",
-          axis.ticks.x = element_blank())
+          axis.ticks.y = element_blank()) ## note we mention y-axis here
     
 ```
 
@@ -369,7 +366,7 @@ You can also save the result of a series of `theme()` function calls to an objec
 ```{r save_theme}
 my_theme <- theme_bw(base_size = 16) +
     theme(legend.position = "bottom",
-          axis.ticks.x = element_blank())
+          axis.ticks.y = element_blank())
 ```
 
 So now our code will look like this:
@@ -500,12 +497,31 @@ Note how `coord_flip()` changes the parameters
 --->
 
 
-
 #### Colors
-Color can be fun and overwhelming 
-Introduce color pallets
-things to keep in mind (how many colors you need)
-Provide resources
+
+The last thing we will do to our plot is change the color. To do this we are going to use a functions from the `viridis` package. This package provides different color pallets that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. As `viridis` there are multiple other color pallet packages or color pallets out there that you can use to customize your graphs. We could spend a whole session talking about colors in R! For the purpose of this lesson we are just going to keep it brief and show one function of the `viridis` package that will make our plot colors look better.
+
+```{r}
+
+ggplot(data = daily_visits_totals,
+       aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+    scale_fill_viridis_d()+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
+
+
+```
+
+Thing to keep in mind when choosing a color pallet is the number of variables you have and how many colors your pallet have. And if your need a discrete or a continuous color pallet. Find more information about colors in this [R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf). 
 
 
 #### Saving plots
@@ -514,7 +530,7 @@ Saving plots using `ggplot` is easy! The `ggsave()` function will save either th
 
 ```{r}
 #| eval: false
-ggsave("figures/visit_restore_site_delta.jpg", width = 8, height = 6, units = "in")
+ggsave("figures/visit_restore_site_delta.jpg", width = 12, height = 6, units = "in")
 ```
 
 
