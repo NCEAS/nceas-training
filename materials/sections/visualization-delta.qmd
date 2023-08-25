@@ -46,17 +46,18 @@ library(leaflet) # interactive maps
 library(DT) # interactive tables
 library(scales) # scale functions for visualization
 library(janitor) # expedite cleaning and exploring data
+library(veridis) # colorblind friendly color pallet
 ```
 
 
-2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address".
+2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address". _Note:_ `janitor::clean_names()` is an awesome function to transform all column names into the same format.
 
 ```{r}
 #| message: false
 #| warning: false
 
 delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f") %>% 
-    janitor::clean_names()
+    janitor::clean_names() ## Introducing this new package!
 
 ```
 
@@ -134,7 +135,7 @@ head(daily_visits_loc)
 
 ```
 
-The chunk above uses some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarize()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
+The chunk above uses some of the dplyr functions that we've used in the past. We use `group_by()` to indicate that we want to calculate our results for the unique combinations of type of visit, restoration location proximity, and day.  We next use `summarise()` to calculate an daily visit value for each of these groups. Note we use the `%in%` operator to pipe in the result of one command as an argument to the next one.
 
 ## Plotting with `ggplot2`
 
@@ -296,15 +297,11 @@ ggplot(data = daily_visits_loc,
 
 #### Setting ggplot themes
 
-We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to"
+We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
 - Add a title, subtitle and adjust labels using `labs()`
 - Flip the x and y axis to better read the graph
 - Include a built in theme using `theme_bw()`
-
-
-
-There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio auto-complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r theme_bw_plot}
@@ -324,7 +321,7 @@ ggplot(data = daily_visits_loc,
     
 ```
 
-You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package.
+You can see that the `theme_bw()` function changed a lot of the aspects of our plot! The background is white, the grid is a different color, etc. There are lots of other built in themes like this that come with the `ggplot2` package that help quickly set the look of the plot. Use the RStudio auto-complete `theme_` `<TAB>` to view a list of theme functions.
 
 
 ```{r}
@@ -341,7 +338,7 @@ theme_classic()
 
 The built in theme functions (`theme_*()`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great `ggplot` resources online so we don't have to remember all of these, just Google ["ggplot cheat sheet"](https://www.google.com/search?q=ggplot+cheat+sheet&rlz=1C5CHFA_enUS989US989&oq=ggplot+chea&aqs=chrome.0.0i433i512j69i57j0i512l2j0i22i30i395l2.1681j1j7&sourceid=chrome&ie=UTF-8) and find one you like.
 
-Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
+Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove the ticks of our Locations axis.
 
 ```{r}
 ggplot(data = daily_visits_loc,
@@ -356,7 +353,7 @@ ggplot(data = daily_visits_loc,
     coord_flip()+
     theme_bw()+
     theme(legend.position = "bottom",
-          axis.ticks.x = element_blank())
+          axis.ticks.y = element_blank()) ## note we mention y-axis here
     
 ```
 
@@ -369,7 +366,7 @@ You can also save the result of a series of `theme()` function calls to an objec
 ```{r save_theme}
 my_theme <- theme_bw(base_size = 16) +
     theme(legend.position = "bottom",
-          axis.ticks.x = element_blank())
+          axis.ticks.y = element_blank())
 ```
 
 So now our code will look like this:
@@ -500,21 +497,40 @@ Note how `coord_flip()` changes the parameters
 --->
 
 
-
 #### Colors
-Color can be fun and overwhelming 
-Introduce color pallets
-things to keep in mind (how many colors you need)
-Provide resources
+
+The last thing we will do to our plot is change the color. To do this we are going to use a functions from the `viridis` package. This package provides different color pallets that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. As `viridis` there are multiple other color pallet packages or color pallets out there that you can use to customize your graphs. We could spend a whole session talking about colors in R! For the purpose of this lesson we are just going to keep it brief and show one function of the `viridis` package that will make our plot colors look better.
+
+```{r}
+
+ggplot(data = daily_visits_totals,
+       aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
+           fill = visitor_type))+
+    geom_col()+
+    theme_bw()+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+    scale_fill_viridis_d()+
+    labs(x = "Restoration Location",
+         y = "Number of Visits",
+         fill = "Type of Visitor",
+         title = "Total Number of Visits to Delta Restoration Areas by visitor type",
+         subtitle = "Sum of all visits during study period")+
+    my_theme
+
+
+```
+
+Thing to keep in mind when choosing a color pallet is the number of variables you have and how many colors your pallet have. And if your need a discrete or a continuous color pallet. Find more information about colors in this [R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf). 
 
 
 #### Saving plots
 
-Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
+Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to an object. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
 
 ```{r}
 #| eval: false
-ggsave("figures/visit_restore_site_delta.jpg", width = 8, height = 6, units = "in")
+ggsave("figures/visit_restore_site_delta.jpg", width = 12, height = 6, units = "in")
 ```
 
 
@@ -527,7 +543,7 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 
 
 ```{r}
-ggplot(data = daily_visits_totals,
+facet_plot <- ggplot(data = daily_visits_totals,
        aes(x = visitor_type, y = daily_visits,
            fill = visitor_type))+
     geom_col()+
@@ -536,6 +552,7 @@ ggplot(data = daily_visits_totals,
                scales = "free_y",
                ncol = 5,
                nrow = 2)+
+    scale_fill_viridis_d()+
     labs(x = "Type of visitor",
          y = "Number of Visits",
          title = "Total Number of Visits to Delta Restoration Areas",
@@ -546,6 +563,14 @@ ggplot(data = daily_visits_totals,
           axis.text.x = element_blank())
 ```
 
+We can save this plot to our figures folder too. Note that this time we are specifically mentioning the object we want to save.
+
+```{r}
+#| eval: false
+
+ggsave("figures/visit_restore_site_facet.jpg", facet_plot, width = 12, height = 8, units = "in")
+
+```
 
 
 <!--#### Smarter tick labels using `scales`
@@ -562,7 +587,7 @@ The `scales` package provides some nice helper functions to easily rescale and r
 Now that we know how to make great static visualizations, let's introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub Pages, so at the end of this lesson we will publish our figures to the website we created earlier.
 
 First let's show an interactive table of unique sampling locations using `DT`.
-Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
+We will start by creating a `data.frame` containing unique sampling locations.
 
 ```{r uniq_locations}
 locations <- visits_long %>%
@@ -589,6 +614,7 @@ The `addTiles()` function without arguments will add base tiles to your map from
 
 
 ```{r simple_map}
+
 leaflet(locations) %>%
     addTiles() %>%
     addMarkers(
@@ -600,23 +626,20 @@ leaflet(locations) %>%
 
 <br>
 
-You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments.
+You can also use `leaflet` to import Web Map Service (WMS) tiles. For example, we can use any of the base maps provided by USGS in the [National Map](https://basemap.nationalmap.gov/) archive. For example, let's use the USGSTopo base map. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments.
 
 
 ```{r}
-#| eval: false
+
 leaflet(locations) %>%
-    # addWMSTiles(
-    #     "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
-    #     layers = 'GEBCO_LATEST',
-    #     attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net"
-    # ) %>%
-    addWMSTiles("https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer",
-                layers = "0") %>% 
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
     addCircleMarkers(
-        lng = ~ Longitude,
-        lat = ~ Latitude,
-        popup = ~ Location,
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ restore_loc,
         radius = 5,
         # set fill properties
         fillColor = "salmon",
@@ -625,13 +648,46 @@ leaflet(locations) %>%
         stroke = T,
         weight = 0.5,
         color = "white",
-        opacity = 1
-    )
+        opacity = 1)
+
 ```
 
 <br>
 
-Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be. 
+We can also layer base maps. In this case the USGSImageryTopo base map with the USGSHydroCached base map. Note that the url where the map is retrived is very similar for each USGS base map.
+ 
+```{r}
+
+leaflet(locations) %>%
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSImageryTopo/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
+    addCircleMarkers(
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ restore_loc,
+        radius = 5,
+        # set fill properties
+        fillColor = "salmon",
+        fillOpacity = 1,
+        # set stroke properties
+        stroke = T,
+        weight = 0.5,
+        color = "white",
+        opacity = 1)
+
+```
+
+ 
+
+<br>
+
+Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of Quarto or RMarkdown and GitHub Pages can be. 
 
 
 ## Publish the Data Visualization lesson to your webpage
@@ -639,10 +695,10 @@ Leaflet has a ton of functionality that can enable you to create some beautiful,
 ::: callout-tip
 ### Steps
 
-1. Save the `Rmd` you have been working on for this lesson.
-2. "Knit" the `Rmd`. This is a good way to test if everything in your code is working.
-3. Go to your `index.Rmd` and the link to the `html` file with this lesson's content.
-4. Save and render `index.Rmd` to an `html`.
+1. Save the `qmd` you have been working on for this lesson.
+2. "Render" the `qmd`. This is a good way to test if everything in your code is working.
+3. Go to your `index.qmd` and the link to the `html` file with this lesson's content.
+4. Save and render `index.qmd` to an `html`.
 5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
 
 :::
