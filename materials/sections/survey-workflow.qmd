@@ -64,7 +64,7 @@ Next, we need to set the API credentials. This function modifies the `.Renviron`
 The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above. You should have an e-mail with the API key in it. Copy and paste it as a string to the `api_key` argument in the function below:
 
 ```{r, eval = FALSE}
-qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE)
+qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE, overwrite = T)
 ```
 
 :::callout-tip
@@ -148,7 +148,8 @@ q3 <- survey_results %>%
 ```
 
 ```{r, eval = FALSE}
-ggplot(data = q3, mapping = aes(x = Q3, y = n)) +
+ggplot(data = q3, 
+       mapping = aes(x = Q3, y = n)) +
     geom_col() +
     labs(x = "What language do you currently use most frequently?", y = "Number of reponses") +
     theme_minimal()
@@ -178,6 +179,7 @@ q4 <- survey_results %>%
 kable(q4, col.names = "What data science tool or language are you most excited to learn next?") %>% 
     kable_styling()
 ```
+
 
 
 ## Other survey tools
@@ -234,6 +236,9 @@ We can make the responses data frame more compact by renaming the columns of the
 
 ```{r}
 names(questions) <- paste0("Q", seq(1:4))
+
+questions
+
 colnames(responses) <- c("Timestamp", names(questions))
 dplyr::glimpse(responses)
 ```
