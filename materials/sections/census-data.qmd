@@ -1,5 +1,7 @@
 ## Learning Objectives {.unnumbered}
-
+- Provide an overview of US Census data
+- Introduce the main functions of the `tidycensus` package to be able to work with census data
+- Review data wrangling function to get census data ready for analysis
 
 
 ## Overview
@@ -16,6 +18,24 @@
 ## Introduction to `tidycensus`
 (Chapter 2 - 5 min)
 "The `tidycensus` is an R package that provides an interface to access and work with the United States Census Bureau data. It simplifies the process of retrieving and analyzing census data by allowing users to query data directly from the Census Bureau's API and then organize the data into a tidy format for easy manipulation and analysis."
+
+
+
+## Getting Started
+In order to be able to use the `tidycensus` package, we need to:
+
+-   Install the package in our machine (run: `install.package("tidycensus")` in the console)
+-   Get an API key to connect our session with the census data and be able to retrieve data 
+
+As we are working in the server, the package is already installed in our system (so we can skip this step). But when you go work in your own computers, you will have to install the package if you haven't done that already.
+
+
+
+
+```{r}
+
+```
+
 
 ## Querying data
 - Basic data requests
