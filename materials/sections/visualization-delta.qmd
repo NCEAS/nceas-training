@@ -526,7 +526,7 @@ Thing to keep in mind when choosing a color pallet is the number of variables yo
 
 #### Saving plots
 
-Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to a variable. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
+Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to an object. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
 
 ```{r}
 #| eval: false
@@ -543,7 +543,7 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 
 
 ```{r}
-ggplot(data = daily_visits_totals,
+facet_plot <- ggplot(data = daily_visits_totals,
        aes(x = visitor_type, y = daily_visits,
            fill = visitor_type))+
     geom_col()+
@@ -552,6 +552,7 @@ ggplot(data = daily_visits_totals,
                scales = "free_y",
                ncol = 5,
                nrow = 2)+
+    scale_fill_viridis_d()+
     labs(x = "Type of visitor",
          y = "Number of Visits",
          title = "Total Number of Visits to Delta Restoration Areas",
@@ -562,6 +563,14 @@ ggplot(data = daily_visits_totals,
           axis.text.x = element_blank())
 ```
 
+We can save this plot to our figures folder too. Note that this time we are specifically mentioning the object we want to save.
+
+```{r}
+#| eval: false
+
+ggsave("figures/visit_restore_site_facet.jpg", facet_plot, width = 12, height = 8, units = "in")
+
+```
 
 
 <!--#### Smarter tick labels using `scales`
@@ -578,7 +587,7 @@ The `scales` package provides some nice helper functions to easily rescale and r
 Now that we know how to make great static visualizations, let's introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub Pages, so at the end of this lesson we will publish our figures to the website we created earlier.
 
 First let's show an interactive table of unique sampling locations using `DT`.
-Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
+We will start by creating a `data.frame` containing unique sampling locations.
 
 ```{r uniq_locations}
 locations <- visits_long %>%
@@ -605,6 +614,7 @@ The `addTiles()` function without arguments will add base tiles to your map from
 
 
 ```{r simple_map}
+
 leaflet(locations) %>%
     addTiles() %>%
     addMarkers(
@@ -616,23 +626,20 @@ leaflet(locations) %>%
 
 <br>
 
-You can also use `leaflet` to import Web Map Service (WMS) tiles. Here is an example that utilizes the General Bathymetric Map of the Oceans [(GEBCO)](https://www.gebco.net/) WMS tiles. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments.
+You can also use `leaflet` to import Web Map Service (WMS) tiles. For example, we can use any of the base maps provided by USGS in the [National Map](https://basemap.nationalmap.gov/) archive. For example, let's use the USGSTopo base map. In this example, we also demonstrate how to create a more simple circle marker, the look of which is explicitly set using a series of style-related arguments.
 
 
 ```{r}
-#| eval: false
+
 leaflet(locations) %>%
-    # addWMSTiles(
-    #     "https://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getmap&service=wms&BBOX=-90,-180,90,360&crs=EPSG:4326&format=image/jpeg&layers=gebco_latest&width=1200&height=600&version=1.3.0",
-    #     layers = 'GEBCO_LATEST',
-    #     attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net"
-    # ) %>%
-    addWMSTiles("https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer",
-                layers = "0") %>% 
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSTopo/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
     addCircleMarkers(
-        lng = ~ Longitude,
-        lat = ~ Latitude,
-        popup = ~ Location,
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ restore_loc,
         radius = 5,
         # set fill properties
         fillColor = "salmon",
@@ -641,13 +648,46 @@ leaflet(locations) %>%
         stroke = T,
         weight = 0.5,
         color = "white",
-        opacity = 1
-    )
+        opacity = 1)
+
 ```
 
 <br>
 
-Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be. 
+We can also layer base maps. In this case the USGSImageryTopo base map with the USGSHydroCached base map. Note that the url where the map is retrived is very similar for each USGS base map.
+ 
+```{r}
+
+leaflet(locations) %>%
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSImageryTopo/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
+    addWMSTiles(
+        "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WmsServer",
+        layers = "0",
+        options = WMSTileOptions(format = "image/png", transparent = TRUE)) %>%
+    addCircleMarkers(
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ restore_loc,
+        radius = 5,
+        # set fill properties
+        fillColor = "salmon",
+        fillOpacity = 1,
+        # set stroke properties
+        stroke = T,
+        weight = 0.5,
+        color = "white",
+        opacity = 1)
+
+```
+
+ 
+
+<br>
+
+Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of Quarto or RMarkdown and GitHub Pages can be. 
 
 
 ## Publish the Data Visualization lesson to your webpage
@@ -655,10 +695,10 @@ Leaflet has a ton of functionality that can enable you to create some beautiful,
 ::: callout-tip
 ### Steps
 
-1. Save the `Rmd` you have been working on for this lesson.
-2. "Knit" the `Rmd`. This is a good way to test if everything in your code is working.
-3. Go to your `index.Rmd` and the link to the `html` file with this lesson's content.
-4. Save and render `index.Rmd` to an `html`.
+1. Save the `qmd` you have been working on for this lesson.
+2. "Render" the `qmd`. This is a good way to test if everything in your code is working.
+3. Go to your `index.qmd` and the link to the `html` file with this lesson's content.
+4. Save and render `index.qmd` to an `html`.
 5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
 
 :::
