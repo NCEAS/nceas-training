@@ -19,8 +19,6 @@ Text data is information stored as character or string data types. It comes in v
 
 ### How do we talk about text data?
 
-There's a lot of jargon that comes with working with text data. What do we know about these terms? When you think of text data or text analysis what do you think of?
-
 Here is a list of text data or text analysis terms we'll be referring to throughout this lesson. Note this is not a comprehensive list of text analysis terms that are used beyond this lesson.
 
 | Term                              | Definition                                                                                                                                                                                       |
@@ -34,6 +32,10 @@ Here is a list of text data or text analysis terms we'll be referring to through
 | Tokenization                      | The process of splitting text into tokens.                                                                                                                                                       |
 
 ### How is text data used in the environmental field?
+
+As our knowledge about the environmental world grows, researchers will need new computational approaches for working with text data because reading and identifying all the relevant literature for literature syntheses is becoming an increasingly difficult task.
+
+Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks. 
 
 ## What is tidy text data?
 
@@ -140,6 +142,8 @@ ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
 ```
 
 ## Unstructured text data
+
+typically raw text = unstructured  
 
 ## Structured text data
 
