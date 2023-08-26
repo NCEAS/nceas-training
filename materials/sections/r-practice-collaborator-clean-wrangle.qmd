@@ -5,10 +5,10 @@ format: html
 ::: callout-tip
 ## Setup
 
-1.  Open the R Markdown file `collaborator-analysis.Rmd`
+1.  Open the Quarto file `collaborator-analysis.qmd`
     a. Check the `YAML` and add your name to the `author` field
     b. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
-2.  Load the following libraries at the top of your R Markdown file.
+2.  Load the following libraries at the top of your Quarto file.
 
 ```{r}
 #| code-fold: false
@@ -46,7 +46,7 @@ lobster_traps <- lobster_traps %>%
     mutate(TRAPS = na_if(TRAPS, -99999))
 ```
 
-## `filter()` practice
+<!--## `filter()` practice
 
 ::: callout-note
 ### Question 2
@@ -72,7 +72,7 @@ carp_20_traps <- lobster_traps %>%
 ::: callout-important
 ## Save your work and use `Git`
 Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
-:::
+::: -->
 
 <!--# Extra Questions -->
 
