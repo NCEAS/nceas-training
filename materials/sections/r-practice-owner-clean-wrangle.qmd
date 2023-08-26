@@ -5,10 +5,10 @@ format: html
 ::: callout-tip
 ## Setup
 
-1.  Open the R Markdown file `owner-analysis.Rmd`
+1.  Open the Quarto file `owner-analysis.qmd`
     a.  Check the `YAML` and add your name to the `author` field
     b.  Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
-2.  Load the following libraries at the top of your R Markdown file
+2.  Load the following libraries at the top of your Quarto file
 
 ```{r}
 #| code-fold: false
@@ -47,7 +47,7 @@ lobster_abundance <- lobster_abundance %>%
     mutate(SIZE_MM = na_if(SIZE_MM, -99999))
 ```
 
-## `filter()` practice
+<!--## `filter()` practice
 
 ::: callout-note
 ### Question 2
@@ -74,7 +74,7 @@ aque_70mm <- lobster_abundance %>%
 ::: callout-important
 ## Save your work and use `Git`
 Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
-:::
+::: -->
 
 
 <!--# Extra Questions -->

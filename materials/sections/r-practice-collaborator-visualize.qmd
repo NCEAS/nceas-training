@@ -5,13 +5,13 @@ format: html
 ::: callout-tip
 ## Setup
 
-1. Stay in the R Markdown file `collaborator-analysis.Rmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
+1. Stay in the Quarto file `collaborator-analysis.qmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
 
 **Structure of the data visualization exercises:** 
 
-- Questions 7-9 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
-- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.Rmd` (start with just one plot and if there's time add styling code to another plot).
-- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.Rmd`.
+- Questions 7-8 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
+- Question 9, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.qmd` (start with just one plot and if there's time add styling code to another plot).
+- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.qmd`.
 :::
 
 ```{r}
@@ -88,7 +88,7 @@ ggplot(data = lobsters_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
 :::
 </details>
 
-
+<!--
 ::: callout-note
 ### Question 9
 Create a bar graph that shows the amount of high and low fishing pressure of lobster commercial traps at each `SITE` from 2019-2021.
@@ -131,10 +131,10 @@ ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FI
 
 ![Dodged bar plot](images/lobster_fishing_pressure_dodged_bar_plot.png){width="50%"}
 :::
-</details>
-
+</details> --->
+ 
 ::: callout-note
-### Question 10
+### Question 9
 
 1. Go back to your visualization code and add some styling code (aka make your plots pretty!). Again, start with one plot and if there's time add styling code to additional plots. Here's a list of functions to help you get started (this is not an exhaustive list!) or revisit the [data visualization lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html):
 
