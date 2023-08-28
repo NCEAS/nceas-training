@@ -234,10 +234,10 @@ daily_visits_loc %>%
 ```
 
 
- **Line and point**
+**Line and point**
 
 ```{r line_poin_plot}
-#| eval: false
+
 daily_visits_loc %>%
     filter(restore_loc == "Decker Island",
            visitor_type == "med_boat") %>%
@@ -261,7 +261,7 @@ ggplot(data = daily_visits_loc,
 
 Why did that happen?
 
-Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our data frame, and then mapped it to the `fill` aesthetic, which then chose the default fill color of red. 
+Notice that we tried to set the fill color of the plot inside the mapping aesthetic call. What we have done, behind the scenes, is create a column filled with the word "blue" in our data frame, and then mapped it to the `fill` aesthetic, which then chose the default fill color, salmon. 
 
 What we really wanted to do was just change the color of the bars. If we want do do that, we can call the color option in the `geom_col()` function, **outside** of the mapping aesthetics function call.
 
@@ -300,7 +300,7 @@ ggplot(data = daily_visits_loc,
 We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
 - Add a title, subtitle and adjust labels using `labs()`
-- Flip the x and y axis to better read the graph
+- Flip the x and y axis to better read the graph using `coord_flip()`
 - Include a built in theme using `theme_bw()`
 
 
@@ -561,6 +561,8 @@ facet_plot <- ggplot(data = daily_visits_totals,
     theme(legend.position = "bottom",
           axis.ticks.x = element_blank(),
           axis.text.x = element_blank())
+
+facet_plot
 ```
 
 We can save this plot to our figures folder too. Note that this time we are specifically mentioning the object we want to save.
