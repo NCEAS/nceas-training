@@ -84,11 +84,11 @@ Next, we will show how you can link different `qmd`s rendered into `html` so you
 
 In this exercise, you'll create a table of contents with the lessons of this course on the main page, and link some of the files we have work on so far.
 
-- Go back to the RStudio server and to your `index.Rmd` file
-- Create a table of contents with the names of the main technical lessons of this course, like so:
+- Go back to the RStudio server and to your `index.qmd` file
+- Create a table of contents with the names of the some of the technical lessons we have or will cover:
 
 ```
-## coreR workshop
+## R workshop
 
 - Introduction to Quarto 
 - Cleaning and Wrangling data
@@ -96,9 +96,9 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 - Spatial Analysis
 ```
 
-- Make sure you have the `html` versions of your `intro-to-rmd.Rmd` and `data-cleaning.Rmd` files. If you only see the `Rmd` version, you need to "Knit" your files first
+- Make sure you have the `html` versions of your `intro-to-quarto.qmd` and `data-cleaning.qmd` files. If you only see the `qmd` version, you need to "Render" your files first
 
-- In your `index.Rmd` let's add the links to the html files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
+- In your `index.qmd` let's add the links to the html files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
 
 <details>
   <summary>Markdown syntax to create a link:</summary>
