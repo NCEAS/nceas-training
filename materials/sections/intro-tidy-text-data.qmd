@@ -10,7 +10,7 @@
 This lesson has been adapted from the following resources:
 
 -   [Welcome to Text Mining with R](https://www.tidytextmining.com/) by [Julia Silge](https://juliasilge.com/) and [David Robinson](http://varianceexplained.org/). Julia and David are also the developers of the [`tidytext`](https://juliasilge.github.io/tidytext/) package.
--   [Computational Social Science: Theory & Application, Version: 17 June, 2021](https://bookdown.org/paul/2021_computational_social_science/) by Paul C. Bauer
+-   [Section 7.3: (R-) Workflow for Text Analysis from Computational Social Science: Theory & Application, Version: 17 June, 2021](https://bookdown.org/paul/2021_computational_social_science/r-workflow-for-text-analysis.html) by Paul C. Bauer
 :::
 
 ## What is text data?
@@ -19,12 +19,10 @@ Text data is information stored as character or string data types. It comes in v
 
 ### How do we talk about text data?
 
-There's a lot of jargon that comes with working with text data. What do we know about these terms? When you think of text data or text analysis what do you think of?
-
 Here is a list of text data or text analysis terms we'll be referring to throughout this lesson. Note this is not a comprehensive list of text analysis terms that are used beyond this lesson.
 
 | Term                              | Definition                                                                                                                                                                                       |
-|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------|---------------------------------------------------------|
 | Corpus (corpora, plural)          | Collection or database of text or multiple texts. These types of objects typically contain raw strings annotated with additional metadata and details.                                           |
 | Document-term matrix              | Represents the relationship between terms and documents, where each row stands for a term and each column for a document, and an entry is the number of occurrences of the term in the document. |
 | Natural Language Processing (NLP) | NLP is an interdisciplinary field used in computer science, data science, linguistics, and others to analyze, categorize, and work with computerized text.                                       |
@@ -34,6 +32,14 @@ Here is a list of text data or text analysis terms we'll be referring to through
 | Tokenization                      | The process of splitting text into tokens.                                                                                                                                                       |
 
 ### How is text data used in the environmental field?
+
+As our knowledge about the environmental world grows, researchers will need new computational approaches for working with text data because reading and identifying all the relevant literature for literature syntheses is becoming an increasingly difficult task.
+
+<<<<<<< HEAD
+Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks.
+=======
+Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks. 
+>>>>>>> bb20f6f8311df6dfd89cc170ff212e980fc9a258
 
 ## What is tidy text data?
 
@@ -49,104 +55,156 @@ This one-token-per-row structure is in contrast to the ways text is often stored
 
 For tidy text mining, the token that is stored in each row is most often a single word, but can also be an n-gram, sentence, or paragraph.
 
-By using tidy data principles, we can apply many "tidy" R packages including dpylr, tidyr, ggplot2, and more.
+By using tidy data principles, we can apply many "tidy" R packages including `dpylr`, `tidyr`, `ggplot2`, and more.
 
 ### What is the `tidytext` R package?
 
-### PROJECT GUTENBERG - practice putting text data in tidy text format using classic horror books
+::: columns
+::: {.column width="30%"}
+![](images/tidytext-logo.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
+`tidytext` is a package that applies the tidy principles to analyzing text. <br>
+
+The package contains many useful functions to wrangle text data into tidy formats. It has been built considering other text mining R packages so that it's easy to switch between text mining tools (e.g. `quanteda`, `stringr`, `wordcloud2`).
+:::
+:::
+
+## Exercise: Tidy Text Workflow
 
 ![](images/intro-tidy-text-workflow-1.png)
 
-Text analysis workflow using tidy data principles
+We are going to use the `gutenbergr` package to access public domain texts from [Project Gutenberg](https://www.gutenberg.org/) (a library of free eBooks). We'll then use the `tidytext`, `dyplr` and `ggplot2` packages to practice the tidy text workflow.
+
+Break out into groups and then follow the exercise setup and instructions.
+
+::: {.callout-tip}
+
+### Setup and Instructions
+
+1. Create a new `qmd` file and title it "Intro to Text Data", name yourself as the author, and then save the file as `intro-text-data.qmd`.
+
+2. Create a new code chunk and attach the following libraries:
 
 ```{r}
-library(gutenbergr)
-library(tidyr)
-library(dplyr)
-library(tidytext)
-library(ggplot2)
+#| message: false
+library(gutenbergr) # access public domain texts from Project Gutenberg
+library(tidytext) # text mining using tidy tools
+library(dplyr) # wrangle data
+library(ggplot2) # plot data
 ```
+
+3. Depending on which group you're in, use one of the following public domain texts:
 
 ```{r}
-# get id number
-gutenberg_works(title == "Dracula")
+#| eval: false
+# Group A
+gutenberg_works(title == "Dracula") # dracula text
 
-dracula_corp <- gutenberg_download(345)
+# Group B
+gutenberg_works(title == "Frankenstein; Or, The Modern Prometheus") # frankenstein text
 
-tidy_dracula <- dracula_corp %>% 
-    unnest_tokens(word, text) %>% 
-    anti_join(stop_words, by = "word")
-
-tidy_dracula %>% 
-    count(word, sort = TRUE)
+# Group C
+gutenberg_works(title == "Carmilla") # carmilla text
 ```
 
-```{r}
-# get id number
-gutenberg_works(title == "Frankenstein; Or, The Modern Prometheus")
+4. Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `{book-title}_corp`. View the object - is the data in a tidy format?
 
-frank_corp <- gutenberg_download(84)
+5. Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do we need every single token for our analysis?
 
-tidy_frank <- frank_corp %>% 
-    unnest_tokens(word, text) %>% 
-    anti_join(stop_words, by = "word")
+6. Remove "stop words" or words that can be safely removed or ignored without sacrificing the meaning of the sentence (e.g. "to", "in", "and") using `anti_join()`. Take a look at the data - are you satisfied with your data? We won't conduct any additional cleaning steps here, but consider how you would further clean the data.
 
-tidy_frank %>% 
-    count(word, sort = TRUE)
-```
+7. Calculate the top 10 most frequent words using the functions `count()` and `slice_max()`.
 
-```{r}
-# get id number
-gutenberg_works(title == "Carmilla")
+8. Plot the top 10 most frequent words using `ggplot()`. We reccommend creating either a bar plot using `geom_col()` or a lollipop plot using both `geom_point()` and `geom_segment()`.
 
-carmilla_corp <- gutenberg_download(10007)
+9. **Bonus**: Consider elements in `theme()` and improve your plot.
+:::
 
-tidy_carmilla <- carmilla_corp %>% 
-    unnest_tokens(word, text) %>% 
-    anti_join(stop_words, by = "word")
+### Example using Ray Bradbury's *Asleep in Armageddon*
 
-tidy_carmilla %>% 
-    count(word, sort = TRUE)
-```
+The code chunks below follows the instructions from above using Ray Bradbury's *Asleep in Armageddon*.
 
 ```{r}
 # get id number
 gutenberg_works(title == "Asleep in Armageddon")
+```
 
-# text data
+```{r}
+#| code-fold: true
+#| code-summary: Steps 4-7 Code
+#| message: false
+# access text data using id number from `gutenberg_works()`
 bradbury_corp <- gutenberg_download(63827)
 
-# tidy text
+# tidy text data - unnest and remove stop words
 tidy_bradbury <- bradbury_corp %>% 
     unnest_tokens(word, text) %>% 
     anti_join(stop_words, by = "word")
 
-# summarized text
+# calculate top 10 most frequent words
 count_bradbury <- tidy_bradbury %>%
     count(word) %>% 
     slice_max(n = 10, order_by = n)
-
-# visualize text
-ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
-  geom_col()
 ```
 
-## Text analysis workflow with goal of ending with a DTM
+```{r}
+#| code-fold: true
+#| code-summary: Step 8 Plot Code
+# visualize text data #
+# bar plot
+ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
+  geom_col() +
+    labs(x = "Count",
+         y = "Token")
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Step 9 Plot Code
+# visualize text data #
+# initial lollipop plot
+# ggplot(data = count_bradbury, aes(x=word, y=n)) +
+#     geom_point() +
+#     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
+#     coord_flip() +
+#     labs(x = "Token",
+#          y = "Count")
+
+# ascending order pretty lollipop plot
+ggplot(data = count_bradbury, aes(x=reorder(word, n), y=n)) +
+    geom_point(color="cyan4") +
+    geom_segment(aes(x=word, xend=word, y=0, yend=n), color="cyan4") +
+    coord_flip() +
+    labs(title = "Top Ten Words in Ray Bradbury's Asleep in Armageddon",
+         x = NULL,
+         y = "Count") +
+    theme_minimal() +
+    theme(
+        panel.grid.major.y = element_blank()
+    )
+```
+
+<!--## What is a Document Term Matrix (DTM)?
+
+## Exercise: DTM Workflow
 
 ## Exercise: Tidy Text Data from a PDF
+
+- data: DSC plan chapters pdf format
+- read in pdf
+- turn pdf into a corpus
+- remove headers
+- tokenize
+- rm stop words
+    - add custom stop words
+- create word cloud
 
 ```{r}
 
 ```
 
-## Unstructured text data
-
-## Structured text data
-
-## Where can we find it and access it?
-
-## How do we read in text data into R?
-
 ## Note about python
 
-python has many powerful packages and tools for running analyses like NLP
+python has many powerful packages and tools for running analyses like NLP -->
