@@ -182,14 +182,22 @@ ggplot(data = count_bradbury, aes(x=reorder(word, n), y=n)) +
     )
 ```
 
-<!--## Text Vectorization Workflow
 
-Many text analysis methods, natural language processing techniques in particular (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, 
+<!--## Tidy Text to Non-Tidy Text Workflow
+
+Many text analysis methods, natural language processing techniques in particular (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, algorithms will be able to more easily compare one document to many other documents to identify patterns.
+
+## Exercise: DTM Workflow
+
+In the previous exercise, we converted our corpus into a data table that has "one-token-per-row".
+
+Many existing text mining tools or algorithms work only on sparse document-term matrices. Therefore, tidytext provides cast_ verbs for converting from a tidy form to these matrices.
 
 TODO:
 - add Text vectorization to vocab list: the process of converting text data to numerical vectors. Later those vectors are used to build various machine learning models
 - add document-feature matrix (DFM) to vocab list
 
+NOTES:
 What is a Document Term Matrix (DTM)?
 
 Text analytical models (e.g., topic models) often require your data to be stored in a certain format
@@ -198,8 +206,6 @@ Typically: document-term matrix (DTM), sometimes also called document-feature ma
 matrix with each row being a document and each word being a column
 term-frequency (tf): The number within each cell describes the number of times the word appears in the document
 term frequency–inverse document frequency (tf-idf): weights the occurrence of certain words, e.g., lowering the weight of the word “social” in an corpus of sociological articles
-
-## Exercise: DTM Workflow
 
 ## Exercise: Tidy Text Data from a PDF
 
