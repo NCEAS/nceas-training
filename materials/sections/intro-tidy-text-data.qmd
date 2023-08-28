@@ -35,11 +35,7 @@ Here is a list of text data or text analysis terms we'll be referring to through
 
 As our knowledge about the environmental world grows, researchers will need new computational approaches for working with text data because reading and identifying all the relevant literature for literature syntheses is becoming an increasingly difficult task.
 
-<<<<<<< HEAD
-Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks.
-=======
 Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks. 
->>>>>>> bb20f6f8311df6dfd89cc170ff212e980fc9a258
 
 ## What is tidy text data?
 
@@ -186,7 +182,22 @@ ggplot(data = count_bradbury, aes(x=reorder(word, n), y=n)) +
     )
 ```
 
-<!--## What is a Document Term Matrix (DTM)?
+<!--## Text Vectorization Workflow
+
+Many text analysis methods, natural language processing techniques in particular (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, 
+
+TODO:
+- add Text vectorization to vocab list: the process of converting text data to numerical vectors. Later those vectors are used to build various machine learning models
+- add document-feature matrix (DFM) to vocab list
+
+What is a Document Term Matrix (DTM)?
+
+Text analytical models (e.g., topic models) often require your data to be stored in a certain format
+only so will algorithms be able to quickly compare one document to a lot of other documents to identify patterns
+Typically: document-term matrix (DTM), sometimes also called document-feature matrix (DFM)
+matrix with each row being a document and each word being a column
+term-frequency (tf): The number within each cell describes the number of times the word appears in the document
+term frequency–inverse document frequency (tf-idf): weights the occurrence of certain words, e.g., lowering the weight of the word “social” in an corpus of sociological articles
 
 ## Exercise: DTM Workflow
 
