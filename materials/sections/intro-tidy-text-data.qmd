@@ -84,7 +84,7 @@ The package contains many useful functions to wrangle text data into tidy format
 
 ## Exercise: Tidy Text Workflow
 
-![](images/tidytext-tidy-workflow.png)
+![Source: Silge & Robinson](images/tidytext-tidy-workflow.png)
 
 We are going to use the `gutenbergr` package to access public domain texts from [Project Gutenberg](https://www.gutenberg.org/) (a library of free eBooks). We'll then use the `tidytext`, `dyplr` and `ggplot2` packages to practice the tidy text workflow.
 
@@ -213,15 +213,27 @@ ggplot(data = count_phantom, aes(x=reorder(word, n), y=n)) +
 ![](images/tidytext-lollipopplot.png)
 </details>
 
-## Tidy Text to Non-Tidy Text Workflow
+## Tidy Text to Non-Tidy Text Workflows
 
-![](images/tidytext-nontidy-workflow.png)
+![A flowchart of a typical text analysis that combines `tidytext` with other tools and data formats, particularly the `tm` or `quanteda` packages. Source: Silge & Robinson](images/tidytext-nontidy-workflow.png)
 
 Many text analysis methods, in particular NLP techniques (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, algorithms are able to more easily compare one document to many other documents to identify patterns.
 
+In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted our corpus into a data table that has "one-token-per-row". However, the tidy text format of "one-token-per-row" is not a common format for other R packages that work with text data or perform text analysis. Packages like `tm`, `quanteda`, `topicmodels` 
+
+
+:::{.callout-caution icon=false}
+### R Text Mining Tools and Analysis Packages Resources
+
+- [CRAN Task View: Natural Language Processing](https://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
+- [Penn Libraries Guides: Text Analysis](https://guides.library.upenn.edu/penntdm/r)
+
+:::
+
+
 <!--## Exercise: DTM Workflow
 
-In the previous exercise, we converted our corpus into a data table that has "one-token-per-row".
+
 
 Many existing text mining tools or algorithms work only on sparse document-term matrices. Therefore, tidytext provides cast_ verbs for converting from a tidy form to these matrices.
 
