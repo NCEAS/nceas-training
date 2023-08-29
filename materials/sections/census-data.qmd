@@ -7,7 +7,7 @@
 
 :::callout-note
 ## Acknowledgement
-
+This lesson is based on [Analyzing US Census Data: Methods, Maps, and Models in R](https://walker-data.com/census-r/index.html), (Chapter 1 through 4) by Kyle Walker. And Walker's workshop "Analyzing 2020 Census Data with R and `tidycensus`" for University of Michigan (2022). GitHub repository [here](https://github.com/walkerke/umich-workshop-2022).
 :::
 
 <!--## Overview
@@ -25,25 +25,29 @@
 
 When working with census data, the general workflow would be to go to [data.census.gov](data.census.gov), filter data and queries based on variables and geographies, and then download the data into a spreadsheet. People that work with census data do this over and over again. 
 
-Kyle Walker, one of the authors of the `tidycensus` package, created the package as a way to systematize the process and do this systematization using R. He learned about the US Census Application Programming Interface (API) which allows developers to access census resources programmatically, therefore incorporated in the package to facilitate access to interact with census data.
+ The `tidycensus` package (@tidycensus2021) came to be to systematize the process and do this systematization using R. In 2012 the US Census Bureau released the Census Application Programming Interface (API) as a way to disseminate government data resources to the public. This interface now provides programmatic access to hundreds of data resources from the Census Bureau. The vision behind this package was to incorporate the API access into an R package to facilitate access to census data using R.
 
-Note there are other R packages that interact with the census API, such as `censusapi` and `acs`. However, in this lesson, we are going to focus on the `tidycensus` package, given that is constantly being maintained and has good documentation on how it works.
+Note there are other R packages that interact with the census APIs, such as [`censusapi`](https://cran.r-project.org/web/packages/censusapi/index.html) and [`acs`](https://cran.r-project.org/web/packages/acs/index.html). In this lesson, we are going to focus on the `tidycensus` package, given that is continuously maintained by the authors, has good documentation and it makes it easy to work with other `tidyverse` functions.
 
 From Walkers Book:
 
-> "The `tidycensus` is an R package that provides an interface to access and work with the United States Census Bureau data. It simplifies the process of retrieving and analyzing census data by allowing users to query data directly from the Census Bureau's API and then organize the data into a tidy format for easy manipulation and analysis."
+> "The `tidycensus` is an R package that provides an interface to access and work with the United States Census Bureau data. It simplifies the process of retrieving and analyzing census data by allowing users to query data directly from the Census Bureau's APIs and then organize the data into a tidy format for easy manipulation and analysis."
 
+Note that this lesson is just an introduction to this package. Here we aim to providing the basic tools for you to understand how the core functions of this package work so you can adapt to your specific census data needs.
 
 ### General Structure
 
-Tidycensus takes an opinionated approach to accessing a selected number of census APIs. The main goal is to facilitate access in R to a few APIs.
+`tidycensus` takes an opinionated approach to accessing a selected number of census APIs. The main goal is to facilitate access to a few census APIs through R.
 
-Through this package, you can access:
-- Decennial census (200, 2010, available data from 2020)
-- The American Community Survey (ACS) data sets
-- Population estimate program (information on yearly estimates and components of change) 
-- The ASC Public Use Microdata. Anonymized individual-level records from the ACS organized by households.
-- Migration Flows APIs which include information about in and outflows from several geographies from the 5-year ACS samples.
+Data files you can access through this package are named and described in the table below.
+
+| Survey Name | Description |
+|-------------|-------------|
+|Decennial census| 2000, 2010, available data from 2020|
+|American Community Survey (ACS) | <!--ADD DESCRIPTION --> |
+|Population estimate program | Information on yearly estimates and components of change|
+| ACS Public Use Microdata | Anonymized individual-level records from the ACS organized by households|
+|Migration Flows | Information about in and outflows from several geographies from the 5-year ACS samples.|
 
 
 The idea behind this package is to make the tedious process of working with Census data more concise. It pulls data from the census API and returns it to the user in a “tidy” format.
