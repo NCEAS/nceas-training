@@ -213,13 +213,81 @@ ggplot(data = count_phantom, aes(x=reorder(word, n), y=n)) +
 ![](images/tidytext-lollipopplot.png)
 </details>
 
-## Tidy Text to Non-Tidy Text Workflows
+## Tidy Text to Non-tidy Text Workflows
 
 ![A flowchart of a typical text analysis that combines `tidytext` with other tools and data formats, particularly the `tm` or `quanteda` packages. Source: Silge & Robinson](images/tidytext-nontidy-workflow.png)
 
-Many text analysis methods, in particular NLP techniques (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, algorithms are able to more easily compare one document to many other documents to identify patterns.
+In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted our corpus into a data table that has "one-token-per-row". However, the tidy text format of one-token-per-row is not a common format for other R packages that work with text data or perform text analysis. Packages like `tm`, `quanteda`, `topicmodels`. 
 
-In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted our corpus into a data table that has "one-token-per-row". However, the tidy text format of "one-token-per-row" is not a common format for other R packages that work with text data or perform text analysis. Packages like `tm`, `quanteda`, `topicmodels` 
+Many text analysis methods, in particular NLP techniques (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a matrix, such as a: sparse matrix, a document term matrix (DTM), or a document-feature matrix (DFM). In a matrix format, algorithms are able to more easily compare one document to many other documents to identify patterns.
+
+### What is a Document Term Matrix (DTM)?
+
+A DTM or document-feature matrix (DFM) 
+
+Silge and Robinson kept this in mind as they built the `tidytext` package, and included helpful `cast()` functions to turn a tidy text object (again a table with one-token-per-row) into a matrix. 
+
+### Use `cast()` to Convert to a Matrix (Non-tidy) Format
+
+let's create a matrix of all books we looked at
+
+```{r}
+#| eval: false
+
+# download corpus
+all_books_corp <- gutenberg_download(c(175, # phantom of the opera
+                                       42, # jekyll & hyde
+                                       84, # frankenstein
+                                       345), # dracula
+                                     meta_fields = c("title"))
+```
+
+```{r}
+#| eval: false
+
+# turn corpus into tidy text format
+tidy_all_books <- all_books_corp %>% 
+    unnest_tokens(output = word, # output col created 
+                  input = text # input col that is split
+                  ) %>% 
+    count(title, word)
+```
+
+```{r}
+#| eval: false
+
+# convert tidy text table to spare matrix from `Matrix` package
+# requires `Matrix` to be installed
+all_books_sparse <- tidy_all_books %>% 
+    cast_sparse(row = title,
+                column = word,
+                value = n)
+```
+
+
+```{r}
+#| eval: false
+
+# convert tidy text table to DTM object from `tm` package
+# requires `tm` to be installed
+all_books_dtm <- tidy_all_books %>% 
+    cast_dtm(term = word,
+             document = title,
+             value = n)
+```
+
+
+```{r}
+#| eval: false
+
+# convert tidy text table to DFM object from `quanteda` package
+# requires `quanteda` to be installed
+all_books_dfm <- tidy_all_books %>% 
+    cast_dfm(term = word, 
+             document = title, 
+             value = n)
+```
+
 
 
 :::{.callout-caution icon=false}
@@ -227,11 +295,9 @@ In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted
 
 - [CRAN Task View: Natural Language Processing](https://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
 - [Penn Libraries Guides: Text Analysis](https://guides.library.upenn.edu/penntdm/r)
-
 :::
 
-
-<!--## Exercise: DTM Workflow
+<!--
 
 
 
@@ -240,9 +306,10 @@ Many existing text mining tools or algorithms work only on sparse document-term 
 TODO:
 - add Text vectorization to vocab list: the process of converting text data to numerical vectors. Later those vectors are used to build various machine learning models
 - add document-feature matrix (DFM) to vocab list
+- add sparse matrix to vocab list
+- make sure corpus definition includes metadata info associated with data
 
 NOTES:
-What is a Document Term Matrix (DTM)?
 
 Text analytical models (e.g., topic models) often require your data to be stored in a certain format
 only so will algorithms be able to quickly compare one document to a lot of other documents to identify patterns
