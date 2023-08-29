@@ -1,3 +1,7 @@
+---
+bibliography: book.bib
+---
+
 ## Learning Objectives {.unnumbered}
 
 -   Describe principles of tidy text
@@ -15,14 +19,18 @@ This lesson has been adapted from the following resources:
 
 ## What is text data?
 
-Text data is information stored as character or string data types. It comes in various different forms including books, emails, social media posts, interview transcripts, newspapers, government reports, and much more.
+Text data is information stored as character or string data types. It comes in various different forms including books, research articles, social media posts, interview transcripts, newspapers, government reports, and much more.
+
+::: {.callout-warning appearance="minimal"}
+Raw text data is often unstructured and quite "messy". This could include wrong grammar, missing words, spelling issues, ambiguous language, humor, emojis, symbols, etc. Investing time into carefully cleaning and preparing text data is crucial for your ultimate analysis.
+:::
 
 ### How do we talk about text data?
 
 Here is a list of text data or text analysis terms we'll be referring to throughout this lesson. Note this is not a comprehensive list of text analysis terms that are used beyond this lesson.
 
 | Term                              | Definition                                                                                                                                                                                       |
-|---------------|---------------------------------------------------------|
+|-----------------|-------------------------------------------------------|
 | Corpus (corpora, plural)          | Collection or database of text or multiple texts. These types of objects typically contain raw strings annotated with additional metadata and details.                                           |
 | Document-term matrix              | Represents the relationship between terms and documents, where each row stands for a term and each column for a document, and an entry is the number of occurrences of the term in the document. |
 | Natural Language Processing (NLP) | NLP is an interdisciplinary field used in computer science, data science, linguistics, and others to analyze, categorize, and work with computerized text.                                       |
@@ -35,7 +43,14 @@ Here is a list of text data or text analysis terms we'll be referring to through
 
 As our knowledge about the environmental world grows, researchers will need new computational approaches for working with text data because reading and identifying all the relevant literature for literature syntheses is becoming an increasingly difficult task.
 
-Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks. 
+Beyond literature syntheses, quantitative text analysis tools are extremely valuable for efficiently extracting information from texts and other text mining or text analysis tasks.
+
+Environmental researchers have used text data to:
+
+-   Understand how text mining is used in the field [@farrell2022]
+-   Gain insights into public perception of a particular subject [@froehlich2017]
+-   Highlight the power of NLP models to advance research [@vanhoutan2020]
+    
 
 ## What is tidy text data?
 
@@ -63,25 +78,24 @@ By using tidy data principles, we can apply many "tidy" R packages including `dp
 ::: {.column width="70%"}
 `tidytext` is a package that applies the tidy principles to analyzing text. <br>
 
-The package contains many useful functions to wrangle text data into tidy formats. It has been built considering other text mining R packages so that it's easy to switch between text mining tools (e.g. `quanteda`, `stringr`, `wordcloud2`).
+The package contains many useful functions to wrangle text data into tidy formats. It has been built considering other text mining R packages so that it's easy to switch between text mining tools (e.g. `tm`, `quanteda`, `stringr`, `wordcloud2`).
 :::
 :::
 
 ## Exercise: Tidy Text Workflow
 
-![](images/intro-tidy-text-workflow-1.png)
+![Source: Silge & Robinson](images/tidytext-tidy-workflow.png)
 
 We are going to use the `gutenbergr` package to access public domain texts from [Project Gutenberg](https://www.gutenberg.org/) (a library of free eBooks). We'll then use the `tidytext`, `dyplr` and `ggplot2` packages to practice the tidy text workflow.
 
 Break out into groups and then follow the exercise setup and instructions.
 
-::: {.callout-tip}
-
+::: callout-tip
 ### Setup and Instructions
 
-1. Create a new `qmd` file and title it "Intro to Text Data", name yourself as the author, and then save the file as `intro-text-data.qmd`.
+1.  Create a new `qmd` file and title it "Intro to Text Data", name yourself as the author, and then save the file as `intro-text-data.qmd`.
 
-2. Create a new code chunk and attach the following libraries:
+2.  Create a new code chunk and attach the following libraries:
 
 ```{r}
 #| message: false
@@ -91,7 +105,7 @@ library(dplyr) # wrangle data
 library(ggplot2) # plot data
 ```
 
-3. Depending on which group you're in, use one of the following public domain texts:
+3.  Depending on which group you're in, use one of the following public domain texts:
 
 ```{r}
 #| eval: false
@@ -105,17 +119,17 @@ gutenberg_works(title == "Frankenstein; Or, The Modern Prometheus") # frankenste
 gutenberg_works(title == "The Strange Case of Dr. Jekyll and Mr. Hyde") # jekyll hyde text
 ```
 
-4. Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `{book-title}_corp`. View the object - is the data in a tidy format?
+4.  Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `{book-title}_corp`. View the object - is the data in a tidy format?
 
-5. Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do we need every single token for our analysis?
+5.  Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do we need every single token for our analysis?
 
-6. Remove "stop words" or words that can be safely removed or ignored without sacrificing the meaning of the sentence (e.g. "to", "in", "and") using `anti_join()`. Take a look at the data - are you satisfied with your data? We won't conduct any additional cleaning steps here, but consider how you would further clean the data.
+6.  Remove "stop words" or words that can be safely removed or ignored without sacrificing the meaning of the sentence (e.g. "to", "in", "and") using `anti_join()`. Take a look at the data - are you satisfied with your data? We won't conduct any additional cleaning steps here, but consider how you would further clean the data.
 
-7. Calculate the top 10 most frequent words using the functions `count()` and `slice_max()`.
+7.  Calculate the top 10 most frequent words using the functions `count()` and `slice_max()`.
 
-8. Plot the top 10 most frequent words using `ggplot()`. We reccommend creating either a bar plot using `geom_col()` or a lollipop plot using both `geom_point()` and `geom_segment()`.
+8.  Plot the top 10 most frequent words using `ggplot()`. We reccommend creating either a bar plot using `geom_col()` or a lollipop plot using both `geom_point()` and `geom_segment()`.
 
-9. **Bonus**: Consider elements in `theme()` and improve your plot.
+9.  **Bonus**: Consider elements in `theme()` and improve your plot.
 :::
 
 ### Example using *The Phantom of the Opera*
@@ -131,6 +145,7 @@ gutenberg_works(title == "The Phantom of the Opera")
 #| code-fold: true
 #| code-summary: Steps 4-7 Code
 #| message: false
+#| eval: false
 # access text data using id number from `gutenberg_works()`
 phantom_corp <- gutenberg_download(175)
 
@@ -148,6 +163,7 @@ count_phantom <- tidy_phantom %>%
 ```{r}
 #| code-fold: true
 #| code-summary: Step 8 Plot Code
+#| eval: false
 # visualize text data #
 # bar plot
 ggplot(data = count_phantom, aes(n, reorder(word, n))) +
@@ -156,17 +172,26 @@ ggplot(data = count_phantom, aes(n, reorder(word, n))) +
          y = "Token")
 ```
 
+
+<details>
+<summary>Step 8 Bar Plot</summary>
+
+![](images/tidytext-barplot.png)
+
+</details>
+
 ```{r}
 #| code-fold: true
 #| code-summary: Step 9 Plot Code
+#| eval: false
 # visualize text data #
 # initial lollipop plot
-# ggplot(data = count_phantom, aes(x=word, y=n)) +
-#     geom_point() +
-#     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
-#     coord_flip() +
-#     labs(x = "Token",
-#          y = "Count")
+ggplot(data = count_phantom, aes(x=word, y=n)) +
+    geom_point() +
+    geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
+    coord_flip() +
+    labs(x = "Token",
+         y = "Count")
 
 # ascending order pretty lollipop plot
 ggplot(data = count_phantom, aes(x=reorder(word, n), y=n)) +
@@ -182,14 +207,33 @@ ggplot(data = count_phantom, aes(x=reorder(word, n), y=n)) +
     )
 ```
 
+<details>
+<summary> Step 9 Lollipop Plot</summary>
 
-<!--## Tidy Text to Non-Tidy Text Workflow
+![](images/tidytext-lollipopplot.png)
+</details>
 
-Many text analysis methods, natural language processing techniques in particular (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, algorithms will be able to more easily compare one document to many other documents to identify patterns.
+## Tidy Text to Non-Tidy Text Workflows
 
-## Exercise: DTM Workflow
+![A flowchart of a typical text analysis that combines `tidytext` with other tools and data formats, particularly the `tm` or `quanteda` packages. Source: Silge & Robinson](images/tidytext-nontidy-workflow.png)
 
-In the previous exercise, we converted our corpus into a data table that has "one-token-per-row".
+Many text analysis methods, in particular NLP techniques (e.g. topic models) require text data to be stored in a mathematical format. A common approach is to create a document term matrix (DTM), also called a document-feature matrix (DFM). In a matrix format, algorithms are able to more easily compare one document to many other documents to identify patterns.
+
+In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted our corpus into a data table that has "one-token-per-row". However, the tidy text format of "one-token-per-row" is not a common format for other R packages that work with text data or perform text analysis. Packages like `tm`, `quanteda`, `topicmodels` 
+
+
+:::{.callout-caution icon=false}
+### R Text Mining Tools and Analysis Packages Resources
+
+- [CRAN Task View: Natural Language Processing](https://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
+- [Penn Libraries Guides: Text Analysis](https://guides.library.upenn.edu/penntdm/r)
+
+:::
+
+
+<!--## Exercise: DTM Workflow
+
+
 
 Many existing text mining tools or algorithms work only on sparse document-term matrices. Therefore, tidytext provides cast_ verbs for converting from a tidy form to these matrices.
 
@@ -217,6 +261,7 @@ term frequency–inverse document frequency (tf-idf): weights the occurrence of 
 - rm stop words
     - add custom stop words
 - create word cloud
+
 
 ```{r}
 
