@@ -102,7 +102,7 @@ gutenberg_works(title == "Dracula") # dracula text
 gutenberg_works(title == "Frankenstein; Or, The Modern Prometheus") # frankenstein text
 
 # Group C
-gutenberg_works(title == "Carmilla") # carmilla text
+gutenberg_works(title == "The Strange Case of Dr. Jekyll and Mr. Hyde") # jekyll hyde text
 ```
 
 4. Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `{book-title}_corp`. View the object - is the data in a tidy format?
@@ -124,7 +124,7 @@ The code chunks below follows the instructions from above using Ray Bradbury's *
 
 ```{r}
 # get id number
-gutenberg_works(title == "Asleep in Armageddon")
+gutenberg_works(title == "The Phantom of the Opera")
 ```
 
 ```{r}
