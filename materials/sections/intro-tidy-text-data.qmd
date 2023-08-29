@@ -132,15 +132,15 @@ gutenberg_works(title == "The Phantom of the Opera")
 #| code-summary: Steps 4-7 Code
 #| message: false
 # access text data using id number from `gutenberg_works()`
-bradbury_corp <- gutenberg_download(63827)
+phantom_corp <- gutenberg_download(175)
 
 # tidy text data - unnest and remove stop words
-tidy_bradbury <- bradbury_corp %>% 
+tidy_phantom <- phantom_corp %>% 
     unnest_tokens(word, text) %>% 
     anti_join(stop_words, by = "word")
 
 # calculate top 10 most frequent words
-count_bradbury <- tidy_bradbury %>%
+count_phantom <- tidy_phantom %>%
     count(word) %>% 
     slice_max(n = 10, order_by = n)
 ```
@@ -150,7 +150,7 @@ count_bradbury <- tidy_bradbury %>%
 #| code-summary: Step 8 Plot Code
 # visualize text data #
 # bar plot
-ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
+ggplot(data = count_phantom, aes(n, reorder(word, n))) +
   geom_col() +
     labs(x = "Count",
          y = "Token")
@@ -161,7 +161,7 @@ ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
 #| code-summary: Step 9 Plot Code
 # visualize text data #
 # initial lollipop plot
-# ggplot(data = count_bradbury, aes(x=word, y=n)) +
+# ggplot(data = count_phantom, aes(x=word, y=n)) +
 #     geom_point() +
 #     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
 #     coord_flip() +
@@ -169,11 +169,11 @@ ggplot(data = count_bradbury, aes(n, reorder(word, n))) +
 #          y = "Count")
 
 # ascending order pretty lollipop plot
-ggplot(data = count_bradbury, aes(x=reorder(word, n), y=n)) +
+ggplot(data = count_phantom, aes(x=reorder(word, n), y=n)) +
     geom_point(color="cyan4") +
     geom_segment(aes(x=word, xend=word, y=0, yend=n), color="cyan4") +
     coord_flip() +
-    labs(title = "Top Ten Words in Ray Bradbury's Asleep in Armageddon",
+    labs(title = "Top Ten Words in The Phantom of the Opera",
          x = NULL,
          y = "Count") +
     theme_minimal() +
