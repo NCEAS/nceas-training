@@ -16,9 +16,10 @@ This lesson is based on [Analyzing US Census Data: Methods, Maps, and Models in 
 
 ## Introduction to `tidycensus`
 
-::: columns
-::: {.column width="30%"}
-![](images/tidycensus_logo.png){fig-align="center"}
+::: column-margin
+
+![](images/tidycensus_logo.png){fig-align="right"}
+
 :::
 
 
@@ -182,6 +183,7 @@ Only the population data is differentially infused. The household data are not.
 Note that to get total population data for the 2010 decennial census the variable code is different than the 2020 census (even though the arguments of the functions are the same). In this case the code would look like this.
 
 ```{r}
+#| eval: false
 
 pop_2010 <- get_decennial(
   geography = "state", 
@@ -367,6 +369,8 @@ We can check our data by calling the `View(delta_track_hw)` function in the cons
 Now that we have our data, next thing we will do is calculate the percentage of White and Hispanic population in each track. Given that we have the summary variable within our data set we can easily add a new column with the percentage. And then, we will also clean the `NAMES` column and separate track, county and state into it's own column.
 
 ```{r}
+#| eval: false
+
 delta_track_clean <- delta_track_hw %>% 
     mutate(percent = 100 * (value / summary_value)) %>% 
     separate(NAME, into = c("tract", "county", "state"),
@@ -382,6 +386,7 @@ Now that we have or "clean" data, with all the variables we need. Let's plot thi
 Applying all what we learned earlier this week, we are going to use `ggplot2` to create some wonderful plots!
 
 ```{r}
+#| eval: false
 
 ggplot(delta_track_hw_cl, 
        aes(x = percent, fill = county)) + 
@@ -401,6 +406,9 @@ ggplot(delta_track_hw_cl,
 -   Example code to get median income for California by county
 
 ```{r}
+#| eval: false
+
+
 ## 1-year survey
 median_income_1yr <- get_acs(
   geography = "county",
@@ -420,6 +428,8 @@ median_income_5yr <- get_acs(
 -   You can access to different variables in a survey with the `load_variable()` function
 
 ```{r}
+#| eval: false
+
 ## variables for 5-year 2017-2021 ACS
 vars <- load_variables(2021, "acs5")
 ```
