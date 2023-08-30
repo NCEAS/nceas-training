@@ -98,7 +98,7 @@ We are going to use the `gutenbergr` package to access public domain texts from 
 2.  Create a new code chunk and attach the following libraries:
 
 ```{r}
-#| message: false
+#| eval: false
 library(gutenbergr) # access public domain texts from Project Gutenberg
 library(tidytext) # text mining using tidy tools
 library(dplyr) # wrangle data
