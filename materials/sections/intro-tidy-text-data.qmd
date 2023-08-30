@@ -310,7 +310,7 @@ This code chunk is converting our corpus of all books into a sparse matrix.
 ```{r}
 #| eval: false
 
-# convert tidy text table to spare matrix from `Matrix` package
+# convert tidy text table to sparse matrix from `Matrix` package
 # requires `Matrix` to be installed
 all_books_sparse <- tidy_all_books %>% 
     cast_sparse(row = title,
