@@ -40,6 +40,16 @@ The spatial data we will be using to create the map are:
 
 1.  Navigate to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) on KNB's test site and download the zip folder.
 2.  Upload the zip folder to the `data` folder in the `training_{USERNAME}` project. You don't need to unzip the folder ahead of time, uploading will automatically unzip the folder.
+    a. Alternatively, programatically download and extract the demo data with:
+    
+```{r}
+#| eval:false
+knb_url <- 'https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58'
+download.file(url = knb_url, destfile = 'demo_data.zip')
+unzip('demo_data.zip', exdir = 'data')
+file.remove('demo_data.zip')
+```
+
 3.  Create a new R Markdown file.
     a.  Title it "Intro to sf package for Spatial Data and Making Maps"
     b.  Save the file and name it "intro-sf-spatial-data-maps".
