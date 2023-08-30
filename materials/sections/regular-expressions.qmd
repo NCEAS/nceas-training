@@ -1,8 +1,3 @@
----
-title: "Regular Expressions"
-time_slot: 30 minutes
----
-
 ## Introduction
 
 Regular expressions are a fantastic tool for filtering and even extracting information out of strings of characters such as site codes, titles, or even entire documents. 
@@ -15,7 +10,7 @@ But they're something that you only need to learn a bit of to get a lot of value
 I often use fairly simple regular expressions, like the ones we used on the command line,
 
 ```bash
-ls *.Rmd
+ls *.qmd
 ```
 
 ## Learning Outcomes
@@ -36,7 +31,7 @@ getwd() # Like pwd()
 dir() # Like `ls()`
 
 library(stringr)
-str_view_all(dir(), ".*Rmd")
+str_view_all(dir(), ".*qmd")
 str_view_all(dir(), ".*html")
 ```
 
@@ -44,7 +39,7 @@ Let's start off with a simple example of where simpler methods won't work and se
 Let's say we just received some data we need to analyze and we find this:
 
 ```{r}
-site_data <- read.csv("../data/site_data.csv", stringsAsFactors = FALSE)
+site_data <- read.csv("data/site_data.csv", stringsAsFactors = FALSE)
 site_data
 ```
 
@@ -305,7 +300,8 @@ Below, I've re-formatted the data and the regular expression a bit so we can see
 
 Here's the code I used to generate the fake site_data `data.frame` above.
 
-```{r, eval=FALSE, echo=FALSE, include=FALSE}
+```{r}
+#| eval: false
 # Fake data generation code
 site_data <- data.frame(year = rep(seq(2000, 2009), 4))
 site_data$site <- sample(c("galveston bay", "choctawhatchee bay", "aransas bay", "copany bay"), nrow(site_data), replace = TRUE)
