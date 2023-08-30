@@ -3,13 +3,13 @@ title: "Appendix"
 title-block-banner: true
 ---
 
-
 # Configuring Two-factor Authentication on GitHub
-
 {{< include /sections/2fa-setup-github.qmd >}}
 
 
-
 # Check and Set your GitHub Personal Access Token (PAT)
-
 {{< include /sections/github-check-pat.qmd >}}
+
+
+# Regular Expressions
+{{< include /sections/regular-expressions.qmd >}}
