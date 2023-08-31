@@ -367,6 +367,7 @@ all_books_dfm <- tidy_all_books %>%
 
 ```{r}
 #| message: false
+#| warning: false
 library(tidytext) # tidy text tools
 library(quanteda) # create a corpus
 library(pdftools) # read in data
