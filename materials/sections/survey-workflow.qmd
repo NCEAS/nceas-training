@@ -46,6 +46,9 @@ The three main questions of the survey have three types of responses: a multiple
 
 ![](images/survey_main.png)
 
+
+### Working with `qualtiRcs`
+
 :::callout-tip
 ## Set up
 
@@ -114,7 +117,7 @@ survey_results <- fetch_survey(id)
 
 The survey results table has tons of information in it, not all of which will be relevant depending on your survey. The table has identifying information for the respondents (eg: `ResponseID`, `IPaddress`, `RecipientEmail`, `RecipientFirstName`, etc), much of which will be empty for this survey since it is anonymous. It also has information about the process of taking the survey, such as the `StartDate`, `EndDate`, `Progress`, and `Duration`. Finally, there are the answers to the questions asked, with columns labeled according to the `qname` column in the questions table (eg: Q1, Q2, Q3). Depending on the type of question, some questions might have multiple columns associated with them. We'll have a look at this more closely in a later example. 
 
-### Question 2
+#### Question 2
 
 Let's look at the responses to the second question in the survey, "How long have you been programming?" Remember, the first question was the consent question.
 
@@ -138,7 +141,7 @@ kable(q2, col.names = c("How long have you been programming?",
     kable_styling()
 ```
 
-### Question 3
+#### Question 3
 
 For question 3, we'll use a similar workflow. For this question, however there are two columns containing survey answers. One contains the answers from the controlled vocabulary, the other contains any free text answers users entered.
 
@@ -170,7 +173,7 @@ kable(q3_text, col.names = c("Other responses to 'What language do you currently
     kable_styling()
 ```
 
-### Question 4
+#### Question 4
 
 The last question is just a free text question, so we can just display the results as is. 
 
@@ -198,7 +201,7 @@ To show how we can link R into our survey workflows, I've set up a simple exampl
 
 I've set up the results so that they are in a new spreadsheet [here:](https://docs.google.com/spreadsheets/d/1CSG__ejXQNZdwXc1QK8dKouxphP520bjUOnZ5SzOVP8/edit?resourcekey#gid=1527662370). To access them, we will use the `googlesheets4` package.
 
-First, open up a new R script and load the `googlesheets4` library:
+First, open up a new Quarto doc and load the `googlesheets4` library:
 
 ```{r}
 library(googlesheets4)
@@ -290,5 +293,10 @@ Next populate the spreadhsheet with 5 to 10 rows of sample data that you make up
 Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). However, the last updates were made 5 years ago, an eternity in the software world, so it may or may not still function as intended.
 
 There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R. 
+
+
+
+## Resourcese
+- [How to get your Qualtrics API key](https://www.qualtrics.com/support/integrations/api-integration/overview/#GeneratingAnAPIToken)
 
 
