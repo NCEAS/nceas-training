@@ -201,7 +201,7 @@ To show how we can link R into our survey workflows, I've set up a simple exampl
 
 I've set up the results so that they are in a new spreadsheet [here:](https://docs.google.com/spreadsheets/d/1CSG__ejXQNZdwXc1QK8dKouxphP520bjUOnZ5SzOVP8/edit?resourcekey#gid=1527662370). To access them, we will use the `googlesheets4` package.
 
-First, open up a new R script and load the `googlesheets4` library:
+First, open up a new Quarto doc and load the `googlesheets4` library:
 
 ```{r}
 library(googlesheets4)
@@ -293,5 +293,9 @@ Next populate the spreadhsheet with 5 to 10 rows of sample data that you make up
 Similar to Qualtrics and qualtRics, there is an open source R package for working with data in Survey Monkey: [Rmonkey](https://github.com/cloudyr/Rmonkey). However, the last updates were made 5 years ago, an eternity in the software world, so it may or may not still function as intended.
 
 There are also commercial options available. For example, [cdata](https://www.cdata.com/kb/tech/surveymonkey-jdbc-r.rst) have a driver and R package that enable access to an analysis of Survey Monkey data through R. 
+
+
+## Resourcese
+- [How to get your Qualtrics API key](https://www.qualtrics.com/support/integrations/api-integration/overview/#GeneratingAnAPIToken)
 
 
