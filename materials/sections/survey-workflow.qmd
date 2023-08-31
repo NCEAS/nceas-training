@@ -46,7 +46,8 @@ The three main questions of the survey have three types of responses: a multiple
 
 ![](images/survey_main.png)
 
-
+:::callout-tip
+## Set up
 
 First, open a new Quarto document and add a chunk to load the libraries we'll need for this lesson:
 
@@ -67,7 +68,10 @@ The API key is as good as a password, so care should be taken to not share it pu
 qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE, overwrite = T)
 ```
 
-:::callout-tip
+:::
+
+
+:::callout-important
 
 ## Aside note
 
