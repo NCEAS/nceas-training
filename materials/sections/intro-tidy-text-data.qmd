@@ -590,34 +590,8 @@ The text analysis tools, methods, and packages depend greatly on your specific t
 
 ## Note About Python and NLP
 
-```{=html}
-<!--
+While both `R` and `python` are capable of natural language processing and other machine learning text analysis techniques, many claim there is an advantage to using `python` over `R`. `Python` has a vast amount of libraries and packages, and its libraries for machine learning (e.g. `scikit-learn`, `TensorFlow`, `Keras`) make it simple to build models from scratch (Note: packages like `TensorFlow` are being ported to `R`). Additionally, `Python` tends to run faster than `R`, which is why some may prefer to use `python` when working with large datasets.
 
-## Which Text Analysis Method or Tool Should I Use?
+However, both languages have a vast array of libraries and packages, and large, active communities to lean on for support.
 
-## Exercise: Tidy Text Data from a PDF
-
-- data: DSC plan chapters pdf format
-- read in pdf
-- turn pdf into a corpus
-- remove headers
-- tokenize
-- rm stop words
-    - add custom stop words
-- create word cloud
-
-Many existing text mining tools or algorithms work only on sparse document-term matrices. Therefore, tidytext provides cast_ verbs for converting from a tidy form to these matrices.
-
-NOTES:
-
-Text analytical models (e.g., topic models) often require your data to be stored in a certain format
-only so will algorithms be able to quickly compare one document to a lot of other documents to identify patterns
-Typically: document-term matrix (DTM), sometimes also called document-feature matrix (DFM)
-matrix with each row being a document and each word being a column
-term-frequency (tf): The number within each cell describes the number of times the word appears in the document
-term frequency–inverse document frequency (tf-idf): weights the occurrence of certain words, e.g., lowering the weight of the word “social” in an corpus of sociological articles
-
-## Note about python
-
-python has many powerful packages and tools for running analyses like NLP -->
-```
+It's important to note that with tools like Jupyter Notebook and Quarto you're not longer limited to just one language. With tools that support both `R` and `python` code, you have the capability to leverage the strengths of both languages. For example, you can build a NLP model using `python` and then create a visualization using `R`.
