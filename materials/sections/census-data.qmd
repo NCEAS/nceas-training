@@ -321,15 +321,16 @@ Let's demonstrate this with an example. Let's compare the distribution of percen
 The first step is to get the data.
 
 ::: callout-note
-## Exercise
+## Exercise 1: `get_decennial()`
 
-Make a query to get White and Hispanic population data for Delta counties **by tracks** from the 2020 Decennial Census. Include the total population summary variable (`summary_var = "P2_001N"`).
+1. Make a query to get White and Hispanic population data for Delta counties **by tracks** from the 2020 Decennial Census. Include the total population summary variable (`summary_var = "P2_001N"`).
 
 Hint: variable codes are:
 
 -   Total Hispanic population = P2_002N
 -   Total White population = P2_005N
-:::
+
+
 
 ```{r}
 #| eval: false
@@ -347,29 +348,33 @@ delta_track_hw <- get_decennial(
 
 ```
 
+
 We can check our data by calling the `View(delta_track_hw)` function in the console.
 
-Now that we have our data, next thing we will do is calculate the percentage of White and Hispanic population in each track. Given that we have the summary variable within our data set we can easily add a new column with the percentage. And then, we will also clean the `NAMES` column and separate track, county and state into it's own column.
+2. Now that we have our data, next thing we will do is calculate the percentage of White and Hispanic population in each track. Given that we have the summary variable within our data set we can easily add a new column with the percentage. And then, we will also clean the `NAMES` column and separate track, county and state into it's own column (hint: `tidyr::separate()`).
 
 ```{r}
 #| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
 
 delta_track_clean <- delta_track_hw %>% 
     mutate(percent = 100 * (value / summary_value)) %>% 
     separate(NAME, into = c("tract", "county", "state"),
            sep = ", ")
+
 ```
+
 
 Note that we can apply all other `dplyr` functions we have learned to this dataset depending on what we want to achieve. One of the main goals of `tidycensus` is to make the output data frames compatible with `tidyverse` functions.
 
-Now that we have or "clean" data, with all the variables we need. Let's plot this data to compare the distribution of percentage White population and percentage Hispanic population by census track vary among the Delta Counties.
 
-## Visualizing Census Data with `ggplot2`
-
-Applying all what we learned earlier this week, we are going to use `ggplot2` to create some wonderful plots!
+3. Now that we have or "clean" data, with all the variables we need. Let's plot this data to **compare the distribution of percentage** White population and percentage Hispanic population by census track vary among the Delta Counties (hint: `geom_density()`).
 
 ```{r}
 #| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
 
 ggplot(delta_track_hw_cl, 
        aes(x = percent, fill = county)) + 
@@ -377,6 +382,16 @@ ggplot(delta_track_hw_cl,
     facet_wrap(~variable)+
     theme_light()
 ```
+
+
+:::
+
+
+<!-- ## Visualizing Census Data with `ggplot2`
+
+Applying all what we learned earlier this week, we are going to use `ggplot2` to create some wonderful plots! -->
+
+
 
 ## Notes on `get_acs()`
 
@@ -389,7 +404,6 @@ ggplot(delta_track_hw_cl,
 
 ```{r}
 #| eval: false
-
 
 ## 1-year survey
 median_income_1yr <- get_acs(
@@ -407,7 +421,7 @@ median_income_5yr <- get_acs(
 
 ```
 
--   You can access to different variables in a survey with the `load_variable()` function
+-   You can access to different variables in a survey with the `load_variables()` function
 
 ```{r}
 #| eval: false
@@ -415,3 +429,71 @@ median_income_5yr <- get_acs(
 ## variables for 5-year 2017-2021 ACS
 vars <- load_variables(2021, "acs5")
 ```
+
+
+::: callout-note
+## Exercise 2: `get_acs()`
+1. Load variables for "acs5", year 2021.
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+vars_acs5_21 <- load_variables(2021, "acs5")
+```
+
+
+2. Find code for total median gross rent.
+
+
+3. Get acs data for median gross rent by county in California
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+
+ca_rent <- get_acs(
+  geography = "county",
+  variables = "B25031_001",
+  state = "CA",
+  year = 2021)
+
+```
+
+4. Visualize estimate by county using `geom_point`. (Hint: use y = reorder(NAME, estimate) to order counties by estimates)
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+ggplot(ca_rent, aes(x = estimate, y = reorder(NAME, estimate))) + 
+  geom_point()
+```
+
+
+5. Add the following layer, one by one, to your plot. Discuss with your neighbor what each line of code is doing.
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+geom_errorbar(aes(xmin = estimate - moe, xmax = estimate + moe),
+                width = 0.5, linewidth = 0.5)
+
+scale_x_continuous(labels = label_dollar()) 
+
+
+scale_y_discrete(labels = function(x) str_remove(x, " County, California|, California"))
+```
+
+6. Enhance you plot adding a theme_*, changing the color of the points, renaming the labels, adding a title, or any other modification you want to make.
+
+
+:::
+
+
