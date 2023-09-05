@@ -1,7 +1,6 @@
 ---
-title: "Synthesis Time"
-from: markdown+emoji
+title: "Literate Analysis with Quarto"
 title-block-banner: true
 ---
 
-<!--{{< include /sections/activity-reproducibility-lego.qmd >}}-->
+{{< include /sections/r-intro-quarto.qmd >}}
