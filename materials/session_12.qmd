@@ -1,11 +1,9 @@
 ---
-title: "Working with US Census Data"
+title: "Intro to Data visualization"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
-
-{{< include /sections/census-data.qmd >}}
-
-
-
-
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}

@@ -1,8 +1,9 @@
 ---
-title: "Collaborating using `Git` and GitHub & Merge Conflicts"
+title: "RStudio Server Setup"
 title-block-banner: true
-
+format:
+  html:
+    code-overflow: wrap
 ---
 
-{{< include /sections/git-collab-merge-conflicts.qmd >}}
-
+{{< include /sections/rstudio-server-setup.qmd >}}

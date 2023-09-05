@@ -1,73 +1,38 @@
-# Overview {.unnumbered}
+# Preface {.unnumbered}
+
+*October 2 - October 6, 2023*
+
+## Welcome to the coreR Course
 
 ::: column-margin
 ![](cover.png){width="80%" fig-align="center"}
-
-![](images/delta/delta-logo.png){width="80%" fig-align="center"}
-
 :::
 
-## About this training
+A five-day immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists. This course is taught both in-person and virtually.
 
-NCEAS Open Science Synthesis training consists of three 1-week long workshops, geared towards early career researchers. Participants engage in a mix of lectures, exercises, and synthesis research groups to undertake synthesis while learning and implementing best practices for open data science.
+### Course Learning Objectives:
 
-
-<!-- CoreR A five-day immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists.-->
-
-## Why NCEAS
-The [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/), a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach).
-
-NCEAS has over 25 years of success with this model among working groups and environmental professionals. Together with the Delta Science Program and the Delta Stewardship Council we are excited to pass along skills, workflows, mindsets learn throughout the years.
-
-
-### Week 2: Open Tools for Analysis and Visualization
-
-*Aug 28 - Sep 1, 2023*
-
-- Strengthen core knowledge of version control and workflow
-- Introduce metaanalysis concepts and tools
-- Approaches for geospatial visualization
-- Data tools for qualitative data
- 
+-   Effectively manage data using `tidy` data practices and developing quality metadata
+-   Establish best practices and utilize tools like Git & GitHub, and Data Management Plans to optimize your collaboration
+-   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot` and `leaflet`
+- Increase your familiarity and confidence with data science tools
 
 ## Schedule
 
-UPDATE IMAGE WITH WEEK 2 SCHEDULE
-
-:::{.column-page}
-<!--![](images/schedule.png)-->
-:::
-
-
-
-## Next training
-
-
-### Week 3: Scaling up and presenting synthesis
-
-*October 23 – 27, 2023*
-
-- Handling missing data
-- Big data workflows and parallel computing
-- Building scientific websites with R and Shiny
-- Synthesis presentations and next steps
-
+![](images/schedule-coreR-2023-04.png)
 
 ## Code of Conduct
 
 By participating in this activity you agree to abide by the [NCEAS Code of Conduct](https://www.nceas.ucsb.edu/sites/default/files/2021-11/NCEAS_Code-of-Conduct_Nov2021_0.pdf).
 
-
-
 ## About this book
 
-These written materials are the result of a continuous and collaborative effort at NCEAS with the support of DataONE, to help researchers make their work more transparent and reproducible. This work began in the early 2000's, and reflects the expertise and diligence of many, many individuals. The primary authors for this version are listed in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
+These written materials are the result of a continuous and collaborative effort at NCEAS to help researchers make their work more transparent and reproducible. This work began in the early 2000's, and reflects the expertise and diligence of many, many individuals. The primary authors are listed in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
+**Citation:** Halina Do-Linh, Camila Vargas Poulsen, Samantha Csik, Daphne Virlar-Knight. 2023. coreR Course. NCEAS Learning Hub.
 
-**Citation:** Halina Do-Linh, Carmen Galaz García, Matthew B. Jones, Camila Vargas Poulsen. 2023. Open Science Synthesis training Week 2. NCEAS Learning Hub & Delta Stewardship Council.
-
-**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden,  Jeanette Clark, Samantha Csik, Stephanie Hampton, Natasha Haycock-Chavez, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+**Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Matthew B. Jones, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Leah Wasser.
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.

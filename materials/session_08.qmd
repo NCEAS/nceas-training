@@ -1,6 +1,10 @@
 ---
-title: "Synthesis Time"
+title: "Cleaning & Wrangling Data"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
+    code-link: true
 ---
 
-<!--{{< include /sections/programmatic-data-access.qmd >}}-->
+{{< include /sections/clean-wrangle-data.qmd >}}

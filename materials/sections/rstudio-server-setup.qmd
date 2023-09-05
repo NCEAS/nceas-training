@@ -4,32 +4,6 @@
 - Organize an R Project for effective project management
 - Understand how to move in an R Project using paths and working directories
 
-## Before we start
-
-### Non-Verbal Feedback
-
-We'll be using the Zoom "Non Verbal Feedback" buttons throughout this session. We will ask you to put a green check by your name when you're all set and ready to move on, and a red x by your name if you're stuck or need assistance. These buttons can be found in the Reaction menu on the toolbar. When you're asked to answer using these buttons, please ensure that you select one so that the instructor has the feedback that they need to either continue the lesson or pause until everyone gets back on the same page.
-
-![](images/non-verbal-feedback.png)
-
-
-
-### Questions and Getting Help
-
-When you need to ask a question, please do so in one of the following ways:
-
-- Turn your mic on and ask. If you are uncomfortable interrupting the instructor, you may also raise your virtual hand (in the Reaction menu) and the session facilitator will ask the instructor to pause and call upon you.
-- Ask your question in the chat
-
-
-If you have an issue/error and get stuck, you can ask for help in the following ways:
-
-- Turn your mic on and ask for help. See also above regarding the use of a virtual raised hand.
-- Let one of the instructors know through the chat
-- If prompted to do so, put a red X next to your name as your status in the participant window.
-- If you have an issue that requires in-depth trouble shooting, please let us know and we will coordinate a time with you after this call.
-
-
 ## Logon to the RStudio Server
 
 To prevent us from spending most of this lesson troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called RStudio Server. If you have never worked on a remote server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
@@ -43,42 +17,6 @@ After you have successfully changed your password log in at: [https://included-c
 [![](images/included-crab-login.png)](https://included-crab.nceas.ucsb.edu/)
 :::
 
-
-## Programming in R
-
-![Artwork by Allison Horst](images/allison-horst-code-kitchen.png)
-
-There is a vibrant community out there that is collectively developing increasingly easy to use and powerful open source programming tools. The changing landscape of programming is making learning how to code easier than it ever has been. Incorporating programming into analysis workflows not only makes science more efficient, but also more computationally reproducible. In this course, we will use the programming language R, and the accompanying integrated development environment (IDE) RStudio. R is a great language to learn for data-oriented programming because it is widely adopted, user-friendly, and (most importantly) open source!
-
-So what is the difference between R and RStudio? Here is an analogy to start us off. **If you were a chef, R is a knife**. You have food to prepare, and the knife is one of the tools that you'll use to accomplish your task.
-
-And **if R were a knife, RStudio is the kitchen**. RStudio provides a place to do your work! Other tools, communication, community, it makes your life as a chef easier. RStudio makes your life as a researcher easier by bringing together other tools you need to do your work efficiently - like a file browser, data viewer, help pages, terminal, community, support, the list goes on. So it's not just the infrastructure (the user interface or IDE), although it is a great way to learn and interact with your variables, files, and interact directly with git. It's also data science philosophy, R packages, community, and more. Although you can prepare food without a kitchen and we could learn R without RStudio, that's not what we're going to do. We are going to take advantage of the great RStudio support, and learn R and RStudio together.
-
-Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, learning words that mean the same as others, etc, just like everybody else. And just like any form of communication, there will be miscommunication that can be frustrating, but hands down we are all better off because of it.
-
-While language is a familiar concept, programming languages are in a different context from spoken languages and you will understand this context with time. For example: you have a concept that there is a first meal of the day, and there is a name for that: in English it's "breakfast." So if you're learning Spanish, you could expect there is a word for this concept of a first meal. (And you'd be right: "desayuno"). We will get you to expect that programming languages also have words (called functions in R) for concepts as well. You'll soon expect that there is a way to order values numerically. Or alphabetically. Or search for patterns in text. Or calculate the median. Or reorganize columns to rows. Or subset exactly what you want. We will get you to increase your expectations and learn to ask and find what you're looking for.
-
-
-## RStudio IDE
-
-Let's take a tour of the RStudio interface.
-
-![](images/RStudio_IDE.png)
-
-Notice the default panes:
-
--   Console (entire left)
--   Environment/History (tabbed in upper right)
--   Files/Plots/Packages/Help (tabbed in lower right)
-
-::: {.callout-caution icon="false"}
-### Quick Tip
-
-You can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
-:::
-
-
-
 ## Create an R Project
 
 In this course, we are going to be using an R project to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
@@ -91,7 +29,7 @@ In this course, we are going to be using an R project to organize our work. An R
 1. In the "File" menu, select "New Project"
 2. Click "New Directory"
 3. Click "New Project"
-4. Under “Directory name” type: `training_{USERNAME}` (i.e. `training_vargas`)
+4. Under “Directory name” type: `training_{USERNAME}` (i.e. `training_do-linh`)
 5. Leave "Create Project as subdirectory of:” set to `~`
 6. Click "Create Project"
 
@@ -101,7 +39,7 @@ RStudio should open your new project automatically after creating it. One way to
 ## Organizing an R Project
 
 
-When starting a new research project, step 1 is to create an R Project for it (just like we have here!). The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are `rrtools` or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
+When starting a new research project, one of the first things I do is create an R Project for it (just like we have here!). The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are `rrtools` or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
 
 Some common directories are:
 
@@ -126,25 +64,17 @@ Now that we have your project created (and notice we know it’s an R Project be
 
 There are two types of paths in computing: **absolute paths** and **relative paths**.
 
-- An **absolute path** always starts with the root of your file system and locates files from there. The absolute path to my project directory is: `/home/vargas-poulsen/training_vargas`
+- An **absolute path** always starts with the root of your file system and locates files from there. The absolute path to my project directory is: `/home/do-linh/training_do-linh`
 
 - **Relative paths** start from some location in your file system that is below the root. Relative paths are combined with the path of that location to locate files on your system. R (and some other languages like MATLAB) refer to the location where the relative path starts as our **working directory**.
 
-**RStudio projects automatically set the working directory to the directory of the project**. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the data directory within my project, the code to do this would be `read.csv("data/samples.csv")` (path relative to my R project) as opposed to `read.csv("/home/vargas-poulsen/training_vargas/data/samples.csv")` (absolute path of my home directory).
+**RStudio projects automatically set the working directory to the directory of the project**. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the data directory within my project, I can simply type `read.csv("data/samples.csv")` as opposed to `read.csv("/home/do-linh/training_do-linh/data/samples.csv")`.
 
-This is not only convenient for you, but also when working collaboratively. For example if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `/home/vargas-poulsen/training_vargas/data/samples.csv` to `/home/jones/training_jones/data/samples.csv`. 
-
+This is not only convenient for you, but also when working collaboratively. We will talk more about this later, but if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `/home/do-linh/training_do-linh/data/samples.csv` to `/home/jones/training_jones/data/samples.csv`.
 
 Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
 
-
-::: column-margin
-`setwd()` sets your working directory to specified file path (aka directory).
-:::
-
 Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
-
-
 
 ## Setting up R and RStudio on your Computer {#rstudio-personal-setup}
 
@@ -191,5 +121,3 @@ rm(course_packages) # remove object from Global Environment
 # update any out-of-date packages
 update.packages(ask=FALSE)
 ```
-
-
