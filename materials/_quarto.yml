@@ -27,17 +27,18 @@ book:
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # team science essentials
-    - session_02.qmd # intro to R programming
-    - session_03.qmd # fair & care
-    - session_04.qmd # writing DMPs
-    - session_05.qmd # intro to literate analysis
-    - session_06.qmd # tidy data
-    - session_07.qmd # accessing & finding data (programmatic data access?)
-    - session_08.qmd # intro `Git` & GitHub
-    - session_09.qmd # clean wrangle data
-    - session_10.qmd # collab `Git` & GitHub
-    - session_11.qmd # appendix
+    - session_01.qmd # synthesis generation & iteration
+    - session_02.qmd # team science essentials
+    - session_03.qmd # intro to R programming
+    - session_04.qmd # fair & care
+    - session_05.qmd # writing DMPs UCSB Library
+    - session_06.qmd # intro to literate analysis
+    - session_07.qmd # tidy data
+    - session_08.qmd # accessing & finding data UCSB DREAM Lab
+    - session_09.qmd # intro `Git` & GitHub
+    - session_10.qmd # clean wrangle data
+    - session_11.qmd # collab `Git` & GitHub
+    - session_12.qmd # appendix: RStudio server setup + Git & GitHub setup
     
 
 bibliography: book.bib
