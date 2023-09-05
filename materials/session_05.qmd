@@ -1,8 +1,10 @@
 ---
-title: "Intro to Literate Analysis"
+title: "Writing Data Management Plans"
+from: markdown+emoji
 title-block-banner: true
 ---
 
-{{< include /sections/r-intro-quarto.qmd >}}
+{{< include /sections/combined-dmp-metadata-publishing.qmd >}}
 
-<!-- Consider renaming this file to intro-literate-analysis -->
+<!-- consider these other lesson: data-management-plans.Rmd or data-management-plans-reduced.Rmd -->
+<!-- Note: convert from .Rmd to .qmd -->

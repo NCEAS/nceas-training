@@ -1,12 +1,6 @@
 ---
-title: "Accessing & Finding Data"
-title-block-banner: true 
-format:
-  html:
-    code-overflow: wrap
-    code-link: true
+title: "Intro to Tidy Data"
+title-block-banner: true
 ---
 
-{{< include /sections/accessing-and-publishing-data.qmd >}}
-
-<!-- Maybe combine this lesson with programmatic data acess? -->
+{{< include /sections/intro-tidy-data.qmd >}}

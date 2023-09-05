@@ -1,11 +1,13 @@
 ---
-title: "Working with US Census Data"
+title: "Appendix "
 title-block-banner: true
 ---
 
+# RStudio Server Setup {.unnumbered}
 
-{{< include /sections/census-data.qmd >}}
+{{< include /sections/rstudio-server-setup.qmd >}}
 
+# Configuring `Git` & GitHub {.unnumbered}
 
-
+{{< include /sections/git-setup.qmd >}}
 
