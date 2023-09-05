@@ -112,3 +112,4 @@ max_lobster <- lobster_abundance %>%
   group_by(SITE, MONTH) %>% 
   summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
 ```
+
