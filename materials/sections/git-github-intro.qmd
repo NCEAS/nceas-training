@@ -16,9 +16,9 @@ You might think there is a better way, and you'd be right: **version control**. 
 
 There are many benefits to using a version control software including:
 
--   Maintain a history of your research project's development while keeping your workspace clean
--   Facilitate collaboration and transparency when working on teams
--   Explore bugs or new features without disrupting your team members' work
+-   **Maintain** a history of your research project's development while keeping your workspace clean
+-   **Facilitate collaboration** and transparency when working on teams
+-   **Explore bugs or new features** without disrupting your team members' work
 -   and more!
 
 The version control system we'll be diving into is `Git`, the most widely used modern version control system in the world.
@@ -105,20 +105,20 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 
 #### With `Git` we can enhance our workflow: {.unnumbered}
 
-- Eliminate the need for cryptic filenames and comments to track our work.
-- Provide detailed descriptions of our changes through commits, making it easier to understand the reasons behind code modifications.
-- Work on multiple branches simultaneously, allowing for parallel development, and optionally merge them together.
-- Use commits to access and even execute older versions of our code.
-- Assign meaningful tags to specific versions of our code.
-- Additionally, `Git` offers a powerful distributed feature. Multiple individuals can work on the same analysis concurrently on their own computers, with the ability to merge everyone's changes together.
+- **Eliminate** the need for **cryptic filenames** and comments to track our work.
+- Provide **detailed descriptions of our changes** through commits, making it easier to understand the reasons behind code modifications.
+- Work on multiple **branches** simultaneously, allowing for parallel development, and optionally merge them together.
+- Use commits to **access and even execute older versions** of our code.
+- **Assign meaningful tags** to specific versions of our code.
+- Additionally, `Git` offers a powerful distributed feature. **Multiple individuals can work on the same analysis concurrently** on their own computers, with the ability to merge everyone's changes together.
 
 ### What *exactly* are `Git` and GitHub?
 
 #### `Git`: {.unnumbered}
 
--   an open-source distributed version control software
+-   an open-source distributed **version control** software
 - designed to manage the versioning and tracking of source code files and project history
--   operates locally on your computer, allowing you to create repositories, track changes, and collaborate with others
+-   **operates locally** on your computer, allowing you to create repositories, and track changes
 - provides features such as committing changes, branching and merging code, reverting to previous versions, and managing project history
 - works directly with the files on your computer and does not require a network connection to perform most operations
 - primarily used through the command-line interface (CLI, e.g. Terminal), but also has various GUI tools available (e.g. RStudio IDE)
@@ -128,8 +128,8 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 :::
 
 #### GitHub: {.unnumbered}
--   online platform and service built around `Git`
-- provides a centralized hosting platform for Git repositories
+- **online platform** and service built around `Git`
+- provides a **centralized hosting platform for Git repositories**
 - allows us to store, manage, and collaborate on their `Git` repositories in the cloud
 -  offers additional features on top of `Git`, such as a web-based interface, issue tracking, project management tools, pull requests, code review, and collaboration features
 -   enables easy sharing of code with others, facilitating collaboration and contribution to open source projects
@@ -140,15 +140,45 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 ![](images/github-intro.png)
 :::
 
-### The `Git` Life cycle 
+### Understanding how local working files, `Git`, and GitHub all work together
 
-As a `Git` user, you'll need to understand the basic concepts associated with versioned sets of changes, and how they are stored and moved across repositories. Any given `Git` repository can be cloned so that it exists both locally, and remotely. But each of these cloned repositories is simply a copy of all of the files and change history for those files, stored in `Git`'s particular format. For our purposes, we can consider a `Git` repository as a folder with a bunch of additional version-related metadata.
+It can be a bit daunting to understand all the moving parts of the `Git` / GitHub life cycle (i.e. how file changes are tracked locally within repositories, then stored for safe-keeping and collaboration on remote repositories, then brought back down to a local machine(s) for continued development). It gets easier with practice, but we'll explain (first in words, then with an illustration) at a high-level how things work:
 
-In a local `Git`-enabled folder, the folder contains a workspace containing the current version of all files in the repository. These working files are linked to a hidden folder containing the 'Local repository', which contains all of the other changes made to the files, along with the version metadata.
+#### What is the difference between "normal" folder vs. a `Git` repository
 
-So, when working with files using `Git`, you can use `Git` commands to indicate specifically which changes to the local working files should be staged for versioning (using the `git add` command), and when to record those changes as a version in the local repository (using the command `git commit`).
+Whether you're a Mac or a PC user, you'll likely have created a folder at some point in time for organizing files. Let's pretend that we create a folder, called `myFolder`, and add two files: `myData.csv` and `myAnalysis.R`. The contents of this folder are not currently version controlled -- meaning, for example, that if we make some changes to `myAnalysis.R` that don't quite work out, we have no way of accessing or reverting back to a previous version of `myAnalysis.R` (without remembering/rewriting things, of course).
 
-The remaining concepts are involved in synchronizing the changes in your local repository with changes in a remote repository. The `git push` command is used to send local changes up to a remote repository (possibly on GitHub), and the `git pull` command is used to fetch changes from a remote repository and merge them into the local repository.
+`Git` allows you to turn any "normal" folder, like `myFolder`, into a **Git repository** -- you'll often see/hear this referenced as "initializing a Git repository". When you initialize a folder on your local computer as a Git repository, a hidden `.git/` folder is created *within* that folder (e.g. `myFolder/.git/`) -- this `.git/` folder *is* the **Git repository**. As you use `Git` commands to capture versions or "snapshots" of your work, those versions (and their associated metadata) get stored within the `.git/` folder. This allows you to access and/or recover any previous versions of your work. If you delete `.git/`, you delete your project's history.
+
+Here is our example folder / Git repository represented visually:
+
+<br>
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/git-repo.png")
+```
+
+<br>
+
+#### How do I actually tell `Git` to preserve versions of my local working files?
+
+Git was built as a command-line tool, meaning we can use `Git` commands in the command line (e.g. Terminal, Git Bash, etc.) to take "snapshots" of our local working files through time. Alternatively, RStudio provides buttons that help to easily execute these Git commands.
+
+Generally, that workflow looks something like this:
+
+- Make changes to a file(s) (e.g. `myAnalysis.R`) in your working directory
+- Stage the file(s) using `git add myAnalysis.R` (or `git add .` to add multiple changed files at once). This lets Git know that you'd like to include the file(s) in your next commit
+- Commit the file(s) using `git commit -m "a message describing my changes"`. This records those changes (along with a descriptive message) as a "snapshot" or version in the local repository (i.e. the `.git/` folder)
+
+#### My versioned work is on my local computer, but I want to send it to GitHub. How?
+
+The last step is synchronizing the changes made to our local repository with a remote repository (oftentimes, this remote repository is stored on GitHub). The `git push` command is used to send local changes up to a remote repository. The `git pull` command is used to fetch changes from a remote repository and merge them into the local respoitory (e.g. **pull**ing will become a regular part of your workflow when collaborating with others, or even when working alone but on different machines, e.g. a laptop at home and a desktop at the office).
+
+The processes described in the above sections (i.e. making changes to local working files, recording "snapshots" of them to create a versioned history of changes in a Git repository, and sending those versions from our local Git repository to a remote repository (which is oftentimes GitHub)) is illustrated using islands, buildings, bunnies, and packages in the artwork, below:
 
 [A basic git workflow represented as two islands, one with "local repo" and "working directory", and another with "remote repo." Bunnies move file boxes from the working directory to the staging area, then with Commit move them to the local repo. Bunnies in rowboats move changes from the local repo to the remote repo (labeled "PUSH") and from the remote repo to the working directory (labeled "PULL").]{.aside}
 
@@ -227,7 +257,7 @@ This table includes more advanced `Git` terms and commands that are commonly use
 ## Setup
 
 1.  Log into [GitHub](https://github.com/)
-2.  Click the New repository button
+2.  Click the **New repository** button
 3.  Name it `{FIRSTNAME}_test`
 4.  Add a short description
 5.  Check the box to add a `README.md` file
@@ -252,7 +282,7 @@ For simple changes to text files, you can make edits right in the GitHub web int
 ::: callout-note
 ## Challenge
 
-Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. Add a new level 2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the "Commit changes" button.
+Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. Add a new level 2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the **Commit changes** button.
 :::
 
 :::{.column-page}
@@ -307,7 +337,7 @@ RStudio knows how to work with files under version control with `Git`, but only 
 Next, let's `clone` the repository created on GitHub so we have it accessible as an R project in RStudio.
 
 ::: {.callout-important title="An important distinction"}
-We refer to the remote copy of the repository that is on GitHub as the origin repository (the one that we cloned from), and the copy on our local computer as the local repository.
+We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the local repository.
 :::
 
 ::: callout-tip
@@ -320,7 +350,7 @@ We refer to the remote copy of the repository that is on GitHub as the origin re
 ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"}
 :::
 
-Once you hit "Create Project", a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present, including a `Git` tab and the normal Files tab listing the files that had been created in the remote repository.
+Once you hit "Create Project", a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present, including a **Git** tab and the normal **Files** tab listing the files that had been created in the remote repository.
 
 :::{.column-body-outset}
 ![](images/github-rstudio-test.png)
@@ -328,9 +358,9 @@ Once you hit "Create Project", a new RStudio window will open with all of the fi
 
 You'll note that there is one new file `halina_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
 
-In the `Git` tab, you'll note that two files are listed. This is the status pane that shows the current modification status of all of the files in the repository. In this case, the `.gitignore` file is listed as `M` for Modified, and `halina_test.Rproj` is listed with a `??` to indicate that the file is untracked. This means that `Git` has not stored any versions of this file, and knows nothing about the file. As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
+In the **Git** tab, you'll note that one file is listed. The **Git** tab is the status pane that shows the current modification status of all of the files in the repository. Here, we see `halina_test.Rproj` is preceded by a **??** symbol to indicate that the file is currently untracked. This means that `Git` has not stored any versions of this file, and knows nothing about the file (hang tight, we'll commit this file soon so that it's tracked by `Git`). As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
 
-Inspect the history. For now, let's click on the History button in the `Git` tab, which will show the log of changes that occurred, and will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
+Inspect the history. For now, let's click on the **History** button in the **Git** tab, which will show the log of changes that occurred, and will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
 
 ![](images/rstudio-history-1.png)
 
@@ -341,7 +371,7 @@ Inspect the history. For now, let's click on the History button in the `Git` tab
 2.  Add a new section to your `README.md` called "Creator" using a level 2 header, and under it include some information about yourself. **Bonus:** Add some contact information and link your email using Markdown syntax
 :::
 
-Once you save, you'll immediately see the `README.md` file show up in the `Git` tab, marked as a modification. You can select the file in the `Git` tab, and click Diff to see the differences that you saved (but which are not yet committed to your local repository).
+Once you save, you'll immediately see the `README.md` file show up in the **Git** tab, marked as a modification. You can select the file in the **Git** tab, and click **Diff** to see the differences that you saved (but which are not yet committed to your local repository).
 
 ![](images/rstudio-status-pane.png)
 
@@ -361,17 +391,22 @@ This means that we have committed 1 change in the local repository, but that com
 
 ![](images/rstudio-commit-2.png)
 
-When finished, you'll see that no changes remain in the `Git` tab, and the repository is clean.
+When finished, you'll see that no changes remain in the **Git** tab, and the repository is clean.
 
 **Inspect the history.** Note that the message now says:
 
 `Your branch is ahead of ‘origin/main’ by 2 commits.`
 
-These 2 commits are the two we just made, and have not yet been pushed to GitHub. By clicking on the "History" button, we can see that there are now a total of four commits in the local repository (while there had only been two on GitHub).
+These 2 commits are the two we just made, and have not yet been pushed to GitHub. By clicking on the **History** button, we can see that there are now a total of four commits in the local repository (while there had only been two on GitHub).
 
 ![](images/rstudio-history-2.png)
 
-**Push these changes to GitHub.** Now that everything has been changed as desired locally, you can push the changes to GitHub using the Push button. This will prompt you for your GitHub username and password, and upload the changes, leaving your repository in a totally clean and synchronized state. When finished, looking at the history shows all four commits, including the two that were done on GitHub and the two that were done locally on RStudio.
+**Push these changes to GitHub.** Now that we've made and committed changes locally, we can push those changes to GitHub using the **Push** button. This sends your changes to the remote repository (on GitHub) leaving your repository in a totally clean and synchronized state (meaning your local repository and remote repository should look the same). When finished, you should see all four commits in the **History** window -- this includes the two that were committed on GitHub (via the web browser) and the two that were committed locally from RStudio.
+
+::: {.callout-note}
+## If you are prompted to provide your GitHub username and password when **Push**ing...
+it's a good indicator that you did not set your GitHub Personal Access Token (PAT) correctly. You can redo the steps outlined in the [Appendix](session_12#github-authentication) to (re)set your PAT, then **Push** again.
+:::
 
 :::{.column-body-outset}
 ![](images/rstudio-history-3.png)
@@ -405,7 +440,7 @@ First, switch to your `training_{USERNAME}` project using the RStudio project dr
 
 Next, from the Tools menu, select "Project Options." In the dialog that pops up, select "Git/SVN" from the menu on the left. In the dropdown at the top of this page, select `Git` and click "Yes" in the confirmation box. Click "Yes" again to restart RStudio.
 
-When RStudio restarts, you should have a `Git` tab, with two untracked files (`.gitignore` and `training_{USERNAME}.Rproj`).
+When RStudio restarts, you should have a **Git** tab, with two untracked files (`.gitignore` and `training_{USERNAME}.Rproj`).
 
 ::: callout-note
 ## Challenge
@@ -418,7 +453,7 @@ Now we have your local repository all set up. You can make as many commits as yo
 ::: callout-tip
 ## Setup
 
-1.  Go to [GitHub](http://github.com/), and click on the "New Repository" button.
+1.  Go to [GitHub](http://github.com/), and click on the **New Repository** button.
 2.  In the repository name field, enter the **same name as your R Project**. So for me, this would be `training_dolinh.`
 3.  Add a description, keep the repository public, and, most importantly: **DO NOT INITIALIZE THE REPOSITORY WITH ANY FILES**. We already have the repository set up locally so we don't need to do this. Initializing the repository will only cause merge issues.
 
@@ -426,7 +461,7 @@ Here is what your page should look like:
 
 ![](images/create-empty-repo.png){width="77%" fig-align="center"}
 
-4.  Click the "Create repository" button.
+4.  Click the **Create repository** button.
 :::
 
 This will open your empty repository with a page that conveniently gives you exactly the instructions you need. In our case, we are going to "push an existing repository from the command line."
@@ -443,7 +478,7 @@ git branch -M main
 git push -u origin main
 ```
 
-Back in RStudio, open the terminal by clicking the Terminal tab next to the Console tab. The prompt should look something like this:
+Back in RStudio, open the terminal by clicking the **Terminal** tab next to the **Console** tab. The prompt should look something like this:
 
 ``` bash
 dolinh@included-crab:~/training_dolinh$
@@ -462,7 +497,7 @@ If you go back to your browser and refresh your GitHub repository page, you shou
 ::: callout-note
 ## Challenge
 
-On your repository page, GitHub has a button that will help you add a `README.md` file. Click the "Add a README" button and use markdown syntax to create a `README.md` Commit the changes to your repository.
+On your repository page, GitHub has a button that will help you add a `README.md` file. Click the **Add a README** button and use markdown syntax to create a `README.md` Commit the changes to your repository.
 
 Go to your local repository (in RStudio) and pull the changes you made.
 :::
