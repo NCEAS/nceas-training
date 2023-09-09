@@ -144,11 +144,11 @@ Finally, imagine that, years later, your colleague asks you to make sure the mod
 
 It can be a bit daunting to understand all the moving parts of the `Git` / GitHub life cycle (i.e. how file changes are tracked locally within repositories, then stored for safe-keeping and collaboration on remote repositories, then brought back down to a local machine(s) for continued development). It gets easier with practice, but we'll explain (first in words, then with an illustration) at a high-level how things work:
 
-#### What is the difference between "normal" folder vs. a `Git` repository
+#### What is the difference between a "normal" folder vs. a `Git` repository
 
-Whether you're a Mac or a PC user, you'll likely have created a folder at some point in time for organizing files. Let's pretend that we create a folder, called `myFolder`, and add two files: `myData.csv` and `myAnalysis.R`. The contents of this folder are not currently version controlled -- meaning, for example, that if we make some changes to `myAnalysis.R` that don't quite work out, we have no way of accessing or reverting back to a previous version of `myAnalysis.R` (without remembering/rewriting things, of course).
+Whether you're a Mac or a PC user, you'll likely have created a folder at some point in time for organizing files. Let's pretend that we create a folder, called `myFolder/`, and add two files: `myData.csv` and `myAnalysis.R`. The contents of this folder are not currently version controlled -- meaning, for example, that if we make some changes to `myAnalysis.R` that don't quite work out, we have no way of accessing or reverting back to a previous version of `myAnalysis.R` (without remembering/rewriting things, of course).
 
-`Git` allows you to turn any "normal" folder, like `myFolder`, into a **Git repository** -- you'll often see/hear this referenced as "initializing a Git repository". When you initialize a folder on your local computer as a Git repository, a hidden `.git/` folder is created *within* that folder (e.g. `myFolder/.git/`) -- this `.git/` folder *is* the **Git repository**. As you use `Git` commands to capture versions or "snapshots" of your work, those versions (and their associated metadata) get stored within the `.git/` folder. This allows you to access and/or recover any previous versions of your work. If you delete `.git/`, you delete your project's history.
+`Git` allows you to turn any "normal" folder, like `myFolder/`, into a **Git repository** -- you'll often see/hear this referenced as "initializing a Git repository". When you initialize a folder on your local computer as a Git repository, a hidden `.git/` folder is created *within* that folder (e.g. `myFolder/.git/`) -- this `.git/` folder *is* the **Git repository**. As you use `Git` commands to capture versions or "snapshots" of your work, those versions (and their associated metadata) get stored within the `.git/` folder. This allows you to access and/or recover any previous versions of your work. If you delete `.git/`, you delete your project's history.
 
 Here is our example folder / Git repository represented visually:
 
@@ -170,13 +170,13 @@ Git was built as a command-line tool, meaning we can use `Git` commands in the c
 
 Generally, that workflow looks something like this:
 
-- Make changes to a file(s) (e.g. `myAnalysis.R`) in your working directory
-- Stage the file(s) using `git add myAnalysis.R` (or `git add .` to add multiple changed files at once). This lets Git know that you'd like to include the file(s) in your next commit
-- Commit the file(s) using `git commit -m "a message describing my changes"`. This records those changes (along with a descriptive message) as a "snapshot" or version in the local repository (i.e. the `.git/` folder)
+- Make changes to a file(s) (e.g. `myAnalysis.R`) in your working directory.
+- Stage the file(s) using `git add myAnalysis.R` (or `git add .` to stage multiple changed files at once). This lets Git know that you'd like to include the file(s) in your next commit.
+- Commit the file(s) using `git commit -m "a message describing my changes"`. This records those changes (along with a descriptive message) as a "snapshot" or version in the local repository (i.e. the `.git/` folder).
 
 #### My versioned work is on my local computer, but I want to send it to GitHub. How?
 
-The last step is synchronizing the changes made to our local repository with a remote repository (oftentimes, this remote repository is stored on GitHub). The `git push` command is used to send local changes up to a remote repository. The `git pull` command is used to fetch changes from a remote repository and merge them into the local respoitory (e.g. **pull**ing will become a regular part of your workflow when collaborating with others, or even when working alone but on different machines, e.g. a laptop at home and a desktop at the office).
+The last step is synchronizing the changes made to our local repository with a remote repository (oftentimes, this remote repository is stored on GitHub). The `git push` command is used to send local commits up to a remote repository. The `git pull` command is used to fetch changes from a remote repository and merge them into the local repository -- **pull**ing will become a regular part of your workflow when collaborating with others, or even when working alone but on different machines (e.g. a laptop at home and a desktop at the office).
 
 The processes described in the above sections (i.e. making changes to local working files, recording "snapshots" of them to create a versioned history of changes in a Git repository, and sending those versions from our local Git repository to a remote repository (which is oftentimes GitHub)) is illustrated using islands, buildings, bunnies, and packages in the artwork, below:
 
@@ -216,14 +216,13 @@ This table contains essential terms and commands that complement intro to `Git` 
 
 | Term               | `Git` Command(s)           | Definition                                                                                         |
 |--------------------|--------------------------|----------------------------------------------------------------------------------------------------|
-| Add                | `git add [file]`         | Stages or adds file changes to the next commit. `git add .` will stage or add all files.                                                   |
-| Commit             | `git commit`             | Records changes to the repository with a descriptive message.                                      |
-| Commit Message     | `git commit -m`                        | A descriptive message explaining the changes made in a commit. The message must be within quotes (e.g. "This is my commit message.").                               |
-| Fetch              | `git fetch`              | Retrieves changes from a remote repository but does not merge them.                                |
-| Pull               | `git pull`               | Retrieves and merges changes from a remote repository to the current branch.                        |
+| Add/Stage                | `git add [file]`         | Staging marks a modified file in its current version to go into your next commit snapshot. You can also stage all modified files at the same time using `git add .`                                              |
+| Commit             | `git commit`             | Records changes to the repository.                                      |
+| Commit Message     | `git commit -m "my commit message"`                        | Records changes to the repository and include a descriptive message (you should always include a commit message!).                               |
+| Fetch              | `git fetch`              | Retrieves changes from a remote repository but does not merge them into your local working file(s).                                |
+| Pull               | `git pull`               | Retrieves changes from a remote repository *and* merges them into your local working file(s).                        |
 | Push               | `git push`               | Sends local commits to a remote repository.                                                        |
-| Stage              | -                        | The process of preparing and selecting changes to be included in the next commit.                   |
-| Status             | `git status`             | Shows the current status of the repository, including changes and branch information.               |
+| Status             | `git status`             | Shows the current status of the repository, including (un)staged files and branch information.               |
 
 : Essential `Git` Commands 
 
@@ -249,7 +248,7 @@ This table includes more advanced `Git` terms and commands that are commonly use
 
 : Advanced `Git` Commands
 
-`Git` has a rich set of commands and features, and there are many more terms beyond either table.
+`Git` has a rich set of commands and features, and there are many more terms beyond either table. Learn more by visiting the [git documentation](https://git-scm.com/docs).
 
 ## Exercise 1: Create a remote repository on GitHub
 
