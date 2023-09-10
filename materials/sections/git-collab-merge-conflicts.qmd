@@ -228,7 +228,7 @@ usable on your local machine.
 **2. Checkout**
 
 The simplest way to resolve a conflict, given that you know whose version of the
-file you want to keep, is to use the command line `Git` program to tell `Git` to
+file you want to keep, is to use the command line to tell `Git` to
 use either **your** changes (the person doing the `merge`), or **their** changes (the Collaborator).
 
 - keep your Collaborator's file: `git checkout --theirs conflicted_file.Rmd`
@@ -238,16 +238,13 @@ Once you have run that command, then run `add` (staging), `commit`, `pull`, and 
 
 **3. Pull and edit the file**
 
-But that requires the command line. If you want to resolve from RStudio, or if 
-you want to pick and choose some of your changes and some of your Collaborator's,
-then instead you can manually edit and fix the file.  When you `pull` the file
-with a conflict, `Git` notices that there is a conflict and modifies the file to show
-both your own changes and your Collaborator's changes in the file.  It also shows the
-file in the `Git` tab with an orange `U` icon, which indicates that the file is `Unmerged`,
-and therefore awaiting your help to resolve the conflict. It delimits
-these blocks with a series of less than and greater than signs, so they are easy to find:
+Option 2, above, requires the command line, however, we have a third option for resolving the merge conflict from RStudio. Using this approach will allow us to pick and choose some of our changes *and* some of our Collaborator's changes by letting us manually edit and fix the conflicted file.
+
+When you `pull` a file with a conflict, `Git` will provide you with a warning modify the file so that it includes both your own changes and your Collaborator's changes. The file will also appear in the `Git` tab with an orange `U` icon, which indicates that the file is `Unmerged` and therefore awaiting your help to resolve the conflict. It delimits these blocks of conflicted code with a series of less than and greater than signs, so they are easy to find:
 
 ![](images/rstudio-merge-conflict.png){width="80%" fig-align="center"}
+
+In the above example, `<<<<<<< HEAD` marks the start of *your* changes. The `=======` delimiter separates your changes from your Collaborator's conflicting changes. `>>>>>>>` mark the end of your Collaborator's changes. 
 
 To resolve the conflicts, simply find all of these blocks, and edit them so that
 the file looks how you want (either pick your lines, your Collaborator's lines,
@@ -256,45 +253,36 @@ delimiter lines that started with
 
 - `<<<<<<<`, 
 - `=======`, 
-- and `>>>>>>>`.
+- `>>>>>>>`.
 
-Once you have made those changes, you simply `add` (staging), `commit`, and `push` the files
-to resolve the conflict.
+Once you have made those changes, you simply `add` (staging), `commit`, and `push` the files to resolve the conflict.
 
 ## Producing and resolving merge conflicts
 
-To illustrate this process, the instructors are going to carefully create a merge conflict step 
-by step, show how to resolve it, and show how to see the results of the successful 
-merge after it is complete. First, the instructors will walk through the exercise to demonstrate 
-the issues. Then, participants will pair up and try the exercise.
+To illustrate this process, the instructors are going to carefully create a merge conflict step-by-step, show how to resolve it, and show how to see the results of the successful merge after it is complete. First, the instructors will walk through the exercise to demonstrate the issues. Then, participants will pair up and try the exercise.
 
-### Step 1: Owner and Collaborator ensure all changes are updated {.unnumbered}
+### Step 1: Owner and Collaborator ensure that their local repos are synced with the remote repo {.unnumbered}
 
-First, start the exercise by ensuring that both the Owner and Collaborator have all
-of the changes synced to their local copies of the Owner's repository in RStudio. 
-This includes doing a `git pull` to ensure that you have all changes local, and 
-make sure that the `Git` tab in RStudio doesn't show any changes needing to be committed.
+Pair with the same partner as in [Exercise 1](http://localhost:6673/session_11.html#ex1-no-conflict) and decide who will be the Owner and who will be the Collaborator. Begin the exercise by ensuring that both the Owner and Collaborator have all of the changes synced from the remote repo to their local repos. This includes doing a `git pull` to ensure that you have all changes locally, and ensuring that the **Git** tab in RStudio doesn't show any changes that need to be committed.
 
-### Step 2: Owner makes a change and commits {.unnumbered}
+### Step 2: Owner makes a change and commits locally {.unnumbered}
 
-From that clean slate, the Owner first modifies and commits a small change including their
-name on a specific line of the `README.md` file (we will change the first line, the title). Work to only change
-that one line, and add your username to the line in some form and commit the changes 
-(but DO NOT push). We are now in a situation where the Owner has unpushed changes that
-the Collaborator can not yet see.
+From this clean slate, the Owner will first modify and commit a small change. The Owner should add their name on a specific line of the `README.md` file (we will change the title in line 1). Save and commit the change (**but DO NOT push**). The Owner should now have a local but unpushed commit that the Collaborator does not yet have access to. 
 
 ### Step 3: Collaborator makes a change and commits **on the same line** {.unnumbered}
 
-Now the Collaborator also makes changes to the same line (the first line, the title) on the `README.md` file in their RStudio copy of the project, adding their name to the line. They then commit. At this point, both the Owner and Collaborator have committed changes based on their shared version of the `README.md` file, but neither has tried to share their changes via GitHub.
+Now, the Collaborator will modify and commit a small change. The Collaborator should add their name to the same line of the `README.md` file (we will again change the title in line 1). Save and commit the change (**but DO NOT push**). The Collaborator should now also have a local but unpushed commit that the Owner does not yet have access to.
+
+*At this point, both the Owner and Collaborator have committed local changes, but neither have tried to share their changes via GitHub.*
 
 ### Step 4: Collaborator pushes the file to GitHub {.unnumbered}
 
-Sharing starts when the Collaborator pushes their changes to the GitHub repo, which updates GitHub to their version of the file. The Owner is now one revision behind, but doesn't know it yet.
+Sharing starts when the Collaborator pushes their changes to the GitHub repo, which updates GitHub with their version of the file. The Owner is now one revision behind, but doesn't know it yet.
 
 ### Step 5: Owner pushes their changes and gets an error {.unnumbered}
 
 At this point, the Owner tries to push their change to the repository, which triggers
-an error from GitHub. While the error message is long, it basically tells you everything 
+an error from GitHub. While the error message is long, it tells you everything 
 needed (that the Owner's repository doesn't reflect the changes on GitHub, and that they
 need to `pull` before they can push).
 
@@ -302,8 +290,8 @@ need to `pull` before they can push).
 
 ### Step 6: Owner pulls from GitHub to get Collaborator changes {.unnumbered}
 
-Doing what the message says, the Owner pulls the changes from GitHub, and gets
-another, different error message. In this case, it indicates that there is a merge 
+Following the error message, the Owner pulls the changes from GitHub, and gets
+another, different error message. Here, it indicates that there is a merge 
 conflict because of the conflicting lines.
 
 ![](images/git-conflict-02-pull-error.png)
