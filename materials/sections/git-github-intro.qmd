@@ -378,15 +378,15 @@ And here's what the newly made changes look like compared to the original file. 
 
 ![](images/rstudio-diff.png)
 
-**Commit the RStudio changes.** To commit the changes you made to the `README.md` file, check the Staged checkbox next to the file (which tells `Git` which changes you want included in the commit), then provide a descriptive commit message, and then click "Commit".
+**Commit the changes.** To commit the changes you made to the `README.md` file, check the **Staged** check box next to the file (which tells `Git` which changes you want included in the commit; ***this is analogous to using the git command, `git add README.md`, in the command line***), then provide a descriptive commit message and click "Commit" (***this is analogous to using the git command, `git commit -m "my commit message", in the command line***).
 
 ![](images/rstudio-commit-1.png)
 
-Note that some of the changes in the repository, namely `halina_test.Rproj` are still listed as having not been committed. This means there are still pending changes to the repository. You can also see the note that says:
+Note that some of the changes in the repository, namely `halina_test.Rproj`, are still listed as having not been committed. This means there are still pending changes to the repository. You can also see the note that says:
 
 `Your branch is ahead of ‘origin/main’ by 1 commit.`
 
-This means that we have committed 1 change in the local repository, but that commit has not yet been pushed up to the `origin` repository, where `origin` is the typical name for our remote repository on GitHub. So, let's commit the remaining project files by staging them and adding a commit message.
+This tells us that we have 1 commit in the local repository, but that commit has not yet been pushed up to the `origin` repository (aka remote repository on GitHub). Let's commit the remaining project files by staging/adding them and commiting them with an informative commit message.
 
 ![](images/rstudio-commit-2.png)
 
@@ -404,7 +404,7 @@ These 2 commits are the two we just made, and have not yet been pushed to GitHub
 
 ::: {.callout-note}
 ## If you are prompted to provide your GitHub username and password when **Push**ing...
-it's a good indicator that you did not set your GitHub Personal Access Token (PAT) correctly. You can redo the steps outlined in the [Appendix](session_12#github-authentication) to (re)set your PAT, then **Push** again.
+it's a good indicator that you did not set your GitHub Personal Access Token (PAT) correctly. You can redo the steps outlined in the [GitHub Authentication section](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#github-authentication) of the [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html) to (re)set your PAT, then **Push** again.
 :::
 
 :::{.column-body-outset}
