@@ -16,7 +16,7 @@ You might think there is a better way, and you'd be right: **version control**. 
 
 There are many benefits to using a version control software including:
 
--   **Maintain** a history of your research project's development while keeping your workspace clean
+-   **Maintain a history** of your research project's development while keeping your workspace clean
 -   **Facilitate collaboration** and transparency when working on teams
 -   **Explore bugs or new features** without disrupting your team members' work
 -   and more!
@@ -178,7 +178,7 @@ Generally, that workflow looks something like this:
 
 The last step is synchronizing the changes made to our local repository with a remote repository (oftentimes, this remote repository is stored on GitHub). The `git push` command is used to send local commits up to a remote repository. The `git pull` command is used to fetch changes from a remote repository and merge them into the local repository -- **pull**ing will become a regular part of your workflow when collaborating with others, or even when working alone but on different machines (e.g. a laptop at home and a desktop at the office).
 
-The processes described in the above sections (i.e. making changes to local working files, recording "snapshots" of them to create a versioned history of changes in a Git repository, and sending those versions from our local Git repository to a remote repository (which is oftentimes GitHub)) is illustrated using islands, buildings, bunnies, and packages in the artwork, below:
+The processes described in the above sections (i.e. making changes to local working files, recording "snapshots" of them to create a versioned history of changes in a local Git repository, and sending those versions from our local Git repository to a remote repository (which is oftentimes on GitHub)) is illustrated using islands, buildings, bunnies, and packages in the artwork, below:
 
 [A basic git workflow represented as two islands, one with "local repo" and "working directory", and another with "remote repo." Bunnies move file boxes from the working directory to the staging area, then with Commit move them to the local repo. Bunnies in rowboats move changes from the local repo to the remote repo (labeled "PUSH") and from the remote repo to the working directory (labeled "PULL").]{.aside}
 
