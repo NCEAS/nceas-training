@@ -13,7 +13,7 @@
 
 One of the easiest and most effective ways to collaborate using `Git` is by utilizing a shared repository on a hosting service like [GitHub](https://github.com). This shared repository acts as a central hub, enabling collaborators to effortlessly exchange and merge their changes. With `Git` and a shared repository, you can collaborate seamlessly and work confidently, knowing that your changes will be integrated smoothly with those of your collaborators.
 
-[![Graphic from Atlassian](images/git-collab-repos.svg)](https://www.atlassian.com/git/tutorials/syncing){width="80%" fig-align="center"}
+<!-- [![Graphic from Atlassian](images/git-collab-repos.svg)](https://www.atlassian.com/git/tutorials/syncing){width="80%" fig-align="center"} -->
 
 There are many advanced techniques for synchronizing `Git` repositories, but let's start with a simple example.
 
@@ -21,55 +21,95 @@ In this example, the Collaborator will `clone` a copy of the Owner's repository 
 GitHub, and the Owner will grant them Collaborator status, enabling the Collaborator
 to directly pull and push from the Owner's GitHub repository.
 
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+#| fig-cap: "We'll be practicing the above workflow in the next exercises -- here, a respoitory (aka repo) owner controls permissions on their remote repo, which is hosted on GitHub. They can push commits from their local repo to the remote repo. Similarly, they can pull commits from the remote repo to their cloned local repo(s) (remember, you can clone your repo to mulitple machines e.g. your laptop and your desktop). The repository owner adds a colleague as a collaborator by sending them an invite from the remote repo on GitHub. This collaborator can now pull content from the remote repo, and similarly, push changes from their local repo to the remote repo. Git and GitHub provide the tools for both colleagues to create and merge their changes to the shared remote repository."
+knitr::include_graphics("images/github-collaborators-diagram.png")
+```
+
 ## Collaborating with a trusted colleague **without conflicts**
 
 We start our collaboration by giving a trusted colleague access to our repository on GitHub. In this example, we define the **Owner as the individual who owns the repository**, and the **Collaborator as the person whom the Owner chooses to give permission to make changes to their repository**.
 
-The Collaborator will make changes to the repository and then `push` those changes to the shared repository on GitHub. The Owner will then use `pull` to retrieve the changes without encountering any conflicts. This is the most ideal workflow. 
+The Collaborator will make changes to the repository and then `push` those changes to the shared repository on GitHub. The Owner will then use `pull` to retrieve the changes without encountering any conflicts. *This is the most ideal workflow.* 
 
 The instructors will demonstrate this process in the next section.
 
-### Step 0: Owner adds Collaborator to shared repository {.unnumbered}
+### Step 0: Owner adds a Collaborator to their repository on GitHub {.unnumbered}
 
-The Owner must change the settings of the repository and give the Collaborator access to the repository by inviting them as a collaborator to the repository. Once the Collaborator has accepted the invite, they can contribute to the repository.
+The Owner must change the settings of the remote repository and give the Collaborator access to the repository by inviting them as a collaborator. Once the Collaborator accepts the owner's invitation, they will have push access to the repository -- meaning they can contribute their own changes/commits to the Owner's repository.
+
+To do this, the owner will navigate to their remote repository on GitHub, then choose **Settings** > **Collaborators** > **Add people**, to send an email invitation. The invitation will show as "Pending" until accepted.
+
 
 ![](images/github-collaborators.png){width="80%" fig-align="center"}
 
-### Step 1: Collaborator clone {.unnumbered}
+### Step 1: Collaborator clones the remote repository {.unnumbered}
 
-To be able to contribute to a repository, the Collaborator must clone the repository from the **Owner's** GitHub account. To do this, the Collaborator should visit the GitHub page for the Owner's repository, and then copy the clone URL. In R Studio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog (see the earlier chapter introducing GitHub).
+In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
 
 ![](images/github-clone-url-owner.png)
 
-### Step 2: Collaborator edit {.unnumbered}
+### INTERMEDIATE STEP: Collaborator communicates with Owner that they plan to make some changes {.unnumbered}
 
-With a clone copied locally, the Collaborator can now make changes to the
-`README.md` file in the repository, adding a line or statement somewhere noticeable near the top.  Save your changes.
+**Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). *The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.***
 
-### Step 3: Collaborator `commit` and `push` {.unnumbered}
+### Step 2: Collaborator edits files locally {.unnumbered}
 
-To sync changes, the Collaborator will need to `add`, `commit`, and
-`push` their changes to the Owner's repository.  But before doing so, it's good practice to `pull` immediately before committing to ensure you have the most recent changes from the Owner.  So, in RStudio's `Git` tab, first click the "Diff" button to open the `Git` window, and then press the green "Pull" down arrow button. This will fetch any recent changes from the origin repository and merge them. Next, `add` the changed `README.Rmd` file to be committed by clicking the check box next to it, type in a commit message, and click "Commit".  Once that finishes, then the Collaborator can immediately click "Push" to send the commits to the Owner's GitHub repository.
+With the repo cloned locally, the Collaborator can now make changes to the
+`README.md` file, adding a line or statement somewhere noticeable near the top. Save the changes.
+
+### Step 3: Collaborator `commit`s, `pull`s, and `push`s {.unnumbered}
+
+It's recommended that all collaborators (including the repo Owner) follow this workflow when syncing changes between their local repo and the remote repo (in this example, the Collaborator is now following these steps):
+
+1. `add` and `commit` your modified file(s) (e.g. the updated `README.md`)
+2. `pull` to fetch and merge changes from the remote/origin repository (in an ideal situation, as we're demonstrating here, any potential changes are merged seamlessly without conflict)
+3. `push` your changes to the remote/origin repository
+
+::: {.callout-note}
+## Why do I need to add and commit files *before* pulling?
+Remember, `git pull` is a combination of `git fetch`ing remote changes to your local repo and `git merge`ing those changes from your local repo into your local working file(s).
+
+The **merge** part of `git pull` will fail if you have uncommitted changes in your local working file(s) to avoid any potential overwriting of your own changes. Because of this, you should always, add/commit *then* pull, *and finally* push.
+:::
 
 ![](images/rstudio-commit-push.png){width="80%" fig-align="center"}
 
-### Step 4: Owner `pull` {.unnumbered}
+### INTERMEDIATE STEP: Collaborator communicates with Owner that they pushed their changes to GitHub {.unnumbered}
 
-Now, the Owner can open their local working copy of the code
-in RStudio, and `pull` those changes down to their local copy.
+**Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo**
 
-**Congrats, the Owner now has your changes!**
+### Step 4: Owner `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
-### Step 5: Owner edits, `commit`, and `push` {.unnumbered}
+The Owner can now open their local working copy of the code
+in RStudio, and `pull` to fetch and merge those changes into their local copy.
 
-Next, the Owner should do the same. Make changes to
-a file in the repository, save it, `pull` to make sure no new changes have been made
-while editing, and then `add`, `commit`, and `push` the Owner changes to GitHub.
+*Congrats, the Owner now has your changes! Now, all three repositories -- the remote/origin repository on GitHub, the Owner's local repository, and the Collaborator's local repository -- should all be in the exact same state.*
 
-### Step 6: Collaborator `pull` {.unnumbered}
+### INTERMEDIATE STEP: Owner communicates with Collaborator that they now plan to make some changes {.unnumbered}
 
-The Collaborator can now `pull` down those Owner changes, 
-and all copies are once again fully synced.  And you're off to collaborating.
+**Did we mention that communication is important? :)**
+
+### Step 5: Owner edits, `commit`s, `pull`s (just in case!) and `push`es {.unnumbered}
+
+Following the same workflow as the Collaborator did earlier:
+
+1. `add` and `commit` your modified file(s) (e.g. the updated `README.md`)
+2. `pull` to fetch and merge changes from the remote/origin repository  (in an ideal situation, as we're demonstrating here, any potential changes are merged seamlessly without conflict)
+3. `push` your changes to the remote/origin repository
+
+### INTERMEDIATE STEP: Owner communicates with Collaborator that they pushed their changes to GitHub {.unnumbered}
+
+**Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!**
+
+### Step 6: Collaborator `pull`s new changes from the remote repo to their local repo {.unnumbered}
+
+The Collaborator can now `pull` down those changes from the Owner, 
+and all copies are once again fully synced. And just like that, you've successfully collaborated!
 
 ## Exercise 1: With a partner collaborate in a repository without a merge conflict{#ex1-no-conflict}
 
@@ -77,67 +117,67 @@ and all copies are once again fully synced.  And you're off to collaborating.
 ### Setup
 
 - Get into pairs, then choose one person as the Owner and one as the Collaborator
-- Both logon to [GitHub](https://github.com)
+- Both login to [GitHub](https://github.com)
 
-These next steps are for the Owner:
+**These next steps are for the Owner:**
 
 - Navigate to the `{FIRSTNAME}_test` repository
-- Go to "Settings" and navigate to "Collaborators" in the "Access" section on the left-hand side
-- Under "Manage Access" click the button "Add people" and type the username of your Collaborator in the search box
-- Once you've found the correct username, click "Add {Collaborator username} to this repository
+- Go to **Settings** and navigate to **Collaborators** in the **Access** section on the left-hand side
+- Under **Manage Access** click the button **Add people** and type the username of your Collaborator in the search box
+- Once you've found the correct username, click **Add {Collaborator username} to this repository**
 
 ![](images/github-collaborators.png){width="80%" fig-align="center"}
 
-Now, the Collaborator will follow this step:
+**Now, the Collaborator will follow this step:**
 
-- Check your email for an invitation to GitHub or check your notifications (likely under "Your Organizations") on GitHub to accept the invite to collaborate.
+- Check your email for an invitation to GitHub or check your notifications (likely under **Your Organizations**) on GitHub to accept the invite to collaborate.
 :::
 
-::: {.callout-caution icon=false}
-### Last thing, some `Git` configuration
+<!-- ::: {.callout-caution icon=false} -->
+<!-- ### Last thing, some `Git` configuration -->
 
-When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
+<!-- When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull, essentially, otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code: -->
 
-```{.bash}
-git config pull.rebase false
-```
+<!-- ```{.bash} -->
+<!-- git config pull.rebase false -->
+<!-- ``` -->
 
-`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict
-:::
+<!-- `pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can’t it will show a merge conflict -->
+<!-- ::: -->
 
 ::: callout-note
 ### Instructions
 
 You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
-- Step 0: Designate one person as the Owner and one as the Collaborator.
+- **Step 0:** Designate one person as the Owner and one as the Collaborator.
 
 **Round One:**
 
-- Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository (see Setup block above for detailed steps)
-- Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
-- Step 3: Collaborator edits the `README` file:
+- **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository (see Setup block above for detailed steps)
+- **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
+- **Step 3:** Collaborator edits the `README` file:
     - Collaborator adds a new level 2 heading to `README` titled "`Git` Workflow"
-- Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
-- Step 5: Owner pulls the changes that the Collaborator made
-- Step 6: Owner edits the `README` file:
+- **Step 4:** Collaborator commits and pushes the `README` file with the new changes to GitHub
+- **Step 5:** Owner pulls the changes that the Collaborator made
+- **Step 6:** Owner edits the `README` file:
     - Under "`Git` Workflow", Owner adds the steps of the `Git` workflow we've been practicing
-- Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
-- Step 8: Collaborator pulls the `Owners` changes from GitHub
-- Step 9: Go back to Step 0, switch roles, and then follow the steps in Round Two.
+- **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
+- **Step 8:** Collaborator pulls the `Owners` changes from GitHub
+- **Step 9:** Go back to Step 0, switch roles, and then follow the steps in Round Two.
 
 **Round Two:**
 
-- Step 1: Owner adds Collaborator to `{FIRSTNAME}_test` repository
-- Step 2: Collaborator clones the Owner's `{FIRSTNAME}_test` repository
-- Step 3: Collaborator edits the `README` file:
+- **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository
+- **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
+- **Step 3:** Collaborator edits the `README` file:
     - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository from an existing project" and adds the high level steps for this workflow
-- Step 4: Collaborator commits and pushes the `README` file with the new changes to GitHub
-- Step 5: Owner pulls the changes that the Collaborator made
-- Step 6: Owner edits the `README` file:
+- **Step 4:** Collaborator commits and pushes the `README` file with the new changes to GitHub
+- **Step 5:** Owner pulls the changes that the Collaborator made
+- **Step 6:** Owner edits the `README` file:
     - Under "How to Create a `Git` Repository", Owner adds the high level steps for this workflow
-- Step 7: Owner commits and pushes the `README` file with the new changes to GitHub
-- Step 8: Collaborator pulls the `Owners` changes from GitHub
+- **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
+- **Step 8:** Collaborator pulls the `Owners` changes from GitHub
 
 **Hint:** If you don't remember how to create a `Git` repository, refer to the chapter [Intro to `Git` and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two `Git` repositories
 :::
@@ -155,7 +195,7 @@ There are many `Git` and GitHub collaboration techniques, some more advanced tha
 
 : {tbl-colwidths="[15,28,28,28]"}
 
-The "When Not to Use" column provides insights into situations where it may be less appropriate to use each collaboration technique, helping you make informed decisions based on the specific context and requirements of your project.
+The "When Not to Use" column provides insights into situations where it *may* be less appropriate / unnecessary to use each collaboration technique, helping you make informed decisions based on the specific context and requirements of your project.
 
 These techniques provide different benefits and are used in various collaboration scenarios, depending on the project's needs and team dynamics.
 
@@ -277,41 +317,37 @@ for an unresolved merge conflict.
 
 To resolve the conflict, the Owner now needs to edit the file. Again, as indicated above,
 `Git` has flagged the locations in the file where a conflict occurred 
-with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, merging whatever
-changes are appropriate until the conflicting lines read how they should, and eliminate
-all of the marker lines with `<<<<<<<`, `=======`, and `>>>>>>>`.
+with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, merging whatever changes are appropriate until the conflicting lines read how they should, and eliminate all of the marker lines with `<<<<<<<`, `=======`, and `>>>>>>>`.
 
 ![](images/git-conflict-04-conflict-tags.png)
 
 Of course, for scripts and programs, resolving the changes means more than just 
 merging the text -- whoever is doing the merging should make sure that the code 
-runs properly and none of the logic of the program has been broken.
+runs properly and that none of the logic of the program has been broken.
 
 ![](images/git-conflict-05-resolved-file.png)
 
 ### Step 8: Owner commits the resolved changes {.unnumbered}
 
-From this point forward, things proceed as normal. The Owner first `add` the file
-changes to be made, which changes the orange `U` to a blue `M` for modified, and then
-commits the changes locally. The Owner now has a resolved version of the file on their
+From this point forward, things proceed as normal. The Owner first `add`s the file, which changes the orange `U` to a blue `M` for modified. Then, the Owner commits the changes locally. The Owner now has a resolved version of the file on their
 system.
 
 ![](images/git-conflict-06-commit-resolved.png)
 
 ### Step 9: Owner pushes the resolved changes to GitHub {.unnumbered}
 
-Have the Owner push the changes, and it should replicate the changes to GitHub without error.
+The Owner can now push the changes, without error, to GitHub. 
 
 ![](images/git-conflict-07-push-resolved.png)
 
 ### Step 10: Collaborator pulls the resolved changes from GitHub {.unnumbered}
 
-Finally, the Collaborator can pull from GitHub to get the changes the Owner made.
+Finally, the Collaborator can pull from GitHub to get the changes (which include the resolved conflicted lines of code) that the Owner made.
 
 ### Step 11: Both can view commit history {.unnumbered}
 
-When either the Collaborator or the Owner view the history, the conflict, associated 
-branch, and the merged changes are clearly visible in the history. 
+Both the Collaborator and the Owner can view the history, which includes information about the conflict, the associated 
+branch, and the merged changes. 
 
 ![](images/git-conflict-08-history.png)
 
@@ -325,36 +361,36 @@ Note you will only need to complete the Setup and `Git` configuration steps agai
 
 Now it's your turn. In pairs, intentionally create a merge conflict, and then go through the steps needed to resolve the issues and continue developing with the merged files. See the sections above for help with each of the steps below. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
-- Step 0: Designate one person as the Owner and one as the Collaborator.
+- **Step 0:** Designate one person as the Owner and one as the Collaborator.
 
 **Round One:**
 
-- Step 1: Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
-- Step 2: Owner edits the `README` file and makes a change to the title and commits **do not push**
-- Step 3: **On the same line**, Collaborator edits the `README` file and makes a change to the title and commits 
-- Step 4: Collaborator pushes the file to GitHub
-- Step 5: Owner pushes their changes and gets an error
-- Step 6: Owner pulls from GitHub to get Collaborator changes
-- Step 7: Owner edits the `README` file to resolve the conflict 
-- Step 8: Owner commits the resolved changes
-- Step 9: Owner pushes the resolved changes to GitHub
-- Step 10: Collaborator pulls the resolved changes from GitHub
-- Step 11: Both view commit history
-- Step 12: Go back to Step 0, switch roles, and then follow the steps in Round Two.
+- **Step 1:** Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
+- **Step 2:** Owner edits the `README` file and makes a change to the title and commits **do not push**
+- **Step 3:** **On the same line**, Collaborator edits the `README` file and makes a change to the title and commits 
+- **Step 4:** Collaborator pushes the file to GitHub
+- **Step 5:** Owner pushes their changes and gets an error
+- **Step 6:** Owner pulls from GitHub to get Collaborator changes
+- **Step 7:** Owner edits the `README` file to resolve the conflict 
+- **Step 8:** Owner commits the resolved changes
+- **Step 9:** Owner pushes the resolved changes to GitHub
+- **Step 10:** Collaborator pulls the resolved changes from GitHub
+- **Step 11:** Both view commit history
+- **Step 12:** Go back to Step 0, switch roles, and then follow the steps in Round Two.
 
 **Round Two:**
 
-- Step 1: Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
-- Step 2: Owner edits the `README` file and makes a change to line 2 and commits **do not push**
-- Step 3: **On the same line**, Collaborator edits the `README` file and makes a change to line 2 and commits 
-- Step 4: Collaborator pushes the file to GitHub
-- Step 5: Owner pushes their changes and gets an error
-- Step 6: Owner pulls from GitHub to get Collaborator changes
-- Step 7: Owner edits the `README` file to resolve the conflict 
-- Step 8: Owner commits the resolved changes
-- Step 9: Owner pushes the resolved changes to GitHub
-- Step 10: Collaborator pulls the resolved changes from GitHub
-- Step 11: Both view commit history
+- **Step 1:** Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
+- **Step 2:** Owner edits the `README` file and makes a change to line 2 and commits **do not push**
+- **Step 3:** **On the same line**, Collaborator edits the `README` file and makes a change to line 2 and commits 
+- **Step 4:** Collaborator pushes the file to GitHub
+- **Step 5:** Owner pushes their changes and gets an error
+- **Step 6:** Owner pulls from GitHub to get Collaborator changes
+- **Step 7:** Owner edits the `README` file to resolve the conflict 
+- **Step 8:** Owner commits the resolved changes
+- **Step 9:** Owner pushes the resolved changes to GitHub
+- **Step 10:** Collaborator pulls the resolved changes from GitHub
+- **Step 11:** Both view commit history
 
 :::
 
@@ -369,15 +405,13 @@ Some basic rules of thumb can avoid the vast majority of merge conflicts, saving
 - Communicate often and set up effective communication channels
 - Tell each other what you are working on
 - Start your working session with a `pull`
-- `Pull` immediately before you `commit` or `push`
+- `Pull` immediately after you `commit` and before you `push`
 - `Commit` often in small chunks (this helps you organize your work!)
-- Make sure you and who you are collaborating with all **fully** understand the `Git` workflow you're using aka make sure you're on the same page before you start!
+- Make sure you and who you are collaborating with all **fully** understand the `Git` workflow you're using (aka make sure you're on the same page before you start)!
 
 A good workflow is encapsulated as follows:
 
-```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> Push```
+```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> (OPTIONAL) Fix any merge conflicts -> Push```
 
-**Always start your working sessions with a `pull` to get any outstanding changes, then
-start your work**. `Stage` your changes, but before you `commit`, `pull` again to see if any new changes have arrived. If so, they should merge in easily if you are working in different parts of the program. You can then `commit` and immediately `push` your changes safely. 
+It may take a bit of practice to get comfortable with navigating merge conflicts, but like any other technical skill, they'll become less intimidating with time. With careful communication and a consistent workflow, conflicts can be largely avoided or resolved when they do occur.
 
-Good luck, and try to not get frustrated. Once you figure out how to handle merge conflicts, they can be avoided or dispatched when they occur, but it does take a bit of practice.
