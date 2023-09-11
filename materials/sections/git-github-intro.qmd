@@ -418,15 +418,17 @@ And note that the labels indicate that both the local repository (`HEAD`) and th
 :::
 
 ::: callout-note
-## Last thing, some `Git` configuration
+## Last thing, some `Git` configuration to surpress warning messages
 
-When `Git` released version 2.27, a new feature they incorporated allows users to specify how to pull (essentially), otherwise a warning will appear. To suppress this warning we need to configure our `Git` with this line of code:
+`Git` version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure `Git` by running this line of code in the Terminal:
 
 ``` bash
 git config pull.rebase false
 ```
 
-`pull.rebase false` is a default strategy for pulling where it will try to auto-merge the files if possible, and if it can't it will show a merge conflict
+`pull.rebase false` is a default strategy for pulling where `Git` will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Chapter 11](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_11.html)).
+
+**Note:** Unlike when we first configured `Git` (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
 
 ## Exercise 3: Setting up `Git` on an existing project
