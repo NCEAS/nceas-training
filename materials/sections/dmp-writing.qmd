@@ -1,5 +1,5 @@
 ---
-bibliography: references.bib
+bibliography: book.bib
 ---
 
 ## Learning Objectives {.unnumbered}
@@ -92,11 +92,15 @@ Before we delve into that, let's first understand how you can use the DMPTool to
 
 Fortunately, you do not need to create a DMP from scratch or using a text processor. There is a great tool available to assist you in crafting your DMP, which provides web-based templates (based on funder requirements) that enable you to input the data management plan for your project: the DMPTool ([https://dmptool.org](https://dmptool.org/)). When you're ready, you can download the DMP in your preferred format. It is free, but you need to sign in using your institutional address for Single Sign-on (SSO).
 
+::: column-page
 ![DPMTool - SSO sign in](images/dmptool-sso.png){fig-alt="SSO sign in DPMTool"}
+:::
 
 Choose "Funder Requirements" and search for the NSF. You will see many templates available, but let's choose NSF-GEN, the generic one. Once you select it, you will be granted with more detailed information about the guidelines and templates and will be offered the option to create a plan clicking on the plus sign.
 
+::: column-page
 ![DMPTool - Funder Templates](images/dmptool-funder-templates.png){fig-alt="Funder Templates DMPTool"}
+:::
 
 Next, you'll be prompted to provide the project details. No need to worry about it at this moment; you can always come back to edit them later. Alternatively, you may click on create a plan and then select the funding organization and the specific template you would like to use from the drop-down menu.
 
@@ -104,7 +108,9 @@ Next, you'll be prompted to provide the project details. No need to worry about 
 
 Click on the tab "Write Plan" and expand all sections. Note that in the right hand side contains comments and guidance to support the writing process. Comments can be added by collaborators and reviewers when you request feedback (we will cover these later). The guidance tab contains links and recommendations to help you answer each section. These may be from the funding agency, the DMPTool or the university-specific.
 
+::: column-page
 ![DMPTool - Comments and Guidance Feature](images/dmptool-comments-guidance.png){fig-alt="DMPTool Comments and Guidance Feature"}
+:::
 
 Now, let's explore each section of the plan based on the chosen template.
 
