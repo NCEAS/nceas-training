@@ -8,9 +8,9 @@
 
 ![](images/phd_comics_final.png){width="70%" fig-align="center"}
 
-Every file in the scientific process changes. Manuscripts are edited. Figures get revised. Code gets fixed when bugs are discovered. Sometimes those fixes lead to even more bugs, leading to more changes in the codebase. Data files get combined together. Sometimes those same files are split and combined again. All that to say - in just one research project, we can expect thousands of changes to occur. 
+Every file in the scientific process changes. Manuscripts are edited. Figures get revised. Code gets fixed when bugs are discovered. Sometimes those fixes lead to even more bugs, leading to more changes in the code base. Data files get combined together. Sometimes those same files are split and combined again. In just one research project, we can expect thousands of changes to occur. 
 
-These changes are important to track, and yet, we often use simplistic filenames to track them. Many of us have experienced renaming a document or script multiple times with the ingenuine addition of "final" to the filename (like the comic above demonstrates).
+These changes are important to track, and yet, we often use simplistic file names to do so. Many of us have experienced renaming a document or script multiple times with the ingenuine addition of "final" to the file name (like the comic above demonstrates).
 
 You might think there is a better way, and you'd be right: **version control**. Version control provides an organized and transparent way to track changes in code and additional files. This practice was designed for software development, but is easily applicable to scientific programming.
 
@@ -255,7 +255,7 @@ This table includes more advanced `Git` terms and commands that are commonly use
 ::: callout-tip
 ## Setup
 
-1.  Log into [GitHub](https://github.com/)
+1.  Login to [GitHub](https://github.com/)
 2.  Click the **New repository** button
 3.  Name it `{FIRSTNAME}_test`
 4.  Add a short description
@@ -266,39 +266,64 @@ This table includes more advanced `Git` terms and commands that are commonly use
 
 If you were successful, it should look something like this:
 
+<br>
+
 :::{.column-body-outset}
 <!-- ![](images/new-repo-github.png) -->
 ![](images/new-repo-github-sam.png)
 :::
 
-You've now created your first repository! It has a couple of files that GitHub created for you, like the `README.md` file, and the `LICENSE` file, and the `.gitignore` file.
+<br>
+
+You've now created your first repository! It has a couple of files that GitHub created for you: `README.md`, `LICENSE`, and `.gitignore`. 
+
+::: {.callout-note}
+## `README.md` files are used to share important information about your repository
+You should always add a `README.md` to the root directory of your repository -- it is a markdown file that is rendered as HTML and displayed on the landing page of your repository. This is a common place to include any pertinent information about what your repository contains, how to use it, etc.
+:::
+
+<br>
 
 :::{.column-body-outset}
 <!-- ![](images/github-test-repo.png) -->
 ![](images/github-test-repo-sam.png)
 :::
 
-For simple changes to text files, you can make edits right in the GitHub web interface.
+For simple changes to text files, such as the `README.md`, you can make edits directly in the GitHub web interface.
 
 ::: callout-note
 ## Challenge
 
-Navigate to the `README.md` file in the file listing, and edit it by clicking on the pencil icon. This is a regular Markdown file, so you can just add markdown text. Add a new level 2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the **Commit changes** button.
+Navigate to the `README.md` file in the file listing, and edit it by clicking on the **pencil icon** (top right of file). This is a regular Markdown file, so you can add markdown text. Add a new level-2 header called "Purpose" and add some bullet points describing the purpose of the repo. When done, add a commit message, and hit the **Commit changes** button.
 :::
 
-:::{.column-page}
+<br>
+
+<!-- :::{.column-page} -->
 <!-- ![](images/github-test-edit.png) -->
 ![](images/github-test-edit-sam.png)
-:::
+<!-- ::: -->
+
+<br>
 
 Congratulations, you've now authored your first versioned commit! If you navigate back to the GitHub page for the repository, you'll see your commit listed there, as well as the rendered `README.md` file.
 
-:::{.column-page}
+<br>
+
+<!-- :::{.column-page} -->
 <!-- ![](images/github-test-displayed.png) -->
 ![](images/github-test-displayed-sam.png)
-:::
+<!-- ::: -->
 
-Let's point out a few things about this window. It represents a view of the repository that you created, showing all of the files in the repository so far. For each file, it shows when the file was last modified, and the commit message that was used to last change each file. This is why it is important to write good, descriptive commit messages. In addition, the header above the file listing shows the most recent commit, along with its commit message, and its SHA identifier. That SHA identifier is the key to this set of versioned changes. If you click on the SHA identifier (6c18e0a), it will display the set of changes made in that particular commit.
+<br>
+
+The GitHub repository landing page provides us with lots of useful information. To start, we see: 
+
+- all of the files in the remote repository
+- when each file was last edited
+- the commit message that was included with each file's most recent commit (which is why it's important to write good, descriptive commit messages!)
+
+Additionally, the header above the file listing shows the most recent commit, along with its commit message, and a unique ID (assigned by Git) called a [SHA](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits#about-commits). The SHA (aka hash) identifies the specific changes made, when they were made, and by who. If you click on the SHA, it will display the set of changes made in that particular commit.
 
 ::: {.callout-caution icon=false}
 ## What should I write in my commit message?
@@ -327,22 +352,20 @@ Here are some guidelines for writing effective `Git` commit messages:
 
 ## Exercise 2: `clone` your repository and use `Git` locally in RStudio
 
-In this exercise, we'll use the GitHub `URL` for the GitHub repository you created to `clone` the repository onto your local machine so that you can edit the files in RStudio. 
+Currently, our repository just exists on GitHub as a remote repository. It's easy enough to make changes to things like our `README.md` file (as demonstrated above), from the web browser, but that becomes a lot harder (and discouraged) for scripts and other code files. In this exercise, we'll bring a copy of this remote repository down to our local computer (aka **clone** this repository) so that we can work comfortably in RStudio.
 
-Start by copying the GitHub `URL`, which represents the repository location:
+::: {.callout-important title="An important distinction"}
+We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the **local repository**.
+:::
+
+Start by clicking the green **Code** button (top right of your file listing) and copying the URL to your clipboard (this URL represents the repository location):
 
 :::{.column-body-outset}
 <!-- ![](images/github-test-clone-url.png){width="70%" fig-align="center"} -->
 ![](images/github-test-clone-url-sam.png){width="70%" fig-align="center"}
 :::
 
-RStudio knows how to work with files under version control with `Git`, but only if you are working within an R project folder. 
-
-Next, let's `clone` the repository created on GitHub so we have it accessible as an R project in RStudio.
-
-::: {.callout-important title="An important distinction"}
-We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the local repository.
-:::
+RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project (see [Appendix](http://localhost:5456/session_12.html#create-an-r-project)), with a slight difference. Follow the instructions in the Setup box below to clone your remote repository to your local computer in RStudio:
 
 ::: callout-tip
 ## Setup
@@ -355,7 +378,7 @@ We refer to the **remote copy** of the repository that is on GitHub as the **ori
 ![](images/rstudio-clone-repo-sam.png){width="90%" fig-align="center"}
 :::
 
-Once you click **Create Project**, a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present -- you should see a **Git** tab as well as the **Files** tab, where you can view all of the files copied from the remote repo to this local repo. 
+Once you click **Create Project**, a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present -- you should see a **Git** tab, as well as the **Files** tab, where you can view all of the files copied from the remote repo to this local repo. 
 
 :::{.column-body-outset}
 <!-- ![](images/github-rstudio-test.png) -->
@@ -364,9 +387,9 @@ Once you click **Create Project**, a new RStudio window will open with all of th
 
 You'll note that there is one new file `sam_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
 
-In the **Git** tab, you'll note that one file is listed. The **Git** tab is the status pane that shows the current modification status of all of the files in the repository. Here, we see `sam_test.Rproj` is preceded by a **??** symbol to indicate that the file is currently untracked. This means that `Git` has not stored any versions of this file, and knows nothing about the file (hang tight, we'll commit this file soon so that it's tracked by `Git`). As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
+In the **Git** tab, you'll note that the one new file, `sam_test.Rproj`, is listed. This **Git** tab is the status pane that shows the current modification status of all of the files in the repository. Here, we see `sam_test.Rproj` is preceded by a **??** symbol to indicate that the file is currently untracked by Git. This means that we have not yet committed this file using Git (i.e. Git knows nothing about the file; hang tight, we'll commit this file soon so that it's tracked by Git). As you make version control decisions in RStudio, these icons will change to reflect the current version status of each of the files.
 
-Inspect the history. For now, let's click on the **History** button in the **Git** tab, which will show the log of changes that occurred, and will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
+Inspect the history. Click on the **History** button in the **Git** tab to show the log of changes that have occurred -- these changes will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
 
 <!-- ![](images/rstudio-history-1.png) -->
 ![](images/rstudio-history-1-sam.png)
@@ -387,7 +410,10 @@ Once you save, you'll immediately see the `README.md` file show up in the **Git*
 
 <!-- ![](images/rstudio-diff.png) -->
 
-**Commit the changes.** To commit the changes you made to the `README.md` file, check the **Staged** check box next to the file (which tells `Git` which changes you want included in the commit; *this is analogous to using the git command, `git add README.md`, in the command line*), then provide a descriptive commit message and click **Commit** (*this is analogous to using the git command, `git commit -m "my commit message"`, in the command line*).
+**Commit the changes.** To commit the changes you made to the `README.md` file using RStudio's GUI (Graphical User Interface), rather than the command line:
+
+1. **Stage** (aka add) `README.md` by clicking the check box next to the file name -- this tells `Git` which changes you want included in the commit and *is analogous to using the git command, `git add README.md`, in the command line*
+2. **Commit** `README.md` by clicking the **Commit** button and providing a descriptive commit message in the dialog box. Press the **Commit** button once you're satisfied with your message. *This is analogous to using the git command, `git commit -m "my commit message"`, in the command line*.
 
 <!-- ![](images/rstudio-commit-1.png) -->
 ![](images/rstudio-commit-1-sam.png)
@@ -397,14 +423,14 @@ A few notes about our local repository's state:
 - We still have a file, `sam_test.Rproj`, that is listed as untracked (denoted by **??** in the **Git** tab). 
 - You should see a message at the top of the **Git** tab that says, `Your branch is ahead of ‘origin/main’ by 1 commit.`, which tells us that we have 1 commit in the local repository, but that commit has not yet been pushed up to the `origin` repository (aka remote repository on GitHub). 
 
-Commit the remaining project file by staging/adding and committing it with an informative commit message.
+**Commit the remaining project file** by staging/adding and committing it with an informative commit message.
 
 <!-- ![](images/rstudio-commit-2.png) -->
 ![](images/rstudio-commit-2-sam.png)
 
 When finished, you'll see that no changes remain in the **Git** tab, and the repository is clean.
 
-**Inspect the Changes & History tabs.** Note that under **Changes**, the message now says:
+**Inspect the history.** Note that under **Changes**, the message now says:
 
 `Your branch is ahead of ‘origin/main’ by 2 commits.`
 
@@ -455,11 +481,11 @@ git config pull.rebase false
 <!-- 1. `training_{USERNAME}` (created during setup; see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#create-an-r-project)) -->
 <!-- 2. `{FIRSTNAME}_test` (created just now, in [Exercise 1](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-1-create-a-remote-repository-on-github), above) -->
 
-There are a number of different workflows for creating version-controlled repositories that are stored on GitHub. We started in [Exercise 1](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-1-create-a-remote-repository-on-github), using your `{FIRSTNAME}_test` repo, with one common approach: **creating a remote repository on GitHub first, *then* cloning that repository to your local computer (you used your `{FIRSTNAME}_test` repo)**
+There are a number of different workflows for creating version-controlled repositories that are stored on GitHub. We started with [Exercise 1](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-1-create-a-remote-repository-on-github) and [Exercise 2](http://localhost:5456/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) using one common approach: **creating a remote repository on GitHub first, *then* cloning that repository to your local computer (you used your `{FIRSTNAME}_test` repo).**
 
-However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a `Git` repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
+However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a Git repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
 
-First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project dropdown menu is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the "recent projects" list.
+First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project dropdown menu is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the **RECENT PROJECTS** list.
 
 <!-- ![](images/rstudio-project-switcher.png){width="80%" fig-align="center"} -->
 ![](images/rstudio-project-switcher-sam.png){width="80%" fig-align="center"}
