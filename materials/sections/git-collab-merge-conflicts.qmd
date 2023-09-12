@@ -55,7 +55,7 @@ In order to contribute, the Collaborator must **clone** the repository from the 
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they plan to make some changes {.unnumbered}
 
-**Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). *The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.***
+Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). **The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.**
 
 ### Step 2: Collaborator edits files locally {.unnumbered}
 
@@ -81,7 +81,7 @@ The **merge** part of `git pull` will fail if you have uncommitted changes in yo
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they pushed their changes to GitHub {.unnumbered}
 
-**Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo**
+Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo.
 
 ### Step 4: Owner `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
@@ -92,7 +92,7 @@ in RStudio, and `pull` to fetch and merge those changes into their local copy.
 
 ### INTERMEDIATE STEP: Owner communicates with Collaborator that they now plan to make some changes {.unnumbered}
 
-**Did we mention that communication is important? :)**
+Did we mention that communication is important? :)
 
 ### Step 5: Owner edits, `commit`s, `pull`s (just in case!) and `push`es {.unnumbered}
 
@@ -104,7 +104,7 @@ Following the same workflow as the Collaborator did earlier:
 
 ### INTERMEDIATE STEP: Owner communicates with Collaborator that they pushed their changes to GitHub {.unnumbered}
 
-**Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!**
+Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!
 
 ### Step 6: Collaborator `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
@@ -113,7 +113,7 @@ and all copies are once again fully synced. And just like that, you've successfu
 
 ## Exercise 1: With a partner collaborate in a repository without a merge conflict{#ex1-no-conflict}
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ### Setup
 
 - Get into pairs, then choose one person as the Owner and one as the Collaborator
@@ -147,7 +147,7 @@ git config pull.rebase false
 **Note:** Unlike when we first configured `Git` (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
 
-::: callout-note
+::: {.callout-note icon=false}
 ### Instructions
 
 You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
@@ -345,7 +345,7 @@ branch, and the merged changes.
 
 Note you will only need to complete the Setup and `Git` configuration steps again if you are working in a new repository. Return to [Exercise 1](@ex1-no-conflict) for Setup and `Git` configuration steps.
 
-::: callout-note
+::: {.callout-note icon=false}
 
 ### Instructions
 
