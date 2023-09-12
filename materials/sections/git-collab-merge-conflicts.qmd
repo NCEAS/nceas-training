@@ -1,21 +1,21 @@
 ## Learning Objectives {.unnumbered}
 
-- Apply the principles, features, and collaboration tools of `Git` and GitHub to effectively collaborate with colleagues on code
+- Apply the principles, features, and collaboration tools of Git and GitHub to effectively collaborate with colleagues on code
 - Analyze and evaluate common causes of conflicts that arise when collaborating on repositories 
-- Demonstrate the ability to resolve conflicts using `Git` conflict resolution techniques
+- Demonstrate the ability to resolve conflicts using Git conflict resolution techniques
 - Apply workflows and best practices that minimize conflicts on collaborative repositories
 
-## Introduction to `Git` and GitHub Tools for Collaboration
+## Introduction to Git and GitHub Tools for Collaboration
 
 [![Artwork by Allison Horst](images/allison-horst-jenny-bryan-quote.png)](https://twitter.com/allison_horst)
 
-`Git` is not only a powerful tool for individual work but also an excellent choice for collaborating with friends and colleagues. `Git` ensures that after you've completed your contributions to a repository, you can confidently synchronize your changes with changes made by others.
+Git is not only a powerful tool for individual work but also an excellent choice for collaborating with friends and colleagues. Git ensures that after you've completed your contributions to a repository, you can confidently synchronize your changes with changes made by others.
 
-One of the easiest and most effective ways to collaborate using `Git` is by utilizing a shared repository on a hosting service like [GitHub](https://github.com). This shared repository acts as a central hub, enabling collaborators to effortlessly exchange and merge their changes. With `Git` and a shared repository, you can collaborate seamlessly and work confidently, knowing that your changes will be integrated smoothly with those of your collaborators.
+One of the easiest and most effective ways to collaborate using Git is by utilizing a shared repository on a hosting service like [GitHub](https://github.com). This shared repository acts as a central hub, enabling collaborators to effortlessly exchange and merge their changes. With Git and a shared repository, you can collaborate seamlessly and work confidently, knowing that your changes will be integrated smoothly with those of your collaborators.
 
 <!-- [![Graphic from Atlassian](images/git-collab-repos.svg)](https://www.atlassian.com/git/tutorials/syncing){width="80%" fig-align="center"} -->
 
-There are many advanced techniques for synchronizing `Git` repositories, but let's start with a simple example.
+There are many advanced techniques for synchronizing Git repositories, but let's start with a simple example.
 
 In this example, the Collaborator will `clone` a copy of the Owner's repository from
 GitHub, and the Owner will grant them Collaborator status, enabling the Collaborator
@@ -44,18 +44,19 @@ The Owner must change the settings of the remote repository and give the Collabo
 
 To do this, the owner will navigate to their remote repository on GitHub, then choose **Settings** > **Collaborators** > **Add people**, to send an email invitation. The invitation will show as "Pending" until accepted.
 
-
-![](images/github-collaborators.png){width="80%" fig-align="center"}
+<!-- ![](images/github-collaborators.png){width="80%" fig-align="center"} -->
+![](images/github-collaborators-sam-halina.png){width="80%" fig-align="center"}
 
 ### Step 1: Collaborator clones the remote repository {.unnumbered}
 
 In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
 
-![](images/github-clone-url-owner.png)
+<!-- ![](images/github-clone-url-owner.png) -->
+![](images/github-clone-url-owner-sam.png)
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they plan to make some changes {.unnumbered}
 
-**Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). *The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.***
+Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). **The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.**
 
 ### Step 2: Collaborator edits files locally {.unnumbered}
 
@@ -81,7 +82,7 @@ The **merge** part of `git pull` will fail if you have uncommitted changes in yo
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they pushed their changes to GitHub {.unnumbered}
 
-**Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo**
+Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo.
 
 ### Step 4: Owner `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
@@ -92,7 +93,7 @@ in RStudio, and `pull` to fetch and merge those changes into their local copy.
 
 ### INTERMEDIATE STEP: Owner communicates with Collaborator that they now plan to make some changes {.unnumbered}
 
-**Did we mention that communication is important? :)**
+Did we mention that communication is important? :)
 
 ### Step 5: Owner edits, `commit`s, `pull`s (just in case!) and `push`es {.unnumbered}
 
@@ -104,7 +105,7 @@ Following the same workflow as the Collaborator did earlier:
 
 ### INTERMEDIATE STEP: Owner communicates with Collaborator that they pushed their changes to GitHub {.unnumbered}
 
-**Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!**
+Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!
 
 ### Step 6: Collaborator `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
@@ -113,7 +114,7 @@ and all copies are once again fully synced. And just like that, you've successfu
 
 ## Exercise 1: With a partner collaborate in a repository without a merge conflict{#ex1-no-conflict}
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ### Setup
 
 - Get into pairs, then choose one person as the Owner and one as the Collaborator
@@ -126,7 +127,7 @@ and all copies are once again fully synced. And just like that, you've successfu
 - Under **Manage Access** click the button **Add people** and type the username of your Collaborator in the search box
 - Once you've found the correct username, click **Add {Collaborator username} to this repository**
 
-![](images/github-collaborators.png){width="80%" fig-align="center"}
+<!-- ![](images/github-collaborators.png){width="80%" fig-align="center"} -->
 
 **Now, the Collaborator will follow this step:**
 
@@ -134,20 +135,20 @@ and all copies are once again fully synced. And just like that, you've successfu
 :::
 
 ::: callout-caution
-## Last thing, some `Git` configuration to surpress warning messages
+## Last thing, some Git configuration to surpress warning messages
 
-`Git` version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure `Git` by running this line of code in the Terminal:
+Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
 
 ``` bash
 git config pull.rebase false
 ```
 
-`pull.rebase false` is a default strategy for pulling where `Git` will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict.
+`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict.
 
-**Note:** Unlike when we first configured `Git` (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
+**Note:** Unlike when we first configured Git (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
 
-::: callout-note
+::: {.callout-note icon=false}
 ### Instructions
 
 You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
@@ -159,11 +160,11 @@ You will do the exercise twice, where each person will get to practice being bot
 - **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository (see Setup block above for detailed steps)
 - **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
 - **Step 3:** Collaborator edits the `README` file:
-    - Collaborator adds a new level 2 heading to `README` titled "`Git` Workflow"
+    - Collaborator adds a new level 2 heading to `README` titled "Git Workflow"
 - **Step 4:** Collaborator commits and pushes the `README` file with the new changes to GitHub
 - **Step 5:** Owner pulls the changes that the Collaborator made
 - **Step 6:** Owner edits the `README` file:
-    - Under "`Git` Workflow", Owner adds the steps of the `Git` workflow we've been practicing
+    - Under "Git Workflow", Owner adds the steps of the Git workflow we've been practicing
 - **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
 - **Step 8:** Collaborator pulls the `Owners` changes from GitHub
 - **Step 9:** Go back to Step 0, switch roles, and then follow the steps in Round Two.
@@ -173,20 +174,20 @@ You will do the exercise twice, where each person will get to practice being bot
 - **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository
 - **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
 - **Step 3:** Collaborator edits the `README` file:
-    - Collaborator adds a new level 2 heading to `README` titled "How to Create a `Git` Repository from an existing project" and adds the high level steps for this workflow
+    - Collaborator adds a new level 2 heading to `README` titled "How to Create a Git Repository from an existing project" and adds the high level steps for this workflow
 - **Step 4:** Collaborator commits and pushes the `README` file with the new changes to GitHub
 - **Step 5:** Owner pulls the changes that the Collaborator made
 - **Step 6:** Owner edits the `README` file:
-    - Under "How to Create a `Git` Repository", Owner adds the high level steps for this workflow
+    - Under "How to Create a Git Repository", Owner adds the high level steps for this workflow
 - **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
 - **Step 8:** Collaborator pulls the `Owners` changes from GitHub
 
-**Hint:** If you don't remember how to create a `Git` repository, refer to the chapter [Intro to `Git` and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two `Git` repositories
+**Hint:** If you don't remember how to create a Git repository, refer to the chapter [Intro to Git and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two Git repositories
 :::
 
 ## A Note on Advanced Collaboration Techniques
 
-There are many `Git` and GitHub collaboration techniques, some more advanced than others. We won't be covering advanced strategies in this course. But here is a table for your reference on a few popular `Git` collaboration workflow strategies and tools. 
+There are many Git and GitHub collaboration techniques, some more advanced than others. We won't be covering advanced strategies in this course. But here is a table for your reference on a few popular Git collaboration workflow strategies and tools. 
 
 | Collaboration Technique | Benefits | When to Use | When Not to Use |
 |-------------------------|----------|-------------|-----------------|
@@ -203,9 +204,9 @@ These techniques provide different benefits and are used in various collaboratio
 
 ## Merge conflicts
 
-**Merge conflicts** occur when both collaborators make conflicting changes to the same file. Resolving merge conflicts involves identifying the root of the problem and restoring the project to a normal state. Good communication, discussing file sections to work on, and avoiding overlaps can help prevent merge conflicts. However, if conflicts do arise, `Git` warns about potential issues and ensures that changes from different collaborators based on the same file version are not overwritten. To resolve conflicts, you need to explicitly specify whose changes should be used for each conflicting line in the file.
+**Merge conflicts** occur when both collaborators make conflicting changes to the same file. Resolving merge conflicts involves identifying the root of the problem and restoring the project to a normal state. Good communication, discussing file sections to work on, and avoiding overlaps can help prevent merge conflicts. However, if conflicts do arise, Git warns about potential issues and ensures that changes from different collaborators based on the same file version are not overwritten. To resolve conflicts, you need to explicitly specify whose changes should be used for each conflicting line in the file.
 
-In this image, we see collaborators `mbjones` and `metamattj` have both made changes to the same line in the same `README.md` file. This is causing a merge conflict because `Git` doesn't know whose changes came first. To resolve it, we need to tell `Git` whose changes to keep for that line, and whose changes to discard. 
+In this image, we see collaborators `mbjones` and `metamattj` have both made changes to the same line in the same `README.md` file. This is causing a merge conflict because Git doesn't know whose changes came first. To resolve it, we need to tell Git whose changes to keep for that line, and whose changes to discard. 
 
 ![](images/git-conflict-00-lines-changed.png)
 
@@ -230,7 +231,7 @@ usable on your local machine.
 **2. Checkout**
 
 The simplest way to resolve a conflict, given that you know whose version of the
-file you want to keep, is to use the command line to tell `Git` to
+file you want to keep, is to use the command line to tell Git to
 use either **your** changes (the person doing the `merge`), or **their** changes (the Collaborator).
 
 - keep your Collaborator's file: `git checkout --theirs conflicted_file.Rmd`
@@ -242,7 +243,7 @@ Once you have run that command, then run `add` (staging), `commit`, `pull`, and 
 
 Option 2, above, requires the command line, however, we have a third option for resolving the merge conflict from RStudio. Using this approach will allow us to pick and choose some of our changes *and* some of our Collaborator's changes by letting us manually edit and fix the conflicted file.
 
-When you `pull` a file with a conflict, `Git` will provide you with a warning modify the file so that it includes both your own changes and your Collaborator's changes. The file will also appear in the `Git` tab with an orange `U` icon, which indicates that the file is `Unmerged` and therefore awaiting your help to resolve the conflict. It delimits these blocks of conflicted code with a series of less than and greater than signs, so they are easy to find:
+When you `pull` a file with a conflict, Git will provide you with a warning modify the file so that it includes both your own changes and your Collaborator's changes. The file will also appear in the **Git** tab with an orange `U` icon, which indicates that the file is `Unmerged` and therefore awaiting your help to resolve the conflict. It delimits these blocks of conflicted code with a series of less than and greater than signs, so they are easy to find:
 
 ![](images/rstudio-merge-conflict.png){width="80%" fig-align="center"}
 
@@ -298,7 +299,7 @@ conflict because of the conflicting lines.
 
 ![](images/git-conflict-02-pull-error.png)
 
-In the `Git` pane of RStudio, the file is also flagged with an orange `U`, which stands
+In the **Git** pane of RStudio, the file is also flagged with an orange `U`, which stands
 for an unresolved merge conflict.
 
 ![](images/git-conflict-03-conflict.png)
@@ -306,7 +307,7 @@ for an unresolved merge conflict.
 ### Step 7: Owner edits the file to resolve the conflict {.unnumbered}
 
 To resolve the conflict, the Owner now needs to edit the file. Again, as indicated above,
-`Git` has flagged the locations in the file where a conflict occurred 
+Git has flagged the locations in the file where a conflict occurred 
 with `<<<<<<<`, `=======`, and `>>>>>>>`. The Owner should edit the file, merging whatever changes are appropriate until the conflicting lines read how they should, and eliminate all of the marker lines with `<<<<<<<`, `=======`, and `>>>>>>>`.
 
 ![](images/git-conflict-04-conflict-tags.png)
@@ -343,9 +344,9 @@ branch, and the merged changes.
 
 ## Exercise 2: With a partner collaborate in a repository and resolve a merge conflict
 
-Note you will only need to complete the Setup and `Git` configuration steps again if you are working in a new repository. Return to [Exercise 1](@ex1-no-conflict) for Setup and `Git` configuration steps.
+Note you will only need to complete the Setup and Git configuration steps again if you are working in a new repository. Return to [Exercise 1](@ex1-no-conflict) for Setup and Git configuration steps.
 
-::: callout-note
+::: {.callout-note icon=false}
 
 ### Instructions
 
@@ -397,7 +398,7 @@ Some basic rules of thumb can avoid the vast majority of merge conflicts, saving
 - Start your working session with a `pull`
 - `Pull` immediately after you `commit` and before you `push`
 - `Commit` often in small chunks (this helps you organize your work!)
-- Make sure you and who you are collaborating with all **fully** understand the `Git` workflow you're using (aka make sure you're on the same page before you start)!
+- Make sure you and who you are collaborating with all **fully** understand the Git workflow you're using (aka make sure you're on the same page before you start)!
 
 A good workflow is encapsulated as follows:
 
