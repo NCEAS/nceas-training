@@ -485,73 +485,238 @@ There are a number of different workflows for creating version-controlled reposi
 
 However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a Git repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
 
-First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project dropdown menu is in the upper right corner of your RStudio pane. Click the dropdown next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the **RECENT PROJECTS** list.
+First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project drop down menu is in the upper right corner of your RStudio pane. Click the drop down next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the **RECENT PROJECTS** list.
 
 <!-- ![](images/rstudio-project-switcher.png){width="80%" fig-align="center"} -->
 ![](images/rstudio-project-switcher-sam.png){width="80%" fig-align="center"}
 
-From the **Tools** menu, select **Project Options**. In the dialog that pops up, select "Git/SVN" from the menu on the left. In the dropdown at the top of this page, select `Git` and click "Yes" in the confirmation box. Click "Yes" again to restart RStudio.
+There are a few approaches for turning an existing project folder into a Git repository, then sending it to GitHub -- if you're an R-user, the simplest way is to use the [`{usethis}` package](https://usethis.r-lib.org/), which is built to automate tasks involved with project setup and development. However, you can also initialize a local git repository and set the remote repository from the command line (a language-agnostic workflow). Steps for both approaches are included below (demonstrated using your `{USERNAME}_training` project): 
 
-When RStudio restarts, you should have a **Git** tab, with two untracked files (`.gitignore` and `training_{USERNAME}.Rproj`).
+::: panel-tabset
+## Using R & `{usethis}`
 
-::: callout-note
-## Challenge
+0. **Install the `{usethis}` package** (if you haven't done so already) by running the following in your Console:
 
-Add and commit the `.gitignore` and `training_{USERNAME}.Rproj` files to your `Git` repository.
-:::
-
-Now we have your local repository all set up. You can make as many commits as you want on this repository, and it will likely still be helpful to you, but the power in `Git` and GitHub is really in collaboration. As discussed, GitHub facilitates this, so let's get this repository on GitHub.
-
-::: callout-tip
-## Setup
-
-1.  Go to [GitHub](http://github.com/), and click on the **New Repository** button.
-2.  In the repository name field, enter the **same name as your R Project**. So for me, this would be `training_dolinh.`
-3.  Add a description, keep the repository public, and, most importantly: **DO NOT INITIALIZE THE REPOSITORY WITH ANY FILES**. We already have the repository set up locally so we don't need to do this. Initializing the repository will only cause merge issues.
-
-Here is what your page should look like:
-
-![](images/create-empty-repo.png){width="77%" fig-align="center"}
-
-4.  Click the **Create repository** button.
-:::
-
-This will open your empty repository with a page that conveniently gives you exactly the instructions you need. In our case, we are going to "push an existing repository from the command line."
-
-:::{.column-page}
-![](images/setup-empty-repo.png)
-:::
-
-Click the clipboard icon to copy the code for the middle option of the three on this page. It should have three lines and look like this:
-
-``` bash
-git remote add origin https://github.com/hdolinh/training_dolinh.git
-git branch -M main
-git push -u origin main
+```{r}
+#| eval: false
+#| echo: true
+install.packages("usethis")
 ```
 
-Back in RStudio, open the terminal by clicking the **Terminal** tab next to the **Console** tab. The prompt should look something like this:
+1. **Initialize `{USERNAME}_training` as a Git repository** by running `usethis::use_git()` in the Console. Choose **yes** when asked if it’s okay to commit any uncommitted files. Choose **yes** again if asked to restart R. Once complete, you should see the **Git** tab appear in your top left pane in RStudio and a `.gitignore` file appear in your **Files** tab.
 
-``` bash
-dolinh@included-crab:~/training_dolinh$
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/use_git.png")
 ```
 
-In the prompt, paste the code that you copied from the GitHub page and press `return`.
+::: {.callout-note}
+## `.gitignore` files allow you to specify which files/folders you *don't* want Git to track
+A `.gitignore` file is automatically created in the root directory of your project when you initialize it as a Git repository. You'll notice that there are already some R / R Project-specific files that have been added by default.
 
-The code that you copied and pasted did three things:
+**Why is this useful?** For many reasons, but possibly the greatest use-case is adding large files (GitHub has a file size limit of 2 GB) or files with sensitive information (e.g. keys, tokens) that you don't want to accidentally push to GitHub. 
 
--   Added the GitHub repository as the remote repository
--   Renamed the default branch to main
--   Pushed the main branch to the remote GitHub repository
+**How do I do this?** Let's say I create a file with sensitive information that I don't want to push to GitHub. I can add a line to my `.gitignore` file:
 
-If you go back to your browser and refresh your GitHub repository page, you should now see your files appear.
+```{.bash}
+#| eval: false
+#| echo: true
+# added by default when I initalized my RProj as a Git Repository
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
 
-::: callout-note
-## Challenge
+# add file so that it doesn't get pushed to the remote repo (on GitHub); 
+contains_sensitive_info.R
+```
 
-On your repository page, GitHub has a button that will help you add a `README.md` file. Click the **Add a README** button and use markdown syntax to create a `README.md` Commit the changes to your repository.
+If this file is currently untracked by Git, it should appear in my **Git** tab. Once I add it to the `.gitignore` *and* save the modified `.gitignore` file, you should see `contains_sensitive_info.R` disappear from the **Git** tab, and a modified `.gitignore` (denoted by a blue **M**) appear. Stage/commit/push this modified `.gitignore` file.
+:::
+
+2. **Create an upstream remote repository on GitHub** by running `usethis::use_github()` in the Console. Your web browser should open up to your new GitHub repository, with the same name as your local Git repo/R Project.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/use_github.png")
+```
+
+3. **Ensure that your default branch is named `main` rather than `master`** by:
+
+    a. running `git branch` in the Terminal to list all your branches (you should currently only have one, which is your default)
+    b. if it's named `master`, run the following line in the Console to update it
+
+``` {r}
+#| eval: false
+#| echo: true
+usethis::git_default_branch_rename(from = "master", to = "main")
+```
+    
+You can verify that your update worked by running `git branch` once more in the Terminal.
+    
+::: {.callout-note}
+## Why are we doing this?
+The racist “master” terminology for git branches motivates us to update our default branch to “main” instead. 
+
+There is a push across platforms and software to update this historical default branch name from `master` to `main`. GitHub has already done so -- you may have noticed that creating a *remote repository first* (like we did in Exercises 1 & 2) results in a default branch named `main`. Depending on your version of Git, however, you may need to set update the name manually when creating a *local git repository first* (as we're doing here).
+:::
+
+4. You're now ready to edit, stage/add, commit, and push files to GitHub as practiced earlier!
+
+::: {.callout-caution icon=false}
+## Challenge: add a `README.md` file to `training_{USERNAME}`
+
+GitHub provides a button on your repo's landing page for quickly adding a `README.md` file. Click the **Add a README** button and use markdown syntax to create a `README.md`. Commit the changes to your repository.
 
 Go to your local repository (in RStudio) and pull the changes you made.
+:::
+
+## Using the command line
+
+While we'll be using the RStudio Terminal here, you can use any command-line interface (e.g. Mac Terminal, Git Bash, etc.) that allows for git interactions (if you plan to use a command-line interface that *is not* the RStudio Terminal, make sure to navigate to your project directory (e.g. using `cd file/path/to/project/directory`) before initializing your repository.
+
+1. **Initialize `{USERNAME}_training` as a Git repository** by running `git init` in the Terminal. You should get a message that says something like:
+
+```{.bash}
+Initialized empty Git repository in /home/username/training_username/.git/
+```
+
+::: {.callout-important}
+## You may have to quit and reopen your RStudio session on the server for the Git tab to appear
+You'll likely need to help `included-crab` along in recognizing that this R Project has been initialized as a git repository -- click **Session** > **Quit Session...** > **New Session** > choose `training_{USERNAME}` to reopen your project.
+:::
+
+Once complete, you should see the **Git** tab appear in your top left pane in RStudio and a `.gitignore` file appear in your **Files** tab.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/use_git.png")
+```
+
+::: {.callout-note}
+## `.gitignore` files allow you to specify which files/folders you *don't* want Git to track
+A `.gitignore` file is automatically created in the root directory of your project when you initialize it as a Git repository. You'll notice that there are already some R / R Project-specific files that have been added by default.
+
+**Why is this useful?** For many reasons, but possibly the greatest use-case is adding large files (GitHub has a file size limit of 2 GB) or files with sensitive information (e.g. keys, tokens) that you don't want to accidentally push to GitHub. 
+
+**How do I do this?** Let's say I create a file with sensitive information that I don't want to push to GitHub. I can add a line to my `.gitignore` file:
+
+```{.bash}
+#| eval: false
+#| echo: true
+# added by default when I initalized my RProj as a Git Repository
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
+
+# add file so that it doesn't get pushed to the remote repo (on GitHub); 
+contains_sensitive_info.R
+```
+
+If this file is currently untracked by Git, it should appear in my **Git** tab. Once I add it to the `.gitignore` *and* save the modified `.gitignore` file, you should see `contains_sensitive_info.R` disappear from the **Git** tab, and a modified `.gitignore` (denoted by a blue **M**) appear. Stage/commit/push this modified `.gitignore` file.
+:::
+
+2. **Ensure that your default branch is named `main` rather than `master`** by:
+
+    a. running `git branch` in the Terminal to list all your branches (you should currently only have one, which is your default)
+    b. if it's named `master`, run the following line in the Terminal to update it
+    
+```{.bash}
+#| eval: false
+#| echo: true
+
+# for Git version 2.28+ (check by running `git --version`)
+# this sets the default branch name to `main` for any new repos movign forward
+git config --global init.defaultBranch main
+
+# for older versions of Git
+# this sets the default branch name to `main` ONLY for this repo 
+git branch -m master main
+```
+
+You can verify that your update worked by running `git branch` once more in the Terminal.
+
+::: {.callout-note}
+## Why are we doing this?
+The racist “master” terminology for git branches motivates us to update our default branch to “main” instead. 
+
+There is a push across platforms and software to update this historical default branch name from `master` to `main`. GitHub has already done so -- you may have noticed that creating a *remote repository first* (like we did in Exercises 1 & 2) results in a default branch named `main`. Depending on your version of Git, however, you may need to set update the name manually when creating a *local git repository first* (as we're doing here).
+:::
+
+3. **Stage/Add your files**. It's helpful to first run `git status` to check the state of your local repository (particularly if you aren't using RStudio / have access to a GUI with a **Git** tab-esque feature) -- this will tell you which files have been modified or are untracked and that are currently unstaged (in red). What appears here should look just like what appears in the **Git** tab:
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/git_status_unstaged.png")
+```
+
+Run `git add .` in the Terminal to stage all files at once (or `git add {FILENAME}` to stage individual files). Running `git status` again will show you which files have been staged (in green). You may have to refresh your **Git** tab to see the change in state reflected in the GUI.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/git_status_staged.png")
+```
+
+4. **Commit your files** by running `git commit -m "an informative commit message"` in the Terminal. Refreshing your **Git** tab will cause them to disappear (just as they do when you commit using RStudio's GUI buttons). You can run `git log` in the Terminal to see a history of your past commits (currently, we only have this one).
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/git_commit.png")
+```
+
+5. **Create an empty remote repository** by logging into [GitHub](https://github.com/) and creating a new repository, following the same steps as in [Exercise 1](http://localhost:5456/session_09.html#exercise-1-create-a-remote-repository-on-github). **IMPORTANTLY,** *DO NOT* initialize your remote repo with a `README` license, or `.gitignore` file -- doing so now can lead to merge conflicts. We can add them after our local and remote repos are linked. **Name your remote repository the same as your local repository (i.e. `training_{USERNAME}`).**
+
+6. **Link your remote (GitHub) repository to your local Git repository.**  Your empty GitHub repo conveniently includes instructions for doing so. Copy the code under **push an existing repository from the command line** to your clipboard, paste into your RStudio Terminal, and press return/enter.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("images/setup-empty-repo-sam.png")
+```
+
+These commands do three things:
+
+-   Adds the GitHub repository as the remote repository (i.e. links your local repo to the remote repo)
+-   Renames the default branch to `main`
+-   Pushes the `main` branch to the remote GitHub repository
+
+Head back to your browser and refresh your GitHub repository page to see your files appear!
+
+7. You’re now ready to edit, stage/add, commit, and push files to GitHub as practiced earlier!
+
+::: {.callout-caution icon=false}
+## Challenge: add a `README.md` file to `training_{USERNAME}`
+
+GitHub provides a button on your repo's landing page for quickly adding a `README.md` file. Click the **Add a README** button and use markdown syntax to create a `README.md`. Commit the changes to your repository.
+
+Go to your local repository (in RStudio) and pull the changes you made.
+:::
+
 :::
 
 ## Go further with `Git`
