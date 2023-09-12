@@ -299,6 +299,12 @@ Some data repositories assign a DOI for each dataset you publish on their reposi
 
 Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
 
+
+### Metadata tools (EML)
+
+-   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
+-   The Environmental Data Repository (EDI) provides a tool called [ezEML](https://edirepository.org/resources/creating-metadata-for-publication#ezeml). A form-based web application that helps streamline the process of creating EML metadata.
+
 ## Data Preservation & Sharing
 
 ![](images/WhyManage-small.png)
