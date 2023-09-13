@@ -465,7 +465,10 @@ If you look at the History pane again, you'll notice that the labels next to the
 
 Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
 
-``` bash
+```{bash}
+#| eval: false
+#| echo: true
+
 git config pull.rebase false
 ```
 
@@ -485,7 +488,7 @@ First, switch to your `training_{USERNAME}` project using the RStudio project dr
 <!-- ![](images/rstudio-project-switcher.png){width="80%" fig-align="center"} -->
 ![](images/rstudio-project-switcher-sam.png){width="80%" fig-align="center"}
 
-There are a few approaches for turning an existing project folder into a Git repository, then sending it to GitHub -- if you're an R-user, the simplest way is to use the [`{usethis}` package](https://usethis.r-lib.org/), which is built to automate tasks involved with project setup and development. However, you can also initialize a local git repository and set the remote repository from the command line (a language-agnostic workflow). Steps for both approaches are included below (demonstrated using your `{USERNAME}_training` project): 
+There are a few approaches for turning an existing project folder into a Git repository, then sending it to GitHub -- if you're an R-user, the simplest way is to use the [`{usethis}` package](https://usethis.r-lib.org/), which is built to automate tasks involved with project setup and development. However, you can also initialize a local git repository and set the remote repository from the command line (a language-agnostic workflow). Steps for both approaches are included below (demonstrated using your `training_{USERNAME}` project): 
 
 ::: panel-tabset
 ## Using R & `{usethis}`
@@ -498,7 +501,7 @@ There are a few approaches for turning an existing project folder into a Git rep
 install.packages("usethis")
 ```
 
-1. **Initialize `{USERNAME}_training` as a Git repository** by running `usethis::use_git()` in the Console. Choose **yes** when asked if it’s okay to commit any uncommitted files. Choose **yes** again if asked to restart R. Once complete, you should see the **Git** tab appear in your top left pane in RStudio and a `.gitignore` file appear in your **Files** tab.
+1. **Initialize `training_{USERNAME}` as a Git repository** by running `usethis::use_git()` in the Console. Choose **yes** when asked if it’s okay to commit any uncommitted files. Choose **yes** again if asked to restart R. Once complete, you should see the **Git** tab appear in your top left pane in RStudio and a `.gitignore` file appear in your **Files** tab.
 
 ```{r}
 #| eval: true
@@ -516,9 +519,10 @@ A `.gitignore` file is automatically created in the root directory of your proje
 
 **How do I do this?** Let's say I create a file with sensitive information that I don't want to push to GitHub. I can add a line to my `.gitignore` file:
 
-```{.bash}
+```{bash}
 #| eval: false
 #| echo: true
+
 # added by default when I initalized my RProj as a Git Repository
 .Rproj.user
 .Rhistory
@@ -578,9 +582,12 @@ Go to your local repository (in RStudio) and pull the changes you made.
 
 While we'll be using the RStudio Terminal here, you can use any command-line interface (e.g. Mac Terminal, Git Bash, etc.) that allows for git interactions (if you plan to use a command-line interface that *is not* the RStudio Terminal, make sure to navigate to your project directory (e.g. using `cd file/path/to/project/directory`) before initializing your repository.
 
-1. **Initialize `{USERNAME}_training` as a Git repository** by running `git init` in the Terminal. You should get a message that says something like:
+1. **Initialize `training_{USERNAME}` as a Git repository** by running `git init` in the Terminal. You should get a message that says something like:
 
-```{.bash}
+```{bash}
+#| eval: false
+#| echo: true
+
 Initialized empty Git repository in /home/username/training_username/.git/
 ```
 
@@ -607,9 +614,10 @@ A `.gitignore` file is automatically created in the root directory of your proje
 
 **How do I do this?** Let's say I create a file with sensitive information that I don't want to push to GitHub. I can add a line to my `.gitignore` file:
 
-```{.bash}
+```{bash}
 #| eval: false
 #| echo: true
+
 # added by default when I initalized my RProj as a Git Repository
 .Rproj.user
 .Rhistory
@@ -630,12 +638,12 @@ If this file is currently untracked by Git, it should appear in my **Git** tab. 
     a. running `git branch` in the Terminal to list all your branches (you should currently only have one, which is your default)
     b. if it's named `master`, run the following line in the Terminal to update it
     
-```{.bash}
+```{bash}
 #| eval: false
 #| echo: true
 
 # for Git version 2.28+ (check by running `git --version`)
-# this sets the default branch name to `main` for any new repos movign forward
+# this sets the default branch name to `main` for any new repos moving forward
 git config --global init.defaultBranch main
 
 # for older versions of Git
