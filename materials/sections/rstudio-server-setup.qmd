@@ -8,7 +8,7 @@
 
 To prevent us from spending most of this lesson troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called RStudio Server. If you have never worked on a remote server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Server Setup
 You should have received an email prompting you to change your password for your server account. If you did not, please put up a post-it and someone will help you.
 
@@ -23,7 +23,7 @@ In this course, we are going to be using an R project to organize our work. An R
 
 **The Big Idea:** using an R project is a reproducible research best practice because it bundles all your work within a working directory. Consider your current data analysis workflow. Where do you import you data? Where do you clean and wrangle it? Where do you create graphs, and ultimately, a final report? Are you going back and forth between multiple software tools like Microsoft Excel, JMP, and Google Docs? An R project and the tools in R that we will talk about today will consolidate this process because it can all be done (and updated) in using one software tool, RStudio, and within one R project.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## R Project Setup
 
 1. In the "File" menu, select "New Project"
@@ -43,16 +43,21 @@ When starting a new research project, one of the first things I do is create an 
 
 Some common directories are:
 
-::: column-margin
-![](images/rproj-basic-organization.png)
-:::
+::: columns
 
+::: {.column width="55%"}
 - `data`: where we store our data (often contains subdirectories for raw, processed, and metadata data)
 - `R`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory `scripts`)
 - `plots` or `figs`: generated plots, graphs, and figures
 - `docs`: summaries or reports of analysis or other relevant project information
 
 Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproducibility and collaboration.
+:::
+
+::: {.column width="45%"}
+![](images/rproj-basic-organization.png)
+:::
+:::
 
 
 
