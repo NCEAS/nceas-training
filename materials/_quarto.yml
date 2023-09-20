@@ -26,9 +26,9 @@ book:
         href: https://github.com/NCEAS/core-r-course
   
   chapters:
-    - index.qmd # preface
+    - index.qmd # preface DONE
     - session_01.qmd # rstudio server setup DONE
-    - session_02.qmd # git setup
+    - session_02.qmd # git setup DONE
     - session_03.qmd # intro to R programming
     - session_04.qmd # literate analysis with quarto
     - session_05.qmd # FAIR and CARE 
