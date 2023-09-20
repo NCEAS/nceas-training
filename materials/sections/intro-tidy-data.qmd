@@ -20,7 +20,8 @@ A dataset is a collection of **values**, with each value belonging to an observa
 
 - A **variable** groups all the values that measure the same attribute. In the previous example, the variables would be the date of collection, altitude and species name. 
 
-::: callout-note
+::: {.callout-caution icon=false}
+#### Defining Variable
 “Variable” is a general term that covers multiple types of attributes. For example, when we are collecting data to investigate a causal relationship, variables include both *explanatory variables* (also called independent variables) and *response variables* (also called dependent variables). We could also have a classifier variable that assigns a unique identifier to each observation. 
 
 When we want to document our values, we must think of the best way to organize them so they clearly relate to the variables they represent and the observations they belong to.
@@ -93,7 +94,6 @@ Consider the following table.
 It’s a single one this time! 
 It shows data about species observed at a specific site and date. The column headers refer to the following:
 
-- *id*: id of row
 - *date*: date when a species was observed
 - *site*: site where a species was observed
 - *name*: site’s name
@@ -197,7 +197,8 @@ The 'site' column is the *primary key* of that table because it uniquely identif
 
 ![](images/tidy-data-images/relational_data_models/primary_foreign_keys.png){fig-align="center" width=70%}
 
-### Surrogate, natural, and compound keys
+### Compound keys
+<!-- ### Surrogate, natural, and compound keys
 
 In the sites data table from the previous example, we noticed that ‘site’ and ‘name’ are variables whose values uniquely identify the rows. In other words, ‘site’ and ‘name’ are keys. However, ‘site’ and ‘name’ are very different keys since the values in ‘site’ are “made up”, while ‘name’ has values that are used in the external world, unrelated to the table. This leads us to the following key types:
 
@@ -206,9 +207,10 @@ In the sites data table from the previous example, we noticed that ‘site’ an
 
 A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
 
-![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png){fig-align="center" width=70%}
+![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png){fig-align="center" width=70%} -->
 
-Finally, it can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows. This is called a
+<!--Finally,--> 
+It can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows. This is called a
 
 - **Compound Key**: a key that is made up of more than one variable. 
 
@@ -336,4 +338,3 @@ In the Cleaning & Wrangling chapter we will cover more best practices for cleani
 We will work on an in-person, offline activity to practice identifying tidy data, normalizing data, draing E-R models, and performing joins. The data tables we will use  have been adapted from the following dataset for teaching purposes:
 
 Warren, P.S., A. Kinzig, C.A. Martin, and L. Machabee. 2021. Ecological and social Interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area ver 10. Environmental Data Initiative. <a href=https://doi.org/10.6073/pasta/f6f004bc7112ce266fde2b80fad19ff4 target="_blank"> https://doi.org/10.6073/pasta/f6f004bc7112ce266fde2b80fad19ff4 </a> (Accessed 2023-06-28).
-
