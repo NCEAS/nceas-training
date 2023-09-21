@@ -100,13 +100,12 @@ This lesson will cover examples to learn about the functions you'll most commonl
 
 To demonstrate, we'll be working with a tidied up version of a data set from [Alaska Department of Fish & Game containing commercial catch data from 1878-1997](https://knb.ecoinformatics.org/#view/df35b.304.2). The data set and reference to the original source can be found at its [public archive](https://knb.ecoinformatics.org/#view/df35b.304.2).
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Setup
 First, open a new Quarto document. Delete everything below the setup chunk, and add a library chunk that calls `dplyr`, `tidyr`, and `readr`
 
 ```{r}
 #| message: false
-#| warning: false
 
 library(dplyr)
 library(tidyr)
@@ -115,11 +114,11 @@ library(readr)
 
 :::
 
-::: callout-important
+::: {.callout-important}
 
-## A note on loading packages
+### A note on loading packages
 
-You may have noticed the following warning messages pop up when you ran your library chunk.
+You may have noticed the following messages pop up when you ran your library chunk.
 
 ```
 Attaching package: ‘dplyr’
@@ -133,7 +132,7 @@ The following objects are masked from ‘package:base’:
     intersect, setdiff, setequal, union
 ```
 
-These are important warnings. They are letting you know that certain functions from the `stats` and `base` packages (which are loaded by default when you start R) are masked by *different functions* with the same name in the `dplyr` package. It turns out, the order that you load the packages in matters. Since we loaded `dplyr` after `stats`, R will assume that if you call `filter()`, you mean the `dplyr` version unless you specify otherwise.
+These are important messages. They are letting you know that certain functions from the `stats` and `base` packages (which are loaded by default when you start R) are masked by *different functions* with the same name in the `dplyr` package. It turns out, the order that you load the packages in matters. Since we loaded `dplyr` after `stats`, R will assume that if you call `filter()`, you mean the `dplyr` version unless you specify otherwise.
 
 Being specific about which version of `filter()`, for example, you call is easy. 
 To explicitly call a function by its unambiguous name, we use the syntax `package_name::function_name(...)`. 
@@ -142,15 +141,15 @@ So, if we wanted to call the `stats` version of `filter()` in this Rmarkdown doc
 
 
 
-::: callout-note
-## Note
+::: {.callout-caution icon=false}
+### Remove messages and warnings
 
-Warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages by adding `#| warning: false`.
+Messages and warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages by adding `#| message: false` or `#| warning: false`. Both of these chunk options, when set to false, prevents messages or warnings from appearing in the rendered file.
 :::
 
 Now that we have introduced some data wrangling libraries, let's get the data that we are going to use for this lesson.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Setup
 
 1. Go to [KNB Data Package Alaska commercial salmon catches by management region (1886- 1997)](https://knb.ecoinformatics.org/view/df35b.304.2)
@@ -179,7 +178,7 @@ catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/obje
 
 This data set is relatively clean and easy to interpret as-is. While it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 Before we get too much further, spend a minute or two outlining your RMarkdown document so that it includes the following sections and steps:
@@ -188,13 +187,20 @@ Before we get too much further, spend a minute or two outlining your RMarkdown d
   - Read in the data
   - Explore data
 - Clean and Reshape data
-  - Remove unnecessary columns
-  - Check column typing
+  - Using `select()` function
+  - Check column types
+  - Replace values in a column
   - Reshape data
+  - Rename columns `rename()`
+  - Summary stats using `group_by()` and `summarize()`
+  - Filtering rows using `filter()`
+  - Sort data using `arrange()`
+  - Split and combine values in columns
+  
 :::
 
 ## Data exploration
-Similar to what we did in our [Intro to Quarto](https://learning.nceas.ucsb.edu/2023-04-coreR/session_03.html) lesson, it is good practice to skim through the data you just read in. 
+Similar to what we did in our [Intro to Literate Analysis](https://learning.nceas.ucsb.edu/2023-10-coreR/session_04.html) lesson, it is good practice to skim through the data you just read in. 
 Doing so is important to make sure the data is read as you were expecting and to familiarize yourself with the data.
 
 Some of the basic ways to explore your data are:
@@ -294,7 +300,7 @@ One nice way of doing this is the `glimpse()` function.
 dplyr::glimpse(catch_data)
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 Examine the output of the `glimpse()` function call. Does anything seem amiss with this data set that might warrant fixing?
@@ -506,19 +512,17 @@ n_region <- catch_long %>%
 head(n_region)
 ```
 
-::: callout-note
-## Tip
+::: {.callout-caution icon=false}
+## Try using `count()`
 
 If you are finding that you are reaching for this combination of `group_by()`, `summarize()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 :::
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 - Find another grouping and statistic to calculate for each group.
 - Find out if you can group by multiple variables.
-:::
-
 
 ```{r}
 #| code-fold: true
@@ -530,7 +534,7 @@ catch_year_sp <- catch_long %>%
     group_by(Year, species) %>%
     summarize(total_year = sum(catch, na.rm = T))
 ```
-
+:::
 
 
 ## Filtering rows using `filter()`
@@ -546,12 +550,11 @@ sse_catch <- catch_long %>%
 head(sse_catch)
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 - Filter to just catches of over one million fish
 - Filter to just Chinook from the SSE region
-:::
 
 ```{r}
 #| code-fold: true
@@ -571,14 +574,15 @@ chinook_see <- catch_long %>%
 chinook_see <- catch_long %>%
     filter(Region == "SSE" & species == "Chinook")
 ```
+:::
 
 
 ## Sorting your data using `arrange()`
 
-The `arrange()` function is used to sort the rows of a `data.frame`. Two common case to use `arrange()` are:
+The `arrange()` function is used to sort the rows of a `data.frame`. Two common cases to use `arrange()` are:
 
 - To calculate a cumulative sum (with `cumsum()`) so row order matters
-- To display a table (like in an `.Rmd` document) in sorted order
+- To display a table (like in an `.qmd` document) in sorted order
 
 Let's re-calculate mean catch by region, and then `arrange()` the output by mean catch:
 
@@ -605,7 +609,7 @@ head(mean_region)
 
 ## Splitting a column using `separate()` and `unite()`
 
-The `separate()` function allow us to easily split a single column into numerous. Its complement, the `unite()` function, allows ys to combine multiple columns into a single one.
+The `separate()` function allow us to easily split a single column into numerous. Its complement, the `unite()` function, allows us to combine multiple columns into a single one.
 
 This can come in really handy when we need to split a column into two pieces by a consistent separator (like a dash).
 
@@ -613,16 +617,16 @@ Let's make a new `data.frame` with fake data to illustrate this. Here we have a 
 
 ```{r}
 sites_df <- data.frame(site = c("HAW-101",
-                            "HAW-103",
-                            "OAH-320",
-                            "OAH-219",
-                            "MAI-039"))
+                                "HAW-103",
+                                "OAH-320",
+                                "OAH-219",
+                                "MAU-039"))
 
 sites_df %>%
     separate(site, c("island", "site_number"), "-")
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 Split the `city` column in the data frame `cities_df` into `city` and `state_code` columns
@@ -633,8 +637,6 @@ cities_df <- data.frame(city = c("Juneau AK",
                                  "Sitka AK",
                                  "Anchorage AK"))
 ```
-:::
-
 
 ```{r}
 #| code-fold: true
@@ -646,7 +648,7 @@ cities_clean <- cities_df %>%
     separate(city, c("city", "state_code"), " ")
 
 ```
-
+:::
 
 The `unite()` function does just the reverse of `separate()`. If we have a `data.frame` that contains columns for year, month, and day, we might want to unite these into a single date column.
 
@@ -693,16 +695,12 @@ head(mean_region)
 ```
 
 
-We have completed our lesson on Cleaning and Wrangling data. Before we break, let's practice our Github workflow.
+We have completed our lesson on Cleaning and Wrangling data. Before we break, let's practice our Git workflow.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Steps
 
-1. Save the `.Rmd` you have been working on for this lesson.
-2. Knit the R Markdown file. This is a way to test everything in your code is working.
-3. ```Stage > Commit > Pull > Push```
+1. Save the `.qmd` you have been working on for this lesson.
+2. Render the Quarto file. This is a way to test everything in your code is working.
+3. ```Stage (Add) > Commit > Pull > Push```
 :::
-
-
-
-
