@@ -5,13 +5,13 @@ format: html
 ::: callout-tip
 ## Setup
 
-1. Stay in the R Markdown file `owner-analysis.Rmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
+1. Stay in the Quarto Document `owner-analysis.qmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
 
 **Structure of the data visualization exercises:** 
 
 - Questions 7-9 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
-- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.Rmd` (start with just one plot and if there's time add styling code to another plot).
-- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.Rmd`.
+- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.qmd` (start with just one plot and if there's time add styling code to another plot).
+- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.qmd`.
 :::
 
 ```{r}
@@ -35,6 +35,7 @@ Create a multi-panel plot of lobster carapace length (`SIZE_MM`) using `ggplot()
 :::
 
 ```{r}
+#| code-summary: "Answer"
 ggplot(data = lobster_abundance, aes(x = SIZE_MM)) +
     geom_histogram() +
     facet_wrap(~SITE)
@@ -58,6 +59,7 @@ First, you'll need to create a new dataset subset called `lobsters_summarize`:
 - Calculate the total number of lobsters observed using `count()`
 
 ```{r}
+#| code-summary: "Answer"
 lobsters_summarize <- lobster_abundance %>% 
   group_by(SITE, YEAR) %>% 
   summarize(COUNT = n())
@@ -66,6 +68,7 @@ lobsters_summarize <- lobster_abundance %>%
 Next, create a line graph using `ggplot()` and `geom_line()`. Use `geom_point()` to make the data points more distinct, but ultimately up to you if you want to use it or not. We also want `SITE` information on this graph, do this by specifying the variable in the `color` argument. Where should the `color` argument go? Inside or outside of `aes()`? Why or why not?
 
 ```{r}
+#| code-summary: "Answer"
 # line plot
 ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
   geom_line(aes(color = SITE)) 
@@ -98,6 +101,7 @@ First, you'll need to create a new dataset subset called `lobster_size_lrg`:
 - Remove the `NA` values from the subsetted data. Hint: check out `drop_na()`. Check your output
 
 ```{r}
+#| code-summary: "Answer"
 lobster_size_lrg <- lobster_abundance %>% 
     filter(YEAR %in% c(2019, 2020, 2021)) %>% 
     mutate(SIZE_BIN = if_else(SIZE_MM <= 70, true = "small", false = "large")) %>% 
@@ -109,6 +113,7 @@ lobster_size_lrg <- lobster_abundance %>%
 Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar()` automatically creates a stacked bar chart. Try using the argument `position = "dodge"` to make the bars side by side. Pick which bar position you like best.
 
 ```{r}
+#| code-summary: "Answer"
 # bar plot
 ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
     geom_col()
@@ -157,7 +162,7 @@ ggplot(data = lobster_size_lrg, aes(x = SITE, y = COUNT, fill = SIZE_BIN)) +
 :::
 
 ::: callout-important
-## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+## Save your work and use Git
+Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 

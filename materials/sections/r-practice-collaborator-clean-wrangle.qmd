@@ -5,10 +5,10 @@ format: html
 ::: callout-tip
 ## Setup
 
-1.  Open the R Markdown file `collaborator-analysis.Rmd`
+1.  Open the Quarto Document `collaborator-analysis.qmd`
     a. Check the `YAML` and add your name to the `author` field
     b. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
-2.  Load the following libraries at the top of your R Markdown file.
+2.  Load the following libraries at the top of your Quarto Document.
 
 ```{r}
 #| code-fold: false
@@ -28,7 +28,7 @@ lobster_traps <- read_csv("data/Lobster_Trap_Counts_All_Years_20210519.csv")
 
 4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
 
-5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
+5. Use the Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
     - **Note:** You also want to `Pull` when you first open a project
     
 :::
@@ -42,6 +42,7 @@ The variable `TRAPS` uses -99999 as the code for missing values (see metadata or
 :::
 
 ```{r}
+#| code-summary: "Answer"
 lobster_traps <- lobster_traps %>% 
     mutate(TRAPS = na_if(TRAPS, -99999))
 ```
@@ -54,6 +55,7 @@ Create and store a subset that does NOT include observations from Naples Reef (`
 :::
 
 ```{r}
+#| code-summary: "Answer"
 not_napl <- lobster_traps %>% 
     filter(SITE != "NAPL")
 ```
@@ -64,14 +66,15 @@ Create and store a subset with lobsters at Carpinteria Reef (`CARP`) OR number o
 :::
 
 ```{r}
+#| code-summary: "Answer"
 carp_20_traps <- lobster_traps %>% 
     filter(SITE == "CARP", TRAPS > 20)
 ```
 
 
 ::: callout-important
-## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+## Save your work and use Git
+Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
 <!--# Extra Questions -->

@@ -5,13 +5,13 @@ format: html
 ::: callout-tip
 ## Setup
 
-1. Stay in the R Markdown file `collaborator-analysis.Rmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
+1. Stay in the Quarto Document `collaborator-analysis.qmd` and create a new section with a level 2 header and title it "Exercise: Data Visualization"
 
 **Structure of the data visualization exercises:** 
 
 - Questions 7-9 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
-- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.Rmd` (start with just one plot and if there's time add styling code to another plot).
-- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.Rmd`.
+- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.qmd` (start with just one plot and if there's time add styling code to another plot).
+- Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.qmd`.
 :::
 
 ```{r}
@@ -36,6 +36,7 @@ Create a multi-panel plot of lobster commercial traps (`TRAPS`) grouped by year,
 
 
 ```{r}
+#| code-summary: "Answer"
 ggplot(data = lobster_traps, aes(x = TRAPS)) +
     geom_histogram() +
     facet_wrap( ~ YEAR)
@@ -59,6 +60,7 @@ First, you'll need to create a new dataset subset called `lobsters_traps_summari
 - Calculate the total number of lobster commercial traps observed using `sum()`. Look up `sum()` if you need to. Call the new column `TOTAL_TRAPS`. Don't forget about `NAs` here!
 
 ```{r}
+#| code-summary: "Answer"
 lobsters_traps_summarize <- lobster_traps %>% 
   group_by(SITE, YEAR) %>% 
   summarize(TOTAL_TRAPS = sum(TRAPS, na.rm = TRUE))
@@ -68,6 +70,7 @@ Next, create a line graph using `ggplot()` and `geom_line()`. Use `geom_point()`
 
 
 ```{r}
+#| code-summary: "Answer"
 # line plot
 ggplot(data = lobsters_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
     geom_line(aes(color = SITE))
@@ -103,6 +106,7 @@ First, you'll need to create a new dataset subset called `lobster_traps_fishing_
 - Remove the `NA` values from the subsetted data. Hint: check out `drop_na()`. Check your output
 
 ```{r}
+#| code-summary: "Answer"
 lobster_traps_fishing_pressure <- lobster_traps %>% 
     filter(YEAR %in% c(2019, 2020, 2021)) %>%
     mutate(FISHING_PRESSURE = if_else(TRAPS >= 8, true = "high", false = "low")) %>%
@@ -114,6 +118,7 @@ lobster_traps_fishing_pressure <- lobster_traps %>%
 Next, create a bar graph using `ggplot()` and `geom_bar()`. Note that `geom_bar()` automatically creates a stacked bar chart. Try using the argument `position = "dodge"` to make the bars side by side. Pick which bar position you like best.
 
 ```{r}
+#| code-summary: "Answer"
 # bar plot
 ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FISHING_PRESSURE)) +
     geom_col()
@@ -162,7 +167,7 @@ ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FI
 :::
 
 ::: callout-important
-## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+## Save your work and use Git
+Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
