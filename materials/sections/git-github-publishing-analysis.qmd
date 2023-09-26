@@ -6,7 +6,7 @@ execute:
 
 ## Learning Objectives {.unnumbered}
 
-- How to use `Git`, GitHub (+Pages), and R Markdown to publish an analysis to the web
+- How to use Git, GitHub (+Pages), and Quarto to publish an analysis to the web
 
 ## Introduction
 
@@ -16,11 +16,11 @@ So far in this course, we've introduced a small set of powerful tools for doing 
 
 - R and its many packages
 - RStudio
-- `Git`
+- Git
 - GitHub
-- R Markdown
+- Quarto
 
-R Markdown, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
+Quarto, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
 
 In this lesson, we're going to take our `training_{USERNAME}` GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
 
@@ -29,28 +29,28 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
 
 0. Make sure you are in `training_{USERNAME}` project
 
-1. Add a new R Markdown file at the top level called `index.Rmd`
-    a. Go to the RStudio menu  File > New File > R Markdown
+1. Add a new Quarto file at the top level called `index.qmd`
+    a. Go to the RStudio menu  File -> New File -> Quarto Document
     b. This will bring up a dialog box. Add the title "GitHub Pages Example", keep the Default Output Format as "HTML", and then click "OK"
     
-2. Save the R Markdown file you just created. Use `index.Rmd` as the file name
-    a. Be sure to use the exact case (**lower case 'index'**) as different operating systems handle case differently and it can interfere with loading your web page later
+2. Save the Quarto Document you just created. Use `index.qmd` as the file name
+    a. Be sure to use the exact case (**lower case "index"**) as different operating systems handle case differently and it can interfere with loading your web page later
 
-3. Press "Knit" and observe the rendered output
+3. Press "Render" and observe the rendered output
     a. Notice the new file in the same directory `index.html`
-    b. This is our R Markdown file rendered as `HTML` (a web page)
+    b. This is our Quarto file rendered as `HTML` (a web page)
     
-4. Commit your changes (for both `index.Rmd` and `index.html`) with a commit message, and `push` to GitHub
+4. Commit your changes (for both `index.qmd` and `index.html`) with a commit message, and `push` to GitHub
 
-5. Open your web browser to the [GitHub.com](https://github.com/) and navigate to the page for your `training_{USERNAME}` repository
+5. Open your web browser to the [github.com](https://github.com/) and navigate to the page for your `training_{USERNAME}` repository
 
 6. Activate GitHub Pages for the `main` branch 
-    a. Go to Settings > Pages (underneath the Code and Automation section)
+    a. Go to Settings -> Pages (underneath the Code and Automation section)
     b. Keep the "Source" as "Deploy from a branch"
     c. Under "Branch" you'll see a message that says "GitHub Pages is currently disabled". To change this, change the branch from "None" to `main`. Keep the folder as the `root` and then click "Save"
     d. You should see the message change to "Your GitHub Pages site is currently being built from the `main` branch"
 
-**Note:** `index.Rmd` represents the default file for a web site, and is returned whenever you visit the web site but doesn't specify an explicit file to be returned.
+**Note:** `index.qmd` represents the default file for a web site, and is returned whenever you visit the web site but doesn't specify an explicit file to be returned.
 :::
 
 Now, the rendered website version of your repo will show up at a special URL.
@@ -64,40 +64,39 @@ Note that it changes from **github.com** to **github.io**
 - Go to `https://{username}.github.io/{repo_name}/` (Note the trailing `/`)
 - Observe the awesome rendered output
     
-Now that we've successfully published a web page from an R Markdown document, let's make a change to our R Markdown document and follow the steps to publish the change on the web:
+Now that we've successfully published a web page from an Quarto Document, let's make a change to our Quarto Document and follow the steps to publish the change on the web:
 
 ::: callout-note
 ## Update content in your published page
 
-- Go back to your `index.Rmd`
+- Go back to your `index.qmd`
 - Delete all the content, except the `YAML` frontmatter
 - Type "Hello world"
-- Use `Git` workflow: ```Stage > Commit > Pull > Push```
+- Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
 - Go back to `https://{username}.github.io/{repo_name}/`
 :::
 
-Next, we will show how you can link different `Rmd`s rendered into `html` so you can easily share different parts of your work. 
+Next, we will show how you can link different `qmd`'s rendered into `html` so you can easily share different parts of your work. 
 
 ::: callout-note
 ## Exercise
 
 In this exercise, you'll create a table of contents with the lessons of this course on the main page, and link some of the files we have work on so far.
 
-- Go back to the RStudio server and to your `index.Rmd` file
+- Go back to the RStudio server and to your `index.qmd` file
 - Create a table of contents with the names of the main technical lessons of this course, like so:
 
 ```
 ## coreR workshop
 
-- Introduction to RMarkdown 
+- Introduction to Literate Analysis Using Quarto 
 - Cleaning and Wrangling data
 - Data Visualization
-- Spatial Analysis
 ```
 
-- Make sure you have the `html` versions of your `intro-to-rmd.Rmd` and `data-cleaning.Rmd` files. If you only see the `Rmd` version, you need to "Knit" your files first
+- Make sure you have the `html` versions of your `intro-to-qmd.qmd` and `data-cleaning.qmd` files. If you only see the `qmd` version, you need to "Render" your files first
 
-- In your `index.Rmd` let's add the links to the html files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
+- In your `index.qmd` let's add the links to the `html` files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
 
 <details>
   <summary>Markdown syntax to create a link:</summary>
@@ -106,14 +105,14 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 </details>
 
 
-- Use `Git` workflow: ```Stage > Commit > Pull > Push```
+- Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
 
 Now when you visit your web site, you'll see the table of contents, and can navigate to the others file you linked.
 
 :::
 
 
-R Markdown web pages are a great way to share work in progress with your colleagues. Here we showed an example with the materials we have created in this course. However, you can use these same steps to share the different files and progress of a project you've been working on. To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed. You can include multiple pages and build a simple web site and make your work accessible to people who aren't set up to open your project in R. Your site could look something like this:
+Quarto web pages are a great way to share work in progress with your colleagues. Here we showed an example with the materials we have created in this course. However, you can use these same steps to share the different files and progress of a project you've been working on. To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed. You can include multiple pages and build a simple web site and make your work accessible to people who aren't set up to open your project in R. Your site could look something like this:
 
 
 ![](images/git-index-page.png)
