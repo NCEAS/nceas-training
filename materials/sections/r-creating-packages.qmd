@@ -1,13 +1,11 @@
 
-## Learning Objectives
-
-In this lesson, you will learn:
+<!-- ## Learning Objectives {.unnumbered}
 
 - The advantages of using R packages for organizing code
 - Simple techniques for creating R packages
-- Approaches to documenting code in packages
+- Approaches to documenting code in packages-->
 
-## Why packages?
+## R Packages
 
 Most R users are familiar with loading and utilizing packages in their work. And they know how rich CRAN is in providing for many conceivable needs.  Most people have never created a package for their own work, and most think the process is too complicated.  Really it's pretty straighforward and super useful in your personal work.  Creating packages serves two main use cases:
 
@@ -22,7 +20,7 @@ Even if you don't plan on writing a package with such broad appeal such as, say,
 
 The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a package to be a straightforward experience.
 
-## Install and load packages
+### Install and load packages
 
 ```{r}
 #| eval: false
@@ -32,7 +30,7 @@ library(usethis)
 library(roxygen2)
 ```
 
-## Create a basic package
+### Create a basic package
 
 Thanks to the great [usethis](https://github.com/r-lib/usethis) package, it only takes one function call to create the skeleton of an R package using `create_package()`.  Which eliminates pretty much all reasons for procrastination.  To create a package called
 `mytools`, all you do is:
@@ -90,7 +88,7 @@ LazyData: true
 ```
 
 
-## Add your code
+### Add your code
 
 The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `custom_theme` that contains a function `custom_theme()` that you might want to reuse. The `usethis::use_r()` function will help set up you files in the right places.  For example, running:
 
@@ -138,7 +136,7 @@ usethis::use_package("ggplot2")
     ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
     ● Refer to functions with `devtools::fun()`
 
-## Add documentation
+### Add documentation
 
 You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts. Be sure to define the overall purpose of the function, and each of its parameters.
 
@@ -195,7 +193,7 @@ devtools::document()
 
 That's really it.  You now have a package that you can `check()` and `install()` and `release()`.  See below for these helper utilities.
 
-## Test your package
+### Test your package
 
 You can test your code using the `tetsthat` testing framework.  The `ussethis::use_testthat()` 
 function will set up your package for testing, and then you can use the `use_test()` function
@@ -285,7 +283,7 @@ devtools::test()
 
 Yay, all tests passed!
 
-## Checking and installing your package
+### Checking and installing your package
 
 Now that your package is built, you can check it for consistency and completeness using `check()`, and then you can install it locally using `install()`, which needs to be run from the parent directory of your module.
 
@@ -298,7 +296,7 @@ devtools::install()
 
 Your package is now available for use in your local environment.
 
-## Sharing and releasing your package
+### Sharing and releasing your package
 
 - **GitHub**: The simplest way to share your package with others is to upload it to a [GitHub repository](https://github.com), which allows others to install your package using the `install_github('mytools','github_username')` function from `devtools`.
 
@@ -314,12 +312,12 @@ install.packages('codyn', repos = c('https://dataoneorg.r-universe.dev', 'https:
 ```
 
 
-## Challenge {- .exercise}
+### Challenge {- .exercise}
 
 Add the other temperature conversion functions with full documentation to your package, write tests to ensure the functions work properly, and then
 `document()`, `check()`, and `install()` the new version of the package. Don't forget to update the version number before you install!
 
-## More reading
+### More reading
 
 - Hadley Wickham's awesome book: [R Packages](http://r-pkgs.had.co.nz/)
 - Thomas Westlake's blog [Writing an R package from scratch](https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/)

@@ -1,12 +1,23 @@
 ## Learning Objectives {.unnumbered}
 
--   Learn why we should write code in small functions
--   Write code for one or more functions
+-   Explain the importance of using and developing functions
+-   Create custom functions using R code
 -   Document functions to improve understanding and code communication
 
-## Creating R Functions
+## R Functions
 
-Many people write R code as a single, continuous stream of commands, often drawn from the R Console itself and simply pasted into a script. While any script brings benefits over non-scripted solutions, there are advantages to breaking code into small, reusable modules. This is the role of a `function` in R. In this lesson, we will review the advantages of coding with functions, practice by creating some functions and show how to call them, and then do some exercises to build other simple functions.
+::: {.callout-caution icon=false collapse=true}
+### Quick reminder: What is a function?
+
+A set of statements or expressions of code that are organized together to perform a specific task.
+
+The statements or expressions of code within the function accept accept user input(s), does something with it, and returns a useful output.
+
+Syntax: ```result_value <- function_name(argument1 = value1, argument2 = value2, ...)```
+:::
+
+Many people write R code as a single, continuous stream of commands, often drawn from the R Console itself and simply pasted into a script. While any script brings benefits over non-scripted solutions, there are advantages to breaking code into small, reusable modules. This is the role of a **function** in R. In this lesson, we will review the advantages of coding with functions, practice by creating some functions and show how to call them, and then do some exercises to build other simple functions.
+
 
 ```{r}
 #| label: load-libs-funcs
@@ -19,17 +30,33 @@ library(DT)
 
 ### Why functions?
 
-In a word:
+::: {.callout-important appearance="simple"}
+**DRY: Don't Repeat Yourself**
+:::
 
--   DRY: Don't Repeat Yourself
+>"You should consider writing a function whenever you've copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)."
+>
+> *[Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science (Grolemund & Wickham)*
 
-By creating small functions that only one logical task and do it well, we quickly gain:
+By creating small functions that only complete one logical task and do it well, we quickly gain:
 
 -   Improved understanding
 -   Reuse via decomposing tasks into bite-sized chunks
 -   Improved error testing
 
-#### Temperature conversion {.unnumbered}
+
+::: {.callout-caution icon=false}
+#### Naming Functions
+The name of a function is important. Ideally, function names should be short, but still clearly captures what the function does.
+
+Best Practices from [Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science:
+
+- Function names should be verbs and arguments should be nouns (there are [exceptions](https://r4ds.had.co.nz/functions.html#functions-are-for-humans-and-computers)).
+- Use the `snake_case` naming convention for functions that are multiple words.
+- For a "family" of functions, use a common prefix to indicate that they are connected.
+:::
+
+### Example: Temperature Conversion 
 
 Imagine you have a bunch of data measured in Fahrenheit and you want to convert that for analytical purposes to Celsius. You might have an R script that does this for you.
 
@@ -44,9 +71,9 @@ celsius3 <- (airtemps[3]-32)*5/9
 
 Note the duplicated code, where the same formula is repeated three times. This code would be both more compact and more reliable if we didn't repeat ourselves.
 
-#### Creating a function {.unnumbered}
+#### Create a function that converts Fahrenheit to Celsius {.unnumbered}
 
-Functions in R are a mechanism to process some input and return a value. Similarly to other variables, functions can be assigned to a variable so that they can be used throughout code by reference. To create a function in R, you use the `function` function (so meta!) and assign its result to a variable. Let's create a function that calculates celsius temperature outputs from fahrenheit temperature inputs.
+Functions in R are a mechanism to process some input and return a value. Similarly to other variables, functions can be assigned to a variable so that they can be used throughout code by reference. To create a function in R, you use the `function` function (so meta!) and assign its result to a variable. Let's create a function that calculates Celsius temperature outputs from Fahrenheit temperature inputs.
 
 ```{r}
 #| label: f2c-function
@@ -57,7 +84,7 @@ fahr_to_celsius <- function(fahr) {
 }
 ```
 
-By running this code, we have created a function and stored it in R's global environment. The `fahr` argument to the `function` function indicates that the function we are creating takes a single parameter (the temperature in fahrenheit), and the `return` statement indicates that the function should return the value in the `celsius` variable that was calculated inside the function. Let's use it, and check if we got the same value as before:
+By running this code, we have created a function and stored it in R's global environment. The `fahr` argument to the `function` function indicates that the function we are creating takes a single parameter (the temperature in Fahrenheit), and the `return` statement indicates that the function should return the value in the `celsius` variable that was calculated inside the function. Let's use it, and check if we got the same value as before:
 
 ```{r}
 #| label: demo-f2c-function
@@ -67,7 +94,7 @@ celsius4
 celsius1 == celsius4
 ```
 
-Excellent. So now we have a conversion function we can use. Note that, because most operations in R can take multiple types as inputs, we can also pass the original vector of `airtemps`, and calculate all of the results at once:
+Excellent. So now we have a conversion function we can use. Note that, because most operations in `R` can take multiple types as inputs, we can also pass the original vector of `airtemps`, and calculate all of the results at once:
 
 ```{r}
 #| label: f2c-function-vector
@@ -76,32 +103,32 @@ celsius <- fahr_to_celsius(airtemps)
 celsius
 ```
 
-This takes a vector of temperatures in fahrenheit, and returns a vector of temperatures in celsius.
+This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.
 
-#### Challenge {.unnumbered .exercise}
+#### Your Turn: Create a function that converts Celsius to Fahrenheit {.unnumbered}
 
-Now, create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in celsius as input, and returns the data converted to fahrenheit. Then use that formula to convert the `celsius` vector back into a vector of fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct. Hint: the formula for C to F conversions is `celsius*9/5 + 32`.
+::: {.callout-note}
 
-```{r}
-#| label: func-exercise-1
-#| echo: true
-#| eval: false
+#### Exercise
 
-# Your code goes here
-```
+Create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in Celsius as input, and returns the data converted to Fahrenheit. 
+
+Then use that formula to convert the `celsius` vector back into a vector of Fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct. 
+
+**Hint:** the formula for C to F conversions is `celsius*9/5 + 32`.
+:::
 
 Did you encounter any issues with rounding or precision?
 
-::: {.callout-note collapse=true}
+::: {.callout-tip collapse=true icon=false}
 
-#### Solution, but don't peek! {.unnumbered}
+##### Solution, but don't peek!
 
 Don't peek until you write your own...
 
 ```{r}
 #| label: f2c-func-solution
 
-# Your code goes here
 celsius_to_fahr <- function(celsius) {
     fahr <- celsius*9/5 + 32
     return(fahr)
@@ -118,7 +145,7 @@ airtemps == result
 
 Functions need documentation so that we can communicate what they do, and why. The `roxygen2` package provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
-Documentation in ROxygen is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
+Documentation in Roxygen is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
 
 ```{r}
 #| label: f2c-func-docs
@@ -132,6 +159,7 @@ Documentation in ROxygen is placed immediately before the function definition, a
 #' @examples
 #' fahr_to_celsius(32)
 #' fahr_to_celsius(c(32, 212, 72))
+
 fahr_to_celsius <- function(fahr) {
   celsius <- (fahr-32)*5/9
   return(celsius)
@@ -140,23 +168,17 @@ fahr_to_celsius <- function(fahr) {
 
 Note the use of the `@param` keyword to define the expectations of input data, and the `@return` keyword for defining the value that is returned from the function. The `@examples` function is useful as a reminder as to how to use the function. Finally, the `@export` keyword indicates that, if this function were added to a package, then the function should be available to other code and packages to utilize.
 
-### Summary
-
--   Functions are useful to reduce redundancy, reuse code, and reduce errors
--   Build functions with the `function` function
--   Document functions with `roxygen2` comments
-
 ### Examples: Minimizing work with functions
 
-Functions can of course be as simple or complex as needed. They can be be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes fahrenheit temperatures as input, and calculates both celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
+Functions can of course be as simple or complex as needed. They can be be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes Fahrenheit temperatures as input, and calculates both Celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
 
 ```{r}
 #| label: func-return-list
 
 convert_temps <- function(fahr) {
-  celsius <- (fahr-32)*5/9
-  kelvin <- celsius + 273.15
-  return(list(fahr=fahr, celsius=celsius, kelvin=kelvin))
+  Celsius <- (fahr-32)*5/9
+  kelvin <- Celsius + 273.15
+  return(list(fahr=fahr, Celsius=Celsius, kelvin=kelvin))
 }
 
 temps_df <- data.frame(convert_temps(seq(-100,100,10)))
@@ -211,7 +233,7 @@ scatterplot <- function(df, point_size = 2, font_size=9) {
 }
 ```
 
-Calling that let's us, in a single line of code, create a highly customized plot but maintain flexibiity via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
+Calling that let's us, in a single line of code, create a highly customized plot but maintain flexibility via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
 
 ```{r}
 #| label: func-call-sp
@@ -220,4 +242,10 @@ scatterplot(temps_df, point_size=3, font_size = 16)
 ```
 
 Once these functions are set up, all of the plots built with them can be reformatted by changing the settings in just the functions, whether they were used to create 1, 10, or 100 plots.
+
+### Summary
+
+-   Functions are useful to reduce redundancy, reuse code, and reduce errors
+-   Build functions with `function()`
+-   Document functions with `roxygen2` comments
 
