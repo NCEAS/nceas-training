@@ -1,5 +1,5 @@
 ---
-title: "Writing Functions and Packages"
+title: "Writing Functions and Packages "
 title-block-banner: true
 format:
   html: 
@@ -8,3 +8,5 @@ format:
 ---
 
 {{< include /sections/r-creating-functions.qmd >}}
+
+{{< include /sections/r-creating-packages.qmd >}}
