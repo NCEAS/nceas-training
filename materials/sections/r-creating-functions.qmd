@@ -18,6 +18,7 @@ Syntax: ```result_value <- function_name(argument1 = value1, argument2 = value2,
 
 Many people write R code as a single, continuous stream of commands, often drawn from the R Console itself and simply pasted into a script. While any script brings benefits over non-scripted solutions, there are advantages to breaking code into small, reusable modules. This is the role of a **function** in R. In this lesson, we will review the advantages of coding with functions, practice by creating some functions and show how to call them, and then do some exercises to build other simple functions.
 
+
 ```{r}
 #| label: load-libs-funcs
 #| message: false
@@ -33,11 +34,27 @@ library(DT)
 **DRY: Don't Repeat Yourself**
 :::
 
+>"You should consider writing a function whenever you've copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)."
+>
+> *[Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science (Grolemund & Wickham)*
+
 By creating small functions that only complete one logical task and do it well, we quickly gain:
 
 -   Improved understanding
 -   Reuse via decomposing tasks into bite-sized chunks
 -   Improved error testing
+
+
+::: {.callout-caution icon=false}
+#### Naming Functions
+The name of a function is important. Ideally, function names should be short, but still clearly captures what the function does.
+
+Best Practices from [Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science:
+
+- Function names should be verbs and arguments should be nouns (there are [exceptions](https://r4ds.had.co.nz/functions.html#functions-are-for-humans-and-computers)).
+- Use the `snake_case` naming convention for functions that are multiple words.
+- For a "family" of functions, use a common prefix to indicate that they are connected.
+:::
 
 ### Example: Temperature Conversion 
 
@@ -128,7 +145,7 @@ airtemps == result
 
 Functions need documentation so that we can communicate what they do, and why. The `roxygen2` package provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
-Documentation in ROxygen is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
+Documentation in Roxygen is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
 
 ```{r}
 #| label: f2c-func-docs
@@ -140,12 +157,12 @@ Documentation in ROxygen is placed immediately before the function definition, a
 #' @keywords conversion
 #' @export
 #' @examples
-#' fahr_to_Celsius(32)
-#' fahr_to_Celsius(c(32, 212, 72))
+#' fahr_to_celsius(32)
+#' fahr_to_celsius(c(32, 212, 72))
 
-fahr_to_Celsius <- function(fahr) {
-  Celsius <- (fahr-32)*5/9
-  return(Celsius)
+fahr_to_celsius <- function(fahr) {
+  celsius <- (fahr-32)*5/9
+  return(celsius)
 }
 ```
 
@@ -196,7 +213,7 @@ custom_theme <- function(base_size = 9) {
 
 library(ggplot2)
 
-ggplot(temps_df, mapping=aes(x=fahr, y=Celsius, color=kelvin)) +
+ggplot(temps_df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
     geom_point() +
     custom_theme(10)
 
@@ -210,13 +227,13 @@ But we can go further. One can wrap the entire call to ggplot in a function, ena
 #| label: func-plot-custom
 
 scatterplot <- function(df, point_size = 2, font_size=9) {
-  ggplot(df, mapping=aes(x=fahr, y=Celsius, color=kelvin)) +
+  ggplot(df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
     geom_point(size=point_size) +
     custom_theme(font_size)
 }
 ```
 
-Calling that let's us, in a single line of code, create a highly customized plot but maintain flexibiity via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
+Calling that let's us, in a single line of code, create a highly customized plot but maintain flexibility via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
 
 ```{r}
 #| label: func-call-sp
