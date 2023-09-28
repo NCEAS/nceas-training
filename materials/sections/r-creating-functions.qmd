@@ -145,7 +145,7 @@ airtemps == result
 
 ### Documenting R functions
 
-Functions need documentation so that we can communicate what they do, and why. The [`roxygen2` R package](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
+Functions need documentation so that we can communicate what they do, and why. The [`roxygen2` R package](https://roxygen2.r-lib.org/) provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
 Documentation in `roxygen2` is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
 
