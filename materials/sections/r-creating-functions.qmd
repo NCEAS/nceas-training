@@ -64,9 +64,9 @@ Imagine you have a bunch of data measured in Fahrenheit and you want to convert 
 #| label: temp-test-data
 
 airtemps <- c(212, 30.3, 78, 32)
-celsius1 <- (airtemps[1]-32)*5/9
-celsius2 <- (airtemps[2]-32)*5/9
-celsius3 <- (airtemps[3]-32)*5/9
+celsius1 <- (airtemps[1] - 32) * 5/9
+celsius2 <- (airtemps[2] - 32) * 5/9
+celsius3 <- (airtemps[3] - 32) * 5/9
 ```
 
 Note the duplicated code, where the same formula is repeated three times. This code would be both more compact and more reliable if we didn't repeat ourselves.
@@ -79,7 +79,7 @@ Functions in R are a mechanism to process some input and return a value. Similar
 #| label: f2c-function
 
 fahr_to_celsius <- function(fahr) {
-  celsius <- (fahr-32)*5/9
+  celsius <- (fahr - 32) * 5/9
   return(celsius)
 }
 ```
@@ -113,9 +113,11 @@ This takes a vector of temperatures in Fahrenheit, and returns a vector of tempe
 
 Create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in Celsius as input, and returns the data converted to Fahrenheit. 
 
+Create the function `celsius_to_fahr` in a new R Script file.
+
 Then use that formula to convert the `celsius` vector back into a vector of Fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct. 
 
-**Hint:** the formula for C to F conversions is `celsius*9/5 + 32`.
+**Hint:** the formula for Celsius to Fahrenheit conversions is `celsius * 9/5 + 32`.
 :::
 
 Did you encounter any issues with rounding or precision?
@@ -130,7 +132,7 @@ Don't peek until you write your own...
 #| label: f2c-func-solution
 
 celsius_to_fahr <- function(celsius) {
-    fahr <- celsius*9/5 + 32
+    fahr <- celsius * 9/5 + 32
     return(fahr)
 }
 
@@ -143,30 +145,40 @@ airtemps == result
 
 ### Documenting R functions
 
-Functions need documentation so that we can communicate what they do, and why. The `roxygen2` package provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
+Functions need documentation so that we can communicate what they do, and why. The [`roxygen2` R package](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
-Documentation in Roxygen is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
+Documentation in `roxygen2` is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
 
 ```{r}
 #| label: f2c-func-docs
 
-#' Convert temperature data from Fahrenheit to Celsius
+#' Convert temperature values from Fahrenheit to Celsius
 #'
-#' @param fahr Temperature data in degrees Fahrenheit to be converted
-#' @return temperature value in degrees Celsius
-#' @keywords conversion
+#' @param fahr Numeric or numeric vector in degrees Fahrenheit
+#' 
+#' @return Numeric or numeric vector in degrees Celsius
 #' @export
+#' 
 #' @examples
 #' fahr_to_celsius(32)
 #' fahr_to_celsius(c(32, 212, 72))
 
 fahr_to_celsius <- function(fahr) {
-  celsius <- (fahr-32)*5/9
+  celsius <- (fahr - 32) * 5/9
   return(celsius)
 }
 ```
 
 Note the use of the `@param` keyword to define the expectations of input data, and the `@return` keyword for defining the value that is returned from the function. The `@examples` function is useful as a reminder as to how to use the function. Finally, the `@export` keyword indicates that, if this function were added to a package, then the function should be available to other code and packages to utilize.
+
+::: {.callout-caution icon=false}
+
+# Check it out: Function Documentation Section from R Packages (2e)
+
+For more best practices on function documentation, review Hadley Wickham and Jennifer Bryan's online book [R Packages (2e)](https://r-pkgs.org/) - [Chapter 10, Section 16: Function Documentation](https://r-pkgs.org/man.html).
+
+:::
+
 
 ### Examples: Minimizing work with functions
 
@@ -176,9 +188,9 @@ Functions can of course be as simple or complex as needed. They can be be very e
 #| label: func-return-list
 
 convert_temps <- function(fahr) {
-  celsius <- (fahr-32)*5/9
+  celsius <- (fahr - 32) * 5/9
   kelvin <- celsius + 273.15
-  return(list(fahr=fahr, celsius=celsius, kelvin=kelvin))
+  return(list(fahr = fahr, celsius = celsius, kelvin = kelvin))
 }
 
 temps_df <- data.frame(convert_temps(seq(-100,100,10)))
@@ -191,12 +203,12 @@ temps_df <- data.frame(convert_temps(seq(-100,100,10)))
 datatable(temps_df)
 ```
 
-Once we have a dataset like that, we might want to plot it. One thing that we do repeatedly is set a consistent set of display elements for creating graphs and plots. By using a function to create a custom `ggplot` theme, we can enable to keep key parts of the formatting flexible. FOr example, in the `custom_theme` function, we provide a `base_size` argument that defaults to using a font size of 9 points. Because it has a default set, it can safely be omitted. But if it is provided, then that value is used to set the base font size for the plot.
+Once we have a dataset like that, we might want to plot it. One thing that we do repeatedly is set a consistent set of display elements for creating graphs and plots. By using a function to create a custom `ggplot` theme, we can enable to keep key parts of the formatting flexible. For example, in the `custom_theme` function, we provide a `base_size` argument that defaults to using a font size of 9 points. Because it has a default set, it can safely be omitted. But if it is provided, then that value is used to set the base font size for the plot.
 
 ```{r}
 #| label: func-custom-theme
 
-custom_theme <- function(base_size = 9) {
+custom_theme <- function(base_size=9) {
     ggplot2::theme(
       text             = ggplot2::element_text(family = 'Helvetica', 
                                                color = 'gray30', 
@@ -208,7 +220,7 @@ custom_theme <- function(base_size = 9) {
       panel.border     = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
       panel.grid.major = ggplot2::element_line(colour = 'grey90', 
-                                               linewidth = .25),
+                                               linewidth = 0.25),
       legend.position  = 'right',
       legend.key       = ggplot2::element_rect(colour = NA, 
                                                fill = NA),
@@ -219,7 +231,7 @@ custom_theme <- function(base_size = 9) {
 
 library(ggplot2)
 
-ggplot(temps_df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
+ggplot(temps_df, mapping = aes(x = fahr, y = celsius, color = kelvin)) +
     geom_point() +
     custom_theme(10)
 
@@ -232,9 +244,9 @@ But we can go further. One can wrap the entire call to ggplot in a function, ena
 ```{r}
 #| label: func-plot-custom
 
-scatterplot <- function(df, point_size = 2, font_size=9) {
-  ggplot(df, mapping=aes(x=fahr, y=celsius, color=kelvin)) +
-    geom_point(size=point_size) +
+scatterplot <- function(df, point_size = 2, font_size = 9) {
+  ggplot(df, mapping = aes(x = fahr, y = celsius, color = kelvin)) +
+    geom_point(size = point_size) +
     custom_theme(font_size)
 }
 ```
@@ -244,7 +256,7 @@ Calling that let's us, in a single line of code, create a highly customized plot
 ```{r}
 #| label: func-call-sp
 
-scatterplot(temps_df, point_size=3, font_size = 16)
+scatterplot(temps_df, point_size = 3, font_size = 16)
 ```
 
 Once these functions are set up, all of the plots built with them can be reformatted by changing the settings in just the functions, whether they were used to create 1, 10, or 100 plots.
