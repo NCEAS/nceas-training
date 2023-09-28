@@ -14,13 +14,18 @@ Most R users are familiar with loading and utilizing packages in their work. And
 
 Even if you don't plan on writing a package with such broad appeal such as, say, `ggplot2` or `dplyr`, you still might consider creating a package to contain:
 
-- Useful utility functions you write i.e. a [Personal Package](https://hilaryparker.com/2013/04/03/personal-r-packages/). Having a place to put these functions makes it much easier to find and use them later.
+- Useful utility functions you write (i.e. a [Personal Package](https://hilaryparker.com/2013/04/03/personal-r-packages/)). Having a place to put these functions makes it much easier to find and use them later.
 - A set of shared routines for your lab or research group, making it easier to remain consistent within your team and also to save time.
 - The analysis accompanying a thesis or manuscript, making it all that much easier for others to reproduce your results.
 
+::: {.callout-caution icon=false}
+### Packages for Creating and Maintaining Packages
 The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a package to be a straightforward experience.
+:::
 
-### Install and load packages
+### Create a Basic Package
+
+To create a package we're going to use the following packages:
 
 ```{r}
 #| eval: false
@@ -30,65 +35,91 @@ library(usethis)
 library(roxygen2)
 ```
 
-### Create a basic package
-
-Thanks to the great [usethis](https://github.com/r-lib/usethis) package, it only takes one function call to create the skeleton of an R package using `create_package()`.  Which eliminates pretty much all reasons for procrastination.  To create a package called
+Thanks to the great [usethis](https://usethis.r-lib.org/) package, it only takes one function call to create the skeleton of an R package using `create_package()`.  Which eliminates pretty much all reasons for procrastination.  To create a package called
 `mytools`, all you do is:
 
-```{r, eval=FALSE}
+```{r}
 #| eval: false
 
 usethis::create_package("~/mytools")
 ```
+    
+```    
+✔ Creating '/home/dolinh/mytools/'
+✔ Setting active project to '/home/dolinh/mytools'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+Package: mytools
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+✔ Writing 'NAMESPACE'
+✔ Writing 'mytools.Rproj'
+✔ Adding '^mytools\\.Rproj$' to '.Rbuildignore'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Opening '/home/dolinh/mytools/' in new RStudio session
+✔ Setting active project to '<no active project>'
+```
 
-    ✔ Setting active project to '/Users/jones/development/mytools'
-    ✔ Creating 'R/'
-    ✔ Creating 'man/'
-    ✔ Writing 'DESCRIPTION'
-    ✔ Writing 'NAMESPACE'
-    ✔ Writing 'mytools.Rproj'
-    ✔ Adding '.Rproj.user' to '.gitignore'
-    ✔ Adding '^mytools\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
-    ✔ Opening new project 'mytools' in RStudio
+::: {.callout-caution icon=false}
+#### What did the `create_package()` function do?
 
-Note that this will open a new project (`mytools`) and a new session in RStudio server.
+1. Open a new project called `mytools` (the name of the package) in a new RStduio session.
+2. Create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure):
+    a. `DESCRIPTION`file: The most important file, which provides metadata about your package. Edit this file to provide reasonable values for each of the fields, including your  contact information. 
+    b. `NAMESPACE` file declares the functions your package exports for external use and the external functions your package imports from other packages.
+    c. `R/` directory is where you save all your function scripts and other `.R` files.
+    d. `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source.
+    e. `.Rproj.user` is a directory used internally by RStudio.
+3. Add the **Build Tab** to the Environment Pane.
+:::
 
-The `create_package` function created a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure).  The most important of which is the `DESCRIPTION` file, which provides metadata about your package. Edit the `DESCRIPTION` file to provide reasonable values for each of the fields,
-including your own contact information. 
+### Add a License
 
-Information about choosing a LICENSE is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
-The DESCRIPTION file expects the license to be chose from a predefined list, but
-you can use it's various utility methods for setting a specific license file, such
+Information about choosing a `LICENSE` is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
+
+The `DESCRIPTION` file expects the license to be chose from a predefined list, but
+you can use its various utility methods for setting a specific license file, such
 as the `MIT` license or the `Apache 2` license:
 
 ```{r}
 #| eval: false 
 
 usethis::use_apache_license()
-
 ```
 
     ✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
     ✔ Writing 'LICENSE.md'
     ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
 
-Once your license has been chosen, and you've edited your DESCRIPTION file with your contact information, a title, and a description, it will look like this:
+Once your license has been chosen, and you've edited your `DESCRIPTION` file with your contact information, a title, and a description, it will look like this:
 
-```{r, eval=FALSE}
-#| eval: false
-
-Package: mytools
-Title: Utility Functions Created by Matt Jones
-Version: 0.1
-Authors@R: "Matthew Jones <jones@nceas.ucsb.edu> [aut, cre]"
-Description: Package mytools contains a suite of utility functions useful whenever I need stuff to get done.
-Depends: R (>= 3.5.0)
-License: Apache License (>= 2.0)
-LazyData: true
+::: {.callout-tip appearance=minimal}
 ```
+Package: mytools
+Title: Halina Do-Linh's Utility R Functions
+Version: 0.0.0.9000
+Authors@R: 
+    person("Halina", "Do-Linh", email = "dolinh@nceas.ucsb.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: A collection of useful R functions that I use for general utilities.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+```
+:::
 
 
-### Add your code
+### Add Code
 
 The skeleton package created contains a directory `R` which should contain your source files.  Add your functions and classes in files to this directory, attempting to choose names that don't conflict with existing packages.  For example, you might add a file `custom_theme` that contains a function `custom_theme()` that you might want to reuse. The `usethis::use_r()` function will help set up you files in the right places.  For example, running:
 
@@ -98,9 +129,11 @@ The skeleton package created contains a directory `R` which should contain your 
 usethis::use_r("custom_theme")
 ```
 
-    ● Modify 'R/custom_theme'
+    ✔ Setting active project to '/home/dolinh/mytools'
+    • Modify 'R/custom_theme.R'
+    • Call `use_test()` to create a matching test file
 
-creates the file `R/custom_theme`, which you can then modify to add the implementation of the following function from the functions lesson:
+creates the file `R/custom_theme` and stores it in the `R` directory, which you can then modify as needed:
 
 ```{r}
 #| eval: false
@@ -108,23 +141,40 @@ creates the file `R/custom_theme`, which you can then modify to add the implemen
 custom_theme <- function(base_size = 9) {
     ggplot2::theme(
       axis.ticks       = ggplot2::element_blank(),
-      text             = ggplot2::element_text(family = 'Helvetica', color = 'gray30', size = base_size),
-      plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), hjust = 0.5, face = 'bold'),
+      text             = ggplot2::element_text(family = 'Helvetica', 
+                                               color = 'gray30', 
+                                               size = base_size),
+      plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), 
+                                               hjust = 0.5, 
+                                               face = 'bold'),
       panel.background = ggplot2::element_blank(),
       legend.position  = 'right',
       panel.border     = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major = ggplot2::element_line(colour = 'grey90', linewidth = .25),
-      legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
+      panel.grid.major = ggplot2::element_line(colour = 'grey90', 
+                                               linewidth = .25),
+      legend.key       = ggplot2::element_rect(colour = NA, 
+                                               fill = NA),
       axis.line        = ggplot2::element_blank()
       )
 }
 
 ```
 
-If your R code depends on functions from another package, then you must declare so
-in the `Imports` list in the `DESCRIPTION` file for your package.  In our example
-above, we depend on the `ggplot2` package, and so we need to list it as a dependency.
+::: {.callout-caution icon=false}
+#### Power of Packages
+
+Remember when we created `custom_theme()` from the [Functions Lesson Section 15.1.4](https://learning.nceas.ucsb.edu/2023-10-coreR/session_15.html#examples-minimizing-work-with-functions)? Now that we've added it to our `mytools` package, we don't have to worry about coyping the code from another file, sourcing the file from another directory, or copying the script from an R Project. 
+ 
+Instead we can leverage the portable functionality of a package to easily access our custom functions **and** maintain the code in one location. 
+:::
+
+### Add Dependencies
+
+If your R code depends on functions from another package, you must declare it. In the `Imports` section in the `DESCRIPTION` file, list all the packages your functions depend upon.
+
+In our `custom_theme()` function, we depend on the `ggplot2` package, and so we need to list it as a dependency.
+
 Once again, `usethis` provides a handy helper method:
 
 ```{r}
@@ -134,49 +184,74 @@ usethis::use_package("ggplot2")
 ```
 
     ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
-    ● Refer to functions with `devtools::fun()`
+    • Refer to functions with `ggplot2::fun()`
+    
+Take a look at the `DESCRIPTION` file again, and you'll see the Imports section has been added, with `ggplot2` underneath.
 
-### Add documentation
+::: {.callout-tip appearance=minimal}
+```
+Package: mytools
+Title: Halina Do-Linh's Utility R Functions
+Version: 0.0.0.9000
+Authors@R: 
+    person("Halina", "Do-Linh", email = "dolinh@nceas.ucsb.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: A collection of useful R functions that I use for general utilities.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    ggplot2
+```
+:::
 
-You should provide documentation for each of your functions and classes.  This is done in the `roxygen2` approach of providing embedded comments in the source code files, which are in turn converted into manual pages and other R documentation artifacts. Be sure to define the overall purpose of the function, and each of its parameters.
+### Add Documentation
+
+Documentation is crucial to add to each of your functions. In the Functions Lesson, we did this using the `roxygen2` package and that same package and approach can be used for packages. 
+
+The `roxygen2` approach allows us to add comments in the source code, where are then converted into Help pages that we can access by typing `?function_name` in the Console.
+
+Let's add documentation for the `custom_theme()` function.
 
 ```{r}
-#' Set a custom ggplot theme.
+#' My custom ggplot theme
 #'
-#' This function sets ggplot theme elements that I like, with the ability to change
-#' the base size of the text.
+#' @param base_size Numeric value of font size of all text elements in plot
 #'
-#' @param base_size Base size of plot text
-#'
-#' @keywords plotting
-#'
+#' @return A theme used for ggplot point or line plots
 #' @export
 #'
 #' @examples
 #' library(ggplot2)
-#'
-#' ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+#' 
+#'   ggplot(data = mtcars, aes(x = mpg, y = disp)) +
 #'     geom_point() +
-#'     custom_theme(base_size = 10)
-#'
+#'     custom_theme(base_size = 30)
 custom_theme <- function(base_size = 9) {
-    ggplot2::theme(
-        axis.ticks       = ggplot2::element_blank(),
-        text             = ggplot2::element_text(family = 'Helvetica', color = 'gray30', size = base_size),
-        plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), hjust = 0.5, face = 'bold'),
-        panel.background = ggplot2::element_blank(),
-        legend.position  = 'right',
-        panel.border     = ggplot2::element_blank(),
-        panel.grid.minor = ggplot2::element_blank(),
-        panel.grid.major = ggplot2::element_line(colour = 'grey90', size = .25),
-        legend.key       = ggplot2::element_rect(colour = NA, fill = NA),
-        axis.line        = ggplot2::element_blank()
-    )
+  ggplot2::theme(
+    axis.ticks       = ggplot2::element_blank(),
+    text             = ggplot2::element_text(family = 'Helvetica',
+                                             color = 'gray30',
+                                             size = base_size),
+    plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25),
+                                             hjust = 0.5,
+                                             face = 'bold'),
+    panel.background = ggplot2::element_blank(),
+    legend.position  = 'right',
+    panel.border     = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.grid.major = ggplot2::element_line(colour = 'grey90',
+                                             linewidth = .25),
+    legend.key       = ggplot2::element_rect(colour = NA,
+                                             fill = NA),
+    axis.line        = ggplot2::element_blank()
+  )
 }
 
 ```
 
-Once your files are documented, you can then process the documentation using the `document()` function to generate the appropriate .Rd files that your package needs.
+Once your files are documented, you can then process the documentation using `devtools::document()` to generate the appropriate `.Rd` files that your package needs. The `.Rd` files will appear in the `man/` directory, which is automatically created by `devtools::document()`.
 
 ```{r}
 #| eval: false
@@ -184,20 +259,15 @@ Once your files are documented, you can then process the documentation using the
 devtools::document()
 ```
 
-    Updating mytools documentation
-    Updating roxygen version in /Users/jones/development/mytools/DESCRIPTION
-    Writing NAMESPACE
-    Loading mytools
-    Writing NAMESPACE
+    ℹ Updating mytools documentation
+    ℹ Loading mytools
     Writing custom_theme.Rd
 
-That's really it.  You now have a package that you can `check()` and `install()` and `release()`.  See below for these helper utilities.
+We now have a package that we can `check()` and `install()` and `release()`. We'll be using these functions from the `devtools` package, but first let's do some testing.
 
-### Test your package
+### Testing
 
-You can test your code using the `tetsthat` testing framework.  The `ussethis::use_testthat()` 
-function will set up your package for testing, and then you can use the `use_test()` function
-to setup individual test files.  For example, in the functions lesson we created some tests for our `fahr_to_celsius` functions but ran them line by line in the console.
+You can test your code using the `testthat` package's testing framework. The `ussethis::use_testthat()` function will set up your package for testing, and then you can use the `use_test()` function to setup individual test files.  For example, in the Functions Lesson we created some tests for our `fahr_to_celsius` functions but ran them line by line in the console.
 
 First, lets add that function to our package. Run the `use_r` function in the console:
 
@@ -283,7 +353,7 @@ devtools::test()
 
 Yay, all tests passed!
 
-### Checking and installing your package
+### Checking and Installing
 
 Now that your package is built, you can check it for consistency and completeness using `check()`, and then you can install it locally using `install()`, which needs to be run from the parent directory of your module.
 
@@ -296,7 +366,7 @@ devtools::install()
 
 Your package is now available for use in your local environment.
 
-### Sharing and releasing your package
+### Sharing and Releasing
 
 - **GitHub**: The simplest way to share your package with others is to upload it to a [GitHub repository](https://github.com), which allows others to install your package using the `install_github('mytools','github_username')` function from `devtools`.
 
