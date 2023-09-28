@@ -28,7 +28,7 @@ Many people write R code as a single, continuous stream of commands, often drawn
 library(DT)
 ```
 
-### Why functions?
+### Why Functions?
 
 ::: {.callout-important appearance="simple"}
 **DRY: Don't Repeat Yourself**
@@ -71,7 +71,7 @@ celsius3 <- (airtemps[3] - 32) * 5/9
 
 Note the duplicated code, where the same formula is repeated three times. This code would be both more compact and more reliable if we didn't repeat ourselves.
 
-#### Create a function that converts Fahrenheit to Celsius {.unnumbered}
+#### Create a Function that Converts Fahrenheit to Celsius {.unnumbered}
 
 Functions in R are a mechanism to process some input and return a value. Similarly to other variables, functions can be assigned to a variable so that they can be used throughout code by reference. To create a function in R, you use the `function` function (so meta!) and assign its result to a variable. Let's create a function that calculates Celsius temperature outputs from Fahrenheit temperature inputs.
 
@@ -105,7 +105,7 @@ celsius
 
 This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.
 
-#### Your Turn: Create a function that converts Celsius to Fahrenheit {.unnumbered}
+#### Your Turn: Create a Function that Converts Celsius to Fahrenheit {.unnumbered}
 
 ::: {.callout-note}
 
@@ -143,7 +143,7 @@ airtemps == result
 :::
 
 
-### Documenting R functions
+### Documenting R Functions
 
 Functions need documentation so that we can communicate what they do, and why. The [`roxygen2` R package](https://roxygen2.r-lib.org/) provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
 
@@ -180,7 +180,7 @@ For more best practices on function documentation, review Hadley Wickham and Jen
 :::
 
 
-### Examples: Minimizing work with functions
+### Examples: Minimizing Work with Functions
 
 Functions can of course be as simple or complex as needed. They can be be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes Fahrenheit temperatures as input, and calculates both Celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
 
