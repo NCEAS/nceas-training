@@ -56,7 +56,7 @@ Best Practices from [Chapter 19 Functions](https://r4ds.had.co.nz/functions.html
 - For a "family" of functions, use a common prefix to indicate that they are connected.
 :::
 
-### Example: Temperature Conversion 
+### Exercise: Temperature Conversion 
 
 Imagine you have a bunch of data measured in Fahrenheit and you want to convert that for analytical purposes to Celsius. You might have an R script that does this for you.
 
@@ -180,7 +180,7 @@ For more best practices on function documentation, review Hadley Wickham and Jen
 :::
 
 
-### Examples: Minimizing Work with Functions
+### Exercise: Minimizing Work with Functions
 
 Functions can of course be as simple or complex as needed. They can be be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes Fahrenheit temperatures as input, and calculates both Celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
 
@@ -267,3 +267,11 @@ Once these functions are set up, all of the plots built with them can be reforma
 -   Build functions with `function()`
 -   Document functions with `roxygen2` comments
 
+::: {.callout-caution icon=false}
+#### Workflow for Creating Functions
+
+1. Have a clear goal (sometimes it helps to create a visual).
+2. Outline the plan and then add more detailed steps or tasks.
+3. Build it up bit-by-bit and start with a minimum viable example. As your function becomes more complex, it can harder to track all the bits.
+4. Always check intermediates!
+:::
