@@ -52,7 +52,7 @@ library(viridis) # colorblind friendly color pallet
 ```
 
 
-2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
+2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navigate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
 
 
 ```{r}
