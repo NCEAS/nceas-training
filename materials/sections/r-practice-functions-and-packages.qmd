@@ -15,3 +15,158 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 :::
 
+## Exercise: R Functions
+
+::: {.callout-tip}
+### Setup
+
+0. Make sure you’re in the right project (`training_{USERNAME}`) and use the Git workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub). 
+
+1. Create a new Quarto Document.
+    a. Title it “R Practice: Functions and Packages”.
+    b. Save the file and name it “r-practice-functions-packages”.
+
+2. Organize your Quarto Document and folders in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we’ve organized previous files using: headers, bold text, naming code chunks, comments in code chunks. Consider what directories (folders) we've used or talked about to organize these files. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now.
+
+3. Use the Git workflow. After you’ve set up your project and uploaded your data go through the workflow: ```Stage (add) -> Commit -> Pull -> Push```
+:::
+
+### R Functions Warm Up
+
+We're going to start by creating some simple functions. Recall that the anatomy of a function is the same for all functions and each one contains:
+
+- a function name,
+- arguments that allow a user to specify inputs,
+- and body of commands and outputs enclosed within a set of curly braces `{}`
+
+::: {.callout-note}
+#### Question 1
+
+Create a function called `double_it()` that doubles any value input value. Then try out the function, are the values returned what you expect?
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+# create function #
+double_it <- function(x) {
+    
+    print(2 * x)
+}
+
+# try it out #
+# explicit notation
+double_it(x = 24)
+
+# non explicit notation
+double_it(24)
+```
+
+::: {.callout-note}
+#### Question 2
+
+Write a function called `exclaim_age()` that returns the statement “I am ___ years old!”, where the blank is entered by the user as argument age. 
+
+Then try out the function, are the values returned what you expect?
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
+# write function #
+exclaim_age <- function(age) {
+  print(paste("I am", age, "years old!"))
+}
+
+# try it out #
+# explicit notation
+exclaim_age(age = 12)
+
+# non explicit notation
+exclaim_age(12)
+```
+
+### Functions with Conditionals
+
+::: {.callout-important}
+#### `print()` vs `return()`
+
+What’s the difference between `print()` and `return()`? The `print()` function only makes something visible to us. It does not get stored for later use. If we want an output to be stored for use, we use `return()`.
+:::
+
+::: {.callout-note}
+#### Question 3
+
+Consider the function called `find_max()`:
+
+a. Talk to your neighbor about what this function does and what you expect the output would be.
+b. Run the function with some values. Is it running how you expect?
+c. Run the function again, but additionally create an arithmetic expression with the function. Is the output what you expect?
+d. Rewrite the function using `print()` instead of `return`. Then go back and go through Parts a-c this time with the version of the function with `print()`. 
+:::
+
+```{r}
+#| eval: false
+#| code-fold: false
+#| code-summary: "find_max() function"
+
+find_max <- function(value_1, value_2) {
+    
+    if (value_1 > value_2) {
+        return(value_1)
+    }
+    else if (value_2 > value_1) {
+        return(value_2)
+    }
+}
+
+5 * find_max(4, 2)
+```
+
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "find_max() function using print()"
+
+# `find_max()` using `print()`
+find_max_print <- function(value_1, value_2) {
+    
+    if (value_1 > value_2) {
+        print(value_1)
+    }
+    else if (value_2 > value_1) {
+        print(value_2)
+    }
+}
+
+5 * find_max_print(4, 2)
+```
+
+
+::: {.callout-note}
+#### Question 4
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+```
+
+### Add Error Messages
+
+
+## Exercise: R Packages
+
+::: {.callout-tip}
+ADD SETUP STEPS HERE
+:::
+
+
+
+
