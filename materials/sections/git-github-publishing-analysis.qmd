@@ -87,11 +87,19 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 - Create a table of contents with the names of the main technical lessons of this course, like so:
 
 ```
-## coreR workshop
+## Course Lessons
 
 - Introduction to Literate Analysis Using Quarto 
 - Cleaning and Wrangling data
 - Data Visualization
+- Functions and packages
+
+## Course Practice Session
+
+- Joins, Cleaning and Wrangling Data
+- Data Viz and Publish to the web
+- Writing functions and making packages
+
 ```
 
 - Make sure you have the `html` versions of your `intro-to-qmd.qmd` and `data-cleaning.qmd` files. If you only see the `qmd` version, you need to "Render" your files first
