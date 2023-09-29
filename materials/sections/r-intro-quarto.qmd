@@ -37,7 +37,6 @@ In addition to achieving literate analysis, this document also represents a **re
 Reproducible analysis allow you to automatize how the figures and the statistics in your analysis are generated. This process also helps your collaborators, your readers and your future self to follow your code trail the leads to the original data, increasing the transparency of your science.
 
 Literate analysis help reduce the mistakes from copying and pasting across software, keeps results and models in sync, and allows you to provide interested readers with more information about the different approaches and analyses you tried before coming up with the final results (@britecolsoc2017). 
-<!--[CITE: https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf].-->
 :::
 
 ## RMarkdown and Quarto
@@ -56,7 +55,7 @@ Finally, lets compare each of these files when knitted/rendered.
 ![](images/quarto-rmd-rendered.png){fig-alt="Bui & Csik, 2023, SORTEE"}
 :::
 
-Again, we see similar outcoumes, with minor differences mainly in formatting (font, style of showing code chunks, etc.)
+Again, we see similar outcomes, with minor differences mainly in formatting (font, style of showing code chunks, etc.)
 
 Both type of documents have three main components:
 
@@ -356,7 +355,7 @@ In another chunk, use those variables to calculate the nitrogen: phosphate ratio
 ratio <- (nitrate + nitrite + amm)/phos
 ```
 
-You can access this variable in your markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single backtick \`, followed by the letter "r", then whatever your simple R command is --- here we will use `round(ratio)` to print the calculated ratio, and finally a closing backtick \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task.
+You can access this variable in your markdown text by using R in-line in your text. The syntax to call R in-line (as opposed to as a chunk) is a single back tick \`, followed by the letter "r", then whatever your simple R command is --- here we will use `round(ratio)` to print the calculated ratio, and finally a closing back tick \`. This allows us to access the value stored in this variable in our explanatory text without resorting to the evaluate-copy-paste method so commonly used for this type of task.
 
 So, the text in you Quarto document should look like this:
 
