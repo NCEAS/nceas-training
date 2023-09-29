@@ -181,7 +181,7 @@ This data set is relatively clean and easy to interpret as-is. While it may be c
 ::: {.callout-note icon=false}
 ## Exercise
 
-Before we get too much further, spend a minute or two outlining your RMarkdown document so that it includes the following sections and steps:
+Before we get too much further, spend a minute or two outlining your Quarto document so that it includes the following sections and steps:
 
 - Data Sources
   - Read in the data
@@ -220,7 +220,7 @@ summary(catch_original)
 ## Prints unique values in a column (in this case, the region)
 unique(catch_original$Region)
 
-## Opens data frame in its own tab to see each row and column of the data
+## Opens data frame in its own tab to see each row and column of the data (do in console)
 View(catch_original)
 
 ```
