@@ -253,7 +253,7 @@ find_max("cow", 4)
 
 ## Exercise: R Packages
 
-::: {.callout-tip}
+::: {.callout-tip icon=false}
 ### Setup
 
 1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`.
@@ -272,7 +272,9 @@ find_max("cow", 4)
 Create the following two functions for the `aboutMe` package: 
 
 a. Function that prints out your name and your favorite color.
-b. Function calculates your age for the current year. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`).
+b. Function calculates your age for the current year. 
+    i. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`.
+    ii. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`).
 
 Write each of these functions in their own scripts and save them to the `R` directory.
 
@@ -291,14 +293,17 @@ Go back to each function script and add a Roxygen skeleton to document each func
 
 ::: {.callout-note}
 #### Question 3
-Use `usethis::use_testthat()` to test the age function.
+Use `usethis::use_testthat()` and `usethis::use_test("test-file-name")` to test the age function.
 :::
 
 ### Test, Check, and Install `aboutMe`
 
-Use either the Build Tab or run the commands in the Console. 
+::: {.callout-note}
+#### Question 4
+Use either the Build Tab or run the `devtools` functions `test()`, `check()`, and `install()` in the Console. 
+:::
 
-After, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created.
+After installing, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created.
 
 ::: {.callout-caution icon=false}
 ### Save and Use Git
