@@ -4,8 +4,9 @@ format: html
 
 ## Learning Objectives {.unnumbered}
 
--   Practice identifying parts of a functions
 -   Practice creating functions
+-   Practice testing functions
+-   Practice adding error messages to functions
 -   Practice deploying a package and organizing custom functions within it
 
 ::: callout-note
@@ -17,14 +18,14 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 ## Exercise: R Functions
 
-::: {.callout-tip}
+::: {.callout-tip icon=false}
 ### Setup
 
 0. Make sure you’re in the right project (`training_{USERNAME}`) and use the Git workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub). 
 
 1. Create a new Quarto Document.
-    a. Title it “R Practice: Functions and Packages”.
-    b. Save the file and name it “r-practice-functions-packages”.
+    a. Title it “R Practice: Functions”.
+    b. Save the file and name it “r-practice-functions”.
 
 2. Organize your Quarto Document and folders in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we’ve organized previous files using: headers, bold text, naming code chunks, comments in code chunks. Consider what directories (folders) we've used or talked about to organize these files. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now.
 
@@ -52,7 +53,6 @@ Create a function called `double_it()` that doubles any value input value. Then 
 
 # create function #
 double_it <- function(x) {
-    
     print(2 * x)
 }
 
@@ -92,12 +92,6 @@ exclaim_age(12)
 
 ### Functions with Conditionals
 
-::: {.callout-important}
-#### `print()` vs `return()`
-
-What’s the difference between `print()` and `return()`? The `print()` function only makes something visible to us. It does not get stored for later use. If we want an output to be stored for use, we use `return()`.
-:::
-
 ::: {.callout-note}
 #### Question 3
 
@@ -105,15 +99,14 @@ Consider the function called `find_max()`:
 
 a. Talk to your neighbor about what this function does and what you expect the output would be.
 b. Run the function with some values. Is it running how you expect?
-c. Run the function again, but additionally create an arithmetic expression with the function. Is the output what you expect?
-d. Rewrite the function using `print()` instead of `return`. Then go back and go through Parts a-c this time with the version of the function with `print()`. 
+c. Run the function again, but this time use the function in an arithmetic expression. Is the output what you expect?
 :::
 
 ```{r}
 #| eval: false
 #| code-fold: false
-#| code-summary: "find_max() function"
 
+# "find_max() function" #
 find_max <- function(value_1, value_2) {
     
     if (value_1 > value_2) {
@@ -123,18 +116,74 @@ find_max <- function(value_1, value_2) {
         return(value_2)
     }
 }
+```
 
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Answer Part C"
+
+# example using `find_max()` in an arithmetic expression #
+# we expect the answer to be 20
 5 * find_max(4, 2)
 ```
+
+### Adding Error or Warning Messages
+
+::: {.callout-tip icon=false}
+#### Question 4 Setup
+
+Let's continue to test the `find_max()` function and make sure it runs appropriately in the following function calls in Questions 4a, 4b, and 4c.
+:::
+
+::: {.callout-note}
+#### Question 4a
+Run `find_max(4, 2, 5)` in the Console.
+
+What happens? What kind of message appears? Is it sufficient? If not, consider adding a warning or error message using `warning()` or `stop()`. Remember, use `?function` to access the Help page. Add additional logic to the function, as needed.
+:::
+
+<details>
+
+<summary>Answer 4a</summary>
+
+When you run `find_max(4, 2, 5)`, the following error message appears: 
+
+    Error in find_max(4, 2, 5) : unused argument (5)
+
+This is an error message that is automatically created by R since our function only requires two parameters. This is a sufficient error message.
+
+</details>
+
+::: {.callout-note}
+#### Question 4b
+Run `find_max(4, 4)` in the Console.
+
+What happens? What kind of message appears? Is it sufficient? If not, consider adding a warning or error message using `warning()` or `stop()`. Remember, use `?function` to access the Help page. Add additional logic to the function, as needed.
+:::
+
+<details>
+
+<summary>Hint 4b</summary>
+
+When you run `find_max(4, 4)`, no message appears and the function is sent to the Console, but no value is either returned or printed.
+
+To account for this scenario, add an `if()` statement to the beginning of the function, and then use either `warning()` or `stop()`.
+
+</details>
 
 
 ```{r}
 #| eval: false
 #| code-fold: true
-#| code-summary: "find_max() function using print()"
+#| code-summary: Answer 4b Code
 
-# `find_max()` using `print()`
-find_max_print <- function(value_1, value_2) {
+# `find_max()` function with error message
+find_max <- function(value_1, value_2) {
+    
+    if (value_1 == value_2) {
+        stop("Values must be different from each other.")
+    }
     
     if (value_1 > value_2) {
         print(value_1)
@@ -144,28 +193,118 @@ find_max_print <- function(value_1, value_2) {
     }
 }
 
-5 * find_max_print(4, 2)
+# try it out #
+# does the message appear as you expected?
+find_max(4, 4)
 ```
 
-
 ::: {.callout-note}
-#### Question 4
+#### Question 4c
+Run `find_max(4, "cow")` in the Console.
+
+What happens? What kind of message appears? Is it sufficient? If not, consider adding a warning or error message using `warning()` or `stop()`. Remember, use `?function` to access the Help page. Add additional logic to the function, as needed.
 :::
+
+<details>
+<summary>Hint 4c</summary>
+
+When you run `find_max(4, "cow")`, the function runs as is and returns the value "cow". This is not expected because these two values aren't necessarily comparable since they're different data types.
+
+However, `find_max()` doesn't know any better since this scenario hasn't been defined in the body of the function yet.
+
+To account for this scenario, add additional logic that **checks the class** of each argument before the function continues to execute. 
+
+The logical operator for OR is `||`.
+
+</details>
+
 
 ```{r}
 #| eval: false
 #| code-fold: true
-#| code-summary: "Answer"
+#| code-summary: Answer 4c Code
+
+# `find_max()` function with error messages and checks
+find_max <- function(value_1, value_2) {
+    
+    # `||` is the logical operator for OR
+    if (is.numeric(value_1) != TRUE || is.numeric(value_2) != TRUE) {
+        # alt expression: is.numeric(value_1) == FALSE || is.numeric(value_2) == FALSE
+        stop("Value must be a numeric type.")
+    }
+    
+    if (value_1 == value_2) {
+        stop("Values must be different from each other.")
+    }
+    
+    if (value_1 > value_2) {
+        print(value_1)
+    }
+    else if (value_2 > value_1) {
+        print(value_2)
+    }
+}
+
+# try it out #
+# does the message appear as you expected?
+find_max(4, "cow")
+find_max("cow", 4)
 ```
-
-### Add Error Messages
-
 
 ## Exercise: R Packages
 
 ::: {.callout-tip}
-ADD SETUP STEPS HERE
+### Setup
+
+1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`.
+
+2. Delete the files: `hello.R` in the `R` directory and `hello.Rd` in the `man` directory.
+
+3. Add a license by running in the Console: ```usethis::use_apache_license()```.
+
+4. Turn the project into a Git repository. Recall the steps from [Ch 6 Exercise 3: Setting up Git on an existing project](https://learning.nceas.ucsb.edu/2023-10-coreR/session_06.html#exercise-3-setting-up-git-on-an-existing-project). Follow the steps either using the `usethis` package or Command Line.
 :::
+
+### Add Functions to the `aboutMe` Package
+
+::: {.callout-note}
+#### Question 1
+Create the following two functions for the `aboutMe` package: 
+
+a. Function that prints out your name and your favorite color.
+b. Function calculates your age for the current year. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`).
+
+Write each of these functions in their own scripts and save them to the `R` directory.
+
+Note: If any of your functions have dependencies, make sure to add it to the `DESCRIPTION` file.
+:::
+
+### Add Documentation
+
+::: {.callout-note}
+#### Question 2
+
+Go back to each function script and add a Roxygen skeleton to document each function.
+:::
+
+### Test Age Function
+
+::: {.callout-note}
+#### Question 3
+Use `usethis::use_testthat()` to test the age function.
+:::
+
+### Test, Check, and Install `aboutMe`
+
+Use either the Build Tab or run the commands in the Console. 
+
+After, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created.
+
+::: {.callout-caution icon=false}
+### Save and Use Git
+Save your work and use the Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
+:::
+
 
 
 
