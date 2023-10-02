@@ -256,7 +256,7 @@ find_max("cow", 4)
 ::: {.callout-tip}
 ### Setup
 
-1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field.
+1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`.
 
 2. Delete the files: `hello.R` in the `R` directory and `hello.Rd` in the `man` directory.
 
@@ -267,11 +267,32 @@ find_max("cow", 4)
 
 ### Add Functions to the `aboutMe` Package
 
-Add dependencies to the `DESCRIPTION` file as needed using...
+::: {.callout-note}
+#### Question 1
+Create the following two functions for the `aboutMe` package: 
+
+a. Function that prints out your name and your favorite color.
+b. Function calculates your age for the current year. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`).
+
+Write each of these functions in their own scripts and save them to the `R` directory.
+
+Note: If any of your functions have dependencies, make sure to add it to the `DESCRIPTION` file.
+:::
 
 ### Add Documentation
 
-### Test Birthday Function
+::: {.callout-note}
+#### Question 2
+
+Go back to each function script and add a Roxygen skeleton to document each function.
+:::
+
+### Test Age Function
+
+::: {.callout-note}
+#### Question 3
+Use `usethis::use_testthat()` to test the age function.
+:::
 
 ### Test, Check, and Install `aboutMe`
 
