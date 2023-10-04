@@ -208,7 +208,7 @@ Once we have a dataset like that, we might want to plot it. One thing that we do
 ```{r}
 #| label: func-custom-theme
 
-custom_theme <- function(base_size=9) {
+custom_theme <- function(base_size = 9) {
     ggplot2::theme(
       text             = ggplot2::element_text(family = 'Helvetica', 
                                                color = 'gray30', 
