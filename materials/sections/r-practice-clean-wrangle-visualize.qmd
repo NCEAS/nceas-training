@@ -29,7 +29,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
         i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
     c.  The Owner adds the Collaborator to the repo
     d.  Both the Collaborator and the Owner clone the repo into their RStudio
-    e. Both the Collaborator and the Owner clone the repo into their RStudio run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
+    e. Both the Collaborator and the Owner run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
 
 **Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the Collaborator to complete, and Step 3 is for the Owner to complete.**
 
@@ -40,7 +40,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
         i.  Title it: "Owner Analysis", save it as: `owner-analysis.qmd`, and store in `analysis` folder
         ii. Title it: "Collaborator Analysis", save it as: `collaborator-analysis.qmd`, and store in `analysis` folder
         iii. Title it: "Lobster Report" and save it as: `lobster-report.qmd` (do not need to put in a folder)
-    b.  After creating the files, the Collaborator will `stage`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
+    b.  After creating the files, the Collaborator will `stage (add)`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
     c.  The Owner `pull`s the changes and Quarto Documents into their local repository (their workspace)
     
 3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
@@ -48,7 +48,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
     b.  Download the following data and upload them to the `data` folder:
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
-    c.  After creating the `data` folder and adding the data, the Owner will `stage`, `commit`, write a commit message,`pull`, and `push` the files to the remote repository (on GitHub)
+    c.  After creating the `data` folder and adding the data, the Owner will `stage (add)`, `commit`, write a commit message,`pull`, and `push` the files to the remote repository (on GitHub)
     d.  The Collaborator `pull`s the changes and data into their local repository (their workspace)
 :::
 
