@@ -209,7 +209,7 @@ ggplot(data = daily_visits_loc,
     geom_col()
 ```
 
-### Looking at different geoms
+### Looking at different `geoms_*`
 
 Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*()`.
 
@@ -311,7 +311,7 @@ ggplot(data = daily_visits_loc,
 :::
 
 
-#### Setting ggplot themes
+#### Setting `ggplot` themes
 
 We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
