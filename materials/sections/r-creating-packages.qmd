@@ -28,13 +28,10 @@ The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a
 
 To create a package we're going to use the following packages:
 
-```{r}
-#| eval: false
+- `devtools`: Provides R functions that make package development easier by expediting common development tasks.
+- `usethis`: Commonly referred to as a "workflow package" and provides functions that automate common tasks in project setup and development for both R packages and non-package projects.
+- `roxygen2`: Provides a structure for describing your functions in the scripts you're creating them in. It will additionally process the source code and the documentation within it to automatically create the necessary files for the documentation to appear in your R Package.
 
-library(devtools)
-library(usethis)
-library(roxygen2)
-```
 
 Thanks to the great [usethis](https://usethis.r-lib.org/) package, it only takes one function call to create the skeleton of an R package using `create_package()`. Which eliminates pretty much all reasons for procrastination. To create a package called `mytools`, all you do is:
 
@@ -84,7 +81,7 @@ RoxygenNote: 7.2.3
 
 ### Add a License
 
-Information about choosing a `LICENSE` is provided in the [Extending R](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing) documentation.
+Information about choosing a `LICENSE` is provided in the R Package (2e) book [Chapter 12: Licensing](https://r-pkgs.org/license.html).
 
 The `DESCRIPTION` file expects the license to be chose from a predefined list, but you can use its various utility methods for setting a specific license file, such as the `MIT` license or the `Apache 2` license:
 
