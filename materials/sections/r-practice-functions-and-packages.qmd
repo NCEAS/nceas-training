@@ -186,10 +186,10 @@ find_max <- function(value_1, value_2) {
     }
     
     if (value_1 > value_2) {
-        print(value_1)
+        return(value_1)
     }
     else if (value_2 > value_1) {
-        print(value_2)
+        return(value_2)
     }
 }
 
@@ -214,7 +214,7 @@ However, `find_max()` doesn't know any better since this scenario hasn't been de
 
 To account for this scenario, add additional logic that **checks the class** of each argument before the function continues to execute. 
 
-The logical operator for OR is `||`. The not-equal-to operator is `!=`.
+The logical operator for OR is `|`. The not-equal-to operator is `!=`.
 
 </details>
 
@@ -227,10 +227,10 @@ The logical operator for OR is `||`. The not-equal-to operator is `!=`.
 # `find_max()` function with error messages and checks
 find_max <- function(value_1, value_2) {
     
-    # `||` is the logical OR operator
+    # `|` is the logical OR operator
     # `!=` is the not-equal-to operator
-    if (is.numeric(value_1) != TRUE || is.numeric(value_2) != TRUE) {
-        # alt expression: is.numeric(value_1) == FALSE || is.numeric(value_2) == FALSE
+    if (is.numeric(value_1) != TRUE | is.numeric(value_2) != TRUE) {
+        # alt expression: is.numeric(value_1) == FALSE | is.numeric(value_2) == FALSE
         stop("Value must be a numeric type.")
     }
     
@@ -239,10 +239,10 @@ find_max <- function(value_1, value_2) {
     }
     
     if (value_1 > value_2) {
-        print(value_1)
+        return(value_1)
     }
     else if (value_2 > value_1) {
-        print(value_2)
+        return(value_2)
     }
 }
 
