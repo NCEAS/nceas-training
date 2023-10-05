@@ -2,6 +2,7 @@
 ## Learning Objectives {.unnumbered}
 
 - Utilize GitHub's project management tools to organize and manage projects
+- Practice creating issues in GitHub
 - Craft informative READMEs for Git repositories
 
 ::: {.callout-note}
@@ -14,19 +15,79 @@ Exercises are adapted from Ben Best’s EDS 211: Team Science, Collaborative Ana
 
 ## Exercise: GitHub Organization, Project, and Issues
 
-::: {.callout-tip icon=false}
+**Step 0:** Designate one person as the Owner and one as the Collaborator.
+
+::: {.callout-note icon=false}
 ### Question 1
 With your partner, create a new GitHub Organization for you both to work in.
 ::: 
 
-Add your repo with both your first names in it to the organization. 
+<details>
+<summary>Steps</summary>
 
-::: {.callout-tip icon=false}
+- Step 1: Click your profile icon in the top right corner and in the drop down menu click "Your organizations"
+- Step 2: Click "New organization"
+- Step 3: Click "Create a free organization"
+- Step 4: Create the Organization account name using your first name and your partner's first name (e.g. `halina-camila`)
+- Step 5: Set the Contact email to whoever will be the Owner of this organization.
+- Step 6: Under "This organization belongs to:", Select "My personal account"
+- Step 7: Verify your account, Accept the Terms of Service, and click Next.
+
+<summary />
+</details> 
+
+::: {.callout-note icon=false}
 ### Question 2
-With your partner, create a new GitHub Organization for you both to work in.
+Add the repository with both your first names in it to the organization.
+::: 
+
+<details>
+<summary>Steps</summary>
+- Step 1: Navigate to the repository
+- Step 2: Go to the "Settings" tab of the repository 
+- Step 3: Scroll to the bottom to the "Danger Zone"
+- Step 4: Click "Transfer" to transfer the ownership of the repository to the organization created in Question 1
+- Step 5: Under "Select one of my organizations", Select the name of the organization created in Question 1
+- Step 6: Type to the `username/repo_name` to confirm and then click "I understand, transfer this repository"
+
+<summary />
+</details> 
+
+::: {.callout-note icon=false}
+### Question 3
+Create and test GitHub Issues features.
+
+And add the following into the initial commment:
+
+    ## Github Issue Basics
+    - [x] Create an issue
+    - [x] Create this task list in initial comment of issue
+    - [ ] Convert the following two tasks into issues:
+      - [ ] Assign user
+      - [ ] Add new label
+    - [ ] Add emoji reaction to a comment
+    
+    ## Github Flavored Markdown in Issue Comments
+    - [ ] Paste a screenshot into a comment
+    - [ ] Reference lines of code with a canonical URL
+    - [ ] Add a fenced R code block
+    - [ ] Mention a Github user on your team
+    - [ ] Use emoji in a comment
+    
+    ## Reference Issues
+    - [ ] Mention in issue comment another issue that is in the same repo
+    - [ ] Mention in issue comment another issue that is in a different repo
+    - [ ] Mention in `git commit` message an issue in the same repo
 ::: 
 
 ## Exercise: Create Your Profile README
+
+- [Build Your Own Octocat](https://myoctocat.com/)
+- [GitHub Octodex](https://octodex.github.com/)
+
+Steps to create your profile README
+
+- Step 1: 
 
 ## Bonus Exercise: Practice Git Workflows
 
