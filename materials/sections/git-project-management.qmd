@@ -15,30 +15,31 @@ Exercises are adapted from Ben Best’s EDS 211: Team Science, Collaborative Ana
 
 ## Exercise: GitHub Organization, Project, and Issues
 
-**Step 0:** Designate one person as the Owner and one as the Collaborator.
+**Step 0:** In your group, designate who will be the Owner of the organization.
 
 ::: {.callout-note icon=false}
 ### Question 1
-With your partner, create a new GitHub Organization for you both to work in.
+Owner creates a new GitHub Organization for the group.
 ::: 
 
 <details>
 <summary>Steps</summary>
 
-- Step 1: Click your profile icon in the top right corner and in the drop down menu click "Your organizations"
+- Step 1: Click profile icon in the top right corner and in the drop down menu click "Your organizations"
 - Step 2: Click "New organization"
 - Step 3: Click "Create a free organization"
-- Step 4: Create the Organization account name using your first name and your partner's first name (e.g. `halina-camila`)
-- Step 5: Set the Contact email to whoever will be the Owner of this organization.
+- Step 4: Come up with an Organization account name. **Need inspiration?** Check out [Rafael Triantafillidis's Repository Name Generator](https://alator21.github.io/repository-name-generator/)
+- Step 5: Owner enters their GitHub email in the Contact email field
 - Step 6: Under "This organization belongs to:", Select "My personal account"
-- Step 7: Verify your account, Accept the Terms of Service, and click Next.
+- Step 7: Verify your account, Accept the Terms of Service, and click Next
+- Step 8: Owner add group members as organization members
+- Step 9: Owner sets organization members' permissions to admin persmissions
 
-<summary />
 </details> 
 
 ::: {.callout-note icon=false}
 ### Question 2
-Add the repository with both your first names in it to the organization.
+Add repositories the organization.
 ::: 
 
 <details>
@@ -50,14 +51,18 @@ Add the repository with both your first names in it to the organization.
 - Step 5: Under "Select one of my organizations", Select the name of the organization created in Question 1
 - Step 6: Type to the `username/repo_name` to confirm and then click "I understand, transfer this repository"
 
-<summary />
 </details> 
 
 ::: {.callout-note icon=false}
 ### Question 3
 Create and test GitHub Issues features.
+::: 
 
-And add the following into the initial commment:
+In the repository, click on the Issues tab and then click "New issue".
+
+In the new issue, add the title as "Testing Github Issue features".
+
+Then copy and paste the following into the "Leave a comment" section:
 
     ## Github Issue Basics
     - [x] Create an issue
@@ -78,38 +83,51 @@ And add the following into the initial commment:
     - [ ] Mention in issue comment another issue that is in the same repo
     - [ ] Mention in issue comment another issue that is in a different repo
     - [ ] Mention in `git commit` message an issue in the same repo
-::: 
+    
+Finally, click "Submit new issue". Then complete the tasks.
+
+::: {.callout-note icon=false}
+### Question 4
+Create a GitHub Project and add Issues to the project.
+:::
 
 ## Exercise: Create Your Profile README
 
+A Profile README on GitHub is a special README file that is added to your GitHub Profile that highlights information about yourself to share with others.
+
+::: {.callout-caution icon=false}
+### Profile README Examples
+
+- NCEAS Residents...
+    - [Samantha Csik, Data Training Coordinator](https://github.com/samanthacsik#hi-im-sam-csik-pronounced-chick-)
+    - [Joe DeCesaro, Data Analyst](https://github.com/joedecesaro)
+    - [Halina Do-Linh, Data Training Program Manager](https://github.com/hdolinh)
+    - [Carmen Galaz García, Data Scientist](https://github.com/carmengg)
+    - [Julie Lowndes, Openscapes Founders](https://github.com/jules32)
+    - [Ian Nesbitt, Research Software Engineer](https://github.com/iannesbitt)
+    - [Camila Vargas Poulsen, Data Science Educator](https://github.com/camilavargasp)
+    - [Daphne Virlar-Knight, Project Manager Western Wildfire Resiliency Index](https://github.com/dvirlar2)
+
+- ...and Beyond
+    - [Awesome GitHub Profile READMEs](https://zzetao.github.io/awesome-github-profile/)
+    - [Allison Horst](https://github.com/allisonhorst)
+:::
+
+**Steps to create your Profile README**
+
+- Step 1: In the upper-right corner of any page, use the "+" drop-down menu, and select "New repository"
+- Step 2: Under "Repository name", type a repository name that matches your GitHub username *exactly*
+- Step 3: Optionally, in the "Description" field, type a description of your repository. For example, "My personal repository"
+- Step 4: Select Public
+- Step 5: Select Initialize this repository with a README
+- Step 6: Click Create repository
+- Step 7: Above the right sidebar, click Edit README.
+
+::: {.callout-caution icon=false}
+### Create a Profile Picture Using an Octocat
+
 - [Build Your Own Octocat](https://myoctocat.com/)
 - [GitHub Octodex](https://octodex.github.com/)
+:::
 
-Steps to create your profile README
 
-- Step 1: 
-
-## Bonus Exercise: Practice Git Workflows
-
-- Pull Requests from Branching
-- Pull Requests from Forking
-
-<!-- Initial outline
-
-## Informative READMEs
-
-### Project README on GitHub
-
-Your project (or Git repository)
-
-### GitHub Profile README
-
-## GitHub for Project Management
-
-### GitHub Issues
-
-### GitHub Projects
-
-### Project Management Integrations
-
-- ZenHub-->
