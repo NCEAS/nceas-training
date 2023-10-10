@@ -4,6 +4,5 @@ from: markdown+emoji
 title-block-banner: true
 ---
 
-<!-- Flexdashboards are only compatible with Rmds -->
+{{< include /sections/visualization-flexdashboard-intro.qmd >}}
 
-{{< include /sections/visualization-flexdashboard.Rmd >}}
