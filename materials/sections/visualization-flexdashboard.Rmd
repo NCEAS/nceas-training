@@ -1,0 +1,15 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Outline:
+
+- What is a flexdashboard?
+- How does it compare to Shiny?
+- Demo: How to make one
+- Tips, tricks, and features
+- Practice: Create one using palmer penguins or find other relevant data
