@@ -1,0 +1,53 @@
+---
+output: html_document
+---
+
+Outline:
+
+- What is a flexdashboard?
+
+Flexdashboard is another R package from RStudio that is built on top of R Markdown and Shiny. It allows you to create flexible, interactive dashboards using simple Markdown documents. Flexdashboards are designed to be easy to author, and they support a wide variety of visualizations and interactive components. You can incorporate Shiny widgets and functionality into flexdashboards, making it a powerful tool for creating interactive reports and dashboards that can be shared with others.
+
+::: {.callout-important icon=false}
+
+### Flexdashboard is for R Markdown Only
+
+`flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents with it. And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
+
+If you're really invested in only using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto too.
+:::
+
+- How does it compare to Shiny? When should I make a flexdashboard?
+
+It depends on what your final product needs to be and what skillset your team has!
+
+```{mermaid}
+flowchart TD
+    A[Goal: Create a web-based application for data interaction]
+    A --> B{Shiny App}
+    A --> C{Flexdashboard}
+    C --> D(Build a Flexdashboard if:)
+    B --> E(Build a Shiny App if:)
+    D --> F[Interested in rapidly creating a dashboard prototype]
+    F --> G[Have a preference for R Markdown]
+    G --> H[There are non-programmers who need to create or maintain dashboards]
+    H --> I[Want to blend narrative text with interactivity]
+    I --> J[Prefer a simpler, code-light approach]
+    J --> K[Dashboard requirements are relatively static]
+    E --> L[Dashboard requires a highly customized user interface]
+    L --> M[Dashboard needs to perform complex data analysis with user inputs]
+    M --> N[Dashboard requires real-time data updates]
+    N --> O[There are programmers familiar with reactive programming in R to create or maintain dashboards]
+    O --> P[Dashboard requires a multi-page app with navigation]
+
+```
+
+- Demo: How to make one
+
+::: {.callout-note}
+### Demonstration
+Fork this repository to follow along with the demonstration and to see flexdashboard examples.
+:::
+
+- Tips, tricks, and features
+- Practice: Create one using palmer penguins or find other relevant data
