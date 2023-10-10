@@ -62,13 +62,13 @@ not_napl <- lobster_traps %>%
 
 ::: callout-note
 ### Question 3
-Create and store a subset with lobsters at Carpinteria Reef (`CARP`) OR number of commercial trap floats is greater than 20. Check your output.
+Create and store a subset with lobsters at Carpinteria Reef (`CARP`) AND number of commercial trap floats is greater than 20. Check your output.
 :::
 
 ```{r}
 #| code-summary: "Answer"
 carp_20_traps <- lobster_traps %>% 
-    filter(SITE == "CARP", TRAPS > 20)
+    filter(SITE == "CARP" & TRAPS > 20)
 ```
 
 
