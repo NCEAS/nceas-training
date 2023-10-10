@@ -45,6 +45,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
     
 3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
     a.  Create two new directories one called `data` and one called `figs`
+        i. *Note: Git does not track empty directories, so you won't see `figs` when you push to GitHub*
     b.  Download the following data and upload them to the `data` folder:
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
