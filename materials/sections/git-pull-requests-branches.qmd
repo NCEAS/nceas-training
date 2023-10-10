@@ -3,12 +3,12 @@
 
 In this lesson, you will learn:
 
-- New mechanisms to collaborate using __git__
-- What is a __Pull Request__ in Github?
+- New mechanisms to collaborate using __Git__
+- What is a __Pull Request__ in GitHub?
 - How to contribute code to colleague's repository using Pull Requests
-- What is a __branch__ in git?
+- What is a __branch__ in Git?
 - How to use a branch to organize code
-- What is a __tag__ in git and how is it useful for collaboration?
+- What is a __tag__ in Git and how is it useful for collaboration?
 
 ### Pull requests
 
@@ -50,7 +50,7 @@ owner can incorporate. We'll walk through the process from both the owner and th
 perspectives.  In the following example, `mbjones` will be the repository owner, and `metamattj`
 will be the collaborator.
 
-1. *Change settings (Owner)*: Edit the github settings file for your `training-test` repository, and ensure that the collaborator does not have editing permission.  Also, be sure that all changes in your repository are committed and pushed to the `origin` server.
+1. *Change settings (Owner)*: Edit the GitHub settings file for your `training-test` repository, and ensure that the collaborator does not have editing permission.  Also, be sure that all changes in your repository are committed and pushed to the `origin` server.
 
 2. *Fork (Collaborator)*: Visit the GitHub page for the owner's GitHub repository on which you'd like
 to make changes, and click the `Fork` button.  This will create a clone of that repository in your
@@ -62,8 +62,8 @@ using that repository url.
 ![](images/git-pr-02-forked-repo.png)
 
 3. *Edit README.md (Collaborator)*: The collaborator should make one or more changes to the README.md
-file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and github copy both have the changes that they made, but the owner's repository
-has not yet been changed. When you now visit your forked copy of the repository on Github, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
+file from their cloned copy of the repository, `commit` the changes, and `push` them to their forked copy. At this point, their local repo and GitHub copy both have the changes that they made, but the owner's repository
+has not yet been changed. When you now visit your forked copy of the repository on GitHub, you will now see your change has been made, and it will say that `This branch is 1 commit ahead of mbjones:main.` 
 
 ![](images/git-pr-03-fork-changed.png)
 
@@ -100,7 +100,7 @@ repository, and then push those changes from that local repository to the collab
 
 To add a reference to the `upstream` remote (the repository you made your fork from), in the terminal, run:
 
-`git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
+`git remote add upstream https://GitHub.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git`
 
 Then to pull from the main branch of the `upstream` repository, in the terminal, run: 
 
@@ -130,7 +130,7 @@ between branches.
 
 Create a new branch in your training repository called `exp-1`, and then make 
 changes to the RMarkdown files in the directory.  Commit and push those changes
-to the branch.  Now you can switch between branches using the github interface.
+to the branch. Now you can switch between branches using the GitHub interface.
 
 ![](images/git-branch-create.png)
 
