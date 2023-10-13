@@ -14,9 +14,9 @@ format: html
 Women in Data Science (WiDS) Workshops: [Dashboard Design Thinking by Jenn Schilling](https://youtu.be/xd-V-ikReDI?si=hrX3TUS4MSVL3tn-)
 :::
 
-## What is Design thinking?
+## What is Design Thinking?
 
-Design thinking in data science centers the user's perspective throughout the entire development of a dashboard. It starts with the user by gaining an understanding on what the user needs and ends with the user by involving them in focus groups or other testing methods to get their feedback. By focusing on the user we can create better dashboards and improve our audience's ability to make data-informed decision making. 
+**Design thinking in data science centers the user's perspective throughout the entire development of a dashboard**. It starts with the user by gaining an understanding on what the user needs and ends with the user by involving them in focus groups or other testing methods to get their feedback. Centering the user means we create better dashboards *and* improve data-informed decision making. 
 
 Design thinking is inherently an innovative and collaborative process because it involves exploring multiple options for the same problem. 
 
@@ -31,27 +31,53 @@ These stages are not meant to be in any particular order. While there is an inhe
 
 ## Empathize and Define
 
-::: {.callout-caution appearance="minimal"}
+::: {.callout-warning appearance="minimal"}
 ***Empathize***: *Gather information and survey your users to understand what they need to know from the data, what are the use cases for the dashboard and its overall purpose.*
 :::
 
-### Empathize Tools: Empathy Mapping {.unnumbered}
+### Empathize Tool: Empathy Mapping {.unnumbered}
 
-During the Empathize stage, you can gather information through internal conversations with your team or conduct interviews with potential users.
+During the Empathize and Define stages, you can gather information through internal conversations with your team or conduct interviews with potential users.
 
-The **goal of an Empathy Map** is to capture what a user says, thinks, does, and feels --- additionally consider what their goals are (*and do their goals align the goals you have in mind for the dashboard you're developing?*).
+The **goal of an Empathy Map** is to capture what a user says, thinks, does, and feels --- additionally consider what their goals are (*and do their goals align the goals you have in mind for the dashboard you're developing?*). Check out the empathy map the Nielsen Norman Group created for a customer, Jamie, who is buying a television. 
 
-::: {.callout-caution appearance="minimal"}
+![Source: Nielsen Norman Group](images/vizualization-r-practice-flexdashboard-shiny-1.png)
+
+::: {.callout-caution icon=false}
+#### Create Your Own Empathy Map
+
+Use the [**NCEAS Learning Hub Empathy Map template**](https://docs.google.com/presentation/d/18RUZ1mDb4ns8ehBx4ONdC8sQaJL7hrGHlcfsnbU6sfk/edit?usp=sharing) to get started --- adapt it as needed for your project/user(s).
+:::
+
+---
+
+::: {.callout-warning appearance="minimal"}
 ***Define***: *Identify the core problems your users have in accessing and interpreting the data in its current state.*
 :::
 
-### Define Tools {.unnumbered}
+### Define Tool: Project Brief Wiki {.unnumbered}
+
+The Empathize Stage helped us understand our audience. Now, we need to understand our problem. In the Define Stage, write down [**problem statements**](https://www.betterup.com/blog/problem-statement) and document the specifications of the dashboard including the **scope, timeline, and roles**. It's best to contain all this information within a **Project Brief** --- a condensed version of a project plan.
+
+You should feel comfortable sharing this document with not only your team, but your users as well. This ensures that everyone is on the same page. Keeping this in mind, consider having your **Project Brief as a [Wiki on GitHub](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis) in the Git repository for your dashboard**.
+
+When defining the dashboard you want to create, consider these types:
+
+1. **Executive Dashboard**: shows the big picture; used for high-level overview
+2. **Operational Dashboard**: shows what's happening right now; used for monitoring
+3. **Strategic Dashboard**: shows progress toward a goal; used to inform decisions
+4. **Analytical Dashboard**: shows detailed analysis; used for identifying opportunities and deep analysis
 
 
+::: {.callout-caution icon=false}
+#### Writing a Project Brief
+
+Check out Asana's article [*5 steps to writing a clear project brief*](5 steps to writing a clear project brief) as guidance --- use only what you need for your project.
+:::
 
 ## Ideate and Protoype
 
-::: {.callout-caution appearance="minimal"}
+::: {.callout-warning appearance="minimal"}
 ***Ideate***: *Challenge your existing assumptions and create ideas. Look for alternative ways to view the problem and identify solutions.*
 :::
 
@@ -60,7 +86,9 @@ The **goal of an Empathy Map** is to capture what a user says, thinks, does, and
 - brainstorm
 - mind mapping
 
-::: {.callout-caution appearance="minimal"}
+Recall the chart from the [Flexdashboard Lesson](https://learning.nceas.ucsb.edu/2023-10-delta/session_04.html).
+
+::: {.callout-warning appearance="minimal"}
 ***Prototype***: *Start to create the solutions. It's important to experiment here. Produce some inexpensive and low-intensive versions of the product.*
 :::
 
@@ -68,14 +96,14 @@ The **goal of an Empathy Map** is to capture what a user says, thinks, does, and
 
 ## Test and Implement
 
-::: {.callout-caution appearance="minimal"}
+::: {.callout-warning appearance="minimal"}
 ***Test***: *Try your solutions and evaluate the results. Return to your users for feedback to incorporate.*
 :::
 
 ### Test Tools {.unnumbered}
 
 
-::: {.callout-caution appearance="minimal"}
+::: {.callout-warning appearance="minimal"}
 ***Implement***: *Put your vision into effect! Remember that the process doesn't have to end here at implementation. Return to your users to gain more feedback and to guide the refinement of your solutions.*
 :::
 
