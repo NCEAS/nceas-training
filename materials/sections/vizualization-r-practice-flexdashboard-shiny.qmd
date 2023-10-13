@@ -11,7 +11,9 @@ format: html
 
 ::: {.callout-note icon=false}
 ### Acknowledgements
-Women in Data Science (WiDS) Workshops: [Dashboard Design Thinking by Jenn Schilling](https://youtu.be/xd-V-ikReDI?si=hrX3TUS4MSVL3tn-)
+This lesson has been adapted by the Women in Data Science (WiDS) Workshop: [Dashboard Design Thinking by Jenn Schilling](https://youtu.be/xd-V-ikReDI?si=hrX3TUS4MSVL3tn-).
+
+We *highly* encourage you to watch the full workshop for more details on applying design thinking to dashboards.
 :::
 
 ## What is Design Thinking?
@@ -81,18 +83,42 @@ Check out Asana's article [*5 steps to writing a clear project brief*](5 steps t
 ***Ideate***: *Challenge your existing assumptions and create ideas. Look for alternative ways to view the problem and identify solutions.*
 :::
 
-### Ideate Tools {.unnumbered}
+### Ideate Tool: Host a Brainstorm Session {.unnumbered}
 
-- brainstorm
-- mind mapping
+Now that we've learned about our audiences and problems from the Empathize & Define stages, we can start to think about what ideas for dashboard solutions. The **primary goal of this stage is to generate as many ideas as possible without judgement and evaluation --- it's all about quantity over quality**. Once you've generated many ideas, then you can start to narrow it down to a single dashboard solution.
 
-Recall the chart from the [Flexdashboard Lesson](https://learning.nceas.ucsb.edu/2023-10-delta/session_04.html).
+There are many ways to ideate individually or as a group, but here are some tips:
+
+- Use [mind mapping tools like Miro](https://miro.com/aq/ps/mind-mapping/?utm_source=google&utm_medium=cpc&utm_campaign=S%7CGOO%7CNB%7CUS%7CALL-EN%7CCore-Exact_%7CVoyantisEXP1&utm_adgroup=&adgroupid=147606509503&utm_custom=20106780405&utm_content=672781996520&utm_term=mind+mapping+tools&matchtype=e&device=c&location=9031642&gad=1&gclid=Cj0KCQjwsp6pBhCfARIsAD3GZubc2VZsltsiCrElebvHx_fk6O4PUPuaCAn8P93_g-suXRKwKg4lzVYaAprSEALw_wcB) for virtual collaboration.
+- If you're working together in-person, use a white board, sticky notes, or a large piece of construction paper to capture as many ideas from as many team members as possible.
+- *Take a break!*
+- Group related ideas together.
+- Set a time limit. This can vary from a few hours to multiple sessions throughout a week. Either way setting a time limit and making a plan to regroup and narrow down on ideas is helpful so that the ideation period doesn't feel so nebulous.
+
+::: {.callout-caution icon=false}
+#### Shiny vs Flexdashboard 
+
+This is a good time to consider which R dashboard package may be more useful for your final dashboard product. Recall the diagram from the [Flexdashboard Lesson](https://learning.nceas.ucsb.edu/2023-10-delta/session_04.html) to help determine which tool makes the most sense for your project.
+:::
+
+---
 
 ::: {.callout-warning appearance="minimal"}
 ***Prototype***: *Start to create the solutions. It's important to experiment here. Produce some inexpensive and low-intensive versions of the product.*
 :::
 
-- use flexdashboard to create a lightweight version of a shiny app
+### Prototype Tool: Create a Minimal Viable Dashboard {.unnumbered}
+
+At the Prototype Stage, we can experiment with a few of the ideas from the Ideate Stage to identify what is the best solution. Here we can **create a quick, scaled down version of the dashboard**. The **primary goal is to create something more refined from the Ideate Stage, but not a final or completely usable dashboard**. We want the prototype to be a minimal viable product where you can **test out some functionality without committing to multiple iterations**. 
+
+::: {.callout-caution icon=false}
+#### Tools to use for Prototyping
+
+- Google Slides
+- Microsoft PowerPoint
+- R Flexdashboard (this is a great option for prototyping if you're set on creating a Shiny App since you can insert some Shiny elements in a Flexdashboard)
+- Good ole' pen and paper!
+:::
 
 ## Test and Implement
 
@@ -100,14 +126,48 @@ Recall the chart from the [Flexdashboard Lesson](https://learning.nceas.ucsb.edu
 ***Test***: *Try your solutions and evaluate the results. Return to your users for feedback to incorporate.*
 :::
 
-### Test Tools {.unnumbered}
+### Test Tool: Run Tests and Review Work from Previous Stages {.unnumbered}
 
+You've completed your prototype --- it's time to test it out and receive feedback on it! **Review your project brief** and confirm your **prototype reflects your users' needs** and the use cases you're trying to achieve.
+
+If you don't have access to your users', **return to your Empathy Maps** to make sure your prototype is aligned with the information you have gathered there.
+
+Other tests to consider:
+
+- Does your dashboard work across **different devices**?
+- Does it meet **accessibility** requirements?
+- Does the **users' dashboard experience** align with how you think their experience should go?
+
+::: {.callout-caution icon=false}
+#### Interaction Design Foundation Testing Prototype Guidelines
+
+Read the Interaction Design Foundation's article [*Test Your Prototypes: How to Gather Feedback and Maximize Learning*](https://www.interaction-design.org/literature/article/test-your-prototypes-how-to-gather-feedback-and-maximise-learning) for more tips, tricks, and templates for testing your dashboard.
+:::
+
+---
 
 ::: {.callout-warning appearance="minimal"}
 ***Implement***: *Put your vision into effect! Remember that the process doesn't have to end here at implementation. Return to your users to gain more feedback and to guide the refinement of your solutions.*
 :::
 
-### Implement Tools {.unnumbered}
+If the test you run reveal that your dashboard is not meeting the goals of your team or your users, then it's time to go back to the Prototype Stage (or even a different stage) and iterate before you complete the Implementation stage. You will also want to **return to your Project Brief, Empathy Map, and additional successful metrics to ensure that your dashboard meets *most* of these goals and needs**.
+
+When implementing the dashboard:
+
+- **Add context and definitions** to the dashboard.
+- *Test again!*
+- Internally: **validate your data**.
+- Externally: users test and **provide final feedback**.
+- How are you going to **communicate** your dashboard and make it **accessible** to your audience?
+
+::: {.callout-caution icon=false}
+#### That's *Not* All Folks!
+
+Design Thinking is an approach that centers the user in the development of a product. When developing dashboards or other data products there are definitely *more* resources and approaches out there.
+
+It's worth doing additional research on aspects like **testing, design, and data visualization** to create the most robust data product as possible. 
+:::
+
 
 
 
