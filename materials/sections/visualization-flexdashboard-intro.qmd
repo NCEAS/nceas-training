@@ -2,33 +2,41 @@
 output: html_document
 ---
 
-Outline:
+## Learning Objectives {.unnumbered}
 
-- What is a flexdashboard?
+- Create and design customized dashboards using the R package `flexdashboard`
+- Apply Markdown syntax and Shiny elements to create visually appealing and interactive flexdashboards
 
-Flexdashboard is another R package from RStudio that is built on top of R Markdown and Shiny. It allows you to create flexible, interactive dashboards using simple Markdown documents. Flexdashboards are designed to be easy to author, and they support a wide variety of visualizations and interactive components. You can incorporate Shiny widgets and functionality into flexdashboards, making it a powerful tool for creating interactive reports and dashboards that can be shared with others.
+## What is a `flexdashboard`?
+
+`flexdashboard` is an R package from RStudio that is built on top of R Markdown and Shiny. It allows us to create flexible, interactive dashboards using simple Markdown documents and syntax. Flexdashboards are designed to be easy to create, and support a wide variety of visualizations and interactive components. We can incorporate Shiny widgets and functionality into flexdashboards, making it a powerful tool for creating interactive reports and dashboards that can be shared with others.
 
 ::: {.callout-important icon=false}
-
 ### Flexdashboard is for R Markdown Only
 
-`flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents with it. And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
+`flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents (any files ending with `.qmd`). And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
 
-If you're really invested in only using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto too.
+If you're invested in *only* using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto too.
 :::
 
-- How does it compare to Shiny? When should I make a flexdashboard?
+## Flexdashboard vs Shiny
 
-It depends on what your final product needs to be and what skillset your team has!
+::: {.callout-note}
+### When should I make a flexdashboard?
+
+Flexdashboards are great for creating lightweight interactive dashboards that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is  and what skillset your team has! Check out the diagram below and see what scenarios resonate best with you and your project goals.
+:::
 
 ```{mermaid}
+%%| fig-width: '100%'
+%%| fig-height: '100%'
 flowchart TD
     A[Goal: Create a web-based application for data interaction]
     A --> B{Shiny App}
     A --> C{Flexdashboard}
     C --> D(Build a Flexdashboard if:)
     B --> E(Build a Shiny App if:)
-    D --> F[Interested in rapidly creating a dashboard prototype]
+    D --> F[Interested in quickly creating a dashboard prototype]
     F --> G[Have a preference for R Markdown]
     G --> H[There are non-programmers who need to create or maintain dashboards]
     H --> I[Want to blend narrative text with interactivity]
@@ -39,15 +47,33 @@ flowchart TD
     M --> N[Dashboard requires real-time data updates]
     N --> O[There are programmers familiar with reactive programming in R to create or maintain dashboards]
     O --> P[Dashboard requires a multi-page app with navigation]
+    
+    
 
 ```
 
-- Demo: How to make one
+## Flexdashboard Features
 
-::: {.callout-note}
-### Demonstration
-Fork this repository to follow along with the demonstration and to see flexdashboard examples.
+- yaml + layouts
+
+## Demo: Creating a flexdashboard
+
+::: {.callout-tip icon=false}
+### Setup
+Fork the [NCEAS/flexdashboard-demo-lh repository](https://github.com/NCEAS/flexdashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of flexdashboard examples.
 :::
 
-- Tips, tricks, and features
-- Practice: Create one using palmer penguins or find other relevant data
+The demonstration will include 4 examples that showcase different `flexdashboard` features:
+
+1. 
+2. 
+3.
+
+## Additional Resources
+
+- [RStudio `flexdashboard` vingettes](https://pkgs.rstudio.com/flexdashboard/) (The articles under the "Articles" dropdown menu are particularly helpful!)
+- [RStudio `flexdashboard` Examples](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
+- [R Markdown: The Definitive Guide Chapter 5: Dashboards](https://bookdown.org/yihui/rmarkdown/dashboards.html) by Yihui Xie, J. J. Allaire, and Garrett Grolemund
+- [htmlwidgets for R](https://www.htmlwidgets.org/index.html): Check out widgets featured either in the [gallery](https://gallery.htmlwidgets.org/) or the [showcase](https://www.htmlwidgets.org/showcase_leaflet.html)
+
+
