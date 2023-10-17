@@ -16,15 +16,15 @@ output: html_document
 
 `flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents (any files ending with `.qmd`). And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
 
-If you're invested in *only* using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto too.
+If you're invested in only using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto as well.
 :::
 
 ## Flexdashboard vs Shiny
 
-::: {.callout-note}
+::: {.callout-note icon=false}
 ### When should I make a flexdashboard?
 
-Flexdashboards are great for creating lightweight interactive dashboards that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is  and what skillset your team has! Check out the diagram below and see what scenarios resonate best with you and your project goals.
+Flexdashboards are great for creating lightweight interactive dashboards that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is  and what skillset your team has. Check out the diagram below and see what scenarios resonate best with you and your project goals.
 :::
 
 ```{mermaid}
@@ -63,11 +63,11 @@ flowchart TD
 Fork the [NCEAS/flexdashboard-demo-lh repository](https://github.com/NCEAS/flexdashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of flexdashboard examples.
 :::
 
-The demonstration will include 4 examples that showcase different `flexdashboard` features:
+The demonstration will include 3 examples that showcase different `flexdashboard` features:
 
-1. 
-2. 
-3.
+1. Basic Flexdashboard from Template
+2. Interactive and Tabbed Flexdashboard
+3. Reactive Flexdashboard
 
 ## Additional Resources
 
