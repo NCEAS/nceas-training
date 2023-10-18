@@ -52,9 +52,40 @@ flowchart TD
 
 ```
 
-## Flexdashboard Features
+## Flexdashboard Layout + Features
 
-- yaml + layouts
+Now let's familiarize ourselves with how to structure an `.Rmd` to create a flexdashboard and what the dashboard output looks like using the default template.
+
+:::{.column-page-inset}
+![](images/flexdashboard-1.png)
+:::
+
+:::{.column-page-inset}
+![](images/flexdashboard-2.png)
+:::
+
+::: {.callout-caution icon=false}
+### Column and Row Attributes
+
+Additional attributes to add to columns or rows include:
+
+- `data-width`:
+- `data-height`:
+- `tabset`:
+- `sidebar`:
+:::
+
+### Flexdashboard Components {.unnumbered}
+
+The different components that can be added to a flexdashboard are:
+
+- HTML Widgets:
+- R Graphics:
+- Tabular Data:
+- Value Boxes:
+- Gauges:
+- Navigation Bar:
+- Text Annotations:
 
 ## Demo: Creating a flexdashboard
 
@@ -63,11 +94,32 @@ flowchart TD
 Fork the [NCEAS/flexdashboard-demo-lh repository](https://github.com/NCEAS/flexdashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of flexdashboard examples.
 :::
 
-The demonstration will include 3 examples that showcase different `flexdashboard` features:
+The demonstration will include 4 examples that showcase different `flexdashboard` features:
 
 1. Basic Flexdashboard from Template
 2. Interactive and Tabbed Flexdashboard
-3. Reactive Flexdashboard
+3. Reactive Flexdashboard using `shiny` elements
+4. Themed Flexdashboard using `bslib`
+
+::: {.callout-note icon=false}
+### Exercise: Your turn!
+
+In the Themed Flexdashboard use the `palmerpenguins` data to complete the following tasks:
+
+1. Fill in the boxes:
+    a. Replace Chart A with a scatterplot of your choosing.
+    b. Replace Chart B with a plot or map of your choice.
+    c. Replace Chart C with a `valueBox`.
+    d. *Optional* Explore the [htmlwidgets for R gallery](https://gallery.htmlwidgets.org/), choose one you like and replace Chart D with that widget.
+2. Change the theme using `bslib::bs_themer()`. To activate the Theme Customizer, complete the following steps:
+    a. Add to the YAML `runtime: shiny`
+    b. Add `bslib::bs_themer()` to the setup chunk
+    c. Save the `.Rmd`
+    d. Click "Run Document" and open the dashboard in a browser window for optimal experience
+:::
+
+
+NEXT: Add code for palmer penguins plots
 
 ## Additional Resources
 
