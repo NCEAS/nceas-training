@@ -1,11 +1,11 @@
-## Learning Objectives {.unnmbered}
+## Learning Objectives {.unnumbered}
 
 -   Overview best practices for organizing data for publication\
 -   Review what science metadata is and how it can be used
 -   Demonstrate how data and code can be documented and published in
     open data archives
 
-## The Data Life Cycle - A Recap
+## The Data Life Cycle
 
 The Data Life Cycle gives you an overview of meaningful steps data goes
 through in a research project, from planning to archival. This
@@ -82,34 +82,38 @@ The data center can help come up with a strategy to tile data structures by subs
 :::
 
 
+## Metadata
 
-## Data sharing and preservation
+Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection.
 
-![](images/WhyManage.png)
+Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
-### Data repositories: built for data (and code)
+The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
 
--   GitHub is not an archival location
--   Dedicated data repositories: KNB, Arctic Data Center, Zenodo,
-    FigShare
-    -   Rich metadata
-    -   Archival in their mission
--   Data papers, e.g., Scientific Data
--   List of data repositories: http://re3data.org
 
-![](images/RepoLogos.png)
+One way to think about metadata is to answer the following questions with the documentation:
 
-### Metadata
+-   What was measured?
+-   Who measured it?
+-   When was it measured?
+-   Where was it measured?
+-   How was it measured?
+-   How is the data structured?
+-   Why was the data collected?
+-   Who should get credit for this data (researcher AND funding agency)?
+-   How can this data be reused (licensing)?
 
-Metadata are documentation describing the content, context, and
-structure of data to enable future interpretation and reuse of the data.
-Generally, metadata describe who collected the data, what data were
-collected, when and where it was collected, and why it was collected.
 
-For consistency, metadata are typically structured following metadata
-content standards such as the [Ecological Metadata Language
-(EML)](https://knb.ecoinformatics.org/software/eml/). For example,
-here's an excerpt of the metadata for a sockeye salmon data set:
+We also know that it is important to keep in mind how will computers organize and integrate this information. There are a number of **metadata standards** that make your metadata machine readable and therefore easier for data curators to publish your data (Ecological Metadata Language, Geospatial Metadata Standards, Biological Data Profile, Darwin Core, Metadata Encoding Transmission Standard, etc.)
+
+Today we are going to be focusing on the Ecological Metadata Language also known as EML. Which is widespread use in the earth and environmental sciences.
+
+> "The Ecological Metadata Language (EML) defines a comprehensive vocabulary and a readable XML markup syntax for documenting research data" (<https://eml.ecoinformatics.org/>)
+
+
+<!-- EXPAND ON EML FORMAT (EML - XML), Package Overvew, Entities & Attributes-->
+
+
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -138,16 +142,74 @@ here's an excerpt of the metadata for a sockeye salmon data set:
 </eml:eml>
 ```
 
-That same metadata document can be converted to HTML format and
-displayed in a much more readable form on the web:
-https://knb.ecoinformatics.org/#view/doi:10.5063/F1F18WN4
 
-![](images/knb-metadata.png) And as you can see, the whole data set or
-its components can be downloaded and reused.
 
-Also note that the repository tracks how many times each file has been
-downloaded, which gives great feedback to researchers on the activity
-for their published data.
+
+## Data Identifiers & Citation
+
+Many journals require a DOI - a digital object identifier - be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
+
+Keep in mind that generally, if the data package needs to be updated (which happens in many cases), each version of the package will get its own identifier. This way, researchers can and should cite the exact version of the data set that they used in their analysis. Having the data identified in this manner allows us to accurately track the dataset usage metrics.
+
+<!-- INCLUDE IMAGE? --->
+
+Finally, stressed that researchers should get in the habit of citing the data that they use (even if it’s their own data!) in each publication that uses that data. This is important for correct attribution, provenance of your work and ultimately transparency in the scientific process.
+
+## Provenance and Computational Workflow
+
+![](images/comp-repro.png)
+
+
+While the [Knowledge Network for Biocomplexity](https://knb.ecoinformatiocs.org), and similar repositories do focus on preserving data, we really set our sights much more broadly on preserving entire computational workflows that are instrumental to advances in science.  A computational workflow represents the sequence of computational tasks that are performed from raw data acquisition through data quality control, integration, analysis, modeling, and visualization.
+
+
+For example, a data acquisition and cleaning workflow often creates a derived and integrated data product that is then picked up and used by multiple downstream analytical workflows that produce specific scientific findings.  These workflows can each be archived as distinct data packages, with the output of the first workflow becoming the input of the second and subsequent workflows.
+
+![](images/comp-workflow-2.png)
+
+
+Adding provenance within your work makes it more reproducible and compliant with the [FAIR](https://www.go-fair.org/fair-principles/) principles. It is also useful for building on the work of others; you can produce similar visualizations for another location, for example, using the same code.
+
+Tools like Quarto can be used as a provenance tool, as well - by starting with the raw data and cleaning it programmatically, rather than manually, you preserve the steps that you went through and your workflow is reproducible.
+
+
+
+## Preserving your data
+
+<!--ADD BLURB--->
+
+::: column-margin
+![](images/WhyManage.png)
+:::
+
+
+### Data repositories: built for data (and code)
+
+-   GitHub is not an archival location
+-   Dedicated data repositories: KNB, Arctic Data Center, Zenodo,
+    FigShare
+    -   Rich metadata
+    -   Archival in their mission
+-   Data papers, e.g., Scientific Data
+-   List of data repositories: http://re3data.org
+
+![](images/RepoLogos.png)
+
+DataONE is a federation of dozens of data repositories that work
+together to make their systems interoperable and to provide a single
+unified search system that spans the repositories. DataONE aims to make
+it simpler for researchers to publish data to one of its member
+repositories, and then to discover and download that data for reuse in
+synthetic analyses.
+
+DataONE can be searched on the web (https://search.dataone.org/), which
+effectively allows a single search to find data form the dozens of
+members of DataONE, rather than visiting each of the currently 43
+repositories one at a time.
+
+![](images/DataONECNs.png)
+
+
 
 ### Structure of a data package
 
@@ -170,29 +232,25 @@ other files gets an internal identifier, often a UUID that is globally
 unique. In the example above, the package can be cited with the DOI
 `doi:10.5063/F1F18WN4`.
 
-### DataONE Federation
 
-DataONE is a federation of dozens of data repositories that work
-together to make their systems interoperable and to provide a single
-unified search system that spans the repositories. DataONE aims to make
-it simpler for researchers to publish data to one of its member
-repositories, and then to discover and download that data for reuse in
-synthetic analyses.
-
-DataONE can be searched on the web (https://search.dataone.org/), which
-effectively allows a single search to find data form the dozens of
-members of DataONE, rather than visiting each of the currently 43
-repositories one at a time.
-
-![](images/DataONECNs.png)
 
 ## Publishing data from the web
 
 Each data repository tends to have its own mechanism for submitting data
 and providing metadata. With repositories like the KNB Data Repository
-and the Arctic Data Center, we provide some easy to use web forms for
-editing and submitting a data package. Let's walk through a web
-submission to see what you might expect.
+and the EDI, they provide some easy to use web forms for
+editing and submitting a data package. 
+
+
+### Publishing Data to EDI
+
+Short explanations and DEMO
+
+### Publishing Data to KNB
+
+
+Short Explanation and Practice
+
 
 ::: callout-tip
 ## Setup
@@ -210,7 +268,7 @@ folder.
 ![](images/hatfield-knb-01.png)
 :::
 
-## Login via ORCID
+#### Login via ORCID
 
 We will walk through web submission on https://demo.nceas.ucsb.edu, and
 start by logging in with an ORCID account. ORCID provides a common
@@ -257,7 +315,7 @@ your dataset. It should be descriptive but succinct, lack acronyms, and
 include some indication of the temporal and geospatial coverage of the
 data.
 
-The abstract should be sufficently descriptive for a general scientific
+The abstract should be sufficiently descriptive for a general scientific
 audience to understand your dataset at a high level. It should provide
 an overview of the scientific context/project/hypotheses, how this data
 package fits into the larger context, a synopsis of the experimental or
