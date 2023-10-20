@@ -1,0 +1,36 @@
+---
+title: "Reproducible Workflows Using `targets`"
+format: html
+bibliography: book.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+::: {.callout-note icon=false}
+## Acknowledgements
+
+This lesson is adapted from the journal article [Improving ecological data science with workflow management software](https://doi.org/10.1111/2041-210X.14113) by Brousil et al, and the journal's accompanying example, [A worked targets example for ecologists](https://targets-ecology.netlify.app/).
+
+:::
+
+## Benefits of Reproducible Workflows
+
+What is a reproducible workflow?
+
+Other interchangeable terms we hear for reproducible workflows are:
+
+-   Workflow Management Systems
+-   Data pipelines
+-   Data workflow
+
+## Challenges of Reproducible Workflows
+
+WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular, thereby providing more computational flexibility [@brousil2023]
+
+Indeed, researchers will face a familiar trade-off—to invest the personnel time in learning and deploying a tool like WMS to save personnel and compute time later or to accept that less efficient, but more familiar analytical frameworks will come with costs in personnel time, compute time and potentially additional associated payments for computing resources. The balance will depend on the complexity of the analysis, the expectation of reusing the code over time and the resources available to the researcher (e.g. funds for computing or personnel) [@brousil2023]. 
+
+## Leveraging Reproducible Workflows & Tools
+
+### R Package: `targets` for Reproducible Worklows {.unnumbered}
+
+## Exercise: Creating a Pipeline using `targets`
