@@ -6,6 +6,10 @@ bibliography: book.bib
 
 ## Learning Objectives {.unnumbered}
 
+- Illustrate importance of utilizing reproducible workflows to increase project efficiency and sharing of analyses, as well as reducing computational resources.
+- Apply the R package `targets` workflow framework to scientific projects.
+- Organize projects in modular steps to improve understanding and computational flexibility.
+
 ::: {.callout-note icon=false}
 ## Acknowledgements
 
@@ -13,15 +17,21 @@ This lesson is adapted from the journal article [Improving ecological data scien
 
 :::
 
-## Benefits of Reproducible Workflows
+All research projects have a workflow of some kind and typically includes steps like: data preparation and harmonization, running analyses or models, creating visualizations, and more.
 
-What is a reproducible workflow?
+However, many environmental research projects are becoming increasingly more complex as researchers are utilizing larger datasets that require complicated analytical methods. More complexity means more steps, and more room for error or poor organizational methods that make projects difficult to reproduce.
 
-Other interchangeable terms we hear for reproducible workflows are:
+This is where reproducible workflow tools and packages, like the R package `targets`, can play a huge role in streamlining complex workflows and ease the organization and sharing of projects.
 
--   Workflow Management Systems
+Other interchangeable terms we hear for workflows are:
+
+-   Workflow Management Systems (WMS) 
 -   Data pipelines
 -   Data workflow
+
+## Benefits of Reproducible Workflows
+
+A major benefit of WMS is the capacity to track the status of all required files and functions to prevent steps in a larger pipeline from being skipped and by ensuring that data are kept up to date as models or harmonization routines change. Despite WMS's benefits, adopting a WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular (Figure 1), thereby providing more computational flexibility. [@brousil2023]
 
 ## Challenges of Reproducible Workflows
 
@@ -31,6 +41,15 @@ Indeed, researchers will face a familiar trade-off—to invest the personnel tim
 
 ## Leveraging Reproducible Workflows & Tools
 
+WMS may not be needed by most beginners, but learning about these tools early may inspire researchers with the understanding that their analyses can scale with the ambition and complexity of their most pressing research questions. Implementing WMS is an investment that does take time but can save a great deal of time and frustration later [@brousil2023].
+
 ### R Package: `targets` for Reproducible Worklows {.unnumbered}
+
+::: {.callout-caution icon=false}
+#### What is the `targets` package?
+`targets` is a package for R that analyzes and manages your workflow or analysis pipeline. It helps to save its users time by re-running outdated analysis steps only when needed. `targets` is a part of [rOpenSci](https://ropensci.org/).
+
+`targets` can also help users build, visualize, and manage workflows from raw files to outputs.
+:::
 
 ## Exercise: Creating a Pipeline using `targets`
