@@ -100,9 +100,10 @@ library(sf)
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-census_api_key("4f556c250dfa5332ac1d4b0848049c4959844b80", install = TRUE)
+census_api_key("4f556c250dfa5332ac1d4b0848049c4959844b80", 
+               overwrite = TRUE)
 ```
 
 
