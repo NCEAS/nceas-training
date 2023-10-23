@@ -38,7 +38,7 @@ Imports:
     parsedate,
     pdftools,
     pins,
-    plyt,
+    plyr,
     qualtRics,
     readr,
     reshape2,
@@ -52,12 +52,11 @@ Imports:
     tidycensus,
     tidyr,
     tidytext,
-    tigirs,
+    tigris,
     textdata,
     wordcloud,
     viridis,
-    xml
-    
+    XML
 Remotes: 
     rstudio/bookdown
 License: Apache License (>= 2)
