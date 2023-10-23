@@ -6,7 +6,7 @@ output: html_document
 
 -   Create and design customized dashboards using the R package `flexdashboard`
 - Become familiar with different flexdashboard components and flexdashboard syntax
--   Apply Markdown syntax and Shiny elements to create visually appealing and interactive flexdashboards
+-   Apply Markdown syntax, Shiny elements, and additional R packages like plotly to create visually appealing and interactive flexdashboards
 
 ## What is a `flexdashboard`?
 
@@ -141,6 +141,11 @@ The different components that can be added to a flexdashboard are:
 
 : {tbl-colwidths="\[30,70\]"}
 
+::: {.callout-caution appearance="minimal"}
+
+Learn more about flexdashboard components in the [flexdashboard documentation for components](https://rstudio.github.io/flexdashboard/articles/using.html#components) on the flexdashboard website.
+:::
+
 ## Demo: Creating a flexdashboard
 
 ::: {.callout-tip icon="false"}
@@ -175,6 +180,31 @@ In the Themed Flexdashboard, use the `palmerpenguins` data to complete the follo
 
 ***Note***: You're welcome to use the code from the demo so you can quickly start playing with the different flexdashboard features.
 :::
+
+## Publishing a Flexdashboard
+
+::: columns
+::: {.column width="30%"}
+![Publish Button in RStudio IDE](images/flexdashboard-publish-icon.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
+If your flexdashboard **does not** have any Shiny components you can publish your flexdashboard using:
+
+- **RStudio IDE** using the Publish Button and select a destination to publish to. [See Posit's documentation](https://docs.posit.co/connect/user/publishing/#:~:text=The%20blue%20Publishing%20icon%20in,viewer%20when%20viewing%20a%20document).
+- **GitHub Pages**. Recall the lesson from [Week Two's coursebook](https://learning.nceas.ucsb.edu/2023-08-delta/), [Publishing your analysis to the web with GitHub Pages](Publishing your analysis to the web with GitHub Pages).
+:::
+:::
+
+If your flexdashboard **does have** Shiny components you will need to publish to [shinyapps.io](https://shinyapps.io/). This can be done using:
+
+- **RStudio IDE** using the Publish Button.
+- The **`rsconnect` package** using `rsconnect::deployApp()`.
+
+::: {.callout-caution appearance="minimal"}
+***Note***: *You will need to create shinyapps.io Account first to publish to shinyapps.io.*
+:::
+
 
 ## Additional Resources
 
