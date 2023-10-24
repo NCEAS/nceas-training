@@ -13,17 +13,27 @@ bibliography: book.bib
 ::: {.callout-note icon=false}
 ## Acknowledgements
 
-This lesson is adapted from the journal article [Improving ecological data science with workflow management software](https://doi.org/10.1111/2041-210X.14113) by Brousil et al, and the journal's accompanying example, [A worked targets example for ecologists](https://targets-ecology.netlify.app/).
+This lesson is adapted from the following resources:
+
+- Journal article [Improving ecological data science with workflow management software](https://doi.org/10.1111/2041-210X.14113) by Brousil et al
+- Brousil et al's accompanying example, [A worked targets example for ecologists](https://targets-ecology.netlify.app/)
+- RLadies Santa Barbara Chapter Workshop: An introduction to `targets` for R
 
 :::
 
+## Challenges of Workflows
+
 All research projects have a workflow of some kind and typically includes steps like: data preparation and harmonization, running analyses or models, creating visualizations, and more.
 
-However, many environmental research projects are becoming increasingly more complex as researchers are utilizing larger datasets that require complicated analytical methods. More complexity means more steps, and more room for error or poor organizational methods that make projects difficult to reproduce.
+![Example of ideal straightforward data workflow](images/reproducible-workflows-targets-1.png)
 
-This is where reproducible workflow tools and packages, like the R package `targets`, can play a huge role in streamlining complex workflows and ease the organization and sharing of projects.
+However, many environmental research projects are becoming **increasingly more complex** as researchers are utilizing **larger datasets** that require **complicated analytical methods**. More complexity means more steps, and more room for error or poor organizational methods that make projects difficult to reproduce. More complex analysis may also mean **longer run times**, which can make updating functions and analysis time-consuming.
 
-Other interchangeable terms we hear for workflows are:
+![Example of a more realistic data workflow...](images/reproducible-workflows-targets-2.png)
+
+This is where **reproducible workflow tools and packages**, like the R package `targets`, can play a huge role in **streamlining complex workflows** and ease the organization and sharing of projects.
+
+Other **interchangeable terms for workflows** are:
 
 -   Workflow Management Systems (WMS) 
 -   Data pipelines
@@ -33,7 +43,7 @@ Other interchangeable terms we hear for workflows are:
 
 A major benefit of WMS is the capacity to track the status of all required files and functions to prevent steps in a larger pipeline from being skipped and by ensuring that data are kept up to date as models or harmonization routines change. Despite WMS's benefits, adopting a WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular (Figure 1), thereby providing more computational flexibility. [@brousil2023]
 
-## Challenges of Reproducible Workflows
+## Challenges of Reproducible Workflows - REMOVE
 
 WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular, thereby providing more computational flexibility [@brousil2023]
 
