@@ -226,6 +226,13 @@ ca_income <- get_acs(
 
 ```
 
+:::callout-warning
+## Missleading error message
+If you are getting an error about issues with the API, MAKE SURE YOU HAVE A VALID VARIABLE CODE. 
+If the variable code is not valid, functions in `tidycensus()` can not access the API.
+:::
+
+
 And that's it!! Now we have the corresponding spatial data bind to our
 variable of interest. We can plot this data using the base r `plot()`
 function.
