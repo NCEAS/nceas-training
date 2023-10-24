@@ -30,19 +30,33 @@ can be:
 - **I/O-bound**: Take too much time to read/write from disk
 - **network-bound**: Take too much time to transfer
 
-To help with **cpu-bound** computations, one can take advantage of modern processor architectures that provide multiple cores on a single processor, and thereby enable multiple computations to take place at the same time. In addition, some machines ship with multiple processors, allowing large computations to occur across the entire cluster of those computers. Plus, these machines also have large amounts of memory to avoid **memory-bound** computing jobs.
+To help with **cpu-bound** computations, one can take advantage of modern processor architectures that provide multiple cores on a single processor, and thereby enable multiple computations to take place at the same time. In addition, some machines ship with multiple processors, allowing large computations to occur across the entire set of those processors. Plus, these machines also have large amounts of memory to avoid **memory-bound** computing jobs.
 
-## Processors (CPUs) and Cores
+## Processors (CPUs), Cores, and Threads
 
 A modern CPU (Central Processing Unit) is at the heart of every computer.  While
 traditional computers had a single CPU, modern computers can ship with mutliple 
-processors, which in turn can each contain multiple cores.  These processors and 
-cores are available to perform computations.
-
-A computer with one processor may still have 4 cores (quad-core), allowing 4 computations
-to be executed at the same time.
+processors, each of which in turn can contain multiple cores.  These processors and 
+cores are available to perform computations. But, just what's the difference between 
+processors and cores? A computer with one processor may still have 4 cores (quad-core), 
+allowing 4 (or possibly more) computations to be executed at the same time.
 
 ![](images/processor.png) 
+
++ [**Microprocessor**](https://en.wikipedia.org/wiki/Microprocessor):
+an integrated circuit that contains the data processing logic and control for a computer. 
+
++ [**Multi-core processor**](https://en.wikipedia.org/wiki/Multi-core_processor):
+a microprocessor containing multiple processing units (cores) on a single integrated circuit. Each core in a multi-core processor can execute program instructions at the same time. 
+
++ [**Process**](https://en.wikipedia.org/wiki/Process_(computing)):
+an instance of a computer program (including instructions, memory, and other resources) that is executed on a microprocessor. 
+
++ [**Thread**](https://en.wikipedia.org/wiki/Thread_(computing)):
+a thread of execution is the smallest sequence of program instructions that can be executed independently, and is typically a component of a process. The threads in a process can be executed concurrently and typically share the same memory space. They are faster to create than a process.
+
++ [**Cluster**](https://en.wikipedia.org/wiki/Computer_cluster):
+a set of multiple, physically distinct computing systems, each with its own microprocessors, memory, and storage resources, connected together by a (fast) network that allows the nodes to be viewed as a single system.
 
 A typical modern computer has multiple cores, ranging from one or two in laptops
 to thousands in high performance compute clusters.  Here we show four quad-core
@@ -52,36 +66,58 @@ processors for a total of 16 cores in this machine.
 
 You can think of this as allowing 16 computations to happen at the same time. Theroetically, your computation would take 1/16 of the time (but only theoretically, more on that later).
 
-Historically, R has only utilized one processor, which makes it single-threaded.  Which is a shame, because the 2017 MacBook Pro that I am writing this on is much more powerful than that:
+Historically, many languages only utilized one processor, which makes them single-threaded.  Which is a shame, because the 2019 MacBook Pro that I am writing this on is much more powerful than that, and has mutliple cores that would support concurrent execution of multiple threads:
 
-```{bash eval=FALSE}
+```bash
 jones@powder:~$ sysctl hw.ncpu hw.physicalcpu
-hw.ncpu: 8
-hw.physicalcpu: 4
+hw.ncpu: 12
+hw.physicalcpu: 6
 ```
 
-To interpret that output, this machine `powder` has 4 physical CPUs, each of which has
-two processing cores, for a total of 8 cores for computation.  I'd sure like my R computations to use all of that processing power.  Because its all on one machine, we can easily use *multicore* processing tools to make use of those cores. Now let's look at
-the computational server `aurora` at NCEAS:
+To interpret that output, this machine `powder` has 6 physical CPUs, each of which has
+two processing cores, for a total of 12 cores for computation.  I'd sure like my computations to use all of that processing power.  Because its all on one machine, we can easily use *multicore* processing tools to make use of those cores. Now let's look at the computational server `included-crab` at NCEAS:
 
-```{bash eval=FALSE}
-jones@aurora:~$ lscpu | egrep 'CPU\(s\)|per core|per socket'
-CPU(s):                88
-On-line CPU(s) list:   0-87
-Thread(s) per core:    2
-Core(s) per socket:    22
-NUMA node0 CPU(s):     0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86
-NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79,81,83,85,87
+```bash
+jones@included-crab:~$ lscpu | egrep 'CPU\(s\)|per core|per socket' 
+CPU(s):                          88
+On-line CPU(s) list:             0-87
+Thread(s) per core:              1
+Core(s) per socket:              1
+NUMA node0 CPU(s):               0-87
 ```
 
-Now that's some compute power!  Aurora has 384 GB of RAM, and ample storage. All still under the control of a single operating system. 
+Now that's more compute power!  `included-crab` has 384 GB of RAM, and ample storage. All still under the control of a single operating system.
 
-However, maybe one of these NSF-sponsored high performance computing clusters (HPC) is looking attractive about now:
+Finally, maybe one of these [NSF-sponsored high performance computing clusters (HPC)](https://allocations.access-ci.org/resources) is looking attractive about now:
 
-- [JetStream](https://jetstream-cloud.org/)
-    - 640 nodes, 15,360 cores, 80TB RAM
-- [Stampede2]() at TACC is coming online in 2017
-    - 4200 nodes, 285,600 cores
+::: {.grid}
+
+::: {.g-col-6}
+
+- [Stampede2](https://www.tacc.utexas.edu/systems/stampede2) at TACC
+    - 4200 KNL nodes: 285,600 cores
+    - 1736 SKX nodes: 83,328 cores
+    - 224 ICX nodes: 17,920 cores
+    - TOTAL: **386,848** cores
+- [Delta](https://www.ncsa.illinois.edu/research/project-highlights/delta/) at NCSA
+    - 124 CPU Milan nodes (15,872 cores)
+    - 100 quad A100 GPU nodes (6400 cores + 400 GPUs)
+    - 100 quad A40 GPU nodes (6400 cores + 400 GPUs)
+    - 5 eight-way A100 GPU nodes (640 cores + 40 GPUs):
+    - 1 MI100 GPU node (128 cores + 8 GPUs)
+    - 7 PB of disk-based Lustre storage
+    - 3 PB of flash based storage
+    - TOTAL: **29,440** cores, **848** gpus
+
+:::
+
+::: {.g-col-6}
+
+![Delta Supercomputer](https://access-ci.org/wp-content/uploads/2022/10/Delta_System.jpg)
+
+:::
+
+:::
 
 Note that these clusters have multiple nodes (hosts), and each host has multiple cores. So this is really multiple computers clustered together to act in a coordinated fashion, but each node runs its own copy of the operating system, and is in many ways independent of the other nodes in the cluster.  One way to use such a cluster would be to use just one of the nodes, and use a multi-core approach to parallelization to use all of the cores on that single machine.  But to truly make use of the whole cluster, one must use parallelization tools that let us spread out our computations across multiple host nodes in the cluster.
 
