@@ -32,8 +32,10 @@ sites <- delta_data %>%
 
 # Define UI for application
 ui <- fluidPage(
-    navbarPage(theme = shinytheme("flatly"), collapsible = TRUE,
-               HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">Sacramento River Floodplain Data</a>'), id="nav",
+    navbarPage(theme = shinytheme("flatly"), 
+               collapsible = TRUE,
+               HTML('<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#">Sacramento River Floodplain Data</a>'), 
+               id="nav",
                windowTitle = "Sacramento River floodplain fish and water quality data",
                
                tabPanel("Data Sources",
@@ -94,7 +96,6 @@ ui <- fluidPage(
 # Define server logic required to draw the two plots
 server <- function(input, output) {
     
-    
     output$map <- renderLeaflet({leaflet(sites) %>% 
             addTiles() %>% 
             addCircleMarkers(data = sites,
@@ -112,7 +113,7 @@ server <- function(input, output) {
     output$distPlot <- renderPlot({
         
         ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
-            geom_point(colour="red", size=4) +
+            geom_point(colour="salmon", size=4) +
             xlim(c(input$date[1],input$date[2])) +
             labs(x = "Sample Date", y = "Secchi Depth (m)") +
             theme_light()
