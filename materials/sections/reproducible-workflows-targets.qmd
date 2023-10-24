@@ -41,19 +41,29 @@ Other **interchangeable terms for workflows** are:
 
 ## Benefits of Reproducible Workflows
 
-A major benefit of WMS is the capacity to track the status of all required files and functions to prevent steps in a larger pipeline from being skipped and by ensuring that data are kept up to date as models or harmonization routines change. Despite WMS's benefits, adopting a WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular (Figure 1), thereby providing more computational flexibility. [@brousil2023]
+Using a **reproducible workflow** allows us to:
 
-## Challenges of Reproducible Workflows - REMOVE
+- **track the status** of all required files and functions which makes it easier to keep all steps in the overall workflow up-to-date [@brousil2023]
+- break our analysis and data processing steps into smaller functions that are **modular** which results in more **computational flexibility** [@brousil2023] and makes it easier to debug when errors occur
+- **reduce the computational tasks** to only run as necessary as opposed to anytime there is an update in on the steps in the workflow [@brousil2023]
+- **utilize continuous integration** (automating tasks) so that we spend less time on manual work and are less prone to simple errors (e.g. misspellings) [@brousil2023]
 
-WMS requires moving away from performing serial analytical operations within single or multiple scripts to instead breaking an analysis into smaller functions that are modular, thereby providing more computational flexibility [@brousil2023]
+Overall a reproducible workflow enhances our research projects because it **improves our understanding** of our work for ourselves and for collaborators, makes our work **more efficient and automated**, and **increases reproducibility**.
 
-Indeed, researchers will face a familiar trade-off—to invest the personnel time in learning and deploying a tool like WMS to save personnel and compute time later or to accept that less efficient, but more familiar analytical frameworks will come with costs in personnel time, compute time and potentially additional associated payments for computing resources. The balance will depend on the complexity of the analysis, the expectation of reusing the code over time and the resources available to the researcher (e.g. funds for computing or personnel) [@brousil2023]. 
+::: {.callout-warning icon=false}
+### Challenges of Reproducible Workflows
 
-## Leveraging Reproducible Workflows & Tools
+While the benefits of reproducible workflows are immense, workflows and the utilizing workflow management tools can be **intimidating** at the start due to:
+
+- **high learning-curve** for implementing reproducible workflow tools [@brousil2023]
+- **limited training resources** and opportunities to applying WMS for environmental researchers and professionals [@brousil2023]
+- **infrequent use** of WMS and reproducible workflows in the environmental field means there are less examples to learn from and a **lack of standardized methods** for using WMS [@brousil2023]
+:::
+
+
+## Leveraging `targets` for Reproducible Worklows
 
 WMS may not be needed by most beginners, but learning about these tools early may inspire researchers with the understanding that their analyses can scale with the ambition and complexity of their most pressing research questions. Implementing WMS is an investment that does take time but can save a great deal of time and frustration later [@brousil2023].
-
-### R Package: `targets` for Reproducible Worklows {.unnumbered}
 
 ::: {.callout-caution icon=false}
 #### What is the `targets` package?
@@ -61,5 +71,6 @@ WMS may not be needed by most beginners, but learning about these tools early ma
 
 `targets` can also help users build, visualize, and manage workflows from raw files to outputs.
 :::
+
 
 ## Exercise: Creating a Pipeline using `targets`
