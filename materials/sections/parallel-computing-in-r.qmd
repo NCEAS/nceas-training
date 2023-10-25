@@ -154,27 +154,28 @@ So, its important to evaluate the computational efficiency of requests, and work
 
 ## Pleasingly Parallel task lists
 
-When you have a list of repetitive tasks, you may be able to speed it up by adding more computing power.  If each task is completely independent of the others, then it is a prime candidate for executing those tasks in parallel, each on its own core.  For example, let's build a simple loop that uses sample with replacement to do a bootstrap analysis.  In this case, we select `Sepal.Length` and `Species` from the `iris` dataset, subset it to 100 observations, and then iterate across 10,000 trials, each time resampling the observations with replacement.  We then run a logistic regression fitting species as a function of length, and record the coefficients for each trial to be returned. 
+When you have a list of repetitive tasks, you may be able to speed it up by adding more computing power.  If each task is completely independent of the others, then it is a prime candidate for executing those tasks in parallel, each on its own core.  For example, let's build a simple loop that uses sample with replacement to do a bootstrap analysis.  In this case, we select `bill_length_mm` and `species` from the `palmerpenguins` dataset, randomly subset it to 100 observations, and then iterate across 3,000 trials, each time resampling the observations with replacement.  We then run a logistic regression fitting species as a function of length, and record the coefficients for each trial to be returned. 
 
 ```{r}
 library(palmerpenguins)
 library(dplyr)
-chinstrap <- penguins %>% 
-    filter(species == "Chinstrap") %>% 
+bill_length <- penguins %>% 
     select(species, bill_length_mm) %>% 
+    drop_na() %>% 
     as.data.frame()
-chinstrap
+head(bill_length)
 ```
 
+Given this data, we can use a general linear model to estimate bill length as a function of species, where we use a loop to bootstrap over repeated subsamples of this dataset.
 
 ```{r label="bootstrap-loop"}
-trials <- 1000
+trials <- 3000
 res <- data.frame()
 system.time({
   trial <- 1
   while(trial <= trials) {
     index <- sample(100, 100, replace=TRUE)
-    result1 <- glm(chinstrap[index,1]~chinstrap[index,2], family=binomial(logit))
+    result1 <- glm(bill_length[index,1]~bill_length[index,2], family=binomial(logit))
     r <- coefficients(result1)
     res <- rbind(res, r)
     trial <- trial + 1
@@ -182,13 +183,13 @@ system.time({
 })
 ```
 
-The issue with this loop is that we execute each trial sequentially, which means that only one of our 8 processors on this machine are in use.  In order to exploit parallelism, we need to be able to dispatch our tasks as functions, with one task
+The issue with this loop is that we execute each trial sequentially, which means that only one of our processors on this machine are in use.  In order to exploit parallelism, we need to be able to dispatch our tasks as functions, with one task
 going to each processor.  To do that, we need to convert our task to a function, and then use the `*apply()` family of R functions to apply that function to all of the members of a set.  In R, using `apply` used to be faster than the equivalent code in a loop, but now they are similar due to optimizations in R loop handling. However, using the function allows us to later take advantage of other approaches to parallelization.  Here's the same code rewritten to use `lapply()`, which applies a function to each of the members of a list (in this case the trials we want to run):
 
 ```{r label="bootstrap-lapply"}
 boot_fx <- function(trial) {
   ind <- sample(100, 100, replace=TRUE)
-  result1 <- glm(chinstrap[ind,1]~chinstrap[ind,2], family=binomial(logit))
+  result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
   r <- coefficients(result1)
   res <- rbind(data.frame(), r)
 }
@@ -210,7 +211,7 @@ When parallelizing jobs, one can:
   
 ### Parallelize using: mclapply
 
-The `parallel` library can be used to send tasks (encoded as function calls) to each of the processing cores on your machine in parallel.  This is done by using the `parallel::mclapply` function, which is analogous to `lapply`, but distributes the tasks to multiple processors. `mclapply` gathers up the responses from each of these function calls, and returns a list of responses that is the same length as the list or vector of input data (one return per input item). Now let's demonstrate with our bootstrap example. 
+The `parallel` library can be used to send tasks (encoded as function calls) to each of the processing cores on your machine in parallel.  This is done by using the `parallel::mclapply` function, which is analogous to `lapply`, but distributes the tasks to multiple processor cores. `mclapply` gathers up the responses from each of these function calls, and returns a list of responses that is the same length as the list or vector of input data (one return per input item). Now let's demonstrate with our bootstrap example. First, determine how many cores are available on this machine:
 
 ```{r label="kmeans-comparison"}
 library(parallel)
@@ -218,9 +219,11 @@ numCores <- detectCores()
 numCores
 ```
 
+Then, using that, run our 3000 bootstrap samples with the same function, but this time parallel on those `r numCores` cores.
+
 ```{r label="bootstrap-mclapply"}
 system.time({
-  results <- mclapply(trials, boot_fx, mc.cores = numCores)
+  res_mca <- mclapply(trials, boot_fx, mc.cores = numCores)
 })
 ```
 
@@ -269,11 +272,11 @@ The [doParallel vignette](https://cran.r-project.org/web/packages/doParallel/vig
 ```{r label="foreach-bootstrap"}
 # Let's use the iris data set to do a parallel bootstrap
 # From the doParallel vignette, but slightly modified
-trials <- 1000
+trials <- 3000
 system.time({
   r <- foreach(icount(trials), .combine=rbind) %dopar% {
     ind <- sample(100, 100, replace=TRUE)
-    result1 <- glm(chinstrap[ind,1]~chinstrap[ind,2], family=binomial(logit))
+    result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
     coefficients(result1)
   }
 })
@@ -282,7 +285,7 @@ system.time({
 system.time({
   r <- foreach(icount(trials), .combine=rbind) %do% {
     ind <- sample(100, 100, replace=TRUE)
-    result1 <- glm(chinstrap[ind,1]~chinstrap[ind,2], family=binomial(logit))
+    result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
     coefficients(result1)
   }
 })
