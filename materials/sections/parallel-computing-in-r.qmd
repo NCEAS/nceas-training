@@ -6,6 +6,7 @@
 - Review sequential loops and *apply functions
 - Understand and use the `parallel` package multicore functions
 - Understand and use the `foreach` package functions
+- Review asynchronous futures and the `furrr` package
 
 ## Introduction
 
@@ -188,8 +189,8 @@ going to each processor.  To do that, we need to convert our task to a function,
 
 ```{r label="bootstrap-lapply"}
 boot_fx <- function(trial) {
-  ind <- sample(100, 100, replace=TRUE)
-  result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
+  index <- sample(100, 100, replace=TRUE)
+  result1 <- glm(bill_length[index,1]~bill_length[index,2], family=binomial(logit))
   r <- coefficients(result1)
   res <- rbind(data.frame(), r)
 }
@@ -213,7 +214,7 @@ When parallelizing jobs, one can:
 
 The `parallel` library can be used to send tasks (encoded as function calls) to each of the processing cores on your machine in parallel.  This is done by using the `parallel::mclapply` function, which is analogous to `lapply`, but distributes the tasks to multiple processor cores. `mclapply` gathers up the responses from each of these function calls, and returns a list of responses that is the same length as the list or vector of input data (one return per input item). Now let's demonstrate with our bootstrap example. First, determine how many cores are available on this machine:
 
-```{r label="kmeans-comparison"}
+```{r label="numcores"}
 library(parallel)
 numCores <- detectCores()
 numCores
@@ -272,9 +273,9 @@ The [doParallel vignette](https://cran.r-project.org/web/packages/doParallel/vig
 ```{r label="foreach-bootstrap"}
 # Let's use the iris data set to do a parallel bootstrap
 # From the doParallel vignette, but slightly modified
-trials <- 3000
+num_trials <- 3000
 system.time({
-  r <- foreach(icount(trials), .combine=rbind) %dopar% {
+  r <- foreach(icount(num_trials), .combine=rbind) %dopar% {
     ind <- sample(100, 100, replace=TRUE)
     result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
     coefficients(result1)
@@ -283,7 +284,7 @@ system.time({
 
 # And compare that to what it takes to do the same analysis in serial
 system.time({
-  r <- foreach(icount(trials), .combine=rbind) %do% {
+  r <- foreach(icount(num_trials), .combine=rbind) %do% {
     ind <- sample(100, 100, replace=TRUE)
     result1 <- glm(bill_length[ind,1]~bill_length[ind,2], family=binomial(logit))
     coefficients(result1)
@@ -294,10 +295,81 @@ system.time({
 stopImplicitCluster()
 ```
 
+## Futures with `furrr`
+
+While `parallel` and `mclapply` have been reliably working in R for years for multicore parallel processing, different approaches like `clusterApply` have been needed to run tasks across multiple nodes in larger clusters. The `future` package (https://future.futureverse.org) has emerged in R as a powerful mechanism to support many types of asynchronous execution, both within a single node and across a cluster of nodes, but all using a uniform evaluation mechanism across different processing backends. The basic idea behind `future` is that you can either implicitly or explicitly create a `future` expression, and control is returned to calling code while the expression is evaluated asynchronously, and possiby in parallel depending on the backend chosen.
+
+In a familiar form, you can define a future expression analogously to how you define a function, using an expression such as:
+
+```{r}
+library(future)
+f <- future({
+    cat("Hello world!\n")
+    6.28
+})
+v <- value(f)
+v
+```
+
+This creates an expression that is evaluated and will have a result available sometime in the future, but we don't know when... it could be seconds, minutes, or hours later, depending on the task complexity and available resources. What we can do is to ask the `future` expression to return its result when it is available using `value()`, which will block until the expression has been evaluated. 
+
+Alternatively, we can check if the expression has completed its evaluation without blocking using the `resolved()` function, which returns `TRUE` when the future has been evaluated and the result value is ready to be retrieved. This lets us do other useful work while our process is waiting for the future expression to finish its work. For example, imagine the hypothetical `model_run` future, where we can do some other useful things while we wait for the model to run. To do this, we need to use a processing plan that uses multiple cores, such as `multisession`:
+
+
+```{r, eval = F}
+plan(multisession)
+download_data <- function() {
+    # Sleep, and just pretend to go get the data
+    Sys.sleep(0.5)
+    return(c(1,2,3))
+}
+
+run_model <- function(d) {
+    # Sleep, and just pretend to run a complicated model
+    Sys.sleep(0.5)
+    return(42)
+}
+model_result <- future({
+    d <- download_data()
+    result <- run_model(d)
+    result
+})
+
+while(!resolved(model_result)) {
+    cat("Waiting for model task to complete...\n")
+    Sys.sleep(0.2)
+    cat("Do some more work now, like print this message...\n")
+}
+
+value(model_result)
+```
+
+The `multisession` futures plan is one in which each future task is evaluated in a separate, background R session that runs on the same host that launched the process. If the host has multiple cores available, then `multisession` will make use of these and create background sessions on each of the available cores. If all background sessions are busy, then the creation of new `future` expressions wil be blocked until one is available. 
+
+So, what's the point of all of this? Basically, the `future` package provides a mechanism for evaluating expressions asynchronously, which we can leverage to launch many sessions on available cores. We can harness this with another package, `furrr`, which functions as an asynchrobous analogue to `purrr`. 
+
+With `furrr`, you can use the `map()` pattern to execute an expression across a set of inputs using asynchronous futures. Mmost of the details here are hidden under the hood, so this usage pattern should feel really familiar to `purrr` users. For example, let's return to our bootstrap linear model, and reimplement it, first using purrr, and then with furrrr.
+
+```{r}
+library(purrr)
+system.time({
+  res_purrr <- map(trials, boot_fx)
+})
+```
+
+```{r}
+library(furrr)
+plan(multisession, workers=8)
+system.time({
+  res_furrr <- future_map(trials, boot_fx, .options = furrr_options(seed = TRUE))
+})
+```
+
+So basically by dropping in `furrr::future_map` as a replacement for `purrr::map`, we can see an immediate decrease in execution time, on my machine from 22 seconds down to 8 seconds. This is not as good as the improvement we saw with the other methods, which I attribute to the overhead of starting all of the background R sessions.
 
 ## Summary
 
-In this lesson, we showed examples of computing tasks that are likely limited by the number of CPU cores that can be applied, and we reviewed the architecture of computers to understand the relationship between CPU processors and cores.  Next, we reviewed the way in which traditional `for` loops in R can be rewritten as functions that are applied to a list serially using `lapply`, and then how the `parallel` package `mclapply` function can be substituted in order to utilize multiple cores on the local computer to speed up computations. Finally, we installed and reviewed the use of the `foreach` package with the `%dopar` operator to accomplish a similar parallelization using multiple cores.
+In this lesson, we showed examples of computing tasks that are likely limited by the number of CPU cores that can be applied, and we reviewed the architecture of computers to understand the relationship between CPU processors and cores.  Next, we reviewed the way in which traditional `for` loops in R can be rewritten as functions that are applied to a list serially using `lapply`, and then how the `parallel` package `mclapply` function can be substituted in order to utilize multiple cores on the local computer to speed up computations. We also installed and reviewed the use of the `foreach` package with the `%dopar` operator to accomplish a similar parallelization using multiple cores. And finally, we reviewed the use of the `furrr::future_map()` function as a drop in replacement for map operations using asynchronous futures.
 
 ## Readings and tutorials
 
@@ -305,5 +377,7 @@ In this lesson, we showed examples of computing tasks that are likely limited by
 - [Beyond Single-Core R](https://ljdursi.github.io/beyond-single-core-R/#/) by Jonoathan Dursi (also see [GitHub repo for slide source](https://github.com/ljdursi/beyond-single-core-R))
 - The venerable [Parallel R](http://shop.oreilly.com/product/0636920021421.do) by McCallum and Weston (a bit dated on the tooling, but conceptually solid)
 - The [doParallel Vignette](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf)
+- [future: Unified Parallel and Distributed Processing in R for Everyone](https://future.futureverse.org)
+- [furrr](https://furrr.futureverse.org)
 
 
