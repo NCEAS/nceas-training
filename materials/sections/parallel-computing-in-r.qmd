@@ -316,7 +316,13 @@ stopImplicitCluster()
 
 ## Futures with `furrr`
 
-While `parallel` and `mclapply` have been reliably working in R for years for multicore parallel processing, different approaches like `clusterApply` have been needed to run tasks across multiple nodes in larger clusters. The `future` package (https://future.futureverse.org) has emerged in R as a powerful mechanism to support many types of asynchronous execution, both within a single node and across a cluster of nodes, but all using a uniform evaluation mechanism across different processing backends. The basic idea behind `future` is that you can either implicitly or explicitly create a `future` expression, and control is returned to calling code while the expression is evaluated asynchronously, and possiby in parallel depending on the backend chosen.
+::: {layout-ncol="2"}
+
+While `parallel` and `mclapply` have been reliably working in R for years for multicore parallel processing, different approaches like `clusterApply` have been needed to run tasks across multiple nodes in larger clusters. The [`future` package](https://future.futureverse.org) has emerged in R as a powerful mechanism to support many types of asynchronous execution, both within a single node and across a cluster of nodes, but all using a uniform evaluation mechanism across different processing backends. The basic idea behind `future` is that you can either implicitly or explicitly create a `future` expression, and control is returned to calling code while the expression is evaluated asynchronously, and possiby in parallel depending on the backend chosen.
+
+<img src="images/future-logo.png" alt="Future logo" width="200"/>
+
+:::
 
 In a familiar form, you can define a future expression analogously to how you define a function, using an expression such as:
 
@@ -367,7 +373,12 @@ The `multisession` futures plan is one in which each future task is evaluated in
 
 So, what's the point of all of this? Basically, the `future` package provides a mechanism for evaluating expressions asynchronously, which we can leverage to launch many sessions on available cores. We can harness this with another package, `furrr`, which functions as an asynchrobous analogue to `purrr`. 
 
+::: {layout-ncol="2"}
+
 With `furrr`, you can use the `map()` pattern to execute an expression across a set of inputs using asynchronous futures. Most of the details here are hidden under the hood, so this usage pattern should feel really familiar to `purrr` users. For example, let's return to our bootstrap linear model, and reimplement it, first using purrr, and then with furrr.
+
+<img src="images/furrr-logo.png" alt="Furrr logo" width="200"/>
+:::
 
 ```{r}
 library(purrr)
