@@ -179,6 +179,8 @@ When you have a list of repetitive tasks, you may be able to speed it up by addi
 ```{r}
 library(palmerpenguins)
 library(dplyr)
+library(tidyr)
+
 bill_length <- penguins %>% 
     select(species, bill_length_mm) %>% 
     drop_na() %>% 
@@ -257,7 +259,8 @@ for (i in 1:3) {
 }
 ```
 
-The `foreach` method is similar, but uses the sequential `%do%` operator to indicate an expression to run. Note the difference in the returned data structure. 
+The `foreach` method is similar, but uses the sequential `%do%` operator to indicate an expression to run. Note the difference in the returned data structure.
+
 ```{r label="foreach-loop"}
 library(foreach)
 foreach (i=1:3) %do% {
@@ -266,6 +269,7 @@ foreach (i=1:3) %do% {
 ```
 
 In addition, `foreach` supports a parallelizable operator `%dopar%` from the `doParallel` package. This allows each iteration through the loop to use different cores or different machines in a cluster.  Here, we demonstrate with using all the cores on the current machine:
+
 ```{r label="foreach-doParallel"}
 library(foreach)
 library(doParallel)
@@ -318,7 +322,7 @@ stopImplicitCluster()
 
 ::: {layout-ncol="2"}
 
-While `parallel` and `mclapply` have been reliably working in R for years for multicore parallel processing, different approaches like `clusterApply` have been needed to run tasks across multiple nodes in larger clusters. The [`future` package](https://future.futureverse.org) has emerged in R as a powerful mechanism to support many types of asynchronous execution, both within a single node and across a cluster of nodes, but all using a uniform evaluation mechanism across different processing backends. The basic idea behind `future` is that you can either implicitly or explicitly create a `future` expression, and control is returned to calling code while the expression is evaluated asynchronously, and possiby in parallel depending on the backend chosen.
+While `parallel` and `mclapply` have been reliably working in R for years for multicore parallel processing, different approaches like `clusterApply` have been needed to run tasks across multiple nodes in larger clusters. The [`future` package](https://future.futureverse.org) has emerged in R as a powerful mechanism to support many types of asynchronous execution, both within a single node and across a cluster of nodes, but all using a uniform evaluation mechanism across different processing backends. The basic idea behind `future` is that you can either implicitly or explicitly create a `future` expression, and control is returned to calling code while the expression is evaluated asynchronously, and possibly in parallel depending on the backend chosen.
 
 <img src="images/future-logo.png" alt="Future logo" width="200"/>
 
