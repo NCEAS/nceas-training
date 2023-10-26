@@ -114,5 +114,3 @@ You can now work on the `new-feature` branch in this new workspace independently
 When you are ready to merge the feature branch back into `main`, all you have to do is run `git merge new-feature` from the commandline. After that is complete, your new feature will now be merged back into main and visible from the git history:
 
 ![](images/git-workflows-merged-branch.png)
-{{< include /sections/git-workflows.qmd >}}
-
