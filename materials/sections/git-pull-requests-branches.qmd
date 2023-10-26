@@ -107,12 +107,14 @@ After you click that icon, a new dialog box appears where you can create a new b
 
 ![](images/git-workflows-new-branch.png){width="80%" fig-align="center"}
 
-You can now work on the `new-feature` branch in this new workspace independently of the codebase in `main`, and without affecting it. When you have finished and completed your changes, you can either decide to leave it there, delete it, or merge it back to main. To merge this new feature branch back, firat checkout the main branch, and then merge the feature branch back into it.
+You can now work on the `new-feature` branch in this new workspace independently of the codebase in `main`, and without affecting it. When you have finished and completed your changes, you can either decide to leave it there, delete it, or merge it back to main. To merge this new feature branch back, first checkout the main branch with `git checkout main`, and make a change to one of the files in your main branch -- commit that change, and you will see how you can have different changes stored in different branches. Your repository history should look something like this:
 
-```
-$ git checkout main
-$ git merge new-feature
-```
+![](images/git-workflows-two-branches.png)
+
+When you are ready to merge the feature branch back into `main`, all you have to do is run `git merge new-feature` from the commandline. After that is complete, your new feature will now be merged back into main and visible from the git history:
+
+![](images/git-workflows-merged-branch.png)
+
 
 ## Pull requests
 
