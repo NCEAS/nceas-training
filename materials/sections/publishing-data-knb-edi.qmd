@@ -144,8 +144,6 @@ EML or XML? It's confusing. EML or Ecological Metadata Language is the name of t
 ```
 
 
-
-
 ## Data Identifiers & Citation
 
 Many journals require a DOI - a digital object identifier - be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
@@ -175,7 +173,7 @@ Tools like R can be used as a provenance tool, as well - by starting with the ra
 
 ## Preserving your data
 
-<!--ADD BLURB--->
+Through out this course we have mentioned over and over the importance of preserving your data so you or other can access it years down the line. Imagine how helpful it would be if each of the data sets you are trying to get from multiple people and agencies would be publish in a data package for reuse. How much time would you safe? How many emails back and forth could be avoided. Data is a valuable asset. It takes time, effort and resources to collect. It is important to preserve our data for transparency in our work and making sure we and other can re use it.
 
 ::: column-margin
 ![](images/WhyManage.png)
@@ -184,7 +182,7 @@ Tools like R can be used as a provenance tool, as well - by starting with the ra
 
 ### Data repositories: built for data (and code)
 
--   GitHub is not an archival location
+-   _GitHub is not an archival location_
 -   Dedicated data repositories: KNB, Arctic Data Center, Zenodo,
     FigShare
     -   Rich metadata
@@ -212,38 +210,53 @@ repositories one at a time.
 
 ### Structure of a data package
 
-Note that the data set above lists a collection of files that are
-contained within the data set. We define a *data package* as a
-scientifically useful collection of data and metadata that a researcher
-wants to preserve. Sometimes a data package represents all of the data
-from a particular experiment, while at other times it might be all of
-the data from a grant, or on a topic, or associated with a paper.
-Whatever the extent, we define a data package as having one or more data
-files, software files, and other scientific products such as graphs and
-images, all tied together with a descriptive metadata document.
+We define a *data package* as a scientifically useful collection of data and metadata that a researcher wants to preserve. The rule of thumb is to package your data as you would like to receive it. Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define **a data package as having one or more data files, software files, and other scientific products such as graphs and images**, all tied together with a descriptive metadata document.
 
-![](images/data-package.png) These data repositories all assign a unique
-identifier to every version of every data file, similarly to how it
-works with source code commits in GitHub. Those identifiers usually take
-one of two forms. A *DOI* identifier is often assigned to the metadata
-and becomes the publicly citable identifier for the package. Each of the
+![](images/data-package.png) 
+
+These data repositories all assign a unique identifier to every version of every data file, Those identifiers usually take one of two forms. A *DOI* identifier is often assigned to the metadata and becomes the publicly citable identifier for the package. Each of the
 other files gets an internal identifier, often a UUID that is globally
-unique. In the example above, the package can be cited with the DOI
-`doi:10.5063/F1F18WN4`.
+unique. In the example above, the package can be cited with the DOI `doi:10.5063/F1F18WN4`.
 
 
 
 ## Publishing data from the web
 
 Each data repository tends to have its own mechanism for submitting data
-and providing metadata. With repositories like the KNB Data Repository
-and the EDI, they provide some easy to use web forms for
+and providing metadata. Repositories like the [Knowledge Network for Biocomplexity (KNB)](https://knb.ecoinformatics.org/) and [Environmenta Data Initiative (EDI)](https://edirepository.org/), provide some _easy to use_ web forms for
 editing and submitting a data package. 
+
+:::callout-important
+## Stable repositories for **storing** data during analysis
+
+Note that you can upload data to for example the [KNB repository](https://knb.ecoinformatics.org/) even if you are not ready to publish. This repository can serve as "storage" while you are working with your data. By storing your data in a repository you and your collaborators can access these data either through a url or data [content id](https://learning.nceas.ucsb.edu/2023-06-delta/session_08.html#content-based-identifiers).
+
+While you are working on your project. The data package where you store your data will be privet. Only people that are granted access can see data package.
+
+:::
 
 
 ### Publishing Data to EDI
 
-Short explanations and DEMO
+The Environmental Data Initiative (EDI) provides lots of great resources about data publication (Resources > [Data Authors](https://edirepository.org/resources/resources-for-data-authors)) and data reuse (Resources > [Data Users](https://edirepository.org/resources/resources-for-data-users)).
+
+
+To publish a data package on EDI you have to go to <https://edirepository.org/> and click on "Publish Data".
+
+![](images/edi_landing_page.png)
+
+This will direct you to their Publish Data site where you can click on **Login** to ezEML metadata editor. **ezEML** is EDI's web based tool to interactively fill in your data's metadata.
+
+This will direct you to the ezEML site, where you can log in with different methods. All methods are totally fine. We recommend ORCID. ORCID is a free and unique identifier for researchers. This identifier allows to distinguish researchers with similar names, or researcher who change their name through their professional career. Ensuring right attribution of their scientific contribution (papers, data packages, etc.) (Track Attribution with an ORCID iD, [EDI](https://edirepository.org/resources/orcid-id). 
+
+Once you are logged in, you can create a New EML Document and start documenting your knew data package filling out all the required information.
+
+![](images/edi_new_eml.png)
+
+The left side bar menu allows you to easily navigate through the forms and fill in your metadata as you like. Note that at any point you can save and come back to it later.
+
+![](images/edi_ezEML_menu.png)
+
 
 ### Publishing Data to KNB
 
