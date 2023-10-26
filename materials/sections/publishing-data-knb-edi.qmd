@@ -252,35 +252,57 @@ This will direct you to the ezEML site, where you can log in with different meth
 Once you are logged in, you can create a New EML Document and start documenting your knew data package filling out all the required information.
 
 ![](images/edi_new_eml.png)
-
 The left side bar menu allows you to easily navigate through the forms and fill in your metadata as you like. Note that at any point you can save and come back to it later.
 
-![](images/edi_ezEML_menu.png)
+![](images/edi_abstract_example.png)
+
 
 
 ### Publishing Data to KNB
 
+Similarly, you can publish your data to the KNB repository by going to <https://knb.ecoinformatics.org/> and signing in with your ORCID.
 
-Short Explanation and Practice
+![](images/knb_landing_2023.png)
+
+Once you sign in you click on "Submit Data" and it will direct you to the page where you can start filling in your metadata and uploading your data files.
+
+![](images/knb_submit_form.png)
+
+To further familiarize our selves with the data publication process, we are going to practice "Submitting" a data package to KNB's demo site.
+
+## Practice: Publish Dummy Data to KNB Demo Site
+
+::: callout-note
+## Context
+-   During Week 2 we explored and [visualized](https://learning.nceas.ucsb.edu/2023-08-delta/session_03.html#setting-ggplot-themes) the following data package EDI Data Repository [Sacramento-San Joaquin Delta Socioecological Monitoring](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1).
+
+-   Imagine that you decided to replicate this study and collected data on visits to different restoration sites on the Sacramento-San Joaquin Delta during 2022-2023 (original data is from 2017-2018).
+
+-   You have been keeping the data on GitHub, but you know that ultimately that is not a great place to store the data.
+
+-   It is time to upload the data to the KNB repository and start the process that will lead you to publish your data and script in a data package.
+
+:::
 
 
 ::: callout-tip
 ## Setup
 
-**Download the data to be used for the tutorial**
+**Note the first 2 steps are just for the purpose of this exercise**
 
-I've already uploaded the test data package, and so you can access the
-data here:
+-   Go to [this GitHub Repo](https://github.com/camilavargasp/publishing-data-practice) and "Fork" the repository to your GitHub Account by clicking on the Fork button on the upper right side of the
+-   By Forking you are creating a new repo under your user name that contains all the information of the "Forked" Repo.
+-   Continuing with our hypothetical scenario, let's imagine that this repo that we just forked is the repo we have been working all along, cleaning and visualizing our data.
+- Clone this repo to a new Rproject in the server  by clicking on Code and copying the HTTPS URL. In RStudio, create a new Rproject, with version control and paste the URL you just copied.
 
--   https://dev.nceas.ucsb.edu/view/urn:uuid:0702cc63-4483-4af4-a218-531ccc59069f
+-   Finally, in this hypothetical case, you have been somewhat diligent on documenting the metadata for these data sets. You set up a metadata spreadsheet that allow you to keep track of the information about your data. This spreadsheet lives in the [SharePoint folder](https://deltacouncil.sharepoint.com/:x:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/2023/2023-10-week-3/publishing-data-practice/delta-tabular-metadata-eml.xlsx?d=w4dd59367a20c424fbd55d364aa26f92f&csf=1&web=1&e=gMMYJe). Follow the link or navigate to 2023 > 2023-10-week-3 > publishing-data-practice.
 
-Grab both CSV files, and the R script, and store them in a convenient
-folder.
-
-![](images/hatfield-knb-01.png)
 :::
 
-#### Login via ORCID
+
+### Exercise
+
+#### **Go to KNB Demo site and login via ORCID** {.unnumbered}
 
 We will walk through web submission on https://demo.nceas.ucsb.edu, and
 start by logging in with an ORCID account. ORCID provides a common
@@ -299,14 +321,14 @@ as a scholarly record, such as your university or agency login.
 
 ![](images/orcid-login.png)
 
-#### Create and submit the data set {.unnumbered}
+#### **Create and submit the data set** {.unnumbered}
 
 After signing in, you can access the data submission form using the
 *Submit* button. Once on the form, upload your data files and follow the
 prompts to provide the required metadata. Required sections are listed
 with a red asterisk.
 
-##### Click **Add Files** to choose the data files for your package {.unnumbered}
+#### **Click *Add Files* to choose the data files for your package** {.unnumbered}
 
 You can select multiple files at a time to efficiently upload many
 files.
@@ -318,7 +340,7 @@ editing metadata while they upload.
 
 ![](images/editor-knb-02.png)
 
-##### Enter Overview information {.unnumbered}
+#### **Enter Overview information** {.unnumbered}
 
 This includes a descriptive title, abstract, and keywords.
 
@@ -335,7 +357,7 @@ sampling design, and a summary of the data contents.
 
 ![](images/editor-knb-03.png)
 
-Keywords, while not required, can help increase the searchability of
+**Keywords**, while not required, can help increase the searchability of
 your dataset, particularly if they come from a semantically defined
 keyword thesaurus.
 
@@ -345,13 +367,13 @@ Optionally, you can also enter funding information, including a funding
 number, which can help link multiple datasets collected under the same
 grant.
 
-Selecting a distribution license - either
+Selecting a distribution **license** - either
 [CC-0](https://creativecommons.org/publicdomain/zero/1.0/) or
 [CC-BY](https://creativecommons.org/licenses/by/4.0/) is required.
 
 ![](images/editor-knb-05.png)
 
-##### People Information {.unnumbered}
+#### **People Information** {.unnumbered}
 
 Information about the people associated with the dataset is essential to
 provide credit through citation and to help people understand who made
@@ -371,14 +393,14 @@ works.
 
 ![](images/editor-knb-06.png)
 
-##### Temporal Information
+#### **Temporal Information** {.unnumbered}
 
 Add the temporal coverage of the data, which represents the time period
 to which data apply.
 
 ![](images/editor-knb-09.png)
 
-##### Location Information {.unnumbered}
+#### **Location Information** {.unnumbered}
 
 The geospatial location that the data were collected is critical for
 discovery and interpretation of the data. Coordinates are entered in
@@ -399,7 +421,7 @@ local to global. For example:
 
 ![](images/editor-knb-08.png)
 
-##### Methods {.unnumbered}
+#### **Methods** {.unnumbered}
 
 Methods are critical to accurate interpretation and reuse of your data.
 The editor allows you to add multiple different methods sections,
@@ -410,7 +432,7 @@ important to reuse of the data.
 
 ![](images/editor-knb-10.png)
 
-##### Save a first version with **Submit** {.unnumbered}
+#### **Save a first version with _Submit_ ** {.unnumbered}
 
 When finished, click the *Submit Dataset* button at the bottom.\
 If there are errors or missing fields, they will be highlighted.\
@@ -423,10 +445,10 @@ metadata.
 
 Success!
 
-#### File and variable level metadata {.unnumbered}
+#### **File and variable level metadata** {.unnumbered}
 
 The final major section of metadata concerns the structure and contents
-of your data files. In this case, provide the names and descriptions of
+of your data files (Entities). In this case, provide the names and descriptions of
 the data contained in each file, as well as details of their internal
 structure.
 
@@ -479,7 +501,7 @@ After you get the green success message, you can visit your dataset and
 review all of the information that you provided. If you find any errors,
 simply click **Edit** again to make changes.
 
-#### Add workflow provenance {.unnumbered}
+#### **Add workflow provenance** {.unnumbered}
 
 Understanding the relationships between files in a package is critically
 important, especially as the number of files grows. Raw data are
@@ -488,12 +510,7 @@ used in analysis and visualization code to produce final outputs. In
 DataONE, we support structured descriptions of these relationships, so
 one can see the flow of data from raw data to derived to outputs.
 
-You add provenance by navigating to the data table descriptions, and
-selecting the `Add` buttons to link the data and scripts that were used
-in your computational workflow. On the left side, select the `Add`
-circle to add an input data source to the filteredSpecies.csv file. This
-starts building the provenance graph to explain the origin and history
-of each data object.
+Once you have saved your data package, you can add provenance by navigating to the data table descriptions, and selecting the `Add` buttons to link the data and scripts that were used in your computational workflow. On the left side, select the `Add` circle to add an input data source to the delta_restoration_locations_visits_2022_2023.csv file. This starts building the provenance graph to explain the origin and history of each data object. 
 
 ![](images/editor-knb-18.png)
 
@@ -503,7 +520,7 @@ The linkage to the source dataset should appear.
 
 Then you can add the link to the source code that handled the conversion
 between the data files by clicking on `Add` arrow and selecting the R
-script:
+script. Note that you have to add the scrip as a file in your data package to be able to reference on the workflow.
 
 ![](images/editor-knb-20.png)
 
@@ -518,4 +535,4 @@ script, so click **Submit** to save another version of the package.
 
 ![](images/editor-knb-23.png)
 
-Et voilà! A beatifully preserved data package!
+Et voilà! A beautifully preserved data package!
