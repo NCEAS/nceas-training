@@ -23,27 +23,24 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-06-delta
+        href: https://github.com/NCEAS/nceas-training/tree/2023-10-delta
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # collaborating using git & github and merge conflicts
-    - session_02.qmd # social aspects of collaboration
-    - session_03.qmd # thinking preferences
-    - session_04.qmd # synthesis
-    - session_05.qmd # publishing to web
-    - session_06.qmd # data vis
-    - session_07.qmd # systematic reviews
-    - session_08.qmd # synthesis
-    - session_09.qmd # spatial data
-    - session_10.qmd # intro to meta-analysis
-    - session_11.qmd # text data
-    - session_12.qmd # census data
-    - session_13.qmd # reproducible surveys
-    - session_14.qmd # spatial demographis specialist
-    - session_15.qmd # synthesis
-    - session_16.qmd # shiny
-    - session_17.qmd # 2FA setup
+    - session_01.qmd # census maps
+    - session_02.qmd # message box
+    - session_03.qmd # synthesis
+    - session_04.qmd # flexdashboard
+    - session_05.qmd # shiny
+    - session_06.qmd # practice: shiny + flexdashboard using design thinking
+    - session_07.qmd # synthesis
+    - session_08.qmd # reproducible workflows using targets
+    - session_09.qmd # parallel processing
+    - session_10.qmd # synthesis
+    - session_11.qmd # publishing data
+    - session_12.qmd # git workflows
+    - session_13.qmd # synthesis
+    - session_14.qmd # presentations and wrap-up
     
 
 bibliography: book.bib

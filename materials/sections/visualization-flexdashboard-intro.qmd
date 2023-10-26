@@ -1,0 +1,214 @@
+---
+output: html_document
+---
+
+## Learning Objectives {.unnumbered}
+
+-   Create and design customized dashboards using the R package `flexdashboard`
+- Become familiar with different flexdashboard components and flexdashboard syntax
+-   Apply Markdown syntax, Shiny elements, and additional R packages like plotly to create visually appealing and interactive flexdashboards
+
+## What is a `flexdashboard`?
+
+`flexdashboard` is an R package from RStudio that is built on top of R Markdown and Shiny. It allows us to create flexible, interactive dashboards using simple Markdown documents and syntax. Flexdashboards are designed to be easy to create, and support a wide variety of visualizations and interactive components. We can incorporate Shiny widgets and functionality into flexdashboards, making it a powerful tool for creating interactive reports and dashboards that can be shared with others.
+
+::: {.callout-important icon="false"}
+### Flexdashboard is for R Markdown Only
+
+`flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents (any files ending with `.qmd`). And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
+
+If you're invested in only using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto as well.
+:::
+
+## Flexdashboard vs Shiny
+
+::: {.callout-note icon="false"}
+### When should I make a flexdashboard?
+
+Flexdashboards are great for creating lightweight interactive dashboards that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is and what skillset your team has. Check out the diagram below and see what scenarios resonate best with you and your project goals.
+:::
+
+```{mermaid}
+%%| fig-width: '100%'
+%%| fig-height: '100%'
+flowchart TD
+    A[Goal: Create a web-based application for data interaction]
+    A --> B{Shiny App}
+    A --> C{Flexdashboard}
+    C --> D(Build a Flexdashboard if:)
+    B --> E(Build a Shiny App if:)
+    D --> F[Interested in quickly creating a dashboard prototype]
+    F --> G[Have a preference for R Markdown]
+    G --> H[There are non-programmers who need to create or maintain dashboards]
+    H --> I[Want to blend narrative text with interactivity]
+    I --> J[Prefer a simpler, code-light approach]
+    J --> K[Dashboard requirements are relatively static]
+    E --> L[Dashboard requires a highly customized user interface]
+    L --> M[Dashboard needs to perform complex data analysis with user inputs]
+    M --> N[Dashboard requires real-time data updates]
+    N --> O[There are programmers familiar with reactive programming in R to create or maintain dashboards]
+    O --> P[Dashboard requires a multi-page app with navigation]
+    
+    
+
+```
+
+## Flexdashboard Layout + Features
+
+Now let's familiarize ourselves with how an `.Rmd` is structured to create a flexdashboard and what the dashboard output looks like using the default template.
+
+There are a two default templates for `flexdashboard` in RStudio - one with a theme and one without. We'll first look at the template without a theme. **To create a flexdashboard `.Rmd` from a template click:**
+
+`File -> New File -> R Markdown -> From Template -> Flex Dashboard`
+
+::: column-body-outset
+![](images/flexdashboard-1.png)
+:::
+
+::: column-body-outset
+![](images/flexdashboard-2.png)
+:::
+
+### Flexdashboard Syntax {.unnumbered}
+
+In the flexdashboard template to create the different sections in the dashboard, dashes (`---`) and equal signs (`===`) are being used (we'll see the equal signs in action during the demo). The series of dashes and equal signs were a [design choice](https://bookdown.org/yihui/rmarkdown/layout.html#:~:text=We%20used%20a%20series%20of%20dashes%20just%20to%20make%20the%20second%2Dlevel%20sections%20stand%20out%20in%20the%20source%20document.) by the `flexdashboard` creators to make the different sections stand out in the `.Rmd`, but are not mandatory to use.
+
+::: {.callout-important appearance="minimal"}
+The rule of thumb is that **level-one headers create pages**, **level-two headers create columns or rows**, and **level-three headers create boxes**.
+:::
+
++---------------------------------+-----------------------------------+
+| Flexdashboard Syntax            | Equivalent Markdown Header Syntax |
++=================================+===================================+
+| ```                             | ```                               |
+| Page                            | # Page                            |
+| ==========================      | ```                               |
+| ```                             |                                   |
++---------------------------------+-----------------------------------+
+| ```                             | ```                               |
+| Column                          | ## Column                         |
+| --------------------------      | ```                               |
+| ```                             |                                   |
++---------------------------------+-----------------------------------+
+| ```                             | ```                               |
+| ### Box                         | ### Box                           |
+| ```                             | ```                               |
++---------------------------------+-----------------------------------+
+
+: {tbl-colwidths="\[50,50\]"}
+
+### Flexdashboard Attributes {.unnumbered}
+
+In `flexdashboard`, we can add certain attributes to columns, rows, and boxes. This is similar to adding attributes to headings in typical `.Rmd` documents. For example, if we didn't want a subheading to be numbered in a rendered `HTML` of a `.Rmd`, we would use `## My Subheading {.unnumbered}`.
+
+In both typical `.Rmd` and `flexdashboard`, the syntax for attributes is `{key=value}` or `{.attribute}`.
+
+Some attributes to add to columns, rows, or boxes include:
+
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{data-width=}`** and **`{data-height=}`** | both of these attributes set the relative size of columns, rows, and boxes. See [complete size documentation](https://pkgs.rstudio.com/flexdashboard/articles/using.html#sizing) on the flexdashboard website                                                                                                                                                                      |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{data-orientation=}`**                    | sets the dashboard layout to either rows or columns. This is a global option set in the `YAML`. However, if your dashboard has multiple pages and you want to specify the orientation for each page, remove `orientation:` from the `YAML` and use this attribute instead                                                                                                          |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{.tabset}`**                              | divide columns, rows, or charts into tabs                                                                                                                                                                                                                                                                                                                                          |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{.sidebar}`**                             | creates a sidebar on the left side. This sidebar is typically used to place Shiny inputs and is an optional step to add Shiny elements to a flexdashboard. See full documentation and steps in [section 5.3.1 Getting Started](https://bookdown.org/yihui/rmarkdown/shiny.html#getting-started) in the R Markdown: Definitive Guide                                                |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{data-navmenu="name of page"}`**          | this attribute creates a new navigation bar heading with the specified page as an item in a drop-down menu. When clicked, the menu item takes you to the associated page. For example, if the syntax is `# Foo {data-navmenu="Bar"}`, "Bar" becomes a new heading in the navigation bar, and "Foo" is a page with dashboard components listed as a drop-down menu item under "Bar" |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **`{.hidden}`**                              | excludes a specific page from the navigation bar                                                                                                                                                                                                                                                                                                                                   |
++----------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[30,70\]"}
+
+::: {.callout-caution appearance="minimal"}
+To **add multiple attributes** within a set of curly braces `{}` by separating the attributes by either a space or a comma.
+:::
+
+### Flexdashboard Components {.unnumbered}
+
+The different components that can be added to a flexdashboard are:
+
+|                |                                                                                                                                                                                                                                                                                       |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `HTML` Widgets | incorporates JavaScript data visualization tools and libraries into a flexdashboard. This includes features like interactive plots, maps and more. At this time there are 130 htmlwidgets available to use in R, check out the [gallery of widgets](https://gallery.htmlwidgets.org/) |
+| R Graphics     | any chart, plot or graph that is created using any R package                                                                                                                                                                                                                          |
+| Tabular Data   | add tables using `knitr::kable()` for simple tables or use the `DT` package for interactive tables                                                                                                                                                                                    |
+| Value Boxes    | use `valueBox()` to display single values along with a title and optional icon                                                                                                                                                                                                        |
+| Gauges         | gauges are a type of data visualization that displays values on a meter within a specified range                                                                                                                                                                                      |
+| Navigation Bar | the navigation bar automatically includes the title, author, and date (if specified in the `YAML`). New pages are added to the navigation bar starting on the left side. There is also an option to add links to social media and the source code (specify this in the `YAML`)        |
+| Text           | text can be added either at the top of the `.Rmd` before the setup chunk or in a box                                                                                                                                                                                                  |
+
+: {tbl-colwidths="\[30,70\]"}
+
+::: {.callout-caution appearance="minimal"}
+
+Learn more about flexdashboard components in the [flexdashboard documentation for components](https://rstudio.github.io/flexdashboard/articles/using.html#components) on the flexdashboard website.
+:::
+
+## Demo: Creating a flexdashboard
+
+::: {.callout-tip icon="false"}
+### Setup
+
+Fork the [NCEAS/flexdashboard-demo-lh repository](https://github.com/NCEAS/flexdashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of flexdashboard examples.
+:::
+
+The demonstration will include examples that showcase different `flexdashboard` features:
+
+1.  Basic Flexdashboard from Template
+2.  Interactive and Multiple Pages Flexdashboard
+3.  Reactive Flexdashboard using `shiny` elements
+4.  Themed Flexdashboard using `bslib`
+
+::: {.callout-note icon="false"}
+### Exercise: Your turn!
+
+In the Themed Flexdashboard, use the `palmerpenguins` data to complete the following tasks:
+
+1.  **Fill in the boxes**:
+    a.  In the Chart A box, add a scatterplot of your choosing.
+    b.  In the Chart B box, add a table using either `kable()` or `DT`.
+    c.  In the Chart C box, add a `valueBox`.
+    d.  *Optional* Explore the [htmlwidgets for R gallery](https://gallery.htmlwidgets.org/), choose one you like and replace Chart D with that widget.
+2.  **Change the theme using `bslib::bs_themer()`**. To activate the Theme Customizer, complete these steps:
+    a.  Add to the YAML `runtime: shiny`
+    b.  Add `bslib::bs_themer()` to the setup chunk
+    c.  Save the `.Rmd`
+    d.  Click "Run Document" and open the dashboard in a browser window for optimal experience
+3. **Add a new page** then create a second Page using `{data-navmenu}`.
+
+***Note***: You're welcome to use the code from the demo so you can quickly start playing with the different flexdashboard features.
+:::
+
+## Publishing a Flexdashboard
+
+::: columns
+::: {.column width="30%"}
+![Publish Button in RStudio IDE](images/flexdashboard-publish-icon.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
+If your flexdashboard **does not** have any Shiny components you can publish your flexdashboard using:
+
+- **RStudio IDE** using the Publish Button and select a destination to publish to. [See Posit's documentation](https://docs.posit.co/connect/user/publishing/#:~:text=The%20blue%20Publishing%20icon%20in,viewer%20when%20viewing%20a%20document).
+- **GitHub Pages**. Recall the lesson from [Week Two's coursebook](https://learning.nceas.ucsb.edu/2023-08-delta/), [Publishing your analysis to the web with GitHub Pages](Publishing your analysis to the web with GitHub Pages).
+:::
+:::
+
+If your flexdashboard **does have** Shiny components you will need to publish to [shinyapps.io](https://shinyapps.io/). This can be done using:
+
+- **RStudio IDE** using the Publish Button.
+- The **`rsconnect` package** using `rsconnect::deployApp()`.
+
+::: {.callout-caution appearance="minimal"}
+***Note***: *You will need to create shinyapps.io Account first to publish to shinyapps.io.*
+:::
+
+
+## Additional Resources
+
+-   [RStudio `flexdashboard` vingettes](https://pkgs.rstudio.com/flexdashboard/) (The articles under the "Articles" dropdown menu are particularly helpful!)
+-   [RStudio `flexdashboard` Examples](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
+-   [R Markdown: The Definitive Guide Chapter 5: Dashboards](https://bookdown.org/yihui/rmarkdown/dashboards.html) by Yihui Xie, J. J. Allaire, and Garrett Grolemund
+-   [htmlwidgets for R](https://www.htmlwidgets.org/index.html): Check out widgets featured either in the [gallery](https://gallery.htmlwidgets.org/) or the [showcase](https://www.htmlwidgets.org/showcase_leaflet.html)
