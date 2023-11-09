@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS openS for the Climate Adaptation Postdoctoral (CAP) Fellows: Future of Aquatic Flows Cohort"
+  title: "NCEAS Open Science Synthesis for the Delta Science Program"
   # date: "April 3, 2023"
   reader-mode: false
   
@@ -14,7 +14,7 @@ book:
   favicon: cover.png # learning hub logo
   
   sidebar:
-    title: "Session Materials"
+    title: "Course Materials"
     style: "floating"
     search: true
     tools:
@@ -24,25 +24,28 @@ book:
         href: https://twitter.com/ucsb_nceas
       - icon: github
 
-        href: https://github.com/NCEAS/nceas-training/tree/2023-10-delta
+        href: https://github.com/NCEAS/nceas-training/tree/2023-08-delta
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # census maps
-    - session_02.qmd # message box
-    - session_03.qmd # synthesis
-    - session_04.qmd # flexdashboard
-    - session_05.qmd # shiny
-    - session_06.qmd # practice: shiny + flexdashboard using design thinking
-    - session_07.qmd # synthesis
-    - session_08.qmd # reproducible workflows using targets
-    - session_09.qmd # parallel processing
-    - session_10.qmd # synthesis
-    - session_11.qmd # publishing data
-    - session_12.qmd # git workflows
-    - session_13.qmd # synthesis
-    - session_14.qmd # presentations and wrap-up
-   
+    - session_01.qmd # collaborating using git & github and merge conflicts
+    - session_02.qmd # publishing to web
+    - session_03.qmd # data viz
+    - session_04.qmd # Practice session
+    - session_05.qmd # synthesis: setting goals
+    - session_07.qmd # thinking preferences
+    - session_06.qmd # social aspects of collaboration
+    - session_08.qmd # synthesis: data policies
+    - session_09.qmd # synthesis
+    - session_10.qmd # spatial data
+    - session_11.qmd # census data
+    - session_12.qmd # text data
+    - session_13.qmd # reproducible surveys
+    - session_14.qmd # synthesis
+    # - session_15.qmd # synthesis
+    - session_16.qmd # shiny
+    - session_17.qmd # 2FA setup + reset token
+    
 
 bibliography: book.bib
       

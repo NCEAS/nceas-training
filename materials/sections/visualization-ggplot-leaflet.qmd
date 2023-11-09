@@ -29,7 +29,7 @@ Let's dive into creating and customizing plots with `ggplot2`.
 ::: callout-tip
 ## Setup
 
-0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new R Markdown document and remove the default text.
+0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new Quarto document, delete the default text, and save this document.
 
 1. Load the packages we'll need:
 
@@ -40,15 +40,15 @@ Let's dive into creating and customizing plots with `ggplot2`.
 library(readr)
 library(dplyr)
 library(tidyr)
-library(forcats)
+library(forcats) # makes working with factors easier
 library(ggplot2)
-library(leaflet)
-library(DT)
-library(scales)
+library(leaflet) # interactive maps
+library(DT) # interactive tables
+library(scales) # scale functions for visualization
 ```
 
 
-2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
+2. Load the data directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
 
 ```{r}
 #| message: false
