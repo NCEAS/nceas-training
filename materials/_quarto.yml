@@ -23,7 +23,8 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-06-delta
+
+        href: https://github.com/NCEAS/nceas-training/tree/2023-08-delta
   
   chapters:
     - index.qmd # preface
@@ -51,6 +52,7 @@ bibliography: book.bib
 format:
   html:
     theme: cosmo
+    css: style.css
     # Note HD: latex rendering issues, maybe with column-margin
   # pdf:
   #   documentclass: scrreprt

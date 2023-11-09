@@ -1,7 +1,9 @@
+<!--
 ## Learning Objectives {.unnumbered}
 
 - Become familiar with additional mechanisms to collaborate using `Git`
 - Contribute code to a colleague’s repository using Pull Requests
+-->
 
 ## Why `Git` workflows are important
 
@@ -198,10 +200,13 @@ Then to `pull` from the `main` branch of the `upstream` repository run in the Te
 
 At this point, the collaborator is fully up to date.
 
-::: callout-important
-## Remember: there is more than one way to do it!
+As a final overview, when working with forked pull requests, there are four copies of the git repository (2 on the GitHub server for the owner and collaborator, and two on their local machines). In this diagram, you can see that, from the collaborator's point of view, a `git push` will affect their `origin` repository, but they also need to `git pull` from the Owner's `upstream` repository in order to sync their changes.
+
+![](images/github-workflows-upstream.png)
+
+**Remember: there is more than one way to do it!**
+
 There is no one-size-fits-all Git workflow, but ultimately a workflow should be simple and enhance the productivity of your team.
-:::
 
 ## Resources
 

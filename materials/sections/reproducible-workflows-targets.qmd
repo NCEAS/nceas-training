@@ -1,0 +1,248 @@
+---
+title: "Reproducible Workflows Using `targets`"
+format: html
+bibliography: book.bib
+---
+
+## Learning Objectives {.unnumbered}
+
+- Illustrate importance of utilizing reproducible workflows to increase project efficiency and sharing of analyses, as well as reducing computational resources.
+- Apply the R package `targets` workflow framework to scientific projects.
+- Organize projects in modular steps to improve understanding and computational flexibility.
+
+::: {.callout-note icon=false}
+## Acknowledgements
+
+This lesson is adapted from the following resources:
+
+- Journal article [Improving ecological data science with workflow management software](https://doi.org/10.1111/2041-210X.14113) by Brousil et al
+- Brousil et al's accompanying example, [A worked targets example for ecologists](https://targets-ecology.netlify.app/)
+- RLadies Santa Barbara Chapter Workshop: [An introduction to `targets` for R](https://youtu.be/qxhLH6sIZqQ?feature=shared)
+
+:::
+
+## Challenges of Workflows
+
+All research projects have a workflow of some kind and typically includes steps like: data preparation and harmonization, running analyses or models, creating visualizations, and more.
+
+![Example of ideal straightforward data workflow](images/reproducible-workflows-targets-1.png)
+
+However, many environmental research projects are becoming **increasingly more complex** as researchers are utilizing **larger datasets** that require **complicated analytical methods**. More complexity means more steps, and more room for error or poor organizational methods that make projects difficult to reproduce. More complex analysis may also mean **longer run times**, which can make updating functions and analysis time-consuming.
+
+![Example of a more realistic data workflow...](images/reproducible-workflows-targets-2.png)
+
+This is where **reproducible workflow tools and packages**, like the R package `targets`, can play a huge role in **streamlining complex workflows** and ease the organization and sharing of projects.
+
+Other **interchangeable terms for workflows** are:
+
+-   Workflow Management Systems (WMS) 
+-   Data pipelines
+-   Data workflow
+
+## Benefits of Reproducible Workflows
+
+Using a **reproducible workflow** allows us to:
+
+- **track the status** of all required files and functions which makes it easier to keep all steps in the overall workflow up-to-date [@brousil2023]
+- break our analysis and data processing steps into smaller functions that are **modular** which results in more **computational flexibility** [@brousil2023] and makes it easier to debug when errors occur
+- **reduce the computational tasks** to only run as necessary as opposed to anytime there is an update in on the steps in the workflow [@brousil2023]
+- **utilize continuous integration** (automating tasks) so that we spend less time on manual work and are less prone to simple errors (e.g. misspellings) [@brousil2023]
+
+Overall a reproducible workflow enhances our research projects because it **improves our understanding** of our work for ourselves and for collaborators, makes our work **more efficient and automated**, and **increases reproducibility**.
+
+::: {.callout-warning icon=false}
+### Challenges of Reproducible Workflows
+
+While the benefits of reproducible workflows are immense, workflows and the utilizing workflow management tools can be **intimidating** at the start due to:
+
+- **high learning-curve** for implementing reproducible workflow tools [@brousil2023]
+- **limited training resources** and opportunities to applying WMS for environmental researchers and professionals [@brousil2023]
+- **infrequent use** of WMS and reproducible workflows in the environmental field means there are less examples to learn from and a **lack of standardized methods** for using WMS [@brousil2023]
+:::
+
+
+## Leveraging `targets` for Reproducible Workflows
+
+WMS or tools like `targets` may not be needed by most beginners, but learning about these tools give researchers the foundational capabilities to scale their projects in size and complexity. While it takes time to learn these tools to create reproducible workflows, it saves time and frustrations in the long run [@brousil2023].
+
+![A workflow visualized by `targets` using `tar_visnetwork()`. Source: The {targets} R package user manual](images/reproducible-workflows-targets-3.png)
+
+::: {.callout-caution icon=false}
+#### What is the `targets` package?
+`targets` is a **data pipeline tool specifically for R**. It coordinates and keeps track of an entire workflow. It can also help users build, visualize, and manage workflows from raw files to outputs.
+:::
+
+### What does the `targets` package do? {.unnumbered}
+
+- Keeps track of entire workflow
+- Automatically detects when files or functions change 
+- Saves time by only running steps, or targets, that are no longer up to date
+- Ensures that the pipeline is run in the correct order (meaning you don't have to keep track of this after you set it up the first time)
+- Can integrate with high performance computing, like parallel processing
+- Ensures reproducibility: When targets are up to date, this is evidence that
+the outputs match the code and inputs
+- More trustworthy and reproducible results
+
+::: {.callout-caution appearance="minimal"}
+The R package `drake` was the predecessor to the `targets` package.
+:::
+
+### How does the `targets` package work? {.unnumbered}
+
+For `targets` to be successful, at a bare minimum it needs 1) a script with the different functions you're using for analysis, and 2) a `_targets.R` script which is a special file that `targets` uses to coordinate, connect, and keep track of the steps in your workflow aka "targets".
+
+A good "target":
+
+- is a meaningful step in your workflow
+- large enough to subtract a decent amount of runtime when skipped
+- small enough that some targets can be skipped even if others need to run
+
+::: {.callout-caution appearance="minimal"}
+You **use a target as if it is an R object** available to your in your Environment. Learn more about targets in the [The {targets} R package user manual Ch 6 Targets](https://books.ropensci.org/targets/targets.html).
+:::
+
+The `_targets.R` script is where you define "targets" aka analysis steps. To define your targets, you do so using the `list()` and `tar_targets()` functions:
+
+```{r}
+#| eval: false
+
+# targets syntax
+list(
+
+tar_target(name = first_target,
+           command = some_code),
+tar_target(name = second_target,
+           command = some_code),
+tar_target(name = third_target,
+           command = some_code),
+)
+
+# minimal example
+list(
+
+tar_target(name = read_data,
+           command = read_csv("path/to/data.csv")),
+tar_target(name = clean_data,
+           command = my_cleaning_function(read_data)),
+tar_target(name = analysis_model,
+           command = my_modeling_function(clean_data)),
+)
+```
+
+
+
+## Exercise: Creating a Pipeline using `targets`
+
+In this exercise, we are going to use the `palmerpenguins` data to recreate the pipeline below.
+
+![](images/reproducible-workflows-targets-4.png)
+
+::: {.callout-tip icon=false}
+### Setup
+
+1. Create a new project called `demo_targets`
+2. Create the following directories:
+    a. data
+    b. R
+    c. figs
+3. Create a new R script called `functions.R` and save it inside the R folder
+4. Create a new `_targets.R` script using `targets::tar_script()`
+:::
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Code for functions.R"
+
+# create_penguin_data ----
+create_penguin_data <- function(out_path) {
+
+  penguin_data <- palmerpenguins::penguins_raw %>% clean_names()
+
+  write_csv(penguin_data, out_path)
+  
+  return(out_path)
+
+} # EO penguin_data
+
+# clean_data ----
+clean_data <- function(file_path) {
+  
+  clean_data <- read_csv(file_path) %>% 
+    # keep only common species name
+    mutate(
+      species = str_extract(string = species,
+                            pattern = "Chinstrap|Adelie|Gentoo"),
+      year = year(date_egg)
+    ) %>% 
+    # select cols of interest
+    select(species,
+           island,
+           flipper_length_mm,
+           body_mass_g, 
+           sex) %>% 
+    drop_na()
+  
+  return(clean_data)
+}
+
+# exploratory_plot ----
+exploratory_plot <- function(clean_data) {
+  
+  ggplot(data = clean_data, aes(x = flipper_length_mm,
+                                y = body_mass_g)) +
+    geom_point(aes(color = species)) +
+    scale_color_manual(values = c(
+      "Adelie" = "purple2",
+      "Chinstrap" = "orange",
+      "Gentoo" = "cyan4"
+    )) +
+    labs(
+      title = NULL,
+      x = "Flipper Length (mm)",
+      y = "Body Mass (g)",
+      color = "Species"
+    ) +
+    theme_minimal()
+  
+  ggsave("figs/exploratory_plot.png", width = 5, height = 5)
+}
+```
+
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Code for _targets.R"
+
+library(targets)
+
+source("R/functions.R")
+
+# Set target-specific options such as packages:
+tar_option_set(packages = "tidyverse")
+
+# End this file with a list of target objects.
+list(
+  # create data
+  tar_target(name = file,
+             command = create_penguin_data(out_path = "data/penguin_data.csv"),
+             packages = c("readr", "janitor")),
+  # clean data
+  tar_target(name = data,
+             command = clean_data(file_path = file),
+             packages = c("readr", "dplyr", "tidyr", "stringr", "lubridate")),
+  # plot data
+  tar_target(name = plot_data,
+             command = exploratory_plot(clean_data = data),
+             packages = "ggplot2")
+
+)
+```
+
+
+
+## Additional Resources
+
+- [The `targets` R Package User Manual](https://books.ropensci.org/targets/) by the `targets` creator Will Landau
+- [Get started with `targets` in 4 minutes](https://player.vimeo.com/video/700982360?h=38c890bd4f) video by Will Landau

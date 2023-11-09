@@ -85,7 +85,7 @@ server <- function(input, output) {
     output$distPlot <- renderPlot({
         
         ggplot(delta_data, mapping = aes(SampleDate, Secchi)) +
-            geom_point(colour="red", size=4) +
+            geom_point(colour="salmon", size=4) +
             xlim(c(input$date[1],input$date[2])) +
             theme_light()
     })
