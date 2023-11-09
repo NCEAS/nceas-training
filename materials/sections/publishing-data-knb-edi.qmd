@@ -1,0 +1,539 @@
+## Learning Objectives {.unnumbered}
+
+-   Overview best practices for organizing data for publication
+-   Review what science metadata is and how it can be used
+-   Demonstrate how data and code can be documented and published in
+    open data archives
+
+## The Data Life Cycle
+
+The Data Life Cycle gives you an overview of meaningful steps data goes
+through in a research project, from planning to archival. This
+step-by-step breakdown facilitates overseeing individual actions,
+operations and processes required at each stage.
+
+![](images/data-life-cycle.png)
+
+| Step      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|------------------|------------------------------------------------------|
+| Plan      | Map out the processes and resources for the entire data life cycle. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans.                                                                                                                                                                                                                                         |
+| Collect   | Observations are made either by hand or with sensors or other instruments and the data are placed a into digital form. You can structure the process of collecting data up front to better implement data management.                                                                                                                                                                                                                                                                     |
+| Assure    | Employ quality assurance and quality control procedures that enhance the quality of data (e.g., training participants, routine instrument calibration) and identify potential errors and techniques to address them.                                                                                                                                                                                                                                                                      |
+| Describe  | Document data by describing the why, who, what, when, where, and how of the data. Metadata, or data about data, are key to data sharing and reuse, and many tools such as standards and software are available to help describe data.                                                                                                                                                                                                                                                     |
+| Preserve  | Plan to preserve data in the short term to minimize potential losses (e.g., via accidents), and in the long term so that project stakeholders and others can access, interpret, and use the data in the future. Decide what data to preserve, where to preserve it, and what documentation needs to accompany the data.                                                                                                                                                                   |
+| Discover  | Identify complementary data sets that can add value to project data. Strategies to help endure the data have maximum impact include registering the project on a project directory site, depositing data in an open repository, and adding data descriptions to metadata clearing houses.                                                                                                                                                                                                 |
+| Integrate | Data from multiple sources are combined into a form that can be readily analyzed. For example, you could combine citizen science project data with other sources of data to enable new analyses and investigations. Successful data integration depends on documentation of the integration process, clearly citing and making accessable the data you are using, and employing good data management practices throughout the [Data Life Cycle](https://www.dataone.org/data-life-cycle). |
+| Analyze   | Create analyses and visualizations to identify patterns, test hypotheses, and illustrate finding. During this process record your methods, document data processing steps, and ensure your data are reproduceable. Learn about these best practices and more.                                                                                                                                                                                                                             |
+
+In this lesson we focus on the *Describe* and *Preserve* stages of this
+cycle. However, best practices on how to organize and document your
+data, apply to all stages.
+
+## Organizing Data
+
+The goal is to operate through the data life cycle with the [FAIR and
+CARE
+principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html)
+in mind and making sure our data is in a [tidy
+format](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html#what-is-tidy-data).
+
+![Artwork by Allison Horst](images/allison-horst-why-tidy-data.png)
+
+Benefits of having clean and tidy data and complete metadata:
+
+-   Decreases errors from redundant updates
+-   Enforces data integrity
+-   Helps you and future researchers to handle large, complex datasets
+-   Enables powerful search filtering
+
+Some of the best practices to follow are (@borer_simple_2009,
+@white_nine_2013):
+
+-   Have scripts for all data wrangling that start with the uncorrected
+    raw data file and clean the data programmatically before analysis.
+-   Design your tables to add rows, not columns. A column should be only
+    one variable and a row should be only one observation.
+-   Include header lines in your tables
+-   Use non-proprietary file formats (ie, open source) with descriptive
+    file names without spaces.
+
+Non-proprietary file formats are essential to ensure that your data can
+still be machine readable long into the future. Open formats include
+text files and binary formats such as NetCDF.
+
+![](images/open-formats.png)
+
+Common switches:
+
+| Proprietary format            | Export to...                                 |
+|-------------------------------|----------------------------------------------|
+| Microsoft Excel (.xlsx) files | text (.txt) or comma separated values (.csv) |
+| GIS files                     | ESRI shapefiles (.shp)                       |
+| MATLAB/IDL                    | NetCDF                                       |
+
+
+:::callout-caution
+## Large Data Packages
+
+When you have or are going to generate large data packages (in the terabytes or larger), it's important to establish a relationship with the data center early on. 
+
+The data center can help come up with a strategy to tile data structures by subset, such as by spatial region, by temporal window, or by measured variable. They can also help with choosing an efficient tool to store the data (ie NetCDF or HDF), which is a compact data format that helps parallel read and write libraries of data.
+
+:::
+
+
+## Metadata
+
+Within the data life cycle you can be collecting data (creating new data) or integrating data that has all ready been collected. Either way, **metadata** plays a major role to successfully spin around the cycle because it enables data reuse long after the original collection.
+
+Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
+
+The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
+
+
+One way to think about metadata is to answer the following questions with the documentation:
+
+-   What was measured?
+-   Who measured it?
+-   When was it measured?
+-   Where was it measured?
+-   How was it measured?
+-   How is the data structured?
+-   Why was the data collected?
+-   Who should get credit for this data (researcher AND funding agency)?
+-   How can this data be reused (licensing)?
+
+Review detailed metadata guidelines on [course material from week 1](https://learning.nceas.ucsb.edu/2023-06-delta/session_05.html#metadata-best-practices)
+
+We also know that it is important to keep in mind how will computers organize and integrate this information. There are a number of **metadata standards** that make your metadata machine readable and therefore easier for data curators to publish your data (Ecological Metadata Language, Geospatial Metadata Standards, Biological Data Profile, Darwin Core, Metadata Encoding Transmission Standard, etc.)
+
+Today we are going to be focusing on the Ecological Metadata Language also known as EML. Which is widespread use in the earth and environmental sciences.
+
+> "The Ecological Metadata Language (EML) defines a comprehensive vocabulary and a readable XML markup syntax for documenting research data" (<https://eml.ecoinformatics.org/>)
+
+
+EML or XML? It's confusing. EML or Ecological Metadata Language is the name of the metadata standard. EML are stored in an XML file. XML (Extensible Markup Language), is a markup language that provides rules to define any data. XML file extension is `.xml`. So an EML file will be somthing like `metadata.xml`, and it will look like this:
+
+
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="df35d.442.6" system="knb" 
+    xmlns:eml="eml://ecoinformatics.org/eml-2.1.1">
+    <dataset>
+        <title>Improving Preseason Forecasts of Sockeye Salmon Runs through 
+            Salmon Smolt Monitoring in Kenai River, Alaska: 2005 - 2007</title>
+        <creator id="1385594069457">
+            <individualName>
+                <givenName>Mark</givenName>
+                <surName>Willette</surName>
+            </individualName>
+            <organizationName>Alaska Department of Fish and Game</organizationName>
+            <positionName>Fishery Biologist</positionName>
+            <address>
+                <city>Soldotna</city>
+                <administrativeArea>Alaska</administrativeArea>
+                <country>USA</country>
+            </address>
+            <phone phonetype="voice">(907)260-2911</phone>
+            <electronicMailAddress>mark.willette@alaska.gov</electronicMailAddress>
+        </creator>
+        ...
+    </dataset>
+</eml:eml>
+```
+
+
+## Data Identifiers & Citation
+
+Many journals require a DOI - a digital object identifier - be assigned to the published data before the paper can be accepted for publication. The reason for that is so that the data can easily be found and easily linked to.
+
+Keep in mind that generally, if the data package needs to be updated (which happens in many cases), each version of the package will get its own identifier. This way, researchers can and should cite the exact version of the data set that they used in their analysis. Having the data identified in this manner allows us to accurately track the dataset usage metrics.
+
+Finally, stressed that researchers should get in the habit of citing the data that they use (even if it’s their own data!) in each publication that uses that data. This is important for correct attribution, provenance of your work and ultimately transparency in the scientific process.
+
+## Provenance and Computational Workflow
+
+![](images/comp-repro.png)
+
+
+While the [Knowledge Network for Biocomplexity](https://knb.ecoinformatiocs.org), and similar repositories do focus on preserving data, we really set our sights much more broadly on preserving entire computational workflows that are instrumental to advances in science.  A **computational workflow** represents the sequence of computational tasks that are performed from raw data acquisition through data quality control, integration, analysis, modeling, and visualization.
+
+
+For example, a data acquisition and cleaning workflow often creates a derived and integrated data product that is then picked up and used by multiple downstream analytical workflows that produce specific scientific findings.  These workflows can each be archived as distinct data packages, with the output of the first workflow becoming the input of the second and subsequent workflows.
+
+![](images/comp-workflow-2.png)
+
+
+Adding provenance within your work makes it more reproducible and compliant with the [FAIR](https://www.go-fair.org/fair-principles/) principles. It is also useful for building on the work of others; you can produce similar visualizations for another location, for example, using the same code.
+
+Tools like R can be used as a provenance tool, as well - by starting with the raw data and cleaning it programmatically, rather than manually, you preserve the steps that you went through and your workflow is reproducible.
+
+
+
+## Preserving your data
+
+Throughout this course we have mentioned over and over the importance of preserving your data so you or other can access it years down the line. Imagine how helpful it would be if each of the data sets you are trying to get from multiple people and agencies would be publish in a data package for reuse. How much time would you safe? How many emails back and forth could be avoided. Data is a valuable asset. It takes time, effort and resources to collect. It is important to preserve our data for transparency in our work and making sure we and other can re use it.
+
+::: column-margin
+![](images/WhyManage.png)
+:::
+
+
+### Data repositories: built for data (and code)
+
+-   _GitHub is not an archival location_
+-   Dedicated data repositories: KNB, Arctic Data Center, Zenodo,
+    FigShare
+    -   Rich metadata
+    -   Archival in their mission
+-   Data papers, e.g., Scientific Data
+-   List of data repositories: http://re3data.org
+
+![](images/RepoLogos.png)
+
+DataONE is a federation of dozens of data repositories that work
+together to make their systems interoperable and to provide a single
+unified search system that spans the repositories. DataONE aims to make
+it simpler for researchers to publish data to one of its member
+repositories, and then to discover and download that data for reuse in
+synthetic analyses.
+
+DataONE can be searched on the web (https://search.dataone.org/), which
+effectively allows a single search to find data form the dozens of
+members of DataONE, rather than visiting each of the currently 43
+repositories one at a time.
+
+![](images/DataONECNs.png)
+
+
+
+### Structure of a data package
+
+We define a *data package* as a scientifically useful collection of data and metadata that a researcher wants to preserve. The rule of thumb is to package your data as you would like to receive it. Sometimes a data package represents all of the data from a particular experiment, while at other times it might be all of the data from a grant, or on a topic, or associated with a paper. Whatever the extent, we define **a data package as having one or more data files, software files, and other scientific products such as graphs and images**, all tied together with a descriptive metadata document.
+
+![](images/data-package.png) 
+
+These data repositories all assign a unique identifier to every version of every data file, Those identifiers usually take one of two forms. A *DOI* identifier is often assigned to the metadata and becomes the publicly citable identifier for the package. Each of the
+other files gets an internal identifier, often a UUID that is globally
+unique. In the example above, the package can be cited with the DOI `doi:10.5063/F1F18WN4`.
+
+
+
+## Publishing data from the web
+
+Each data repository tends to have its own mechanism for submitting data
+and providing metadata. Repositories like the [Knowledge Network for Biocomplexity (KNB)](https://knb.ecoinformatics.org/) and [Environmenta Data Initiative (EDI)](https://edirepository.org/), provide some _easy to use_ web forms for
+editing and submitting a data package. 
+
+:::callout-important
+## Stable repositories for **storing** data during analysis
+
+Note that you can upload data to for example the [KNB repository](https://knb.ecoinformatics.org/) even if you are not ready to publish. This repository can serve as "storage" while you are working with your data. By storing your data in a repository you and your collaborators can access these data either through a url or data [content id](https://learning.nceas.ucsb.edu/2023-06-delta/session_08.html#content-based-identifiers).
+
+While you are working on your project. The data package where you store your data will be privet. Only people that are granted access can see data package.
+
+:::
+
+
+### Publishing Data to EDI
+
+The Environmental Data Initiative (EDI) provides lots of great resources about data publication (Resources > [Data Authors](https://edirepository.org/resources/resources-for-data-authors)) and data reuse (Resources > [Data Users](https://edirepository.org/resources/resources-for-data-users)).
+
+
+To publish a data package on EDI you have to go to <https://edirepository.org/> and click on "Publish Data".
+
+![](images/edi_landing_page.png)
+
+This will direct you to their Publish Data site where you can click on **Login** to ezEML metadata editor. **ezEML** is EDI's web based tool to interactively fill in your data's metadata.
+
+This will direct you to the ezEML site, where you can log in with different methods. All methods are totally fine. We recommend ORCID. ORCID is a free and unique identifier for researchers. This identifier allows to distinguish researchers with similar names, or researcher who change their name through their professional career. Ensuring right attribution of their scientific contribution (papers, data packages, etc.) (Track Attribution with an ORCID iD, [EDI](https://edirepository.org/resources/orcid-id). 
+
+Once you are logged in, you can create a New EML Document and start documenting your knew data package filling out all the required information.
+
+![](images/edi_new_eml.png)
+The left side bar menu allows you to easily navigate through the forms and fill in your metadata as you like. Note that at any point you can save and come back to it later.
+
+![](images/edi_abstract_example.png)
+
+
+
+### Publishing Data to KNB
+
+Similarly, you can publish your data to the KNB repository by going to <https://knb.ecoinformatics.org/> and signing in with your ORCID.
+
+![](images/knb_landing_2023.png)
+
+Once you sign in you click on "Submit Data" and it will direct you to the page where you can start filling in your metadata and uploading your data files.
+
+![](images/knb_submit_form.png)
+
+To further familiarize our selves with the data publication process, we are going to practice "Submitting" a data package to KNB's demo site.
+
+## Practice: Publish Dummy Data to KNB Demo Site
+
+::: callout-note
+## Context
+-   During Week 2 we explored and [visualized](https://learning.nceas.ucsb.edu/2023-08-delta/session_03.html#setting-ggplot-themes) the following data package EDI Data Repository [Sacramento-San Joaquin Delta Socioecological Monitoring](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1).
+
+-   Imagine that you decided to replicate this study and collected data on visits to different restoration sites on the Sacramento-San Joaquin Delta during 2022-2023 (original data is from 2017-2018).
+
+-   You have been keeping the data on GitHub, but you know that ultimately that is not a great place to store the data.
+
+-   It is time to upload the data to the KNB repository and start the process that will lead you to publish your data and script in a data package.
+
+:::
+
+
+::: callout-tip
+## Setup
+
+**Note the first 2 steps are just for the purpose of this exercise**
+
+-   Go to [this GitHub Repo](https://github.com/camilavargasp/publishing-data-practice) and "Fork" the repository to your GitHub Account by clicking on the Fork button on the upper right side of the
+-   By Forking you are creating a new repo under your user name that contains all the information of the "Forked" Repo.
+-   Continuing with our hypothetical scenario, let's imagine that this repo that we just forked is the repo we have been working all along, cleaning and visualizing our data.
+- Clone this repo to a new Rproject in the server  by clicking on Code and copying the HTTPS URL. In RStudio, create a new Rproject, with version control and paste the URL you just copied.
+
+-   Finally, in this hypothetical case, you have been somewhat diligent on documenting the metadata for these data sets. You set up a metadata spreadsheet that allow you to keep track of the information about your data. This spreadsheet lives in the [SharePoint folder](https://deltacouncil.sharepoint.com/:x:/r/sites/Extranet-Science/Shared%20Documents/NCEAS-DSP%20working%20group/2023/2023-10-week-3/publishing-data-practice/delta-tabular-metadata-eml.xlsx?d=w4dd59367a20c424fbd55d364aa26f92f&csf=1&web=1&e=gMMYJe). Follow the link or navigate to 2023 > 2023-10-week-3 > publishing-data-practice.
+
+:::
+
+
+### Exercise
+
+
+#### **Go to KNB Demo site and login via ORCID** {.unnumbered}
+
+We will walk through web submission on <https://demo.nceas.ucsb.edu>, and
+start by logging in with an ORCID account. ORCID provides a common
+account for sharing scholarly data, so if you don't have one, you can
+create one when you are redirected to ORCID from the *Sign In* button.
+
+![](images/knb-banner.png)
+
+When you sign in, you will be redirected to
+[orcid.org](https://orcid.org), where you can either provide your
+existing ORCID credentials, or create a new account. ORCID provides
+multiple ways to login, including using your email address,
+institutional logins from many universities, and logins from social
+media account providers. Choose the one that is best suited to your use
+as a scholarly record, such as your university or agency login.
+
+![](images/orcid-login.png)
+
+#### **Create and submit the data set** {.unnumbered}
+
+After signing in, you can access the data submission form using the
+*Submit* button. Once on the form, upload your data files and follow the
+prompts to provide the required metadata. Required sections are listed
+with a red asterisk.
+
+#### **Click *Add Files* to choose the data files for your package** {.unnumbered}
+
+You can select multiple files at a time to efficiently upload many
+files.
+
+![](images/editor-knb-01.png)
+
+The files will upload showing a progress indicator. You can continue
+editing metadata while they upload.
+
+![](images/editor-knb-02.png)
+
+#### **Enter Overview information** {.unnumbered}
+
+This includes a descriptive title, abstract, and keywords.
+
+The title is the first way a potential user will get information about
+your dataset. It should be descriptive but succinct, lack acronyms, and
+include some indication of the temporal and geospatial coverage of the
+data.
+
+The abstract should be sufficiently descriptive for a general scientific
+audience to understand your dataset at a high level. It should provide
+an overview of the scientific context/project/hypotheses, how this data
+package fits into the larger context, a synopsis of the experimental or
+sampling design, and a summary of the data contents.
+
+![](images/editor-knb-03.png)
+
+**Keywords**, while not required, can help increase the searchability of
+your dataset, particularly if they come from a semantically defined
+keyword thesaurus.
+
+![](images/editor-knb-04.png)
+
+Optionally, you can also enter funding information, including a funding
+number, which can help link multiple datasets collected under the same
+grant.
+
+Selecting a distribution **license** - either
+[CC-0](https://creativecommons.org/publicdomain/zero/1.0/) or
+[CC-BY](https://creativecommons.org/licenses/by/4.0/) is required.
+
+![](images/editor-knb-05.png)
+
+#### **People Information** {.unnumbered}
+
+Information about the people associated with the dataset is essential to
+provide credit through citation and to help people understand who made
+contributions to the product. Enter information for the following
+people:
+
+-   Creators - **all the people who should be in the citation for the
+    dataset**
+-   Contacts - one is required, but defaults to the first Creator if
+    omitted
+-   Principal Investigators
+-   and any other that are relevant
+
+For each, please strive to provide their [ORCID](https://orcid.org)
+identifier, which helps link this dataset to their other scholarly
+works.
+
+![](images/editor-knb-06.png)
+
+#### **Temporal Information** {.unnumbered}
+
+Add the temporal coverage of the data, which represents the time period
+to which data apply.
+
+![](images/editor-knb-09.png)
+
+#### **Location Information** {.unnumbered}
+
+The geospatial location that the data were collected is critical for
+discovery and interpretation of the data. Coordinates are entered in
+decimal degrees, and be sure to use negative values for West longitudes.
+The editor allows you to enter multiple locations, which you should do
+if you had noncontiguous sampling locations. This is particularly
+important if your sites are separated by large distances, so that a
+spatial search will be more precise.
+
+![](images/editor-knb-07.png)
+
+Note that, if you miss fields that are required, they will be
+highlighted in red to draw your attention. In this case, for the
+description, provide a comma-separated place name, ordered from the
+local to global. For example:
+
+-   Mission Canyon, Santa Barbara, California, USA
+
+![](images/editor-knb-08.png)
+
+#### **Methods** {.unnumbered}
+
+Methods are critical to accurate interpretation and reuse of your data.
+The editor allows you to add multiple different methods sections,
+include details of sampling methods, experimental design, quality
+assurance procedures, and computational techniques and software. Please
+be complete with your methods sections, as they are fundamentally
+important to reuse of the data.
+
+![](images/editor-knb-10.png)
+
+#### **Save a first version with _Submit_ ** {.unnumbered}
+
+When finished, click the *Submit Dataset* button at the bottom.\
+If there are errors or missing fields, they will be highlighted.\
+Correct those, and then try submitting again. When you are successful,
+you should see a green banner with a link to the current dataset view.
+Click the `X` to close that banner, if you want to continue editing
+metadata.
+
+![](images/editor-knb-11.png)
+
+Success!
+
+#### **File and variable level metadata** {.unnumbered}
+
+The final major section of metadata concerns the structure and contents
+of your data files (Entities). In this case, provide the names and descriptions of
+the data contained in each file, as well as details of their internal
+structure.
+
+For example, for data tables, you'll need the name, label, and
+definition of each variable in your file. Click the **Describe** button
+to access a dialog to enter this information.
+
+![](images/editor-knb-12.png)
+
+The **Attributes** tab is where you enter variable (aka attribute)
+information. In the case of tabular data (such as csv files) each column
+is an attribute, thus there should be one attribute defined for every
+column in your dataset. Attribute metadata includes:
+
+-   variable name (for programs)
+-   variable label (for display)
+
+![](images/editor-knb-13.png)
+
+-   variable definition (be specific)
+-   type of measurement
+
+![](images/editor-knb-14.png)
+
+-   units & code definitions
+
+![](images/editor-knb-15.png)
+
+You'll need to add these definitions for every variable (column) in the
+file. When done, click **Done**.
+
+![](images/editor-knb-16.png)
+
+Now the list of data files will show a green checkbox indicating that
+you have full described that file's internal structure. Proceed with the
+other CSV files, and then click **Submit Dataset** to save all of these
+changes.
+
+Note that attribute information is not relevant for data files that do
+not contain variables, such as the R script in this example. Other
+examples of data files that might not need attributes are images, pdfs,
+and non-tabular text documents (such as readme files). The yellow circle
+in the editor indicates that attributes have not been filled out for a
+data file, and serves as a warning that they might be needed, depending
+on the file.
+
+![](images/editor-knb-17.png)
+
+After you get the green success message, you can visit your dataset and
+review all of the information that you provided. If you find any errors,
+simply click **Edit** again to make changes.
+
+#### **Add workflow provenance** {.unnumbered}
+
+Understanding the relationships between files in a package is critically
+important, especially as the number of files grows. Raw data are
+transformed and integrated to produce derived data, that are often then
+used in analysis and visualization code to produce final outputs. In
+DataONE, we support structured descriptions of these relationships, so
+one can see the flow of data from raw data to derived to outputs.
+
+Once you have saved your data package, you can add provenance by navigating to the data table descriptions, and selecting the `Add` buttons to link the data and scripts that were used in your computational workflow. On the left side, select the `Add` circle to add an input data source to the delta_restoration_locations_visits_2022_2023.csv file. This starts building the provenance graph to explain the origin and history of each data object. 
+
+![](images/editor-knb-18.png)
+
+The linkage to the source dataset should appear.
+
+![](images/editor-knb-19.png)
+
+Then you can add the link to the source code that handled the conversion
+between the data files by clicking on `Add` arrow and selecting the R
+script. Note that you have to add the scrip as a file in your data package to be able to reference on the workflow.
+
+![](images/editor-knb-20.png)
+
+Select the R script and click "Done."
+
+![](images/editor-knb-21.png)
+
+![](images/editor-knb-22.png)
+
+The diagram now shows the relationships among the data files and the R
+script, so click **Submit** to save another version of the package.
+
+![](images/editor-knb-23.png)
+
+Et voilà! A beautifully preserved data package!

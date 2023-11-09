@@ -23,13 +23,26 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-08-usgs
+
+        href: https://github.com/NCEAS/nceas-training/tree/2023-10-delta
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # successful synthesis science
-    - session_02.qmd # logic models
-    - session_03.qmd # data management essentials
+    - session_01.qmd # census maps
+    - session_02.qmd # message box
+    - session_03.qmd # synthesis
+    - session_04.qmd # flexdashboard
+    - session_05.qmd # shiny
+    - session_06.qmd # practice: shiny + flexdashboard using design thinking
+    - session_07.qmd # synthesis
+    - session_08.qmd # reproducible workflows using targets
+    - session_09.qmd # parallel processing
+    - session_10.qmd # synthesis
+    - session_11.qmd # publishing data
+    - session_12.qmd # git workflows
+    - session_13.qmd # synthesis
+    - session_14.qmd # presentations and wrap-up
+   
 
 bibliography: book.bib
       

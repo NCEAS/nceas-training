@@ -1,0 +1,170 @@
+---
+format: html
+---
+
+## Learning Objectives {.unnumbered}
+
+- Apply design thinking approaches and tools to dashboard development
+- Evaluate whether to build a web application using `flexdashboard` or `shiny`
+- Practice developing a web application using `flexdashboard` or `shiny`
+- Demonstrate design knowledge including structure of layout, incorporation of data visualization, and choice of interactive elements
+
+
+::: {.callout-note icon=false}
+### Acknowledgements
+This lesson has been adapted by the Women in Data Science (WiDS) Workshop: [Dashboard Design Thinking by Jenn Schilling](https://youtu.be/xd-V-ikReDI?si=hrX3TUS4MSVL3tn-).
+
+We *highly* encourage you to watch the full workshop for more details on applying design thinking to dashboards.
+:::
+
+## What is Design Thinking?
+
+**Design thinking in data science centers the user's perspective throughout the entire development of a dashboard**. It starts with the user by gaining an understanding on what the user needs and ends with the user by involving them in focus groups or other testing methods to get their feedback. Centering the user means we create better dashboards *and* improve data-informed decision making. 
+
+Design thinking is inherently an innovative and collaborative process because it involves exploring multiple options for the same problem. 
+
+The design thinking process can be encapsulated within these stages:
+
+1. **Empathize and Define**: In these stages, we use tools to understand the problem and our audiences.
+2. **Ideate and Prototype**: We use these stages to explore solutions.
+3. **Test and Implement**: In these final stages, we use tools to materialize the final product.
+
+These stages are not meant to be in any particular order. While there is an inherent order to them, you should feel empowered to move between the stages as needed --- depending on the development of your dashboard and the needs of your users.
+
+
+## Empathize and Define
+
+::: {.callout-warning appearance="minimal"}
+***Empathize***: *Gather information and survey your users to understand what they need to know from the data, what are the use cases for the dashboard and its overall purpose.*
+:::
+
+### Empathize Tool: Empathy Mapping {.unnumbered}
+
+During the Empathize and Define stages, you can gather information through internal conversations with your team or conduct interviews with potential users.
+
+The **goal of an Empathy Map** is to capture what a user says, thinks, does, and feels --- additionally consider what their goals are (*and do their goals align the goals you have in mind for the dashboard you're developing?*). Check out the empathy map the Nielsen Norman Group created for a customer, Jamie, who is buying a television. 
+
+![Source: Nielsen Norman Group](images/vizualization-r-practice-flexdashboard-shiny-1.png)
+
+::: {.callout-caution icon=false}
+#### Create Your Own Empathy Map
+
+Use the [**NCEAS Learning Hub Empathy Map template**](https://docs.google.com/presentation/d/18RUZ1mDb4ns8ehBx4ONdC8sQaJL7hrGHlcfsnbU6sfk/edit?usp=sharing) to get started --- adapt it as needed for your project/user(s).
+:::
+
+---
+
+::: {.callout-warning appearance="minimal"}
+***Define***: *Identify the core problems your users have in accessing and interpreting the data in its current state.*
+:::
+
+### Define Tool: Project Brief Wiki {.unnumbered}
+
+The Empathize Stage helped us understand our audience. Now, we need to understand our problem. In the Define Stage, write down [**problem statements**](https://www.betterup.com/blog/problem-statement) and document the specifications of the dashboard including the **scope, timeline, and roles**. It's best to contain all this information within a **Project Brief** --- a condensed version of a project plan.
+
+You should feel comfortable sharing this document with not only your team, but your users as well. This ensures that everyone is on the same page. Keeping this in mind, consider having your **Project Brief as a [Wiki on GitHub](https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis) in the Git repository for your dashboard**.
+
+When defining the dashboard you want to create, consider these types:
+
+1. **Executive Dashboard**: shows the big picture; used for high-level overview
+2. **Operational Dashboard**: shows what's happening right now; used for monitoring
+3. **Strategic Dashboard**: shows progress toward a goal; used to inform decisions
+4. **Analytical Dashboard**: shows detailed analysis; used for identifying opportunities and deep analysis
+
+
+::: {.callout-caution icon=false}
+#### Writing a Project Brief
+
+Check out Asana's article [*5 steps to writing a clear project brief*](https://asana.com/resources/project-brief) as guidance --- use only what you need for your project.
+:::
+
+## Ideate and Protoype
+
+::: {.callout-warning appearance="minimal"}
+***Ideate***: *Challenge your existing assumptions and create ideas. Look for alternative ways to view the problem and identify solutions.*
+:::
+
+### Ideate Tool: Host a Brainstorm Session {.unnumbered}
+
+Now that we've learned about our audiences and problems from the Empathize & Define stages, we can start to think about what ideas for dashboard solutions. The **primary goal of this stage is to generate as many ideas as possible without judgement and evaluation --- it's all about quantity over quality**. Once you've generated many ideas, then you can start to narrow it down to a single dashboard solution.
+
+There are many ways to ideate individually or as a group, but here are some tips:
+
+- Use [mind mapping tools like Miro](https://miro.com/aq/ps/mind-mapping/?utm_source=google&utm_medium=cpc&utm_campaign=S%7CGOO%7CNB%7CUS%7CALL-EN%7CCore-Exact_%7CVoyantisEXP1&utm_adgroup=&adgroupid=147606509503&utm_custom=20106780405&utm_content=672781996520&utm_term=mind+mapping+tools&matchtype=e&device=c&location=9031642&gad=1&gclid=Cj0KCQjwsp6pBhCfARIsAD3GZubc2VZsltsiCrElebvHx_fk6O4PUPuaCAn8P93_g-suXRKwKg4lzVYaAprSEALw_wcB) for virtual collaboration.
+- If you're working together in-person, use a white board, sticky notes, or a large piece of construction paper to capture as many ideas from as many team members as possible.
+- *Take a break!*
+- Group related ideas together.
+- Set a time limit. This can vary from a few hours to multiple sessions throughout a week. Either way setting a time limit and making a plan to regroup and narrow down on ideas is helpful so that the ideation period doesn't feel so nebulous.
+
+::: {.callout-caution icon=false}
+#### Shiny vs Flexdashboard 
+
+This is a good time to consider which R dashboard package may be more useful for your final dashboard product. Recall the diagram from the [Flexdashboard Lesson](https://learning.nceas.ucsb.edu/2023-10-delta/session_04.html) to help determine which tool makes the most sense for your project.
+:::
+
+---
+
+::: {.callout-warning appearance="minimal"}
+***Prototype***: *Start to create the solutions. It's important to experiment here. Produce some inexpensive and low-intensive versions of the product.*
+:::
+
+### Prototype Tool: Create a Minimal Viable Dashboard {.unnumbered}
+
+At the Prototype Stage, we can experiment with a few of the ideas from the Ideate Stage to identify what is the best solution. Here we can **create a quick, scaled down version of the dashboard**. The **primary goal is to create something more refined from the Ideate Stage, but not a final or completely usable dashboard**. We want the prototype to be a minimal viable product where you can **test out some functionality without committing to multiple iterations**. 
+
+::: {.callout-caution icon=false}
+#### Tools to use for Prototyping
+
+- Google Slides
+- Microsoft PowerPoint
+- R Flexdashboard (this is a great option for prototyping if you're set on creating a Shiny App since you can insert some Shiny elements in a Flexdashboard)
+- Good ole' pen and paper!
+:::
+
+## Test and Implement
+
+::: {.callout-warning appearance="minimal"}
+***Test***: *Try your solutions and evaluate the results. Return to your users for feedback to incorporate.*
+:::
+
+### Test Tool: Run Tests and Review Work from Previous Stages {.unnumbered}
+
+You've completed your prototype --- it's time to test it out and receive feedback on it! **Review your project brief** and confirm your **prototype reflects your users' needs** and the use cases you're trying to achieve.
+
+If you don't have access to your users', **return to your Empathy Maps** to make sure your prototype is aligned with the information you have gathered there.
+
+Other tests to consider:
+
+- Does your dashboard work across **different devices**?
+- Does it meet **accessibility** requirements?
+- Does the **users' dashboard experience** align with how you think their experience should go?
+
+::: {.callout-caution icon=false}
+#### Interaction Design Foundation Testing Prototype Guidelines
+
+Read the Interaction Design Foundation's article [*Test Your Prototypes: How to Gather Feedback and Maximize Learning*](https://www.interaction-design.org/literature/article/test-your-prototypes-how-to-gather-feedback-and-maximise-learning) for more tips, tricks, and templates for testing your dashboard.
+:::
+
+---
+
+::: {.callout-warning appearance="minimal"}
+***Implement***: *Put your vision into effect! Remember that the process doesn't have to end here at implementation. Return to your users to gain more feedback and to guide the refinement of your solutions.*
+:::
+
+If the test you run reveal that your dashboard is not meeting the goals of your team or your users, then it's time to go back to the Prototype Stage (or even a different stage) and iterate before you complete the Implementation stage. You will also want to **return to your Project Brief, Empathy Map, and additional successful metrics to ensure that your dashboard meets *most* of these goals and needs**.
+
+When implementing the dashboard:
+
+- **Add context and definitions** to the dashboard.
+- *Test again!*
+- Internally: **validate your data**.
+- Externally: users test and **provide final feedback**.
+- How are you going to **communicate** your dashboard and make it **accessible** to your audience?
+
+::: {.callout-caution icon=false}
+#### That's *Not* All Folks!
+
+Design Thinking is an approach that centers the user in the development of a product. When developing dashboards or other data products there are definitely *more* resources and approaches out there.
+
+It's worth doing additional research on aspects like **testing, design, and data visualization** to create the most robust data product as possible. 
+:::
