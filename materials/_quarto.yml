@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS Open Science Synthesis for the Delta Science Program"
+  title: "UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills"
   # date: "April 3, 2023"
   reader-mode: false
   
@@ -14,7 +14,7 @@ book:
   favicon: cover.png # learning hub logo
   
   sidebar:
-    title: "Course Materials"
+    title: "Training Materials"
     style: "floating"
     search: true
     tools:
@@ -23,29 +23,22 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-
-        href: https://github.com/NCEAS/nceas-training/tree/2023-08-delta
+        href: https://github.com/NCEAS/nceas-training/tree/2023-09-ucsb-faculty
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # collaborating using git & github and merge conflicts
-    - session_02.qmd # publishing to web
-    - session_03.qmd # data viz
-    - session_04.qmd # Practice session
-    - session_05.qmd # synthesis: setting goals
-    - session_07.qmd # thinking preferences
-    - session_06.qmd # social aspects of collaboration
-    - session_08.qmd # synthesis: data policies
-    - session_09.qmd # synthesis
-    - session_10.qmd # spatial data
-    - session_11.qmd # census data
-    - session_12.qmd # text data
-    - session_13.qmd # reproducible surveys
-    - session_14.qmd # synthesis
-    # - session_15.qmd # synthesis
-    - session_16.qmd # shiny
-    - session_17.qmd # 2FA setup + reset token
-    
+    - session_01.qmd # synthesis generation & iteration
+    - session_02.qmd # team science essentials
+    - session_03.qmd # intro to R programming
+    - session_04.qmd # fair & care
+    - session_05.qmd # writing DMPs UCSB Library 
+    - session_06.qmd # intro to literate analysis
+    - session_07.qmd # tidy data
+    - session_08.qmd # accessing & finding data UCSB DREAM Lab
+    - session_09.qmd # intro `Git` & GitHub
+    - session_10.qmd # clean wrangle data
+    - session_11.qmd # collab `Git` & GitHub
+    - session_12.qmd # appendix: RStudio server setup + Git & GitHub setup
 
 bibliography: book.bib
       

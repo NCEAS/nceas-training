@@ -1,8 +1,8 @@
-## Learning Objectives {.unnumbered}
+<!-- ## Learning Objectives {.unnumbered}
 
 -   Introduce FAIR and CARE principles and the value it provides to data
 -   Provide a FAIR and CARE lens that can be applied to your data-focused work
--   Evaluate the FAIRness and CAREness of your work and the work of others
+-   Evaluate the FAIRness and CAREness of your work and the work of others -->
 
 ## The FAIR and CARE Principles
 
@@ -23,7 +23,7 @@ With the rise of open science and more accessible data, it is becoming increasin
 [![Source: Fair Teaching Handbook](images/FAIRsFAIR.png){width="80%" fig-align="center"}](https://fairsfair.gitbook.io/fair-teaching-handbook/)
 
 | FAIR                  | Definition                                                                                    |
-|-----------------------|-----------------------------------------------------------------------------------------------|
+|-----------------|-------------------------------------------------------|
 | **(F) Findable**      | Metadata and data should be easy to find for both humans and computers.                       |
 | **(A) Accessible**    | Once someone finds the required data, they need to know how the data can be accessed.         |
 | **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. |
@@ -33,7 +33,7 @@ With the rise of open science and more accessible data, it is becoming increasin
 
 This is not an exhaustive list of actions for applying FAIR Principles to your research, but these are important big picture concepts you should always keep in mind. We'll be going through the resources linked below so that you know how to use them in your own work.
 
--   **It's all about the metadata.** To make your data and research as findable and as accessible as possible, it's crucial that you are providing rich metadata. This includes, using a field-specific metadata standard (i.e. EML or Ecological Metadata Language for earth and environmental sciences), adding a globally unique identifier (i.e. a Digital Object Identifier) to your datasets, and more. As discussed in a [previous lesson](https://learning.nceas.ucsb.edu/2023-06-delta/session_05.html), quality metadata goes a long way in making your data FAIR. One tool to help implement FAIR principles to non-FAIR data is the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/). This workflow was developed by GoFAIR, a self-governed initiative that aims to help implement the FAIR data principles.
+-   **It's all about the metadata.** To make your data and research as findable and as accessible as possible, it's crucial that you are providing rich metadata. This includes, using a field-specific metadata standard (i.e. EML or Ecological Metadata Language for earth and environmental sciences), adding a globally unique identifier (i.e. a Digital Object Identifier) to your datasets, and more. As discussed earlier, quality metadata goes a long way in making your data FAIR. One tool to help implement FAIR principles to non-FAIR data is the [**FAIRification process**](https://www.go-fair.org/fair-principles/fairification-process/). This workflow was developed by GoFAIR, a self-governed initiative that aims to help implement the FAIR data principles.
 -   **Assess the FAIRness of your research.** The FAIR Principles are a lens to apply to your work. And it's important to ask yourself questions about finding and accessing your data, about how machine-readable your datasets and metadata are, and how reusable it is throughout the entirety of your project. This means you should be re-evaluating the FAIRness of your work over and over again. One way to check the FAIRness of your work, is to use tools like [FAIR-Aware](https://fairaware.dans.knaw.nl/) and the [FAIR Data Maturity Model](https://zenodo.org/record/3909563#.ZCC5kuzMJb_). These tools are self-assessments and can be thought of as a checklists for FAIR and will provide guidance if you're missing anything.
 -   **Make FAIR decisions during the planning process.** You can ensure FAIR Principles are going to implemented in your work by thinking about it and making FAIR decisions early on and throughout the data life cycle. As you document your data always keep in mind the FAIR lense.
 
@@ -44,7 +44,7 @@ The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Gove
 [![Source: Carroll, S.R., et al, 2020. The CARE Principles for Indigenous Data Governance](images/CAREsCARE.png){width="80%" fig-align="center"}](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
 
 | CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
-|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-------------|-----------------------------------------------------------|
 | **(C) Collective Benefit**   | Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data.                                                                                                                                                                                                                                                                        |
 | **(A) Authority to Control** | Indigenous Peoples' rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledge and geographical indicators, are represented and identified within data. |
 | **(R) Responsibility**       | Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples' self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.                                                                                        |
@@ -61,28 +61,57 @@ The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Gove
 
 -   **Assess the CAREness of your research.** Like FAIR, CARE Principles are a lens to apply to your work. With CARE, it's important to center human well-being in addition to open science and data sharing. To do this, reflect on how you're giving access to Indigenous groups, on who your data impacts and the relationships you have with them, and the ethical concerns in your work. The Arctic Data Center, a data repository for Arctic research, now requires an [Ethical Research Practices Statement](https://arcticdata.io/all/blog/2022/04/applying-care-documenting-ethical-data-procedures-and-sensitive-data-at-the-arctic-data-center/) when submitting data to them. They also have multiple [guidelines](https://arcticdata.io/data-ethics/) on how to write and what to include in an Ethical Research Practices Statement.
 
-## Thinking with CARE lenses
+## Exercise: Evaluate a Data Package on the EDI Repository
 
-::: callout-note
-## CARE Exercise
+Explore data packages published on EDI assess the quality of their metadata. Imagine you're a data curator!
 
-Explore the [Arctic Data Center's guidelines on writing an Ethical Research Practices Statement](https://arcticdata.io/data-ethics/). Then write an Ethical Research Practices Statement for your current research. Switch statements with a partner and assess their statement.
+::: callout-tip
+### Setup
+
+1. Break into groups and use the following data packages:
+    a. **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+    b. **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+    c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
 :::
 
-## Evaluating FAIR
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
 
 ::: callout-note
-## FAIR Exercise
-
-Now that we reviewed the FAIR principles in detail, go back to the EDI data package you looked into at the beginning of the week and carefully evaluate the FAIRness of the data package using our [Data package assesment rubric, Evidence for FAIR and CARE](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit).
-
--   **Group A:** [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
-
--   **Group B:** [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
-
--   **Group C:** [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
-
--   **Group D:** [Interagency Ecological Program: Fish catch and water quality data from the Sacramento River floodplain and tidal slough, collected by the Yolo Bypass Fish Monitoring Program, 1998-2021.](https://portal.edirepository.org/nis/mapbrowse?scope=edi&identifier=233&revision=3)
-
-<!-- consider thia other data package: [Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pie.540.1)-->
+### Exercise: Evaluate a data package on EDI Data Portal
+1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a. **Investigate the metadata in the provided data**
+        i. Does the metadata meet the standards we talked about? How so?
+        ii. If not, how would you improve the metadata based on the standards we talked about?
+    b. **Investigate the overall data documentation in the data package**
+        i. Is the documentation sufficient enough for reproducibility? Why or why not?
+        ii. If not, how would you improve the data documentation? What's missing?
+    c. **Identify elements of FAIR and CARE**
+        i. Is it clear that the data package used a FAIR and CARE lens? 
+        ii. If not, what documentation or considerations would you add?
+2. Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
+    b. What documentation stood out to you? What did you like or not like about it?
+    c. How well did these data packages uphold FAIR and CARE Principles?
+    d. Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
+    
+*If you and your group finish early, check out more datasets in the bonus question.*
 :::
+
+## Bonus: Investigate metadata and data documentation in other Data Repositories
+
+Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
+
+Evaluate the following data packages at these data repositories: 
+
+1. KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2. DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3. Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories? 
+
+
+<br>
+
+## References{.unnumbered}
+
+

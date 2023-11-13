@@ -1,5 +1,5 @@
 ---
-title: "R Practice: Collaborating on, Wrangling & Visualizing Data"
+title: "Data Management Essentials and the FAIR & CARE Principles"
 title-block-banner: true
 execute: 
   eval: false
@@ -11,5 +11,7 @@ format:
     code-overflow: wrap
 ---
 
-    {{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}
 
+{{< include /sections/data-management-essentials.qmd >}}
+
+{{< include /sections/fair-care-principles.qmd >}}

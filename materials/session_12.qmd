@@ -1,9 +1,12 @@
 ---
-title: "Working with Text Data in R"
+title: "Appendix "
 title-block-banner: true
 ---
 
-{{< include /sections/intro-tidy-text-data.qmd >}}
+# RStudio Server Setup {.unnumbered}
 
-<!--# previous lesson: text-analysis.qmd -->
+{{< include /sections/rstudio-server-setup.qmd >}}
 
+# Configuring `Git` & GitHub {.unnumbered}
+
+{{< include /sections/git-setup.qmd >}}
