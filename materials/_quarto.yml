@@ -23,7 +23,7 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-08-usgs
+        href: https://github.com/NCEAS/nceas-training/tree/2023-09-ucsb-faculty
   
   chapters:
     - index.qmd # preface
@@ -39,7 +39,6 @@ book:
     - session_10.qmd # clean wrangle data
     - session_11.qmd # collab `Git` & GitHub
     - session_12.qmd # appendix: RStudio server setup + Git & GitHub setup
-    
 
 bibliography: book.bib
       

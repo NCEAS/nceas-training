@@ -1,0 +1,38 @@
+
+
+## Steps to check if your Personal Access Token is valid
+
+1. Login to [included-crab](https://included-crab.nceas.ucsb.edu/)
+2. Open training_LASTNAME Rproj
+3. In the console run: `usethis::git_sitrep()`
+
+![](images/git_sitrep.png){width="80%" fig-align="center"}
+
+4. If your Personal Access Token is <unset>, you have to go ahead and reset it following the instructions on how to Set (or reset) your PAT.
+
+![](images/unset_token.png){width="80%" fig-align="center"}
+
+
+5. Set (or reset) your PAT
+
+
+::: callout-tip
+## Setting up your PAT
+
+1.  Run `usethis::create_github_token()` in the Console.
+2.  A new browser window should open up to GitHub, showing all the scopes options. You can review the scopes, but you don't need to worry about which ones to select this time. Using `create_github_token()` automatically pre-selects some recommended scopes. **Go ahead and scroll to the bottom and click "Generate Token"**.
+3.  Copy the generated token.
+4.  Back in RStudio, run `gitcreds::gitcreds_set()` in the Console.
+5.  Paste your PAT when the prompt asks for it.
+6. Last thing, run `usethis::git_sitrep()` in the Console to check your `Git` configuration and that you've successful stored your PAT. 
+:::
+
+
+6. Check your PAT is <discovered>. 
+
+-   In the console run `usethis::git_sitrep()`
+-   Expect to see this result:
+
+![](images/discovered_token.png){width="80%" fig-align="center"}
+
+

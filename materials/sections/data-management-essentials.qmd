@@ -75,6 +75,7 @@ As you can see there is a lot happening around the Data Life Cycle. This is why 
 
 In order to better plan and keep track of all the moving pieces when working with data, a good place to start is creating a Data Management Plan. However, this is not only the starting point. This is a "living" document that should be consulted and updated throughout the project.
 
+
 <!-- A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
 
 A well-thought-out plan means you are more likely to:
@@ -97,12 +98,14 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 ::: -->
 
 
+
 ```{=html}
 <!-- **Include tidy and ethical lens:** It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project. Find information about these topics in the following links to NCEAS Learning Hub materials for a previous course:
         -       [Tidy data](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html), and our content on 
         -       [FAIR principle](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-fair)
         -       Data ethics lens though the [CARE principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-care) later this week. -->
 ```
+
 
 <!-- ### Creating a Good Data management Plan
 
@@ -198,6 +201,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 #### Prepare a realistic budget
 
+
 -   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed. -->
 
 
@@ -208,6 +212,7 @@ Within the data life cycle you can be collecting data (creating new data) or int
 Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
+
 
 Here we walk you through detail guidelines to keep track of have a well documented data.
 
@@ -305,6 +310,7 @@ Researchers should get in the habit of citing the data that they use (even if it
 -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
 -   The Environmental Data Repository (EDI) provides a tool called [ezEML](https://edirepository.org/resources/creating-metadata-for-publication#ezeml). A form-based web application that helps streamline the process of creating EML metadata.
 
+
 ## Data Preservation & Sharing
 
 ![](images/WhyManage-small.png)
@@ -345,6 +351,7 @@ DataONE is a federation of dozens of data repositories that work together to mak
 DataONE can be [searched on the web](https://search.dataone.org/), which effectively allows a single search to find data from the dozens of members of DataONE, rather than visiting each of the (currently 44!) repositories one at a time.
 
 ![](images/DataONECNs.png)
+
 
 ##  Data Management Summary
 
