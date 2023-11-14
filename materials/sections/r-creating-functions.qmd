@@ -182,7 +182,7 @@ For more best practices on function documentation, review Hadley Wickham and Jen
 
 ### Exercise: Minimizing Work with Functions
 
-Functions can of course be as simple or complex as needed. They can be be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes Fahrenheit temperatures as input, and calculates both Celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
+Functions can of course be as simple or complex as needed. They can be very effective in repeatedly performing calculations, or for bundling a group of commands that are used on many different input data sources. For example, we might create a simple function that takes Fahrenheit temperatures as input, and calculates both Celsius and Kelvin temperatures. All three values are then returned in a list, making it very easy to create a comparison table among the three scales.
 
 ```{r}
 #| label: func-return-list

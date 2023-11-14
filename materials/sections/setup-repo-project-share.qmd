@@ -1,0 +1,72 @@
+
+## Create a new Repository on GitHub
+
+To start fresh and review the Git & GitHub workflow, we are going to create a new repository just for this session.
+
+
+
+::: callout-tip
+## Step 1: Create a remote repository on GitHub
+
+1.  Login to [GitHub](https://github.com/)
+2.  Click the **New repository** button
+3.  Name it `{LASTNAME}-functions-and-packages`
+4.  Add a short description
+5.  Check the box to add a `README.md` file
+6.  Add a `.gitignore` file using the `R` template
+7.  Set the `LICENSE` to Apache 2.0
+:::
+
+
+You've now successfully created a GitHub repository! It has a couple of files that GitHub created for you: `README.md`, `LICENSE`, and `.gitignore`. 
+
+::: {.callout-note}
+## `README.md` files are used to share important information about your repository
+You should always add a `README.md` to the root directory of your repository -- it is a markdown file that is rendered as HTML and displayed on the landing page of your repository. This is a common place to include any pertinent information about what your repository contains, how to use it, etc.
+:::
+
+
+
+Currently, our repository just exists on GitHub as a remote repository. Next, we'll bring a copy of this remote repository down to our local computer (aka **clone** this repository) so that we can work comfortably in RStudio.
+
+::: {.callout-important title="An important distinction"}
+We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the **local repository**.
+:::
+
+RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project. Let's follow the instructions below and remind ourselves about this process.
+
+
+
+::: callout-tip
+## Step 2: `clone` your repository and use Git locally in RStudio
+-   Start by clicking the green **Code** button (top right of your file listing) and copying the URL to your clipboard (this URL represents the repository location).
+-   Go to RStudio
+-   Click **File** > **New Project**
+-   Select **Version Control** and paste the remote repository URL (which should be copied to your clipboard) in the **Repository ULR** field
+-   Press **Tab**, which will auto-fill the **Project directory name** field with the same name as that of your remote repo -- while you can name the local copy of the repository anything, it's typical (and highly recommended) to use the same name as the GitHub repository to maintain the correspondence
+
+<!-- ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"} -->
+![](images/rstudio-clone-repo-sam.png){width="90%" fig-align="center"}
+:::
+
+Once you click **Create Project**, a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present -- you should see a **Git** tab, as well as the **Files** tab, where you can view all of the files copied from the remote repo to this local repo. 
+
+
+Finally, we will share our project with the instructors. This step is only necessary and possible when working on included-crab. We do this step in case any of you need help debugging your code. Sharing you project allows the instructors to see your code in their screen.
+
+
+::: callout-tip
+## Step 3: Share your project with the instructors
+
+1. locate the “project switcher” dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: vargas-functions-and-packages), and a dropdown arrow. 
+2. Click the dropdown menu, then “Share Project.” 
+3. When the dialog box pops up, add the following usernames to your project:
+
+- njlyon
+- vargas-pouslen
+
+4. Once those names show up in the list, click “OK.”
+:::
+
+
+

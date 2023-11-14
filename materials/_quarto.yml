@@ -27,10 +27,10 @@ book:
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # rstudio server setup 
-    - session_02.qmd # git setup 
-    # - session_03.qmd # intro to R programming
-    # - session_04.qmd # literate analysis with quarto
+    - session_01.qmd # setup
+    - session_02.qmd # functions and packages 
+    - session_03.qmd # spatial data
+    - session_04.qmd # appendix
     # - session_05.qmd # FAIR and CARE 
     # - session_06.qmd # intro to git + github 
     # - session_07.qmd # tidy data 
