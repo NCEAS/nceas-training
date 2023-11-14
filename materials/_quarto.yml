@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS Learning Hub's coreR Course"
+  title: "UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills"
   # date: "April 3, 2023"
   reader-mode: false
   
@@ -23,28 +23,28 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2023-10-coreR
+        href: https://github.com/NCEAS/nceas-training/tree/2023-11-ucsb-faculty
   
   chapters:
     - index.qmd # preface 
     - session_01.qmd # rstudio server setup 
     - session_02.qmd # git setup 
-    - session_03.qmd # intro to R programming
-    - session_04.qmd # literate analysis with quarto
-    - session_05.qmd # FAIR and CARE 
-    - session_06.qmd # intro to git + github 
-    - session_07.qmd # tidy data 
-    - session_08.qmd # cleaning and wrangling data 
-    - session_09.qmd # r practice: joins, tidy data 
-    - session_10.qmd # git collab 
-    - session_11.qmd # publish github pages
-    - session_12.qmd # intro data viz
-    - session_13.qmd # r practice: wrangling, data viz, github pages 
-    - session_14.qmd # combined dmp + metadata + publishing
-    - session_15.qmd # functions and packages 
-    - session_16.qmd # r practice: functions and packages
-    - session_17.qmd # project management using github
-    - session_18.qmd # reproducibility and provenance
+    # - session_03.qmd # intro to R programming
+    # - session_04.qmd # literate analysis with quarto
+    # - session_05.qmd # FAIR and CARE 
+    # - session_06.qmd # intro to git + github 
+    # - session_07.qmd # tidy data 
+    # - session_08.qmd # cleaning and wrangling data 
+    # - session_09.qmd # r practice: joins, tidy data 
+    # - session_10.qmd # git collab 
+    # - session_11.qmd # publish github pages
+    # - session_12.qmd # intro data viz
+    # - session_13.qmd # r practice: wrangling, data viz, github pages 
+    # - session_14.qmd # combined dmp + metadata + publishing
+    # - session_15.qmd # functions and packages 
+    # - session_16.qmd # r practice: functions and packages
+    # - session_17.qmd # project management using github
+    # - session_18.qmd # reproducibility and provenance
 
 bibliography: book.bib
       

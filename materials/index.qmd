@@ -1,27 +1,56 @@
+# Seminar Series Overview {.unnumbered}
 
-# Preface {.unnumbered}
-
-*October 2 - October 6, 2023*
-
-## Welcome to the coreR Course
+*Remote Sessions November 2023 though February 2024*
 
 ::: column-margin
-![](cover.png){width="80%" fig-align="center"}
+![](cover.png){width="80%" fig-align="center"} 
+<br>
+<br>
+
+
+![](images/logo-ucsb-office-research.png){width="80%" fig-align="center"}
+
+<br>
+<br>
+
+![](images/logo-ucsb-library.jpg){width="80%" fig-align="center"}
 :::
 
-A five-day immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists. This course is taught both in-person and virtually.
+Hosted by the [National Center for Ecological Anlysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/) and in partnership with [UCSB's Office of Research](https://www.research.ucsb.edu/), this seminar series is a training program where participants engage in synthesis research in a small cohort. It will equip participants with data science and team science tools, and provide them with a platform to conduct collaborative synthesis research. The overall aim is to grow cross-departmental relationships and interdisciplinary research outputs.
 
-### Course Learning Objectives:
+## NCEAS Expertise
 
--   Effectively manage data using `tidy` data practices and developing quality metadata
--   Establish best practices and utilize tools like Git & GitHub, and Data Management Plans to optimize your collaboration
--   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot` and `leaflet`
-- Increase your familiarity and confidence with data science tools
+NCEAS, a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach). NCEAS has over 25 years of success with this model among working groups and environmental professionals.
 
+## Full Schedule
 
-:::{.column-body-outset}
-![](images/schedule-coreR-2023-10.png)
-:::
++-------------------------------------------------------------------+-----------------------+----------------------------------------------------------+---------------+
+| Session                                                           | Dates                 | Location                                                 | Time          |
++===================================================================+=======================+==========================================================+===============+
+| Session One                                                       | September 11-15, 2023 | NCEAS                                                    | 9:00AM-5:00PM |
++-------------------------------------------------------------------+-----------------------+----------------------------------------------------------+---------------+
+| Session Two                                                       | October 10, 2023      | Teach Me How To Google                                   | 3:00PM-5:00PM |
+|                                                                   |                       |                                                          |               |
+| *Remote session every second Tuesday throughout October-February* | <br>                  | Functions and Packages in R                              |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | November 14, 2023     | Working with Spatial Data in R                           |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | <br>                  | How to Manage Dependencies in Projects (e.g. Containers) |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | December 12, 2023     | UC Love Data Week + Office Hours with Learning Hub       |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | <br>                  |                                                          |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | January 9, 2024       |                                                          |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | <br>                  |                                                          |               |
+|                                                                   |                       |                                                          |               |
+|                                                                   | February 13, 2024     |                                                          |               |
++-------------------------------------------------------------------+-----------------------+----------------------------------------------------------+---------------+
+| Session Three                                                     | March 25-28, 2024     | NCEAS                                                    | 9:00AM-5:00PM |
++-------------------------------------------------------------------+-----------------------+----------------------------------------------------------+---------------+
+
+: {tbl-colwidths="\[25,25,25,25\]"}
 
 ## Code of Conduct
 
@@ -33,8 +62,7 @@ These written materials are the result of a continuous and collaborative effort 
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-**Citation:** Halina Do-Linh and Camila Vargas Poulsen (2023). coreR Course. NCEAS Learning Hub. URL learning.nceas.ucsb.edu/2023-10-coreR.
-
+**Citation:** Halina Do-Linh and Camila Vargas Poulsen (2023). UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills. NCEAS Learning Hub. URL learning.nceas.ucsb.edu/2023-11-ucsb-faculty.
 
 **Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Matthew B. Jones, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
