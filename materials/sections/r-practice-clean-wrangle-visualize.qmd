@@ -42,7 +42,7 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
         iii. Title it: "Lobster Report" and save it as: `lobster-report.qmd` (do not need to put in a folder)
     b.  After creating the files, the Collaborator will `stage (add)`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
     c.  The Owner `pull`s the changes and Quarto Documents into their local repository (their workspace)
-    
+
 3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
     a.  Create two new directories one called `data` and one called `figs`
         i. *Note: Git does not track empty directories, so you won't see `figs` when you push to GitHub*
@@ -99,6 +99,7 @@ As you're working on the `lobster-report.qmd` you will be conducting [two types 
 - A **lightweight code review** is brief and you will be giving feedback on code readability and code logic as you're adding Owner and Collaborator code from their respective `analysis.qmd`s to the `lobster-report.qmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
 :::
 
+
 Make sure your Quarto Document is well organized and includes the following elements:
 
 -   citation of the data
@@ -148,6 +149,5 @@ lobster_traps_mpa <- lobster_traps %>%
 ```
 
 :::
-
 
 

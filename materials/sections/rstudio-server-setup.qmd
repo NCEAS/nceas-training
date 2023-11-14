@@ -125,4 +125,5 @@ rm(course_packages) # remove object from Global Environment
 
 # update any out-of-date packages
 update.packages(ask=FALSE)
+
 ```

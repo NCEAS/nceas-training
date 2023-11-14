@@ -268,6 +268,7 @@ If you were successful, it should look something like this:
 
 <br>
 
+
 :::{.column-body-outset}
 ![](images/new-repo-github.png)
 :::
@@ -283,9 +284,12 @@ You should always add a `README.md` to the root directory of your repository -- 
 
 <br>
 
+
 :::{.column-body-outset}
 ![](images/github-test-repo.png)
+<!--![](images/github-test-repo-sam.png)--->
 :::
+
 
 For simple changes to text files, such as the `README.md`, you can make edits directly in the GitHub web interface.
 
@@ -298,7 +302,9 @@ Navigate to the `README.md` file in the file listing, and edit it by clicking on
 <br>
 
 <!-- :::{.column-page} -->
+
 ![](images/github-test-edit.png)
+
 <!-- ::: -->
 
 <br>
@@ -308,7 +314,9 @@ Congratulations, you've now authored your first versioned commit! If you navigat
 <br>
 
 <!-- :::{.column-page} -->
+
 ![](images/github-test-displayed.png)
+
 <!-- ::: -->
 
 <br>
@@ -354,6 +362,7 @@ Currently, our repository just exists on GitHub as a remote repository. It's eas
 We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the **local repository**.
 :::
 
+
 Start by clicking the green **Code** button (top right of your file listing) and copying the URL to your clipboard (this URL represents the repository location):
 
 :::{.column-body-outset}
@@ -362,6 +371,7 @@ Start by clicking the green **Code** button (top right of your file listing) and
 
 RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project (see [Appendix](http://localhost:5456/session_12.html#create-an-r-project)), with a slight difference. Follow the instructions in the Setup box below to clone your remote repository to your local computer in RStudio:
 
+
 ::: callout-tip
 ## Setup
 
@@ -369,13 +379,15 @@ RStudio makes working with Git and version controlled files easy -- to do so, yo
 -   Select **Version Control** and paste the remote repository URL (which should be copied to your clipboard) in the **Repository ULR** field
 -   Press **Tab**, which will auto-fill the **Project directory name** field with the same name as that of your remote repo -- while you can name the local copy of the repository anything, it's typical (and highly recommended) to use the same name as the GitHub repository to maintain the correspondence
 
-![](images/rstudio-clone-repo.png){width="90%" fig-align="center"}
+<!-- ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"} -->
+![](images/rstudio-clone-repo-sam.png){width="90%" fig-align="center"}
 :::
 
 Once you click **Create Project**, a new RStudio window will open with all of the files from the remote repository copied locally. Depending on how your version of RStudio is configured, the location and size of the panes may differ, but they should all be present -- you should see a **Git** tab, as well as the **Files** tab, where you can view all of the files copied from the remote repo to this local repo. 
 
 :::{.column-body-outset}
-![](images/github-rstudio-test.png)
+<!-- ![](images/github-rstudio-test.png) -->
+![](images/github-rstudio-test-sam.png)
 :::
 
 You'll note that there is one new file `sam_test.Rproj`, and three files that we created earlier on GitHub (`.gitignore`, `LICENSE`, and `README.md`).
@@ -384,7 +396,8 @@ In the **Git** tab, you'll note that the one new file, `sam_test.Rproj`, is list
 
 Inspect the history. Click on the **History** button in the **Git** tab to show the log of changes that have occurred -- these changes will be identical to what we viewed on GitHub. By clicking on each row of the history, you can see exactly what was added and changed in each of the two commits in this repository.
 
-![](images/rstudio-history-1.png)
+<!-- ![](images/rstudio-history-1.png) -->
+![](images/rstudio-history-1-sam.png)
 
 ::: callout-note
 ## Challenge
@@ -395,7 +408,8 @@ Inspect the history. Click on the **History** button in the **Git** tab to show 
 
 Once you save, you'll immediately see the `README.md` file show up in the **Git** tab, marked as a modification. Select the file in the **Git** tab, and click **Diff** to see the changes that you saved (but which are not yet committed to your local repository). Newly made changes are highlighted in green.
 
-![](images/rstudio-status-pane.png)
+<!-- ![](images/rstudio-status-pane.png) -->
+![](images/rstudio-status-pane-sam.png)
 
 <!-- And here's what the newly made changes look like compared to the original file. New lines are highlighted in green, while removed lines are in red. -->
 
@@ -419,6 +433,7 @@ A few notes about our local repository's state:
 
 When finished, you'll see that no changes remain in the **Git** tab, and the repository is clean.
 
+
 **Inspect the history.** Note that under **Changes**, the message now says:
 
 `Your branch is ahead of ‘origin/main’ by 2 commits.`
@@ -427,7 +442,7 @@ These are the two commits that we just made, but have not yet been pushed to Git
 
 Click on the **History** button to see a total of four commits in the local repository (the two we made directly to GitHub via the web browser and the two we made in RStudio).
 
-![](images/rstudio-history-2.png)
+
 
 **Push these changes to GitHub.** Now that we've made and committed changes locally, we can push those changes to GitHub using the **Push** button. This sends your changes to the remote repository (on GitHub) leaving your repository in a totally clean and synchronized state (meaning your local repository and remote repository should look the same). 
 
@@ -438,13 +453,14 @@ it's a good indicator that you did not set your GitHub Personal Access Token (PA
 
 :::{.column-body-outset}
 ![](images/rstudio-history-3.png)
+<--![](images/rstudio-history-3-sam.png)-->
 :::
 
 If you look at the History pane again, you'll notice that the labels next to the most recent commit indicate that both the local repository (`HEAD`) and the remote repository (`origin/HEAD`) are pointing at the same version in the history. If we look at the commit history on GitHub, all the commits will be shown there as well.
 
 <!-- :::{.column-page} -->
+
 ![](images/github-history.png)
-<!-- ::: -->
 
 ::: callout-note
 ## Last thing, some Git configuration to surpress warning messages
@@ -469,9 +485,9 @@ There are a number of different workflows for creating version-controlled reposi
 
 However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a Git repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
 
+
 First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project drop down menu is in the upper right corner of your RStudio pane. Click the drop down next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the **RECENT PROJECTS** list.
 
-![](images/rstudio-project-switcher.png){width="80%" fig-align="center"}
 
 There are a few approaches for turning an existing project folder into a Git repository, then sending it to GitHub -- if you're an R-user, the simplest way is to use the [`{usethis}` package](https://usethis.r-lib.org/), which is built to automate tasks involved with project setup and development. However, you can also initialize a local git repository and set the remote repository from the command line (a language-agnostic workflow). Steps for both approaches are included below (demonstrated using your `training_{USERNAME}` project): 
 
@@ -684,6 +700,7 @@ knitr::include_graphics("images/git_commit.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
+
 knitr::include_graphics("images/setup-empty-repo.png")
 ```
 
@@ -728,3 +745,4 @@ and much, much more.
 -   [Learn Git Branching](https://learngitbranching.js.org/) is an interactive tool to learn Git on the command line
 -   [Software Carpentry Version Control with Git](https://swcarpentry.github.io/git-novice/)
 -   Bitbucket's tutorials on [Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)
+

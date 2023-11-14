@@ -5,6 +5,7 @@ format: html
 ::: callout-tip
 ## Setup
 
+
 1.  Open the Quarto Document `collaborator-analysis.qmd`
     a. Check the `YAML` and add your name to the `author` field
     b. Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
@@ -73,9 +74,11 @@ carp_20_traps <- lobster_traps %>%
 
 
 ::: callout-important
+
 ## Save your work and use Git
 Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
+
 
 <!--# Extra Questions -->
 

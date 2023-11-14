@@ -270,6 +270,7 @@ This linkage tells us that the first height measurement for the DAPU observation
 
 ### Compound keys
 
+
 ```{=html}
 <!-- ### Surrogate, natural, and compound keys
 
@@ -281,11 +282,13 @@ In the sites data table from the previous example, we noticed that ‘site’ an
 A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
 
 ![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png){fig-align="center" width=70%} -->
+
 ```
 <!--Finally,-->
 
 It can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows.
 This is called a
+
 
 -   **Compound Key**: a key that is made up of more than one variable.
 

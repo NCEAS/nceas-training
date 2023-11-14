@@ -30,6 +30,7 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
 0. Make sure you are in `training_{USERNAME}` project
 
 1. Add a new Quarto file at the top level called `index.qmd`
+
     a. Go to the RStudio menu  File -> New File -> Quarto Document
     b. This will bring up a dialog box. Add the title "GitHub Pages Example", keep the Default Output Format as "HTML", and then click "OK"
     
@@ -41,6 +42,7 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
     b. This is our Quarto file rendered as `HTML` (a web page)
     
 4. Commit your changes (for both `index.qmd` and `index.html`) with a commit message, and `push` to GitHub
+
 
 5. Open your web browser to the [github.com](https://github.com/) and navigate to the page for your `training_{USERNAME}` repository
 
@@ -64,7 +66,9 @@ Note that it changes from **github.com** to **github.io**
 - Go to `https://{username}.github.io/{repo_name}/` (Note the trailing `/`)
 - Observe the awesome rendered output
     
+
 Now that we've successfully published a web page from an Quarto Document, let's make a change to our Quarto Document and follow the steps to publish the change on the web:
+
 
 ::: callout-note
 ## Update content in your published page
@@ -84,6 +88,7 @@ Next, we will show how you can link different `qmd`'s rendered into `html` so yo
 In this exercise, you'll create a table of contents with the lessons of this course on the main page, and link some of the files we have work on so far.
 
 - Go back to the RStudio server and to your `index.qmd` file
+
 - Create a table of contents with the names of the main technical lessons of this course, like so:
 
 ```
@@ -102,9 +107,11 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 
 ```
 
+
 - Make sure you have the `html` versions of your `intro-to-qmd.qmd` and `data-cleaning.qmd` files. If you only see the `qmd` version, you need to "Render" your files first
 
 - In your `index.qmd` let's add the links to the `html` files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
+
 
 <details>
   <summary>Markdown syntax to create a link:</summary>
@@ -123,6 +130,6 @@ Now when you visit your web site, you'll see the table of contents, and can navi
 Quarto web pages are a great way to share work in progress with your colleagues. Here we showed an example with the materials we have created in this course. However, you can use these same steps to share the different files and progress of a project you've been working on. To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed. You can include multiple pages and build a simple web site and make your work accessible to people who aren't set up to open your project in R. Your site could look something like this:
 
 
-![](images/github-pages-index-coreR.png)
 
+![](images/github-pages-index-coreR.png)
 

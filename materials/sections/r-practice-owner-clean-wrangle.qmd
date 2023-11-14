@@ -10,6 +10,7 @@ format: html
     b.  Create a new section with a level 2 header and title it "Exercise: Explore, Clean, and Wrangle Data"
 2.  Load the following libraries at the top of your Quarto Document
 
+
 ```{r}
 #| code-fold: false
 #| message: false
@@ -75,9 +76,11 @@ aque_70mm <- lobster_abundance %>%
 ```
 
 ::: callout-important
+
 ## Save your work and use Git
 Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
+
 
 
 <!--# Extra Questions -->

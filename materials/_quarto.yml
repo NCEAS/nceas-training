@@ -14,7 +14,7 @@ book:
   favicon: cover.png # learning hub logo
   
   sidebar:
-    title: "Course Materials"
+    title: "Training Materials"
     style: "floating"
     search: true
     tools:
@@ -23,7 +23,7 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/core-r-course
+        href: https://github.com/NCEAS/nceas-training/tree/2023-10-coreR
   
   chapters:
     - index.qmd # preface 
@@ -51,6 +51,7 @@ bibliography: book.bib
 format:
   html:
     theme: cosmo
+    css: style.css
     # Note HD: latex rendering issues, maybe with column-margin
   # pdf:
   #   documentclass: scrreprt

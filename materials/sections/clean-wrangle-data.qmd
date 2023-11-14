@@ -201,6 +201,7 @@ Before we get too much further, spend a minute or two outlining your Quarto docu
 
 ## Data exploration
 Similar to what we did in our [Intro to Literate Analysis](https://learning.nceas.ucsb.edu/2023-10-coreR/session_04.html) lesson, it is good practice to skim through the data you just read in. 
+
 Doing so is important to make sure the data is read as you were expecting and to familiarize yourself with the data.
 
 Some of the basic ways to explore your data are:
@@ -702,5 +703,6 @@ We have completed our lesson on Cleaning and Wrangling data. Before we break, le
 
 1. Save the `.qmd` you have been working on for this lesson.
 2. Render the Quarto file. This is a way to test everything in your code is working.
+
 3. ```Stage (Add) > Commit > Pull > Push```
 :::

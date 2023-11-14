@@ -46,6 +46,7 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 
 ### Primary Elements
 
+
 | Step                 | Description                                                                                                                                                                                                                                                                                                  | Tool                                                   |
 |-------------------|------------------------------------|-------------------|
 | *Plan*               | Map out the processes and resources for all activities related to the handling of the project's data assets. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans for each step.     | Data Management Plan (DPM)                             |
@@ -61,16 +62,21 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 These elements are involved across all stages describes above. They need to constantly by addressed throughout all the Data Life Cycle, making sure effective data management is in place.
 
 | Step                | Description                                                                                                                                                                                                                                                                                                                                                                                                        | Tool                                             |
+
 |-------------------|------------------------------------|-------------------|
+
 | *Describe*          | Document data and each of the data stages by describing the why, who, what, when, where, and how of the data and processes. Metadata, or data about data, is key to data sharing and reuse. Documentation such as software code comments, data models, and workflows facilitate indexing, acquiring, understanding, and future uses of the data                                                                    | Metadata and documentation                       |
 | *Manage Quality*    | Employ quality assurance and quality control procedures that enhance the quality of data, making sure the measurements or outputs within expected values.Identify potential errors and techniques to address them.                                                                                                                                                                                                 | Quality Control and Quality Assurance techniques |
 | *Backup and Secure* | Plan to preserve data in the short term to minimize potential losses (e.g., via software failure, human error, natural disaster). This avoids risk and ensures data is accessible to collaborators. This applies to raw and process data, original science plan, data management plan, data acquisition strategy, processing procedures, versioning, analysis methods, published products, and associated metadata | Servers, secure data sharing services            |
 
+
 ## Data Management Plans
+
 
 As you can see there is a lot happening around the Data Life Cycle. This is why PLANNING is a key first step. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered.
 
 In order to better plan and keep track of all the moving pieces when working with data, a good place to start is creating a Data Management Plan. However, this is not only the starting point. This is a "living" document that should be consulted and updated throughout the project.
+
 
 A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
 
@@ -90,10 +96,12 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 -   Plan early - information gets lost over time. Think about your data needs as you are starting your project.
 -   Plan in collaboration - engaging all the team makes your plan more resilient, including diverse expertise and perspectives.
 -   Make revision part of the process - adapt as needed, revising your plan helps you make sure your are on track.
+
 -   Include a tidy data and data ethic lens. It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project.
 :::
 
 ### Creating a Good Data management Plan
+
 
 The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michener2015) outlines big picture ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources or examples to help you achieve this "rules" and write an awesome DMP.
 
@@ -121,6 +129,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 -   Resource
 
     -   Here is a [template spreadsheet](https://docs.google.com/spreadsheets/d/1mftmoNPzGMhQehC7iVD5B0D0-Hfh_PNjbY7d9UTh98Y/edit?usp=sharing) to collect all information about the data set you intent to use for your synthesis project. Please make a copy and adapt as needed.
+
 
 #### Define how the data will be organized
 
@@ -186,7 +195,8 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 #### Prepare a realistic budget
 
--   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed. --\>
+
+-   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed.
 
 ## Metadata Best Practices
 
@@ -195,6 +205,7 @@ Within the data life cycle you can be collecting data (creating new data) or int
 Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
+
 
 Here we walk you through detail guidelines to keep track of have a well documented data.
 
@@ -291,6 +302,7 @@ Researchers should get in the habit of citing the data that they use (even if it
 -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
 -   The Environmental Data Repository (EDI) provides a tool called [ezEML](https://edirepository.org/resources/creating-metadata-for-publication#ezeml). A form-based web application that helps streamline the process of creating EML metadata.
 
+
 ## Data Preservation & Sharing
 
 ![](images/WhyManage-small.png)
@@ -332,6 +344,7 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 ![](images/DataONECNs.png)
 
+
 ## Data Management Summary
 
 -   The Data Life Cycle help us see the big picture of our data project.
@@ -339,6 +352,7 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 -   Document everything. Having rich metadata is a key factor to enable data reuse. Describe your data and files and use an appropriate metadata standard.
 -   Identify software and tools that will help you and your team organize and document the project's data life cycle.
 -   Publish your data in a stable long live repository and assign a unique identifier.
+
 
 <br>
 
