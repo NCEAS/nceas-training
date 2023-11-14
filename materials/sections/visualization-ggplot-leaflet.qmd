@@ -1,9 +1,10 @@
 
 ## Learning Objectives {.unnumbered}
 
-- The basics of the `ggplot2` package to create static plots
-- How to use `ggplot2`'s `theme` abilities to create publication-grade graphics
-- The basics of the `leaflet` package to create interactive maps
+- Understand the fundamentals of how the `ggplot2` package works
+- Use `ggplot2`’s theme and other customization functions create publication-grade graphics
+- Introduce the `leaflet` and `DT` package to create interactive maps and tables respectively
+
 
 ## Overview
 
@@ -45,16 +46,21 @@ library(ggplot2)
 library(leaflet) # interactive maps
 library(DT) # interactive tables
 library(scales) # scale functions for visualization
+library(janitor) # expedite cleaning and exploring data
+library(viridis) # colorblind friendly color pallet
+
 ```
 
 
-2. Load the data directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navegate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
+2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navigate to the link above, hover over the "Download" button for the `ADFG_fisrtAttempt_reformatted.csv`, right click, and select "Copy Link".
+
 
 ```{r}
 #| message: false
 #| warning: false
 
-escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
+escape_raw <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
+
 ```
 
 3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out [the documentation](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
@@ -64,17 +70,13 @@ escape <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auui
 ```{r}
 #| eval: false
 ## Check out column names
-colnames(escape)
+colnames(escape_raw)
 
 ## Peak at each column and class
-glimpse(escape)
+glimpse(escape_raw)
 
 ## From when to when
-range(escape$sampleDate)
-
-## How frequent?
-head(escape$sampleDate)
-tail(escape$sampleDate)
+range(escape_raw$sampleDate)
 
 ## Which species?
 unique(escape$Species)
@@ -84,17 +86,34 @@ unique(escape$Species)
 
 
 
-
-
-
 ## Getting the data ready
 
 It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
 
+::: callout-important
+## Side note on clean column names
+`janitor::clean_names()` is an awesome function to transform all column names into the same format. The default format for this function is snake_case_format. We highly recommend having clear well formatted column names. It makes your life easier down the line.
+
+How it works?
+
+```{r}
+escape <- escape_raw %>% 
+    janitor::clean_names()
+```
+
+And that's it! If we look to the colomn names of the object `escape` we can see all the columns are in a lowercase, snake format.
+
+```{r}
+colnames(escape)
+```
+
+:::
+
+
 ::: callout-note
 ### Exercise
 
-- Calculate the annual escapement by `Species` and `SASAP.Region`,
+- Calculate the annual escapement by `species` and `sasap_region`,
 - Filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
 
 :::
@@ -102,16 +121,16 @@ It is more frequent than not, that we need to do some wrangling before we can pl
 ```{r mean_esc}
 #| message: false
 annual_esc <- escape %>%
-    separate(sampleDate, c("Year", "Month", "Day"), sep = "-") %>%
-    mutate(Year = as.numeric(Year)) %>%
-    group_by(Species, SASAP.Region, Year) %>%
-    summarize(escapement = sum(DailyCount)) %>%
-    filter(Species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
+    separate(sample_date, c("year", "month", "day"), sep = "-") %>%
+    mutate(year = as.numeric(year)) %>%
+    group_by(species, sasap_region, year) %>%
+    summarize(escapement = sum(daily_count)) %>%
+    filter(species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
 
 head(annual_esc)
 ```
 
-The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate()` function is used to divide the sampleDate column up into Year, Month, and Day columns, and then we use `group_by()` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize()` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate()` function is used to divide the `sample_date` column up into `year`, `month`, and `day` columns, and then we use `group_by()` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize()` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
 
 ## Plotting with `ggplot2`
 
@@ -141,18 +160,18 @@ For example, let's plot total escapement by species. We will show this by creati
 
 ## Option 1 - data and mapping called in the ggplot() function
 ggplot(data = annual_esc,
-       aes(x = Species, y = escapement)) +
+       aes(x = species, y = escapement)) +
     geom_col()
 
 ## Option 2 - data called in ggplot function; mapping called in geom
 ggplot(data = annual_esc) +
-    geom_col(aes(x = Species, y = escapement))
+    geom_col(aes(x = species, y = escapement))
 
 
 ## Option 3 - data and mapping called in geom
 ggplot() +
     geom_col(data = annual_esc,
-             aes(x = Species, y = escapement))
+             aes(x = species, y = escapement))
 
 ```
 
@@ -162,7 +181,7 @@ They all will create the same plot:
 #| echo: false
 
 ggplot(data = annual_esc,
-       aes(x = Species, y = escapement)) +
+       aes(x = species, y = escapement)) +
     geom_col()
 ```
 
@@ -186,9 +205,9 @@ Next, we will use the pipe operator to pass into `ggplot()` a filtered version o
 
 ```{r boxplot_ex}
 annual_esc %>%
-    filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>%
-    ggplot(aes(x = Species, y = escapement)) +
+    filter(year == 1974,
+          species %in% c("Chum", "Pink")) %>%
+    ggplot(aes(x = species, y = escapement)) +
     geom_boxplot()
 ```
 
@@ -197,9 +216,9 @@ annual_esc %>%
 
 ```{r violin_plot}
 annual_esc %>%
-    filter(Year == 1974,
-           Species %in% c("Chum", "Pink")) %>%
-    ggplot(aes(x = Species, y = escapement)) +
+    filter(year == 1974,
+           species %in% c("Chum", "Pink")) %>%
+    ggplot(aes(x = species, y = escapement)) +
     geom_violin()
 ```
 
@@ -208,9 +227,9 @@ annual_esc %>%
 
 ```{r line_poin_plot}
 annual_esc %>%
-    filter(Species  == "Sockeye",
-           SASAP.Region == "Bristol Bay") %>%
-    ggplot(aes(x = Year, y = escapement)) +
+    filter(species  == "Sockeye",
+           sasap_region == "Bristol Bay") %>%
+    ggplot(aes(x = year, y = escapement)) +
     geom_line() +
     geom_point()
 ```
@@ -222,7 +241,7 @@ Let's go back to our base bar graph. What if we want our bars to be blue instead
 
 ```{r fill_blue}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement,
+       aes(x = species, y = escapement,
            fill = "blue")) +
     geom_col()
 ```
@@ -235,7 +254,7 @@ What we really wanted to do was just change the color of the bars. If we want do
 
 ```{r fill_blue_geom}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement)) +
+       aes(x = species, y = escapement)) +
     geom_col(fill = "blue")
 ```
 
@@ -243,14 +262,14 @@ What if we did want to map the color of the bars to a variable, such as region. 
 
 ```{r}
 ggplot(annual_esc,
-       aes(x = Species, y = escapement,
-           fill = SASAP.Region)) +
+       aes(x = species, y = escapement,
+           fill = sasap_region)) +
     geom_col()
 ```
 
 ::: {.callout-caution icon=false}
 
-#### Keep in mind
+## Keep in mind
 
 - If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
 
@@ -274,7 +293,7 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 ## Subset with data from years 2000 to 2016
 
 annual_esc_2000s <- annual_esc %>%
-    filter(Year %in% c(2000:2016))
+    filter(year %in% c(2000:2016))
 
 ## Quick check
 unique(annual_esc_2000s$Year)
@@ -282,12 +301,12 @@ unique(annual_esc_2000s$Year)
 
 ## Plot with facets
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y")
    
 ```
@@ -306,12 +325,12 @@ There are a wide variety of built in themes in `ggplot` that help quickly set th
 
 ```{r theme_bw_plot}
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
@@ -348,12 +367,12 @@ Let's look at an example of a `theme()` call, where we change the position of th
 
 ```{r}
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
@@ -378,12 +397,12 @@ So now our code will look like this:
 
 ```{r}
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
@@ -412,13 +431,13 @@ ggplot(annual_esc_2000s,
 
 ## Useful baseline themes are
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
     scale_x_continuous(breaks = seq(2000, 2016, 2)) +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
@@ -438,14 +457,14 @@ The `scales` package provides some nice helper functions to easily rescale and r
 ```{r}
 
 ggplot(annual_esc_2000s,
-       aes(x = Year,
+       aes(x = year,
            y = escapement,
-           color = Species)) +
+           color = species)) +
     geom_line() +
     geom_point() +
     scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     scale_y_continuous(labels = comma) +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     ggtitle("Annual Salmon Escapement by Region") +
@@ -461,14 +480,14 @@ You can also save all your code into an object in your working environment by as
 
 ```{r}
 annual_region_plot <- ggplot(annual_esc_2000s,
-                             aes(x = Year,
+                             aes(x = year,
                                  y = escapement,
-                                 color = Species)) +
+                                 color = species)) +
     geom_line() +
     geom_point() +
     scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     scale_y_continuous(labels = comma) +
-    facet_wrap( ~ SASAP.Region,
+    facet_wrap( ~ sasap_region,
                 scales = "free_y") +
     ylab("Escapement") +
     xlab("\nYear") +
@@ -495,9 +514,9 @@ annual_region_plot
 
 ## Number Years of data for each salmon species at Kuskokwim
 n_years <- annual_esc %>%
-    group_by(SASAP.Region, Species) %>%
+    group_by(sasap_region, species) %>%
     summarize(n = n()) %>%
-    filter(SASAP.Region == "Kuskokwim")
+    filter(sasap_region == "Kuskokwim")
 ```
 
 Now let's plot this using `geom_bar()`.
@@ -505,9 +524,9 @@ Now let's plot this using `geom_bar()`.
 ```{r}
 ## base plot
 ggplot(n_years,
-       aes(x = Species,
+       aes(x = species,
            y = n)) +
-    geom_bar(aes(fill = Species),
+    geom_bar(aes(fill = species),
              stat = "identity")
 ```
 
@@ -518,9 +537,9 @@ Now, let's apply some of the customizations we have seen so far and learn some n
 ## Reordering, flipping coords and other customization
 ggplot(n_years,
        aes(
-           x = fct_reorder(Species, n),
+           x = fct_reorder(species, n),
            y = n,
-           fill = Species
+           fill = species
        )) +
     geom_bar(stat = "identity") +
     coord_flip() +
@@ -563,7 +582,7 @@ Write a `data.frame` containing unique sampling locations with no missing values
 
 ```{r uniq_locations}
 locations <- escape %>%
-    distinct(Location, Latitude, Longitude) %>%
+    distinct(location, latitude, longitude) %>%
     drop_na()
 ```
 
@@ -584,9 +603,9 @@ The `addTiles()` function without arguments will add base tiles to your map from
 leaflet(locations) %>%
     addTiles() %>%
     addMarkers(
-        lng = ~ Longitude,
-        lat = ~ Latitude,
-        popup = ~ Location
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ location
     )
 ```
 
@@ -603,9 +622,9 @@ leaflet(locations) %>%
         attribution = "Imagery reproduced from the GEBCO_2022 Grid, WMS 1.3.0 GetMap, www.gebco.net"
     ) %>%
     addCircleMarkers(
-        lng = ~ Longitude,
-        lat = ~ Latitude,
-        popup = ~ Location,
+        lng = ~ longitude,
+        lat = ~ latitude,
+        popup = ~ location,
         radius = 5,
         # set fill properties
         fillColor = "salmon",

@@ -1,65 +1,27 @@
-# Seminar Series Overview {.unnumbered}
 
-*Week One: September 11 - 15, 2023*
+# Preface {.unnumbered}
+
+*October 2 - October 6, 2023*
+
+## Welcome to the coreR Course
 
 ::: column-margin
 ![](cover.png){width="80%" fig-align="center"}
-
-
-![](images/logo-ucsb-office-research.png){width="80%" fig-align="center"}
-
-![](images/logo-ucsb-library.jpg){width="80%" fig-align="center"}
-
-![](images/logo-ucsb-dream-lab.png){width="70%" fig-align="center"}
-
 :::
 
-Hosted by the [National Center for Ecological Anlysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/) and in partnership with [UCSB's Office of Research](https://www.research.ucsb.edu/), this seminar series is a training program where participants engage in synthesis research in a small cohort. It will equip participants with data science and team science tools, and provide them with a platform to conduct collaborative synthesis research. The overall aim is to grow cross-departmental relationships and interdisciplinary research outputs.
+A five-day immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists. This course is taught both in-person and virtually.
+
+### Course Learning Objectives:
+
+-   Effectively manage data using `tidy` data practices and developing quality metadata
+-   Establish best practices and utilize tools like Git & GitHub, and Data Management Plans to optimize your collaboration
+-   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot` and `leaflet`
+- Increase your familiarity and confidence with data science tools
 
 
-## NCEAS Expertise
-
-NCEAS, a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach). NCEAS has over 25 years of success with this model among working groups and environmental professionals.
-
-
-## Week One: Crafting Your Synthesis Research Question
-
-*September 11 - 15, 2023*
-
-### Learning Objectives
-
--   Participants will develop research ideas and utilize environmental data science (EDS) skills to test the feasibility of the project and assess the quality of data associated with it
--   Participants will create a Data Management Plan as a tool for adaptive research, and apply new EDS skills and tools to progress research and synthesis research products
-
-
-### Schedule
-
-::: column-page
-![](images/week-one-schedule-ucsb-faculty-openS.png)
+:::{.column-body-outset}
+![](images/schedule-coreR-2023-10.png)
 :::
-
-## Full Schedule
-
-
-+-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
-| Session                                                           | Dates                 | Location        | Time            |
-+===================================================================+=======================+=================+=================+
-| Session One                                                       | September 11-15, 2023 | NCEAS           | 9:00AM-5:00PM   |
-+-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
-| Session Two                                                       | October 10, 2023      | Remote via Zoom | 3:00PM-5:00PM   |
-|                                                                   |                       |                 |                 |
-| *Remote session every second Tuesday throughout October-February* | November 14, 2023     |                 |                 |
-|                                                                   |                       |                 |                 |
-|                                                                   | December 12, 2023     |                 |                 |
-|                                                                   |                       |                 |                 |
-|                                                                   | January 9, 2024       |                 |                 |
-|                                                                   |                       |                 |                 |
-|                                                                   | February 13, 2024     |                 |                 |
-+-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
-| Session Three                                                     | March 25-28, 2024     | NCEAS           | 9:00AM-5:00PM   |
-+-------------------------------------------------------------------+-----------------------+-----------------+-----------------+
-
-: {tbl-colwidths="\[25,25,25,25\]"}
 
 ## Code of Conduct
 
@@ -67,13 +29,13 @@ By participating in this activity you agree to abide by the [NCEAS Code of Condu
 
 ## About this book
 
-These written materials are the result of a continuous and collaborative effort at NCEAS with the support of DataONE, to help researchers make their work more transparent and reproducible. This work began in the early 2000's, and reflects the expertise and diligence of many, many individuals. The primary authors for this version are listed in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
+These written materials are the result of a continuous and collaborative effort at NCEAS to help researchers make their work more transparent and reproducible. This work began in the early 2000's, and reflects the expertise and diligence of many, many individuals. The primary authors are listed in the citation below, with additional contributors recognized for their role in developing previous iterations of these or similar materials.
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
+**Citation:** Halina Do-Linh and Camila Vargas Poulsen (2023). coreR Course. NCEAS Learning Hub. URL learning.nceas.ucsb.edu/2023-10-coreR.
 
-**Citation:** Samantha Csik, Renata Curty, Halina Do-Linh, Seth Erickson, Jon Jablonski, Camila Vargas Poulsen (2023). UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills. NCEAS Learning Hub. URL learning.nceas.ucsb.edu/2023-09-ucsb-faculty.
 
-**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden, Jeanette Clark, Carmen Galaz García, Stephanie Hampton, Natasha Haycock-Chavez, Matthew B. Jones, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+**Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Matthew B. Jones, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.

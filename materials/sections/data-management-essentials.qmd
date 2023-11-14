@@ -2,16 +2,13 @@
 
 -   Understand the importance of data management for successfully preserving data
 -   Review the Data Life Cycle and how it can guide the data management in a project
-<!---   Familiarize with data management plans and start thinking about one for your project -->
+-   Familiarize with what goes into a data management plans
 -   Learn about metadata guidelines and best practices for reproducibility
 -   Become familiar with environmental data repositories for accessing and publishing data
--   Introduce FAIR and CARE principles and the value it provides to data
--   Evaluate the FAIRness and CAREness of your work and the work of others
 
 ## The Big Idea
 
-This lesson aims to get you thinking about how are you going to manage your data. And how to do it with the FAIR and CARE principles in mind. Even though you are in the early stages of defining you synthesis project, we believe that when it comes to data management, the earlier you start thinking about it the better. We also hope you can apply data management best practices and a FAIR and CARE lens to other research projects.
-
+This lesson aims to get you thinking about how to manage your data for a reseach or synthesis project. And how to do it with the FAIR and CARE principles in mind. We introduce multiple concpets and provide resources that you can come back to when ever you start a new project or to apply these principles to a project you are currently working on.
 
 ## Introduction to Data Management
 
@@ -49,34 +46,39 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 
 ### Primary Elements
 
-| Step                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    | Tool                                                   |
-|------------------|------------------------------------|------------------|
-| *Plan*               | Map out the processes and resources for all activities related to the handling of the project's data assets. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans for each step.                                                                                                                                       | Data Management Plan (DPM)                             |
-| *Acquire & Discover* | Activities needed to collect new or existing data. You can structure the process of collecting data upfront to better implement data management. Consider data policies and best practices that maintain the provenance and integrity of the data.                                                                                                                                                                                             | Identifying data sources and mechanisms to access data |
-| *Process*            | Every step needed to prepare new or existing data to be able to use it as an input for synthesis. Consider the structure of the data, unit transformation, extrapolations, etc                                                                                                                                                                                                                                                                 | Cleaning & Wrangling data skills                       |
+
+| Step                 | Description                                                                                                                                                                                                                                                                                                  | Tool                                                   |
+|-------------------|------------------------------------|-------------------|
+| *Plan*               | Map out the processes and resources for all activities related to the handling of the project's data assets. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans for each step.     | Data Management Plan (DPM)                             |
+| *Acquire & Discover* | Activities needed to collect new or existing data. You can structure the process of collecting data upfront to better implement data management. Consider data policies and best practices that maintain the provenance and integrity of the data.                                                           | Identifying data sources and mechanisms to access data |
+| *Process*            | Every step needed to prepare new or existing data to be able to use it as an input for synthesis. Consider the structure of the data, unit transformation, extrapolations, etc                                                                                                                               | Cleaning & Wrangling data skills                       |
 | *Integrate*          | Data from multiple sources are combined into a form that can be readily analyzed. Successful data integration depends on documentation of the integration process, clearly citing and making accessible the data you are using, and employing good data management practices throughout the Data Life Cycle. | Modeling & Interpretation                              |
-| *Analyze*            | Create analyses and visualizations to identify patterns, test hypotheses, and illustrate findings. During this process, record your methods, document data processing steps, and ensure your data are reproducible. Learn about these best practices and more.                                                                                                                                                                                 | Modeling, Interpretation & Statistics                  |
-| *Preserve*           | Plan on how you are going to store your data for long-term use and accessibility so others can access, interpret, and use the data in the future. Decide what data to preserve, where to preserve it, and what documentation needs to accompany the data.                                                                                                                                                                                      | Data packages & repositories                           |
-| *Publish and Share*  | Publication and distribution of your data through the web or in data catalogs, social media or other venues to increase the chances of your data being discovered. Data is a research product as publications are.                                                                                                                                                                                                                             | DOIs and citations                                     |
+| *Analyze*            | Create analyses and visualizations to identify patterns, test hypotheses, and illustrate findings. During this process, record your methods, document data processing steps, and ensure your data are reproducible. Learn about these best practices and more.                                               | Modeling, Interpretation & Statistics                  |
+| *Preserve*           | Plan on how you are going to store your data for long-term use and accessibility so others can access, interpret, and use the data in the future. Decide what data to preserve, where to preserve it, and what documentation needs to accompany the data.                                                    | Data packages & repositories                           |
+| *Publish and Share*  | Publication and distribution of your data through the web or in data catalogs, social media or other venues to increase the chances of your data being discovered. Data is a research product as publications are.                                                                                           | DOIs and citations                                     |
 
 ### Cross-Cutting Elements
 
 These elements are involved across all stages describes above. They need to constantly by addressed throughout all the Data Life Cycle, making sure effective data management is in place.
 
 | Step                | Description                                                                                                                                                                                                                                                                                                                                                                                                        | Tool                                             |
-|------------------|------------------------------------|------------------|
+
+|-------------------|------------------------------------|-------------------|
+
 | *Describe*          | Document data and each of the data stages by describing the why, who, what, when, where, and how of the data and processes. Metadata, or data about data, is key to data sharing and reuse. Documentation such as software code comments, data models, and workflows facilitate indexing, acquiring, understanding, and future uses of the data                                                                    | Metadata and documentation                       |
 | *Manage Quality*    | Employ quality assurance and quality control procedures that enhance the quality of data, making sure the measurements or outputs within expected values.Identify potential errors and techniques to address them.                                                                                                                                                                                                 | Quality Control and Quality Assurance techniques |
 | *Backup and Secure* | Plan to preserve data in the short term to minimize potential losses (e.g., via software failure, human error, natural disaster). This avoids risk and ensures data is accessible to collaborators. This applies to raw and process data, original science plan, data management plan, data acquisition strategy, processing procedures, versioning, analysis methods, published products, and associated metadata | Servers, secure data sharing services            |
 
-<!-- ## Data Management Plans -->
+
+## Data Management Plans
+
 
 As you can see there is a lot happening around the Data Life Cycle. This is why PLANNING is a key first step. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered.
 
 In order to better plan and keep track of all the moving pieces when working with data, a good place to start is creating a Data Management Plan. However, this is not only the starting point. This is a "living" document that should be consulted and updated throughout the project.
 
 
-<!-- A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
+A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
 
 A well-thought-out plan means you are more likely to:
 
@@ -94,20 +96,12 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 -   Plan early - information gets lost over time. Think about your data needs as you are starting your project.
 -   Plan in collaboration - engaging all the team makes your plan more resilient, including diverse expertise and perspectives.
 -   Make revision part of the process - adapt as needed, revising your plan helps you make sure your are on track.
--   Include a tidy data and data ethic lens !!EXPAND**
-::: -->
 
+-   Include a tidy data and data ethic lens. It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project.
+:::
 
+### Creating a Good Data management Plan
 
-```{=html}
-<!-- **Include tidy and ethical lens:** It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project. Find information about these topics in the following links to NCEAS Learning Hub materials for a previous course:
-        -       [Tidy data](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html), and our content on 
-        -       [FAIR principle](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-fair)
-        -       Data ethics lens though the [CARE principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_16.html#what-is-care) later this week. -->
-```
-
-
-<!-- ### Creating a Good Data management Plan
 
 The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michener2015) outlines big picture ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources or examples to help you achieve this "rules" and write an awesome DMP.
 
@@ -134,7 +128,8 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 -   Resource
 
-    -   Here is a [template spreadsheet](https://docs.google.com/spreadsheets/d/1mftmoNPzGMhQehC7iVD5B0D0-Hfh_PNjbY7d9UTh98Y/edit?usp=sharing) to collect all information about the data set you intent to use for your synthesis project. Please make a copy and adapt as needed. 
+    -   Here is a [template spreadsheet](https://docs.google.com/spreadsheets/d/1mftmoNPzGMhQehC7iVD5B0D0-Hfh_PNjbY7d9UTh98Y/edit?usp=sharing) to collect all information about the data set you intent to use for your synthesis project. Please make a copy and adapt as needed.
+
 
 #### Define how the data will be organized
 
@@ -171,7 +166,6 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 -   Papers get lost, hardware disk crash, URLs break, different media format degrade. It's inevitable! Plan ahead and think on where your data will live in the short and long-term to ensure the access and use of this data during and long after the project. It is important to have a backup mechanism in place during the project to avoid losing any information.
 
-
 -   Resource
 
     -   Remote locations to store your data during your project are: institutional repositories or servers or commercial services such as Amazon, Dropbox, Google, Microsoft, Box, etc.
@@ -189,11 +183,11 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 -   This portion of the DMP tries to ensure that the data products of your project will be disseminated. This can be achieved by stating how, when and where these products will be available. We encourage open data practices, this means making data extensively available and with the least restrictions possible.
 
-- Examples
+-   Examples
 
     -   Publishing the data in an open repository or archive
     -   Submitting the data (or subsets thereof) as appendices or supplements to journal articles
-    -   Publishing the data, metadata, and relevant code as a “data paper”
+    -   Publishing the data, metadata, and relevant code as a "data paper"
 
 #### Assign roles and responsibilities
 
@@ -202,8 +196,7 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 #### Prepare a realistic budget
 
 
--   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed. -->
-
+-   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed.
 
 ## Metadata Best Practices
 
@@ -304,7 +297,6 @@ Some data repositories assign a DOI for each dataset you publish on their reposi
 
 Researchers should get in the habit of citing the data that they use (even if it's their own data!) in each publication that uses that data.
 
-
 ### Metadata tools (EML)
 
 -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
@@ -353,7 +345,7 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 ![](images/DataONECNs.png)
 
 
-##  Data Management Summary
+## Data Management Summary
 
 -   The Data Life Cycle help us see the big picture of our data project.
 -   It is extremely helpful to develop a data management plan describing each step of the data life cycle to stay organized.
@@ -364,22 +356,64 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 
 <br>
 
-Now that we have talked about the big picture of data management, it is time to focus on the FAIR & CARE principles. It is important to learn about these principles and apply them since the very beginning of your planning process. This will make it easier to include and maintain tidy and ethical principles throughout the entire project. 
+Now that we have talked about the big picture of data management, metadata and the FAIR and CARE principles, we will do an activity to evaluate the concepts and ideas we have discussed.
 
-<!--## Activity
+## Exercise: Evaluate a Data Package on the EDI Repository
 
-:::callout-tip
-## Questions to guide your Data Management Plan
+Explore data packages published on EDI assess the quality of their metadata. Imagine you're a data curator!
 
-Using the Logic Models you started on Monday, read the questions in [this document](https://docs.google.com/document/d/13zdYr6DzEt94r9UzKjemj2AL-FDr7RYvP6tuad-2gbs/edit). Answer as many as possible to the best of your knowledge. Identify which aspects of managing your data are easier to think about and which ones are more difficult, or you need more guidance.
+::: callout-tip
+### Setup
 
-::: -->
+1.  Break into groups and use the following data packages:
+    a.  **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+    b.  **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+    c.  **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+:::
 
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
 
-<!--- ## Resources {.unnumbered}
+::: callout-note
+### Exercise: Evaluate a data package on EDI Data Portal
 
-DMP Example: [Using NASA Remote Sensing Data to Reduce Uncertainty of Land-Use Transitions in
-Global Carbon-Climate Models](https://daac.ornl.gov/datamanagement/Data_Management_Plan_Chini_NASA_TE.pdf)
-- DPM Example: [USGS Coastal and Marine Science Center Data Management Plan](https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/CMGP_dmp_example_BathythermographData_508compliant.pdf)
-- [USGS Data Management Plan Checklist](https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/data-management-checklist_508-compliant.pdf) 
-- [SOP for data management for Ocean Health Index assessments](http://ohi-science.org/ohiprep_v2023/Reference/SOP_dataOrganization/dataOrganization_SOP.html) (2023 version) -->
+1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a.  **Investigate the metadata in the provided data**
+        i.  Does the metadata meet the standards we talked about? How so?
+        ii. If not, how would you improve the metadata based on the standards we talked about?
+    b.  **Investigate the overall data documentation in the data package**
+        i.  Is the documentation sufficient enough for reproducibility? Why or why not?
+        ii. If not, how would you improve the data documentation? What's missing?
+    c.  **Identify elements of FAIR and CARE**
+        i.  Is it clear that the data package used a FAIR and CARE lens?
+        ii. If not, what documentation or considerations would you add?
+2.  Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
+    b.  What documentation stood out to you? What did you like or not like about it?
+    c.  How well did these data packages uphold FAIR and CARE Principles?
+    d.  Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?
+
+*If you and your group finish early, check out more datasets in the bonus question.*
+:::
+
+## Bonus: Investigate metadata and data documentation in other Data Repositories
+
+Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
+
+Evaluate the following data packages at these data repositories:
+
+1.  KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2.  DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3.  Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories?
+
+<br>
+
+## Resources {.unnumbered}
+
+-   DMP Example: [Using NASA Remote Sensing Data to Reduce Uncertainty of Land-Use Transitions in Global Carbon-Climate Models](https://daac.ornl.gov/datamanagement/Data_Management_Plan_Chini_NASA_TE.pdf)
+-   DPM Example: [USGS Coastal and Marine Science Center Data Management Plan](https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/CMGP_dmp_example_BathythermographData_508compliant.pdf)
+-   [USGS Data Management Plan Checklist](https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/data-management-checklist_508-compliant.pdf)
+-   [SOP for data management for Ocean Health Index assessments](http://ohi-science.org/ohiprep_v2023/Reference/SOP_dataOrganization/dataOrganization_SOP.html) (2023 version)
+
+## References {.unnumbered}

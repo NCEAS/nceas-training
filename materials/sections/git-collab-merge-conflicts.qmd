@@ -44,15 +44,15 @@ The Owner must change the settings of the remote repository and give the Collabo
 
 To do this, the owner will navigate to their remote repository on GitHub, then choose **Settings** > **Collaborators** > **Add people**, to send an email invitation. The invitation will show as "Pending" until accepted.
 
-<!-- ![](images/github-collaborators.png){width="80%" fig-align="center"} -->
-![](images/github-collaborators-sam-halina.png){width="80%" fig-align="center"}
+
 
 ### Step 1: Collaborator clones the remote repository {.unnumbered}
 
 In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
 
-<!-- ![](images/github-clone-url-owner.png) -->
-![](images/github-clone-url-owner-sam.png)
+
+In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
+
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they plan to make some changes {.unnumbered}
 
@@ -139,7 +139,11 @@ and all copies are once again fully synced. And just like that, you've successfu
 
 Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
 
-``` bash
+
+```{bash}
+#| eval: false
+#| echo: true
+
 git config pull.rebase false
 ```
 
@@ -211,7 +215,6 @@ In this image, we see collaborators `mbjones` and `metamattj` have both made cha
 ![](images/git-conflict-00-lines-changed.png)
 
 
-
 ### Common ways to resolve a merge conflict
 
 **1. Abort, abort, abort...**
@@ -220,7 +223,10 @@ Sometimes you just made a mistake.  When you get a merge conflict, the repositor
 is placed in a "Merging" state until you resolve it.  There's a Terminal command
 to abort doing the merge altogether:
 
-``` bash
+```{bash}
+#| eval: false
+#| echo: true
+
 git merge --abort
 ```
 
@@ -254,9 +260,11 @@ the file looks how you want (either pick your lines, your Collaborator's lines,
 some combination, or something altogether new), and save. Be sure you removed the
 delimiter lines that started with 
 
-- `<<<<<<<`, 
-- `=======`, 
-- `>>>>>>>`.
+
+- `<<<<<<<`
+- `=======`
+- `>>>>>>>`
+
 
 Once you have made those changes, you simply `add` (staging), `commit`, and `push` the files to resolve the conflict.
 
@@ -266,7 +274,8 @@ To illustrate this process, the instructors are going to carefully create a merg
 
 ### Step 1: Owner and Collaborator ensure that their local repos are synced with the remote repo {.unnumbered}
 
-Pair with the same partner as in [Exercise 1](http://localhost:6673/session_11.html#ex1-no-conflict) and decide who will be the Owner and who will be the Collaborator. Begin the exercise by ensuring that both the Owner and Collaborator have all of the changes synced from the remote repo to their local repos. This includes doing a `git pull` to ensure that you have all changes locally, and ensuring that the **Git** tab in RStudio doesn't show any changes that need to be committed.
+
+Pair with the same partner as in Exercise 1 and decide who will be the Owner and who will be the Collaborator. Begin the exercise by ensuring that both the Owner and Collaborator have all of the changes synced from the remote repo to their local repos. This includes doing a `git pull` to ensure that you have all changes locally, and ensuring that the **Git** tab in RStudio doesn't show any changes that need to be committed.
 
 ### Step 2: Owner makes a change and commits locally {.unnumbered}
 
@@ -404,5 +413,5 @@ A good workflow is encapsulated as follows:
 
 ```Pull -> Edit -> Save -> Add (stage) -> Commit -> Pull -> (OPTIONAL) Fix any merge conflicts -> Push```
 
-It may take a bit of practice to get comfortable with navigating merge conflicts, but like any other technical skill, they'll become less intimidating with time. With careful communication and a consistent workflow, conflicts can be largely avoided or resolved when they do occur.
 
+It may take a bit of practice to get comfortable with navigating merge conflicts, but like any other technical skill, they'll become less intimidating with time. With careful communication and a consistent workflow, conflicts can be largely avoided or resolved when they do occur.

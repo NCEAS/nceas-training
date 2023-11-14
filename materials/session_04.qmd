@@ -1,5 +1,5 @@
 ---
-title: "Data Management Essentials and the FAIR & CARE Principles"
+title: "Literate Analysis with Quarto"
 title-block-banner: true
 execute: 
   eval: false
@@ -12,6 +12,4 @@ format:
 ---
 
 
-{{< include /sections/data-management-essentials.qmd >}}
-
-{{< include /sections/fair-care-principles.qmd >}}
+{{< include /sections/r-intro-quarto.qmd >}}

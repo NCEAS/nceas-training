@@ -268,9 +268,9 @@ If you were successful, it should look something like this:
 
 <br>
 
+
 :::{.column-body-outset}
-<!-- ![](images/new-repo-github.png) -->
-![](images/new-repo-github-sam.png)
+![](images/new-repo-github.png)
 :::
 
 <br>
@@ -284,10 +284,12 @@ You should always add a `README.md` to the root directory of your repository -- 
 
 <br>
 
+
 :::{.column-body-outset}
-<!-- ![](images/github-test-repo.png) -->
-![](images/github-test-repo-sam.png)
+![](images/github-test-repo.png)
+<!--![](images/github-test-repo-sam.png)--->
 :::
+
 
 For simple changes to text files, such as the `README.md`, you can make edits directly in the GitHub web interface.
 
@@ -300,8 +302,9 @@ Navigate to the `README.md` file in the file listing, and edit it by clicking on
 <br>
 
 <!-- :::{.column-page} -->
-<!-- ![](images/github-test-edit.png) -->
-![](images/github-test-edit-sam.png)
+
+![](images/github-test-edit.png)
+
 <!-- ::: -->
 
 <br>
@@ -311,8 +314,9 @@ Congratulations, you've now authored your first versioned commit! If you navigat
 <br>
 
 <!-- :::{.column-page} -->
-<!-- ![](images/github-test-displayed.png) -->
-![](images/github-test-displayed-sam.png)
+
+![](images/github-test-displayed.png)
+
 <!-- ::: -->
 
 <br>
@@ -358,14 +362,15 @@ Currently, our repository just exists on GitHub as a remote repository. It's eas
 We refer to the **remote copy** of the repository that is on GitHub as the **origin repository** (the one that we cloned from), and the copy on our local computer as the **local repository**.
 :::
 
+
 Start by clicking the green **Code** button (top right of your file listing) and copying the URL to your clipboard (this URL represents the repository location):
 
 :::{.column-body-outset}
-<!-- ![](images/github-test-clone-url.png){width="70%" fig-align="center"} -->
-![](images/github-test-clone-url-sam.png){width="70%" fig-align="center"}
+![](images/github-test-clone-url.png){width="70%" fig-align="center"}
 :::
 
 RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project (see [Appendix](http://localhost:5456/session_12.html#create-an-r-project)), with a slight difference. Follow the instructions in the Setup box below to clone your remote repository to your local computer in RStudio:
+
 
 ::: callout-tip
 ## Setup
@@ -415,8 +420,7 @@ Once you save, you'll immediately see the `README.md` file show up in the **Git*
 1. **Stage** (aka add) `README.md` by clicking the check box next to the file name -- this tells Git which changes you want included in the commit and *is analogous to using the git command, `git add README.md`, in the command line*
 2. **Commit** `README.md` by clicking the **Commit** button and providing a descriptive commit message in the dialog box. Press the **Commit** button once you're satisfied with your message. *This is analogous to using the git command, `git commit -m "my commit message"`, in the command line*.
 
-<!-- ![](images/rstudio-commit-1.png) -->
-![](images/rstudio-commit-1-sam.png)
+![](images/rstudio-commit-1.png)
 
 A few notes about our local repository's state:
 
@@ -425,10 +429,10 @@ A few notes about our local repository's state:
 
 **Commit the remaining project file** by staging/adding and committing it with an informative commit message.
 
-<!-- ![](images/rstudio-commit-2.png) -->
-![](images/rstudio-commit-2-sam.png)
+![](images/rstudio-commit-2.png)
 
 When finished, you'll see that no changes remain in the **Git** tab, and the repository is clean.
+
 
 **Inspect the history.** Note that under **Changes**, the message now says:
 
@@ -438,8 +442,7 @@ These are the two commits that we just made, but have not yet been pushed to Git
 
 Click on the **History** button to see a total of four commits in the local repository (the two we made directly to GitHub via the web browser and the two we made in RStudio).
 
-<!-- ![](images/rstudio-history-2.png) -->
-![](images/rstudio-history-2-sam.png)
+
 
 **Push these changes to GitHub.** Now that we've made and committed changes locally, we can push those changes to GitHub using the **Push** button. This sends your changes to the remote repository (on GitHub) leaving your repository in a totally clean and synchronized state (meaning your local repository and remote repository should look the same). 
 
@@ -449,16 +452,15 @@ it's a good indicator that you did not set your GitHub Personal Access Token (PA
 :::
 
 :::{.column-body-outset}
-<!-- ![](images/rstudio-history-3.png) -->
-![](images/rstudio-history-3-sam.png)
+![](images/rstudio-history-3.png)
+<--![](images/rstudio-history-3-sam.png)-->
 :::
 
 If you look at the History pane again, you'll notice that the labels next to the most recent commit indicate that both the local repository (`HEAD`) and the remote repository (`origin/HEAD`) are pointing at the same version in the history. If we look at the commit history on GitHub, all the commits will be shown there as well.
 
 <!-- :::{.column-page} -->
-<!-- ![](images/github-history.png) -->
-![](images/github-history-sam.png)
-<!-- ::: -->
+
+![](images/github-history.png)
 
 ::: callout-note
 ## Last thing, some Git configuration to surpress warning messages
@@ -483,10 +485,9 @@ There are a number of different workflows for creating version-controlled reposi
 
 However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a Git repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
 
+
 First, switch to your `training_{USERNAME}` project using the RStudio project dropdown menu. The project drop down menu is in the upper right corner of your RStudio pane. Click the drop down next to your project name (`{FIRSTNAME}_test`), and then select the `training_{USERNAME}` project from the **RECENT PROJECTS** list.
 
-<!-- ![](images/rstudio-project-switcher.png){width="80%" fig-align="center"} -->
-![](images/rstudio-project-switcher-sam.png){width="80%" fig-align="center"}
 
 There are a few approaches for turning an existing project folder into a Git repository, then sending it to GitHub -- if you're an R-user, the simplest way is to use the [`{usethis}` package](https://usethis.r-lib.org/), which is built to automate tasks involved with project setup and development. However, you can also initialize a local git repository and set the remote repository from the command line (a language-agnostic workflow). Steps for both approaches are included below (demonstrated using your `training_{USERNAME}` project): 
 
@@ -699,7 +700,8 @@ knitr::include_graphics("images/git_commit.png")
 #| echo: false
 #| fig-align: "center"
 #| out-width: "100%"
-knitr::include_graphics("images/setup-empty-repo-sam.png")
+
+knitr::include_graphics("images/setup-empty-repo.png")
 ```
 
 These commands do three things:
@@ -743,3 +745,4 @@ and much, much more.
 -   [Learn Git Branching](https://learngitbranching.js.org/) is an interactive tool to learn Git on the command line
 -   [Software Carpentry Version Control with Git](https://swcarpentry.github.io/git-novice/)
 -   Bitbucket's tutorials on [Git Workflows](https://www.atlassian.com/git/tutorials/comparing-workflows)
+

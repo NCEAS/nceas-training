@@ -100,7 +100,7 @@ This lesson will cover examples to learn about the functions you'll most commonl
 
 To demonstrate, we'll be working with a tidied up version of a data set from [Alaska Department of Fish & Game containing commercial catch data from 1878-1997](https://knb.ecoinformatics.org/#view/df35b.304.2). The data set and reference to the original source can be found at its [public archive](https://knb.ecoinformatics.org/#view/df35b.304.2).
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Setup
 First, open a new Quarto document. Delete everything below the setup chunk, and add a library chunk that calls `dplyr`, `tidyr`, and `readr`
 
@@ -114,9 +114,9 @@ library(readr)
 
 :::
 
-::: callout-important
+::: {.callout-important}
 
-## A note on loading packages
+### A note on loading packages
 
 You may have noticed the following messages pop up when you ran your library chunk.
 
@@ -141,15 +141,15 @@ So, if we wanted to call the `stats` version of `filter()` in this Rmarkdown doc
 
 
 
-::: callout-note
-## Note
+::: {.callout-caution icon=false}
+### Remove messages and warnings
 
 Messages and warnings are important, but we might not want them in our final document. After you have read the packages in, **adjust the chunk settings in your library chunk** to suppress warnings and messages by adding `#| message: false` or `#| warning: false`. Both of these chunk options, when set to false, prevents messages or warnings from appearing in the rendered file.
 :::
 
 Now that we have introduced some data wrangling libraries, let's get the data that we are going to use for this lesson.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Setup
 
 1. Go to [KNB Data Package Alaska commercial salmon catches by management region (1886- 1997)](https://knb.ecoinformatics.org/view/df35b.304.2)
@@ -178,22 +178,30 @@ catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/obje
 
 This data set is relatively clean and easy to interpret as-is. While it may be clean, it's in a shape that makes it hard to use for some types of analyses so we'll want to fix that first.
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
-Before we get too much further, spend a minute or two outlining your RMarkdown document so that it includes the following sections and steps:
+Before we get too much further, spend a minute or two outlining your Quarto document so that it includes the following sections and steps:
 
 - Data Sources
   - Read in the data
   - Explore data
 - Clean and Reshape data
-  - Remove unnecessary columns
-  - Check column typing
+  - Using `select()` function
+  - Check column types
+  - Replace values in a column
   - Reshape data
+  - Rename columns `rename()`
+  - Summary stats using `group_by()` and `summarize()`
+  - Filtering rows using `filter()`
+  - Sort data using `arrange()`
+  - Split and combine values in columns
+  
 :::
 
 ## Data exploration
-Similar to what we did in our [Intro to Literate Analysis](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_06.html) lesson, it is good practice to skim through the data you just read in. 
+Similar to what we did in our [Intro to Literate Analysis](https://learning.nceas.ucsb.edu/2023-10-coreR/session_04.html) lesson, it is good practice to skim through the data you just read in. 
+
 Doing so is important to make sure the data is read as you were expecting and to familiarize yourself with the data.
 
 Some of the basic ways to explore your data are:
@@ -213,7 +221,7 @@ summary(catch_original)
 ## Prints unique values in a column (in this case, the region)
 unique(catch_original$Region)
 
-## Opens data frame in its own tab to see each row and column of the data
+## Opens data frame in its own tab to see each row and column of the data (do in console)
 View(catch_original)
 
 ```
@@ -293,7 +301,7 @@ One nice way of doing this is the `glimpse()` function.
 dplyr::glimpse(catch_data)
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 Examine the output of the `glimpse()` function call. Does anything seem amiss with this data set that might warrant fixing?
@@ -505,19 +513,17 @@ n_region <- catch_long %>%
 head(n_region)
 ```
 
-::: callout-note
-## Tip
+::: {.callout-caution icon=false}
+## Try using `count()`
 
 If you are finding that you are reaching for this combination of `group_by()`, `summarize()` and `n()` a lot, there is a helpful `dplyr` function `count()` that accomplishes this in one function!
 :::
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 - Find another grouping and statistic to calculate for each group.
 - Find out if you can group by multiple variables.
-:::
-
 
 ```{r}
 #| code-fold: true
@@ -529,7 +535,7 @@ catch_year_sp <- catch_long %>%
     group_by(Year, species) %>%
     summarize(total_year = sum(catch, na.rm = T))
 ```
-
+:::
 
 
 ## Filtering rows using `filter()`
@@ -545,12 +551,11 @@ sse_catch <- catch_long %>%
 head(sse_catch)
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 - Filter to just catches of over one million fish
 - Filter to just Chinook from the SSE region
-:::
 
 ```{r}
 #| code-fold: true
@@ -570,6 +575,7 @@ chinook_see <- catch_long %>%
 chinook_see <- catch_long %>%
     filter(Region == "SSE" & species == "Chinook")
 ```
+:::
 
 
 ## Sorting your data using `arrange()`
@@ -621,7 +627,7 @@ sites_df %>%
     separate(site, c("island", "site_number"), "-")
 ```
 
-::: callout-note
+::: {.callout-note icon=false}
 ## Exercise
 
 Split the `city` column in the data frame `cities_df` into `city` and `state_code` columns
@@ -632,8 +638,6 @@ cities_df <- data.frame(city = c("Juneau AK",
                                  "Sitka AK",
                                  "Anchorage AK"))
 ```
-:::
-
 
 ```{r}
 #| code-fold: true
@@ -645,7 +649,7 @@ cities_clean <- cities_df %>%
     separate(city, c("city", "state_code"), " ")
 
 ```
-
+:::
 
 The `unite()` function does just the reverse of `separate()`. If we have a `data.frame` that contains columns for year, month, and day, we might want to unite these into a single date column.
 
@@ -694,14 +698,11 @@ head(mean_region)
 
 We have completed our lesson on Cleaning and Wrangling data. Before we break, let's practice our Git workflow.
 
-::: callout-tip
+::: {.callout-tip icon=false}
 ## Steps
 
 1. Save the `.qmd` you have been working on for this lesson.
 2. Render the Quarto file. This is a way to test everything in your code is working.
-3. ```Stage > Commit > Pull > Push```
+
+3. ```Stage (Add) > Commit > Pull > Push```
 :::
-
-
-
-

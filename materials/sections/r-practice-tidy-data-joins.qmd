@@ -1,5 +1,5 @@
 ---
-bibliography: references.bib
+bibliography: book.bib
 ---
 
 ## Learning Objectives {.unnumbered}
@@ -23,15 +23,15 @@ These exercises will be using bird survey data collected from the central Arizon
 ::: callout-tip
 ## Setup
 
-0. Make sure you're in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub).
+0. Make sure you're in the right project (`training_{USERNAME}`) and use the Git workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub).
 
-1. Create a new R Markdown file. 
+1. Create a new Quarto Document. 
     a. Title it "R Practice: Tidy Data and Joins". 
     b. Save the file and name it "r-practice-tidy-data-joins". 
 
 **Note:** Double check that you're in the right project. Where in RStudio can you check where you are?
 
-2.  Load the following libraries at the top of your R Markdown file.
+2.  Load the following libraries at the top of your Quarto Document.
 
 ```{r}
 #| code-fold: false
@@ -39,7 +39,7 @@ library(readr)
 library(dplyr)
 library(lubridate) # for bonus question
 
-# Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your Rmd.
+# Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your qmd.
 ```
 
 3.  Obtain data from the EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10). Download the following files:
@@ -51,9 +51,9 @@ library(lubridate) # for bonus question
 
 **Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the "Download" button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
 
-4. Organize your R Markdown in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
+4. Organize your Quarto Document in a **meaningful** way. Organization is personal - so this is up to you! Consider the different ways we've organized previous files using: headers, bold text, naming code chunks, comments in code chunks. What is most important is organizing and documenting the file so that your future self (or if you share this file with others!) understands it as well as your current self does right now. 
 
-5. Use the `Git` workflow. After you've set up your project and uploaded your data go through the workflow: ```Stage > Commit > Pull > Push```
+5. Use the Git workflow. After you've set up your project and uploaded your data go through the workflow: ```Stage (add) -> Commit -> Pull -> Push```
     - **Note:** You also want to `Pull` when you first open a project.
 :::
 
@@ -66,6 +66,7 @@ Read in the data and store the data frames as `bird_observations`, `sites`, `sur
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # read in data using download links
 bird_observations <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=53edaa7a0e083013d9bf20322db1780e")
 surveys <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=b2466fa5cb5ed7ee1ea91398fc291c59")
@@ -88,6 +89,7 @@ What functions can you use to explore the data you just read in? Think about whi
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # view data in a spreadsheet-style viewer
 View(bird_observations)
 
@@ -120,13 +122,12 @@ What are the primary and foreign keys for the tables `bird_observations` and `ta
 
 <details>
 
-<summary>Answer:</summary>
+<summary>Answer</summary>
 
--   `bird_observations`: Primary key is a combination of `survey_id`, `site_id`, and `species_id`. The foreign key is `species_id`.
+-   `bird_observations`: Primary key is a compound key made up of `survey_id`, `site_id`, and `species_id`. The foreign key is `species_id`.
 -   `taxalist`: Primary key is `species_id` and does not have a foreign key.
 
 </details>
-
 
 ### Create a subset of `bird_observations`
 
@@ -139,6 +140,7 @@ Write code to create a subset of `bird_observations` called `birds_subset` that 
 :::
 
 ```{r}
+#| code-summary: "Answer"
 birds_subset <- bird_observations %>% 
   filter(species_id %in% c("BHCO", "RWBL")) %>% 
   filter(site_id %in% c("LI-W", "NU-C"))
@@ -149,12 +151,12 @@ birds_subset <- bird_observations %>%
 ::: callout-note
 #### Question 4a
 
-First, answer: what do you expect a `left_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
+First, answer: what do you expect a `left_join()` between `birds_subset` and `sites` to contain? Write this in your Quarto Document or tell a neighbor.
 :::
 
 <details>
 
-<summary>Answer:</summary>
+<summary>Answer</summary>
 
 I expect to see all columns and all observations from `birds_subset` and from `sites`, I expect to see the columns `park_code`, `park_district`, `park-name`, `point_code`, `point_location` and `park_acreage` and only observations for `NU-C` and `LI-W` because those are the only `site_id` values in `birds_subset` and in a left join only the observations matching the left table (in this case, `birds_subset` is the left table) will be kept.
 
@@ -168,6 +170,7 @@ Use a left join to update `birds_subset` so that it also includes `sites` inform
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # syntax using pipe
 birds_left <- birds_subset %>% 
   left_join(y = sites, by = "site_id")
@@ -182,12 +185,12 @@ birds_left <- left_join(x = birds_subset, y = sites, by = "site_id")
 ::: callout-note
 #### Question 5a
 
-First, answer: what do you expect a `full_join()` between `birds_subset` and `sites` to contain? Write this in your R Markdown or tell a neighbor.
+First, answer: what do you expect a `full_join()` between `birds_subset` and `sites` to contain? Write this in your Quarto Document or tell a neighbor.
 :::
 
 <details>
 
-<summary>Answer:</summary>
+<summary>Answer</summary>
 
 I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept.
 
@@ -200,6 +203,7 @@ Write code to `full_join()` the `birds_subset` and `sites` data into a new objec
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # syntax using pipe
 birds_full <- birds_subset %>% 
   full_join(y = sites, by = "site_id")
@@ -213,12 +217,12 @@ birds_full <- full_join(x = birds_subset, y = sites, by = "site_id")
 
 ::: callout-note
 #### Question 6a
-First, answer: what do you expect an `inner_join()` between `birds_subset` and `taxalist` to contain? Write this in your R Markdown or tell a neighbor.
+First, answer: what do you expect an `inner_join()` between `birds_subset` and `taxalist` to contain? Write this in your Quarto Document or tell a neighbor.
 :::
 
 <details>
 
-<summary>Answer:</summary>
+<summary>Answer</summary>
 
 I expect to only have data merge together based on `species_id` and since there is only `BHCO` and `RWBL` in `birds_subset` then I will only retain data related to those two species. I will also expect to see the columns from `taxalist`: `common_name` and `asu_itis` to be merged into the joined table.
 
@@ -230,6 +234,7 @@ Write code to `inner_join()` the `birds_subset` and `taxalist`, called `birds_in
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # syntax using pipe
 birds_inner <- birds_subset %>% 
   inner_join(y = taxalist, by = "species_id")
@@ -244,6 +249,7 @@ What would you get if instead of `inner_join()` you'd used `left_join()` for thi
 :::
 
 ```{r}
+#| code-summary: "Answer"
 # syntax using pipe
 birds_inner_left <- birds_subset %>% 
   left_join(y = taxalist, by = "species_id")
@@ -254,12 +260,12 @@ birds_inner_left <- left_join(x = birds_subset, y = taxalist, by = "species_id")
 
 ::: callout-note
 #### Question 6d
-Why does that make sense for this scenario? In what case would you expect the outcome to differ from an `inner_join()`? Write this in your R Markdown or tell a neighbor.
+Why does that make sense for this scenario? In what case would you expect the outcome to differ from an `inner_join()`? Write this in your Quarto Document or tell a neighbor.
 :::
 
 <details>
 
-<summary>Answer:</summary>
+<summary>Answer</summary>
 
 You have the same resulting data set regardless of using `inner_join()` or `left_join()` to merge `bird_subset` and `taxalist`. The reasons for this are:
 
@@ -281,6 +287,7 @@ Starting with your object `bird_observations`, rename the `notes` column to `bir
 :::
 
 ```{r}
+#| code-summary: "Answer"
 bird_observations <- bird_observations %>% 
   rename(bird_obs_notes = notes)
 ```
@@ -296,6 +303,7 @@ bird_observations <- bird_observations %>%
 :::
 
 ```{r}
+#| code-summary: "Answer"
 bird_obs_subset <- bird_observations %>% 
   full_join(y = taxalist, by = "species_id") %>% 
   full_join(y = sites, by = "site_id") %>% 
@@ -311,6 +319,7 @@ Continuing with `bird_obs_subset`, first use `unique()` to see the different uni
 :::
 
 ```{r}
+#| code-summary: "Answer"
 unique(bird_obs_subset$observer)
 ```
 
@@ -322,6 +331,7 @@ Replace "Josh Burns" with a format that matches the other observer names. Then u
 :::
 
 ```{r}
+#| code-summary: "Answer"
 bird_obs_subset <- bird_obs_subset %>% 
   mutate(observer = if_else(condition = observer == "Josh Burns", 
                             true = "J. Burns", 
@@ -331,8 +341,8 @@ unique(bird_obs_subset$observer)
 ```
 
 ::: callout-important
-## Save your work and use `Git`
-Don't forget the `Git` workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage > Commit > Pull > Push```
+## Save your work and use Git
+Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
 ### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
@@ -352,6 +362,7 @@ Don't forget the `Git` workflow! After you've completed the exercises or reached
 :::
 
 ```{r}
+#| code-summary: "Answer"
 bird_obs_subset <- bird_obs_subset %>% 
   mutate(survey_month = lubridate::month(survey_date)) %>% 
   mutate(survey_month = as.factor(survey_month)) %>% 

@@ -1,3 +1,6 @@
+---
+bibliography: book.bib
+---
 
 ## Learning Objectives {.unnumbered}
 
@@ -26,26 +29,27 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
         i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
     c.  The Owner adds the Collaborator to the repo
     d.  Both the Collaborator and the Owner clone the repo into their RStudio
-    e. Both the Collaborator and the Owner clone the repo into their RStudio run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
+    e. Both the Collaborator and the Owner run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
 
 **Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the Collaborator to complete, and Step 3 is for the Owner to complete.**
 
 2.  **Collaborator** creates new files for exercise
     a. The Collaborator creates the following directory:
         i. `analysis` 
-    b. After creating the directories, create the following Quarto files and store them in the listed folders:
+    b. After creating the directories, create the following Quarto Documents and store them in the listed folders:
         i.  Title it: "Owner Analysis", save it as: `owner-analysis.qmd`, and store in `analysis` folder
         ii. Title it: "Collaborator Analysis", save it as: `collaborator-analysis.qmd`, and store in `analysis` folder
         iii. Title it: "Lobster Report" and save it as: `lobster-report.qmd` (do not need to put in a folder)
-    b.  After creating the files, the Collaborator will `stage`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
-    c.  The Owner `pull`s the changes and Quarto files into their local repository (their workspace)
-    
+    b.  After creating the files, the Collaborator will `stage (add)`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
+    c.  The Owner `pull`s the changes and Quarto Documents into their local repository (their workspace)
+
 3.  **Owner** downloads data from the EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8).
     a.  Create two new directories one called `data` and one called `figs`
+        i. *Note: Git does not track empty directories, so you won't see `figs` when you push to GitHub*
     b.  Download the following data and upload them to the `data` folder:
         i.  Time-series of lobster abundance and size
         ii. Time-series of lobster trap buoy counts
-    c.  After creating the `data` folder and adding the data, the Owner will `stage`, `commit`, write a commit message,`pull`, and `push` the files to the remote repository (on GitHub)
+    c.  After creating the `data` folder and adding the data, the Owner will `stage (add)`, `commit`, write a commit message,`pull`, and `push` the files to the remote repository (on GitHub)
     d.  The Collaborator `pull`s the changes and data into their local repository (their workspace)
 :::
 
@@ -95,7 +99,8 @@ As you're working on the `lobster-report.qmd` you will be conducting [two types 
 - A **lightweight code review** is brief and you will be giving feedback on code readability and code logic as you're adding Owner and Collaborator code from their respective `analysis.qmd`s to the `lobster-report.qmd`. Think of it as a walk through of your the code for the data visualizations you plan to include in the report (this includes the code you wrote to create the subset for the plot and the code to create the plot) and give quick feedback.
 :::
 
-Make sure your Quarto document is well organized and includes the following elements:
+
+Make sure your Quarto Document is well organized and includes the following elements:
 
 -   citation of the data
 -   brief summary of the abstract (i.e. 1-2 sentences) from the [EDI Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
@@ -106,10 +111,10 @@ Make sure your Quarto document is well organized and includes the following elem
     - add alternative text to your plots
     - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
 
-Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 9](http://localhost:4769/session_12.html) for steps on how to publish using GitHub pages.
+Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 11](https://learning.nceas.ucsb.edu/2023-10-coreR/session_11.html) for steps on how to publish using GitHub pages.
 
 
-<!--## Bonus: Add marine protected area (MPA) designation to the data
+## Bonus: Add marine protected area (MPA) designation to the data
 
 The sites `IVEE` and `NAPL` are marine protected areas (MPAs). Add this designation to your data set using a new function called `case_when()`. Then create some new plots using this new variable. Does it change how you think about the data? What new plots or analysis can you do with this new variable? 
 
@@ -120,6 +125,7 @@ The sites `IVEE` and `NAPL` are marine protected areas (MPAs). Add this designat
 Use the object `lobster_abundance` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
 
 ```{r}
+#| code-summary: "Answer"
 lobster_mpa <- lobster_abundance %>% 
     mutate(DESIGNATION = case_when(
     SITE %in% c("IVEE", "NAPL") ~ "MPA",
@@ -134,6 +140,7 @@ lobster_mpa <- lobster_abundance %>%
 Use the object `lobster_traps` and add a new column called `DESIGNATION` that contains "MPA" if the site is `IVEE` or `NAPL`, and "not MPA" for all other values.
 
 ```{r}
+#| code-summary: "Answer"
 lobster_traps_mpa <- lobster_traps %>%
     mutate(DESIGNATION = case_when(
     SITE %in% c("IVEE", "NAPL") ~ "MPA",
@@ -141,6 +148,6 @@ lobster_traps_mpa <- lobster_traps %>%
   ))
 ```
 
-::: -->
+:::
 
 

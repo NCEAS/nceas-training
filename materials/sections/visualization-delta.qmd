@@ -50,14 +50,14 @@ library(viridis) # colorblind friendly color pallet
 ```
 
 
-2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navegate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address". _Note:_ `janitor::clean_names()` is an awesome function to transform all column names into the same format.
+
+2. Load the data directly from the [EDI Data Repository: Sacramento-San Joaquin Delta Socioecological Monitoring ](https://portal.edirepository.org/nis/mapbrowse?packageid=edi.587.1). Navigate to the link above, scroll down and under *Resources*, hover over the "Download" button for the "Socioecological monitoring data", right click, and select "Copy Link Address".
 
 ```{r}
 #| message: false
 #| warning: false
 
-delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f") %>% 
-    janitor::clean_names() ## Introducing this new package!
+delta_visits_raw <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=edi.587.1&entityid=cda8c1384af0089b506d51ad8507641f")
 
 ```
 
@@ -68,20 +68,17 @@ delta_visits <- read_csv("https://portal.edirepository.org/nis/dataviewer?packag
 ```{r}
 #| eval: false
 ## Check out column names
-colnames(delta_visits)
+
+colnames(delta_visits_raw)
 
 ## Peak at each column and class
-glimpse(delta_visits)
+glimpse(delta_visits_raw)
 
 ## From when to when
-range(delta_visits$date)
-
-## First and last rows
-head(delta_visits)
-tail(delta_visits)
+range(delta_visits_raw$date)
 
 ## Which time of day?
-unique(delta_visits$time_of_day)
+unique(delta_visits_raw$time_of_day)
 ```
 
 :::
@@ -91,6 +88,27 @@ unique(delta_visits$time_of_day)
 ## Getting the data ready
 
 It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. After reading and exploring our data, we'll put our data wrangling skills to practice to get our data in the desired format.
+
+
+::: callout-important
+## Side note on clean column names
+`janitor::clean_names()` is an awesome function to transform all column names into the same format. The default format for this function is snake_case_format. We highly recommend having clear well formatted column names. It makes your life easier down the line.
+
+How it works?
+
+```{r}
+delta_visits <- delta_visits_raw %>% 
+    janitor::clean_names()
+```
+
+And that's it! If we look to the column names of the object `delta_visits` we can see all the columns are in a lowercase, snake format.
+
+```{r}
+colnames(delta_visits)
+```
+
+:::
+
 
 With the [tidy data principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html#tidy-data) in mind. Is this data tidy?
 
@@ -121,7 +139,9 @@ head(visits_long)
 ::: callout-note
 ### Exercise
 
-- Calculate the daily visits by `visit_type` and `restore_loc``,
+
+- Calculate the daily visits by `visit_type` and `restore_loc`,
+
 
 :::
  
@@ -193,7 +213,8 @@ ggplot(data = daily_visits_loc,
     geom_col()
 ```
 
-### Looking at different geoms
+
+### Looking at different `geoms_*`
 
 Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*()`.
 
@@ -295,7 +316,8 @@ ggplot(data = daily_visits_loc,
 :::
 
 
-#### Setting ggplot themes
+#### Setting `ggplot` themes
+
 
 We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
@@ -710,3 +732,4 @@ Leaflet has a ton of functionality that can enable you to create some beautiful,
 - [Why not to use two axes, and what to use instead: The case against dual axis charts](https://blog.datawrapper.de/dualaxis/) by Lisa Charlotte Rost.
 - [Customized Data Visualization in `ggplot2`](https://allisonhorst.github.io/eds221-day8-comp/data_viz.html#3_ggplot2_Basics_Review) by Allison Horst.
 - [A `ggplot2` tutorial for beautiful plotting in R](https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/#legends) by Cedric Scherer.
+

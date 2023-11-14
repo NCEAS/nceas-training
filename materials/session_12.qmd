@@ -1,12 +1,10 @@
 ---
-title: "Appendix "
+title: "Intro to Data Visualization"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
-# RStudio Server Setup {.unnumbered}
 
-{{< include /sections/rstudio-server-setup.qmd >}}
-
-# Configuring `Git` & GitHub {.unnumbered}
-
-{{< include /sections/git-setup.qmd >}}
+{{< include /sections/visualization-delta.qmd >}}

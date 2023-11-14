@@ -1,10 +1,9 @@
 ---
-title: "Synthesis Research Generation & Iteration "
+title: "RStudio Server Setup"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
-{{< include /sections/openS-synthesis-generation-iteration.qmd >}}
-
-
-
-
+{{< include /sections/rstudio-server-setup.qmd >}}
