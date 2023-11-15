@@ -14,24 +14,39 @@ openS has been adapted to coincide with each USGS CAP training, for a total of f
 
 ## Why NCEAS
 
-The [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/), a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach).
+The [National Center for Ecological Analysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/), a research affiliate of the University of California, Santa Barbara, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach).
 
-NCEAS has over 25 years of success with this model among working groups and environmental professionals. Together with the Delta Science Program and the Delta Stewardship Council we are excited to pass along skills, workflows, mindsets learn throughout the years.
-
-### Week 3: Scaling up and presenting synthesis
-
-*October 23 – 27, 2023*
+NCEAS has over 25 years of success with this model among working groups and environmental professionals, and we are excited to pass on this cumulative expertise to you.
 
 
-- Big data workflows and parallel computing
-- Presenting results using Shiny or flexdashboards
-- Revisit reproducible and git workflows
-- Synthesis presentations and next steps
+## Week One: Successful Synthesis and Data Management Best Practices
 
+### Learning Objectives:
 
+-   Implement reproducible scientific workflows throughout all aspects of a project
+-   Increase your familiarity and confidence with data science tools
+-   Effectively manage and wrangle data using `tidy` data practices
+-   Accessing, interpreting and developing metadata for synthesis research
+-   Organize and initiate synthesis projects
 
-## Schedule
+### Schedule
 
++-----------------+-----------------+-----------------------------------------------------------+--------------------------------------------------+
+| Date            | Time            | Session Title                                             | Lead Facilitator                                 |
++=================+=================+===========================================================+==================================================+
+| Monday 08/21    | Block 3         | Successful Synthesis Science                              | Halina Do-Linh, Data Training Program Manager    |
+|                 |                 |                                                           |                                                  |
+|                 | 1:45PM-3:15PM   |                                                           |                                                  |
++-----------------+-----------------+-----------------------------------------------------------+--------------------------------------------------+
+| Tuesday 08/22   | Block 2         | Panel for PIs: Successful Mentorship in Synthesis Science | Halina Do-Linh, Data Training Program Manager    |
+|                 |                 |                                                           |                                                  |
+|                 | 10:45AM-12:15PM |                                                           |                                                  |
++-----------------+-----------------+-----------------------------------------------------------+--------------------------------------------------+
+| Wednesday 08/23 | Block 1         | Data Management Essentials                                | Camila Vargas Poulsen, Data Training Coordinator |
+|                 |                 |                                                           |                                                  |
+|                 | 9AM-10:30AM     |                                                           |                                                  |
++-----------------+-----------------+-----------------------------------------------------------+--------------------------------------------------+
+: {tbl-colwidths="\[15, 25, 30, 30\]"}
 
 ## Code of Conduct
 
@@ -45,6 +60,6 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 
 **Citation:** Halina Do-Linh, Camila Vargas Poulsen. 2023. openS for USGS Climate Adaptation Postdoctoral (CAP) Fellows Program. Week One. NCEAS Learning Hub & USGS Climate Adaptation Science Centers (CASCs).
 
-**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden,  Jeanette Clark, Samantha Csik, Stephanie Hampton, Natasha Haycock-Chavez, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+**Additional contributors:** Ben Bolker, Julien Brun, Amber E. Budden, Jeanette Clark, Samantha Csik, Carmen Galaz García, Stephanie Hampton, Natasha Haycock-Chavez, Matthew B. Jones, Samanta Katz, Julie Lowndes, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.
