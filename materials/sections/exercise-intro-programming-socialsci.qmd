@@ -1,0 +1,31 @@
+## Learning Objectives {.unnumbered}
+
+-   practice base R skills
+-   practice Markdown syntax
+-   work in RMarkdown document
+
+## Introduction
+
+In this session of R practice, we will be working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V)
+
+This survey dataset has a few files, for this lesson we will be focusing on the initial survey results (Initial_Survey111721_ADC.csv). In the file, individual survey responses are oriented as rows, and the questions are oriented as columns. The column names are Q1, Q2, etc. Information about what the question was that was asked, and what the allowed values mean, are available in the metadata for each file. You can access the metadata for each file by clicking the "more info" link next to the file name at the top of the page.
+
+The goal for this session is to practice downloading data, reading it into R from an RMarkdown document, using base R commands to summarize a variable within the dataset, and practice formatting an RMardown docuement using Markdown syntax.
+
+## High level steps
+
+-   navigate to the dataset and download the file `Initial_Survey111721_ADC.csv`
+-   move the file to a `data` folder within your training project
+-   create a new RMarkdown document, and structure your documents with relevant headers according to the steps below
+-   read in the data
+-   explore the data
+    -   try `summary()`, `colnames()`, `str()`, `unique()`, `View()`
+-   calculate the mean of the answers to question 3
+    -   make sure to look at the help page (arguments section if your answer isn't what you expect)
+    -   interpret this value using the metadata for the table
+-   write a conclusion based on your interpretation calling the mean value you calculated in text
+    
+
+#### Bonus {.unnumbered}
+
+What other ways might you summarize the answers to question 3? Explore!

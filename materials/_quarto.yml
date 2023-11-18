@@ -27,24 +27,24 @@ book:
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # rstudio server setup 
-    - session_02.qmd # git setup 
+    - session_01.qmd # ADC intro
+    - session_02.qmd # r setup 
     - session_03.qmd # intro to R programming
-    - session_04.qmd # literate analysis with quarto
-    - session_05.qmd # FAIR and CARE 
-    - session_06.qmd # intro to git + github 
-    - session_07.qmd # tidy data 
-    - session_08.qmd # cleaning and wrangling data 
-    - session_09.qmd # r practice: joins, tidy data 
-    - session_10.qmd # git collab 
-    - session_11.qmd # publish github pages
+    - session_04.qmd # Thinking preferencees
+    - session_05.qmd # DMP
+    - session_06.qmd # Literate analysis
+    - session_07.qmd # ADC-Fundamental practice 1 
+    - session_08.qmd # Data Modeling Essentials
+    - session_09.qmd # Cleaning and Wrangling
+    - session_10.qmd # ADC-Fundamentals practice 2
+    - session_11.qmd # Ethical Data Collection
     - session_12.qmd # intro data viz
-    - session_13.qmd # r practice: wrangling, data viz, github pages 
-    - session_14.qmd # combined dmp + metadata + publishing
-    - session_15.qmd # functions and packages 
-    - session_16.qmd # r practice: functions and packages
-    - session_17.qmd # project management using github
-    - session_18.qmd # reproducibility and provenance
+    - session_13.qmd # text data
+    - session_14.qmd # metadata best practices & publishing
+    - session_15.qmd # data portals
+    - session_16.qmd # Survey Workflows
+    - session_17.qmd # Repro and Provenance
+    # - session_18.qmd # reproducibility and provenance
 
 bibliography: book.bib
       
