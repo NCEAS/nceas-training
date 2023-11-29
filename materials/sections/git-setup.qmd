@@ -1,14 +1,16 @@
-## Learning Objectives {.unnumbered}
+<!-- ## Learning Objectives {.unnumbered} -->
 
--   Set global options in your `.gitconfig` file
--   Practice how to set up GitHub Authentication using a Personal Access Token (PAT)
+<!-- -   Set global options in your `.gitconfig` file -->
+<!-- -   Practice how to set up GitHub Authentication using a Personal Access Token (PAT) -->
 
-## Set up global options in Git
+## Configuring Git and GitHub on the server
+
+### Set up global options in Git
 
 Before using Git, you need to tell it who you are, also known as setting the **global options**. To do this, we will be setting the global options in the Terminal. 
 
 ::: {.callout-caution icon=false}
-## What's the Terminal?
+### What's the Terminal?
 
 Technically, the Terminal is an interface for the shell, a computer program. To put that simply, we use the Terminal to tell a computer what to do. This is different from the Console in RStudio, which interprets R code and returns a value.
 :::
@@ -67,7 +69,7 @@ Finally, check to make sure everything looks correct by entering this command, w
 git config --global --list
 ```
 
-## GitHub Authentication
+### GitHub Authentication
 
 GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. 
 
