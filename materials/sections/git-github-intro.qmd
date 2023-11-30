@@ -1,3 +1,4 @@
+<!--
 ## Learning Objectives {.unnumbered}
 
 -   Apply the principles of Git to track and manage changes of a project
@@ -23,6 +24,7 @@ There are many benefits to using a version control software including:
 
 The version control system we'll be diving into is Git, the most widely used modern version control system in the world.
 
+<!--
 ## Introduction to Git + GitHub
 
 Before diving into the details of Git and how to use it, let's start with a motivating example that's representative of the types of problems Git can help us solve.
@@ -184,7 +186,7 @@ The processes described in the above sections (i.e. making changes to local work
 
 <!--# ![](images/git-flowchart.png) -->
 
-[![Artwork by Allison Horst](images/allison-horst-git-workflow.png)](https://twitter.com/allison_horst)
+<!--[![Artwork by Allison Horst](images/allison-horst-git-workflow.png)](https://twitter.com/allison_horst)
 
 ### Let's Look at a GitHub Repository
 
@@ -248,7 +250,9 @@ This table includes more advanced Git terms and commands that are commonly used 
 
 : Advanced Git Commands
 
-Git has a rich set of commands and features, and there are many more terms beyond either table. Learn more by visiting the [git documentation](https://git-scm.com/docs).
+Git has a rich set of commands and features, and there are many more terms beyond either table. Learn more by visiting the [git documentation](https://git-scm.com/docs).-->
+
+
 
 ## Exercise 1: Create a remote repository on GitHub
 
@@ -475,8 +479,8 @@ git config pull.rebase false
 ```
 
 `pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Chapter 11](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_11.html)).
-
-**Note:** Unlike when we first configured Git (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
+<!--
+**Note:** Unlike when we first configured Git (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference. -->
 :::
 
 ## Exercise 3: Setting up Git on an existing project
@@ -579,6 +583,7 @@ GitHub provides a button on your repo's landing page for quickly adding a `READM
 Go to your local repository (in RStudio) and pull the changes you made.
 :::
 
+<!--
 ## Using the command line
 
 While we'll be using the RStudio Terminal here, you can use any command-line interface (e.g. Mac Terminal, Git Bash, etc.) that allows for git interactions (if you plan to use a command-line interface that *is not* the RStudio Terminal, make sure to navigate to your project directory (e.g. using `cd file/path/to/project/directory`) before initializing your repository.
@@ -722,7 +727,9 @@ GitHub provides a button on your repo's landing page for quickly adding a `READM
 Go to your local repository (in RStudio) and pull the changes you made.
 :::
 
+
 :::
+-->
 
 ## Go further with Git
 
