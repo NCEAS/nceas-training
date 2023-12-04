@@ -50,10 +50,10 @@ unzip('demo_data.zip', exdir = 'data')
 file.remove('demo_data.zip')
 ```
 
-3.  Create a new R Markdown file.
+3.  Create a new Quarto file.
     a.  Title it "Intro to sf package for Spatial Data and Making Maps"
     b.  Save the file and name it "intro-sf-spatial-data-maps".
-4.  Load the following libraries at the top of your R Markdown file.
+4.  Load the following libraries at the top of your Quarto file.
 
 ```{r}
 #| warning: false
@@ -71,6 +71,8 @@ library(dplyr)
 ## Exploring the data using `plot()` and `st_crs()`
 
 First let's read in the shapefile of regional boundaries in Alaska using `read_sf()` and then create a basic plot of the data `plot()`.
+
+
 
 ```{r}
 #| eval: false
