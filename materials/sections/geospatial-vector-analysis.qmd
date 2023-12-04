@@ -417,6 +417,7 @@ Next, we define the bounding box of interest, and use `get_stamenmap()` to get t
 ```{r}
 #| message: false
 #| warning: false
+#| eval: false
 
 bbox <- c(-170, 52,-130, 64) # this is roughly southern Alaska
 ak_map <- get_stamenmap(bbox, zoom = 4) # get base map
@@ -427,6 +428,8 @@ Finally, plot both the base raster map with the population data overlayed, which
 
 ```{r}
 #| message: false
+#| eval: false
+
 ggmap(ak_map_3857) +
     geom_sf(data = pop_3857,
             aes(color = population),
