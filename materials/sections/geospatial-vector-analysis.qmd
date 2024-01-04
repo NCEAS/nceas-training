@@ -413,11 +413,20 @@ ggmap_bbox_to_3857 <- function(map) {
 Next, we define the bounding box of interest, and use `get_stamenmap()` to get the basemap. Then we run our function defined above on the result of the `get_stamenmap()` call.
 
 ```{r}
+#| echo: false
+
+register_stadiamaps("2d1ca8de-6538-4e1b-920f-05e96ecd95e6", write = TRUE)
+
+```
+
+
+
+```{r}
 #| message: false
 #| warning: false
 
 bbox <- c(-170, 52,-130, 64) # this is roughly southern Alaska
-ak_map <- get_stamenmap(bbox, zoom = 4) # get base map
+ak_map <- get_stadiamap(bbox, zoom = 4) # get base map
 ak_map_3857 <- ggmap_bbox_to_3857(ak_map) # fix the bbox to be in EPSG:3857
 ```
 
