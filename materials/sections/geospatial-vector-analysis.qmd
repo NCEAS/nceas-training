@@ -339,6 +339,28 @@ ggplot(pop_region_3338) +
     theme_bw()
 ```
 
+:::callout-tip
+## Defining x and y axis lables
+
+One way to personalize the sequence and breaks in the x and y axis in `ggplot` is using the functions `scale_x_countinuous()` or `scale_y_continuous()`. See example below:
+
+```{r}
+ggplot(pop_region_3338)+
+  geom_sf(aes(fill = total_pop))+
+  labs(fill = "Total Population")+
+  scale_fill_continuous(low = "khaki",
+                        high = "firebrick",
+                        labels = comma)+
+  theme_bw()+
+  scale_y_continuous(breaks = seq(40, 66, 2))+
+  scale_x_continuous(breaks = seq(-180, -130, 10))
+```
+
+
+:::
+
+
+
 We can also plot multiple shapefiles in the same plot. Say if we want to visualize rivers in Alaska, in addition to the location of communities, since many communities in Alaska are on rivers. We can read in a rivers shapefile, doublecheck the `crs` to make sure it is what we need, and then plot all three shapefiles - the regional population (polygons), the locations of cities (points), and the rivers (linestrings).
 
 ```{r}
@@ -438,6 +460,8 @@ ggmap(ak_map_3857) +
                            high =  "firebrick",
                            labels = comma)
 ```
+
+
 
 ## Visualize `sf` objects with `leaflet`
 
