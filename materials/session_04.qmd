@@ -1,18 +1,9 @@
 ---
-title: "Appendix"
+title: "Managing Dependencies"
 title-block-banner: true
-execute: 
-  eval: false
-format:
-  html:
-    code-link: true
-    code-fold: true
-    code-summary: "Answer"
-    code-overflow: wrap
 ---
 
-
-{{< include /sections/github-check-pat.qmd >}}
+{{< include /sections/dependency-management.qmd >}}
 
 
 
