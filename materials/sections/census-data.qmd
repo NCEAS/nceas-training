@@ -19,7 +19,7 @@ This lesson is based on [Analyzing US Census Data: Methods, Maps, and Models in 
 ## Introduction to `tidycensus`
 
 ::: column-margin
-![](images/tidycensus_logo.png){fig-align="right"}
+![](images/tidycensus_logo.png){width="80%" fig-align="right"}
 :::
 
 When working with census data, the general workflow would be to go to [data.census.gov](data.census.gov), filter data and queries based on variables and geographies, and then download the data into a spreadsheet. People that work with census data do this over and over again.
