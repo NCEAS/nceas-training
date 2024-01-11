@@ -1,31 +1,188 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 ## Learning Objectives {.unnumbered}
 
--   practice base R skills
--   practice Markdown syntax
--   work in RMarkdown document
+-   Practice base R skills
+-   Practice Markdown syntax
+-   Work in Quarto document
 
 ## Introduction
 
-In this session of R practice, we will be working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V)
+In this session of R practice, we will be working with the dataset:
+[Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey
+documenting experiences with coastal hazards in a western Alaska
+community (2021-2022). Arctic Data Center.
+doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V).
 
-This survey dataset has a few files, for this lesson we will be focusing on the initial survey results (Initial_Survey111721_ADC.csv). In the file, individual survey responses are oriented as rows, and the questions are oriented as columns. The column names are Q1, Q2, etc. Information about what the question was that was asked, and what the allowed values mean, are available in the metadata for each file. You can access the metadata for each file by clicking the "more info" link next to the file name at the top of the page.
+We will be focusing on the initial survey results
+(Initial_Survey111721_ADC.csv). In this file, individual survey
+responses are oriented as rows, and the questions are oriented as
+columns. The column names are Q1, Q2, etc. Information about what was
+the asked question, and what the allowed values mean, are available in
+the metadata for each file. **You can access the metadata for each file
+by clicking the "more info" link next to the file name at the top of the
+page.**
 
-The goal for this session is to practice downloading data, reading it into R from an RMarkdown document, using base R commands to summarize a variable within the dataset, and practice formatting an RMardown docuement using Markdown syntax.
+::: callout-note
+## Session's Goal
 
-## High level steps
+The goal for this session is to practice downloading data, reading it
+into R in a Quarto document, using base R commands to summarize a
+variable within the dataset, and practice formatting a Quarto document
+using Markdown syntax.
+:::
 
--   navigate to the dataset and download the file `Initial_Survey111721_ADC.csv`
--   move the file to a `data` folder within your training project
--   create a new RMarkdown document, and structure your documents with relevant headers according to the steps below
--   read in the data
--   explore the data
-    -   try `summary()`, `colnames()`, `str()`, `unique()`, `View()`
--   calculate the mean of the answers to question 3
-    -   make sure to look at the help page (arguments section if your answer isn't what you expect)
-    -   interpret this value using the metadata for the table
--   write a conclusion based on your interpretation calling the mean value you calculated in text
-    
+## Exercise I
 
-#### Bonus {.unnumbered}
+::: callout-tip
+## Set up
 
+-   Navigate to the dataset archived in the [Artic Data Center
+    repository](https://doi.org/10.18739/A29Z90D3V).
+-   Download the file `Initial_Survey111721_ADC.csv`
+-   Move the file to a `data` folder within your training project in the
+    server.
+    -   For this you have to click on the *Upload* button on the *Files
+        Pane* in RStudio.
+    -   A pop-up window will come up. Make sure that the *Target
+        directory* (directory where you file is going to be saved to) is
+        the `data` folder withing your RProject.
+    -    Click on *Choose File* and navigate to where
+        `Initial_Survey111721_ADC.csv` was downloaded in you local
+        computer. Click *Open*, then press *OK*.
+
+You should now see the `Initial_Survey111721_ADC.csv` inside the `data`
+folder in your project.
+:::
+
+### Open a new Quarto Document
+
+::: callout-note
+## Step 1
+
+Create a new Quarto document, and structure your documents with the
+following headers:
+
+-   Read data
+
+-   Explore data
+
+-   Calculate mean
+
+-   Conclusion
+
+**Tip:** In Markdown syntax, `#` indicates the level of header. `#` is a
+“level one header”, meaning the biggest font and the top of the
+hierarchy. `###` is a level three header, and will show up nested below
+the `#` and `##` headers.
+:::
+
+### Read in the data
+
+::: callout-note
+## Step 2
+
+Read in the data and store the data frame as `survey_data`.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+survey_data <- read.csv("data/Initial_Survey111721_ADC.csv")
+```
+
+:::
+
+### Explore the data
+
+::: callout-note
+## Step 3
+
+Try functions like `summary()`, `colnames()`, `str()`, `unique()`. Feel
+free to use any other function you'd like to learn and explore this data
+set.
+
+You can also try `View()` in the console. Note that if you include
+`View()` in your Quarto document it will cause an error when rendering.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+summary(survey_data)
+colnames(survey_data)
+str(survey_data)
+unique(survey_data$Q6_2)
+
+```
+
+:::
+
+### Calculate the mean
+
+::: callout-note
+## Step 4
+
+Calculate the mean of the answers to Question 3 and save this value into
+an object in your Global Environment.
+
+**Tip:** Look at the help page if your answer isn't what you expect,
+`?mean()`. Does Q3 column contan `NA` values?
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+
+q3_mean <- mean(survey_data$Q3, na.rm = TRUE)
+
+```
+
+
+:::
+
+
+### Write a conclusion
+
+::: callout-note
+## Step 5
+
+Interpret this value using the metadata for the table and write a
+conclusion based on your interpretation calling the mean value you
+calculated in text.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example
+_Your Markdown file should look something like this_
+
+The average score about respondents perspective in xyz is \`r `round(`q3_mean)`\`. 
+This means that ...
+
+:::
+
+### Render and Code Chunk Options
+
+::: callout-note
+## Step 6
+
+Render your Quarto file and make sure you get the output you are expecting. Are you running into any errors? If your file is not rendering as you expect discuss with your neighbor how you can improve your file.
+
+Did you added any code chunk options? Review Section [A Quarto Document](https://learning.nceas.ucsb.edu/2024-01-arctic/session_06.html#a-quarto-document) on the Literate Analysis Lesson and decide what code chunck otion you want to include in your file.
+:::
+
+
+## Bonus
+
+::: callout-note
+## Go Further
 What other ways might you summarize the answers to question 3? Explore!
+:::
