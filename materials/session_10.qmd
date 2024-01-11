@@ -1,6 +1,11 @@
 ---
-title: "R Practice II"
+title: "Intro to Data Visualization"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
 ---
 
-{{< include /sections/exercise-tidyverse-socialsci.qmd >}}
+
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}
+
