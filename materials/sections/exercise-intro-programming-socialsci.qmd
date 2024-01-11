@@ -28,7 +28,7 @@ by clicking the "more info" link next to the file name at the top of the
 page.**
 
 ::: callout-note
-## Session's Goal
+## Big Idea
 
 The goal for this session is to practice downloading data, reading it
 into R in a Quarto document, using base R commands to summarize a
@@ -36,7 +36,7 @@ variable within the dataset, and practice formatting a Quarto document
 using Markdown syntax.
 :::
 
-## Exercise I
+## Exercise 1
 
 ::: callout-tip
 ## Set up
@@ -133,7 +133,7 @@ Calculate the mean of the answers to Question 3 and save this value into
 an object in your Global Environment.
 
 **Tip:** Look at the help page if your answer isn't what you expect,
-`?mean()`. Does Q3 column contan `NA` values?
+`?mean()`. Does Q3 column have `NA` values?
 :::
 
 
