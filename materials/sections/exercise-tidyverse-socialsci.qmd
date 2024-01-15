@@ -3,6 +3,7 @@
 -   Practice cleaning and wrangling data
 -   Practice using `dplyr` and `tidyr` functions
 -   Learn how to use the `tibble::tibble()` function to create a data frame
+-   Apply concepts learned about data visualization to plot data using `ggplot2`
 
 ## Introduction
 
@@ -52,7 +53,9 @@ Use `group_by` and `summarize` to calculate how many responses there were to eac
 
 ```{r}
 
-#q3_summary <- 
+q3_summary <- suvey_data %>% 
+    group_by(Q3) %>% 
+    summarize(q3_responses = n())
 
 ```
 
@@ -69,6 +72,28 @@ One way of creating a new data frame is by using the  `tribble()` or `tibble()` 
 **Tip:** Search either in the help page or on the web for information about `tribble()` or `tibble()`. Then decide which on to use to create a new data frame.
     
 :::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+
+q3_definitions <- tribble(
+  ~Q3, ~definition,
+  1,   "definition of 1",
+  2,   "definition of 2",
+  3,   "definition of 3",
+  4, "deffinition of 4",
+  5, "deffinition of 5",
+  NA, "deffinition of NA")
+
+
+
+```
+
+:::
+
 
 ### Joining Data Frames
 
