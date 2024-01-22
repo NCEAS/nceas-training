@@ -397,9 +397,9 @@ weight_lb <- c(60, 30, 17)
 
 Call `mean_weight_lb` in the console or take a look at your Global Environment. Is that the value you expected? Why or why not?
 
-It wasn't the value we expected because `mean_weight_lb` did not change. This demonstrates an important programming concept: **Assigning a value to one object does not change the values of other objects.**
+It wasn't the value we expected because `mean_weight_lb` did not change. This demonstrates an important R programming concept: **Assigning a value to one object does not change the values of other objects in R.**
 
-Now, that we understand why the object's value hasn't changed - how do we update the value of `mean_weight_lb`? How is an R Script useful for this?
+Now that we understand why the object's value hasn't changed - how do we update the value of `mean_weight_lb`? How is an R Script useful for this?
 
 This lead us to another important programming concept, specifically for R Scripts: **An R Script runs top to bottom.**
 
@@ -453,17 +453,13 @@ bg_chem_dat <- read.csv(file = "data/BGchem2008data.csv")
 
 If we wanted to add another argument, say `stringsAsFactors`, we need to specify it explicitly using the `name = value` pair, since the second argument is `header`. 
 
-Many R users (including myself) will override the default `stringsAsFactors` argument using the following call:
+Many R users (including myself) will set the `stringsAsFactors` argument using the following call:
 
 ```{r}
 #| eval: false
 
 # relative file path
-bg_chem_dat <- read.csv("data/BGchem2008data.csv", 
-                    stringsAsFactors = FALSE)
-# absolute file path
-bg_chem_dat <- read.csv("Documents/arctic_training_files/data/BGchem2008data.csv",
-                    stringsAsFactors = FALSE)
+bg_chem_dat <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 
 
@@ -475,7 +471,7 @@ For functions that are used often, you'll see many programmers will write code t
 
 ## Working with data frames in R using the Subset Operator `$`
 
-A `data.frame` is a two dimensional data structure in R that mimics spreadsheet behavior. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents an observation containing a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created is a `data.frame`. There are many ways R and RStudio help you explore data frames. Here are a few, give them each a try:
+A `data.frame` is a list data structure in R that can represent tables and spreadsheets -- we can think of it as a table. It is a collection of rows and columns of data, where each column has a name and represents a variable, and each row represents an observation containing a measurement of that variable. When we ran `read.csv()`, the object `bg_chem_dat` that we created was a `data.frame`. The columns in a `data.frame` might represent measured numeric response values (e.g., `weight_kg`), classifier variables (e.g., `site_name`), or categorical response variables (e.g., `course_satisfaction`). There are many ways R and RStudio help you explore data frames. Here are a few, give them each a try:
 
 -   Click on the word `bg_chem_dat` in the environment pane
 -   Click on the arrow next to `bg_chem_dat` in the environment pane
@@ -498,12 +494,23 @@ You can also use the subset operator `$` calculations. For example, let's calcul
 mean(bg_chem_dat$CTD_Temperature)
 ```
 
-You can also save this calculation to an object using the subset operator `$`. 
+You can also save this calculation to an object that was created using the subset operator `$`. 
 
 ```{r}
 #| eval: false
 mean_temp <- mean(bg_chem_dat$CTD_Temperature)
 ```
+
+::: callout-tip
+#### Other ways to load tablular data
+
+While the base R package provides `read.csv` as a common way to load tabular data from text files, there are many other ways 
+that can be convenient and will also produce a `data.frame` as output. Here are a few:
+
+1. Use the `readr::read_csv()` function from the Tidyverse to load the data file. The `readr` package has a bunch of convenient helpers and handles CSV files in typically expected ways, like properly typing dates and time columns. `bg_chem_dat <- readr::read_csv("data/BGchem2008data.csv")`
+2. Load tabular data from Excel spreadsheets using the `readxl::read_excel()` function.
+3. Load tabular data from Google Sheets using the `googlesheets4::read_sheet()` function.
+:::
 
 ## Error messages are your friends
 
