@@ -589,10 +589,10 @@ The text analysis tools, methods, and packages depend greatly on your specific t
 -   [Quanteda Tutorials By Kohei Watanabe and Stefan Müller](https://tutorials.quanteda.io/)
 :::
 
-## Note About Python and NLP
+<!--## Note About Python and NLP
 
 While both `R` and `python` are capable of natural language processing and other machine learning text analysis techniques, many claim there is an advantage to using `python` over `R`. `Python` has a vast amount of libraries and packages, and its libraries for machine learning (e.g. `scikit-learn`, `TensorFlow`, `Keras`) make it simple to build models from scratch (Note: packages like `TensorFlow` are being ported to `R`). Additionally, `Python` tends to run faster than `R`, which is why some may prefer to use `python` when working with large datasets.
 
 However, both languages have a vast array of libraries and packages, and large, active communities to lean on for support.
 
-It's important to note that with tools like Jupyter Notebook and Quarto you're not longer limited to just one language. With tools that support both `R` and `python` code, you have the capability to leverage the strengths of both languages. For example, you can build a NLP model using `python` and then create a visualization using `R`.
+It's important to note that with tools like Jupyter Notebook and Quarto you're not longer limited to just one language. With tools that support both `R` and `python` code, you have the capability to leverage the strengths of both languages. For example, you can build a NLP model using `python` and then create a visualization using `R`. -->
