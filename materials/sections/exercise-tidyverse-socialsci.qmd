@@ -9,7 +9,7 @@
 
 In this session of R practice, we will continue working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V)
 
-::: callout-tip
+::: callout-note
 ## Big Idea
 
 In this practice session, we will build upon the previous session by using `dplyr`, `tidyr`, and other packages form the tidyverse to summarize answers of the survey.
@@ -25,14 +25,17 @@ In this practice session, we will build upon the previous session by using `dply
     -   Using Split-Apply-Combine strategy
     -   Creating a Data Frame
     -   Joining Data Frames
+    -   Plotting Q3 responses
     
--   At the top of your document, one line below the three dashed line from the YAML, add a level 2 header called Setup followed by a new code chunk to load the necessary libraries.
+-   At the top of your document, under the Setup header, load the necessary packages for this practice: `dplyr`, `tidyr`, `tibble`, and `ggplot2`.
+.
 
 ```{r}
 library(readr)
 library(dplyr)
 library(tidyr)
 library(tibble)
+library(ggplot2)
 ```
 
 
@@ -53,9 +56,9 @@ Use `group_by` and `summarize` to calculate how many responses there were to eac
 
 ```{r}
 
-q3_summary <- suvey_data %>% 
+q3_tally <- survey_data %>% 
     group_by(Q3) %>% 
-    summarize(q3_responses = n())
+    summarize(n_responses = n())
 
 ```
 
@@ -79,15 +82,22 @@ One way of creating a new data frame is by using the  `tribble()` or `tibble()` 
 
 ```{r}
 
+## tribble
 q3_definitions <- tribble(
   ~Q3, ~definition,
   1,   "definition of 1",
   2,   "definition of 2",
   3,   "definition of 3",
-  4, "deffinition of 4",
-  5, "deffinition of 5",
-  NA, "deffinition of NA")
+  4, "definition of 4",
+  5, "definition of 5",
+  NA, "definition of NA")
 
+##tibble
+Q3 <- c(1,2,3,4,5,NA)
+
+definition <- c("definition 1", "definition 2", "definition 3", "definition 4", "definition 5", "definition NA")
+
+q3_definitions <- tibble(Q3, definition)
 
 
 ```
@@ -101,6 +111,54 @@ q3_definitions <- tribble(
 ## Step 3
 Use a `left_join` to join your definitions table to the summarized answers
 :::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+
+```{r}
+
+## Option 1
+q3_summary <- left_join(q3_tally, q3_definitions,
+                        by = "Q3")
+
+
+## Option 2
+
+q3_summary <- q3_tally %>% 
+    left_join(q3_definitions, by = "Q3")
+
+```
+
+:::
+
+### Data Visualization
+
+::: callout-note
+## Step 4
+Use `ggplot()` to create a bar graph (`geom_col`) comparing the total number of responses for each option in Q3.
+
+Note: The Example Code provides only the base plot. Reference the Data Visualization lesson to custom your plot. Add a `theme_`, change the labels, add a title, maybe flip the coords to plot the bars horizontally? Feel free to use other functions you know or discover by searching on the web.
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+
+```{r}
+
+ggplot(q3_summary,
+       aes(x = Q3,
+           y = n_responses))+
+  geom_col()
+
+```
+
+:::
+
+
 
 ## Bonus
 
