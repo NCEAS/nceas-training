@@ -31,7 +31,7 @@ page.**
 ## Big Idea
 
 The goal for this session is to practice downloading data, reading it
-into R in a Quarto document, using base R commands to summarize a
+into R in a Quarto document, using R commands to summarize a
 variable within the dataset, and practice formatting a Quarto document
 using Markdown syntax.
 :::
@@ -44,7 +44,7 @@ using Markdown syntax.
 -   Navigate to the dataset archived in the [Artic Data Center
     repository](https://doi.org/10.18739/A29Z90D3V).
 -   Download the file `Initial_Survey111721_ADC.csv`
--   Move the file to a `data` folder within your training project in the
+-   Upload the file to a `data` folder within your training project in the
     server.
     -   For this you have to click on the *Upload* button on the *Files
         Pane* in RStudio.
@@ -64,8 +64,13 @@ folder in your project.
 ::: callout-note
 ## Step 1
 
-Create a new Quarto document, and structure your documents with the
-following headers:
+1. Create a new Quarto document. Give it a title something along the lines of "Practice Session". 
+
+2. Save it to your R project.
+
+3. Structure your document with the following headers:
+
+-   Setup
 
 -   Read data
 
@@ -81,10 +86,27 @@ hierarchy. `###` is a level three header, and will show up nested below
 the `#` and `##` headers.
 :::
 
+
+### Load necesary libraries
+::: callout-note
+## Step 2
+Under the Setup header load the `read` package.
+:::
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+library(readr)
+```
+
+:::
+
+
 ### Read in the data
 
 ::: callout-note
-## Step 2
+## Step 3
 
 Read in the data and store the data frame as `survey_data`.
 :::
@@ -93,7 +115,7 @@ Read in the data and store the data frame as `survey_data`.
 ## Example Code
 
 ```{r}
-survey_data <- read.csv("data/Initial_Survey111721_ADC.csv")
+survey_data <- read_csv("data/Initial_Survey111721_ADC.csv")
 ```
 
 :::
@@ -101,7 +123,7 @@ survey_data <- read.csv("data/Initial_Survey111721_ADC.csv")
 ### Explore the data
 
 ::: callout-note
-## Step 3
+## Step 4
 
 Try functions like `summary()`, `colnames()`, `str()`, `unique()`. Feel
 free to use any other function you'd like to learn and explore this data
@@ -127,7 +149,7 @@ unique(survey_data$Q6_2)
 ### Calculate the mean
 
 ::: callout-note
-## Step 4
+## Step 5
 
 Calculate the mean of the answers to Question 3 and save this value into
 an object in your Global Environment.
@@ -153,7 +175,7 @@ q3_mean <- mean(survey_data$Q3, na.rm = TRUE)
 ### Write a conclusion
 
 ::: callout-note
-## Step 5
+## Step 6
 
 Interpret this value using the metadata for the table and write a
 conclusion based on your interpretation calling the mean value you
@@ -172,7 +194,7 @@ This means that ...
 ### Render and Code Chunk Options
 
 ::: callout-note
-## Step 6
+## Step 7
 
 Render your Quarto file and make sure you get the output you are expecting. Are you running into any errors? If your file is not rendering as you expect discuss with your neighbor how you can improve your file.
 
