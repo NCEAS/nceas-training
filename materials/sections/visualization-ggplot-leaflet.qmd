@@ -560,17 +560,17 @@ Saving plots using `ggplot` is easy! The `ggsave()` function will save either th
 
 ```{r}
 #| eval: false
-ggsave("figures/salmon_esc_region.jpg", width = 8, height = 6, units = "in")
+ggsave("figures/annualsalmon_esc_region.jpg", width = 8, height = 6, units = "in")
 ```
 
-
+<!--
 We can also save our facet plot showing annual escapements by region calling the plot's object.
 
 ```{r}
 #| eval: false
 ggsave(annual_region_plot, "figures/annual_esc_region.png", width = 12, height = 8, units = "in")
 ```
-
+--->
 
 ## Interactive visualization
 
