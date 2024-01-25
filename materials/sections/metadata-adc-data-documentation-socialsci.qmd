@@ -573,7 +573,7 @@ data from raw data to derived to outputs.
 You add provenance by navigating to the data table descriptions and
 selecting the `Add` buttons to link the data and scripts that were used
 in your computational workflow. On the left side, select the `Add`
-circle to add an **input** data source to the filteredSpecies.csv file.
+circle to add an **input** data source to the events.csv file.
 This starts building the provenance graph to explain the origin and
 history of each data object.
 
@@ -582,13 +582,11 @@ should appear.
 
 ![](images/editor-14-socialsci.png)
 
-Then you can add the link to the source code that handled the conversion
-between the data files by clicking on `Add` arrow and selecting the R
-script:
+Then you can add the link to the file that was the source for the derived data files by clicking on the `Add` arrow and selecting the file:
 
 ![](images/editor-15-socialsci.png) ![](images/editor-16-socialsci.png)
 ![](images/editor-17-socialsci.png) The diagram now shows the
-relationships among the data files and the R script, so click **Submit**
+relationships among the data files, so click **Submit**
 to save another version of the package.
 
 ![](images/editor-24-socialsci.png) Et voilà! A beautifully preserved
