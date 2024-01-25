@@ -237,10 +237,11 @@ Tables available in the 2020 Census PL file:
 
 | Table Name | Description                                    |
 |------------|------------------------------------------------|
-| H1         | Occupancy status by household                  |
+| H1         | Occupancy status (housing) |
 | P1         | Race by Hispanic origin                        |
+| P2         | Hispanic or Latino, and not Hispanic or Latino by Race |
 | P3         | Race for the population 18+                    |
-| P4         | Race by Hispanic origin for the population 18+ |
+| P4         | Hispanic or Latino, and not Hispanic or Latino by Race for the Population 18 Years and Over |
 | P5         | Group quarters status                          |
 
 Note: "Group quarters are places where people live or stay, in a group living arrangement, that is owned or managed by an entity or organization providing housing and/or services for the residents." ([US Census Bureau Glossary](https://www.census.gov/glossary/?term=Group+quarters+population))
@@ -265,10 +266,13 @@ The idea behind `load_variables()` is for you to be able to search for the varia
 
 Now that we've talked about variables let's talk a little bit about geography and how `tidycensus` makes it easy to query data within census geographies. Census data is tabulated in enumeration units. These units are specific geographies including legal entities such as states and counties, and statistical entities that are not official jurisdictions but used to standardize data. The graphic below, provided by [census.gov](https://www.census.gov/programs-surveys/geography/guidance/hierarchy.html) shows the standard hierarchy of census geographic entities.
 
-![](images/census_geos.png) The parameter `geography =` in `get_acs()` and `get_decennial()` allows us to request data from common enumeration units. This mean we can name the specific geography we want data from. For example, let's get data for Hispanic population the 6 counties around the Delta.
+![](images/census_geos.png) 
+
+The parameter `geography =` in `get_acs()` and `get_decennial()` allows us to request data from common enumeration units. This mean we can name the specific geography we want data from. For example, let's get data for Native population the different counties in Alaska.
 
 ```{r}
 #| eval: false
+#| echo: false
 
 delta_hispanic <- get_decennial(
   geography = "county",
@@ -278,6 +282,21 @@ delta_hispanic <- get_decennial(
   year = 2020)
 
 ```
+
+
+```{r}
+#| eval: false
+
+alaska_native <- get_decennial(
+  geography = "county",
+  state = "AK",
+  county = c("Anchorage", "Bristol Bay", "Juneau", "Bethel"),
+  variables = "P2_007N",
+  year = 2020)
+
+```
+
+
 
 To learn more about the arguments for geography for each core function of `tidycensus`, check out the documentation [here](https://walker-data.com/tidycensus/articles/basic-usage.html#geography-in-tidycensus).
 
@@ -297,10 +316,10 @@ race_vars <- c(
   Asian = "P2_008N",
   HIPI = "P2_009N") ## Native Hawaiian and other Pacific Islander
 
-delta_race <- get_decennial(
+alaska_race <- get_decennial(
   geography = "county",
-  state = "CA",
-  county = c("Alameda", "Contra Costa", "Sacramento", "San Joaquin", "Solano", "Yolo"),
+  state = "AK",
+  county = c("Anchorage", "Bristol Bay", "Juneau", "Bethel"),
   variables = race_vars,
   summary_var = "P2_001N",
   year = 2020)
@@ -316,18 +335,18 @@ In every table you can generally find a variable that is an appropriate denomina
 
 Once we access the data we want, we can apply our data wrangling skills to get the data in the format that we want.
 
-Let's demonstrate this with an example. Let's compare the distribution of percentage White population and percentage Hispanic population by census track vary among the Delta Counties.
+Let's demonstrate this with an example. Let's compare the distribution of percentage White population and percentage Native population by census track infour Alaska counties.
 
 The first step is to get the data.
 
 ::: callout-note
 ## Exercise 1: `get_decennial()`
 
-1. Make a query to get White and Hispanic population data for Delta counties **by tracks** from the 2020 Decennial Census. Include the total population summary variable (`summary_var = "P2_001N"`).
+1. Make a query to get White and Native population data for 3 Alaska counties **by tract** from the 2020 Decennial Census. Include the total population summary variable (`summary_var = "P2_001N"`).
 
 Hint: variable codes are:
 
--   Total Hispanic population = P2_002N
+-   Total Native population = P2_007N
 -   Total White population = P2_005N
 
 
@@ -337,28 +356,28 @@ Hint: variable codes are:
 #| code-fold: true
 #| code-summary: "Answer"
 
-delta_track_hw <- get_decennial(
+alaska_tract_nw <- get_decennial(
   geography = "tract",
-  variables = c(hispanic = "P2_002N",
+  variables = c(native = "P2_007N",
                 white = "P2_005N"),
   summary_var = "P2_001N",
-  state = "CA",
-  county = c("Alameda", "Contra Costa", "Sacramento", "San Joaquin", "Solano", "Yolo"),
+  state = "AK",
+  county = c("Anchorage", "Bristol Bay", "Juneau", "Bethel"),
   year = 2020)
 
 ```
 
 
-We can check our data by calling the `View(delta_track_hw)` function in the console.
+We can check our data by calling the `View(alaska_tract_nw)` function in the console.
 
-2. Now that we have our data, next thing we will do is calculate the percentage of White and Hispanic population in each track. Given that we have the summary variable within our data set we can easily add a new column with the percentage. And then, we will also clean the `NAMES` column and separate track, county and state into it's own column (hint: `tidyr::separate()`).
+2. Now that we have our data, next thing we will do is calculate the percentage of White and Native population in each track. Given that we have the summary variable within our data set we can easily add a new column with the percentage. And then, we will also clean the `NAMES` column and separate track, county and state into it's own column (hint: `tidyr::separate()`).
 
 ```{r}
 #| eval: false
 #| code-fold: true
 #| code-summary: "Answer"
 
-delta_track_clean <- delta_track_hw %>% 
+alaska_tract_nw_clean <- alaska_tract_nw %>% 
     mutate(percent = 100 * (value / summary_value)) %>% 
     separate(NAME, into = c("tract", "county", "state"),
            sep = ", ")
@@ -369,18 +388,39 @@ delta_track_clean <- delta_track_hw %>%
 Note that we can apply all other `dplyr` functions we have learned to this dataset depending on what we want to achieve. One of the main goals of `tidycensus` is to make the output data frames compatible with `tidyverse` functions.
 
 
-3. Now that we have or "clean" data, with all the variables we need. Let's plot this data to **compare the distribution of percentage** White population and percentage Hispanic population by census track vary among the Delta Counties (hint: `geom_density()`).
+3. Now that we have or "clean" data, with all the variables we need. Let's plot this data to **compare the distribution of percentage** White population and percentage Native population by census tract vary among  Counties in Alaska. 
 
 ```{r}
 #| eval: false
 #| code-fold: true
 #| code-summary: "Answer"
 
-ggplot(delta_track_hw_cl, 
+ggplot(alaska_tract_nw_clean,
+       aes(x = county, y = value, fill = variable)) +
+    geom_bar(position = "fill", stat = "identity") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_manual(guide = guide_legend(reverse = TRUE),
+                      values = c("lightblue2", "gold2")) +
+    labs(
+        title = "Native/White Population",
+        subtitle = "Subset of 4 Alaska Counties",
+        fill = "Race",
+        caption = "Decennial Census 2020 | tidycensus R package",
+        x = "",
+        y = ""
+    ) +
+    theme_minimal() +
+    coord_flip() +
+    theme(legend.position = "top")
+ 
+    
+## Another geom to check out (note: Bristol Bay has only one tract therefore is not plotted)
+ggplot(alaska_tract_nw_clean, 
        aes(x = percent, fill = county)) + 
-  geom_density(alpha = 0.3)+
+    geom_density(alpha = 0.5)+
     facet_wrap(~variable)+
     theme_light()
+    
 ```
 
 
@@ -400,7 +440,7 @@ Applying all what we learned earlier this week, we are going to use `ggplot2` to
 -   The two required arguments are `geography` and `variables`. The function defaults to the 2017-2021 5-year ACS
 -   1-year ACS data are more current, but are only available for geographies of population 65,000 and greater
 -   Access 1-year ACS data with the argument `survey = "acs1"`; defaults to "acs5"
--   Example code to get median income for California by county
+-   Example code to get median income for Alaska by county
 
 ```{r}
 #| eval: false
@@ -409,7 +449,7 @@ Applying all what we learned earlier this week, we are going to use `ggplot2` to
 median_income_1yr <- get_acs(
   geography = "county",
   variables = "B19013_001",
-  state = "CA",
+  state = "AK",
   year = 2021,
   survey = "acs1")
 
@@ -417,7 +457,7 @@ median_income_1yr <- get_acs(
 median_income_5yr <- get_acs(
   geography = "county",
   variables = "B19013_001",
-  state = "CA")
+  state = "AK")
 
 ```
 
@@ -447,7 +487,7 @@ vars_acs5_21 <- load_variables(2021, "acs5")
 2. Find code for total median gross rent.
 
 
-3. Get acs data for median gross rent by county in California
+3. Get acs data for median gross rent by county in Alaska.
 
 ```{r}
 #| eval: false
@@ -455,10 +495,10 @@ vars_acs5_21 <- load_variables(2021, "acs5")
 #| code-summary: "Answer"
 
 
-ca_rent <- get_acs(
+ak_rent <- get_acs(
   geography = "county",
   variables = "B25031_001",
-  state = "CA",
+  state = "AK",
   year = 2021)
 
 ```
@@ -470,7 +510,7 @@ ca_rent <- get_acs(
 #| code-fold: true
 #| code-summary: "Answer"
 
-ggplot(ca_rent, aes(x = estimate, y = reorder(NAME, estimate))) + 
+ggplot(ak_rent, aes(x = estimate, y = reorder(NAME, estimate))) + 
   geom_point()
 ```
 
@@ -487,9 +527,17 @@ geom_errorbar(aes(xmin = estimate - moe, xmax = estimate + moe),
 
 scale_x_continuous(labels = label_dollar()) 
 
+```
+
+
+```{r}
+#| eval: false
+#| echo: false
+
 
 scale_y_discrete(labels = function(x) str_remove(x, " County, California|, California"))
 ```
+
 
 6. Enhance you plot adding a theme_*, changing the color of the points, renaming the labels, adding a title, or any other modification you want to make.
 
