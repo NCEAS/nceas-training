@@ -63,12 +63,14 @@ library(kableExtra)
 library(dplyr)
 ```
 
-Next, we need to set the API credentials. This function modifies the `.Renviron` file to set your API key and base URL so that you can access Qualtrics programmatically. 
+Next, we need to set the API credentials. The `qualtrics_api_credentials` function creates environment variables to hold your Qualtrics account information. The function can either temporarily store this information for just this session, 
+or it can modify the `.Renviron` file to set your API key and base URL so that you can access Qualtrics programmatically from any session. 
 
-The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above. You should have an e-mail with the API key in it. Copy and paste it as a string to the `api_key` argument in the function below:
+The API key is as good as a password, so care should be taken to not share it publicly. For example, you would never want to save it in a script. The function below is the rare exception of code that should be run in the console and not saved. It works in a way that you only need to run it once, unless you are working on a new computer or your credentials changed. Note that in this book, we have not shared the actual API key, for the reasons outlined above. For the course, we will share the key via a file or by e-mail. Provide the key as a string to the `api_key` argument in the function below:
 
 ```{r, eval = FALSE}
-qualtrics_api_credentials(api_key = "", base_url = "ucsb.co1.qualtrics.com", install = TRUE, overwrite = T)
+key_file <- read_lines("/tmp/qualtrics-key.txt")
+qualtrics_api_credentials(api_key = key_file[1], base_url = "ucsb.co1.qualtrics.com", install = FALSE, overwrite = FALSE)
 ```
 
 :::
@@ -113,6 +115,7 @@ To get the full survey results, run `fetch_survey` with the survey id.
 
 ```{r, eval = FALSE}
 survey_results <- fetch_survey(id)
+glimpse(survey_results)
 ```
 
 The survey results table has tons of information in it, not all of which will be relevant depending on your survey. The table has identifying information for the respondents (eg: `ResponseID`, `IPaddress`, `RecipientEmail`, `RecipientFirstName`, etc), much of which will be empty for this survey since it is anonymous. It also has information about the process of taking the survey, such as the `StartDate`, `EndDate`, `Progress`, and `Duration`. Finally, there are the answers to the questions asked, with columns labeled according to the `qname` column in the questions table (eg: Q1, Q2, Q3). Depending on the type of question, some questions might have multiple columns associated with them. We'll have a look at this more closely in a later example. 
