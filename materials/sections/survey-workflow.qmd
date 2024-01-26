@@ -246,7 +246,7 @@ dplyr::glimpse(questions)
 We can make the responses data frame more compact by renaming the columns of the vector with short numbered names of the form `Q1`. Note that, by using a sequence, this should work for sheets from just a few columns to many hundreds of columns, and provides a consistent question naming convention.
 
 ```{r}
-names(questions) <- paste0("Q", seq(1:4))
+names(questions) <- paste0("Q", seq(1,4))
 
 questions
 
