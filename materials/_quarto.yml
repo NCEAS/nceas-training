@@ -28,9 +28,20 @@ book:
   
   chapters:
     - index.qmd # preface
-    - session_01.qmd # successful synthesis science
-    - session_02.qmd # logic models
-    - session_03.qmd # data management essentials
+    
+    - part: "Week 1"
+      chapters: 
+        - session_01.qmd # successful synthesis science
+        - session_02.qmd # logic models
+        - session_03.qmd # data management essentials
+        
+    - part: "Week 2"
+      chapters: 
+        - session_04.qmd # install R and Git
+        - session_05.qmd # R and github set up
+        - session_06.qmd # intro to github
+        
+        
 
 bibliography: book.bib
       
