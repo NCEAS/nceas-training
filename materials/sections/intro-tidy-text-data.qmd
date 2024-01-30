@@ -112,7 +112,9 @@ We are going to use the `gutenbergr` package to access public domain texts from 
 2.  Create a new code chunk and attach the following libraries:
 
 ```{r}
-#| eval: false
+#| warning: false
+#| message: false
+
 library(gutenbergr) # access public domain texts from Project Gutenberg
 library(tidytext) # text mining using tidy tools
 library(dplyr) # wrangle data
@@ -147,7 +149,8 @@ Get the id number from the `gutenberg_works()` function so that you can download
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-#| eval: false
+#| output: false
+
 
 # get id number
 gutenberg_works(title == "The Great Gatsby")
@@ -165,11 +168,13 @@ Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do w
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-#| eval: false
+
 
 # tidy text data - unnest and remove stop words
 gatsby_tidy <- gatsby_corp %>% 
     unnest_tokens(word, text)
+
+head(gatsby_tidy)
 ```
 
 ::: callout-note
@@ -183,11 +188,13 @@ Take a look at the data - are you satisfied with your data? We won't conduct any
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-#| eval: false
+
 
 # remove stop words
 gatsby_tidy <- gatsby_tidy %>% 
     dplyr::anti_join(stop_words, by = "word")
+
+head(gatsby_tidy)
 ```
 
 ::: callout-note
@@ -199,12 +206,14 @@ Calculate the top 10 most frequent words using the functions `count()` and `slic
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-#| eval: false
+
 
 # calculate top 10 most frequent words
 gatsby_count <- gatsby_tidy %>%
     count(word) %>% 
     slice_max(n = 10, order_by = n)
+
+head(gatsby_count)
 ```
 
 ::: callout-note
@@ -218,7 +227,7 @@ We recommend creating either a bar plot using `geom_col()` or a lollipop plot us
 ```{r}
 #| code-fold: true
 #| code-summary: Bar Plot Code
-#| eval: false
+
 
 # bar plot
 ggplot(data = gatsby_count, aes(n, reorder(word, n))) +
@@ -231,7 +240,7 @@ ggplot(data = gatsby_count, aes(n, reorder(word, n))) +
 ```{r}
 #| code-fold: true
 #| code-summary: Base Lollipop Plot Code
-#| eval: false
+
 
 # initial lollipop plot
 ggplot(data = gatsby_count, aes(x=word, y=n)) +
@@ -258,7 +267,6 @@ Consider elements in `theme()` and improve your plot.
 ```{r}
 #| code-fold: true
 #| code-summary: Custom Lollipop Plot Code
-#| eval: false
 
 # ascending order pretty lollipop plot
 ggplot(data = gatsby_count, aes(x=reorder(word, n), y=n)) +
@@ -373,6 +381,8 @@ Frequently the text data we want to analyzed is in PDF format. In the next exerc
 ```{r}
 #| message: false
 #| warning: false
+
+
 library(tidytext) # tidy text tools
 library(quanteda) # create a corpus
 library(pdftools) # read in data
@@ -409,12 +419,10 @@ path_df <- "data/dsc-plan-ch6.pdf"
 dp_ch6 <- pdftools::pdf_text(path_df)
 ```
 
-```{r}
-#| include: false
+We will demonstrate using Chapter 8.
 
-# ch 8 is used for demonstration and testing
+```{r}
 path_df <- "data/text/dsc-plan-ch8.pdf"
-path_df <- here("materials/data/text/dsc-plan-ch8.pdf")
 dp_ch8 <- pdftools::pdf_text(path_df)
 ```
 
@@ -426,16 +434,8 @@ dp_ch8 <- pdftools::pdf_text(path_df)
 -   Call the object in the Console. What does your data look like? How does this structure compare to the pdf object?
 -   Run `summary()` of the corpus in the Console. What insights can you glean?
 
-```{r}
-#| eval: false
-
-dp_ch_corpus <- quanteda::corpus(dp_ch)
-```
 
 ```{r}
-#| include: false
-
-# ch 8 is used for demonstration and testing
 dp_ch8_corpus <- quanteda::corpus(dp_ch8)
 ```
 
@@ -446,14 +446,8 @@ dp_ch8_corpus <- quanteda::corpus(dp_ch8)
 -   Check the `class()` of the corpus you created - is it what you expected? How does the object appear in the Global Environment?
 -   Call the object in the Console or use `View()`. What does your data look like? Is it what you expected?
 
-```{r}
-#| eval: false
-
-dp_ch_tidy <- tidytext::tidy(dp_ch_corpus)
-```
 
 ```{r}
-#| include: false
 
 # ch 8 is used for demonstration and testing
 dp_ch8_tidy <- tidy(dp_ch8_corpus)
@@ -514,7 +508,7 @@ Visualize the results using a plot of your choice (e.g. bar plot, lollipop plot,
 
 ```{r}
 #| code-fold: true
-#| code-summary: Plot Code
+#| code-summary: Bar Plot Code
 # bar plot
 ggplot(dp_ch8_count, aes(x = reorder(word, n), y = n)) +
     geom_col() +
@@ -527,7 +521,7 @@ ggplot(dp_ch8_count, aes(x = reorder(word, n), y = n)) +
 
 ```{r}
 #| code-fold: true
-#| code-summary: Plot Code
+#| code-summary: Lollipop Plot Code
 # lollipop plot
 ggplot(data = dp_ch8_count, aes(x=reorder(word, n), y=n)) +
     geom_point() +
@@ -541,7 +535,7 @@ ggplot(data = dp_ch8_count, aes(x=reorder(word, n), y=n)) +
 
 ```{r}
 #| code-fold: true
-#| code-summary: Plot Code
+#| code-summary: Wordcloud Plot Code
 # wordcloud
 wordcloud(words = dp_ch8_count$word,
           freq = dp_ch8_count$n)
