@@ -1,16 +1,10 @@
-
 <!-- # Preface {.unnumbered} -->
 
-*January 22 - 26, 2024*
+*February 26 - March 1, 2024*
 
-
-<!-- ## "Fundamentals in Data Management for Qualitative and Quantitative Arctic Research -->
-
-:::column-margin
-
+::: column-margin
 ![](images/arctic-data-center.png){width="80%" fig-align="center"}
 :::
-
 
 ::: column-margin
 ![](cover.png){width="80%" fig-align="center"}
@@ -18,22 +12,35 @@
 
 ## About the course {.unnumbered}
 
-This 5-day in-person workshop will provide researchers with an overview of reproducible and ethical research practices, steps and methods for more easily documenting and preserving their data at the Arctic Data Center, and an introduction to programming in R. Special attention will be paid to qualitative data management, including practices working with sensitive data. Example datasets will draw from natural and social sciences, and methods for conducting reproducible research will be discussed in the context of both qualitative and quantitative data. Responsible and reproducible data management practices will be discussed as they apply to all aspects of the data life cycle. This includes ethical data collection and data sharing, data sovereignty, and the [CARE](https://www.gida-global.org/care) principles. The CARE principles are guidelines that help ensure open data practices (like the FAIR principles) appropriately engage with Indigenous Peoples’ rights and interests.
+Welcome to the Reproducible Practices for Arctic Research Using R course. In recent years we have adapted this course to be able to offer a fully remote opportunity. This has allowed us to expand our pool of participants taking our courses. Although we have had to switch to a remote training model, we ask participants to be as engaged during the instructional period while understanding conflicts are unavoidable. Your engagement and participation are crucial to make the best of this learning experience.
 
+We will be using the following tools to facilitate this training:
 
+-   Zoom
+-   Slack (desktop app preferred)
+-   RStudio, accessed through a server on an up-to-date
+-   Web browser:
+    -   Firefox (version 80+)
+    -   Chrome (version 80+)
+    -   Safari (version 13+)
+    -   Edge (version 81+)
 
+```{=html}
 <!--- ### Course Learning Objectives:
 
   Effectively manage data using `tidy` data practices and developing quality metadata
 -   Establish best practices and utilize tools like Git & GitHub, and Data Management Plans to optimize your collaboration
 -   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot` and `leaflet`
 - Increase your familiarity and confidence with data science tools -->
-
+```
 ## Week's Schedule
 
-:::{.column-body-outset}
-![](images/schedule.png)
+::: column-body-outset
+<!--![](images/schedule.png)-->
 :::
+
+
+ADD INSTRUCTIONS FOR VIRTUAL TRAINING
 
 ## Code of Conduct
 
@@ -45,8 +52,7 @@ These written materials are the result of a continuous and collaborative effort 
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-**Citation:** Angie Garcia, Matthew B. Jones, Justin Kadi, Maggie Klope, Camila Vargas Poulsen (2024), Fundamentals in Data Management for Qualitative and Quantitative Arctic Research. Arctic Data Center & NCEAS Learning Hub. URL <https://learning.nceas.ucsb.edu/2024-01-arctic>.
-
+**Citation:** Jeanette Clark, Angie Garcia, Matthew B. Jones, Justin Kadi, Maggie Klope, Camila Vargas Poulsen (2024), Reproducible Approaches to Arctic Research Using R. Arctic Data Center & NCEAS Learning Hub. URL <https://learning.nceas.ucsb.edu/2024-02-arctic>.
 
 **Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Halina Do-Linh, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
