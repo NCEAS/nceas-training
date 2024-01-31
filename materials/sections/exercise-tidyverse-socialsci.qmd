@@ -1,0 +1,168 @@
+## Learning Objectives {.unnumbered}
+
+-   Practice cleaning and wrangling data
+-   Practice using `dplyr` and `tidyr` functions
+-   Learn how to use the `tibble::tibble()` function to create a data frame
+-   Apply concepts learned about data visualization to plot data using `ggplot2`
+
+## Introduction
+
+In this session of R practice, we will continue working with the dataset: [Tobias Schwoerer, Kevin Berry, and Jorene Joe. 2022. A household survey documenting experiences with coastal hazards in a western Alaska community (2021-2022). Arctic Data Center. doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V)
+
+::: callout-note
+## Big Idea
+
+In this practice session, we will build upon the previous session by using `dplyr`, `tidyr`, and other packages form the tidyverse to summarize answers of the survey.
+:::
+
+## Exercise 2
+
+::: callout-tip
+## Set up
+
+-   Work in the same Qmd you did during R practice 1.
+-   Add necessary headers and text to describe what you are doing during this practice.
+    -   Using Split-Apply-Combine strategy
+    -   Creating a Data Frame
+    -   Joining Data Frames
+    -   Plotting Q3 responses
+    
+-   At the top of your document, under the Setup header, load the necessary packages for this practice: `dplyr`, `tidyr`, `tibble`, and `ggplot2`.
+.
+
+```{r}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(ggplot2)
+```
+
+
+:::
+
+### Using Split-Apply-Combine strategy
+
+::: callout-note
+## Step 1
+
+Use `group_by` and `summarize` to calculate how many responses there were to each unique answer for question 3.
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+
+```{r}
+
+q3_tally <- survey_data %>% 
+    group_by(Q3) %>% 
+    summarize(n_responses = n())
+
+```
+
+:::
+
+### Creating a Data Frame
+
+::: callout-note
+## Step 2
+Create a `data.frame` containing the definitions to the answer codes in Question 3. Use the [metadata](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA29Z90D3V#urn%3Auuid%3Aab696e67-8ed0-4900-b568-4ee576bc87bd) to get code-definition pairs.
+
+One way of creating a new data frame is by using the  `tribble()` or `tibble()` functions from the [`tibble` package](https://tibble.tidyverse.org/index.html).
+
+**Tip:** Search either in the help page or on the web for information about `tribble()` or `tibble()`. Then decide which on to use to create a new data frame.
+    
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+```{r}
+
+## tribble
+q3_definitions <- tribble(
+  ~Q3, ~definition,
+  1,   "definition of 1",
+  2,   "definition of 2",
+  3,   "definition of 3",
+  4, "definition of 4",
+  5, "definition of 5",
+  NA, "definition of NA")
+
+##tibble
+Q3 <- c(1,2,3,4,5,NA)
+
+definition <- c("definition 1", "definition 2", "definition 3", "definition 4", "definition 5", "definition NA")
+
+q3_definitions <- tibble(Q3, definition)
+
+
+```
+
+:::
+
+
+### Joining Data Frames
+
+::: callout-note
+## Step 3
+Use a `left_join` to join your definitions table to the summarized answers
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+
+```{r}
+
+## Option 1
+q3_summary <- left_join(q3_tally, q3_definitions,
+                        by = "Q3")
+
+
+## Option 2
+
+q3_summary <- q3_tally %>% 
+    left_join(q3_definitions, by = "Q3")
+
+```
+
+:::
+
+### Data Visualization
+
+::: callout-note
+## Step 4
+Use `ggplot()` to create a bar graph (`geom_col`) comparing the total number of responses for each option in Q3.
+
+Note: The Example Code provides only the base plot. Reference the Data Visualization lesson to custom your plot. Add a `theme_`, change the labels, add a title, maybe flip the coords to plot the bars horizontally? Feel free to use other functions you know or discover by searching on the web.
+:::
+
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Example Code
+
+
+```{r}
+
+ggplot(q3_summary,
+       aes(x = Q3,
+           y = n_responses))+
+  geom_col()
+
+```
+
+:::
+
+
+
+## Bonus
+
+::: callout-note
+## Go Further
+Explore how you might summarize other questions in these survey results.
+:::

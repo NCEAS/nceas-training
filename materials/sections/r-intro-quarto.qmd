@@ -383,7 +383,7 @@ Render your Quarto document (by pressing the Render button) and observe the resu
 Like many of life's great questions, there is no clear cut answer. A rule of thumb is to have one chunk per functional unit of analysis. This functional unit could be 50 lines of code or it could be 1 line, but typically it only does one "thing." This could be reading in data, making a plot, or defining a function. It could also mean calculating a series of related summary statistics (as we'll see below). Ultimately, the choice is one related to personal preference and style, but generally you should ensure that code is divided up such that it is easily explainable in a literate analysis as the code is run.
 :::
 
-## Quarto file paths and environement
+## Quarto file paths and environment
 
 As we discussed during our setup session, in computing, a path specifies the unique location of a file on the filesystem. A path can come in one of two forms: absolute or relative.
 
@@ -466,7 +466,7 @@ So, just because you know Quarto now, doesn't mean you won't be using R scripts 
 
 
 
-## Troubleshooting: My RMarkdown Won't Knit to PDF
+## Troubleshooting: My RMarkdown/Quarto doc Won't Knit to PDF
 
 If you get an error when trying to knit to PDF that says your computer
 doesn't have a LaTeX installation, one of two things is likely

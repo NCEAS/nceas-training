@@ -296,7 +296,7 @@ annual_esc_2000s <- annual_esc %>%
     filter(year %in% c(2000:2016))
 
 ## Quick check
-unique(annual_esc_2000s$Year)
+unique(annual_esc_2000s$year)
 
 
 ## Plot with facets
@@ -475,7 +475,7 @@ ggplot(annual_esc_2000s,
 ```
 
 
-You can also save all your code into an object in your working environment by assigning a name to the `ggplot()` code.
+<!--- You can also save all your code into an object in your working environment by assigning a name to the `ggplot()` code.
 
 
 ```{r}
@@ -552,6 +552,7 @@ ggplot(n_years,
 
 ```
 
+-->
 
 #### Saving plots
 
@@ -559,17 +560,17 @@ Saving plots using `ggplot` is easy! The `ggsave()` function will save either th
 
 ```{r}
 #| eval: false
-ggsave("figures/nyears_data_kus.jpg", width = 8, height = 6, units = "in")
+ggsave("figures/annualsalmon_esc_region.jpg", width = 8, height = 6, units = "in")
 ```
 
-
+<!--
 We can also save our facet plot showing annual escapements by region calling the plot's object.
 
 ```{r}
 #| eval: false
 ggsave(annual_region_plot, "figures/annual_esc_region.png", width = 12, height = 8, units = "in")
 ```
-
+--->
 
 ## Interactive visualization
 
@@ -642,6 +643,8 @@ leaflet(locations) %>%
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be. 
 
 
+<!--
+
 ## Publish the Data Visualization lesson to your webpage
 
 ::: callout-tip
@@ -654,6 +657,8 @@ Leaflet has a ton of functionality that can enable you to create some beautiful,
 5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
 
 :::
+
+-->
 
 ## `ggplot2` Resources
 

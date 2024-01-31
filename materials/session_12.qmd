@@ -1,10 +1,9 @@
 ---
-title: "Intro to Data Visualization"
+title: "R Practice: Cleaning and Wrangling"
 title-block-banner: true
-format:
-  html:
-    code-overflow: wrap
+execute:
+  eval: false
 ---
 
 
-{{< include /sections/visualization-delta.qmd >}}
+{{< include /sections/exercise-tidyverse-socialsci.qmd >}}
