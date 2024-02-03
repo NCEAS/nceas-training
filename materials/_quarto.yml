@@ -28,23 +28,24 @@ book:
   chapters:
     - index.qmd # preface 
     - session_01.qmd # ADC intro
-    - session_02.qmd # r setup 
+    - session_02.qmd # r & git setup 
     - session_03.qmd # Literate analysis
-    - session_04.qmd # DMP + Documenting and publishing data
-    - session_05.qmd # Intro to Git
-    - session_06.qmd # data modeling essentials
-    - session_07.qmd # Cleaning and Wrangling 
-    - session_08.qmd # collaborating with git
-    - session_09.qmd # publising to the web
-    - session_10.qmd # intro data viz
-    - session_11.qmd # practice session
-    - session_12.qmd # Data Portals
-    - session_13.qmd # Social Aspects of collab
-    - session_14.qmd # Functions and Packages
-    - session_15.qmd # Practice Session
-    - session_16.qmd # Spatial Data
-    - session_17.qmd # Repro and Provenance
-    - session_18.qmd 
+    - session_04.qmd # DMP
+    - session_05.qmd # Documenting and publishing data
+    - session_06.qmd # Intro to Git
+    - session_07.qmd # data modeling essentials
+    - session_08.qmd # Cleaning and Wrangling 
+    - session_09.qmd # collaborating with git
+    - session_10.qmd # publising to the web
+    - session_11.qmd # intro data viz
+    - session_12.qmd # practice session
+    - session_13.qmd # Data Portals
+    - session_14.qmd # Thinking Preferences
+    - session_15.qmd # Social Aspects of collab
+    - session_16.qmd # Functions and Packages
+    - session_17.qmd # Practice Session II
+    - session_18.qmd # Spatial Data
+    - session_19.qmd # Repro and Provenance
   
 
 bibliography: book.bib
