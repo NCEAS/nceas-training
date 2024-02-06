@@ -1,8 +1,10 @@
 ---
-title: "Reproducibility & Provenance"
+title: "Working with Spatial Data"
 title-block-banner: true
+execute: 
+  eval: false
 ---
 
-{{< include /sections/provenance-reproducibility-datapaper.qmd >}}
+{{< include /sections/geospatial-vector-analysis.qmd >}}
 
 

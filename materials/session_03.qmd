@@ -1,8 +1,6 @@
 ---
-title: "Literate Analysis"
+title: "Literate Analysis with Quarto"
 title-block-banner: true
-execute: 
-  eval: false
 ---
 
 {{< include /sections/r-intro-quarto.qmd >}}
