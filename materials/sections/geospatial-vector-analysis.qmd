@@ -40,20 +40,25 @@ The spatial data we will be using to create the map are:
 
 1.  Navigate to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) on KNB's test site and download the zip folder.
 2.  Upload the zip folder to the `data` folder in the `training_{USERNAME}` project. You don't need to unzip the folder ahead of time, uploading will automatically unzip the folder.
-    a. Alternatively, programatically download and extract the demo data with:
+    a. Alternatively, programatically download and extract the demo data with: <!--CHECK-->
     
 ```{r}
 #| eval: false
-knb_url <- 'https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58'
-download.file(url = knb_url, destfile = 'demo_data.zip')
-unzip('demo_data.zip', exdir = 'data')
+knb_url <- "https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58"
+
+download.file(url = knb_url, destfile = 'shapefile_demo_data.zip')
+
+unzip('shapefile_demo_data.zip', exdir = 'data')
+
 file.remove('demo_data.zip')
+
+
 ```
 
-3.  Create a new R Markdown file.
-    a.  Title it "Intro to sf package for Spatial Data and Making Maps"
-    b.  Save the file and name it "intro-sf-spatial-data-maps".
-4.  Load the following libraries at the top of your R Markdown file.
+3.  Create a new Quarto file.
+    a.  Title it "Working with Spatial Data in R"
+    b.  Save the file and name it "intro-to-spatial-data".
+4.  Load the following libraries at the top of your Quarto file.
 
 ```{r}
 #| warning: false
@@ -84,6 +89,7 @@ ak_regions <- read_sf("data/ak_regions_simp.shp")
 
 # data is saved in a different folder than participants
 ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
+
 ```
 
 ```{r}
@@ -385,6 +391,7 @@ Next, let's grab a base map from the Stamen map tile server covering the region 
 
 ```{r}
 #| message: false
+#| eval: false ## need to delete this when I get base map working
 
 # Define a function to fix the bbox to be in EPSG:3857
 # See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
@@ -415,16 +422,22 @@ Next, we define the bounding box of interest, and use `get_stamenmap()` to get t
 ```{r}
 #| message: false
 #| warning: false
+#| eval: false ## Need to delete this line
 
 bbox <- c(-170, 52,-130, 64) # this is roughly southern Alaska
 ak_map <- get_stamenmap(bbox, zoom = 4) # get base map
 ak_map_3857 <- ggmap_bbox_to_3857(ak_map) # fix the bbox to be in EPSG:3857
+
+ak_map_ggspatial <-  annotation_map_tile(zoomin = 4)
+
 ```
 
 Finally, plot both the base raster map with the population data overlayed, which is easy now that everything is in the same projection (3857):
 
 ```{r}
 #| message: false
+#| eval: false # need to delete this
+
 ggmap(ak_map_3857) +
     geom_sf(data = pop_3857,
             aes(color = population),
