@@ -235,6 +235,14 @@ Now that we have gone over the basics, let's go a little deeper by building a si
 
 ### Getting Started
 
+::: callout-tip
+#### Download a file from the Arctic Data Center
+
+1.  Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+2.  Download the first csv file called `BGchem2008data.csv` by clicking the "download" button next to the file.
+3.  Move this file from your `Downloads` folder into the `data` directory we created in our R Project `training_{USERNAME}`.
+:::
+
 Experienced R users who have never used Quarto (or RMarkdown) often struggle a bit in the transition to developing analysis in Prose+Code format --- which makes sense! It is switching the code paradigm to a new way of thinking.
 
 Rather than starting an R chunk and putting all of your code in that single chunk, below we describe what we think is a better way.
