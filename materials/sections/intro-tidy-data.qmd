@@ -31,7 +31,6 @@ The <a href=https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.ht
 -   Tidy data is not an R thing.
 -   Tidy data is not a `tidyverse` thing.
 
-
 **Tidy Data is a way to organize data that will make life easier for people working with data.**
 
 (Allison Horst & Julia Lowndes)
@@ -41,25 +40,25 @@ The <a href=https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.ht
 
 First, let's get acquainted with our building blocks.
 
-+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Conecept     | Definition                                                                                                                                                                                   |
-+==============+==============================================================================================================================================================================================+
-| Values       | A characteristic the is being measured, counted or described with data.                                                                                                                      |
-|              |                                                                                                                                                                                              |
-|              | Example: car type, salinity, year, hight, mass.                                                                                                                                              |
-+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Observations | a single "data point" for which the measure, count or description of one or more variables is recorded.                                                                                      |
-|              |                                                                                                                                                                                              |
-|              | Example: If you are collecting variables *hight*, \_species\_, and *location* of plants, then **each plant** is an observation.                                                              |
-+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Value        | the record measured, count or description of a variable.                                                                                                                                     |
-|              |                                                                                                                                                                                              |
-|              | Example: 3 ft                                                                                                                                                                                |
-+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| | Entity     | | Each type of observation is an entity.                                                                                                                                                     |
-|              |                                                                                                                                                                                              |
-|              | Example: If you are collecting variables *hight*, \_species\_, and *location* and *site name* of plants and where they are observed, then **plants** is an entity and **site** is an entity. |
-+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
+| Concept      | Definition                                                                                                                                                                                  |     |     |
++==============+=============================================================================================================================================================================================+=====+=====+
+| Variables    | A characteristic the is being measured, counted or described with data.                                                                                                                     |     |     |
+|              |                                                                                                                                                                                             |     |     |
+|              | Example: car type, salinity, year, height, mass.                                                                                                                                            |     |     |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
+| Observations | A single "data point" for which the measure, count or description of one or more variables is recorded.                                                                                     |     |     |
+|              |                                                                                                                                                                                             |     |     |
+|              | Example: If you are collecting variables *height*, *species*, and *location* of plants, then **each plant** is an observation.                                                              |     |     |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
+| Value        | The record measured, count or description of a variable.                                                                                                                                    |     |     |
+|              |                                                                                                                                                                                             |     |     |
+|              | Example: 3 ft                                                                                                                                                                               |     |     |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
+| Entity       | Each type of observation is an entity.                                                                                                                                                      |     |     |
+|              |                                                                                                                                                                                             |     |     |
+|              | Example: If you are collecting variables *height*, *species*, and *location* and *site name* of plants and where they are observed, then **plants** is an entity and **site** is an entity. |     |     |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
 
 ### Assessing Tidy Data Principles
 
@@ -270,7 +269,6 @@ This linkage tells us that the first height measurement for the DAPU observation
 
 ### Compound keys
 
-
 ```{=html}
 <!-- ### Surrogate, natural, and compound keys
 
@@ -282,13 +280,11 @@ In the sites data table from the previous example, we noticed that ‘site’ an
 A surrogate key is often simpler, and can be a better choice than a natural key to become the primary key of a data table.
 
 ![](images/tidy-data-images/relational_data_models/surrogate_natural_keys.png){fig-align="center" width=70%} -->
-
 ```
 <!--Finally,-->
 
 It can also be the case that a variable is not a key, but by combining it with a second variable we get that the combined values uniquely identify the rows.
 This is called a
-
 
 -   **Compound Key**: a key that is made up of more than one variable.
 
@@ -358,9 +354,9 @@ We will explain the steps to drawing a simplified E-R model with our previous pl
 
 *Step 2: Add variables for each entity and identify keys.* Add the variables as a list inside each box.
 Then, identify the primary and foreign keys in each of the boxes.
-To visualize this, we have indicated 
+To visualize this, we have indicated
 
--   the <font color="red"> primary key </font> (of each entity) in <font color="red"> red </font> and 
+-   the <font color="red"> primary key </font> (of each entity) in <font color="red"> red </font> and
 -   any <font color="blue"> foreign keys </font> in <font color="blue"> blue </font>.
 
 ![](images/tidy-data-images/relational_data_models/ER_diagram_2.png){fig-align="center" width="50%"}
@@ -452,52 +448,49 @@ In groups of 3-4 we will do two activities that will help us put into practice t
 
 ### Exercise 1:Identifying Tidy Data
 
-:::callout-note
+::: callout-note
 ## Does the table follow the tidy data principles?
 
--   Look at the tables on [this file](files/recognizing-tidy-data-activity.pdf) and determine if they follow the three tidy data principles. If not, which ones aren’t met?
+-   Look at the tables on [this file](files/recognizing-tidy-data-activity.pdf) and determine if they follow the three tidy data principles.
+    If not, which ones aren't met?
 
--   How would you wrangle the data to make it tidy? Describe the steps you would take to tidy the data.
+-   How would you wrangle the data to make it tidy?
+    Describe the steps you would take to tidy the data.
 
 -   Sketch how would the tidy version look like.
-
 :::
 
 ### Excersice 2: Relational Databases
 
-:::callout-tip
+::: callout-tip
 ## Prompt
 
-> Our funding agency requires that we take surveys of individuals who complete our training courses so that we can report on the demographics of our trainees and how effective they find our courses to be. 
-
+> Our funding agency requires that we take surveys of individuals who complete our training courses so that we can report on the demographics of our trainees and how effective they find our courses to be.
 :::
 
-
-:::callout-note
+::: callout-note
 ## Design data collection tables
 
 -   In your small groups, design a set of tables that will capture information collected in a participant survey that would apply to many courses.
 
--   Don’t focus on designing a comprehensive set of questions for the survey, one or two simple questions would be sufficient (eg: “Did the course meet your expectations?”, “What could be improved?”, “To what degree did your knowledge increase?”).
+-   Don't focus on designing a comprehensive set of questions for the survey, one or two simple questions would be sufficient (eg: "Did the course meet your expectations?", "What could be improved?", "To what degree did your knowledge increase?").
 
 -   Include variables (columns) with basic set of information from the surveys and about the courses, such as the date of the course and name of the course, etc.
-
 :::
 
-
-
-:::callout-note
+::: callout-note
 ## Create entity relationsip model
+
 After you have thought about what kind of information you care collecting, let's break it down and build the entity-relationship model.
 
-1. Identify the **entities** in the relational database and add each one in a box.
+1.  Identify the **entities** in the relational database and add each one in a box.
 
-2. Add **variables** for each entity.
+2.  Add **variables** for each entity.
 
-3. Identify the primary and foreign **keys** for those entities that relate to each other.
+3.  Identify the primary and foreign **keys** for those entities that relate to each other.
 
-4. Add "words" describing how each entity relates
+4.  Add "words" describing how each entity relates
 
-5. Add cardinality to every relationship in the diagram. This mean, use the **EDR Crow's Foot** [Quick Reference](https://learning.nceas.ucsb.edu/2024-02-arctic/session_07.html#edr-crows-foot) to quantify how many items in an entity are related to another entity. 
+5.  Add cardinality to every relationship in the diagram.
+    This mean, use the **EDR Crow's Foot** [Quick Reference](https://learning.nceas.ucsb.edu/2024-02-arctic/session_07.html#edr-crows-foot) to quantify how many items in an entity are related to another entity.
 :::
-

@@ -1,43 +1,67 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 ## Learning Objectives
 
 In this lesson, you will learn:
 
-- About open data archives, especially the Arctic Data Center
-- What science metadata are and how they can be used
-- How data and code can be documented and published in open data archives
-    - Web-based submission
+-   About open data archives, especially the Arctic Data Center
+-   What science metadata are and how they can be used
+-   How data and code can be documented and published in open data
+    archives
+    -   Web-based submission
 
 ## Data sharing and preservation
 
 ![](images/WhyManage-small.png)
 
+### Data repositories: built for data (and code)
 
+-   GitHub is not an archival location
+-   Examples of dedicated data repositories: KNB, Arctic Data Center,
+    tDAR, EDI, Zenodo
+    -   Rich metadata
+    -   Archival in their mission
+    -   Certification for repositories: https://www.coretrustseal.org/
+-   Data papers, e.g., Scientific Data
+-   List of data repositories: http://re3data.org
+    -   Repository finder tool: https://repositoryfinder.datacite.org/
 
-## Data repositories: built for data (and code)
-
-- GitHub is not an archival location
-- Examples of dedicated data repositories: KNB, Arctic Data Center, tDAR, EDI, Zenodo
-  + Rich metadata
-  + Archival in their mission
-  + Certification for repositories: https://www.coretrustseal.org/
-- Data papers, e.g., Scientific Data
-- List of data repositories: http://re3data.org
-  + Repository finder tool: https://repositoryfinder.datacite.org/
-  
 ![](images/RepoLogos.png)
+
+### DataONE Federation
+
+DataONE is a federation of dozens of data repositories that work
+together to make their systems interoperable and to provide a single
+unified search system that spans the repositories. DataONE aims to make
+it simpler for researchers to publish data to one of its member
+repositories, and then to discover and download that data for reuse in
+synthetic analyses.
+
+DataONE can be searched on the web (https://search.dataone.org/), which
+effectively allows a single search to find data from the dozens of
+members of DataONE, rather than visiting each of the (currently 44!)
+repositories one at a time.
+
+![](images/DataONECNs.png)
 
 ## Metadata
 
-Metadata are documentation describing the content, context, and structure of 
-data to enable future interpretation and reuse of the data.  Generally, metadata
-describe who collected the data, what data were collected, when and where they were 
-collected, and why they were collected.  
+Metadata are documentation describing the content, context, and
+structure of data to enable future interpretation and reuse of the data.
+Generally, metadata describe who collected the data, what data were
+collected, when and where they were collected, and why they were
+collected.
 
-For consistency, metadata are typically structured following metadata content 
-standards such as the [Ecological Metadata Language (EML)](https://knb.ecoinformatics.org/software/eml/).
-For example, here's an excerpt of the metadata for a sockeye salmon dataset:
+For consistency, metadata are typically structured following metadata
+content standards such as the [Ecological Metadata Language
+(EML)](https://knb.ecoinformatics.org/software/eml/). For example,
+here's an excerpt of the metadata for a sockeye salmon dataset:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 <eml:eml packageId="df35d.442.6" system="knb" 
     xmlns:eml="eml://ecoinformatics.org/eml-2.1.1">
@@ -64,289 +88,564 @@ For example, here's an excerpt of the metadata for a sockeye salmon dataset:
 </eml:eml>
 ```
 
-That same metadata document can be converted to HTML format and displayed in a much
-more readable form on the web: https://knb.ecoinformatics.org/#view/doi:10.5063/F1F18WN4
+That same metadata document can be converted to HTML format and
+displayed in a much more readable form on the web:
+https://knb.ecoinformatics.org/#view/doi:10.5063/F1F18WN4
 
-![](images/knb-metadata.png)
-And, as you can see, the whole dataset or its components can be downloaded and
-reused.
+![](images/knb-metadata.png) And, as you can see, the whole dataset or
+its components can be downloaded and reused.
 
-Also note that the repository tracks how many times each file has been downloaded,
-which gives great feedback to researchers on the activity for their published data.
+Also note that the repository tracks how many times each file has been
+downloaded, which gives great feedback to researchers on the activity
+for their published data.
+
+### Overall Guidelines
+
+Another way to think about metadata is to answer the following questions
+with the documentation:
+
+-   What was measured?
+-   Who measured it?
+-   When was it measured?
+-   Where was it measured?
+-   How was it measured?
+-   How is the data structured?
+-   Why was the data collected?
+-   Who should get credit for this data (researcher AND funding agency)?
+-   How can this data be reused (licensing)?
+
+### Bibliographic Guidelines
+
+The details that will help your data be cited correctly are:
+
+-   **Global identifier** like a digital object identifier (DOI)
+-   Descriptive **title** that includes information about the topic, the
+    geographic location, the dates, and if applicable, the scale of the
+    data
+-   Descriptive **abstract** that serves as a brief overview off the
+    specific contents and purpose of the data package
+-   **Funding information** like the award number and the sponsor
+-   **People and organizations** like the creator of the dataset (i.e.
+    who should be cited), the person to **contact** about the dataset
+    (if different than the creator), and the contributors to the dataset
+
+### Discovery Guidelines
+
+The details that will help your data be discovered correctly are:
+
+-   **Geospatial coverage** of the data, including the field and
+    laboratory sampling locations, place names and precise coordinates
+-   **Temporal coverage** of the data, including when the measurements
+    were made and what time period (ie the calendar time or the geologic
+    time) the measurements apply to
+-   **Taxonomic coverage** of the data, including what species were
+    measured and what taxonomy standards and procedures were followed
+-   Any other **contextual information** as needed
+
+### Interpretation Guidelines
+
+The details that will help your data be interpreted correctly are:
+
+-   **Collection methods** for both field and laboratory data the full
+    experimental and project design as well as how the data in the
+    dataset fits into the overall project
+-   **Processing methods** for both field and laboratory samples
+-   All sample **quality control procedures**
+-   **Provenance** information to support your analysis and modelling
+    methods
+-   Information about the **hardware and software** used to process your
+    data, including the make, model, and version
+-   **Computing quality control** procedures like testing or code review
+
+### Data Structure and Contents
+
+-   **Everything needs a description**: the data model, the data objects
+    (like tables, images, matrices, spatial layers, etc), and the
+    variables all need to be described so that there is no room for
+    misinterpretation.
+-   **Variable information** includes the definition of a variable, a
+    standardized unit of measurement, definitions of any coded values
+    (i.e. 0 = not collected), and any missing values (i.e. 999 = NA).
+
+Not only is this information helpful to you and any other researcher in
+the future using your data, but it is also helpful to search engines.
+The semantics of your dataset are crucial to ensure your data is both
+discoverable by others and interoperable (that is, reusable).
+
+For example, if you were to search for the character string "carbon
+dioxide flux" in a data repository, not all relevant results will be
+shown due to varying vocabulary conventions (i.e., "CO2 flux" instead of
+"carbon dioxide flux") across disciplines --- only datasets containing
+the exact words "carbon dioxide flux" are returned. With correct
+semantic annotation of the variables, your dataset that includes
+information about carbon dioxide flux but that calls it CO2 flux WOULD
+be included in that search.
+
+### Rights and Attribution
+
+Correctly **assigning a way for your datasets to be cited** and reused
+is the last piece of a complete metadata document. This section sets the
+scientific rights and expectations for the future on your data, like:
+
+-   Citation format to be used when giving credit for the data
+-   Attribution expectations for the dataset
+-   Reuse rights, which describe who may use the data and for what
+    purpose
+-   Redistribution rights, which describe who may copy and redistribute
+    the metadata and the data
+-   Legal terms and conditions like how the data are licensed for reuse.
+
+### Metadata Standards
+
+So, **how does a computer organize all this information?** There are a
+number of metadata standards that make your metadata machine readable
+and therefore easier for data curators to publish your data.
+
+-   [Ecological Metadata Language
+    (EML)](https://eml.ecoinformatics.org/)
+-   [Geospatial Metadata Standards (ISO 19115 and ISO
+    19139)](https://www.fgdc.gov/metadata/iso-standards)
+    -   See [NOAA's ISO
+        Workbook](http://www.ncei.noaa.gov/sites/default/files/2020-04/ISO%2019115-2%20Workbook_Part%20II%20Extentions%20for%20imagery%20and%20Gridded%20Data.pdf)
+-   [Dublin Core](https://www.dublincore.org/)
+-   [Darwin Core](https://dwc.tdwg.org/)
+-   [PREservation Metadata: Implementation Strategies
+    (PREMIS)](https://www.loc.gov/standards/premis/)
+-   [Metadata Encoding Transmission Standard
+    (METS)](https://www.loc.gov/standards/mets/)
+
+*Note this is not an exhaustive list.*
+
+### Data Identifiers
+
+Many journals require a DOI (a digital object identifier) be assigned to
+the published data before the paper can be accepted for publication. The
+reason for that is so that the data can easily be found and easily
+linked to.
+
+Some data repositories assign a DOI for each dataset you publish on
+their repository. But, if you need to update the datasets, check the
+policy of the data repository. Some repositories assign a new DOI after
+you update the dataset. If this is the case, researchers should cite the
+exact version of the dataset that they used in their analysis, even if
+there is a newer version of the dataset available.
+
+### Data Citation
+
+Researchers should get in the habit of citing the data that they use
+(even if it's their own data!) in each publication that uses that data.
 
 ## Structure of a data package
 
-Note that the dataset above lists a collection of files that are contained within
-the dataset.  We define a *data package* as a scientifically useful collection of 
-data and metadata that a researcher wants to preserve.  Sometimes a data package
-represents all of the data from a particular experiment, while at other times it
-might be all of the data from a grant, or on a topic, or associated with a paper.
-Whatever the extent, we define a data package as having one or more data files,
-software files, and other scientific products such as graphs and images, all tied
-together with a descriptive metadata document.
+Note that the dataset above lists a collection of files that are
+contained within the dataset. We define a *data package* as a
+scientifically useful collection of data and metadata that a researcher
+wants to preserve. Sometimes a data package represents all of the data
+from a particular experiment, while at other times it might be all of
+the data from a grant, or on a topic, or associated with a paper.
+Whatever the extent, we define a data package as having one or more data
+files, software files, and other scientific products such as graphs and
+images, all tied together with a descriptive metadata document.
 
 ![](images/data-package.png)
 
-These data repositories all assign a unique identifier to every version of every
-data file, similarly to how it works with source code commits in GitHub.  Those identifiers
-usually take one of two forms.  A *DOI* identifier is often assigned to the metadata
-and becomes the publicly citable identifier for the package.  Each of the other files
-gets a global identifier, often a UUID that is globally unique.  In the example above,
-the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and each of the individual
-files have their own identifiers as well.
+These data repositories all assign a unique identifier to every version
+of every data file, similarly to how it works with source code commits
+in GitHub. Those identifiers usually take one of two forms. A *DOI*
+identifier is often assigned to the metadata and becomes the publicly
+citable identifier for the package. Each of the other files gets a
+global identifier, often a UUID that is globally unique. In the example
+above, the package can be cited with the DOI `doi:10.5063/F1F18WN4`,and
+each of the individual files have their own identifiers as well.
 
-### DataONE Federation
+## Publishing data from the web
 
-DataONE is a federation of dozens of data repositories that work together to make their 
-systems interoperable and to provide a single unified search system that spans
-the repositories.  DataONE aims to make it simpler for researchers to publish
-data to one of its member repositories, and then to discover and download that
-data for reuse in synthetic analyses.
-
-DataONE can be searched on the web (https://search.dataone.org/), which effectively
-allows a single search to find data from the dozens of members of DataONE, rather
-than visiting each of the (currently 44!) repositories one at a time.
-
-![](images/DataONECNs.png)
-
-
-### Publishing data from the web
-
-Each data repository tends to have its own mechanism for submitting data and
-providing metadata.  With repositories like the KNB Data Repository and the
-Arctic Data Center, we provide some easy to use web forms for editing and submitting
-a data package. This section provides a brief overview of some highlights within the data submission process, in advance of a more comprehensive hands-on activity.  
+Each data repository tends to have its own mechanism for submitting data
+and providing metadata. With repositories like the KNB Data Repository
+and the Arctic Data Center, we provide some easy to use web forms for
+editing and submitting a data package. This section provides a brief
+overview of some highlights within the data submission process, in
+advance of a more comprehensive hands-on activity.
 
 **ORCiDs**
 
-We will walk through web submission on https://demo.arcticdata.io, and start by logging in with an ORCID account. ORCID provides a common account for sharing scholarly data, so if you don’t have one, you can create one when you are redirected to ORCID from the Sign In button. 
+We will walk through web submission on https://demo.arcticdata.io, and
+start by logging in with an ORCID account. ORCID provides a common
+account for sharing scholarly data, so if you don't have one, you can
+create one when you are redirected to ORCID from the Sign In button.
 
 ![](images/adc-banner.png)
 
 ![](images/orcid-login.png)
 
-ORCID is a non-profit organization made up of research institutions, funders, publishers and other stakeholders in the research space. ORCID stands for Open Researcher and Contributor ID. The purpose of ORCID is to give researchers a unique identifier which then helps highlight and give credit to researchers for their work. If you click on someone’s ORCID, their work and research contributions will show up (as long as the researcher used ORCID to publish or post their work).
+ORCID is a non-profit organization made up of research institutions,
+funders, publishers and other stakeholders in the research space. ORCID
+stands for Open Researcher and Contributor ID. The purpose of ORCID is
+to give researchers a unique identifier which then helps highlight and
+give credit to researchers for their work. If you click on someone's
+ORCID, their work and research contributions will show up (as long as
+the researcher used ORCID to publish or post their work).
 
-After signing in, you can access the data submission form using the Submit button. Once on the form, upload your data files and follow the prompts to provide the required metadata.
+After signing in, you can access the data submission form using the
+Submit button. Once on the form, upload your data files and follow the
+prompts to provide the required metadata.
 
 ![](images/editor-01.png)
 
 **Sensitive Data Handling**
 
-Underneath the Title field, you will see a  section titled “Data Sensitivity”. As the primary repository for the NSF Office of Polar Programs Arctic Section, the Arctic Data Center accepts data from all disciplines. This includes data from social science research that may include sensitive data, meaning data that contains personal or identifiable information. Sharing sensitive data can pose challenges to researchers, however sharing metadata or anonymized data contributes to discovery, supports open science principles, and helps reduce duplicate research efforts.
+Underneath the Title field, you will see a section titled "Data
+Sensitivity". As the primary repository for the NSF Office of Polar
+Programs Arctic Section, the Arctic Data Center accepts data from all
+disciplines. This includes data from social science research that may
+include sensitive data, meaning data that contains personal or
+identifiable information. Sharing sensitive data can pose challenges to
+researchers, however sharing metadata or anonymized data contributes to
+discovery, supports open science principles, and helps reduce duplicate
+research efforts.
 
-To help mitigate the challenges of sharing sensitive data, the Arctic Data Center has added new features to the data submission process influenced by the CARE Principles for Indigenous Data Governance (Collective benefit, Authority to control, Responsibility, Ethics). Researchers submitting data now have the option to choose between varying levels of sensitivity that best represent their dataset. Data submitters can select one of three sensitivity level data tags that best fit their data and/or metadata. Based on the level of sensitivity, guidelines for submission are provided. The data tags range from non-confidential information to maximally sensitive information. 
+To help mitigate the challenges of sharing sensitive data, the Arctic
+Data Center has added new features to the data submission process
+influenced by the CARE Principles for Indigenous Data Governance
+(Collective benefit, Authority to control, Responsibility, Ethics).
+Researchers submitting data now have the option to choose between
+varying levels of sensitivity that best represent their dataset. Data
+submitters can select one of three sensitivity level data tags that best
+fit their data and/or metadata. Based on the level of sensitivity,
+guidelines for submission are provided. The data tags range from
+non-confidential information to maximally sensitive information.
 
-The purpose of these tags is to ethically contribute to open science by making the richest set of data available for future research. The first tag, “non-sensitive data”, represents data that does not contain potentially harmful information, and can be submitted without further precaution. Data or metadata that is “sensitive with minimal risk” means that either the sensitive data has been anonymized and shared with consent, or that publishing it will not cause any harm. The third option, “some or all data is sensitive with significant risk” represents data that contains potentially harmful or identifiable information, and the data submitter will be asked to hold off submitting the data until further notice. In the case where sharing anonymized sensitive data is not possible due to ethical considerations, sharing anonymized metadata still aligns with FAIR (Findable, Accessible, Interoperable, Reproducible) principles because it increases the visibility of the research which helps reduce duplicate research efforts. Hence, it is important to share metadata, and to publish or share sensitive data only when consent from participants is given, in alignment with the CARE principles and any IRB requirements.
+The purpose of these tags is to ethically contribute to open science by
+making the richest set of data available for future research. The first
+tag, "non-sensitive data", represents data that does not contain
+potentially harmful information, and can be submitted without further
+precaution. Data or metadata that is "sensitive with minimal risk" means
+that either the sensitive data has been anonymized and shared with
+consent, or that publishing it will not cause any harm. The third
+option, "some or all data is sensitive with significant risk" represents
+data that contains potentially harmful or identifiable information, and
+the data submitter will be asked to hold off submitting the data until
+further notice. In the case where sharing anonymized sensitive data is
+not possible due to ethical considerations, sharing anonymized metadata
+still aligns with FAIR (Findable, Accessible, Interoperable,
+Reproducible) principles because it increases the visibility of the
+research which helps reduce duplicate research efforts. Hence, it is
+important to share metadata, and to publish or share sensitive data only
+when consent from participants is given, in alignment with the CARE
+principles and any IRB requirements.
 
-You will continue to be prompted to enter information about your research, and in doing so, create your metadata record. We recommend taking your time because the richer your metadata is, the more easily reproducible and usable your data and research will be for both your future self and other researchers. Detailed instructions are provided below for the hands-on activity.
+You will continue to be prompted to enter information about your
+research, and in doing so, create your metadata record. We recommend
+taking your time because the richer your metadata is, the more easily
+reproducible and usable your data and research will be for both your
+future self and other researchers. Detailed instructions are provided
+below for the hands-on activity.
 
 **Research Methods**
 
-Methods are critical to accurate interpretation and reuse of your data. The editor allows you to add multiple different methods sections, so that you can include details of sampling methods, experimental design, quality assurance procedures, and/or computational techniques and software. 
+Methods are critical to accurate interpretation and reuse of your data.
+The editor allows you to add multiple different methods sections, so
+that you can include details of sampling methods, experimental design,
+quality assurance procedures, and/or computational techniques and
+software.
 
 ![](images/editor-11.png)
 
-As part of a recent update, researchers are now asked to describe the ethical data practices used throughout their research. The information  provided will be visible as part of the metadata record. This feature was added to the data submission process to encourage transparency in data ethics. Transparency in data ethics is a vital part of open science and sharing ethical practices encourages deeper discussion about data reuse and ethics. 
+As part of a recent update, researchers are now asked to describe the
+ethical data practices used throughout their research. The information
+provided will be visible as part of the metadata record. This feature
+was added to the data submission process to encourage transparency in
+data ethics. Transparency in data ethics is a vital part of open science
+and sharing ethical practices encourages deeper discussion about data
+reuse and ethics.
 
-We encourage you to think about the ethical data and research practices that were utilized during your research, even if they don’t seem obvious at first.
+We encourage you to think about the ethical data and research practices
+that were utilized during your research, even if they don't seem obvious
+at first.
 
 **File and Variable Level Metadata**
 
-In addition to providing information about, (or a description of) your dataset, you can also provide information about each file and the variables within the file. By clicking the "Describe" button you can add comprehensive information about each of your measurements, such as the name, measurement type, standard units etc. 
+In addition to providing information about, (or a description of) your
+dataset, you can also provide information about each file and the
+variables within the file. By clicking the "Describe" button you can add
+comprehensive information about each of your measurements, such as the
+name, measurement type, standard units etc.
 
 ![](images/editor-19.png)
 
 **Provenance**
 
-The data submission system also provides the opportunity for you to provide provenance  information, describe the relationship between package elements. When viewing  your  dataset followinng submission, After completing your data description and submitting your dataset you will see the option to add source data and code, and derived data and code.
+The data submission system also provides the opportunity for you to
+provide provenance information, describe the relationship between
+package elements. When viewing your dataset followinng submission, After
+completing your data description and submitting your dataset you will
+see the option to add source data and code, and derived data and code.
 
 ![](images/editor-14.png)
 
-These are just some of the features and functionality of the Arctic Data Center submission system and we will go through them in more detail below as part of a hands-on activity.
+These are just some of the features and functionality of the Arctic Data
+Center submission system and we will go through them in more detail
+below as part of a hands-on activity.
 
+### Download the data to be used for the tutorial
 
-#### Download the data to be used for the tutorial
+I've already uploaded the test data package, and so you can access the
+data here:
 
-I've already uploaded the test data package, and so you can access the data here:
+-   https://demo.arcticdata.io/#view/urn:uuid:0702cc63-4483-4af4-a218-531ccc59069f
 
-- https://demo.arcticdata.io/#view/urn:uuid:0702cc63-4483-4af4-a218-531ccc59069f
-
-Grab both CSV files, and the R script, and store them in a convenient folder.
+Grab both CSV files, and the R script, and store them in a convenient
+folder.
 
 ![](images/hatfield-01.png)
 
-#### Login via ORCID
+### Login via ORCID
 
-We will walk through web submission on https://demo.arcticdata.io, and start 
-by logging in with an ORCID account. [ORCID](https://orcid.org/) provides a common account for sharing
-scholarly data, so if you don't have one, you can create one when you are redirected
-to ORCID from the *Sign In* button.
+We will walk through web submission on https://demo.arcticdata.io, and
+start by logging in with an ORCID account. [ORCID](https://orcid.org/)
+provides a common account for sharing scholarly data, so if you don't
+have one, you can create one when you are redirected to ORCID from the
+*Sign In* button.
 
-![](images/adc-banner.png)
-When you sign in, you will be redirected to [orcid.org](https://orcid.org), where you can either provide your existing ORCID credentials or create a new account.  ORCID provides multiple ways to login, including using your email address, an institutional login from many universities, and/or a login from social media account providers.  Choose the one that is best suited to your use as a scholarly record, such as your university or agency login.
+![](images/adc-banner.png) When you sign in, you will be redirected to
+[orcid.org](https://orcid.org), where you can either provide your
+existing ORCID credentials or create a new account. ORCID provides
+multiple ways to login, including using your email address, an
+institutional login from many universities, and/or a login from social
+media account providers. Choose the one that is best suited to your use
+as a scholarly record, such as your university or agency login.
 
 ![](images/orcid-login.png)
 
-#### Create and submit the dataset
+### Create and submit the dataset
 
-After signing in, you can access the data submission form using the *Submit* button.
-Once on the form, upload your data files and follow the prompts to provide the 
-required metadata.
+After signing in, you can access the data submission form using the
+*Submit* button. Once on the form, upload your data files and follow the
+prompts to provide the required metadata.
 
-##### Click **Add Files** to choose the data files for your package
+#### Click **Add Files** to choose the data files for your package
 
-You can select multiple files at a time to efficiently upload many files.
+You can select multiple files at a time to efficiently upload many
+files.
 
 ![](images/editor-01.png)
 
-The files will upload showing a progress indicator.  You can continue editing 
-metadata while they upload.
+The files will upload showing a progress indicator. You can continue
+editing metadata while they upload.
 
 ![](images/editor-02.png)
 
-##### Enter Overview information
+#### Enter Overview information
 
 This includes a descriptive title, abstract, and keywords.
 
-![](images/editor-03.png)
-![](images/editor-04.png)
-You also must enter a funding award number and choose a license.  The funding field will 
-search for an NSF award identifier based on words in its title or the number itself. The licensing options are CC-0 and CC-BY, which both allow your data to be downloaded and re-used by other researchers.
+![](images/editor-03.png) ![](images/editor-04.png) You also must enter
+a funding award number and choose a license. The funding field will
+search for an NSF award identifier based on words in its title or the
+number itself. The licensing options are CC-0 and CC-BY, which both
+allow your data to be downloaded and re-used by other researchers.
 
-- CC-0 Public Domain Dedication: “...can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.”
-- CC-BY: Attribution 4.0 International License: “...free to...copy,...redistribute,...remix, transform, and build upon the material for any purpose, even commercially,...[but] must give appropriate credit, provide a link to the license, and indicate if changes were made.”
+-   CC-0 Public Domain Dedication: "...can copy, modify, distribute and
+    perform the work, even for commercial purposes, all without asking
+    permission."
+-   CC-BY: Attribution 4.0 International License: "...free
+    to...copy,...redistribute,...remix, transform, and build upon the
+    material for any purpose, even commercially,...\[but\] must give
+    appropriate credit, provide a link to the license, and indicate if
+    changes were made."
 
-![](images/editor-05.png)
-![](images/editor-06.png)
+![](images/editor-05.png) ![](images/editor-06.png)
 
-##### People Information
+#### People Information
 
-Information about the people associated with the dataset is essential to provide 
-credit through citation and to help people understand who made contributions to
-the product.  Enter information for the following people:
+Information about the people associated with the dataset is essential to
+provide credit through citation and to help people understand who made
+contributions to the product. Enter information for the following
+people:
 
-- Creators - **all the people who should be in the citation for the dataset**
-- Contacts - one is required, but defaults to the first Creator if omitted
-- Principal Investigators
-- Any others that are relevant
+-   Creators - **all the people who should be in the citation for the
+    dataset**
+-   Contacts - one is required, but defaults to the first Creator if
+    omitted
+-   Principal Investigators
+-   Any others that are relevant
 
-For each, please provide their [ORCID](https://orcid.org) identifier, which
-helps link this dataset to their other scholarly works.
+For each, please provide their [ORCID](https://orcid.org) identifier,
+which helps link this dataset to their other scholarly works.
 
 ![](images/editor-07.png)
 
-##### Location Information
+#### Location Information
 
-The geospatial location that the data were collected is critical for discovery 
-and interpretation of the data.  Coordinates are entered in decimal degrees, and
-be sure to use negative values for West longitudes.  The editor allows you to 
-enter multiple locations, which you should do if you had noncontiguous sampling
-locations.  This is particularly important if your sites are separated by large
-distances, so that spatial search will be more precise.
+The geospatial location that the data were collected is critical for
+discovery and interpretation of the data. Coordinates are entered in
+decimal degrees, and be sure to use negative values for West longitudes.
+The editor allows you to enter multiple locations, which you should do
+if you had noncontiguous sampling locations. This is particularly
+important if your sites are separated by large distances, so that
+spatial search will be more precise.
 
 ![](images/editor-08.png)
 
-Note that, if you miss fields that are required, they will be highlighted in red
-to draw your attention. In this case, for the description, provide a comma-separated 
-place name, ordered from the local to global:
+Note that, if you miss fields that are required, they will be
+highlighted in red to draw your attention. In this case, for the
+description, provide a comma-separated place name, ordered from the
+local to global:
 
-- Mission Canyon, Santa Barbara, California, USA
+-   Mission Canyon, Santa Barbara, California, USA
 
 ![](images/editor-09.png)
 
-##### Temporal Information
+#### Temporal Information
 
-Add the temporal coverage of the data, which represents the time period to which
-data apply.  Again, use multiple date ranges if your sampling was discontinuous.
+Add the temporal coverage of the data, which represents the time period
+to which data apply. Again, use multiple date ranges if your sampling
+was discontinuous.
 
 ![](images/editor-10.png)
 
-##### Methods
+#### Methods
 
-Methods are critical to accurate interpretation and reuse of your data.  The editor 
-allows you to add multiple different methods sections, so that you can include details of 
-sampling methods, experimental design, quality assurance procedures, and/or computational
-techniques and software.  Please be complete with your methods sections, as they
-are fundamentally important to reuse of the data.
+Methods are critical to accurate interpretation and reuse of your data.
+The editor allows you to add multiple different methods sections, so
+that you can include details of sampling methods, experimental design,
+quality assurance procedures, and/or computational techniques and
+software. Please be complete with your methods sections, as they are
+fundamentally important to reuse of the data.
 
 ![](images/editor-11.png)
 
-##### Save a first version with **Submit**
+#### Save a first version with **Submit**
 
-When finished, click the *Submit Dataset* button at the bottom.  
+When finished, click the *Submit Dataset* button at the bottom.
 
-If there are errors or missing fields, they will be highlighted.  
+If there are errors or missing fields, they will be highlighted.
 
-Correct those, and then try submitting again.  When you are successful, you should
-see a large green banner with a link to the current dataset view.  Click the `X` 
-to close that banner if you want to continue editing metadata.
+Correct those, and then try submitting again. When you are successful,
+you should see a large green banner with a link to the current dataset
+view. Click the `X` to close that banner if you want to continue editing
+metadata.
 
-![](images/editor-12.png)
-Success!
+![](images/editor-12.png) Success!
 
-#### File and variable level metadata 
+### File and variable level metadata
 
 The final major section of metadata concerns the structure and content
 of your data files. In this case, provide the names and descriptions of
-the data contained in each file, as well as details of their internal structure.
+the data contained in each file, as well as details of their internal
+structure.
 
-For example, for data tables, you'll need the name, label, and definition of 
-each variable in your file.  Click the **Describe** button to access a dialog to enter this information.
+For example, for data tables, you'll need the name, label, and
+definition of each variable in your file. Click the **Describe** button
+to access a dialog to enter this information.
 
-![](images/editor-18.png)
-The **Attributes** tab is where you enter variable (aka attribute)
-information, including:
+![](images/editor-18.png) The **Attributes** tab is where you enter
+variable (aka attribute) information, including:
 
-- variable name (for programs)
-- variable label (for display)
+-   variable name (for programs)
+-   variable label (for display)
 
-![](images/editor-19.png)
-- variable definition (be specific)
-- type of measurement
-![](images/editor-20.png)
-- units & code definitions 
+![](images/editor-19.png) - variable definition (be specific) - type of
+measurement ![](images/editor-20.png) - units & code definitions
 
-![](images/editor-21.png)
-You'll need to add these definitions for every variable (column) in 
-the file. When done, click **Done**.
-![](images/editor-22.png)
-Now, the list of data files will show a green checkbox indicating that you have
-fully described that file's internal structure.  Proceed with the other CSV
-files, and then click **Submit Dataset** to save all of these changes.
+![](images/editor-21.png) You'll need to add these definitions for every
+variable (column) in the file. When done, click **Done**.
+![](images/editor-22.png) Now, the list of data files will show a green
+checkbox indicating that you have fully described that file's internal
+structure. Proceed with the other CSV files, and then click **Submit
+Dataset** to save all of these changes.
 
-![](images/editor-23.png)
-After you get the big green success message, you can visit your 
-dataset and review all of the information that you provided. If
-you find any errors, simply click **Edit** again to make changes.
+![](images/editor-23.png) After you get the big green success message,
+you can visit your dataset and review all of the information that you
+provided. If you find any errors, simply click **Edit** again to make
+changes.
 
-#### Add workflow provenance
+### Add workflow provenance
 
-Understanding the relationships between files (aka *provenance*) in a package is critically important,
-especially as the number of files grows.  Raw data are transformed and integrated
-to produce derived data, which are often then used in analysis and visualization code
-to produce final outputs.  In the DataONE network, we support structured descriptions of these
-relationships, so researchers can see the flow of data from raw data to derived to outputs.
+Understanding the relationships between files (aka *provenance*) in a
+package is critically important, especially as the number of files
+grows. Raw data are transformed and integrated to produce derived data,
+which are often then used in analysis and visualization code to produce
+final outputs. In the DataONE network, we support structured
+descriptions of these relationships, so researchers can see the flow of
+data from raw data to derived to outputs.
 
-You add provenance by navigating to the data table descriptions and selecting the 
-`Add` buttons to link the data and scripts that were used in your computational 
-workflow.  On the left side, select the `Add` circle to add an **input** data source
-to the filteredSpecies.csv file.  This starts building the provenance graph to
-explain the origin and history of each data object.
+You add provenance by navigating to the data table descriptions and
+selecting the `Add` buttons to link the data and scripts that were used
+in your computational workflow. On the left side, select the `Add`
+circle to add an **input** data source to the filteredSpecies.csv file.
+This starts building the provenance graph to explain the origin and
+history of each data object.
 
-![](images/editor-13.png)
-The linkage to the source dataset should appear.
+![](images/editor-13.png) The linkage to the source dataset should
+appear.
 
 ![](images/editor-14.png)
 
 Then you can add the link to the source code that handled the conversion
-between the data files by clicking on `Add` arrow and selecting the R script:
+between the data files by clicking on `Add` arrow and selecting the R
+script:
 
-![](images/editor-15.png)
-![](images/editor-16.png)
-![](images/editor-17.png)
-The diagram now shows the relationships among the data files and the R script, so
-click **Submit** to save another version of the package.
+![](images/editor-15.png) ![](images/editor-16.png)
+![](images/editor-17.png) The diagram now shows the relationships among
+the data files and the R script, so click **Submit** to save another
+version of the package.
 
-![](images/editor-24.png)
-Et voilà!  A beautifully preserved data package!
+![](images/editor-24.png) Et voilà! A beautifully preserved data
+package!
+
+## Bonus Exercise: Evaluate a Data Package on the ADC Repository
+
+Explore data packages published on the ADC assess the quality of their
+metadata. Imagine you're a data curator!
+
+::: callout-tip
+### Setup
+
+1.  Break into groups and use the following data packages:
+    a.  **Group A:** ADC Data Portal [White spruce (Picea glauca)
+        densities at Brooks Range treelines, Alaska
+        (2019-2022)](https://doi.org/10.18739/A2Q52FF49)
+    b.  **Group B:** ADC Data Portal [A 2022 household survey about
+        impacts and human response to climate-related multi-hazards in
+        Anchorage, Fairbanks, and
+        Whitehorse](https://doi.org/10.18739/A23R0PV62)
+    c.  **Group C:** ADC Data Portal [Summertime water quality
+        measurements at beaver ponds and associated locations in Arctic
+        Alaska, 2022-2026](https://doi.org/10.18739/A2P55DJ42)
+:::
+
+You and your group will evaluate a data package for its: (1) metadata
+quality, (2) data documentation quality for reproducibility, and (3)
+FAIRness and CAREness.
+
+::: callout-note
+### Exercise: Evaluate a data package on the ADC Data Portal
+
+1.  View our [Data Package Assessment
+    Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing)
+    and make a copy of it to:
+    a.  **Investigate the metadata in the provided data**
+        i.  Does the metadata meet the standards we talked about? How
+            so?
+        ii. If not, how would you improve the metadata based on the
+            standards we talked about?
+    b.  **Investigate the overall data documentation in the data
+        package**
+        i.  Is the documentation sufficient enough for reproducibility?
+            Why or why not?
+        ii. If not, how would you improve the data documentation? What's
+            missing?
+    c.  **Identify elements of FAIR and CARE**
+        i.  Is it clear that the data package used a FAIR and CARE lens?
+        ii. If not, what documentation or considerations would you add?
+2.  Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other
+        data documentation you were evaluating? Why or why not?
+    b.  What documentation stood out to you? What did you like or not
+        like about it?
+    c.  How well did these data packages uphold FAIR and CARE
+        Principles?
+    d.  Do you feel like you understand the research project enough to
+        use the data yourself (aka reproducibility?
+:::
