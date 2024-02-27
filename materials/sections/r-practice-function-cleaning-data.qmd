@@ -15,7 +15,7 @@ One of the features if this dataset is that it has many files with similar forma
 
 
 ::: callout-tip
-### Setup
+## Setup
 
 0. Make sure you’re in the right project (`training_{USERNAME}`) and use the Git workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub). 
 1. Create a new Quarto Document.
@@ -51,6 +51,7 @@ head(species, 3)
 
     -   `Utqiagvik_predator_surveys.csv`
     -   `Utqiagvik_nest_data.csv`
+    -   `Utqiagvik_egg_measurements.csv`
     
 **Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the "Download" button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
 
@@ -66,11 +67,12 @@ This is a handy package that requires a moderate amount of knowledge of `html` t
 
 
 
-## Write a function that will translate species codes into common names.
+## Exercise
 
+### Question 1
 
 ::: callout-note
-### Read and explore data
+## Read and explore data
 Read in each data file and store the data frame as `shorebird_adult` and `shorebird_chick` accordingly. After reading the data, insert a new chunk or in the console, explore the data using any function we have used during the lessons (eg. `colname()`, `glimpse()`)
 
 ::: 
@@ -83,13 +85,17 @@ nest_data <-  read_csv("data/Utqiagvik_nest_data.csv")
 
 predator_survey <- read_csv("data/	Utqiagvik_predator_surveys.csv")
 
+egg_measures <- read_csv("data/Utqiagvik_egg_measurements.csv")
+
 
 ## When reading using the url
 nest_data <-  read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A982bd2fc-4edf-4da7-96ef-0d11b853102d")
 
 predator_survey <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
 
-## Exploring the data (these functions can also be used to explore nest_data) 
+egg_measures <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A4b219711-2282-420a-b1d6-1893fe4a74a6")
+
+## Exploring the data (these functions can also be used to explore nest_data & egg_measures) 
 
 colnames(predator_survey)
 glimpse(predator_survey)
@@ -98,9 +104,10 @@ summary(predator_survey)
 
 ```
 
+### Question 2 
 
 ::: callout-note
-## How would you translate species codes into common names for one of the data frmes?
+## How would you translate species codes into common names for one of the data frames?
 
 Before thinking of how to write a function, first discuss what are you trying to achieve and how would you get there. Write and run the code that would allow you to combine the `species` data frame with the `predator_survey` so that the outcome data frame has the species code and common names.
 
@@ -117,7 +124,7 @@ predator_comm_names <- left_join(predator_survey,
 
 ```
 
-
+### Question 3
 
 ::: callout-note
 ## Write a functions to add species common name to any data frame.
@@ -138,9 +145,11 @@ assign_species_name <- function(df, species){
 
 ```
 
+### Question 4
 
 ::: callout-note
 ## Document your funtion inserting Roxygen skeleton and adding the necesary description.
+
 Place the cursor inside your function, In the top menu go to Code > Insert Roxygen skeleton. Document parameters, return and write one example. 
 
 :::
@@ -156,7 +165,7 @@ Place the cursor inside your function, In the top menu go to Code > Insert Roxyg
 #' @return A data frame with original data df, plus the common name of species
 #' @export
 #'
-#' @examples `*provide example*`
+#' @examples `*provide an example*`
 
 
 assign_species_name <- function(df, species){
@@ -166,13 +175,31 @@ assign_species_name <- function(df, species){
 
 ```
 
+### Question 5
 
 ::: callout-note
 ## Use your function to clean names of each data frame
 
-<!--Finalize this question-->
+Create clean versions of the three data frames by applying the function you created and removing columns that you think are note necessary and filter out `NA` values.
 
 :::
+
+```{r}
+#| code-summary: "Answer"
+ 
+## This is one solution. 
+
+predator_clean <- assign_species_name(predator_survey, species) %>% 
+    select(year, site, date, common_name, count) %>% 
+    filter(!is.na(common_name))
+
+nest_location_clean <- assign_species_name(nest_data, species) %>% 
+    select(year, site, nestID, common_name, lat_corrected, long_corrected)
+
+eggs_clean <- assign_species_name(egg_measures, species) %>% 
+    select(year, site, nestID, common_name, length, width)
+```
+
 
 
 
