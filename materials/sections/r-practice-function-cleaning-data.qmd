@@ -24,7 +24,9 @@ One of the features if this dataset is that it has many files with similar forma
 
 2.  Insert a Setup r chunck and load the necessary libraries. Note here we introduce a new package called `rvest`. This package enables easy scraping and handling of information from websites.
 
-```{r message=FALSE, warning=FALSE}
+```{r}
+#| code-fold: false
+
 library(rvest)
 library(readr)
 library(dplyr)
@@ -34,6 +36,8 @@ library(janitor)
 3. Load the species table using the following code. This code scrapes a table from a url and uses some cleaning and wrangling functions to get the table into our Environment in the format we want.
 
 ```{r}
+#| code-fold: false
+
 webpage <- rvest::read_html("https://www.pwrc.usgs.gov/BBL/Bander_Portal/login/speclist.php")
 
 tbls <- rvest::html_nodes(webpage, "table") %>% 
@@ -67,9 +71,9 @@ This is a handy package that requires a moderate amount of knowledge of `html` t
 
 
 
-## Exercise
+## Exercise {.unnumbered}
 
-### Question 1
+## Question 1
 
 ::: callout-note
 ## Read and explore data
@@ -104,7 +108,7 @@ summary(predator_survey)
 
 ```
 
-### Question 2 
+## Question 2 
 
 ::: callout-note
 ## How would you translate species codes into common names for one of the data frames?
@@ -124,7 +128,7 @@ predator_comm_names <- left_join(predator_survey,
 
 ```
 
-### Question 3
+## Question 3
 
 ::: callout-note
 ## Write a functions to add species common name to any data frame.
@@ -145,7 +149,7 @@ assign_species_name <- function(df, species){
 
 ```
 
-### Question 4
+## Question 4
 
 ::: callout-note
 ## Document your funtion inserting Roxygen skeleton and adding the necesary description.
@@ -175,7 +179,7 @@ assign_species_name <- function(df, species){
 
 ```
 
-### Question 5
+## Question 5
 
 ::: callout-note
 ## Use your function to clean names of each data frame
@@ -200,8 +204,9 @@ eggs_clean <- assign_species_name(egg_measures, species) %>%
     select(year, site, nestID, common_name, length, width)
 ```
 
+Congrats! Now you have clean data sets ready for analysis.
 
-
+## Challenge
 
 ::: callout-note
 ## Challenge
