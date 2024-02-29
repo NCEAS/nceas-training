@@ -51,7 +51,9 @@ species <- tbls[[1]] %>%
 head(species, 3)
 ```
 
-4.  Obtain data from the the Arctic Data Center [Utqiaġvik shorebird breeding ecology study, Utqiaġvik](https://doi.org/10.18739/A23R0PT35). Download the following files:
+**Note:** After running the chunk above you should have an object class `data.frame` in your global environment. Explore this data frame! What are the column names?
+
+4.  Obtain data from the the Arctic Data Center [Utqiaġvik shorebird breeding ecology study, Utqiaġvik](https://doi.org/10.18739/A23R0PT35). Make sure to click "_Show more items in this data set_" and then download the following files:
 
     -   `Utqiagvik_predator_surveys.csv`
     -   `Utqiagvik_nest_data.csv`
