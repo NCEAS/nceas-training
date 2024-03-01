@@ -390,6 +390,8 @@ We will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a b
 ```{r}
 #| message: false
 #| warning: false
+#| eval: false
+
 
 ggplot(data = pop_3338) +
     ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
