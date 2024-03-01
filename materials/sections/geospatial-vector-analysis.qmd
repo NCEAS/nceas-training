@@ -50,7 +50,7 @@ download.file(url = knb_url, destfile = 'shapefile_demo_data.zip')
 
 unzip('shapefile_demo_data.zip', exdir = 'data')
 
-file.remove('demo_data.zip')
+file.remove('shapefile_demo_data.zip')
 
 
 ```
