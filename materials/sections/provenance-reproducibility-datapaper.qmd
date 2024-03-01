@@ -11,6 +11,9 @@
 
 -->
 
+::: callout-tip
+In this lesson, we will be leveraging RMarkdown instead of Quarto so that we can use a very cool R package called `rticles`. Quarto has the same functionality as RMarkdown with `rticles` - making journal formatted articles from a code notebook - but it is done from the command line without additional R packages. See [the Quarto documentation](https://quarto.org/docs/journals/) for details
+:::
 
 ### Reproducible Research: Recap 
 
