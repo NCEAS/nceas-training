@@ -68,7 +68,7 @@ library(sf)
 library(ggplot2)
 library(leaflet)
 library(scales)
-library(ggmap)
+library(ggspatial)
 library(dplyr)
 ```
 :::
@@ -86,9 +86,13 @@ ak_regions <- read_sf("data/ak_regions_simp.shp")
 
 ```{r read_shp_sf}
 #| echo: false
+#| message: false
+#| warning: false
+
+library(here)
 
 # data is saved in a different folder than participants
-ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
+ak_regions <- read_sf(here("data/shapefiles/ak_regions_simp.shp"))
 
 ```
 
@@ -212,7 +216,7 @@ pop <- read_csv("data/alaska_population.csv")
 #| message: false
 
 # data is saved in a different folder than participants
-pop <- read_csv("data/shapefiles/alaska_population.csv")
+pop <- read_csv(here("data/shapefiles/alaska_population.csv"))
 ```
 
 **Turn `pop` into a spatial object**
@@ -298,11 +302,11 @@ The `group_by()` and `summarize()` functions can also be used on `sf` objects to
 Say we want to calculate the population by Alaska management area, as opposed to region.
 
 ```{r}
-pop_mgmt_338 <- pop_region_3338 %>%
+pop_mgmt_3338 <- pop_region_3338 %>%
     group_by(mgmt_area) %>%
     summarize(total_pop = sum(total_pop))
 
-plot(pop_mgmt_338["total_pop"])
+plot(pop_mgmt_3338["total_pop"])
 ```
 
 Notice that the region geometries were combined into a single polygon for each management area.
@@ -355,7 +359,7 @@ st_crs(rivers_3338)
 
 ```{r}
 #| eval: false
-rivers_3338 <- read_sf("data/ak_rivers_simp.shp")
+rivers_3338 <- read_sf(here("/data/shapefiles/ak_rivers_simp.shp"))
 st_crs(rivers_3338)
 ```
 
@@ -376,76 +380,48 @@ ggplot() +
     theme_bw() 
 ```
 
-## Incorporate base maps into static maps using `ggmap`
 
-The `ggmap` package has some functions that can render base maps (as raster objects) from open tile servers like Google Maps, Stamen, OpenStreetMap, and others.
+## Incorporate base maps into static maps using `ggspatial`
 
-We'll need to transform our shapefile with population data by community to `EPSG:3857` which is the `crs` used for rendering maps in Google Maps, Stamen, and OpenStreetMap, among others.
+The `ggspatial` package has a function that can add tile layers from a few predefined tile sources like OpenStreetMap. The tiles will get projected into the CRS of the `sf` object pass into geom_sf(). Therefore no transformation is needed in this case.
 
-```{r}
-pop_3857 <- pop_3338 %>%
-    st_transform(crs = 3857)
-```
-
-Next, let's grab a base map from the Stamen map tile server covering the region of interest. First we include a function that transforms the bounding box (which starts in `EPSG:4326`) to also be in the `EPSG:3857` CRS, which is the projection that the map raster is returned in from Stamen. This is an issue with `ggmap` described in more detail [here](https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208)
-
-```{r}
-#| message: false
-#| eval: false ## need to delete this when I get base map working
-
-# Define a function to fix the bbox to be in EPSG:3857
-# See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
-ggmap_bbox_to_3857 <- function(map) {
-    if (!inherits(map, "ggmap"))
-        stop("map must be a ggmap object")
-    # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector,
-    # and set the names to what sf::st_bbox expects:
-    map_bbox <- setNames(unlist(attr(map, "bb")),
-                         c("ymin", "xmin", "ymax", "xmax"))
-    
-    # Coonvert the bbox to an sf polygon, transform it to 3857,
-    # and convert back to a bbox (convoluted, but it works)
-    bbox_3857 <-
-        st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
-    
-    # Overwrite the bbox of the ggmap object with the transformed coordinates
-    attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
-    attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
-    attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
-    attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
-    map
-}
-```
-
-Next, we define the bounding box of interest, and use `get_stamenmap()` to get the basemap. Then we run our function defined above on the result of the `get_stamenmap()` call.
+We will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a base map to our map. This can take a couple of minutes to load.
 
 ```{r}
 #| message: false
 #| warning: false
-#| eval: false ## Need to delete this line
 
-bbox <- c(-170, 52,-130, 64) # this is roughly southern Alaska
-ak_map <- get_stamenmap(bbox, zoom = 4) # get base map
-ak_map_3857 <- ggmap_bbox_to_3857(ak_map) # fix the bbox to be in EPSG:3857
-
-ak_map_ggspatial <-  annotation_map_tile(zoomin = 4)
-
-```
-
-Finally, plot both the base raster map with the population data overlayed, which is easy now that everything is in the same projection (3857):
-
-```{r}
-#| message: false
-#| eval: false # need to delete this
-
-ggmap(ak_map_3857) +
-    geom_sf(data = pop_3857,
-            aes(color = population),
-            inherit.aes = F) +
-    scale_color_continuous(low = "khaki",
+ggplot(data = pop_3338) +
+    ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
+    geom_sf(aes(color = population),
+            fill = NA) +
+    scale_color_continuous(low = "darkkhaki",
                            high =  "firebrick",
                            labels = comma)
+
 ```
+
+```{r}
+#| echo: false
+#| eval: false
+
+## Potential way of plotting base maps with more basemap providers. Issue: cropping is right at the border of the western, norther, eastern and southern point. So plot looks funky.
+
+pop_osm <- maptiles::get_tiles(pop_3857, crop = TRUE) # retrieve maptiles
+
+
+ggplot(data = pop_3857) + # pop polygon layer
+  tidyterra::geom_spatraster_rgb(data = pop_osm) + #add basemap 
+  geom_sf(aes(color = population),  #add geometry
+          fill = NA)+
+    scale_color_continuous(low = "darkkhaki",
+                           high =  "firebrick",
+                           labels = comma)
+
+```
+
+
+
 
 ## Visualize `sf` objects with `leaflet`
 
@@ -554,3 +530,8 @@ There is a lot more functionality to `sf` including the ability to `intersect` p
 -   [sf github repo](https://github.com/r-spatial/sf)\
 -   [Tidy spatial data in R: using dplyr, tidyr, and ggplot2 with sf](http://strimas.com/r/tidy-sf/)\
 -   [mapping-fall-foliage-with-sf](https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/)
+
+
+## Basemaps Resources
+- Documentation for the [`ggmap` package](https://cran.r-project.org/web/packages/ggmap/readme/README.html)
+
