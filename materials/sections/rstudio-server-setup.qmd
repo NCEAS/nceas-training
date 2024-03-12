@@ -1,10 +1,12 @@
+## RStudio Setup
+
 ## Learning Objectives {.unnumbered}
 
 - Practice creating an R Project
 - Organize an R Project for effective project management
 - Understand how to move in an R Project using paths and working directories
 
-## Logon to the RStudio Server
+### Logon to the RStudio Server
 
 To prevent us from spending most of this lesson troubleshooting the myriad of issues that can arise when setting up the R, RStudio, and git environments, we have chosen to have everyone work on a remote server with all of the software you need installed. We will be using a special kind of RStudio just for servers called RStudio Server. If you have never worked on a remote server before, you can think of it like working on a different computer via the internet. Note that the server has no knowledge of the files on your local filesystem, but it is easy to transfer files from the server to your local computer, and vice-versa, using the RStudio server interface.
 
@@ -17,7 +19,7 @@ After you have successfully changed your password log in at: [https://included-c
 [![](images/included-crab-login.png)](https://included-crab.nceas.ucsb.edu/)
 :::
 
-## Create an R Project
+### Create an R Project
 
 In this course, we are going to be using an R project to organize our work. An R project is tied to a directory on your local computer, and makes organizing your work and collaborating with others easier.
 
@@ -29,14 +31,30 @@ In this course, we are going to be using an R project to organize our work. An R
 1. In the "File" menu, select "New Project"
 2. Click "New Directory"
 3. Click "New Project"
-4. Under “Directory name” type: `training_{USERNAME}` (i.e. `training_do-linh`)
+4. Under “Directory name” type: `training_{USERNAME}` (i.e. `training_vargas`)
 5. Leave "Create Project as subdirectory of:” set to `~`
 6. Click "Create Project"
 
 RStudio should open your new project automatically after creating it. One way to check this is by looking at the top right corner and checking for the project name.
 :::
 
-## Organizing an R Project
+::: {.callout-tip icon=false}
+## Sharing your project
+To share your project with the instructor team, locate the “project switcher” dropdown menu in the upper right of your RStudio window. This dropdown has the name of your project (eg: training_vargas), and a dropdown arrow. Click the dropdown menu, then “Share Project.” When the dialog box pops up, add the following usernames to your project:
+
+-   jclark
+-   mmklope
+-   achen
+-   jeakadi
+-   agarcia
+-   vargas-pouslen
+
+
+Once those names show up in the list, click “OK”.
+
+:::
+
+### Organizing an R Project
 
 
 When starting a new research project, one of the first things I do is create an R Project for it (just like we have here!). The next step is to then populate that project with relevant directories. There are many tools out there that can do this automatically. Some examples are `rrtools` or `usethis::create_package()`. The goal is to organize your project so that it is a compendium of your research. This means that the project has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
@@ -61,7 +79,7 @@ Directory organization will vary from project to project, but the ultimate goal 
 
 
 
-## Moving in an R Project using Paths & Working Directories
+### Moving in an R Project using Paths & Working Directories
 
 ![](images/allison-horst-pathways.png){fig-alt="Artwork by Allison Horst. A cartoon of a cracked glass cube looking frustrated with casts on its arm and leg, with bandaids on it, containing “setwd,” looks on at a metal riveted cube labeled “R Proj” holding a skateboard looking sympathetic, and a smaller cube with a helmet on labeled “here” doing a trick on a skateboard."}
 
@@ -69,18 +87,19 @@ Now that we have your project created (and notice we know it’s an R Project be
 
 There are two types of paths in computing: **absolute paths** and **relative paths**.
 
-- An **absolute path** always starts with the root of your file system and locates files from there. The absolute path to my project directory is: `/home/do-linh/training_do-linh`
+- An **absolute path** always starts with the root of your file system and locates files from there. The absolute path to my project directory is: `/home/vargas-poulsen/training_vargas`
 
 - **Relative paths** start from some location in your file system that is below the root. Relative paths are combined with the path of that location to locate files on your system. R (and some other languages like MATLAB) refer to the location where the relative path starts as our **working directory**.
 
-**RStudio projects automatically set the working directory to the directory of the project**. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the data directory within my project, I can simply type `read.csv("data/samples.csv")` as opposed to `read.csv("/home/do-linh/training_do-linh/data/samples.csv")`.
+**RStudio projects automatically set the working directory to the directory of the project**. This means that you can reference files from within the project without worrying about where the project directory itself is. If I want to read in a file from the data directory within my project, I can simply type `read.csv("data/samples.csv")` as opposed to `read.csv("/home/vargas-poulsen/training_vargas/data/samples.csv")`.
 
-This is not only convenient for you, but also when working collaboratively. We will talk more about this later, but if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `/home/do-linh/training_do-linh/data/samples.csv` to `/home/jones/training_jones/data/samples.csv`.
+This is not only convenient for you, but also when working collaboratively. We will talk more about this later, but if Matt makes a copy of my R project that I have published on GitHub, and I am using relative paths, he can run my code exactly as I have written it, without going back and changing `/home/vargas-poulsen/training_vargas/data/samples.csv` to `/home/jones/training_jones/data/samples.csv`.
 
 Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
 
 Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
 
+<!--
 ## Setting up R and RStudio on your Computer {#rstudio-personal-setup}
 
 ### Check your R Version
@@ -127,3 +146,6 @@ rm(course_packages) # remove object from Global Environment
 update.packages(ask=FALSE)
 
 ```
+
+-->
+

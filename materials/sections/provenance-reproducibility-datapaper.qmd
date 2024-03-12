@@ -4,8 +4,15 @@
 - Learn how to use R to package your work by building a reproducible paper in RMarkdown/Quarto
 - Introduce tools and techniques for reproducibility supported by the NCEAS and DataONE
 
+<!--
 :::callout-note
 [Download slides](files/repro-sci.pdf)
+:::
+
+-->
+
+::: callout-tip
+In this lesson, we will be leveraging RMarkdown instead of Quarto so that we can use a very cool R package called `rticles`. Quarto has the same functionality as RMarkdown with `rticles` - making journal formatted articles from a code notebook - but it is done from the command line without additional R packages. See [the Quarto documentation](https://quarto.org/docs/journals/) for details
 :::
 
 ### Reproducible Research: Recap 
@@ -210,6 +217,28 @@ What if I want a template from another journal, different from the Journal of Ar
 ### RMarkdown templates with `rticles`
 
 The [`rticles`](https://github.com/rstudio/rticles%20B) package provides a lot of other great templates for formatting your paper specifically to the requirements of many journals. In addition to a custom CSL file for reference customization, `rticles` supports custom LATeX templates that fit the formatting requirements of each journals. 
+
+:::callout-important
+## Tinytex and rendering to PDF
+To be able to render your document to PDF you need to have `tinytex` installed in your machine.
+
+In the console run:
+
+
+```{r}
+#| eval: false
+#| 
+install.packages('tinytex') ## this package is already installed in our server
+
+tinytex::install_tinytex() ## this may take several minutes
+
+```
+
+
+
+:::
+
+
 
 ::: callout-tip
 

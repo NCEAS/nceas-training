@@ -7,6 +7,7 @@ bibliography: book.bib
 -   Practice using common cleaning and wrangling functions
 -   Practice creating plots using common visualization functions in `ggplot`
 -   Practice saving and sharing data visualizations
+-   Practice Git and GitHub workflow and collaborating with a collegue
 
 ::: callout-note
 ## Acknowledgements
@@ -25,8 +26,8 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 
 1.  Create a new repository with a partner
     a.  Determine who is the Owner and who is the Collaborator
-    b.  The Owner creates a repository on GitHub titled with both your names (i.e. If Halina and Camila were partners, and Halina is the Owner, she would create a repo called `halina-camila`)
-        i.  When creating the repository, add a brief description (i.e. coreR R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
+    b.  The Owner creates a repository on GitHub titled with both your names (i.e. If Angel and Camila were partners, and Angel is the Owner, she would create a repo called `angel-camila`)
+        i.  When creating the repository, add a brief description (i.e. R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
     c.  The Owner adds the Collaborator to the repo
     d.  Both the Collaborator and the Owner clone the repo into their RStudio
     e. Both the Collaborator and the Owner run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
@@ -111,7 +112,7 @@ Make sure your Quarto Document is well organized and includes the following elem
     - add alternative text to your plots
     - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
 
-Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 11](https://learning.nceas.ucsb.edu/2023-10-coreR/session_11.html) for steps on how to publish using GitHub pages.
+Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 11](https://learning.nceas.ucsb.edu/2024-02-arctic/session_10.html) for steps on how to publish using GitHub pages.
 
 
 ## Bonus: Add marine protected area (MPA) designation to the data

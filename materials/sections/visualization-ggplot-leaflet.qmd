@@ -41,13 +41,11 @@ Let's dive into creating and customizing plots with `ggplot2`.
 library(readr)
 library(dplyr)
 library(tidyr)
-library(forcats) # makes working with factors easier
 library(ggplot2)
+library(janitor) # expedite cleaning and exploring data
+library(scales) # scale functions for visualization
 library(leaflet) # interactive maps
 library(DT) # interactive tables
-library(scales) # scale functions for visualization
-library(janitor) # expedite cleaning and exploring data
-library(viridis) # colorblind friendly color pallet
 
 ```
 
@@ -316,8 +314,8 @@ ggplot(annual_esc_2000s,
 
 Now let's work on making this plot look a bit nicer. We are going to"
 
-- Add a title using `ggtitle()`
-- Adjust labels using `ylab()`
+- Add a title using `labs()`
+- Adjust labels using `labs()`
 - Include a built in theme using `theme_bw()`
 
 There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
@@ -332,8 +330,8 @@ ggplot(annual_esc_2000s,
     geom_point() +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     theme_bw()
 ```
 
@@ -374,8 +372,8 @@ ggplot(annual_esc_2000s,
     geom_point() +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     theme_light() +
     theme(legend.position = "bottom",
           legend.title = element_blank())
@@ -404,8 +402,8 @@ ggplot(annual_esc_2000s,
     geom_point() +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     my_theme
 ```
 
@@ -439,8 +437,8 @@ ggplot(annual_esc_2000s,
     scale_x_continuous(breaks = seq(2000, 2016, 2)) +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -466,8 +464,8 @@ ggplot(annual_esc_2000s,
     scale_y_continuous(labels = comma) +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -489,9 +487,8 @@ annual_region_plot <- ggplot(annual_esc_2000s,
     scale_y_continuous(labels = comma) +
     facet_wrap( ~ sasap_region,
                 scales = "free_y") +
-    ylab("Escapement") +
-    xlab("\nYear") +
-    ggtitle("Annual Salmon Escapement by Region") +
+    labs(title = "Annual Salmon Escapement by Region",
+         y = "Escapement") +
     my_theme +
     theme(axis.text.x = element_text(angle = 45,
                                      vjust = 0.5))
@@ -504,6 +501,7 @@ annual_region_plot
 ```
 
 
+
 #### Reordering things
 
 `ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted if you have categorical groups. Let’s find some total years of data by species for Kuskokwim.
@@ -513,7 +511,7 @@ annual_region_plot
 #| message: false
 
 ## Number Years of data for each salmon species at Kuskokwim
-n_years <- annual_esc %>%
+n_years_kusk <- annual_esc %>%
     group_by(sasap_region, species) %>%
     summarize(n = n()) %>%
     filter(sasap_region == "Kuskokwim")
@@ -523,21 +521,21 @@ Now let's plot this using `geom_bar()`.
 
 ```{r}
 ## base plot
-ggplot(n_years,
+ggplot(n_years_kusk,
        aes(x = species,
            y = n)) +
     geom_bar(aes(fill = species),
              stat = "identity")
 ```
 
-Now, let's apply some of the customizations we have seen so far and learn some new ones.
+Now, let's apply some of the customization we have seen so far and learn some new ones.
 
 ```{r}
 
 ## Reordering, flipping coords and other customization
-ggplot(n_years,
+ggplot(n_years_kusk,
        aes(
-           x = fct_reorder(species, n),
+           x = order(species, n),
            y = n,
            fill = species
        )) +

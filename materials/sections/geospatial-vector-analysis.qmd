@@ -40,20 +40,25 @@ The spatial data we will be using to create the map are:
 
 1.  Navigate to [this dataset](https://dev.nceas.ucsb.edu/view/urn:uuid:6f07cb25-a4a1-48e8-95cb-74f532f3ce2d) on KNB's test site and download the zip folder.
 2.  Upload the zip folder to the `data` folder in the `training_{USERNAME}` project. You don't need to unzip the folder ahead of time, uploading will automatically unzip the folder.
-    a. Alternatively, programatically download and extract the demo data with:
+    a. Alternatively, programatically download and extract the demo data with: <!--CHECK-->
     
 ```{r}
 #| eval: false
-knb_url <- 'https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58'
-download.file(url = knb_url, destfile = 'demo_data.zip')
-unzip('demo_data.zip', exdir = 'data')
-file.remove('demo_data.zip')
+knb_url <- "https://dev.nceas.ucsb.edu/knb/d1/mn/v2/object/urn%3Auuid%3Aaceaecb2-1ce0-4d41-a839-d3607d32bb58"
+
+download.file(url = knb_url, destfile = 'shapefile_demo_data.zip')
+
+unzip('shapefile_demo_data.zip', exdir = 'data')
+
+file.remove('shapefile_demo_data.zip')
+
+
 ```
 
-3.  Create a new R Markdown file.
-    a.  Title it "Intro to sf package for Spatial Data and Making Maps"
-    b.  Save the file and name it "intro-sf-spatial-data-maps".
-4.  Load the following libraries at the top of your R Markdown file.
+3.  Create a new Quarto file.
+    a.  Title it "Working with Spatial Data in R"
+    b.  Save the file and name it "intro-to-spatial-data".
+4.  Load the following libraries at the top of your Quarto file.
 
 ```{r}
 #| warning: false
@@ -63,7 +68,7 @@ library(sf)
 library(ggplot2)
 library(leaflet)
 library(scales)
-library(ggmap)
+library(ggspatial)
 library(dplyr)
 ```
 :::
@@ -81,9 +86,14 @@ ak_regions <- read_sf("data/ak_regions_simp.shp")
 
 ```{r read_shp_sf}
 #| echo: false
+#| message: false
+#| warning: false
+
+library(here)
 
 # data is saved in a different folder than participants
-ak_regions <- read_sf("data/shapefiles/ak_regions_simp.shp")
+ak_regions <- read_sf(here("data/shapefiles/ak_regions_simp.shp"))
+
 ```
 
 ```{r}
@@ -99,9 +109,9 @@ class(ak_regions)
 
 `sf` objects usually have two types of classes: `sf` and `data.frame`.
 
-Unlike a typical `data.frame`, an `sf` object has spatial metadata (`geometry type`, `dimension`, `bbox`, `epsg (SRID)`, `proj4string`) and an additional column typically named `geometry` that contains the spatial data.
-
 Since our shapefile object has the `data.frame` class, viewing the contents of the object using the `head()` function or other exploratory functions shows similar results as if we read in data using `read.csv()` or `read_csv()`.
+
+But, unlike a typical `data.frame`, an `sf` object has spatial metadata (`geometry type`, `dimension`, `bbox`, `epsg (SRID)`, `proj4string`) and an additional column typically named `geometry` that contains the spatial data.
 
 ```{r}
 #| message: false
@@ -206,7 +216,7 @@ pop <- read_csv("data/alaska_population.csv")
 #| message: false
 
 # data is saved in a different folder than participants
-pop <- read_csv("data/shapefiles/alaska_population.csv")
+pop <- read_csv(here("data/shapefiles/alaska_population.csv"))
 ```
 
 **Turn `pop` into a spatial object**
@@ -232,7 +242,9 @@ In this case, we want to find what region each city falls within, so we will use
 
 ```{r}
 #| eval: false
-pop_joined <- st_join(pop_4326, ak_regions_3338, join = st_within)
+pop_joined <- st_join(pop_4326, 
+                      ak_regions_3338, 
+                      join = st_within)
 ```
 
 This gives an error!
@@ -244,11 +256,14 @@ Error: st_crs(x) == st_crs(y) is not TRUE
 Turns out, this won't work right now because our coordinate reference systems are not the same. Luckily, this is easily resolved using `st_transform()`, and projecting our population object into Alaska Albers.
 
 ```{r}
-pop_3338 <- st_transform(pop_4326, crs = 3338)
+pop_3338 <- st_transform(pop_4326, 
+                         crs = 3338)
 ```
 
 ```{r}
-pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
+pop_joined <- st_join(pop_3338, 
+                      ak_regions_3338, 
+                      join = st_within)
 
 head(pop_joined)
 ```
@@ -261,7 +276,7 @@ There are many different types of joins you can do with geospatial data. Examine
 
 **3. Calculate the total population by region using `group_by()` and `summarize()`**
 
-Next we compute the total population for each region. In this case, we want to do a `group_by()` and `summarise()` as this were a regular `data.frame`. Otherwise all of our point geometries would be included in the aggregation, which is not what we want. Our goal is just to get the total population by region. We remove the sticky geometry using `as.data.frame()`, on the advice of the `sf::tidyverse` help page.
+Next we compute the total population for each region. In this case, we want to do a `group_by()` and `summarize()` as this were a regular `data.frame`. Otherwise all of our point geometries would be included in the aggregation, which is not what we want. Our goal is just to get the total population by region. We remove the sticky geometry using `as.data.frame()`, on the advice of the `sf::tidyverse` help page.
 
 ```{r}
 pop_region <- pop_joined %>%
@@ -275,7 +290,9 @@ head(pop_region)
 And use a regular `left_join()` to get the information back to the Alaska region shapefile. Note that we need this step in order to regain our region geometries so that we can make some maps.
 
 ```{r}
-pop_region_3338 <- left_join(ak_regions_3338, pop_region, by = "region")
+pop_region_3338 <- left_join(ak_regions_3338, 
+                             pop_region, 
+                             by = "region")
 
 # plot to check
 plot(pop_region_3338["total_pop"])
@@ -292,11 +309,11 @@ The `group_by()` and `summarize()` functions can also be used on `sf` objects to
 Say we want to calculate the population by Alaska management area, as opposed to region.
 
 ```{r}
-pop_mgmt_338 <- pop_region_3338 %>%
+pop_mgmt_3338 <- pop_region_3338 %>%
     group_by(mgmt_area) %>%
     summarize(total_pop = sum(total_pop))
 
-plot(pop_mgmt_338["total_pop"])
+plot(pop_mgmt_3338["total_pop"])
 ```
 
 Notice that the region geometries were combined into a single polygon for each management area.
@@ -320,7 +337,7 @@ Save the spatial object to disk using `write_sf()` and specifying the filename. 
 write_sf(pop_region_3338, "data/ak_regions_population.shp")
 ```
 
-### Visualize with `ggplot`
+## Visualize with `ggplot`
 
 `ggplot2` now has integrated functionality to plot sf objects using `geom_sf()`.
 
@@ -337,7 +354,10 @@ ggplot(pop_region_3338) +
     theme_bw()
 ```
 
-We can also plot multiple shapefiles in the same plot. Say if we want to visualize rivers in Alaska, in addition to the location of communities, since many communities in Alaska are on rivers. We can read in a rivers shapefile, doublecheck the `crs` to make sure it is what we need, and then plot all three shapefiles - the regional population (polygons), the locations of cities (points), and the rivers (linestrings).
+We can also plot multiple shapefiles in the same plot. Say if we want to visualize rivers in Alaska, in addition to the location of communities, since many communities in Alaska are on rivers. We can read in a rivers shapefile, doublecheck the `crs` to make sure it is what we need, and then plot all three shapefiles 
+-    the regional population (polygons), 
+-   the locations of cities (points), and 
+-   the rivers (linestrings).
 
 ```{r}
 #| echo: false
@@ -349,7 +369,7 @@ st_crs(rivers_3338)
 
 ```{r}
 #| eval: false
-rivers_3338 <- read_sf("data/ak_rivers_simp.shp")
+rivers_3338 <- read_sf("/data/shapefiles/ak_rivers_simp.shp")
 st_crs(rivers_3338)
 ```
 
@@ -357,11 +377,14 @@ Note that although no EPSG code is set explicitly, with some sluething we can de
 
 ```{r}
 ggplot() +
-    geom_sf(data = pop_region_3338, aes(fill = total_pop)) +
-    geom_sf(data = pop_3338, size = 0.5) +
+    geom_sf(data = pop_region_3338, 
+            aes(fill = total_pop)) +
+    geom_sf(data = pop_3338, 
+            size = 0.5) +
     geom_sf(data = rivers_3338,
             aes(linewidth = StrOrder)) +
-    scale_linewidth(range = c(0.05, 0.5), guide = "none") +
+    scale_linewidth(range = c(0.05, 0.5), 
+                    guide = "none") +
     labs(title = "Total Population by Alaska Region",
          fill = "Total Population") +
     scale_fill_continuous(low = "khaki",
@@ -370,69 +393,48 @@ ggplot() +
     theme_bw() 
 ```
 
-## Incorporate base maps into static maps using `ggmap`
 
-The `ggmap` package has some functions that can render base maps (as raster objects) from open tile servers like Google Maps, Stamen, OpenStreetMap, and others.
+### Incorporate base maps into static maps using `ggspatial`
 
-We'll need to transform our shapefile with population data by community to `EPSG:3857` which is the `crs` used for rendering maps in Google Maps, Stamen, and OpenStreetMap, among others.
+The `ggspatial` package has a function that can add tile layers from a few predefined tile sources like OpenStreetMap. The tiles will get projected into the CRS of the `sf` object pass into geom_sf(). Therefore no transformation is needed in this case.
 
-```{r}
-pop_3857 <- pop_3338 %>%
-    st_transform(crs = 3857)
-```
-
-Next, let's grab a base map from the Stamen map tile server covering the region of interest. First we include a function that transforms the bounding box (which starts in `EPSG:4326`) to also be in the `EPSG:3857` CRS, which is the projection that the map raster is returned in from Stamen. This is an issue with `ggmap` described in more detail [here](https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208)
-
-```{r}
-#| message: false
-
-# Define a function to fix the bbox to be in EPSG:3857
-# See https://github.com/dkahle/ggmap/issues/160#issuecomment-397055208
-ggmap_bbox_to_3857 <- function(map) {
-    if (!inherits(map, "ggmap"))
-        stop("map must be a ggmap object")
-    # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector,
-    # and set the names to what sf::st_bbox expects:
-    map_bbox <- setNames(unlist(attr(map, "bb")),
-                         c("ymin", "xmin", "ymax", "xmax"))
-    
-    # Coonvert the bbox to an sf polygon, transform it to 3857,
-    # and convert back to a bbox (convoluted, but it works)
-    bbox_3857 <-
-        st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
-    
-    # Overwrite the bbox of the ggmap object with the transformed coordinates
-    attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
-    attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
-    attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
-    attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
-    map
-}
-```
-
-Next, we define the bounding box of interest, and use `get_stamenmap()` to get the basemap. Then we run our function defined above on the result of the `get_stamenmap()` call.
+We will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a base map to our map. This can take a couple of minutes to load.
 
 ```{r}
 #| message: false
 #| warning: false
+#| eval: false
 
-bbox <- c(-170, 52,-130, 64) # this is roughly southern Alaska
-ak_map <- get_stamenmap(bbox, zoom = 4) # get base map
-ak_map_3857 <- ggmap_bbox_to_3857(ak_map) # fix the bbox to be in EPSG:3857
-```
 
-Finally, plot both the base raster map with the population data overlayed, which is easy now that everything is in the same projection (3857):
-
-```{r}
-#| message: false
-ggmap(ak_map_3857) +
-    geom_sf(data = pop_3857,
-            aes(color = population),
-            inherit.aes = F) +
-    scale_color_continuous(low = "khaki",
+ggplot(data = pop_3338) +
+    ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
+    geom_sf(aes(color = population),
+            fill = NA) +
+    scale_color_continuous(low = "darkkhaki",
                            high =  "firebrick",
                            labels = comma)
+
 ```
+
+```{r}
+#| echo: false
+#| eval: false
+
+## Potential way of plotting base maps with more basemap providers. Issue: cropping is right at the border of the western, norther, eastern and southern point. So plot looks funky.
+
+pop_osm <- maptiles::get_tiles(pop_3857, crop = TRUE) # retrieve maptiles
+
+
+ggplot(data = pop_3857) + # pop polygon layer
+  tidyterra::geom_spatraster_rgb(data = pop_osm) + #add basemap 
+  geom_sf(aes(color = population),  #add geometry
+          fill = NA)+
+    scale_color_continuous(low = "darkkhaki",
+                           high =  "firebrick",
+                           labels = comma)
+
+```
+
 
 ## Visualize `sf` objects with `leaflet`
 
@@ -460,7 +462,8 @@ st_crs(pop_region_3338)
 Since `leaflet` requires that we use an unprojected coordinate system, let's use `st_transform()` yet again to get back to WGS84.
 
 ```{r}
-pop_region_4326 <- pop_region_3338 %>% st_transform(crs = 4326)
+pop_region_4326 <- pop_region_3338 %>% 
+    st_transform(crs = 4326)
 ```
 
 ```{r}
@@ -541,3 +544,8 @@ There is a lot more functionality to `sf` including the ability to `intersect` p
 -   [sf github repo](https://github.com/r-spatial/sf)\
 -   [Tidy spatial data in R: using dplyr, tidyr, and ggplot2 with sf](http://strimas.com/r/tidy-sf/)\
 -   [mapping-fall-foliage-with-sf](https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/)
+
+
+## Basemaps Resources
+- Documentation for the [`ggmap` package](https://cran.r-project.org/web/packages/ggmap/readme/README.html)
+

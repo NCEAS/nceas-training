@@ -1,9 +1,11 @@
+## Git and GitHub Setup
+
 ## Learning Objectives {.unnumbered}
 
 -   Set global options in your `.gitconfig` file
 -   Practice how to set up GitHub Authentication using a Personal Access Token (PAT)
 
-## Set up global options in Git
+### Set up global options in Git
 
 Before using Git, you need to tell it who you are, also known as setting the **global options**. To do this, we will be setting the global options in the Terminal. 
 
@@ -67,7 +69,7 @@ Finally, check to make sure everything looks correct by entering this command, w
 git config --global --list
 ```
 
-## GitHub Authentication
+### GitHub Authentication
 
 GitHub recently deprecated password authentication for accessing repositories, so we need to set up a secure way to authenticate. 
 

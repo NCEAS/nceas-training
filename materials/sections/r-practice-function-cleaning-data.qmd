@@ -1,0 +1,272 @@
+## Learning Objectives {.unnumbered}
+
+-   Integrate knowledge on writing functions in R
+-   Understand how functions can be used when cleaning data
+
+
+## About the data {.unnumbered}
+
+For this practice session we will use data on shorebird breeding ecology collected in Utqiaġvik, Alaska, 2003-2018 by Richard Lanctot and Sarah Saalfeld. This data is publicly available at the Arctic Data Center.
+
+-   [Richard Lanctot and Sarah Saalfeld. 2019. Utqiaġvik shorebird breeding ecology study, Utqiaġvik, Alaska, 2003-2018. Arctic Data Center. doi:10.18739/A23R0PT35](https://doi.org/10.18739/A23R0PT35)
+
+
+One of the features if this dataset is that it has many files with similar formatting, most of which contain the column `species` which is comprised of the [Bird Banding Laboratory species codes](https://www.usgs.gov/labs/bird-banding-laboratory/science/understanding-bbl-codes). These four letter codes aren't very intuitive to most people, so the main goal for this session is to write a function that can be used on any file in this dataset that contains a species code.
+
+
+::: callout-tip
+## Setup
+
+0. Make sure you’re in the right project (`training_{USERNAME}`) and use the Git workflow by `Pull`ing to check for any changes in the remote repository (aka repository on GitHub). 
+1. Create a new Quarto Document.
+    a. Title it “R Practice: Functions”.
+    b. Save the file and name it “r-practice-functions”.
+
+2.  Insert a Setup r chunck and load the necessary libraries. Note here we introduce a new package called `rvest`. This package enables easy scraping and handling of information from websites.
+
+```{r}
+#| code-fold: false
+
+library(rvest)
+library(readr)
+library(dplyr)
+library(janitor)
+```
+
+3. Load the species table using the following code. This code scrapes a table from a url and uses some cleaning and wrangling functions to get the table into our Environment in the format we want.
+
+```{r}
+#| code-fold: false
+
+webpage <- rvest::read_html("https://www.pwrc.usgs.gov/BBL/Bander_Portal/login/speclist.php")
+
+tbls <- rvest::html_nodes(webpage, "table") %>% 
+    rvest::html_table(fill = TRUE)
+
+species <- tbls[[1]] %>% 
+    janitor::clean_names() %>% 
+    select(alpha_code, common_name) %>% 
+    mutate(alpha_code = tolower(alpha_code))
+
+head(species, 3)
+```
+
+**Note:** After running the chunk above you should have an object class `data.frame` in your global environment. Explore this data frame! What are the column names?
+
+4.  Obtain data from the the Arctic Data Center [Utqiaġvik shorebird breeding ecology study, Utqiaġvik](https://doi.org/10.18739/A23R0PT35). Make sure to click "_Show more items in this data set_" and then download the following files:
+
+    -   `Utqiagvik_predator_surveys.csv`
+    -   `Utqiagvik_nest_data.csv`
+    -   `Utqiagvik_egg_measurements.csv`
+    
+**Note:** It's up to you on how you want to download and load the data! You can either use the download links (obtain by right-clicking the "Download" button and select "Copy Link Address" for each data entity) or manually download the data and then upload the files to RStudio server.
+
+5. Use the Git workflow. After you’ve set up your project and uploaded your data go through the workflow: ```Stage (add) -> Commit -> Pull -> Push```
+
+:::
+
+
+::: {.callout-caution icon="false"}
+## A note on `rvest`
+This is a handy package that requires a moderate amount of knowledge of `html` to use. We used it here because we don't have a plain text version of the BBL species codes. Ideally, to build a reproducible and long lived workflow, we would want to run this code and then store a plain text version of the data in a long lived location, which cites the original source appropriately.
+:::
+
+
+
+## Exercise {.unnumbered}
+
+## Question 1
+
+::: callout-note
+## Read and explore data
+Read in each data file and store the data frame as `nest_data`, `predator_survey`, and `egg_measures` accordingly. After reading the data, insert a new chunk or in the console, explore the data using any function we have used during the lessons (eg. `colname()`, `glimpse()`)
+
+::: 
+
+```{r}
+#| code-summary: "Answer"
+
+## When reading from a file in your data folder in your Rpoj
+nest_data <-  read_csv("data/Utqiagvik_nest_data.csv")
+
+predator_survey <- read_csv("data/	Utqiagvik_predator_surveys.csv")
+
+egg_measures <- read_csv("data/Utqiagvik_egg_measurements.csv")
+
+
+## When reading using the url
+nest_data <-  read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A982bd2fc-4edf-4da7-96ef-0d11b853102d")
+
+predator_survey <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
+
+egg_measures <- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A4b219711-2282-420a-b1d6-1893fe4a74a6")
+
+## Exploring the data (these functions can also be used to explore nest_data & egg_measures) 
+
+colnames(predator_survey)
+glimpse(predator_survey)
+unique(predator_survey$species)
+summary(predator_survey)
+
+```
+
+## Question 2 
+
+::: callout-note
+## How would you translate species codes into common names for one of the data frames?
+
+Before thinking of how to write a function, first discuss what are you trying to achieve and how would you get there. Write and run the code that would allow you to combine the `species` data frame with the `predator_survey` so that the outcome data frame has the species code and common names.
+
+**Hint:** `joins`
+    
+:::
+
+```{r}
+#| code-summary: "Answer"
+
+predator_comm_names <- left_join(predator_survey,
+                                 species,
+                                 by = c("species" = "alpha_code"))
+
+```
+
+## Question 3
+
+::: callout-note
+## Write a functions to add species common name to any data frame.
+How can you generalize the code from the previous question and make it into a function?
+
+The idea is that you can use this function in **any data frame** that has a column named `species` with the Bird Banding Laboratory Species Code.
+
+:::
+
+
+```{r}
+#| code-summary: "Answer"
+
+assign_species_name <- function(df, species){
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    return(return_df)
+}
+
+```
+
+## Question 4
+
+::: callout-note
+## Document your funtion inserting Roxygen skeleton and adding the necesary description.
+
+Place the cursor inside your function, In the top menu go to Code > Insert Roxygen skeleton. Document parameters, return and write one example. 
+
+:::
+
+```{r}
+#| code-summary: "Answer"
+
+#' Title
+#'
+#' @param df A data frame containing BBL species codes in column `species`
+#' @param species A data frame defining BBL species codes with columns `alpha_code` and `common_name` 
+#'
+#' @return A data frame with original data df, plus the common name of species
+#' @export
+#'
+#' @examples `*provide an example*`
+
+
+assign_species_name <- function(df, species){
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    return(return_df)
+}
+
+```
+
+## Question 5
+
+::: callout-note
+## Use your function to clean names of each data frame
+
+Create clean versions of the three data frames by applying the function you created and removing columns that you think are note necessary(aka selecting the ones you want to keep) and filter out `NA` values.
+
+:::
+
+```{r}
+#| code-summary: "Answer"
+ 
+## This is one solution. 
+predator_clean <- assign_species_name(predator_survey, species) %>% 
+    select(year, site, date, common_name, count) %>% 
+    filter(!is.na(common_name))
+
+nest_location_clean <- assign_species_name(nest_data, species) %>% 
+    select(year, site, nestID, common_name, lat_corrected, long_corrected) %>% 
+    filter(!is.na(common_name))
+
+eggs_clean <- assign_species_name(egg_measures, species) %>% 
+    select(year, site, nestID, common_name, length, width) %>% 
+    filter(!is.na(common_name))
+
+```
+
+Congrats! Now you have clean data sets ready for analysis.
+
+## Optional Challenge
+
+::: callout-note
+## Challenge
+
+For a little extra challenge, try to incorporate an `if` statement that looks for `NA` values in the common name field you are adding. What other conditionals might you include to make your function smarter?
+:::
+
+```{r}
+#| code-summary: "Answer"
+
+#' Function to add common name to data.frame according to the BBL list of species codes
+
+#' @param df A data frame containing BBL species codes in column `species`
+#' @param species A data frame defining BBL species codes with columns `alpha_code` and `common_name`
+#' @return A data frame with original data df, plus the common name of species
+
+assign_species_name <- function(df, species){
+    if (!("alpha_code" %in% names(species)) |
+        !("species" %in% names(df)) |
+        !("common_name" %in% names(species))){
+      stop("Tables appear to be formatted incorrectly.")
+    }  
+  
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    
+    if (nrow(return_df) > nrow(df)){
+      warning("Joined table has more rows than original table. Check species table for duplicated code values.")
+    }
+    
+    if (length(which(is.na(return_df$common_name))) > 0){
+      x <- length(which(is.na(return_df$common_name)))
+      warning(paste("Common name has", x, "rows containing NA"))
+    }
+    
+    return(return_df)
+        
+}
+
+```
+
+
+
+::: {.callout-caution icon="false"}
+
+## Why do we need to use a function for this task?
+
+You will likely at some point realize that the function we asked you to write is pretty simple. The code can in fact be accomplished in a single line. So why write your own function for this? There are a couple of answers. The first and most obvious is that we want to you practice writing function syntax with simple examples. But there are other reasons why this operation might benefit from a function:
+
+* Follow the DRY principles!
+    - If you find yourself doing the same cleaning steps on many of your data files, over and over again, those operations are good candidates for functions. This falls into that category, since we need to do the same transformation on all of the files we use here, and if we incorporated more files from the dataset it would come in even more use.
+* Add custom warnings and quality control.
+    - Functions allow you to incorporate quality control through conditional statements coupled with warnings. Instead of checking for NA's or duplicated rows after you run a join, you can check within the function and return a warning if any are found.
+* Check your function input more carefully
+    - Similar to custom warnings, functions allow you to create custom errors too. Writing functions is a good way to incorporate defensive coding practices, where potential issues are looked for and the process is stopped if they are found.
+
+:::
+
+
+

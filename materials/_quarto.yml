@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "Fundamentals in Data Management for Qualitative and Quantitative Arctic Research"
+  title: "Reproducible Approaches to Arctic Research Using R"
   # date: "January 22-26, 2024"
   reader-mode: false
   
@@ -23,28 +23,31 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2024-01-arctic
+        href: https://github.com/NCEAS/nceas-training/tree/2024-02-arctic
   
   chapters:
     - index.qmd # preface 
     - session_01.qmd # ADC intro
-    - session_02.qmd # r setup 
-    - session_03.qmd # intro to R programming
-    - session_04.qmd # Thinking preferencees + Social aspects of collab
-    - session_05.qmd # DMP
-    - session_06.qmd # Literate analysis
-    - session_07.qmd # ADC-Fundamental practice 1 
-    - session_08.qmd # Data Modeling Essentials
-    - session_09.qmd # Cleaning and Wrangling
-    - session_10.qmd # intro data viz
-    - session_11.qmd # Ethical Data Collection
-    - session_12.qmd # ADC-Fundamentals practice 2
-    - session_13.qmd # text data
-    - session_18.qmd # census data
-    - session_14.qmd # metadata best practices & publishing
-    - session_15.qmd # data portals
-    - session_16.qmd # Survey Workflows
-    - session_17.qmd # Repro and Provenance
+    - session_02.qmd # r & git setup 
+    - session_03.qmd # Literate analysis
+    - session_04.qmd # DMP
+    - session_05.qmd # Documenting and publishing data
+    - session_06.qmd # Intro to Git
+    - session_07.qmd # data modeling essentials
+    - session_08.qmd # Cleaning and Wrangling 
+    - session_09.qmd # collaborating with git
+    - session_10.qmd # publising to the web
+    - session_11.qmd # intro data viz
+    - session_12.qmd # practice session I
+    - session_13.qmd # Thinking Preferences
+    - session_14.qmd # Social Aspects of collab
+    - session_15.qmd # Functions
+    - session_16.qmd # Packages
+    - session_17.qmd # Practice Session II
+    - session_18.qmd # Data Portals
+    - session_19.qmd # Spatial Data
+    - session_20.qmd # Repro and Provenance
+    
   
 
 bibliography: book.bib
