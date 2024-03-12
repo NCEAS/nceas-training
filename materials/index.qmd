@@ -1,112 +1,42 @@
 <!-- # Preface {.unnumbered} -->
 
-*February 26 - March 1, 2024*
+*Week 3: March 25 - March 37, 2024*
 
 
 ::: column-margin
-![](images/arctic-data-center.png){width="80%" fig-align="center"}
-:::
 
-::: column-margin
 ![](cover.png){width="80%" fig-align="center"}
+
+![](images/logo-ucsb-office-research.png){width="80%" fig-align="center"}
+
 :::
 
 ## About the course {.unnumbered}
 
-Welcome to the Reproducible Practices for Arctic Research Using R course. In recent years we have adapted this course to be able to offer a fully remote opportunity. This has allowed us to expand our pool of participants taking our courses. Although we have had to switch to a remote training model, we ask participants to be as engaged during the instructional period while understanding conflicts are unavoidable. Your engagement and participation are crucial to make the best of this learning experience.
+Hosted by the [National Center for Ecological Anlysis and Synthesis (NCEAS)](https://www.nceas.ucsb.edu/) and in partnership with [UCSB's Office of Research](https://www.research.ucsb.edu/), this seminar series is a training program where participants engage in synthesis research in a small cohort. It will equip participants with data science and team science tools, and provide them with a platform to conduct collaborative synthesis research. The overall aim is to grow cross-departmental relationships and interdisciplinary research outputs.
 
-We will be using the following tools to facilitate this training:
+## NCEAS Expertise
 
--   Zoom
--   Slack (desktop app preferred)
--   RStudio, accessed through a server (details below)
--   Web browser:
-    -   Firefox (version 80+)
-    -   Chrome (version 80+)
-    -   Safari (version 13+)
-    -   Edge (version 81+)
+NCEAS, a research affiliate of UCSB, is a leading expert on interdisciplinary data science and works collaboratively to answer the world's largest and most complex questions. The NCEAS approach leverages existing data and employs a team science philosophy to squeeze out all potential insights and solutions efficiently - this is called [synthesis science](https://www.nceas.ucsb.edu/our-approach). NCEAS has over 25 years of success with this model among working groups and environmental professionals.
 
-```{=html}
-<!--- ### Course Learning Objectives:
+## Week Three: Communicating your Science and Reproducible Workflows
 
-  Effectively manage data using `tidy` data practices and developing quality metadata
--   Establish best practices and utilize tools like Git & GitHub, and Data Management Plans to optimize your collaboration
--   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot` and `leaflet`
-- Increase your familiarity and confidence with data science tools -->
-```
-## Week's Schedule
+*March 25 - 27, 2024*
 
-::: column-body-outset
+### Learning Objectives
+
+-   ADD
+
+### Week's Schedule
+
+::: column-page
 ![](images/schedule.png)
 :::
-
-## Logistics
-
-### Server
-
-
-You should receive a separate email from NCEAS Account Services prompting you to change your password using the NCEAS account service. Please change your password and then ensure that you can log in at <https://included-crab.nceas.ucsb.edu/>. 
-
-
-### Monitors
-
-
-If you have a second monitor or second device, it would be useful for this training. You’ll need enough screen real estate to handle the primary Zoom window, the participant pane in Zoom, Slack, and a browser with tabs for RStudio and our training curriculum. We recommend either using two monitors or joining the Zoom room from a second device. Having two monitors could look like this:
-
-![](images/arctic-data-center/two-monitors.png)
-
-If you must be on one machine for everything, here’s an example of what it could look like when you are following along with the class and how your screen will shift when you have a more detailed question that requires breakout assistance. 
-
-![](images/arctic-data-center/one-monitor.png)
-
-When we’re in session, **please turn your camera on** and mute your microphone unless you would like to ask a question or contribute to a discussion. 
-
-### Working from Home 
-
-We recognize that working from home may come with challenges. The appearance or sound of other adults, children, and pets in remote meetings such as this is completely normal and understandable. Having your video on and enabling the instructors and your fellow participants to see you brings some humanity to this physically distant workshop, and we believe that this is a crucial element of its success. If you would like to use the Zoom virtual background feature to hide your surroundings, please do so, making sure your background of choice fits within the code of conduct ([here are some Arctic-themed backgrounds](https://www.arcus.org/resources/virtual-backgrounds) if you need inspiration). 
-
-### Non-Verbal Feedback 
-
-We’ll be using the Zoom “Non Verbal Feedback” buttons throughout this course. We will ask you to put a green check by your name when you’re all set and ready to move on with the lesson and a red x by your name if you’re stuck or need assistance. These buttons can be found in the participant's panel of the Zoom room. When you’re asked to answer using these buttons, please ensure that you select one so that the instructor has the feedback that they need to either continue the lesson or pause until everyone gets back on the same page. 
-
-![](images/arctic-data-center/Non-Verbal-Feedback.png){width="60%" fig-align="center"}
-
-
-#### Questions and Getting Help
-
-When you need to ask a question, please do so in one of the following ways:
-
-- Turn your mic on and ask. If you are uncomfortable interrupting the instructor, you may also raise your virtual hand (in the participant panel) and the session facilitator will ask the instructor to pause and call upon you. 
-- Ask your question in the slack channel.
-
-If you have an issue/error and get stuck, you can ask for help in the following ways:
-
-- Turn your mic on and ask for help. See also above regarding the use of a virtual raised hand.
-- Let one of the instructors know in the slack channel.
-- If prompted to do so, put a red X next to your name as your status in the participant window.
-
-When you have detailed questions or need one on one coding assistance, we will have zoom breakout rooms available with helpers. The helper will try to help you in Slack first. If the issue requires more in-depth troubleshooting, the helper will invite you to join their named Breakout Room. 
-
-![](images/arctic-data-center/breakout-room1.png){width="60%" fig-align="center"}
-
-Once you have been assigned a breakout room, but you don't see the pop-up shown in the image above, you can click on the "Join Breakout Room" button on the bottom menu and then click on "Join Breakout Room" in the pop-up message.
-
-![](images/arctic-data-center/breakout-room2.png){width="60%" fig-align="center"}
-
-### The Power of Open
-
-To facilitate a lively and interactive learning environment, we'll be calling on folks to share their code and to answer various questions posed by the instructor. It's completely okay to say "Pass" or "I Don't Know" - this is a supportive learning environment and we will all learn from each other. The instructors will be able to see your code as you go to help you if you get stuck, and the lead instructor may share participants' code to show a successful example or illustrate a teaching moment.
-
 
 
 ## Code of Conduct
 
-
 By participating in this activity you agree to abide by the [NCEAS Code of Conduct](https://www.nceas.ucsb.edu/sites/default/files/2021-11/NCEAS_Code-of-Conduct_Nov2021_0.pdf).
-
-
-![](images/nceas-logo.png)
-
 
 ## About this book
 
@@ -114,9 +44,12 @@ These written materials are the result of a continuous and collaborative effort 
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-**Citation:** Jeanette Clark, Angie Garcia, Matthew B. Jones, Justin Kadi, Maggie Klope, Camila Vargas Poulsen (2024), Reproducible Approaches to Arctic Research Using R. Arctic Data Center & NCEAS Learning Hub. URL <https://learning.nceas.ucsb.edu/2024-02-arctic>.
+**Citation:** Camila Vargas Poulsen, Rachel King, Casey O'Hara (2024), UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills, March 25-27, NCEAS Learning Hub. URL <https://learning.nceas.ucsb.edu/2024-03-ucsb-faculty>.
 
-**Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Halina Do-Linh, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+**Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Halina Do-Linh, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Matt Jone, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+
+
 

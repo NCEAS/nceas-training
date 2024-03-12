@@ -3,7 +3,7 @@ project:
   output-dir: _book
   
 book: 
-  title: "Reproducible Approaches to Arctic Research Using R"
+  title: "UCSB Faculty Seminar Series: Grow Your Data & Team Science Skills"
   # date: "January 22-26, 2024"
   reader-mode: false
   
@@ -23,30 +23,30 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2024-02-arctic
+        href: https://github.com/NCEAS/nceas-training/tree/2024-03-ucsb-faculty
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # ADC intro
-    - session_02.qmd # r & git setup 
-    - session_03.qmd # Literate analysis
-    - session_04.qmd # DMP
-    - session_05.qmd # Documenting and publishing data
-    - session_06.qmd # Intro to Git
-    - session_07.qmd # data modeling essentials
-    - session_08.qmd # Cleaning and Wrangling 
-    - session_09.qmd # collaborating with git
-    - session_10.qmd # publising to the web
-    - session_11.qmd # intro data viz
-    - session_12.qmd # practice session I
-    - session_13.qmd # Thinking Preferences
-    - session_14.qmd # Social Aspects of collab
-    - session_15.qmd # Functions
-    - session_16.qmd # Packages
-    - session_17.qmd # Practice Session II
-    - session_18.qmd # Data Portals
-    - session_19.qmd # Spatial Data
-    - session_20.qmd # Repro and Provenance
+    - session_01.qmd # Intro and Lego
+    - session_02.qmd # Data Visualization
+    - session_03.qmd # Text Analysis (Casey)
+    - session_04.qmd # Survey data
+    - session_05.qmd # Visualizing spatial data (Rachel)
+    - session_06.qmd # Quarto Dashboards
+    - session_07.qmd # Practice Session
+    - session_08.qmd # Message Box
+    - session_09.qmd # Publishing to Web
+    - session_10.qmd # GitHub Workflows
+    - session_11.qmd # GitHub for project management
+    - session_12.qmd # reproducibility and provenance
+    # - session_13.qmd # Thinking Preferences
+    # - session_14.qmd # Social Aspects of collab
+    # - session_15.qmd # Functions
+    # - session_16.qmd # Packages
+    # - session_17.qmd # Practice Session II
+    # - session_18.qmd # Data Portals
+    # - session_19.qmd # Spatial Data
+    # - session_20.qmd # Repro and Provenance
     
   
 
