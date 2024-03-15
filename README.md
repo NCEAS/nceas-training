@@ -1,7 +1,7 @@
 NCEAS Training 
 ==============
 
-This repository contains lessons used in NCEAS training events. The lessons are all written in RMarkdown and set up so that they build as a bookdown.
+This repository contains lessons used in NCEAS training events. The lessons are all written in RMarkdown and set up so that they build as a bookdown. 
 
 To contribute, see [our contributing document](contributing.md)
 
