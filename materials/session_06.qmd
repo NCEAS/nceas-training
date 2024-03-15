@@ -1,7 +1,10 @@
 ---
 title: "Quarto Dashboards"
 title-block-banner: true
+execute: 
+  eval: false
 ---
 
 
-<!--{{< include /sections/git-github-intro.qmd >}}-->
+
+{{< include /sections/visualization-quarto-dashboards.qmd >}}
