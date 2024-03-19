@@ -45,12 +45,14 @@ git config --global user.email "my_email@nceas.ucsb.edu"
 
 When you add your username and email to the global options you **must** use the exact same spelling and case that you used on GitHub otherwise, `Git` won't be able to sync to your account.
 :::
-
+<!--
 Next, we will set our credentials to not time out for a very long time. This is related to how our server operating system handles credentials - not doing this will make your Personal Access Token (PAT, which we will set up in the next section) expire immediately on the system, even though it is actually valid for at least a month.
 
 ``` bash
 git config --global credential.helper 'cache --timeout=10000000'
 ```
+
+-->
 
 Next, we will set the default branch name to `main` for any new repositories that are created moving forward. Why are we doing this? Previously, the default branch name was `master` and this racist terminology for `git` branches motivates us to update our default branch to `main` instead.
 
