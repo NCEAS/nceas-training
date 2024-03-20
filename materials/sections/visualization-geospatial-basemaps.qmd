@@ -40,7 +40,9 @@ a "computer software library for reading and writing raster and vector geospatia
 #| warning: false
 
 # General Packages
-library(tidyverse) # data manipulation and plotting 
+library(tidyr)    # data wrangling
+library(dplyr)    # data wrangling
+library(readr)   # read in files
 library(ggplot2)   # plotting and mapping
 library(patchwork) # combining maps/plots
 
