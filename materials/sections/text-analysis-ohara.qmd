@@ -30,10 +30,13 @@ The `stringr` package is part of the `tidyverse` meta-package.  When you install
 library(dplyr)       ### for general tidy data practices
 library(tidyr)       ### for general tidy data practices
 library(readr)       ### for reading in data
+library(purrr)       ### toolkit for working with functions and vectors
+library(forcats)     ### for working with factors
 library(stringr)     ### for manipulating strings
 library(tidytext)    ### to support text analysis using tidy data methods
 library(pdftools)    ### to extract text data from .pdf documents
 library(ggwordcloud) ### to generate a word cloud
+
 ```
 
 The data are narratives pulled from the IUCN API (http://apiv3.iucnredlist.org/) for coral species, in order to identify their maximum depth.  We'll also pull up a set of data on species areas, but mostly just because that data includes scientific names for the corals so we can refer to species rather than ID numbers.
@@ -343,7 +346,16 @@ The pdftools package basically has five functions:
 Really we'll just focus on `pdf_text()`.
 
 ``` {r}
+#| eval: false
 pdf_smith <- file.path('pdfs/smith_wilen_2003.pdf')
+
+smith_text <- pdf_text(pdf_smith)
+```
+
+
+``` {r, internal-use-book-built}
+#| echo: false
+pdf_smith <- file.path('data/text/smith_wilen_2003.pdf')
 
 smith_text <- pdf_text(pdf_smith)
 ```
@@ -520,7 +532,8 @@ Now let's generate a wordcloud of the top 25 words in the first article, using `
 #| fig-height: 2
 #| fig-width: 4
 #| fig-align: center
-#| 
+
+
 top25 <- nyt_wordcount %>% 
   filter(date == first(date)) %>%
   slice_max(order_by = n, n = 25)
