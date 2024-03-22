@@ -1,50 +1,48 @@
-# Helpful Background
 
-This workshop will be most helpful if you have spent some time working with data 
-in R, either for data analysis or visualization. Specifically, the workshop will
-be most helpful if you are: 
+## Learning Objectives {.unnumbered}
 
-- comfortable with the basics of working with data in R (reading in data, tidyverse functions, making a graph with ggplot)
+1. Use `sf` to read in and map simple spatial data 
 
-- familiar with different types of spatial data (not necessarily working with them in R)
-
-- have an interest in spatial data and learning how R can help you with spatial data visualization 
-
-The primary purpose is to demonstrate how to use R to visualize spatial data, 
-rather than give a full tutorial on the basics of geospatial data though we will 
-review some basic concepts quickly. Therefore we may not cover some important 
-concepts that are important for spatial data analysis, For more in-depth learning 
-I recommend reading "Geocomputation with R" by Lovelace et al. (2024), a free 
-ebook available here: [](https://r.geocompx.org/).
-
-# Goals and Learning Outcomes 
-
-By the end of the session you should be able to: 
-
-1. Read in and map simple spatial data 
-
-2. Add a basemap, scalebar and north arrow to your maps
+2. Use `ggspatial` or `maptiles` to add a basemap, scalebar and north arrow to your maps
 
 3. Understand how you can use R to streamline the map-making process (using themes and functions)
 
-# Set Up
+## Overview
 
-## Loading Packages
+[**`sf`**](https://r-spatial.github.io/sf/index.html), or "Simple Features", is a 
+package for working with spatial vector data (e.g. points, lines, polygons) in R. 
+Simple features is a standard for storing and accessing the spatial data that 
+represents "features" in the real world on computers. The `sf` package provides 
+a set of tools for retrieving spatial data in R, performing basic geometry operations, 
+and visualizing that spatial data. 
 
-First we need to load packages and data for our mapping. Note that some of these 
-packages will only work if you have already installed GDAL (Geospatial Data Abstraction Library) - 
-a "computer software library for reading and writing raster and vector geospatial data formats". 
+Most functions in `sf` start with `st_[function_name]`, which stands for 
+*spatial type*. These functions perform various spatial data operations 
+so we can manipulate our data for better visualizations. In this lesson we will 
+review the basic functions for working with spatial data from this package, and 
+how to visualize that data along with additional packages `ggspatial`, `maptiles`, 
+and `ggplot2` to make maps you could use in publications or reports.
+
+::: {.callout-tip}
+## Set-up
+
+(@) Make sure you’re in the right project (training_{USERNAME}) and use the Git 
+workflow by Pulling to check for any changes. Then, create a new Quarto document, 
+delete the default text, and save this document.
+
+(@) Load packages 
 
 ```{r load-packages}
 #| message: false
 #| warning: false
 
 # General Packages
-library(tidyr)    # data wrangling
-library(dplyr)    # data wrangling
-library(readr)   # read in files
+library(tidyr)     # data wrangling
+library(dplyr)     # data wrangling
+library(readr)     # read in files
 library(ggplot2)   # plotting and mapping
 library(patchwork) # combining maps/plots
+library(cowplot)   # combining plots to make an inset map
 
 # Spatial Packages
 library(sf)        # manipulating spatial data
@@ -58,66 +56,116 @@ library(tigris)  # shapefiles with various administrative boundaries and roads
 
 ```
 
-Another good option for plotting spatial data in R is the `tmap` package with 
-companion package `tmaptools`. However, the syntax is slightly different so I 
-won't cover that today. It does allow an interactive view feature via Leaflet 
-which is nice, and maybe the subject for a future EcoDataScience workshop.
-
-# Part I: Intro to working with spatial data with the **`sf`** package
-
-## Load Data 
-
-### About the Data
+(@) Learn about the data
 
 The data used here are open source data available either on the KNB data repository
 or from the US Government. The specific data sources and citations are listed below:
 
 | Data                      | Original Dataset                                 |
 |---------------------------|--------------------------------------------------|
-| Study Sites               | cj lortie, M Zuliani, Nargol Ghazian, Jenna Braun, S Haas, & Rachel King. 2022. A list of ecological study sites within Central California Drylands. Knowledge Network for Biocomplexity. [doi:10.5063/F1F76B1R](https://doi.org/10.5063/F1F76B1R). |
+| Study Sites               | cj lortie, M Zuliani, Nargol Ghazian, Jenna Braun, S Haas, & Rachel King. 2022. A list of ecological study sites within Central California Drylands. Knowledge Network for Biocomplexity. [doi:10.5063/F1X34VXT](https://doi.org/10.5063/F1X34VXT). |
 | California Ecoregions     | U.S. Environmental Protection Agency. 2012. Level IV Ecoregions of California. U.S. EPA Office of Research and Development (ORD) - National Health and Environmental Effects Research Laboratory (NHEERL), Corvallis, OR. [California Level IV Ecoregions](https://www.epa.gov/eco-research/ecoregion-download-files-state-region-9#pane-04) |
 | California State Boundary | U.S. Census Bureau TIGER/Line Shapefiles. (2023). [](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) |
 
-### Method 1: From a `.csv` file
+We'll read in the data together as part of the lesson. 
 
-We will download the site data from KNB to show how to read in data from a `.csv` 
-file and prepare it for mapping. When you use a `.csv` you will have to convert 
-it to an `sf` object to use the `sf` package functions for easier plotting, which
-I will show in a moment.
+:::
 
-Download site data from: [California Dryland Sites](https://doi.org/10.5063/F1F76B1R)
 
-https://doi.org/10.5063/F1F76B1R
+::: {.callout-note}
+Another good option for plotting spatial data in R is the `tmap` package with 
+companion package `tmaptools`. However, the syntax is slightly different so I 
+won't cover that today. It does allow an interactive view feature via Leaflet 
+which is nice, and maybe the subject for a future 
+[EcoDataScience](https://ecodatascience.github.io/) workshop.
+:::
+
+## Part I: Intro to working with spatial data with the **`sf`** package
+
+First let's review the key functions we'll be working with from the `sf` package. 
+There are more but the ones listed below are the primary ones we are using today:
+
+**Access data:**
+
+- `st_read` and `read_sf`: functions to read in data stored in a format primarily used 
+for spatial data (e.g. shapefile, geopackage)
+
+- `st_as_sf`: convert an object into an `sf` object (requires coordinates and CRS information)
+
+**Access spatial properties:**
+
+- `st_crs`: retrieve the coordinate reference system for the object
+
+- `st_bbox`: retrieve the bounding box (min and max x and y coordinates) for the object
+
+**Spatial Data Operations:**
+
+- `st_join`: perform a spatial join
+
+- `st_transform`: convert the coordinates of your object to a different CRS
+
+This [`sf` cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf) 
+is a great reference guide for most of the `sf` functions you many want to use.
+
+### Loading Spatial Data
+
+Spatial data can be found from multiple sources online (or you may have your own) 
+and may be stored in a variety of formats. Here we'll show three common ways to load
+spatial data in R. 
+
+#### Method 1: From a `.csv` file
+
+Data from an online database like KNB with information on study site locations 
+is frequently found in a text file, like a `.csv`. To work with this data, you 
+read in the file as normal but then you will have to convert 
+it to an `sf` object to use the `sf` package functions for easier plotting.
+
+This is the case for the site data we're using. To load the
+[California Dryland Sites](https://doi.org/10.5063/F1F76B1R) data, head to the 
+site linked above, hover over the "Download" button for the `tidy_regional_2024.csv`
+file, right click and select "Copy Link Address". Then read in using the `read_csv`
+function from the `readr` package.
+
 
 ```{r load-data-1}
 # read in data from .csv file
-site_df <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3A5d23a3f4-6ed8-47f0-b34e-000f6cfb8313")
+site_df <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3A7161c08c-79b7-4970-94b4-7d6e4fcfcc03")
 
 # alternatively download into your working directory and run 
 # site_df <- read_csv("tidy_regional_2023.csv")
 
 ```
+There are a lot of columns we don't need for this, so we're going to select a few 
+to work with: 
 
-### Method 2: From a shapefile
+```{r}
+site_df <- site_df %>% 
+    select(state, desert, site_code, long, lat, ndvi_2023, MAT, MAP) 
+```
+
+
+#### Method 2: From a shapefile
 
 The second data layer we will read in is a shapefile with ecoregions for California
 that is provided by the US EPA: [California Level IV Ecoregions](https://www.epa.gov/eco-research/ecoregion-download-files-state-region-9#pane-04)
 
-You'll need to download and unzip the data file into your working directory for
-the following code to work. 
+To access this shapefile, we need to manually download it from the link above 
+and unzip the files into your working directory. 
+
+::: {.callout-important}
+When you download a shapefile you are actually downloading multiple files required 
+for properly accessing the data. When reading in a shapefile, 
+you use the filename with the `.shp` extension, but the associated files from 
+the zipped folder are required for the data to read in properly. So, if you
+unzip the folder and then only copy the `.shp` file into your working directory 
+or data folder for a project you will get an error message. 
+:::
 
 We will use the `read_sf` function from the `sf` package, which loads the 
 shapefile as a `tidyverse` tibble. You can also use `st_read` to load shapefiles,
 but it contains more messages and loads the data as a base R data.frame instead
 of a tibble.
 
-::: {.callout-important}
-When reading in a shapefile, you use the filename with the `.shp` 
-extension, but the associated files from the zipped folder are required for the
-data to read in properly. So, if you only unzip and then only copy the `.shp` file
-into your working directory or data folder for a project you will get an error
-message. 
-:::
 
 ```{r load-data-2}
 #| eval: false
@@ -135,13 +183,10 @@ library(here)
 ecoreg_sf <- sf::read_sf(here("data/ca_ecoregion_shape/ca_eco_l4.shp"))
 ```
 
-### Method 3: From a package
+#### Method 3: From a package
 
 The `tigris` package allows you to easily download TIGER/Line shapefiles from 
 the US Census Bureau for things like state boundaries, roads, county lines, etc. 
-The `tidycensus` package that was in a previous EcoDataScience Workshop uses this 
-package when getting spatial data. 
-
 We'll use it to download some boundaries for the state of California. 
 
 ```{r load-data-3}
@@ -153,16 +198,12 @@ CA_counties_sf <- tigris::counties(state = "CA", progress_bar = FALSE)
 ```
 
 
-## Working with `sf` data
+### Working with `sf` data
 
 Now we'll see some useful features of the `sf` package and how to access and set
 important spatial information from your data. 
 
-Most functions in `sf` start with `st_[function_name]`, which stands for 
-*spatial transformation*. These functions perform various spatial data operations 
-so we can manipulate our data for better visualizations. 
-
-### Identify and set the CRS
+#### Identify and set the CRS
 
 The **Coordinate Reference System (CRS)** is an important piece of information 
 that contains the instructions for how to display the spatial data. It tells R
@@ -256,7 +297,7 @@ So, all of our spatial data sets currently have different CRS. We will need to r
 the data from two of the three so that we will be able to map all our data at the
 same time.  
 
-### Basic Spatial Data Operations
+#### Basic Spatial Data Operations
 
 We can use the `st_transform` function to project our data into the same CRS.
 
@@ -318,7 +359,7 @@ There are many other spatial operations you can perform with the `sf` package.
 For additional details you can see [Section 4.2](https://r.geocompx.org/spatial-operations)
 of `Geocomputation in R`. Geometry operations are covered in Ch. 5. 
 
-## Making the map
+### Making the map
 
 Finally it's time to make our map! One of the simplest ways to do this is to 
 use `ggplot2` which works well with `sf` objects. To plot `sf` objects, we use 
@@ -412,14 +453,35 @@ faceting, so if you want to create a map with something that looks like facets
 it is probably easier to create two separate maps and combine them using either 
 the `patchwork` or `cowplot` package. 
 
-# Part II: Add a Basemap
+::: {.callout-note}
+## Exercises
+
+- Modify the code from one of the maps above and explore how to alter the appearance
+by changing the aesthetics of one or more of the layers. Remember, you can specify
+these either within the call to `aes()` in `geom_sf` to have the aesthetics vary 
+by one of the attributes you specify, or outside `aes()` but within `geom_sf()` to 
+set them for the entire layer. Some potential options: 
+
+    - `size`: alter the size of the points; `aes(size = MAT)` or (geom_sf(size = 3))
+    
+    - `linewidth`: specifies the width of lines for a feature 
+    
+    - `color`: changes the line or point color 
+    
+    - `shape`: specify the shape for points
+    
+    - `linetype`: change the line style (solid, dashed, etc.)
+    
+:::
+
+## Part II: Add a Basemap
 
 Basemaps provide important geographical context for your data and can serve as 
 an important visual references for your maps. In GIS programs it is often pretty
 easy to add a basemap layer, but in R there are a few additional steps and different
 packages needed.
 
-## My Favorite Basemap Providers, Packages and Functions
+### My Favorite Basemap Providers, Packages and Functions
 
 There are many options for basemaps for your mapping projects in R, as well as 
 several different packages for working with those map layers. Basemaps are provided 
@@ -466,9 +528,9 @@ My favorites:
 
     - pretty easy to download 
     
-    - doesn't 
+    - doesn't directly interfact to `ggplot2`, need to use `tidyterra` to add to ggplot
 
-**Other Packages to Examine**
+**Other Packages to Check Out**
 
 - [`ceramic`](https://hypertidy.github.io/ceramic/): another package for webmap tiles, defaults to Mapbox map with other options; visualize with `terra`
 
@@ -492,7 +554,7 @@ My favorites:
 
     - some additional ocean map packages: `marmap`, `oceanmap`, `oce`
 
-## Retrieving your basemap
+### Retrieving your basemap
 
 This usually requires you to set an extent or bounding box for your download, as 
 well as specify the zoom level you want. 
@@ -516,7 +578,7 @@ This table lists some appropriate zoom levels, obtained from the
 They go higher, but this gives you a sense of how many more tiles there are to
 download at different zoom levels. 
 
-### Using `ggspatial` 
+#### Using `ggspatial` 
 
 What are the built-in basemap options?
 
@@ -613,7 +675,7 @@ the tiles in a different CRS I'd be careful as reprojecting involves resampling
 the raster into a new grid, which may slightly alter the appearance of the basemap.
 :::
 
-### Using `maptiles`
+#### Using `maptiles`
 
 `maptiles` has different basemap options than `ggspatial`. See the help for `get_tiles` 
 to see all of the options, some of which do require an API key. The default is
@@ -646,7 +708,7 @@ ggplot(data = ca3857) +
 
 ```
 
-### Additional basemap options 
+#### Additional basemap options 
 
 In addition to the built-in tile servers, you can also source a basemap from using 
 a URL for an xyz raster source with ggspatial. Make sure you include attributions for the basemap service you use. 
@@ -713,7 +775,7 @@ opentopomap <- create_provider(
 
 - https://github.com/roblabs/xyz-raster-sources
 
-### Basemap from File
+#### Basemap from File
 
 You can also add a basemap from a file in a similar way to the `maptiles` code, if your basemap layer 
 is a GeoTiff file (.tif). Simply read in your data layer with `terra` and add it to your plot with 
@@ -735,7 +797,7 @@ ggplot(data = samp_pts_sf) +
 
 ```
 
-## Add a scalebar and north arrow
+### Add a scalebar and north arrow
 
 It is usually helpful to have a scalebar and north arrow for reference and orientation. There are built-in functions in `ggspatial` to make this easy: 
 
@@ -762,7 +824,7 @@ ggplot(data = ca_proj_sf) + # specify data here to set CRS
 
 ```
 
-### Manipulating scale and north arrow 
+#### Manipulating scale and north arrow 
 
 You'll notice that with the basic options, the scale bar and north arrow overlap,
 and the scale or arrow may not display at an appropriate size with the default
@@ -847,10 +909,12 @@ ggplot(data = ca_proj_sf) + # specify data here to set CRS
 ```
 
 
+::: {.callout-note}
 ## Exercises
 
 (@) Use the `tigris` package and either `ggspatial` or `maptiles` package to download a 
-basemap for a different state and then visualize it with `ggplot`
+basemap for a different state and then visualize it with `ggplot`. Play around with
+the aesthetics to make it fun!
 
 ```{r}
 #| eval: false 
@@ -862,10 +926,11 @@ basemap for a different state and then visualize it with `ggplot`
 (@) Too easy? Try downloading either another data type from the `tigris` package
 (e.g., roads or county lines) or another data repository of your choice and 
 plotting that on top of your basemap. 
+::: 
 
-# Part III: Tips and Tricks
+## Part III: Tips and Tricks
 
-## Making an inset map
+### Making an inset map
 
 As mentioned above, there may be times when you want to focus on a small region
 but provide context for the larger region. An inset map can help with this, and 
@@ -972,9 +1037,9 @@ ggdraw() +
 
 ```
 
-## Creating a Theme and Setting Defaults
+### Creating a Theme and Setting Defaults
 
-### Create your own theme
+#### Create your own theme
 
 Specifying the theme parameters each time takes up a lot of code, so I like to
 find base theme, modify it, and then save it as a new theme so I can add it to 
@@ -1062,7 +1127,7 @@ ggplot() + # don't specify data here since we have multiple data sets to plot
 
 ```
 
-### Set Geometry Defaults
+#### Set Geometry Defaults
 
 You are also able to set some defaults for parameters that you can't easily 
 modify with `ggplot` themes. For example, specifying shapes and sizes for points 
@@ -1083,7 +1148,7 @@ ggplot() + # don't specify data here since we have multiple data sets to plot
 
 ```
 
-## Functional Programming 
+### Functional Programming 
 
 What if you want to make a lot of maps? Copying and pasting code is annoying and 
 also leads to issues with reproducibility. If you are going to be making multiple maps
@@ -1153,9 +1218,10 @@ Let's test it out with our list
 
 ```{r}
 #| fig-cap: "Basemap ESRI World Imagery, Sources:  Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community."
-
+#| eval: false
 plot_ecoreg(ca_l3_ecoreg[1])
 
+# use the purrr package to apply (map) our function to each item of a list or vector
 purrr::map(ca_l3_ecoreg[1:5], plot_ecoreg)
 
 ```
@@ -1184,7 +1250,7 @@ Now let's try it again:
 ```{r}
 #| fig-cap: "Basemap ESRI World Imagery, Sources:  Esri, DigitalGlobe, GeoEye, i-cubed, USDA FSA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community."
 
-purrr::map(ca_l3_ecoreg[1:5], plot_ecoreg)
+purrr::map(ca_l3_ecoreg[1:2], plot_ecoreg)
 ```
 
 
@@ -1194,7 +1260,7 @@ perks of mapping in R. With just a couple lines of code we could make a map
 for all of the ecoregions of California - which would have taken way more 
 code if we had to make each map individually.  
 
-# Additional Resources 
+## Additional Resources 
 
 **Other Data Providers**
 
@@ -1214,7 +1280,7 @@ code if we had to make each map individually.
 
 - [`tiler`](https://docs.ropensci.org/tiler/): create your own map tiles, requires installation of Python
 
-# References
+## References
 
 1. [Geocomputation with R](https://r.geocompx.org/): Free ebook with lots of 
 great information and code demos about working with spatial data in R
