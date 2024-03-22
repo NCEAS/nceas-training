@@ -579,6 +579,8 @@ Let's explore the sentiment lexicons. `bing` is included in `tidytext`, other le
 "afinn": Words ranked from -5 (very negative) to +5 (very positive)
 
 ```{r}
+#| eval: false
+
 afinn_lex <- get_sentiments(lexicon = "afinn")
 ### you may be prompted to download an updated lexicon - say yes!
 
@@ -590,6 +592,7 @@ afinn_pos <- get_sentiments("afinn") %>%
 For comparison, check out the bing lexicon: 
 
 ```{r}
+
 bing_lex <- get_sentiments(lexicon = "bing")
 ```
 
@@ -601,19 +604,26 @@ Includes bins for 8 emotions (anger, anticipation, disgust, fear, joy, sadness, 
 Now nrc:
 
 ```{r}
+#| eval: false
+
 nrc_lex <- get_sentiments(lexicon = "nrc")
 ```
 
 For this tutorial, let's use the `bing` lexicon which ranks each word simply as positive or negative.
 
 First, bind words in `nyt_words_clean` to `bing` lexicon:
+
+
 ```{r}
 nyt_bing <- nyt_words_clean %>% 
   inner_join(bing_lex, by = 'word')
 ```
 
 Let's find some counts of positive vs negative:
+
+
 ```{r}
+
 bing_counts <- nyt_bing %>% 
   group_by(date, sentiment) %>%
   summarize(n = n()) %>%
@@ -624,6 +634,7 @@ ggplot(data = bing_counts, aes(x = sentiment, y = n)) +
   geom_col() +
   facet_wrap(~date)
 ```
+
 
 Taking the ratio of positive to negative, rather than the total counts per chapter, adjusts for some articles just being longer than others.  Highly negative articles would have a value between 0 and 1, highly positive could go from 1 to infinity, so that's a problem.  But plotting as log ratio, i.e., $\ln\left(\frac{positive}{negative}\right)$, balances that so a chapter with 10:1 positive:negative ratio would have the same *absolute* value ($\log(10) = 2.3$) as a chapter with 1:10 positive:negative ratio ($\log(0.1) = -2.3$).
 
@@ -649,6 +660,8 @@ bing_log_ratio_article <- nyt_bing %>%
 
 
 Finally, let's plot the log ratios, and also include the title of each article as a `geom_text()`.
+
+
 ```{r}
 ggplot(data = bing_log_ratio_article, 
        aes(x = log_ratio_adjust,
