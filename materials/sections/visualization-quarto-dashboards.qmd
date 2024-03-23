@@ -1,61 +1,43 @@
 ## Learning Objectives {.unnumbered}
 
 -   Create and design customized dashboards using Quarto Dashboards
-- Become familiar with different components ob a dashboard and it's syntax
+- Become familiar with different components of a dashboard and it's syntax
 -   Apply Markdown syntax, Shiny elements, and additional R packages like plotly to create visually appealing and interactive Quarto dashboards.
 
 ## What is a Quarto Dashboard?
+It a tool that aims to make it simple to create compelling interactive dashboards in R (and/or Python, Julia and Observable) ([quarto.org](https://quarto.org/docs/dashboards/). These dashboards are designed to be easy to create, and support a wide variety of visualizations and interactive components. We can incorporate Shiny widgets and functionality into a dashboards, making it a powerful tool for creating interactive visualizations and outcomes that can be shared with others.
 
-Goal: Make it easy to make compelling interactive dashboards using R (and Python, Julia and Observable). (Inherited form `flexdashboards`)
+Quarto Dashboards are inherit form `flexdashboards`, an R package to create interactive dashboard using RMarkdown.
+
 
 - They are composed in cards, these cards are the atomic unit.
 - You can custom the layout incorporating pages, tabsets and sidebars.
 
-## Simple dashboard
-- YAML -- format: dashboard
 
-**Add note about the YAML**
-
--Use Markdown heading Row and Columns to easily arrange things on a page
-
-# Page
-## Row
-## Column
-### Box??
-
-TEST
-
-```{r}
-#| components: valuebox
-
-list(
-    title = "My Value",
-    value = 25,
-    color = "red",
-    icon = "envalope"
-    
-)
-
-```
-
-
-
-`flexdashboard` is an R package from RStudio that is built on top of R Markdown and Shiny. It allows us to create flexible, interactive dashboards using simple Markdown documents and syntax. Flexdashboards are designed to be easy to create, and support a wide variety of visualizations and interactive components. We can incorporate Shiny widgets and functionality into flexdashboards, making it a powerful tool for creating interactive reports and dashboards that can be shared with others.
 
 ::: {.callout-important icon="false"}
-### Flexdashboard is for R Markdown Only
+### Quart Dashboards run only in Quarto version 1.4
 
-`flexdashboard` is only compatible with R Markdown documents, meaning we can't use Quarto markdown documents (any files ending with `.qmd`). And that's okay! Remember just because Quarto exists now, doesn't mean R Markdown is going away or won't be maintained - see [Yihui Xie's blog post *With Quarto Coming, is R Markdown Going Away? No.*](https://yihui.org/en/2022/04/quarto-r-markdown/).
+Check you quarto version by running `quarto check` in the terminal. This prints a message that starts indication the quarto version installed in your system.
+```
+Quarto 1.4.551
+[✓] Checking versions of quarto binary dependencies...
+      Pandoc version 3.1.11: OK
+      Dart Sass version 1.69.5: OK
+      Deno version 1.37.2: OK
+```
 
-If you're invested in only using Quarto tools - [keep an eye on this discussion](https://github.com/quarto-dev/quarto-cli/discussions/3271). Quarto developers are actively working on a dashboarding feature for Quarto as well.
+You can download the latest version of Quarto [here](https://quarto.org/docs/download/).
+
 :::
 
-## Flexdashboard vs Shiny
+<!-- Maybe move to the end?-->
+## Dashboard vs Shiny 
 
 ::: {.callout-note icon="false"}
-### When should I make a flexdashboard?
+### When should I make a Dashboard?
 
-Flexdashboards are great for creating lightweight interactive dashboards that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is and what skillset your team has. Check out the diagram below and see what scenarios resonate best with you and your project goals.
+Dashboards are great for creating lightweight interactive output that require minimal coding expertise (must be familiar with Markdown!). Ultimately, it depends on what your final product is and what skillset your team has. Check out the diagram below and see what scenarios resonate best with you and your project goals.
 :::
 
 ```{mermaid}
@@ -65,11 +47,11 @@ Flexdashboards are great for creating lightweight interactive dashboards that re
 flowchart TD
     A[Goal: Create a web-based application for data interaction]
     A --> B{Shiny App}
-    A --> C{Flexdashboard}
-    C --> D(Build a Flexdashboard if:)
+    A --> C{Quarto Dashboard}
+    C --> D(Build a Dashboard if:)
     B --> E(Build a Shiny App if:)
     D --> F[Interested in quickly creating a dashboard prototype]
-    F --> G[Have a preference for R Markdown]
+    F --> G[Have a preference for Quarto]
     G --> H[There are non-programmers who need to create or maintain dashboards]
     H --> I[Want to blend narrative text with interactivity]
     I --> J[Prefer a simpler, code-light approach]
@@ -84,51 +66,51 @@ flowchart TD
 
 ```
 
-## Flexdashboard Layout + Features
+##  General Components
+[FROM QUARTO DOCUMENTATION - TURN INTO TABLE]
 
-Now let's familiarize ourselves with how an `.Rmd` is structured to create a flexdashboard and what the dashboard output looks like using the default template.
+Navigation Bar — Icon, title, and author along with links to sub-pages (if more than one page is defined).
 
-There are a two default templates for `flexdashboard` in RStudio - one with a theme and one without. We'll first look at the template without a theme. **To create a flexdashboard `.Rmd` from a template click:**
+Pages, Rows, Columns, and Tabsets — Pages, rows and columns are defined using markdown headings (with optional attributes to control height, width, etc.). Tabsets can be used to further divide content within a row or column.
 
-`File -> New File -> R Markdown -> From Template -> Flex Dashboard`
+Cards, Sidebars, and Toolbars — Cards are containers for plots, data display, and free form content. The content of cards typically maps to cells in your notebook or source document. Sidebars and toolbars are used to present inputs within interactive dashboards.
 
-::: column-body-outset
-![](images/flexdashboard-1.png)
-:::
+## Basic Structure
 
-::: column-body-outset
-![](images/flexdashboard-2.png)
-:::
+Now let's familiarize ourselves with how an `.qmd` is structured to create a Quarto Dashboard and what a simple dashboard looks.
 
-### Flexdashboard Syntax {.unnumbered}
+The first is to indicate in our `.qmd` file YAML that we want to create a dashboard as the output of this file. Our YAML will look like this:
 
-In the flexdashboard template to create the different sections in the dashboard, dashes (`---`) and equal signs (`===`) are being used (we'll see the equal signs in action during the demo). The series of dashes and equal signs were a [design choice](https://bookdown.org/yihui/rmarkdown/layout.html#:~:text=We%20used%20a%20series%20of%20dashes%20just%20to%20make%20the%20second%2Dlevel%20sections%20stand%20out%20in%20the%20source%20document.) by the `flexdashboard` creators to make the different sections stand out in the `.Rmd`, but are not mandatory to use.
+![](images/dashboard-yaml.png)
+Now, remember that we said that we need to know/understand Markdown to provide structure to our dashboard. In it simplest form, the basic structure of a dashboard can be summarized in three lines:
 
-::: {.callout-important appearance="minimal"}
-The rule of thumb is that **level-one headers create pages**, **level-two headers create columns or rows**, and **level-three headers create boxes**.
-:::
+-   Each Level 1 header (#) corresponds to a new page.
 
-+---------------------------------+-----------------------------------+
-| Flexdashboard Syntax            | Equivalent Markdown Header Syntax |
-+=================================+===================================+
-| ```                             | ```                               |
-| Page                            | # Page                            |
-| ==========================      | ```                               |
-| ```                             |                                   |
-+---------------------------------+-----------------------------------+
-| ```                             | ```                               |
-| Column                          | ## Column                         |
-| --------------------------      | ```                               |
-| ```                             |                                   |
-+---------------------------------+-----------------------------------+
-| ```                             | ```                               |
-| ### Box                         | ### Box                           |
-| ```                             | ```                               |
-+---------------------------------+-----------------------------------+
+-   Every Level 2 header (##) introduces a new row.
 
-: {tbl-colwidths="\[50,50\]"}
+-   Every code chunk introduces a new column.
 
-### Flexdashboard Attributes {.unnumbered}
+Let's see how this looks in practice.
+
+
+[ADD IMAGE OF CODE + PREVIEW --> qd-structure.qmd]
+
+
+
+## Dashboard Layout
+
+- Review Basic structure Markdown headers
+- How to add titles to each code chunk
+- Adding side bars - Global, to a page or to part of the page + location (left or right)
+- Toolbars - Global, inline, part of a row and location
+- Cards
+
+
+Walk through this: https://quarto.org/docs/dashboards/layout.html
+
+### Adding Attributes 
+tabside
+sidebars
 
 In `flexdashboard`, we can add certain attributes to columns, rows, and boxes. This is similar to adding attributes to headings in typical `.Rmd` documents. For example, if we didn't want a subheading to be numbered in a rendered `HTML` of a `.Rmd`, we would use `## My Subheading {.unnumbered}`.
 
@@ -174,7 +156,7 @@ The different components that can be added to a flexdashboard are:
 
 ::: {.callout-caution appearance="minimal"}
 
-Learn more about flexdashboard components in the [flexdashboard documentation for components](https://rstudio.github.io/flexdashboard/articles/using.html#components) on the flexdashboard website.
+Learn more about Quarto Dashboard components in the [flexdashboard documentation for components](https://rstudio.github.io/flexdashboard/articles/using.html#components) on the flexdashboard website.
 :::
 
 ## Demo: Creating a flexdashboard
