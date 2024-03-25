@@ -141,7 +141,7 @@ coral_habs <- coral_habs_raw %>%
 ### creates a cell with a vector of broken up sentences!
 ```
 
-![](expert_regex.jpg){width=50% fig-align='center'}
+![](images/expert_regex.jpg){width=50% fig-align='center'}
 
 
 #### Use `unnest()` to separate out vector into rows
@@ -162,7 +162,7 @@ We can use `str_detect()` to identify which observations contain a certain patte
 
 Without wildcards, we'd have to identify each specific number.  This would be annoying.  Instead we can use some basic "regular expressions" or "regex" as wild card expressions.  We put these in square brackets to create a list of everything we would want to match, e.g. `[aeiou]` would match any instance of lower case vowels.  Ranges of numbers or letters can also be included, e.g., `[a-z]` is all lower-case letters (without diacritical marks like accents...), `[A-Z]` is all upper-case letters, `[0-9]` is all numeric characters.  Combinations or subsets work as well: what would `[a-f]`, `[A-z]`, `[A-m3-9]` match?
 
-Helpful for testing regex: https://regex101.com/
+Helpful for testing regex: <https://regex101.com/>
 
 ``` {r}
 ### Without wildcards
