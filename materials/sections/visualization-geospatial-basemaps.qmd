@@ -128,6 +128,8 @@ function from the `readr` package.
 
 
 ```{r load-data-1}
+#| message: false
+
 # read in data from .csv file
 site_df <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3A7161c08c-79b7-4970-94b4-7d6e4fcfcc03")
 
@@ -171,11 +173,13 @@ of a tibble.
 #| eval: false
 
 # read in data from shapefile
-ecoreg_sf <- sf::read_sf("data/ca_ecoregion_shape/ca_eco_l4.shp")
+ecoreg_sf <- sf::read_sf("data/ca_eco_l4.shp")
 ```
 
 ```{r load-data-2-internal}
 #| echo: false
+#| message: false
+#| warning: false
 
 library(here)
     
@@ -505,7 +509,7 @@ Below I list the providers of various basemaps
 
 - [Mapbox](https://www.mapbox.com/static-maps)*
 
-- Google
+- Google*
 
 ![Image: [maptiles package documentation](https://github.com/riatelab/maptiles)](data/basemap_types.png)
 
