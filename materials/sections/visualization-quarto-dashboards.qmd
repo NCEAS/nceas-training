@@ -46,17 +46,12 @@ Source: [Quarto.org/docs/dashboards](https://quarto.org/docs/dashboards/)
 
 1. [Housing Market at a Glance](https://ivelasq.github.io/mortgage-dashboard/)
 
-![](images/dashboard-housing-market.png){width=50%}
-
 
 2. [New Zealand Earthquakes](https://colorado.posit.co/rsc/nz-quakes/quakes.html)
-
-![](images/dashboard-nz-earthquakes.png){width=50%}
 
 
 3. [Diamonds Data](https://jjallaire.shinyapps.io/diamonds/) (with Shiny elements)
 
-![](images/dashboard-diamonds.png){width=50%}
 
 
 ## Basic Structure
@@ -76,67 +71,93 @@ Now, remember that we said that we need to know/understand Markdown to provide s
 
 -   Every code chunk introduces a new column.
 
+
+**Note:** The default layout setting is by rows. You can set the `orientiation` to be by column in the YAML. If that is the case, then the level 2 header would be a column and each code chunk a row in the column.
+
+**Note 2:** Quarto will automatically divide the area into equally divided charts.
+
+
 Let's see how this looks in practice.
 
 
-[ADD IMAGE OF CODE + PREVIEW --> qd-structure.qmd]
+![](images/dashboard-structure.png)
+::: callout-tip
+## Text in heading is not required
+Dashboards use markdown headings to define the layout of rows and columns. However, the heading text itself is discarded. In this example we use headings Row and Column to introduce the basic components of the layout. You can use more descriptive headings if they help you navigate your source code.
+
+:::
 
 
-Quarto will automatically divide the area into equally divided charts.
 
-## Further Layout customization
-- Arranging the lay out with row and column height and width {height-70%}
-- fill vs flow
-- Orientation
-- 
 
-Walk through this: https://quarto.org/docs/dashboards/layout.html
+## Further Layout customization with attributes
+
+Some attributes to add to columns, rows, or boxes include:
+
+|                                     |                                             |
+|------------------------------------|----------------------------------------------|
+| **`{width=}`** and **`{height=}`** | both of these attributes set the relative size of columns, rows, and boxes. |
+| **`{orientation=}`**  | sets the dashboard layout to either rows or columns. This is a global option set in the `YAML`. However, if your dashboard has multiple pages and you want to specify the orientation for each page, remove `orientation:` from the `YAML` and use this attribute instead  |
+| **`{.tabset}`**   | divide columns, rows, or charts into tabs |
+| **`{.sidebar}`**  | creates a sidebar  typically used to place Shiny inputs and is an optional step to add Shiny elements to your dashboard. See documentation [here](https://quarto.org/docs/dashboards/inputs.html#sidebars)    |
+| **`{.hidden}`**  | excludes a specific page from the navigation bar |
+
+
+::: {.callout-caution appearance="minimal"}
+To **add multiple attributes** within a set of curly braces `{}` by separating the attributes by a space.
+:::
 
 
 
 ## Adding Components
 
-### Navigation Bar {.unnumbered}
-The default dashboard includes a navigation bar at the top where you can add a title to your dashboard, a logo and the author of the work. It also allows has the link to the different pages in a dashboard with multiple pages.
+
+The different components that can be added to a dashboard are:
+
+|                |                                                                                                                                                                                                                                                                                       |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `HTML` Widgets | incorporates JavaScript data visualization tools and libraries into a dashboard. This includes features like interactive plots, maps and more. At this time there are 130 htmlwidgets available to use in R, check out the [gallery of widgets](https://gallery.htmlwidgets.org/) |
+| R Graphics     | any chart, plot or graph that is created using any R package                                                                                                                                                                                                                          |
+| Tables   | add tables using `knitr::kable()` for simple tables or use the `DT` package for interactive tables. More information in the [official documentation](https://quarto.org/docs/dashboards/data-display.html#tables)                                                                                                                                                                                   |
+| Value Boxes    | Create boxes to display single values along with a title and optional icon. More information about available icons and colors [here](https://quarto.org/docs/dashboards/data-display.html#icon-and-color)                                                                                                                                                                                                        |
+| Text Content         | you can also include arbitrary markdown content anywhere within a dashboard. You can add at the top of the `qmd` file or in a determine space in your layout by using content cards `{.card}`.                                                                                                                                                                                    |
+| Navigation Bar | the navigation bar automatically includes the title, author, and date (if specified in the `YAML`). New pages are added to the navigation bar starting on the left side. There is also an option to add links to social media and the source code (specify this in the `YAML`)        |
+| Pages           | You can introduce multiple pages to a single dashboard using level 1 header in Markdown (#), above the level 2 header used to define rows and columns within a page. The text of the level 1 headings will be used to link to the pages in the navigation bar.                                                                  |
 
 
-### Pages {.unnumbered}
-You can introduce multiple pages to a single dashboard using level 1 header in Markdown (#), above the level 2 header used to define rows and columns within a page. The text of the level 1 headings will be used to link to the pages in the navigation bar.
+: {tbl-colwidths="\[30,70\]"}
+
+::: {.callout-caution appearance="minimal"}
+
+Find more details on Quarto Dashboard components in the [Quarto Dashboard Documentation](https://quarto.org/docs/dashboards/layout.html).
+:::
 
 
-### Sidebar {.unnumbered}
-Add a side bar by adding a level 2 header with the `{.sidebar}` class. The sidebar will allows the user to interact with the data presented in the dashboard.
-
-<!--- Global, to a page or to part of the page + location (left or right)-->
-
-### Toolbars {.unnumbered}
-Toolbars are similar to sidebars, but provide a horizontal layout. Create a toolbar by adding the `{.toolbar}` class to a level 2 row header.
-
-<!--Global, inline, part of a row and location-->
-
-### Cards {.unnumbered}
-Cards are the fundamental unit of display within dashboards. Cards are created automatically for cells and markdown content that are within rows and columns. 
 
 
-### Tabsets {.unnumbered} 
-Use tabsets to include multiple views of data or to include content of secondary importance without having it crowd the main display. Tabsets are created by adding the `{.tabset}` class to a row or column.
+## Deploying your Dashboard
 
+::: columns
+::: {.column width="30%"}
+![Publish Button in RStudio IDE](images/flexdashboard-publish-icon.png){fig-align="center"}
+:::
 
-## Displying Data 
-Here we present a few options, however we encourage you to explore all the other many functionalities that dashboards provides to present data.
+::: {.column width="70%"}
+If your Dashboard **does not** have any Shiny components you can publish your flexdashboard using:
 
-### Plots {.unnumbered}
+- **RStudio IDE** using the Publish Button and select a destination to publish to. [See Posit's documentation](https://docs.posit.co/connect/user/publishing/#:~:text=The%20blue%20Publishing%20icon%20in,viewer%20when%20viewing%20a%20document).
+- **GitHub Pages**. See Chapter 7 [Publishing your analysis to the web with GitHub Pages](https://learning.nceas.ucsb.edu/2024-03-ucsb-faculty/session_07.html).
+:::
+:::
 
-**Interactive plots with htmlwidgets**
+If your Dashboard **does have** Shiny components you will need to publish to [shinyapps.io](https://shinyapps.io/). This can be done using:
 
-### Tables {.unnumbered}
+- **RStudio IDE** using the Publish Button.
+- The **`rsconnect` package** using `rsconnect::deployApp()`.
 
-### Value Box {.unnumbered}
-
-### Interactivity with Shiny {.unnumbered}
-
-## Deployment
-Dashboards are generally just HTML pages that can be deployed to any web server or host.
+::: {.callout-caution appearance="minimal"}
+***Note***: *You will need to create shinyapps.io Account first to publish to shinyapps.io.*
+:::
 
 
 
@@ -145,37 +166,37 @@ Dashboards are generally just HTML pages that can be deployed to any web server 
 ::: {.callout-tip icon="false"}
 ### Setup
 
-Fork the [NCEAS/quarto-demo-lh repository](https://github.com/NCEAS/quarto-dashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of Quarto Dashboard examples.
+Fork the [NCEAS/quarto-dashboard-demo-lh repository](https://github.com/NCEAS/quarto-dashboard-demo-lh) from the [NCEAS GitHub organization](https://github.com/nceas) and use the materials in the Git repo to follow along with the demonstration of Quarto Dashboard examples.
 :::
 
 The demonstration will include examples that showcase different dashboard features:
 
-1.  Basic dashboard from Template
+1.  Basic dashboard 
 2.  Multipage layout with interactive elements
-3.  Reactive dashboard using `shiny` elements
+<!--3.  Reactive dashboard using `shiny` elements -->
 
 
 ::: {.callout-note icon="false"}
 ### Exercise: Your turn!
 
-In the Themed Flexdashboard, use the `palmerpenguins` data to complete the following tasks:
+In the Themed Dashboard, use the `palmerpenguins` data to complete the following tasks:
 
 1.  **Fill in the boxes**:
-    a.  In the Chart A box, add a scatterplot of your choosing.
-    b.  In the Chart B box, add a table using either `kable()` or `DT`.
-    c.  In the Chart C box, add a `valueBox`.
-    d.  *Optional* Explore the [htmlwidgets for R gallery](https://gallery.htmlwidgets.org/), choose one you like and replace Chart D with that widget.
-2.  **Change the theme using `bslib::bs_themer()`**. To activate the Theme Customizer, complete these steps:
-    a.  Add to the YAML `runtime: shiny`
-    b.  Add `bslib::bs_themer()` to the setup chunk
-    c.  Save the `.Rmd`
-    d.  Click "Run Document" and open the dashboard in a browser window for optimal experience
-3. **Add a new page** then create a second Page using `{data-navmenu}`.
+    a.  In the Chart A & B add [value boxes](https://quarto.org/docs/dashboards/data-display.html#value-boxes).
+    b.  In the Chart C add a static plot of your choice.
+    c.  In the Chart D box, add a table using either `kable()` or `DT`.
+    d.  In chart D add a the palmerpenguin scatterplot. Try addind interactivity using `htmlwidgets` like `plotly`. Hint: You can convert a ggplot into a plotly with the function `ggplotly`. Make sure to have the `plotly` package loaded.
+    
+2.  **Change the theme using Quarto themes**. 
+    a.  Go to the [Quarto Theming](https://quarto.org/docs/dashboards/theming.html#overview) documentation.
+    b.  Explore the available themes.
+    c.  Choose one you like and try it out in your dashboard.
+    d.  Click "Render" and open the dashboard in a browser window to see the results.
+3. **Add a new page** then create a second Page. Explore any layout that you'd like.
 
 ***Note***: You're welcome to use the code from the demo so you can quickly start playing with the different flexdashboard features.
 :::
 
-<!--## Publishing a Flexdashboard -->
 
 
 ## Dashboard vs Shiny 
@@ -217,9 +238,9 @@ flowchart TD
 
 
 
-## Additional Resources
+<!--## Additional Resources
 
 -   [RStudio `flexdashboard` vingettes](https://pkgs.rstudio.com/flexdashboard/) (The articles under the "Articles" dropdown menu are particularly helpful!)
 -   [RStudio `flexdashboard` Examples](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
 -   [R Markdown: The Definitive Guide Chapter 5: Dashboards](https://bookdown.org/yihui/rmarkdown/dashboards.html) by Yihui Xie, J. J. Allaire, and Garrett Grolemund
--   [htmlwidgets for R](https://www.htmlwidgets.org/index.html): Check out widgets featured either in the [gallery](https://gallery.htmlwidgets.org/) or the [showcase](https://www.htmlwidgets.org/showcase_leaflet.html)
+-   [htmlwidgets for R](https://www.htmlwidgets.org/index.html): Check out widgets featured either in the [gallery](https://gallery.htmlwidgets.org/) or the [showcase](https://www.htmlwidgets.org/showcase_leaflet.html)-->
