@@ -1,15 +1,20 @@
 ---
-title: "Quarto Dashboards"
+title: "Practice Session"
 title-block-banner: true
+execute: 
+  eval: false
 format:
   html:
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
     code-overflow: wrap
 ---
 
 
+<!-- CHECK all looks good-->
 
-
-{{< include /sections/visualization-quarto-dashboards.qmd >}}
+{{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}
 
 
 

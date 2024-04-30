@@ -1,5 +1,5 @@
 ---
-title: "Accesing Survey Data Using a Reproducible Workflow"
+title: "Literate Analysis with Quarto"
 title-block-banner: true
 # execute: 
 #   eval: false
@@ -15,5 +15,5 @@ title-block-banner: true
 
 
 
-{{< include /sections/survey-workflow.qmd >}}
+{{< include /sections/r-intro-quarto.qmd >}}
 
