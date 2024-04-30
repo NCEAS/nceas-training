@@ -1,5 +1,5 @@
 ---
-title: "Git Workflows"
+title: "Tidy Data"
 title-block-banner: true
 format:
   html:
@@ -7,8 +7,8 @@ format:
     code-link: true
 ---
 
+<!---CHECK which version we want-->
+
+{{< include /sections/intro-tidy-data.qmd >}}
 
 
-{{< include /sections/git-pull-requests-branches.qmd >}}
-
-{{< include /sections/git-workflows.qmd >}}
