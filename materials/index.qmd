@@ -9,8 +9,8 @@
 :::
 
 ## About the course {.unnumbered}
+As part of a collaboration between NCEAS and the Delta Science Program, this course has been adapted from [NCEAS coreR course](https://www.nceas.ucsb.edu/learning-hub/core-r), an in-person immersion in R programming for environmental data science. Researchers will gain experience with essential data science tools and best practices to increase their capacity as collaborators, reproducible coders, and open scientists.
 
-[ADD]
 
 ## NCEAS Expertise
 
@@ -22,14 +22,16 @@ NCEAS has over 25 years of success with this model among working groups and envi
 <!-- *June 10 - 13, 2024* -->
 
 ### Learning Objectives
-
-[ADD]
+-   Effectively manage data using `tidy` data practices
+-   Implement reproducible scientific workflows throughout all aspects of a project
+-   Establish best practices and utilize tools like Git & GitHub to optimize your collaboration
+-   Better communicate scientific analyses and results using Markdown, GitHub webpages, and R packages like `ggplot2` and `Shiny`
+- Increase your familiarity and confidence with data science tools
 
 ### Week's Schedule
-[UPDATE]
 
 :::{.column-body-outset}
-<!-- ![](images/schedule.png) -->
+![](images/schedule.png)
 :::
 
 
@@ -46,6 +48,8 @@ This work is licensed under a [Creative Commons Attribution 4.0 International Li
 **Citation:** Camila Vargas Poulsen & Angel Chen (2024), NCEAS coreR for Delta Science Program, June 2024, NCEAS Learning Hub. URL <https://learning.nceas.ucsb.edu/2024-06-delta>.
 
 **Additional contributors:** Ben Bolker, Amber E. Budden, Julien Brun, Samantha Csik, Halina Do-Linh, Natasha Haycock-Chavez, S. Jeanette Clark, Julie Lowndes, Stephanie Hampton, Matt Jone, Samanta Katz, Erin McLean, Bryce Mecum, Deanna Pennington, Karthik Ram, Jim Regetz, Tracy Teal, Daphne Virlar-Knight, Leah Wasser.
+
+
 
 This is a Quarto book. To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
