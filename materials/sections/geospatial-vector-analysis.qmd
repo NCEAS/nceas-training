@@ -364,13 +364,15 @@ We can also plot multiple shapefiles in the same plot. Say if we want to visuali
 #| echo: false
 
 # data is saved in a different folder than participants
-rivers_3338 <- read_sf("data/shapefiles/ak_rivers_simp.shp")
-st_crs(rivers_3338)
+rivers_3338 <- read_sf(here("data/shapefiles/ak_rivers_simp.shp"))
 ```
 
 ```{r}
 #| eval: false
 rivers_3338 <- read_sf("/data/shapefiles/ak_rivers_simp.shp")
+```
+
+```{r}
 st_crs(rivers_3338)
 ```
 
