@@ -399,17 +399,17 @@ ggplot() +
 
 ### Incorporate base maps into static maps using `ggspatial`
 
-The `ggspatial` package has a function that can add tile layers from a few predefined tile sources like OpenStreetMap. The tiles will get projected into the CRS of the `sf` object pass into geom_sf(). Therefore no transformation is needed in this case.
+The `ggspatial` package has a function that can add tile layers from a few predefined tile sources like OpenStreetMap. Making sure that the tiles will plot correctly can be a finicky, so we will reproject our population data into the OpenStreetMap projection, Pseudo-Mercator (EPSG 3857), first.
 
-We will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a base map to our map. This can take a couple of minutes to load.
+Then we will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a base map to our map. This can take a couple of minutes to load.
 
 ```{r}
-#| message: false
-#| warning: false
-#| eval: false
+pop_3857 <- st_transform(pop_3338, 
+                         crs = 3857)
+```
 
-
-ggplot(data = pop_3338) +
+```{r}
+ggplot(data = pop_3857) +
     ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
     geom_sf(aes(color = population),
             fill = NA) +
