@@ -10,7 +10,7 @@
 
 Every file in the scientific process changes. Manuscripts are edited. Figures get revised. Code gets fixed when bugs are discovered. Sometimes those fixes lead to even more bugs, leading to more changes in the code base. Data files get combined together. Sometimes those same files are split and combined again. In just one research project, we can expect thousands of changes to occur. 
 
-These changes are important to track, and yet, we often use simplistic file names to do so. Many of us have experienced renaming a document or script multiple times with the ingenuine addition of "final" to the file name (like the comic above demonstrates).
+These changes are important to track, and yet, we often use simplistic file names to do so. Many of us have experienced renaming a document or script multiple times with the disingenuous addition of "final" to the file name (like the comic above demonstrates).
 
 You might think there is a better way, and you'd be right: **version control**. Version control provides an organized and transparent way to track changes in code and additional files. This practice was designed for software development, but is easily applicable to scientific programming.
 
@@ -369,14 +369,14 @@ Start by clicking the green **Code** button (top right of your file listing) and
 ![](images/github-test-clone-url.png){width="70%" fig-align="center"}
 :::
 
-RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project (see [Appendix](http://localhost:5456/session_12.html#create-an-r-project)), with a slight difference. Follow the instructions in the Setup box below to clone your remote repository to your local computer in RStudio:
+RStudio makes working with Git and version controlled files easy -- to do so, you'll need to be working within an R project folder. The following steps will look similar to those you followed when first creating an R Project, with a slight difference. Follow the instructions in the Setup box below to clone your remote repository to your local computer in RStudio:
 
 
 ::: callout-tip
 ## Setup
 
 -   Click **File** > **New Project**
--   Select **Version Control** and paste the remote repository URL (which should be copied to your clipboard) in the **Repository ULR** field
+-   Select **Version Control** and paste the remote repository URL (which should be copied to your clipboard) in the **Repository URL** field
 -   Press **Tab**, which will auto-fill the **Project directory name** field with the same name as that of your remote repo -- while you can name the local copy of the repository anything, it's typical (and highly recommended) to use the same name as the GitHub repository to maintain the correspondence
 
 <!-- ![](images/rstudio-clone-repo.png){width="90%" fig-align="center"} -->
@@ -448,7 +448,7 @@ Click on the **History** button to see a total of four commits in the local repo
 
 ::: {.callout-note}
 ## If you are prompted to provide your GitHub username and password when **Push**ing...
-it's a good indicator that you did not set your GitHub Personal Access Token (PAT) correctly. You can redo the steps outlined in the [GitHub Authentication section](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#github-authentication) of the [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html) to (re)set your PAT, then **Push** again.
+it's a good indicator that you did not set your GitHub Personal Access Token (PAT) correctly. You can redo the steps outlined in the [GitHub Authentication section](https://learning.nceas.ucsb.edu/2024-06-delta/session_03.html#github-authentication) to (re)set your PAT, then **Push** again.
 :::
 
 :::{.column-body-outset}
@@ -462,8 +462,10 @@ If you look at the History pane again, you'll notice that the labels next to the
 
 ![](images/github-history.png)
 
-::: callout-note
-## Last thing, some Git configuration to surpress warning messages
+### Defining Merge Method
+
+::: callout-caution
+## Some Git configuration to surpress warning messages
 
 Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
 
@@ -474,14 +476,14 @@ Git version 2.27 includes a new feature that allows users to specify the default
 git config pull.rebase false
 ```
 
-`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Chapter 11](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_11.html)).
+`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Collaborating with Git and GitHub](https://learning.nceas.ucsb.edu/2024-06-delta/session_07.html)).
 
-**Note:** Unlike when we first configured Git (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
+**Note:** Unlike when we first configured Git, we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
 
 ## Exercise 3: Setting up Git on an existing project
 
-There are a number of different workflows for creating version-controlled repositories that are stored on GitHub. We started with [Exercise 1](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-1-create-a-remote-repository-on-github) and [Exercise 2](http://localhost:5456/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) using one common approach: **creating a remote repository on GitHub first, *then* cloning that repository to your local computer (you used your `{FIRSTNAME}_test` repo).**
+There are a number of different workflows for creating version-controlled repositories that are stored on GitHub. We started with Exercise 1 and Exercise 2 using one common approach: **creating a remote repository on GitHub first, *then* cloning that repository to your local computer (you used your `{FIRSTNAME}_test` repo).**
 
 However, you may find yourself in the situation where you **have an existing directory (i.e. a "normal" folder) of code that you want to make a Git repository out of, *and then* send it to GitHub.** In this last exercise, we will practice this workflow using your `training_{USERNAME}` project.
 
@@ -691,7 +693,7 @@ knitr::include_graphics("images/git_status_staged.png")
 knitr::include_graphics("images/git_commit.png")
 ```
 
-5. **Create an empty remote repository** by logging into [GitHub](https://github.com/) and creating a new repository, following the same steps as in [Exercise 1](http://localhost:5456/session_09.html#exercise-1-create-a-remote-repository-on-github). **IMPORTANTLY,** *DO NOT* initialize your remote repo with a `README` license, or `.gitignore` file -- doing so now can lead to merge conflicts. We can add them after our local and remote repos are linked. **Name your remote repository the same as your local repository (i.e. `training_{USERNAME}`).**
+5. **Create an empty remote repository** by logging into [GitHub](https://github.com/) and creating a new repository, following the same steps as in Exercise 1. **IMPORTANTLY,** *DO NOT* initialize your remote repo with a `README` license, or `.gitignore` file -- doing so now can lead to merge conflicts. We can add them after our local and remote repos are linked. **Name your remote repository the same as your local repository (i.e. `training_{USERNAME}`).**
 
 6. **Link your remote (GitHub) repository to your local Git repository.**  Your empty GitHub repo conveniently includes instructions for doing so. Copy the code under **push an existing repository from the command line** to your clipboard, paste into your RStudio Terminal, and press return/enter.
 
