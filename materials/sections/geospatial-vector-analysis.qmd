@@ -122,13 +122,17 @@ glimpse(ak_regions)
 
 ### Coordinate Reference System (CRS)
 
-[![Source: ESRI](images/projections-esri-blog.jpg){width="90%" fig-align="center"}](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/)
+[![Source: ESRI](images/projections-esri-blog.jpg)](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/){width="90%" fig-align="center"}
 
 Every `sf` object needs a coordinate reference system (or `crs`) defined in order to work with it correctly. A coordinate reference system contains both a datum and a projection. 
+
+![](images/geospatial-crs-diagram){width="50%" fig-align="center"}
 
 The datum is how you georeference your points (in 3 dimensions!) onto a spheroid, or the Earth. The Earth is not a perfect sphere and there are many ways to describe its shape. For example, is the Earth shaped like a lemon, lime, or orange? The shape, or datum, that you choose will depend on the scope of your project (for instance, local vs. global) and the specific locations. 
 
 The projection is how these points are mathematically transformed to represent the georeferenced point on a flat piece of paper. Since you will visualize a 3D object onto a 2D space, there will be some distortions depending on the projection that you choose. Analogously, how do you peel the fruit (representing the Earth) and flatten the peel?
+
+[![Source: ESRI](images/geospatial-gcs-pcs.png)](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/){width="70%" fig-align="center"}
 
 All coordinate reference systems require a datum. However, some coordinate reference systems are "unprojected" (also called geographic coordinate systems). Coordinates in latitude/longitude use a geographic (unprojected) coordinate system. One of the most commonly used geographic coordinate systems is WGS 1984.
 
@@ -415,6 +419,8 @@ pop_3857 <- st_transform(pop_3338,
 ```
 
 ```{r}
+#| message: false
+
 ggplot(data = pop_3857) +
     ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
     geom_sf(aes(color = population),
