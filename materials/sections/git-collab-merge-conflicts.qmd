@@ -48,11 +48,7 @@ To do this, the owner will navigate to their remote repository on GitHub, then c
 
 ### Step 1: Collaborator clones the remote repository {.unnumbered}
 
-In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
-
-
-In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_09.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
-
+In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2024-06-delta/session_05.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
 
 ### INTERMEDIATE STEP: Collaborator communicates with Owner that they plan to make some changes {.unnumbered}
 
@@ -134,8 +130,10 @@ and all copies are once again fully synced. And just like that, you've successfu
 - Check your email for an invitation to GitHub or check your notifications (likely under **Your Organizations**) on GitHub to accept the invite to collaborate.
 :::
 
+### Defining Merge Method
+
 ::: callout-caution
-## Last thing, some Git configuration to surpress warning messages
+## Some Git configuration to surpress warning messages
 
 Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
 
@@ -149,7 +147,7 @@ git config pull.rebase false
 
 `pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict.
 
-**Note:** Unlike when we first configured Git (see [Appendix](https://learning.nceas.ucsb.edu/2023-09-ucsb-faculty/session_12.html#set-up-global-options-in-git)), we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
+**Note:** Unlike when we first configured Git, we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
 
 ::: {.callout-note icon=false}
