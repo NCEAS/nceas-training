@@ -154,7 +154,7 @@ Now that we have introduced some data wrangling libraries, let's get the data th
 
 1. Go to [KNB Data Package Alaska commercial salmon catches by management region (1886- 1997)](https://knb.ecoinformatics.org/view/df35b.304.2)
 
-2. Find the data file `byerlySalmonByRegion.csv`. Right click the "Download" button and select "Copy Link Address"
+2. Find the data file `df35b.302.1`. Right click the "Download" button and select "Copy Link Address"
 
 3. Paste the copied URL into the `read_csv()` function
 
@@ -189,18 +189,19 @@ Before we get too much further, spend a minute or two outlining your Quarto docu
 - Clean and Reshape data
   - Using `select()` function
   - Check column types
-  - Replace values in a column
-  - Reshape data
+  - Replace values in a column with `mutate()`
+  - Reshape data with `pivot_longer()` and `pivot_wider()`
   - Rename columns `rename()`
+  - Add columns with `mutate()`
   - Summary stats using `group_by()` and `summarize()`
   - Filtering rows using `filter()`
   - Sort data using `arrange()`
-  - Split and combine values in columns
+  - Split and combine values in columns with `separate()` and `unite()`
   
 :::
 
 ## Data exploration
-Similar to what we did in our [Intro to Literate Analysis](https://learning.nceas.ucsb.edu/2023-10-coreR/session_04.html) lesson, it is good practice to skim through the data you just read in. 
+Similar to what we did in our [Literate Analysis](https://learning.nceas.ucsb.edu/2024-06-delta/session_04.html) lesson, it is good practice to skim through the data you just read in. 
 
 Doing so is important to make sure the data is read as you were expecting and to familiarize yourself with the data.
 
@@ -340,7 +341,7 @@ It looks like there is only one problem row, lets have a look at it in the origi
 catch_data[i,]
 ```
 
-Well that's odd: The value in `catch_thousands` is the letter `I`. It turns out that this data set is from a PDF which was automatically converted into a `csv` and this value of `I` is actually a 1.
+Well that's odd: The value in `Chinook` is the letter `I`. It turns out that this data set is from a PDF which was automatically converted into a `csv` and this value of `I` is actually a 1.
 
 Let's fix it by incorporating the `if_else()` function to our `mutate()` call, which will change the value of the `Chinook` column to 1 if the value is equal to `I`, then will use `as.numeric()` to turn the character representations of numbers into numeric typed values.
 
