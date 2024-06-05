@@ -476,7 +476,7 @@ Git version 2.27 includes a new feature that allows users to specify the default
 git config pull.rebase false
 ```
 
-`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Collaborating with Git and GitHub](https://learning.nceas.ucsb.edu/2024-06-delta/session_07.html)).
+`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Collaborating with Git and GitHub](https://learning.nceas.ucsb.edu/2024-06-delta/session_09.html)).
 
 **Note:** Unlike when we first configured Git, we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
 :::
