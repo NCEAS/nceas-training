@@ -42,7 +42,7 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
     b. This is our Quarto file rendered as `HTML` (a web page)
     
 4. Commit your changes (for both `index.qmd` and `index.html`) with a commit message, and `push` to GitHub
-
+    a. If you have a folder called `index_files`, commit this as well. This folder contains the all the formatting and display settings for your html page. 
 
 5. Open your web browser to the [github.com](https://github.com/) and navigate to the page for your `training_{USERNAME}` repository
 
@@ -76,6 +76,7 @@ Now that we've successfully published a web page from an Quarto Document, let's 
 - Go back to your `index.qmd`
 - Delete all the content, except the `YAML` frontmatter
 - Type "Hello world"
+- Render `index.qmd`
 - Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
 - Go back to `https://{username}.github.io/{repo_name}/`
 :::
@@ -118,6 +119,7 @@ In this exercise, you'll create a table of contents with the lessons of this cou
   - Example: ```[Data wrangling and cleaning](data-wrangling-cleaning.html)```
 </details>
 
+- Render `index.qmd`
 
 - Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
 
