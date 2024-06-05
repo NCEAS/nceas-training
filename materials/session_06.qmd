@@ -1,14 +1,12 @@
 ---
-title: "Data Management Essentials"
+title: "Tidy Data"
 title-block-banner: true
-execute: 
-  eval: false
+format:
+  html:
+    code-overflow: wrap
+    code-link: true
 ---
 
+<!---CHECK which version we want-->
 
-<!-- ::: {.callout-note} -->
-<!-- You can download the slides for this session [here](files/2024-03-github-for-project-management.pdf). -->
-<!-- ::: -->
-
-
-{{< include /sections/data-management-essentials.qmd >}}
+{{< include /sections/intro-tidy-data.qmd >}}

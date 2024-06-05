@@ -1,11 +1,8 @@
 ---
-title: "Collaborating with Git and GitHub"
+title: "Cleaning and Wrangling Data"
 title-block-banner: true
-execute:
-  eval: false
 ---
 
-{{< include /sections/git-collab-merge-conflicts.qmd >}}
 
+{{< include /sections/clean-wrangle-data.qmd >}}
 
-<!--{{< include /sections/intro-tidy-data.qmd >}}-->
