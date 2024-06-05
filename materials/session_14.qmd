@@ -1,13 +1,17 @@
 ---
-title: "Introduction to Shiny"
+title: "Practice Session II"
 title-block-banner: true
+execute: 
+  eval: false
+format:
+  html:
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
 ---
 
 
+<!-- CHECK all looks good-->
 
-
-<!-- {{< include /sections/collaboration-social-data-policies.qmd >}} -->
-
-<!-- {{< include /sections/fair-care-principles.qmd >}} -->
-
-<!-- {{< include /sections/research-data-publising-ethics.qmd >}} -->
+{{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}

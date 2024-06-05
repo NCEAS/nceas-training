@@ -1,14 +1,21 @@
 ---
-title: "Tidy Data"
+title: "Practice Session I"
 title-block-banner: true
+execute: 
+  eval: false
 format:
   html:
-    code-overflow: wrap
     code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
 ---
 
-<!---CHECK which version we want-->
 
-{{< include /sections/intro-tidy-data.qmd >}}
+<!-- CHECK all looks good-->
+
+{{< include /sections/r-practice-tidy-data-joins.qmd >}}
+
+
 
 
