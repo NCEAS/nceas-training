@@ -8,7 +8,7 @@
 
 ## The Big Idea
 
-This lesson aims to get you thinking about how to manage your data for a reseach or synthesis project. And how to do it with the FAIR and CARE principles in mind. We introduce multiple concpets and provide resources that you can come back to when ever you start a new project or to apply these principles to a project you are currently working on.
+This lesson aims to get you thinking about how to manage your data for a research or synthesis project. And how to do it with the FAIR and CARE principles in mind. We introduce multiple concepts and provide resources that you can come back to when ever you start a new project or to apply these principles to a project you are currently working on.
 
 ## Introduction to Data Management
 
@@ -44,11 +44,12 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 
 ![Source: Adapted from Faundeen et al 2013, USGS & DataONE](images/data-life-cycle-usgs.png){fig-alt="Data Life Cycle graphic with tools for each step." fig-align="right"}
 
+<br>
+
 ### Primary Elements
 
-
 | Step                 | Description                                                                                                                                                                                                                                                                                                  | Tool                                                   |
-|-------------------|------------------------------------|-------------------|
+|-------------------|-----------------------------------|-------------------|
 | *Plan*               | Map out the processes and resources for all activities related to the handling of the project's data assets. Start with the project goals (desired outputs, outcomes, and impacts) and work backwards to build a data management plan, supporting data policies, and sustainability plans for each step.     | Data Management Plan (DPM)                             |
 | *Acquire & Discover* | Activities needed to collect new or existing data. You can structure the process of collecting data upfront to better implement data management. Consider data policies and best practices that maintain the provenance and integrity of the data.                                                           | Identifying data sources and mechanisms to access data |
 | *Process*            | Every step needed to prepare new or existing data to be able to use it as an input for synthesis. Consider the structure of the data, unit transformation, extrapolations, etc                                                                                                                               | Cleaning & Wrangling data skills                       |
@@ -57,26 +58,31 @@ The Data Life Cycle gives you an overview of meaningful steps data goes through 
 | *Preserve*           | Plan on how you are going to store your data for long-term use and accessibility so others can access, interpret, and use the data in the future. Decide what data to preserve, where to preserve it, and what documentation needs to accompany the data.                                                    | Data packages & repositories                           |
 | *Publish and Share*  | Publication and distribution of your data through the web or in data catalogs, social media or other venues to increase the chances of your data being discovered. Data is a research product as publications are.                                                                                           | DOIs and citations                                     |
 
+<br>
+
+And the cycle begins again.
+
+<br>
+
+![Source: DataONE Data Life Cycle](images/data-life-cycle.png){fig-alt="Data Life Cycle graphic with tools for each step." fig-align="center"}
+
+This wheel is powered by the cross-cutting elements involved across all stages of the cycle.
+
 ### Cross-Cutting Elements
 
 These elements are involved across all stages describes above. They need to constantly by addressed throughout all the Data Life Cycle, making sure effective data management is in place.
 
-| Step                | Description                                                                                                                                                                                                                                                                                                                                                                                                        | Tool                                             |
-
-|-------------------|------------------------------------|-------------------|
-
-| *Describe*          | Document data and each of the data stages by describing the why, who, what, when, where, and how of the data and processes. Metadata, or data about data, is key to data sharing and reuse. Documentation such as software code comments, data models, and workflows facilitate indexing, acquiring, understanding, and future uses of the data                                                                    | Metadata and documentation                       |
-| *Manage Quality*    | Employ quality assurance and quality control procedures that enhance the quality of data, making sure the measurements or outputs within expected values.Identify potential errors and techniques to address them.                                                                                                                                                                                                 | Quality Control and Quality Assurance techniques |
-| *Backup and Secure* | Plan to preserve data in the short term to minimize potential losses (e.g., via software failure, human error, natural disaster). This avoids risk and ensures data is accessible to collaborators. This applies to raw and process data, original science plan, data management plan, data acquisition strategy, processing procedures, versioning, analysis methods, published products, and associated metadata | Servers, secure data sharing services            |
-
+|Step | Description | Tool |
+|-----|------------------------------------|-------------------|
+|*Describe* | Document data and each of the data stages by describing the why, who, what, when, where, and how of the data and processes. Metadata, or data about data, is key to data sharing and reuse. Documentation such as software code comments, data models, and workflows facilitate indexing, acquiring, understanding, and future uses of the data | Metadata and documentation |
+| *Manage Quality* | Employ quality assurance and quality control procedures that enhance the quality of data, making sure the measurements or outputs within expected values.Identify potential errors and techniques to address them. | Quality Control and Quality Assurance techniques |
+| *Backup and Secure* | Plan to preserve data in the short term to minimize potential losses (e.g., via software failure, human error, natural disaster). This avoids risk and ensures data is accessible to collaborators. This applies to raw and process data, original science plan, data management plan, data acquisition strategy, processing procedures, versioning, analysis methods, published products, and associated metadata | Servers, secure data sharing services |
 
 ## Data Management Plans
-
 
 As you can see there is a lot happening around the Data Life Cycle. This is why PLANNING is a key first step. It is advisable to initiate your data management planning at the beginning of your research process before any data has been collected or discovered.
 
 In order to better plan and keep track of all the moving pieces when working with data, a good place to start is creating a Data Management Plan. However, this is not only the starting point. This is a "living" document that should be consulted and updated throughout the project.
-
 
 A Data Management Plan (DMP) is a document that describes how you will use your data during a research project, as well as what you will do with your data long after the project ends. DMPs should be updated as research plans change to ensure new data management practices are captured ([Environmental Data Initiative](https://edirepository.org/resources/data-management-planning)).
 
@@ -94,14 +100,15 @@ A DMP is both a straightforward blueprint for how you manage your data, *and* pr
 ## How to plan
 
 -   Plan early - information gets lost over time. Think about your data needs as you are starting your project.
+
 -   Plan in collaboration - engaging all the team makes your plan more resilient, including diverse expertise and perspectives.
+
 -   Make revision part of the process - adapt as needed, revising your plan helps you make sure your are on track.
 
 -   Include a tidy data and data ethic lens. It is important to start thinking through these lenses during the planning process of your DMP, it will make it easier to include and maintain tidy and ethical principles throughout the entire project.
 :::
 
 ### Creating a Good Data management Plan
-
 
 The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michener2015) outlines big picture ideas to keep in mind when you start your "planning stage". Here we summarize each point and provide useful resources or examples to help you achieve this "rules" and write an awesome DMP.
 
@@ -129,7 +136,6 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 -   Resource
 
     -   Here is a [template spreadsheet](https://docs.google.com/spreadsheets/d/1mftmoNPzGMhQehC7iVD5B0D0-Hfh_PNjbY7d9UTh98Y/edit?usp=sharing) to collect all information about the data set you intent to use for your synthesis project. Please make a copy and adapt as needed.
-
 
 #### Define how the data will be organized
 
@@ -195,7 +201,6 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 #### Prepare a realistic budget
 
-
 -   Generally overlooked, but preparing a realistic budget it's an important part when planning for your data management. Data management takes time and it may have cost associates to it for example access to software, hardware, and personnel. Make sure you plan considers budget to support people involved as well as software or data fees or other services as needed.
 
 ## Metadata Best Practices
@@ -205,7 +210,6 @@ Within the data life cycle you can be collecting data (creating new data) or int
 Imagine that you're writing your metadata for a typical researcher (who might even be you!) 30+ years from now - what will they need to understand what's inside your data files?
 
 The goal is to have enough information for the researcher to **understand the data**, **interpret the data**, and then **reuse the data** in another study.
-
 
 Here we walk you through detail guidelines to keep track of have a well documented data.
 
@@ -302,7 +306,6 @@ Researchers should get in the habit of citing the data that they use (even if it
 -   [Excel-to EML](https://github.com/lkuiucsb/Excel-to-EML/tree/master) by Li Kui is a workflow that provides a spreadsheet template to collect metadata based on the [Ecological Metadata Language Schema (EML)](https://eml.ecoinformatics.org/)
 -   The Environmental Data Repository (EDI) provides a tool called [ezEML](https://edirepository.org/resources/creating-metadata-for-publication#ezeml). A form-based web application that helps streamline the process of creating EML metadata.
 
-
 ## Data Preservation & Sharing
 
 ![](images/WhyManage-small.png)
@@ -342,8 +345,49 @@ DataONE is a federation of dozens of data repositories that work together to mak
 
 DataONE can be [searched on the web](https://search.dataone.org/), which effectively allows a single search to find data from the dozens of members of DataONE, rather than visiting each of the (currently 44!) repositories one at a time.
 
-![](images/DataONECNs.png)
+![](images/DataONECNs.png) 
 
+
+<br>
+
+## The FAIR and CARE Principles 
+
+
+![Source: Global Indigenous Data Alliance](images/FAIR_CARE.png){width="92%" fig-align="center"}](https://www.gida-global.org/whoweare)
+
+The idea behind these principles is to increase access and usage of complex and large datasets for innovation, discovery, and decision-making. This means making data available to machines, researchers, Indigenous communities, policy makers, and more.
+
+With the need to improve the infrastructure supporting the reuse of data, a group of diverse stakeholders from academia, funding agencies, publishers and industry came together to jointly endorse measurable guidelines that enhance the reusability of data (@wilkinson_fair_2016). These guidelines became what we now know as the FAIR Data Principles.
+
+Following the discussion about FAIR and incorporating activities and feedback from the Indigenous Data Sovereignty network, the Global Indigenous Data Alliance developed the CARE principles (@carroll_operationalizing_2021). The CARE principles for Indigenous Data Governance complement the more data-centric approach of the FAIR principles, introducing social responsibility to open data management practices.
+
+Together, these two principle encourage us to push open and other data movements to consider both people and purpose in their advocacy and pursuits. The goal is that researchers, stewards, and any users of data will be FAIR and CARE (@carroll_care_2020).
+
+### What is FAIR?
+
+With the rise of open science and more accessible data, it is becoming increasingly important to address accessibility and openness in multiple ways. The [FAIR principles](https://force11.org/info/guiding-principles-for-findable-accessible-interoperable-and-re-usable-data-publishing-version-b1-0/) focuses on *how* to prepare your data so that it can be reused by others (versus just open access of research outputs). In 2016, the data stewardship community published principles surrounding best practices for open data management, including FAIR. FAIR stands for Findable, Accessible, Interoperable, and Reproducible. **It is best to think about FAIR as a set of comprehensive standards for you to use while curating your data**. And each principle of FAIR can be translated into a set of actions you can take during the entire lifecycle of research data management.
+
+[![Source: Fair Teaching Handbook](images/FAIRsFAIR.png){width="80%" fig-align="center"}](https://fairsfair.gitbook.io/fair-teaching-handbook/)
+
+| FAIR                  | Definition                                                                                    |
+|------------------|------------------------------------------------------|
+| **(F) Findable**      | Metadata and data should be easy to find for both humans and computers.                       |
+| **(A) Accessible**    | Once someone finds the required data, they need to know how the data can be accessed.         |
+| **(I) Interoperable** | The data needs to be easily integrated with other data for analysis, storage, and processing. |
+| **(R) Reusable**      | Data should be well-described so they can be reused and replicated in different settings.     |
+
+### What is CARE?
+
+The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Governance were developed by the International Indigenous Data Sovereignty Interest Group in consultation with Indigenous Peoples, scholars, non-profit organizations, and governments (@carroll_care_2020). They address concerns related to the people and purpose of data. It advocates for greater Indigenous control and oversight in order to share data on Indigenous Peoples' terms. These principles are people and purpose-oriented, reflecting the crucial role data have in advancing Indigenous innovation and self-determination. CARE stands for Collective benefits, Authority control, Responsibility and Ethics. It details that the use of Indigenous data should result in tangible benefits for Indigenous collectives through inclusive development and innovation, improved governance and citizen engagement, and result in equitable outcomes.
+
+[![Source: Carroll, S.R., et al, 2020. The CARE Principles for Indigenous Data Governance](images/CAREsCARE.png){width="80%" fig-align="center"}](https://datascience.codata.org/articles/10.5334/dsj-2020-043/)
+
+| CARE                         | Definition                                                                                                                                                                                                                                                                                                                                                                                    |
+|----------------|--------------------------------------------------------|
+| **(C) Collective Benefit**   | Data ecosystems shall be designed and function in ways that enable Indigenous Peoples to derive benefit from the data.                                                                                                                                                                                                                                                                        |
+| **(A) Authority to Control** | Indigenous Peoples' rights and interests in Indigenous data must be recognized and their authority to control such data be empowered. Indigenous data governance enables Indigenous Peoples and governing bodies to determine how Indigenous Peoples, as well as Indigenous lands, territories, resources, knowledge and geographical indicators, are represented and identified within data. |
+| **(R) Responsibility**       | Those working with Indigenous data have a responsibility to share how those data are used to support Indigenous Peoples' self-determination and collective benefit. Accountability requires meaningful and openly available evidence of these efforts and the benefits accruing to Indigenous Peoples.                                                                                        |
+| **(E) Ethics**               | Indigenous Peoples' rights and well being should be the primary concern at all stages of the data life cycle and across the data ecosystem.                                                                                                                                                                                                                                                   |
 
 ## Data Management Summary
 
@@ -352,7 +396,7 @@ DataONE can be [searched on the web](https://search.dataone.org/), which effecti
 -   Document everything. Having rich metadata is a key factor to enable data reuse. Describe your data and files and use an appropriate metadata standard.
 -   Identify software and tools that will help you and your team organize and document the project's data life cycle.
 -   Publish your data in a stable long live repository and assign a unique identifier.
-
+-   Keep the FAIR and CARE principles in mind through out the whole Data Life Cycle.
 
 <br>
 
