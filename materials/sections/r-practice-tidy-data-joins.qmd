@@ -18,7 +18,7 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 These exercises will be using bird survey data collected from the central Arizona-Phoenix metropolitan area by Arizona State University researchers [@warren2021].
 
-## Exercise: Practice Joins
+## Exercise 1: Practice Joins {.unnumbered}
 
 ::: callout-tip
 ## Setup
@@ -57,7 +57,7 @@ library(lubridate) # for bonus question
     - **Note:** You also want to `Pull` when you first open a project.
 :::
 
-### Read in the data
+## Read in the data
 
 ::: callout-note
 #### Question 1
@@ -80,18 +80,17 @@ sites <- read_csv("data/52_pp52_sites_1.csv")
 taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
 ```
 
-### Get familiar with the data
+## Get familiar with the data
 
 ::: callout-note
 #### Question 2a
 
 What functions can you use to explore the data you just read in? Think about which functions we've been using to explore the structure of the data frame, information about columns, unique observations, etc.
+Tip: run `View(name_of_your_data_frame) in the console to see data in a spreadsheet-style viewer.
 :::
 
 ```{r}
 #| code-summary: "Answer"
-# view data in a spreadsheet-style viewer
-View(bird_observations)
 
 # returns dimensions of the dataframe by number of rows and number of cols
 dim(bird_observations)
@@ -125,11 +124,13 @@ What are the primary and foreign keys for the tables `bird_observations` and `ta
 <summary>Answer</summary>
 
 -   `bird_observations`: Primary key is a compound key made up of `survey_id`, `site_id`, and `species_id`. The foreign key is `species_id`.
--   `taxalist`: Primary key is `species_id` and does not have a foreign key.
+-   `taxalist`: Primary key is `species_id` and does not have a foreign key that match the primary key in `bird_observations`.
+
+However, we could join `bird_observations` and `taxalist` by `species_id`, but depending on the type of join some values would be droped or `NAs` would be introduce in the resulting data frame.
 
 </details>
 
-### Create a subset of `bird_observations`
+## Create a subset of `bird_observations`
 
 ::: callout-note
 #### Question 3
@@ -146,12 +147,14 @@ birds_subset <- bird_observations %>%
   filter(site_id %in% c("LI-W", "NU-C"))
 ```
 
-### Use `left_join()` to merge `birds_subset` with the tables `sites` and `taxalist`
+## Use `left_join()` to merge `birds_subset` with the tables `sites`
 
 ::: callout-note
 #### Question 4a
 
-First, answer: what do you expect a `left_join()` between `birds_subset` and `sites` to contain? Write this in your Quarto Document or tell a neighbor.
+First, answer: what do you expect the outcome data frame when doing `left_join()` between `birds_subset` and `sites` to look like? What observations do you expect in the outcome data frame.
+
+Write this in your Quarto Document or tell a neighbor.
 :::
 
 <details>
@@ -180,7 +183,7 @@ birds_left <- birds_subset %>%
 birds_left <- left_join(x = birds_subset, y = sites, by = "site_id")
 ```
 
-### Use `full_join()` to merge `birds_subset` and `sites` tables
+## Use `full_join()` to merge `birds_subset` and `sites` tables
 
 ::: callout-note
 #### Question 5a
@@ -213,7 +216,7 @@ birds_full <- full_join(x = birds_subset, y = sites, by = "site_id")
 ```
 
 
-### Use `inner_join()` to merge `birds_subset` and `taxalist` data
+## Use `inner_join()` to merge `birds_subset` and `taxalist` data
 
 ::: callout-note
 #### Question 6a
@@ -277,9 +280,9 @@ You'd expect the outcome to differ from an `inner_join()` if `birds_subset` cont
 
 </details>
 
-## Exercise: Practice Wrangling & Joining Data
+## Exercise 2: Practice Wrangling & Joining Data {.unnumbered}
 
-### Wrangle `bird_observations` data and merge the data with all the other tables (`sites`, `surveys`, and `taxalist`)
+## Wrangle `bird_observations` data and merge the data with all the other tables (`sites`, `surveys`, and `taxalist`)
 
 ::: callout-note
 #### Question 7a
@@ -311,7 +314,7 @@ bird_obs_subset <- bird_observations %>%
   select(survey_date, common_name, park_name, bird_count, observer)
 ```
 
-### Explore `observer` data and fix the values within this column so that all values are in the same format
+## Explore `observer` data and fix the values within this column so that all values are in the same format
 
 ::: callout-note
 #### Question 8a
@@ -345,7 +348,7 @@ unique(bird_obs_subset$observer)
 Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
-### Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
+## Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
 
 **Hint:** How do you learn about a new function or package?
 
