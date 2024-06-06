@@ -46,7 +46,7 @@ library(leaflet) # interactive maps
 library(DT) # interactive tables
 library(scales) # scale functions for visualization
 library(janitor) # expedite cleaning and exploring data
-library(viridis) # colorblind friendly color pallet
+library(viridis) # colorblind friendly color palette
 ```
 
 
@@ -75,10 +75,10 @@ colnames(delta_visits_raw)
 glimpse(delta_visits_raw)
 
 ## From when to when
-range(delta_visits_raw$date)
+range(delta_visits_raw$Date)
 
 ## Which time of day?
-unique(delta_visits_raw$time_of_day)
+unique(delta_visits_raw$Time_of_Day)
 ```
 
 :::
@@ -110,7 +110,7 @@ colnames(delta_visits)
 :::
 
 
-With the [tidy data principles](https://learning.nceas.ucsb.edu/2023-06-delta/session_09.html#tidy-data) in mind. Is this data tidy?
+With the [tidy data principles](https://learning.nceas.ucsb.edu/2024-06-delta/session_06.html) in mind. Is this data tidy?
 
 1. Every column is a variable.
 2. Every row is an observation.
@@ -140,7 +140,7 @@ head(visits_long)
 ### Exercise
 
 
-- Calculate the daily visits by `visit_type` and `restore_loc`,
+- Calculate the daily visits by `restore_loc`, `date`, and `visitor_type`.
 
 
 :::
@@ -168,7 +168,7 @@ First, we’ll cover some `ggplot2` basics to create the foundation of our plot.
 
 1. Indicate we are using `ggplot()` (call the `ggplot2::ggplot()` function)
 2. What data do we want to plot? (`data = my_data`)
-3. What is my mapping aesthetics? What variables do we want to plot? (define using`aes()` function)
+3. What are the mapping aesthetics? What variables do we want to plot? (define using`aes()` function)
 4. Define the geometry of our plot. This specifies the type of plot we're making (use `geom_*()` to indicate the type of plot e.g: point, bar, etc.)
 
 **Note**
@@ -227,7 +227,7 @@ Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into 
 This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
 :::
 
-We will use the pipe operator to pass into `ggplot()` a filtered version of `daily_visit_loc`, and make a plot with different geometries.
+We will use the pipe operator to pass into `ggplot()` a filtered version of `daily_visits_loc`, and make a plot with different geometries.
 
 
 **Boxplot**
@@ -311,7 +311,7 @@ ggplot(data = daily_visits_loc,
 
 - If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
 
-- If you want to update your plot base on a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
+- If you want to update your plot base with a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
 
 :::
 
@@ -461,9 +461,9 @@ ggplot(data = daily_visits_loc,
 
 #### Reordering things
 
-`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted. One way to do this is to use the `fct_reorder()` function from the `forcats` package. `forcats` provide tools for working with categorical variables. In this case, we want to reorder or categorical variable of "Restoration Location" base on the total number of visits.
+`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted. One way to do this is to use the `fct_reorder()` function from the `forcats` package. `forcats` provides tools for working with categorical variables. In this case, we want to reorder our categorical variable of `restore_loc` based on the total number of visits.
 
-The fist thing we need to do is to add a column to our data with the _total number of visits_ by location. This will be our "sorting" variable.
+The first thing we need to do is to add a column to our data with the _total number of visits_ by location. This will be our "sorting" variable.
 
 ```{r}
 daily_visits_totals <- daily_visits_loc %>% 
@@ -521,7 +521,7 @@ Note how `coord_flip()` changes the parameters
 
 #### Colors
 
-The last thing we will do to our plot is change the color. To do this we are going to use a functions from the `viridis` package. This package provides different color pallets that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. As `viridis` there are multiple other color pallet packages or color pallets out there that you can use to customize your graphs. We could spend a whole session talking about colors in R! For the purpose of this lesson we are just going to keep it brief and show one function of the `viridis` package that will make our plot colors look better.
+The last thing we will do to our plot is change the color. To do this we are going to use a function from the `viridis` package. This package provides different color palettes that are designed to improve graph readability for readers with common forms of color blindness and/or color vision deficiency. With `viridis`, there are multiple other color palette packages or color palettes out there that you can use to customize your graphs. We could spend a whole session talking about colors in R! For the purpose of this lesson we are just going to keep it brief and show one function of the `viridis` package that will make our plot colors look better.
 
 ```{r}
 
@@ -543,12 +543,14 @@ ggplot(data = daily_visits_totals,
 
 ```
 
-Thing to keep in mind when choosing a color pallet is the number of variables you have and how many colors your pallet have. And if your need a discrete or a continuous color pallet. Find more information about colors in this [R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf). 
+Things to keep in mind when choosing a color palette are the number of variables you have and how many colors your palette has. And if you need a discrete or a continuous color palette. Find more information about colors in this [R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf). 
 
 
 #### Saving plots
 
 Saving plots using `ggplot` is easy! The `ggsave()` function will save either the last plot you created, or any plot that you have saved to an object. You can specify what output format you want, size, resolution, etc. See `?ggsave()` for documentation.
+
+For example, if we want to save our current plot to an existing folder named "figures", we can do this:
 
 ```{r}
 #| eval: false
@@ -621,7 +623,7 @@ locations <- visits_long %>%
 head(locations)
 ```
 
-The `dplyr::distinct()` function comes pretty handy when you want to filter unique values in a column. In this case we use the `.keep_all = T` argument to keep all the columns of our data frame so we can have the `lat` and `long` of each of the locations. If we don't add this argument, we would end up with a data frame with only one column: `restore_loc` and 10 rows, one for each of the unique locations.
+The `dplyr::distinct()` function comes pretty handy when you want to filter unique values in a column. In this case we use the `.keep_all = T` argument to keep all the columns of our data frame so we can have the `latitude` and `longitude` of each of the locations. If we don't add this argument, we would end up with a data frame with only one column: `restore_loc` and 10 rows, one for each of the unique locations.
 
 
 Now we can display this table as an interactive table using `datatable()` from the `DT` package.
@@ -678,7 +680,7 @@ leaflet(locations) %>%
 
 <br>
 
-We can also layer base maps. In this case the USGSImageryTopo base map with the USGSHydroCached base map. Note that the url where the map is retrived is very similar for each USGS base map.
+We can also layer base maps. In this case the USGSImageryTopo base map with the USGSHydroCached base map. Note that the url where the map is retrieved is very similar for each USGS base map.
  
 ```{r}
 
