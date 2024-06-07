@@ -1,12 +1,18 @@
 ---
 title: "Introduction to Shiny"
 title-block-banner: true
+execute: 
+    eval: false
+---
 ---
 
 
 
+{{< include /sections/shiny-intro.qmd >}}
 
-<!-- {{< include /sections/collaboration-social-data-policies.qmd >}} -->
+
+
+
 
 <!-- {{< include /sections/fair-care-principles.qmd >}} -->
 
