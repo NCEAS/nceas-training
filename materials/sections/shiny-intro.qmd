@@ -676,7 +676,7 @@ Once you've added the new feature your app should look like this:
 
 -   Use `?checkboxGroupInput` to learn more about which arguments you need (remember, all inputs require an `inputId` and oftentimes a `label`, but there are others required to make this work as well)
 
--   Both `{shiny}` and `{DT}` packages have functions named `dataTableOutput(`) and `renderDataTable()` – `DT::renderDataTable()` allows you to create both server-side and ui-side DataTables and supports additional DataTables features while `shiny::renderDataTable()` only provides server-side DataTables. Be sure to use the one from the `{DT}` package using the syntax `packageName::functionName()`.
+-   Both `{shiny}` and `{DT}` packages have functions named `dataTableOutput(`) and `renderDataTable()` – The `DT` functions allows you to create both server-side and ui-side DataTables and supports additional DataTables features while `Shiny` functions only provides server-side DataTables. Be sure to use the one from the `{DT}` package using the syntax `packageName::functionName()`.
 
 -   There are lots of ways to customize DT tables, but to create a basic one, all you need is `DT::dataTable(your_dataframe)`
 
@@ -695,15 +695,116 @@ Once you've added the new feature your app should look like this:
 -   Access input values with `input$<id>`
 :::
 
+<br>
+
+```{r}
+#| code-summary: "Exercise 1: A Solution"
+#| code-fold: true
+#| code-overflow: wrap
+
+# load libraries ----
+library(shiny)
+library(tidyverse)
+library(DT)
+
+# user interface ----
+ui <- fluidPage(
+    
+    # app title ----
+    tags$h1("My App Title"), # alternatively, you can use the `h1()` wrapper function
+    
+    # app subtitle ----
+    h4(strong("Exploring Antarctic Penguin Data")), # alternatively, `tags$h4(tags$strong("text"))`
+    
+    # body mass slider input ----
+    sliderInput(inputId = "body_mass_input", label = "Select a range of body masses (g):",
+                min = 2700, max = 6300, value = c(3000, 4000)),
+    
+    # body mass plot output ----
+    plotOutput(outputId = "bodyMass_scatterplot_output"),
+    
+    # year checkbox input ----
+    checkboxGroupInput(inputId = "year_select", 
+                       label = "Select year(s)" ,
+                       choices = c(2007, 2008, 2009),
+                       selected = c(2007, 2008)),
+    
+    # interactive table output ----
+    DT::dataTableOutput(outputId = "interactive_table_output")
+    
+)
 
 
-NOTE: Clarify which functions to use in the server side of things vs which function to usi on the UI when creating a DT object!
+# server instructions ----
+server <- function(input, output) {
+    
+    # filter body masses ----
+    body_mass_df <- reactive({ 
+        penguins %>%  
+            filter(body_mass_g %in% c(input$body_mass_input[1]:input$body_mass_input[2])) 
+    })
+    
+    # reactive scatterplot ---
+    output$bodyMass_scatterplot_output <- renderPlot({
+        ggplot(na.omit(body_mass_df()),
+               aes(x = flipper_length_mm, y = bill_length_mm,
+                   color = species, shape = species)) + 
+            geom_point() + 
+            scale_color_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
+            scale_shape_manual(values = c("Adelie" = 19, "Chinstrap" = 17, "Gentoo" = 15)) +
+            labs(x = "Flipper length (mm)", y = "Bill length (mm)", 
+                 color = "Penguin species", shape = "Penguin species") + 
+            theme_minimal() + 
+            theme(legend.position = c(0.85, 0.2), 
+                  legend.background = element_rect(color = "white"))
+    })
+    
+    
+    # reactive-table ----
+    penguins_years <- reactive({
+        penguins %>% 
+            filter(year %in% c(input$year_select))
+    })
+    
+    output$interactive_table_output <- DT::renderDataTable(
+        
+        DT::datatable(penguins_years(),
+                      options = list(pagelength = 10),
+                      rownames = FALSE)
+    )
+    
+}
 
-Additional Boilerplate apps / templates
+# combine UI & server into an app ----
+shinyApp(ui = ui, server = server)
 
-## Shini cont'
 
--   2 file app (live code and follow) -- Palmer penguin or Dog app? (40 min)
--   Exercise (15 min)
--   Deploy App (25)
--   Q&A (10 min)
+
+```
+
+
+:::callout-important
+## Common Mistakes
+
+We all make mistakes (all the time!) specially when building a Shiny app. Here a few common mistakes to be on the lookout:
+
+-   Misspelling `inputId` as `inputID` (or `outputId` as `outputID`)
+-   Misspelling your inputId (or outputId) name in the server (e.g. UI: `inputId = "myInputID"`, server: `input$my_Input_ID`)
+-   Repeating `inputIds` (each must be unique)
+-   Forgetting to separate UI elements with a comma, `,`. Commas are a thing in Shiny.
+-   Forgetting the set of parentheses when calling the name of a reactive data frame (e.g. `ggplot(my_reactive_df, aes(...))` should be `ggplot(my_reactive_df(), aes(...))` )
+
+:::
+
+
+## Layouts
+
+## Deploymnet
+
+## Practice
+
+<!--- Use delta final App example for this exersise https://learning.nceas.ucsb.edu/2023-08-delta/session_16.html#appendix-1-full-source-code-for-the-final-application -->
+
+## Resources
+
+
