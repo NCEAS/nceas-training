@@ -444,7 +444,7 @@ In RStudio, go to File \> New File \> RScript. Save this file as `practice-scrip
 
 # load packages ----
 library(palmerpenguins)
-library(tidyverse)
+library(ggplot2)
 
 # create scatterplot ----
 ggplot(na.omit(penguins), 
