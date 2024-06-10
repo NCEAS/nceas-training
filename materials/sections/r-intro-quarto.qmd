@@ -281,17 +281,46 @@ To use a package in our analysis, we need to first make sure it is installed (yo
 It is generally good practice to include all of your `library()` calls in a single, dedicated R chunk near the top of your document. This lets collaborators know what packages they might need to install before they start running your code.
 :::
 
-The server should have already installed `readr`, so add a new R chunk below your Setup header that calls the `readr` library, and run it. It should look like this:
+The server should have already installed the two packages we need for now: `readr` and `here`. Let's add a new R chunk below your Setup header that calls these libraries, and run it. 
+
+It should look like this:
 
 ```{r}
+#| eval: false
+
+
 library(readr)
+library(here)
 ```
 
-Now, under "Read data", add a code chunk that uses the `read_csv()` function to read in your data file.
+
+::: {.callout-caution icon="false"}
+## Quarto file path and the `here()` function
+
+Quarto has a special way of handling relative paths that can be very handy. When working in an Quarto document, **R will set all paths relative to the location of the Quarto file**. This can make things easier to read in data if your Quarto document is stored in the same directory or "near" by. However, more often that not, your `.qmd` file will be stored in a a folder (e.g `scripts`) and your data in a `data` folder, (both folder in the main project directory). 
+
+The `here()` function helps navigate this file path mix up in a straight forward and reproducible way. This function sets the file path to the project's directory and builds the rest of the file path from there. Making it easier to find files inside different folders in a project. In this case, because the `.qmd` file lives in the script folder, `here()` makes is easy to navigate back into the project's directory and then into the `data` folder to read in our file.
+
+:::
+
+
+Now, under "Read data", add a code chunk that uses the `read_csv()` with the `here()` function to read in your data file.
 
 ```{r}
+#| echo: false
+
+
+library(readr)
+
 bg_chem <- read_csv("data/BGchem2008data.csv")
 ```
+
+```{r}
+#| eval: false
+
+bg_chem <- read_csv(here::here("data/BGchem2008data.csv"))
+```
+
 
 ::: column-margin
 **Why `read_csv()` over `read.csv()`?**
@@ -389,18 +418,9 @@ Render your Quarto document (by pressing the Render button) and observe the resu
 Like many of life's great questions, there is no clear cut answer. A rule of thumb is to have one chunk per functional unit of analysis. This functional unit could be 50 lines of code or it could be 1 line, but typically it only does one "thing." This could be reading in data, making a plot, or defining a function. It could also mean calculating a series of related summary statistics (as we'll see below). Ultimately, the choice is one related to personal preference and style, but generally you should ensure that code is divided up such that it is easily explainable in a literate analysis as the code is run.
 :::
 
-## Quarto file paths and environment
 
-As we discussed during our setup session, in computing, a path specifies the unique location of a file on the filesystem. A path can come in one of two forms: absolute or relative.
 
--   **Absolute paths** start at the very top of your file system, and work their way down the directory tree to the file.
--   **Relative paths** start at an arbitrary point in the file system. In R, this point is set by your working directory.
-
-Quarto has a special way of handling relative paths that can be very handy. When working in an Quarto document, **R will set all paths relative to the location of the Quarto file**. This way, you don't have to worry about setting a working directory, or changing your colleagues absolute path structure with the correct user name, etc. If your Quarto document is stored near where the data it analyses are stored (good practice, generally), setting paths becomes much easier!
-
-If you saved your `BGchem2008data.csv` data file in the same location as your qmd, you can just write `read_csv("BGchem2008data.csv")` to read it in. Checkout the help page by typing `?read_csv()` in the console. This tells you that for this function the first argument should be a pointer to the file. Rstudio has some nice helpers to help you navigate paths. If you open quotes and press `tab` with your cursor between the quotes, a popup menu will appear showing you some options.
-
-### Practice: Quarto and Environments
+## Quarto and Environments
 
 Let's walk through an exercise with the document we just created to demonstrate how Quarto handles environments. We will be deliberately inducing some errors here for demonstration purposes.
 
