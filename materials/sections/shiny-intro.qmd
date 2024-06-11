@@ -1,11 +1,13 @@
 ## Learning Objectives {.unnumbered}
 
--   Define the three fundamental components of a Shiny app
--   Generate a single-file app with Shiny
+-   Define the fundamental components of a Shiny app
+-   Generate a single-file and 2-file app with Shiny
 -   Use text formatting methods to style text in the UI using tags
 -   Practicing data wrangling and visualization outside of your shiny app
 -   Follow a general workflow for building reactive apps
 -   Running and quitting apps in RStudio
+-   Review general layouts for desingning an app
+-   Discuss how Shiny apps are deployed
 
 
 
@@ -16,7 +18,7 @@ Describe (briefly) the purpose of deploying a Shiny app -->
 
 ::: callout-note
 ## Acknowledgements
-This lesson was adapted from [EDS-430 Intro to Shiny - Building reactive apps and dashboards](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/) Course for the Bren School's Master of Environmental Data Science program design and taught by [Sam Csik](https://samanthacsik.github.io/).
+This lesson was adapted from [EDS-430 Intro to Shiny - Building reactive apps and dashboards](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/) course design and taught by [Sam Csik](https://samanthacsik.github.io/) for the Bren School's Master of Environmental Data Science program .
 :::
 
 ## What is Shiny?
