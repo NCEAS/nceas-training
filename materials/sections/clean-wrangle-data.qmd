@@ -678,12 +678,11 @@ We just ran through the various things we can do with `dplyr` and `tidyr` but if
 ```{r}
 #| catch: true
 #| message: false
-catch_original <- read_csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
-                               method = "libcurl"))
+catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 
 mean_region <- catch_original %>%
   select(-All, -notesRegCode) %>% 
-  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
+  mutate(Chinook = if_else(Chinook == "I", "1", Chinook)) %>% 
   mutate(Chinook = as.numeric(Chinook)) %>% 
   pivot_longer(-c(Region, Year), 
                names_to = "species", 
