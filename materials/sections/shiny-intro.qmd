@@ -107,7 +107,7 @@ With this code we have essentially built a Shiny app. More complicated apps will
 | **Server** | -   Computations - code that will create the outputs displayed in your app (values, tables, plots, etc).                                    |
 +------------+---------------------------------------------------------------------------------------------------------------------------------------------+
 
-Today we are going to focus on understanding how the inputs and outputs work on the UI and how the sever operates to react based on inputs and display the outputs.
+We are going to begin by focusing on understanding how the inputs and outputs work on the UI and how the sever operates to react based on inputs and display the outputs.
 
 <br>
 
@@ -186,7 +186,7 @@ You can create a single-file app using RStudio’s built-in Shiny app template (
 ::: callout-tip
 ## Set up: Your first Shiny app
 
-4.  In your project repo, create a sub-directory to house your app. Name it `single-file-app`.
+4.  In your project repo, create a sub-directory to house your app. Name it `single-file-app`. And a dub-directory for all our scratch code (e.g practice plots or subset df.)
 
 5.  Create a new R script inside `single-file-app/` and name it `app.R` – you must name your script `app.R`.
 
@@ -657,7 +657,7 @@ Now let's tun the app! We should now see a reactive Shiny app. Note that reactiv
 
 And... we saw that reactivity automatically occurs whenever we use an **input value** to **render** an **output object**.
 
-## Your turn
+## Your turn: Build on our 1-file app
 
 ::: callout-note
 ## Add another reactive widget
