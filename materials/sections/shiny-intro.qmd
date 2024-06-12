@@ -669,7 +669,7 @@ Remember that the `DT` package allows you to create interactive tables where you
 
 Once you've added the new feature your app should look like this:
 
-![Source: Intro to Shiny - Building reactive apps and dashboards, MEDS, UCSB](images/app1.gif){width="60%" fig-align="center"} 
+![Source: Intro to Shiny - Building reactive apps and dashboards, MEDS, UCSB](images/app1.gif){width="70%" fig-align="center"} 
 
 <br>
 
@@ -678,11 +678,11 @@ Once you've added the new feature your app should look like this:
 
 -   Use `?checkboxGroupInput` to learn more about which arguments you need (remember, all inputs require an `inputId` and oftentimes a `label`, but there are others required to make this work as well)
 
--   Both `{shiny}` and `{DT}` packages have functions named `dataTableOutput(`) and `renderDataTable()` – The `DT` functions allows you to create both server-side and ui-side DataTables and supports additional DataTables features while `Shiny` functions only provides server-side DataTables. Be sure to use the one from the `{DT}` package using the syntax `packageName::functionName()`.
+-   Both `{shiny}` and `{DT}` packages have functions named `dataTableOutput(`) and `renderDataTable()` – The `DT` functions allows you to create both server-side and ui-side DataTables and supports additional DataTables features while `Shiny` functions only provides server-side DataTables. Be sure to use the ones from the `{DT}` package using the syntax `packageName::functionName()`.
 
 -   There are lots of ways to customize DT tables, but to create a basic one, all you need is `DT::dataTable(your_dataframe)`
 
-**Remember** to follow the steps outlined on the previous slides:
+**Remember** to follow the steps outlined above:
 
 1.  Add an input (e.g. `checkboxGroupInput`) to the UI that users can interact with.
 
@@ -785,15 +785,25 @@ shinyApp(ui = ui, server = server)
 ```
 
 
+<br>
+
 :::callout-important
 ## Common Mistakes
 
-We all make mistakes (all the time!) specially when building a Shiny app. Here a few common mistakes to be on the lookout:
+We all make mistakes! Specially when building a Shiny app. Here a few common mistakes to be on the lookout:
 
 -   Misspelling `inputId` as `inputID` (or `outputId` as `outputID`)
+
+
 -   Misspelling your inputId (or outputId) name in the server (e.g. UI: `inputId = "myInputID"`, server: `input$my_Input_ID`)
+
+
 -   Repeating `inputIds` (each must be unique)
+
+
 -   Forgetting to separate UI elements with a comma, `,`. Commas are a thing in Shiny.
+
+
 -   Forgetting the set of parentheses when calling the name of a reactive data frame (e.g. `ggplot(my_reactive_df, aes(...))` should be `ggplot(my_reactive_df(), aes(...))` )
 
 :::
@@ -801,12 +811,201 @@ We all make mistakes (all the time!) specially when building a Shiny app. Here a
 
 ## Layouts
 
+So far, we have created an app that is perfectly functional, but it’s not so visually pleasing. Nothing really grabs your eye, inputs & outputs are stacked vertically on top of one another (which requires a lot of vertical scrolling), widget label text is difficult to distinguish from other text.
+
+<br>
+
+![Source: Intro to Shiny - Building reactive apps and dashboards, MEDS, UCSB](images/app1.gif){width="80%" fig-align="center"} 
+
+<br>
+
+To improve the looks of out app we used Layout functions. Layout functions provide the high-level visual structure of your app. Layouts are created using a hierarchy of function calls (typically) inside fluidPage(). Layouts often require a series functions – container functions establish the larger area within which other layout elements are placed. Let's look at a few examples:
+
+::: {.panel-tabset}
+
+#### Sidebar and Main area
+
+To create a page with a side bar and main area that contain your inputs and outputs (respectively). This format allows for really clear visual separation between where you want the user to interact with the app versus where the results of their choices can be viewed. Explore the following layout functions and read up on the [sidebarLayout documentation](https://shiny.posit.co/r/reference/shiny/1.6.0/sidebarlayout).
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+fluidPage(
+  titlePanel(
+    # app title/description
+  ),
+  sidebarLayout(
+    sidebarPanel(
+      # inputs here
+    ),
+    mainPanel(
+      # outputs here
+    )
+  )
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-alt: "A simplified schematic of a Shiny app with a sidebar layout. The page as a whole is created with the fluidPage() function. The titlePanel() function creates a row at the top of the page for a title. The sidebarLayout() function creates a new row below titlePanel(). Within the sidebarLayout(), there are two side-by-side columns created using the sidebarPanel() function (to the left) and the mainPanel() function (to the right)."
+knitr::include_graphics("images/sidebar_layout.png")
+```
+:::
+
+::::
+
+#### Page with multiple rows
+
+To create a **page with multiple rows**, explore the following layout functions and check out the [fluid layout](https://shiny.rstudio.com/reference/shiny/1.6.0/fluidpage) documentation. Note that each row is made up of **12** columns. The first argument of the `column()` function takes a value of 1-12 to specify the number of columns to occupy.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+fluidPage(
+  fluidRow(
+    column(4, 
+      ...
+    ),
+    column(8, 
+      ...
+    )
+  ),
+  fluidRow(
+    column(6, 
+      ...
+    ),
+    column(6, 
+      ...
+    )
+  )
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-alt: "A simplified schematic of a Shiny app with a multi-row layout. The page as a whole is created with the fluidPage() function. Within that, the fluidRow() function is used twice to create two stacked (one on top of the other) rows on the page. Within each fluidRow are two side-by-side columns, each created using the column() function. Each row is made up of 12 columns. The column() function takes a value of 1-12 as the first arguement to specify how many of those 12 columns to occupy."
+knitr::include_graphics("images/multirow_layout.png")
+```
+:::
+
+::::
+
+#### Tabs
+
+You may find that you eventually end up with too much content to fit on a single application page. Enter `tabsetPanel()` and `tabPanel()`. `tabsetPanel()` creates a container for any number of `tabPanel()`s. Each `tabPanel()` can contain any number of HTML components (e.g. inputs and outputs). Find the [tabsetPanel documentation here](https://shiny.rstudio.com/reference/shiny/1.5.0/tabsetpanel) and check out this example.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+tabsetPanel(
+  tabPanel("Tab 1", 
+    # an input
+    # an output
+  ),
+  tabPanel("Tab 2"),
+  tabPanel("Tab 3")
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-alt: "A simplified schematic of a Shiny app with a tabsetPanel layout. The page as a whole is created with the fluidPage() function. Within that, the tabsetPanel() function creates a container within which three tabPanel()s ('Tab 1', 'Tab 2', 'Tab 3') are defined (for this particular example). Tab 1 is highlighted and has placeholder text which says '# an input' and then on the line below, '# an output'."
+knitr::include_graphics("images/tabsetPanel_layout.png")
+```
+:::
+
+::::
+
+#### Navbar
+
+You may also want to use a navigation bar (`navbarPage()`) with different pages (created using `tabPanel()`) to organize your application. Read through the [navbarPage documentation](https://shiny.rstudio.com/reference/shiny/1.6.0/navbarpage) and try running the example below.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+navbarPage(
+  title = "My app",
+  tabPanel(title = "Tab 1",
+           # an input
+           # an output
+           ),
+  tabPanel(title = "Tab 2")
+)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: "100%"
+#| fig-align: "center"
+#| fig-alt: "A simplified schematic of a Shiny app with a navbarPage layout. The page as a whole is created with the navbarPage() function. A top-level navigation bar can be used to toggle between two tabPanel()s ('Tab 1', 'Tab 2'), which are defined for this particular example. Tab 1 is highlighted and has placeholder text which says '# an input' and then on the line below, '# an output'."
+knitr::include_graphics("images/navbarPage_layout.png")
+```
+:::
+
+::::
+
+:::
+
+
+<br>
+
+::: {.callout-caution icon="false"}
+## More on Layouts
+Experimenting with different app layouts can be a fun step in the process of making an app that is as effective as possible! It is important to remark that **layouts are exclusively an element of the UI!** This is great when you have an app with a complicated server component because you won’t need to mess with that at all to get the UI looking perfect.
+
+Learn more about Shiny Layouts in the [Application Layout Guide](https://shiny.posit.co/r/articles/build/layout-guide/)
+
+:::
+
+<!---
+## Your Turn: Create a 2-file app
+
+
+::: callout-note
+## Practice creating a 2-file Shiny app
+Follow the steps below to create a 2
+
+:::
+
+
+
+
 ## Deploymnet
-
-## Practice
-
-<!--- Use delta final App example for this exersise https://learning.nceas.ucsb.edu/2023-08-delta/session_16.html#appendix-1-full-source-code-for-the-final-application -->
+--->
 
 ## Resources
 
+- [Shiny Documentation](https://shiny.posit.co/)
+- [EDS-430 Intro to Shiny - Building reactive apps and dashboards](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/)
+- [Creating Interactive Apps, Synthesis Skills for Early Career Researchers](https://lter.github.io/ssecr/mod_interactivity.html)
 
