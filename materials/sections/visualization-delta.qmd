@@ -123,7 +123,7 @@ Let's refresh our memory on how this function works by accessing the `help` page
 ```{r}
 
 visits_long <- delta_visits %>% 
-    pivot_longer(cols = c("sm_boat", "med_boat", "lrg_boat", "bank_angler", "scientist", "cars"),
+    pivot_longer(cols = c(sm_boat, med_boat, lrg_boat, bank_angler, scientist, cars),
                  names_to = "visitor_type",
                  values_to = "quantity") %>%
     rename(restore_loc = eco_restore_approximate_location) %>% 
