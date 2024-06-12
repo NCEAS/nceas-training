@@ -428,13 +428,13 @@ ggplot(data = daily_visits_loc,
        aes(x = restore_loc, y = daily_visits,
            fill = visitor_type))+
     geom_col()+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20))+
     labs(x = "Restoration Location",
          y = "Number of Visits",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
          subtitle = "Sum of all visits during study period")+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20))+
     my_theme
 
 ```
@@ -499,14 +499,13 @@ ggplot(data = daily_visits_totals,
        aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
            fill = visitor_type))+
     geom_col()+
-    theme_bw()+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
     labs(x = "Restoration Location",
          y = "Number of Visits",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
          subtitle = "Sum of all visits during study period")+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
     my_theme
 
 ```
@@ -529,15 +528,14 @@ ggplot(data = daily_visits_totals,
        aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
            fill = visitor_type))+
     geom_col()+
-    theme_bw()+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
     scale_fill_viridis_d()+
     labs(x = "Restoration Location",
          y = "Number of Visits",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
          subtitle = "Sum of all visits during study period")+
+    coord_flip()+
+    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
     my_theme
 
 
@@ -571,7 +569,6 @@ facet_plot <- ggplot(data = daily_visits_totals,
        aes(x = visitor_type, y = daily_visits,
            fill = visitor_type))+
     geom_col()+
-    theme_bw()+
     facet_wrap(~restore_loc,
                scales = "free_y",
                ncol = 5,
