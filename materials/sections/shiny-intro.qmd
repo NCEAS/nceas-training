@@ -1156,6 +1156,7 @@ library(palmerpenguins)
 library(tidyverse)
 library(shinyWidgets)
 library(markdown)
+library(leaflet)
 
 ## Here you could also read in your data! Any data frame created in the global.R will be available to accesss in the server.
 
@@ -1605,6 +1606,7 @@ library(palmerpenguins)
 library(tidyverse)
 library(shinyWidgets)
 library(markdown)
+library(leaflet)
 
 
 ## You can also do you data wrangling here. Any data frame object created in this file will be accessible from the server.
