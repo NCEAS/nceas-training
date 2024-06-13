@@ -819,7 +819,7 @@ So far, we have created an app that is perfectly functional, but it’s not so v
 
 <br>
 
-To improve the looks of out app we used Layout functions. Layout functions provide the high-level visual structure of your app. Layouts are created using a hierarchy of function calls (typically) inside fluidPage(). Layouts often require a series functions – container functions establish the larger area within which other layout elements are placed. Let's look at a few examples:
+To improve the looks of out app we used Layout functions. Layout functions provide the high-level visual structure of your app. Layouts are created using a hierarchy of function calls (typically) inside `fluidPage()`. Layouts often require a series functions – container functions establish the larger area within which other layout elements are placed. Let's look at a few examples:
 
 ::: {.panel-tabset}
 
@@ -1029,7 +1029,7 @@ The idea for this app is to look something like this:
 
 :::
 
-### Build a Natvar with two pages {.unnumbered}
+### Build a Navar with two pages {.unnumbered}
 
 ```{r}
 ui <- navbarPage(
@@ -1056,7 +1056,7 @@ ui <- navbarPage(
 **Tip:** Run your app often while building out your UI to make sure it’s looking as you’d expect!
 
 
-### Add a fluidPage and 2 sidebarLayout “Explore the Data” page {.unnumbered}
+### Add a `fluidPage` and 2 `sidebarLayout` to “Explore the Data” page {.unnumbered}
 
 In one sidebarLayout we will add a plot and in the other a table.
 
@@ -1094,7 +1094,9 @@ In one sidebarLayout we will add a plot and in the other a table.
 ```
 
 
-### Add sidebar & main panels to sidebarLayouts {.unnumbered}
+### Add sidebar & main panels in `sidebarLayouts` {.unnumbered}
+
+We’ll eventually place our input in the sidebar and output in the main panel.
 
 ```{r}
 
@@ -1154,6 +1156,9 @@ library(palmerpenguins)
 library(tidyverse)
 library(shinyWidgets)
 library(markdown)
+
+## Here you could also read in your data! Any data frame created in the global.R will be available to accesss in the server.
+
 ```
 
 
@@ -1261,7 +1266,7 @@ output$flipperLength_histogram_output <- renderPlot({
 Run the app and try out your widgets!
 
 
-### Your Turn
+### Your Turn {.unnumbered}
 
 
 ::: callout-note
@@ -1336,7 +1341,7 @@ sidebarLayout(
 
 ```
 
-### Let's finalize this app
+### Let's finalize this app: Adding information in About page {.unnumbered}
 
 It is generally a good idea to add some context, background or other relevant information to your app. In this case we are going to add a description of the app and the data used, plus a `Leaflet` map showing Palmer Station.
 
@@ -1430,7 +1435,7 @@ In this case we don't need to call any input, given that the map is not reacting
 
 And that's it! Let's run this app and see how it looks.
 
-### Two-file-app full code
+### Two-file-app full code {.unnumbered}
 
 ::: {.panel-tabset}
 #### UI
