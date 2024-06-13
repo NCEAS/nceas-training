@@ -987,21 +987,664 @@ Learn more about Shiny Layouts in the [Application Layout Guide](https://shiny.p
 
 :::
 
-<!---
-## Your Turn: Create a 2-file app
+
+## Creating a 2-file app
+
+Let's create a "nicer" looking app by adding some layouts and additional formatting. We will start from scratch and build an app using a `ui.R` file and a `server.R` file. Additionally, we will create a `global.R` to demonstrate how what can go into this file.
+
+The idea for this app is to look something like this:
+
+![](images/two-file-app-about.png){width="80%" fig-align="center"} 
+
+
+<br>
+
+
+![](images/two-file-app-data.png){width="70%" fig-align="center"} 
+<br>
+
+
+:::callout-tip
+## Setup
+
+1. We will start by creating a new folder in our shiny-app-example project. In the project's directory create a new folder and name it `two-file-app`.
+
+2. Inside the `two-file-app` folder create the three main files: `ui.R`, `sever.R` and `global.R`
+
+:::
+
+
+<br>
+
+::: {.callout-caution icon="false"}
+## Tips for success
+
+-   Enable rainbow parentheses: Tools > Global Options > Code > Display > check Use rainbow parentheses
+
+-   Add code comments at the start and end of each UI element: Even with rainbow parentheses, it can be easy to lose track or mistake what parentheses belong with which (see examples on follow slide)
+
+-   Add placeholder text within your layout functions: Adding text, like "slider input will live here" and "plot output here" will help you better visualize what you’re working towards. It also makes it easier to navigate large UIs as you begin adding real inputs and outputs.
+
+-   Use keyboard shortcuts to realign your code: Select all your code using `cmd / ctrl + A`, then realign using `cmd / ctrl + I`.
+
+:::
+
+### Build a Natvar with two pages {.unnumbered}
+
+```{r}
+ui <- navbarPage(
+  
+  title = "Palmer Penguins Data Explorer",
+  
+  # (Page 1) intro tabPanel ----
+  tabPanel(title = "About this App",
+           
+           "background info will go here" # REPLACE THIS WITH CONTENT
+           
+  ), # END (Page 1) intro tabPanel
+  
+  # (Page 2) data viz tabPanel ----
+  tabPanel(title =  "Explore the Data",
+           
+           "inputs and outputs will live here" # REPLACE THIS WITH CONTENT
+           
+  ) # END (Page 2) data viz tabPanel
+  
+) # END navbarPage
+```
+
+**Tip:** Run your app often while building out your UI to make sure it’s looking as you’d expect!
+
+
+### Add a fluidPage and 2 sidebarLayout “Explore the Data” page {.unnumbered}
+
+In one sidebarLayout we will add a plot and in the other a table.
+
+```{r}
+
+# (Page 2) data viz sidebalLayout ----
+    tabPanel(title = "Explore the Data",
+             
+             fluidPage(
+                      
+                      # penguin plot sidebarLayout ----
+                      sidebarLayout(
+                              
+                              "Penguin plot goes here"
+                              
+                          
+                      ), # END penguin plot sidebarLayout
+                 
+                 
+                 # penguin table sidebarLayout ----
+                 sidebarLayout(
+                     
+                     "Penguin tables goes here"
+                     
+                 ) # END penguin table sidebarLayout
+
+             
+    ) # END Fuild Page
+    
+    ) # END (Page 2) data viz tabPanel
+    
+) # END navbarPage
+
+
+```
+
+
+### Add sidebar & main panels to sidebarLayouts {.unnumbered}
+
+```{r}
+
+# (Page 2) data viz sidebalLayout ----
+    tabPanel(title = "Explore the Data",
+             
+             fluidPage(
+                      
+                      # penguin plot sidebarLayout ----
+                      sidebarLayout(
+                          
+                          sidebarPanel(
+                              "Plot input goes here" #REPLACE WITH CONTENT
+                          ),
+                          
+                          mainPanel(
+                              
+                              "Penguin plot output goes here" #REPLACE WITH CONTENT
+                          ),
+                          
+                      ), # END penguin plot sidebarLayout
+                 
+                 
+                 # penguin table sidebarLayout ----
+                 sidebarLayout(
+                     
+                     sidebarPanel(
+                         "Table input goes here" #REPLACE WITH CONTENT
+                     ),
+                     
+                     mainPanel(
+                     
+                     "Penguin table output goes here" #REPLACE WITH CONTENT
+                     )
+                     
+                 ) # END penguin table sidebarLayout
+
+             
+    ) # END Fuild Page
+    
+    ) # END (Page 2) data viz tabPanel
+    
+) # END navbarPage
+
+
+
+```
+
+### Add packages to `global.R` {.unnumbered}
+
+We are introducing 2 new packages this time. `{shinyWidgets}` which provided us with more widget options, and `{markdown}` which will help us format text in a much more straight forward way. 
+
+```{r}
+# LOAD LIBRARIES ----
+library(shiny)
+library(palmerpenguins)
+library(tidyverse)
+library(shinyWidgets)
+library(markdown)
+```
+
+
+### Add plot inputs {.unnumbered}
+
+First, a `shinyWidgets::pickerInput()` that allows users to filter data based on island, and that includes buttons to Select All / Deselect All island options at once.
+
+```{r}
+# penguin plot sidebarLayout ----
+sidebarLayout(
+    
+    # penguin plot sidebarPanel ----
+    sidebarPanel(
+        
+        # island pickerInput ----
+        pickerInput(inputId = "penguin_island_input", label = "Select an island(s):",
+                    choices = c("Torgersen", "Dream", "Biscoe"),
+                    selected = c("Torgersen", "Dream", "Biscoe"),
+                    options = pickerOptions(actionsBox = TRUE),
+                    multiple = TRUE), # END island pickerInput
+
+```
+
+<br>
+
+Add `shiny::sliderInput()` that allows users to change the number of histogram bins and that by default, displays a histogram with 25 bins
+
+```{r}
+# penguin plot sidebarLayout ----
+sidebarLayout(
+    
+    # penguin plot sidebarPanel ----
+    sidebarPanel(
+        
+        # island pickerInput ----
+        pickerInput(inputId = "penguin_island_input", label = "Select an island(s):",
+                    choices = c("Torgersen", "Dream", "Biscoe"),
+                    selected = c("Torgersen", "Dream", "Biscoe"),
+                    options = pickerOptions(actionsBox = TRUE),
+                    multiple = TRUE), # END island pickerInput
+        
+        # bin number sliderInput ----
+        sliderInput(inputId = "bin_num_input", label = "Select number of bins:",
+                    value = 25, max = 100, min = 1), # END bin number sliderInput
+        
+    ), # END penguin plot sidebarPanel
+```
+
+### Add a plot output to the UI {.unnumbered}
+
+Next, we need to create a placeholder in our UI for our trout scatterplot to live. Because we’ll be creating a reactive plot, we can use the `plotOutput()` function to do so.
+
+```{r}
+# penguin plot mainPanel ----
+mainPanel(
+    
+    plotOutput(outputId = "flipperLength_histogram_output") 
+    
+) # END penguin plot mainPanel
+
+), # END penguin plot sidebarLayout
+```
+
+
+### Tell the server how to assemble `pickerInput` & `sliderInput` values into your plotOutput {.unnumbered}
+
+
+**Remember the three rules** for building reactive outputs:
+
+(1) save objects you want to display to `output$<id>`
+(2) build reactive objects using a `render*()` function
+(3) access input values with `input$<id>`
+
+(This is also when we will go to our `scratch` script to practice the necessary wrangling or creating the necessary plot. For this time, we are going to copy the code from the book )
+
+
+```{r}
+# filter for island ----
+island_df <- reactive({
+    
+    penguins %>%  
+        filter(island %in% input$penguin_island_input)
+    
+})
+
+# render the flipper length histogram ----
+output$flipperLength_histogram_output <- renderPlot({
+    
+    ggplot(na.omit(island_df()), aes(x = flipper_length_mm, fill = species)) +
+        geom_histogram(alpha = 0.6, position = "identity", bins = input$bin_num_input) +
+        scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
+        labs(x = "Flipper length (mm)", y = "Frequency",
+             fill = "Penguin species") +
+        theme_light() +
+        theme(axis.text = element_text(color = "black", size = 12),
+              axis.title = element_text(size = 14, face = "bold"),
+              legend.title = element_text(size = 14, face = "bold"),
+              legend.text = element_text(size = 13),
+              legend.position = "bottom",
+              panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.7))
+    
+})
+```
+
+Run the app and try out your widgets!
+
+
+### Your Turn
 
 
 ::: callout-note
-## Practice creating a 2-file Shiny app
-Follow the steps below to create a 2
+## Add input and output to create an interactive table in the Explore Data panel
+
+Working alone or in groups, add a reactive `DT` datatable to your app with a `checkboxGroupInput` (widget) that allows users to select which year(s) to include in the table. Configure your `checkboxGroupInput` so that the years 2007 and 2008 are pre-selected.
+:::
+
+Remember that the `DT` package allows you to create interactive tables where you can filter, sort, and do lots of other neat things tables in HTML format.
+
+Once you've added the new feature your app should look like this:
+
+![](images/two-file-app-data.png){width="70%" fig-align="center"} 
+
+#### High-level steps {.unnumbered}
+
+(1) Create the `checkboxGroupInput` inside the `sidebarPanel()`
+(2) Add plot output to the UI in the `mainPanel()`. Use `DT::dataTableOutput()`
+(3) Tell the server how to render the table (FOLLOW THE 3 RULES, hint: `DT::renderDataTable()` is the function that pairs with `dataTableOutput()`.
+
+
+```{r}
+#| code-summary: "Exercise 2 Solution: UI"
+#| code-fold: true
+#| code-overflow: wrap
+
+# penguin table sidebarLayout ----
+sidebarLayout(
+    
+    # penguin table sidebarPanel ----
+    sidebarPanel(
+        
+        # year checkbox input ----
+        checkboxGroupInput(inputId = "year_select", 
+                           label = "Select year(s)" ,
+                           choices = c(2007, 2008, 2009),
+                           selected = c(2007, 2008)), # END checkbox input
+        
+    ), # END penguin table sidebarPanel
+    
+    # penguin table mainPanel ----
+    mainPanel(
+        
+        DT::dataTableOutput(outputId = "interactive_table_output") 
+        
+    ) # END penguin table mainPanel
+    
+) # END penguin table sidebarLayout
+
+
+```
+
+
+```{r}
+#| code-summary: "Exercise 2 Solution: Server"
+#| code-fold: true
+#| code-overflow: wrap
+
+ # Render penguin complete data table ----
+    penguins_years <- reactive({
+        penguins %>% 
+            filter(year %in% c(input$year_select))
+    })
+    
+    output$interactive_table_output <- DT::renderDataTable(
+        
+        DT::datatable(penguins_years(),
+                      options = list(pagelength = 10),
+                      rownames = FALSE)
+    )
+
+
+```
+
+### Let's finalize this app
+
+It is generally a good idea to add some context, background or other relevant information to your app. In this case we are going to add a description of the app and the data used, plus a `Leaflet` map showing Palmer Station.
+
+Adding long text to the UI can get very confusing given that we need to use HTML wrapper functions for everything we write. This is when the `{markdown} packages comes in handy. This package allows at to call an `.md` file with text written and formatted in Markdown. Let's see how it works.
+
+We will start by creating a folder call `text` inside our app folder. Then we will create an `.md` file and save it into the `text` folder. To create an `.md` file go to: File > New File > Text file. Then save this file in the `text` folder and name it `about.md`.
+
+Inside this file we are going to paste the following text
+
+<br>
+
+```
+## Welcome to the Palmer Penguin Data Explorer!
+
+<br>
+
+#### Why did we build this app?
+
+This shiny app was built, MAINLY to practice Shiny at NCEAS coreR course with the Delta Stewardship Council. Full on 3-hours to introduce this tool to participants. This app also explores data from penguins that live in the vicinity of Palmer Station in the Antarctica peninsula. 
+
+
+<br>
+
+#### Where's the data? 
+
+Check out the **Explore the Data** page to find interactive data visualizations looking Adelie, Gentoo & Chinstrap penguins of the [Palmer Station LTER](https://pallter.marine.rutgers.edu/).
+
+<br>
+
+#### About this data
+We access this data through the [`palmerpenguins`](https://allisonhorst.github.io/palmerpenguins/) package. The penguins data contains size measurements for three penguin species (Chinstrap, Gentoo and Adelie) observed on three islands in the Palmer Archipelago, Antarctica (Torgersen, Biscoe, and Dream).
+
+<br>
+<hr>
+
+
+### Where is Plamer Station?
+```
+<br>
+
+
+Next, we need to call this file from the UI.
+
+```{r}
+# (Page 1) intro tabPanel ----
+    tabPanel(title = "About this App",
+             
+             # intro text fluidRow ----
+             fluidRow(
+                 
+                 # use columns to create white space on sides
+                 column(1),
+                 column(10, includeMarkdown("text/about.md")),
+                 column(1)
+                 
+             ), # END intro text fluidRow
+```
+
+Finally, we will add a `Leaflet` map in the About pane to indicate where Palmer Station is located.
+
+
+Step 1 is to create the place holder in the UI by creating a `leafletOutput`.
+
+```{r}
+fluidRow(
+                 
+                 ## create column with leaflet output
+                 column(2),
+                 column(8, leafletOutput(outputId = "palmer_station_map")),
+                 column(2)
+             )
+```
+
+Step 2, is to add the instructions on the server following the 3 rules.
+
+(1) save objects you want to display to `output$<id>`
+(2) build reactive objects using a `render*()` function
+(3) access input values with `input$<id>`
+
+In this case we don't need to call any input, given that the map is not reacting to any user's input.
+
+```{r}
+ output$interactive_table_output <- DT::renderDataTable(
+        
+        DT::datatable(penguins_years(),
+                      options = list(pagelength = 10),
+                      rownames = FALSE)
+    )
+```
+
+
+And that's it! Let's run this app and see how it looks.
+
+### Two-file-app full code
+
+::: {.panel-tabset}
+#### UI
+
+```{r}
+ui <- navbarPage(
+    
+    title = "Palmer Penguins Data Explorer",
+    
+    # (Page 1) intro tabPanel ----
+    tabPanel(title = "About this App",
+             
+             # intro text fluidRow ----
+             fluidRow(
+                 
+                 # use columns to create white space on sides
+                 column(1),
+                 column(10, includeMarkdown("text/about.md")),
+                 column(1)
+                 
+             ), # END intro text fluidRow
+             
+             fluidRow(
+                 
+                 ## create column with leaflet output
+                 column(2),
+                 column(8, leafletOutput(outputId = "palmer_station_map")),
+                 column(2)
+             )
+             
+             
+    ), # END (Page 1) intro tabPanel
+    
+    
+    
+    # (Page 2) data viz sidebalLayout ----
+    tabPanel(title = "Explore the Data",
+             
+             fluidPage(
+                 
+                 h4("Penguin plot 1"),
+                 
+                 # penguin plot sidebarLayout ----
+                 sidebarLayout(
+                     
+                     # penguin plot sidebarPanel ----
+                     sidebarPanel(
+                         
+                         # island pickerInput ----
+                         pickerInput(inputId = "penguin_island_input", label = "Select an island(s):",
+                                     choices = c("Torgersen", "Dream", "Biscoe"),
+                                     selected = c("Torgersen", "Dream", "Biscoe"),
+                                     options = pickerOptions(actionsBox = TRUE),
+                                     multiple = TRUE), # END island pickerInput
+                         
+                         # bin number sliderInput ----
+                         sliderInput(inputId = "bin_num_input", label = "Select number of bins:",
+                                     value = 25, max = 100, min = 1), # END bin number sliderInput
+                         
+                     ), # END penguin plot sidebarPanel
+                     
+                     # penguin plot mainPanel ----
+                     mainPanel(
+                         
+                         plotOutput(outputId = "flipperLength_histogram_output") 
+                         
+                     ) # END penguin plot mainPanel
+                     
+                 ), # END penguin plot sidebarLayout
+                 
+                 # Penguin table title ----
+                 h4("Penguin Complete Data"),
+                 
+                 # penguin table sidebarLayout ----
+                 sidebarLayout(
+                     
+                     # penguin table sidebarPanel ----
+                     sidebarPanel(
+                         
+                         # year checkbox input ----
+                         checkboxGroupInput(inputId = "year_select", 
+                                            label = "Select year(s)" ,
+                                            choices = c(2007, 2008, 2009),
+                                            selected = c(2007, 2008)), # END checkbox input
+                         
+                     ), # END penguin table sidebarPanel
+                     
+                     # penguin table mainPanel ----
+                     mainPanel(
+                         
+                         DT::dataTableOutput(outputId = "interactive_table_output") 
+                         
+                     ) # END penguin table mainPanel
+                     
+                 ) # END penguin table sidebarLayout
+                 
+                 
+             ) # END Fuild Page
+             
+    ) # END (Page 2) data viz tabPanel
+    
+) # END navbarPage
+```
+
+
+#### Server
+
+```{r}
+server <- function(input, output) {
+    
+    # render leaflet map with palmer station location ----
+    output$palmer_station_map <- renderLeaflet({
+        
+        leaflet() %>%
+            addProviderTiles(providers$OpenStreetMap) %>% 
+            addMarkers(lng = -64.05384063012775,
+                       lat = -64.77413239299318,
+                       popup = "Palmer Station")
+    }) # END Palmer Station map
+    
+    
+    
+    # filter for island ----
+    island_df <- reactive({
+        
+        penguins %>%  
+            filter(island %in% input$penguin_island_input)
+        
+    })
+    
+    # render the flipper length histogram ----
+    output$flipperLength_histogram_output <- renderPlot({
+        
+        ggplot(na.omit(island_df()), aes(x = flipper_length_mm, fill = species)) +
+            geom_histogram(alpha = 0.6, position = "identity", bins = input$bin_num_input) +
+            scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
+            labs(x = "Flipper length (mm)", y = "Frequency",
+                 fill = "Penguin species") +
+            myCustomTheme()
+        
+    })
+    
+    # Render penguin complete data table ----
+    penguins_years <- reactive({
+        penguins %>% 
+            filter(year %in% c(input$year_select))
+    })
+    
+    output$interactive_table_output <- DT::renderDataTable(
+        
+        DT::datatable(penguins_years(),
+                      options = list(pagelength = 10),
+                      rownames = FALSE)
+    )
+    
+} # END server
+
+```
+
+
+#### Global
+
+```{r}
+# LOAD LIBRARIES ----
+library(shiny)
+library(palmerpenguins)
+library(tidyverse)
+library(shinyWidgets)
+library(markdown)
+
+
+## You can also do you data wrangling here. Any data frame object created in this file will be accessible from the server.
+
+```
+
 
 :::
 
 
 
+## Publishing Shiny applications
 
-## Deploymnet
---->
+Once you've finished your app, you'll want to share it with others. To do so, you need to
+publish it to a server that is set up to [handle Shiny apps](https://shiny.rstudio.com/deploy/).  
+Your main choices are:
+
+- [shinyapps.io](http://www.shinyapps.io/) (Hosted by RStudio)
+    - This is a service offered by RStudio, which is initially free for 5 or fewer apps
+      and for limited run time, but has paid tiers to support more demanding apps.  You 
+      can deploy your app using a single button push from within RStudio.
+- [Shiny server](https://www.rstudio.com/products/shiny/shiny-server/) (On premises)
+    - This is an open source server which you can deploy for free on your own hardware.
+      It requires more setup and configuration, but it can be used without a fee.
+- [Posit Connect](https://posit.co/products/enterprise/connect/) (On premises)
+    - This is a paid product you install on your local hardware, and that contains the most
+      advanced suite of services for hosting apps and RMarkdown reports.  You can
+      publish using a single button click from RStudio.
+      
+A comparison of [publishing features](https://rstudio.com/products/shiny/shiny-server/) is available from RStudio.
+
+### Publishing to shinyapps.io
+
+The easiest path is to create an account on shinyapps.io, and then configure RStudio to
+use that account for publishing.  Instructions for enabling your local RStudio to publish
+to your account are displayed when you first log into shinyapps.io:
+
+![](images/shiny-io-account.png)
+
+Once your account is configured locally, you can simply use the `Publish` button from the
+application window in RStudio, and your app will be live before you know it!
+
+![](images/shiny-publish.png)
+
+
 
 ## Resources
 
