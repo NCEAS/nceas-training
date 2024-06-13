@@ -1575,7 +1575,13 @@ server <- function(input, output) {
             scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
             labs(x = "Flipper length (mm)", y = "Frequency",
                  fill = "Penguin species") +
-            myCustomTheme()
+            theme_light() +
+            theme(axis.text = element_text(color = "black", size = 12),
+                  axis.title = element_text(size = 14, face = "bold"),
+                  legend.title = element_text(size = 14, face = "bold"),
+                  legend.text = element_text(size = 13),
+                  legend.position = "bottom",
+                  panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.7))
         
     })
     
