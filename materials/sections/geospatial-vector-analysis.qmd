@@ -379,7 +379,7 @@ rivers_3338 <- read_sf(here("data/shapefiles/ak_rivers_simp.shp"))
 
 ```{r}
 #| eval: false
-rivers_3338 <- read_sf("/data/shapefiles/ak_rivers_simp.shp")
+rivers_3338 <- read_sf("data/ak_rivers_simp.shp")
 ```
 
 ```{r}
@@ -389,6 +389,7 @@ st_crs(rivers_3338)
 Note that although no EPSG code is set explicitly, with some sleuthing we can determine that this is `EPSG:3338`. [This site](https://epsg.io) is helpful for looking up EPSG codes.
 
 ```{r}
+
 ggplot() +
     geom_sf(data = pop_region_3338, 
             aes(fill = total_pop)) +
@@ -396,7 +397,7 @@ ggplot() +
             size = 0.5) +
     geom_sf(data = rivers_3338,
             aes(linewidth = StrOrder)) +
-    scale_linewidth(range = c(0.05, 0.5), 
+    scale_linewidth(range = c(0.05, 0.5))+
                     guide = "none") +
     labs(title = "Total Population by Alaska Region",
          fill = "Total Population") +
@@ -404,6 +405,7 @@ ggplot() +
                           high =  "firebrick",
                           labels = comma) +
     theme_bw() 
+
 ```
 
 
