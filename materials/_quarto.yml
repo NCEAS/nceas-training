@@ -3,8 +3,8 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS coreR for Delta Science Program"
-  subtitle: "June 10 - 13, 2024"
+  title: "NCEAS Working Group Training Series "
+  # subtitle: "June 10 - 13, 2024"
   reader-mode: false
   
   # NoteHD: cover image is not working
@@ -19,32 +19,38 @@ book:
     search: true
     tools:
       - icon: house-door-fill
-        href: https://www.nceas.ucsb.edu/learning-hub
+        href: https://www.nceas.ucsb.edu/
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2024-06-delta
+        href: https://github.com/NCEAS/nceas-training/tree/2024-working-groups
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # Introduction
-    - session_02.qmd # R Setup
-    - session_03.qmd # Git and GitHub set up
-    - session_04.qmd # Literate Analysis
-    - session_05.qmd # Intro to Git and GitHub
-    - session_06.qmd # Tidy data
-    - session_07.qmd # Cleaning and Wrangling
-    - session_08.qmd # Practice Session I - joins
-    - session_09.qmd # Collaborating with Git
-    - session_10.qmd # Data Management
-    - session_11.qmd # Publishing to the Web
-    - session_12.qmd # Intro to Data Viz
-    - session_13.qmd # Spatial Data
-    - session_14.qmd # Practice Session II -lobter report 
-    - session_15.qmd # Shiny
-    - session_16.qmd # Reproducibility and Provenence
-    - session_17.qmd # Appendix: Set up in personla comp
-    - session_18.qmd # Intro to R & RStudio
+    
+    - part: "Working Groups Essentials"
+      chapters: 
+        - session_01.qmd # Project Management
+        - session_02.qmd # Data Management
+        - session_03.qmd # Comms plan
+          
+    - part: "Extended Learning"
+      chapters:
+        - session_04.qmd # Infographics and 1 pagers
+        - session_05.qmd # Intro to Git and GitHub
+        - session_06.qmd # Collaborating with Git adn Github
+        - session_07.qmd # Project management on GitHub
+        - session_08.qmd # Communicationg your results
+    # - session_09.qmd # Collaborating with Git
+    # - session_10.qmd # Data Management
+    # - session_11.qmd # Publishing to the Web
+    # - session_12.qmd # Intro to Data Viz
+    # - session_13.qmd # Spatial Data
+    # - session_14.qmd # Practice Session II -lobter report 
+    # - session_15.qmd # Shiny
+    # - session_16.qmd # Reproducibility and Provenence
+    # - session_17.qmd # Appendix: Set up in personla comp
+    # - session_18.qmd # Intro to R & RStudio
     # - session_19.qmd # Spatial Data
     # - session_20.qmd # Repro and Provenance
     
