@@ -17,6 +17,7 @@ book:
     title: "Training Materials"
     style: "floating"
     search: true
+    collapse-level: 1
     tools:
       - icon: house-door-fill
         href: https://www.nceas.ucsb.edu/
@@ -35,7 +36,7 @@ book:
         - session_03.qmd # Comms plan
           
     - part: "Extended Learning"
-      chapters:
+      chapters: 
         - session_04.qmd # Infographics and 1 pagers
         - session_05.qmd # Intro to Git and GitHub
         - session_06.qmd # Collaborating with Git adn Github
