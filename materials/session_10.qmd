@@ -1,17 +1,15 @@
 ---
-title: "Data Management Essentials"
+title: "Practice Session I"
 title-block-banner: true
-execute: 
+execute:
   eval: false
+format:
+  html:
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
 ---
 
 
-<!-- ::: {.callout-note} -->
-<!-- You can download the slides for this session [here](files/2024-03-github-for-project-management.pdf). -->
-<!-- ::: -->
-
-
-
-
-
-{{< include /sections/data-management-essentials.qmd >}}
+{{< include /sections/r-practice-tidy-data-joins.qmd >}}
