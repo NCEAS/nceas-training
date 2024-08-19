@@ -1,0 +1,111 @@
+## Learning Objectives
+
+- Introduce the `sf` package for working with spatial data in R
+- Create a U.S map including territories using `tigris` and `ggplot2`
+- Enhance and customize maps to create publication grade figures
+
+
+## Big Idea
+
+The primary purpose of this workshop is to demonstrate how to use R to visualize spatial data. Particularly how to create a map of the U.S and all its territory. We will briefly review the basic concepts of working with geospatial data. Therefore we may not cover key concepts wehn doing spatial data analysis. For more in-depth learning on spatial analysis in R, you can check out the online book [“Geocomputation with R”](https://r.geocompx.org/) by Lovelace et al. (2024).
+
+
+## Introduction to spatial data with `sf`
+
+From the sf vignette:
+
+> Simple features or simple feature access refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the spatial geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
+
+The sf package is an R implementation of Simple Features. This package incorporates:
+
+-   A new spatial data class system in R
+-   Functions for reading and writing spatial data
+-   Tools for spatial operations on vectors
+-   Most of the functions in this package starts with prefix st_ which stands for spatial and temporal.
+
+For this lesson we are going to polygons for the entire U.S by states including territories from the `tirgris` package AND **ADDD***
+
+
+::: column-margin
+![](images/tigris_sticker.png){fig-align="right"}
+`tigris` is an R package that allows users to directly download and use [TIGER/Line shapefiles](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html) from the US Census Bureau.
+:::
+
+
+## About the Data
+
+## Getting Started
+
+:::callout-tip
+## Setup
+
+- Create a new R project
+
+- Open a new R Script (File > New File > R Script)
+
+- Load the packages we will use for this session
+
+```{r}
+library(tigris)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(here)
+```
+
+- Save your R Script
+
+:::
+
+## Load and Read data
+
+Read Ecoregion data
+
+```{r}
+ecoregions_us <- read_sf(here("materials/data/shapefiles/Aggr_Ecoregions_2015.shp"))
+
+st_crs(ecoregions_us)
+
+```
+
+
+
+We will first load the U.S states + territories polygons and then read in the  ecoregion data.
+
+
+
+```{r}
+us_states <- states(cb = TRUE,
+                    resolution = "20m") %>% 
+    shift_geometry()
+
+us_states2 <- states()
+
+continental_us <- us_states2 %>% 
+    filter(!NAME %in% c("Alaska", "American Samoa", "Commonwealth of the Northern Mariana Islands", "Guam", "Hawaii", "Puerto Rico", "United States Virgin Islands", "District of Columbia"))
+
+class(us_states)
+st_crs(us_states)
+
+
+```
+
+
+## plotting multiple layers
+```{r}
+ggplot()+
+    geom_sf(data = ecoregions_us,
+            aes(fill = WSA9_NAME))+
+    geom_sf(data = continental_us)+
+scale_fill_viridis_d()+
+    theme_bw()
+
+```
+
+
+
+## Bonus
+
+CREATE A GITHUB REPO VERSION OF THIS PROJECT!
+ 
+ 
