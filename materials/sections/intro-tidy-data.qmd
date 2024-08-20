@@ -13,9 +13,8 @@ Learn how to design and create effective data tables by:
 -   relating tables following relational data models principles, and
 -   understanding how to perform table joins.
 
-## Tidy Data
 
-### What is tidy data?
+## What is tidy data?
 
 Tidy data is a standardized way of organizing data tables that allows us to manage and analyze data efficiently, because it makes it straightforward to understand the corresponding variable and observation of each value.
 The <a href=https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html target="_blank"> **tidy data principles** </a> are:
@@ -36,7 +35,7 @@ The <a href=https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.ht
 (Allison Horst & Julia Lowndes)
 :::
 
-### Values, variables, observations, and entities
+## Values, variables, observations, and entities
 
 First, let's get acquainted with our building blocks.
 
@@ -60,7 +59,7 @@ First, let's get acquainted with our building blocks.
 |              | Example: If you are collecting variables *height*, *species*, and *location* and *site name* of plants and where they are observed, then **plants** is an entity and **site** is an entity. |     |     |
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+-----+
 
-### Assessing Tidy Data Principles
+## Assessing Tidy Data Principles
 
 The following is an example of tidy data - it's easy to see the three tidy data principles apply.
 
@@ -72,14 +71,14 @@ The following is an example of tidy data - it's easy to see the three tidy data 
 
 ![](images/tidy-data-images/tidy_data/tidy_values.png)
 
-### Recognizing untidy data
+## Recognizing untidy data
 
 Anything that does not follow the three tidy data principles is **untidy data**.
 
 There are *many* ways in which data can become untidy, some can be noticed right away, while others are more subtle.
 In this section we will look at some examples of common untidy data situations.
 
-#### Example 1
+### Example 1
 
 The following is a screenshot of an actual dataset that came across NCEAS.
 We have all seen spreadsheets that look like this - and it is fairly obvious that whatever this is, it isn't very tidy.
@@ -87,7 +86,7 @@ Let's dive deeper into why we consider it untidy data.
 
 ![](images/tidy-data-images/tidy_data/excel-org-01.png)
 
-##### Multiple tables
+#### Multiple tables
 
 To begin with, notice there are actually three smaller tables within this table.
 Although for our human brain it is easy to see and interpret this, it is extremely difficult to get a computer to see it this way.
@@ -97,7 +96,7 @@ Although for our human brain it is easy to see and interpret this, it is extreme
 Having multiple tables within the same table will create headaches down the road should you try to read in this information using R or another programming language.
 **Having multiple tables immediately breaks the tidy data principles**, as we will see next.
 
-##### Inconsistent columns
+#### Inconsistent columns
 
 In tidy data, **each column corresponds to a single variable**.
 If you look down a column, and see that multiple variables exist in the table, the data is not tidy.
@@ -105,14 +104,14 @@ A good test for this can be to see if you think the column consists of only one 
 
 ![](images/tidy-data-images/tidy_data/excel-org-04.png)
 
-##### Inconsistent rows
+#### Inconsistent rows
 
 The second principle of tidy data is: **every column must be a single observation**.
 If you look across a single row, and you notice that there are clearly multiple observations in one row, the data are likely not tidy.
 
 ![](images/tidy-data-images/tidy_data/excel-org-03.png)
 
-##### Marginal sums and statistics
+#### Marginal sums and statistics
 
 **Marginal sums and statistics are not considered tidy**.
 They break principle one, "Every column is a variable", because a marginal statistic does not represent the same variable as the values it is summarizing.
@@ -120,7 +119,7 @@ They also break principle two, "Every row is an observation", because they repre
 
 ![](images/tidy-data-images/tidy_data/excel-org-05.png)
 
-#### Example 2
+### Example 2
 
 Consider the following table.
 It's a single one this time!
@@ -138,7 +137,7 @@ Take a moment to see why this is not tidy data.
 
 ![](images/tidy-data-images/tidy_data/untidy_1.png)
 
-##### Multiple Observations
+#### Multiple Observations
 
 Remember that an observation is all the values measured for an individual **entity**.
 
@@ -154,7 +153,7 @@ To solve this problem, we can create a single column for species code and a sing
 
 ![](images/tidy-data-images/tidy_data/tidy_not_normal.png)
 
-### Why Tidy Data?
+## Why Tidy Data?
 
 -   **Efficiency:** less re-creating the wheel. Easier to apply the same tools to different datasets.
 -   **Collaboration:** Makes it easier to work with others as you can work with the same tools in the same ways.
