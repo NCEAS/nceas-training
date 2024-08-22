@@ -32,16 +32,16 @@ book:
     - part: "Working Groups Essentials"
       chapters: 
         - session_01.qmd # Project Management
-        - session_02.qmd # Data Management
-        - session_03.qmd # Comms plan
+        # - session_02.qmd # Data Management
+        # - session_03.qmd # Comms plan
           
-    - part: "Extended Learning"
-      chapters: 
-        - session_04.qmd # Infographics and 1 pagers
-        - session_05.qmd # Intro to Git and GitHub
-        - session_06.qmd # Collaborating with Git adn Github
-        - session_07.qmd # Project management on GitHub
-        - session_08.qmd # Communicationg your results
+    # - part: "Extended Learning"
+    #   chapters: 
+    #     - session_04.qmd # Infographics and 1 pagers
+    #     - session_05.qmd # Intro to Git and GitHub
+    #     - session_06.qmd # Collaborating with Git adn Github
+    #     - session_07.qmd # Project management on GitHub
+    #     - session_08.qmd # Communicationg your results
     # - session_09.qmd # Collaborating with Git
     # - session_10.qmd # Data Management
     # - session_11.qmd # Publishing to the Web
