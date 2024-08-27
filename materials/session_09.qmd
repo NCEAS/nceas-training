@@ -1,6 +1,9 @@
 ---
-title: "Visualizing Spatial Data in R"
+title: "Creating a map of the US and its territories"
 title-block-banner: true
+execute: 
+  eval: false
 ---
+
 
 {{< include /sections/spatial-data-viz-us.qmd >}}
