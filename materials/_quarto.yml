@@ -17,7 +17,7 @@ book:
     title: "Training Materials"
     style: "floating"
     search: true
-    collapse-level: 1
+    # collapse-level: 1
     tools:
       - icon: house-door-fill
         href: https://www.nceas.ucsb.edu/
@@ -32,7 +32,7 @@ book:
     - part: "Working Groups Essentials"
       chapters: 
         - session_01.qmd # Project Management
-        # - session_02.qmd # Data Management
+        - session_02.qmd # Data Management
         # - session_03.qmd # Comms plan
           
     # - part: "Extended Learning"
