@@ -18,6 +18,7 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+library(here)
 ```
 
 3.  Read in the data and store the data frame as `lobster_abundance`
@@ -25,7 +26,7 @@ library(tidyr)
 ```{r}
 #| code-fold: false
 #| message: false
-lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
+lobster_abundance <- read_csv(here("data/Lobster_Abundance_All_Years_20220829.csv"))
 ```
 
 4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
