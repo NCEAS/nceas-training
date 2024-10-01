@@ -411,13 +411,21 @@ So far we have learned how to assign values to objects in R, and what a function
 
 Since this is our first time using this function, first access the help page for `read.csv()`. This has a lot of information in it, as this function has a lot of arguments, and the first one is especially important - we have to tell it what file to look for. Let's get a file!
 
+
 ::: callout-tip
 #### Download a file from the Arctic Data Center
 
 1.  Navigate to this dataset by Craig Tweedie that is published on the Arctic Data Center. [Craig Tweedie. 2009. North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](http://doi.org/10.18739/A25T3FZ8X)
+
 2.  Download the first csv file called `BGchem2008data.csv` by clicking the "download" button next to the file.
-3.  Move this file from your `Downloads` folder into the `data` directory we created in our R Project `training_{USERNAME}`.
+
+3. Click the "Upload" button in your RStudio server file browser.
+
+3. In the dialog box, make sure the destination directory is the `data` directory in your R project, click "Choose File," and locate the `BGchem2008data.csv` file. Press "OK" to upload the file.
+
+4. Check your file was successfully uploaded by navigating into your `data` folder in the **Files** pane.
 :::
+
 
 Now we have to tell `read.csv()` how to find the file. We do this using the `file` argument which you can see in the usage section in the help page. In R, you can either use absolute paths (which will start with your home directory `~/`) or paths **relative to your current working directory.** RStudio has some great auto-complete capabilities when using relative paths, so we will go that route. 
 
