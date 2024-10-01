@@ -142,7 +142,7 @@ So far we've been running code in the Console, let's try running code in an R Sc
 
 RStudio should open your R Script automatically after creating it. Notice a new pane appears above the Console. This is called the **Source pane** and is where we write and edit R code and documents. This pane is only present if there are files open in the editor.
 
-3.  Save the R Script as `intro-to-programming.R`
+3.  Save the R Script in your `script` folder, name the file `intro-to-programming.R`
 :::
 
 ### How to run code in an R Script
@@ -567,9 +567,8 @@ To install a package, we use the syntax `install.packages("packge_name")`. A pac
 
 : Awesome R Resources to Check out {tbl-colwidths="[20,80]"}
 
-## Bonus Content
 
-### Clearing the environment
+## Clearing the environment
 
 Take a look at the objects in your Environment (Workspace) in the upper right pane. The Workspace is where user-defined objects accumulate. There are a few useful commands for getting information about your Environment, which make it easier for you to reference your objects when your Environment gets filled with many, many objects.
 
@@ -600,7 +599,23 @@ rm(list = ls())
 It's good practice to clear your environment. Over time your Global Environmental will fill up with many objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
 :::
 
-### Logical operators and expressions
+## Save Workspace Image to .RData?
+
+![](images/save-workspace.png)
+
+**DON'T SAVE**
+
+When ever you close or switch projects you will be promped with the question: Do you want to save your workspace image to /"currente-project"/ .RData?
+
+RStudio by default wants to save the state of your environment (the objects you have in your environment pane) into the RData file so that when you open the project again you have the same environment. However, as we discussed above, it is good practice to constantly clear and clean your environment. It is generally **NOT** a good practice to rely on the state of your environment for your script to run and work. If you are coding reproducibly, your code should be able to reproduce the state of your environment (all the necessary objects) every time you run it. It is much better to rely on your code recreating the environment than the saving the workspace status.
+
+
+You can change the Global Options configuration for the default to be NEVER SAVE MY WORKSPACE. Go to Tools > Global Options. Under the General menu, select Never next to "Save workspace to .RData on exit". This way you won't get asked every time you close a project, instead RStudio knows not to save.
+
+![](images/save-workspace-global-options.png)
+
+
+## Logical operators and expressions
 
 We can ask questions about an object using **logical operators and expressions**. Let's ask some "questions" about the `weight_lb` object we made.
 
