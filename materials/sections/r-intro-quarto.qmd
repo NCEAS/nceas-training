@@ -95,7 +95,7 @@ The first thing to notice is that by opening a file, we see the fourth pane of t
 
 Let's have a look at this file --- As we saw in the examples above, it looks a little different than a R script. It's not blank; there is some initial text already provided for you. Lets identify the three main components we introduces before. We have the YAML a the top, in between the two sets of dashed lines. Then we also see white and grey sections. The gray sections are R code chunks and the white sections are plain text.
 
-Let's go ahead and render this file by clicking the "Render" button, next to the blue arrow at the top of the Quarto file. When you first click this button, RStudio will prompt you to save this file. Save it in the top level of your home directory on the server, and name it something that you will remember (like `quarto-intro.Rmd`).
+Let's go ahead and render this file by clicking the "Render" button, next to the blue arrow at the top of the Quarto file. When you first click this button, RStudio will prompt you to save this file. Save it in into your `scripts` folder, and name it something that you will remember (like `quarto-intro.Rmd`).
 
 ::: column-page
 ![](images/quarto-side-by-side.png)
