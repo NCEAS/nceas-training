@@ -26,6 +26,7 @@ Many people write R code as a single, continuous stream of commands, often drawn
 #| echo: false
 
 library(DT)
+library(dplyr)
 ```
 
 ### Why Functions?
