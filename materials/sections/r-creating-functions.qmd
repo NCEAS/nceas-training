@@ -38,22 +38,23 @@ library(DT)
 >
 > *[Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science (Grolemund & Wickham)*
 
-By creating small functions that only complete one logical task and do it well, we quickly gain:
+There are many advantages to writing small functions that only complete one logical task and do it well:
 
--   Improved understanding
--   Reuse via decomposing tasks into bite-sized chunks
--   Improved error testing
+-   You can make the code easier to understand by giving an informative name to your function
+-   When you need to update your code, you only need to update in one place 
+-   You can take advantage of iteration techniques such as the `purrr::map` functions
 
 
 ::: {.callout-caution icon=false}
 #### Naming Functions
+
 The name of a function is important. Ideally, function names should be short, but still clearly captures what the function does.
 
 Best Practices from [Chapter 19 Functions](https://r4ds.had.co.nz/functions.html) in R for Data Science:
 
 - Function names should be verbs and arguments should be nouns (there are [exceptions](https://r4ds.had.co.nz/functions.html#functions-are-for-humans-and-computers)).
 - Use the `snake_case` naming convention for functions that are multiple words.
-- For a "family" of functions, use a common prefix to indicate that they are connected.
+- For a "family" of functions, use a common prefix to indicate that they are connected - e.g., functions from the `stringr` package all use the prefix `str_`, as in `str_detect()` and `str_replace()`
 :::
 
 ### Exercise: Temperature Conversion 
@@ -89,21 +90,21 @@ By running this code, we have created a function and stored it in R's global env
 ```{r}
 #| label: demo-f2c-function
 
-celsius4 <- fahr_to_celsius(airtemps[1])
-celsius4
-celsius1 == celsius4
+celsius1a <- fahr_to_celsius(fahr = airtemps[1])
+celsius1a
+celsius1 == celsius1a
 ```
 
-Excellent. So now we have a conversion function we can use. Note that, because most operations in `R` can take multiple types as inputs, we can also pass the original vector of `airtemps`, and calculate all of the results at once:
+Excellent. So now we have a conversion function we can use. Note that, because most operations in `R` can work on vectors as easily as single values, we can also pass the original vector of `airtemps`, and calculate all of the results at once:
 
 ```{r}
 #| label: f2c-function-vector
 
-celsius <- fahr_to_celsius(airtemps)
+celsius <- fahr_to_celsius(fahr = airtemps)
 celsius
 ```
 
-This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.
+This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.  Note also that we explicitly named the argument inside the function call (`fahr_to_celsius(fahr = airtemps)`), but in this simple case, R can figure it out if we didn't explicitly tell it the argument name (`fahr_to_celsius(airtemps)`).  More on this later!
 
 #### Your Turn: Create a Function that Converts Celsius to Fahrenheit {.unnumbered}
 
@@ -113,7 +114,7 @@ This takes a vector of temperatures in Fahrenheit, and returns a vector of tempe
 
 Create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in Celsius as input, and returns the data converted to Fahrenheit. 
 
-Create the function `celsius_to_fahr` in a new R Script file.
+Create the function `celsius_to_fahr` in a new code chunk or even a separate R Script file.
 
 Then use that formula to convert the `celsius` vector back into a vector of Fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct. 
 
@@ -143,41 +144,6 @@ airtemps == result
 :::
 
 
-### Documenting R Functions
-
-Functions need documentation so that we can communicate what they do, and why. The [`roxygen2` R package](https://roxygen2.r-lib.org/) provides a simple means to document your functions so that you can explain what the function does, the assumptions about the input values, a description of the value that is returned, and the rationale for decisions made about implementation.
-
-Documentation in `roxygen2` is placed immediately before the function definition, and is indicated by a special comment line that always starts with the characters `#'`. Here's a documented version of a function:
-
-```{r}
-#| label: f2c-func-docs
-
-#' Convert temperature values from Fahrenheit to Celsius
-#'
-#' @param fahr Numeric or numeric vector in degrees Fahrenheit
-#' 
-#' @return Numeric or numeric vector in degrees Celsius
-#' @export
-#' 
-#' @examples
-#' fahr_to_celsius(32)
-#' fahr_to_celsius(c(32, 212, 72))
-
-fahr_to_celsius <- function(fahr) {
-  celsius <- (fahr - 32) * 5/9
-  return(celsius)
-}
-```
-
-Note the use of the `@param` keyword to define the expectations of input data, and the `@return` keyword for defining the value that is returned from the function. The `@examples` function is useful as a reminder as to how to use the function. Finally, the `@export` keyword indicates that, if this function were added to a package, then the function should be available to other code and packages to utilize.
-
-::: {.callout-caution icon=false}
-
-# Check it out: Function Documentation Section from R Packages (2e)
-
-For more best practices on function documentation, review Hadley Wickham and Jennifer Bryan's online book [R Packages (2e)](https://r-pkgs.org/) - [Chapter 10, Section 16: Function Documentation](https://r-pkgs.org/man.html).
-
-:::
 
 
 ### Exercise: Minimizing Work with Functions
