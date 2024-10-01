@@ -64,9 +64,10 @@ Some common directories are:
 
 ::: {.column width="55%"}
 - `data`: where we store our data (often contains subdirectories for raw, processed, and metadata data)
-- `R`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory `scripts`)
+- `R`: contains scripts with your custom R functions, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory `scripts`)
 - `plots` or `figs`: generated plots, graphs, and figures
 - `docs`: summaries or reports of analysis or other relevant project information
+- `scripts:` has all scripts where you clean and wrangle data and run your analysis.
 
 Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproducibility and collaboration.
 :::
@@ -74,6 +75,16 @@ Directory organization will vary from project to project, but the ultimate goal 
 ::: {.column width="45%"}
 ![](images/rproj-basic-organization.png)
 :::
+:::
+
+
+::: {.callout-tip icon=false}
+## Project Sub-directories
+For this week we are going to create 3 folder (directories) in our `training_{USERNAME}` Rproject.
+
+- In the files pane in RStudio (bottom right), click on Folder button (with a green circle and plus sign) and create 3 new folders: `data`, `plots`, `scripts`.
+
+The idea here is treat this RProject as an example of how to organize our work.
 :::
 
 
@@ -97,54 +108,4 @@ This is not only convenient for you, but also when working collaboratively. We w
 Note that once you start working in projects you should basically never need to run the `setwd()` command. If you are in the habit of doing this, stop and take a look at where and why you do it. Could leveraging the working directory concept of R projects eliminate this need? Almost definitely!
 
 Similarly, think about how you work with absolute paths. Could you leverage the working directory of your R project to replace these with relative paths and make your code more portable? Probably!
-
-<!--
-## Setting up R and RStudio on your Computer {#rstudio-personal-setup}
-
-### Check your R Version
-
-For this course, we used the R Version 4.2.2. To check the R Version of your personal computer run this in the Console: ``` R.version$version.string ```. If you need to download R onto your personal computer or update it, you can do so from [CRAN (The Comprehensive R Archive Network)](https://cran.rstudio.com/).
-
-### Check your RStudio Version
-
-For this course, we used the RStudio Version released in December 2022. To check the RStudio Version of your personal computer run this in the Console: ```  RStudio.Version()$version ```. If you need to download RStudio onto your personal computer or update it, you can do so from [Posit](https://posit.co/download/rstudio-desktop/). Note you may need to update your computer's software to download the newest version of RStudio.
-
-Another way to check for RStudio updates is to click "Help" and then "Check for Updates". Follow the prompts.
-
-### Install Packages
-
-In the code chunk below, we have listed out the packages we used for this course. You're welcome to install each package one-by-one by calling the `install.packages("package_name")` function. Or you can copy and paste this code chunk and run it which includes a `for loop` that will check if a package is installed on your personal computer and if not, it will install it. We have also included a line of code that will update our packages. Running this code chunk may take a few minutes.
-
-```{r}
-#| eval: false
-course_packages <- c("dplyr",
-                     "DT",
-                     "forcats",
-                     "ggplot2",
-                     "ggmap",
-                     "knitr",
-                     "leaflet",
-                     "lubridate",
-                     "readr",
-                     "renv",
-                     "rrtools",
-                     "sf",
-                     "scales",
-                     "tidyr",
-                     "usethis")
-
-for (course_packages in course_packages) {
-    
-    if (!(course_packages %in% installed.packages())) { install.packages(course_packages) }
-    
-    }
-
-rm(course_packages) # remove object from Global Environment
-
-# update any out-of-date packages
-update.packages(ask=FALSE)
-
-```
-
--->
 
