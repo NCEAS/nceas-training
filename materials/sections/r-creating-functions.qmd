@@ -159,15 +159,111 @@ convert_temps <- function(fahr) {
   return(list(fahr = fahr, celsius = celsius, kelvin = kelvin))
 }
 
-temps_df <- data.frame(convert_temps(seq(-100,100,10)))
+t_vec <- c(-100, -40, 0, 32, 98.6, 212)
+temps_df <- data.frame(convert_temps(t_vec))
 ```
 
 ```{r}
 #| label: list-return-table
 #| echo: false
 
-datatable(temps_df)
+DT::datatable(temps_df)
 ```
+
+But what if we wanted to make the function more flexible - instead of taking only Fahrenheit temperatures as input, what if we wanted to allow the user to optionally provide Celsius?  Let's add an additional argument so the user can specify the input units.  And let's return the result already formatted as a data frame.
+
+```{r}
+#| label: func-return-df
+
+convert_temps2 <- function(temp, unit = 'F') {
+  
+  ### Error checking:
+  unit <- toupper(unit)  ### try to anticipate common mistakes!
+  if(!unit %in% c('F', 'C')) stop('The units must be either F or C!')
+  
+  if(unit == 'F') {
+    fahr <- temp
+    celsius <- (fahr - 32) * 5/9
+  } else {
+    celsius <- temp
+    fahr <- celsius * 9 / 5 + 32
+  }
+  kelvin <- celsius + 273.15
+  
+  out_df <- data.frame(fahr, celsius, kelvin)
+  return(out_df)
+}
+
+c_temps_df <- convert_temps2(temp = t_vec, unit = 'C')
+f_temps_df <- convert_temps2(t_vec, 'F')
+
+identical(f_temps_df, temps_df)
+```
+
+By providing a default for the `unit` argument (`unit = 'F'`), the user can opt to skip that argument and R will use the default value.  Because `temp` does not have a default, the user cannot skip that one!  And note also that R interprets the arguments in order, so we can even skip naming them, though when calling novel or complex functions it is helpful to explicitly name the arguments.
+
+### Functions in the `tidyverse`
+
+For those of us who frequently work with the `tidyverse` package and all its amazing functionality, understanding how those `tidyverse` functions are designed can help you write your own `tidyverse` style functions!  There are two common use cases:
+
+* A function that can be used to calculate inside a `mutate()` or `summarize()`
+* A function that can be used seamlessly in a piped `tidyverse`-style workflow
+
+#### Functions for `mutate` or `summarize`
+
+This kind of function should take a vector (or multiple vectors) and return a *single* vector.  Functions that return a vector the same length as the input would be useful for `mutate()`; functions that return a vector of length 1 (e.g., `mean()` or `sd()`) would be useful for `summarize()`.  We've already created two functions like that!
+
+```{r}
+#| label: func-mutate-example
+
+data.frame(f = t_vec) %>%
+    mutate(c  = fahr_to_celsius(fahr = f),
+           f2 = celsius_to_fahr(celsius = c))
+```
+
+Why wouldn't our `convert_temps()` function work here?
+
+#### Functions for piped workflows
+
+A common workflow in the `tidyverse` is to use the pipe operator `%>%` (or the newer built-in `|>`) to pass a data frame into a function like `select()`, `filter()`, or `mutate()`, and then pass the results from that into another function, and so on:
+
+```{r}
+#| label: func-dplyr-example
+
+library(tidyverse)
+
+f_temps_df %>%
+    select(fahr, celsius) %>%
+    mutate(rankine = fahr + 459.67)
+```
+
+For this to work:
+
+* Every `dplyr` and `tidyr` function takes a data frame (or variant such as a tibble) as its *first* argument.
+* Every `dplyr` and `tidyr` function returns a data frame (or variant).
+
+The pipe operator `%>%` says, take the preceding object (a data frame, such as one returned by a `dplyr` function) and pass it to the next function (such as another `dplyr` function) as the *first* argument!
+
+### Exercise: make a `tidyverse` style function
+
+Let's make a function that can take a dataframe and calculate a new column that tells whether a temperature is hot or cold, based on some threshold.
+
+```{r}
+calc_hotcold <- function(df, thresh = 70) {
+    if(!'fahr' %in% names(df)) stop('The data frame must have a column called `fahr`!')
+    out_df <- df %>%
+        mutate(hotcold = ifelse(fahr > thresh, 'hot', 'cold'))
+    
+    return(out_df)
+}
+
+f_temps_df %>%
+    select(fahr, celsius) %>%
+    calc_hotcold(thresh = 80) %>%
+    arrange(desc(fahr))
+```
+
+### Functions and `ggplot()`
 
 Once we have a dataset like that, we might want to plot it. One thing that we do repeatedly is set a consistent set of display elements for creating graphs and plots. By using a function to create a custom `ggplot` theme, we can enable to keep key parts of the formatting flexible. For example, in the `custom_theme` function, we provide a `base_size` argument that defaults to using a font size of 9 points. Because it has a default set, it can safely be omitted. But if it is provided, then that value is used to set the base font size for the plot.
 
@@ -175,24 +271,26 @@ Once we have a dataset like that, we might want to plot it. One thing that we do
 #| label: func-custom-theme
 
 custom_theme <- function(base_size = 9) {
+    ### NOTE: functions used *inside* a function need to be available,
+    ### e.g., attached with library() or called using namespace (package::function)
     ggplot2::theme(
-      text             = ggplot2::element_text(family = 'Helvetica', 
-                                               color = 'gray30', 
-                                               size = base_size),
-      plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), 
-                                               hjust = 0.5, 
-                                               face = 'bold'),
-      panel.background = ggplot2::element_blank(),
-      panel.border     = ggplot2::element_blank(),
-      panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major = ggplot2::element_line(colour = 'grey90', 
-                                               linewidth = 0.25),
+      text             = element_text(family = 'serif', 
+                                      color = 'gray30', 
+                                      size = base_size),
+      plot.title       = element_text(size = rel(1.25), 
+                                      hjust = 0.5, 
+                                      face = 'bold'),
+      panel.background = element_rect(fill = 'azure'),
+      panel.border     = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(colour = 'grey90', 
+                                      linewidth = 0.25),
       legend.position  = 'right',
-      legend.key       = ggplot2::element_rect(colour = NA, 
-                                               fill = NA),
-      axis.ticks       = ggplot2::element_blank(),
-      axis.line        = ggplot2::element_blank()
-      )
+      legend.key       = element_rect(colour = NA, 
+                                      fill = NA),
+      axis.ticks       = element_blank(),
+      axis.line        = element_blank()
+    )
 }
 
 library(ggplot2)
@@ -217,7 +315,7 @@ scatterplot <- function(df, point_size = 2, font_size = 9) {
 }
 ```
 
-Calling that let's us, in a single line of code, create a highly customized plot but maintain flexibility via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
+Calling that lets us, in a single line of code, create a highly customized plot but maintain flexibility via the arguments passed in to the function. Let's set the point size to 3 and font to 16 to make the plot more legible.
 
 ```{r}
 #| label: func-call-sp
@@ -229,9 +327,9 @@ Once these functions are set up, all of the plots built with them can be reforma
 
 ### Summary
 
--   Functions are useful to reduce redundancy, reuse code, and reduce errors
+-   Use functions to make code more legible, reuse code, and reduce errors
 -   Build functions with `function()`
--   Document functions with `roxygen2` comments
+-   Design functions to work with `tidyverse` flow
 
 ::: {.callout-caution icon=false}
 #### Workflow for Creating Functions
