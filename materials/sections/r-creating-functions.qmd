@@ -231,8 +231,6 @@ A common workflow in the `tidyverse` is to use the pipe operator `%>%` (or the n
 ```{r}
 #| label: func-dplyr-example
 
-library(tidyverse)
-
 f_temps_df %>%
     select(fahr, celsius) %>%
     mutate(rankine = fahr + 459.67)
