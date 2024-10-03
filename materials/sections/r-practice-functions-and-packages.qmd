@@ -7,7 +7,7 @@ format: html
 -   Practice creating functions
 -   Practice testing functions
 -   Practice adding error messages to functions
--   Practice deploying a package and organizing custom functions within it
+<!-- -   Practice deploying a package and organizing custom functions within it -->
 
 ::: callout-note
 ## Acknowledgements
@@ -16,7 +16,7 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 
 :::
 
-## Exercise: R Functions
+## Getting Ready
 
 ::: {.callout-tip icon=false}
 ### Setup
@@ -32,7 +32,7 @@ These exercises are adapted from Allison Horst's EDS 221: Scientific Programming
 3. Use the Git workflow. After you’ve set up your project and uploaded your data go through the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
-### R Functions Warm Up
+## R Functions Warm Up
 
 We're going to start by creating some simple functions. Recall that the anatomy of a function is the same for all functions and each one contains:
 
@@ -90,7 +90,7 @@ exclaim_age(age = 12)
 exclaim_age(12)
 ```
 
-### Functions with Conditionals
+## Functions with Conditionals
 
 ::: {.callout-note}
 #### Question 3
@@ -128,7 +128,7 @@ find_max <- function(value_1, value_2) {
 5 * find_max(4, 2)
 ```
 
-### Adding Error or Warning Messages
+## Adding Error or Warning Messages
 
 ::: {.callout-tip icon=false}
 #### Question 4 Setup
@@ -252,63 +252,66 @@ find_max(4, "cow")
 find_max("cow", 4)
 ```
 
-## Exercise: R Packages
+<!-- ## Exercise: R Packages -->
 
-::: {.callout-tip icon=false}
-### Setup
+<!-- ::: {.callout-tip icon=false} -->
+<!-- ### Setup -->
 
-1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`.
+<!-- 1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`. -->
 
-2. Delete the files: `hello.R` in the `R` directory and `hello.Rd` in the `man` directory.
+<!-- 2. Delete the files: `hello.R` in the `R` directory and `hello.Rd` in the `man` directory. -->
 
-3. Add a license by running in the Console: ```usethis::use_apache_license()```.
+<!-- 3. Add a license by running in the Console: ```usethis::use_apache_license()```. -->
 
-4. Turn the project into a Git repository. Recall the steps from [Ch 6 Exercise 3: Setting up Git on an existing project](https://learning.nceas.ucsb.edu/2023-10-coreR/session_06.html#exercise-3-setting-up-git-on-an-existing-project). Follow the steps either using the `usethis` package or Command Line.
-:::
+<!-- 4. Turn the project into a Git repository. Recall the steps from [Ch 6 Exercise 3: Setting up Git on an existing project](https://learning.nceas.ucsb.edu/2023-10-coreR/session_06.html#exercise-3-setting-up-git-on-an-existing-project). Follow the steps either using the `usethis` package or Command Line. -->
+<!-- ::: -->
 
-### Add Functions to the `aboutMe` Package
+<!-- ### Add Functions to the `aboutMe` Package -->
 
-::: {.callout-note}
-#### Question 1
-Create the following two functions for the `aboutMe` package: 
+<!-- ::: {.callout-note} -->
+<!-- #### Question 1 -->
+<!-- Create the following two functions for the `aboutMe` package:  -->
 
-a. Function that prints out your name and your favorite color.
-b. Function calculates your age for the current year. 
-    i. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`.
-    ii. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`).
+<!-- a. Function that prints out your name and your favorite color. -->
+<!-- b. Function calculates your age for the current year.  -->
+<!--     i. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`. -->
+<!--     ii. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`). -->
 
-Write each of these functions in their own scripts and save them to the `R` directory.
+<!-- Write each of these functions in their own scripts and save them to the `R` directory. -->
 
-Note: If any of your functions have dependencies, make sure to add it to the `DESCRIPTION` file.
-:::
+<!-- Note: If any of your functions have dependencies, make sure to add it to the `DESCRIPTION` file. -->
+<!-- ::: -->
 
-### Add Documentation
+<!-- ### Add Documentation -->
 
-::: {.callout-note}
-#### Question 2
+<!-- ::: {.callout-note} -->
+<!-- #### Question 2 -->
 
-Go back to each function script and add a Roxygen skeleton to document each function.
-:::
+<!-- Go back to each function script and add a Roxygen skeleton to document each function. -->
+<!-- ::: -->
 
-### Test Age Function
+<!-- ### Test Age Function -->
 
-::: {.callout-note}
-#### Question 3
-Use `usethis::use_testthat()` and `usethis::use_test("test-file-name")` to test the age function.
-:::
+<!-- ::: {.callout-note} -->
+<!-- #### Question 3 -->
+<!-- Use `usethis::use_testthat()` and `usethis::use_test("test-file-name")` to test the age function. -->
+<!-- ::: -->
 
-### Test, Check, and Install `aboutMe`
+<!-- ### Test, Check, and Install `aboutMe` -->
 
-::: {.callout-note}
-#### Question 4
-Use either the Build Tab or run the `devtools` functions `test()`, `check()`, and `install()` in the Console. 
-:::
+<!-- ::: {.callout-note} -->
+<!-- #### Question 4 -->
+<!-- Use either the Build Tab or run the `devtools` functions `test()`, `check()`, and `install()` in the Console.  -->
+<!-- ::: -->
 
-After installing, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created.
+<!-- After installing, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created. -->
+
 
 ::: {.callout-caution icon=false}
-### Save and Use Git
-Save your work and use the Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
+### Save and apply the Git and GitHub Workflow
+Save your work and use the Git workflow: 
+
+```Stage (add) -> Commit -> Pull -> Push```
 :::
 
 
