@@ -65,7 +65,7 @@ Imagine that some time has gone by and you've committed a third version of your 
 
 Maybe you're not so sure the idea will work out and this is where a tool like Git shines. Without a tool like Git, we might copy analysis.R to another file called analysis-ml.R which might end up having mostly the same code except for a few lines. This isn't particularly problematic until you want to make a change to a bit of shared code and now you have to make changes in two files, if you even remember to.
 
-Instead, with Git, we can start a branch. Branches allow us to confidently experiment on our code, all while leaving the old code in tact and recoverable.
+Instead, with Git, we can start a branch. Branches allow us to confidently experiment on our code, all while leaving the old code intact and recoverable.
 
 :::{.column-body-outset}
 ![](images/git-intro-slide06.png)
