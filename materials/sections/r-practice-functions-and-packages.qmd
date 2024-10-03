@@ -53,7 +53,7 @@ Create a function called `double_it()` that doubles any value input value. Then 
 
 # create function #
 double_it <- function(x) {
-    print(2 * x)
+    return(2 * x)
 }
 
 # try it out #
@@ -79,7 +79,7 @@ Then try out the function, are the values returned what you expect?
 
 # write function #
 exclaim_age <- function(age) {
-  print(paste("I am", age, "years old!"))
+  return(paste("I am", age, "years old!"))
 }
 
 # try it out #
@@ -252,59 +252,58 @@ find_max(4, "cow")
 find_max("cow", 4)
 ```
 
-<!-- ## Exercise: R Packages -->
 
-<!-- ::: {.callout-tip icon=false} -->
-<!-- ### Setup -->
+::: {.callout-note}
+#### Question 4d
+Run `find_max(4, 4)` in the Console.  Previously we coded our function to report an error.  But perhaps the user would prefer to have the function return the shared value, as an option.  Add an argument with a reasonable default value to allow the user to control this behavior.  Add additional logic to the function, as needed.
+:::
 
-<!-- 1. Create a new project using the R Package template by selecting: ```File -> New Project -> New Directory -> R Package -> Create Project```. In the R Package dialog box, type "aboutMe" in the "Package Name:" field. Or you can use `usethis::create_package("~/aboutMe")`. -->
+<details>
+<summary>Hint 4d</summary>
 
-<!-- 2. Delete the files: `hello.R` in the `R` directory and `hello.Rd` in the `man` directory. -->
+Before, if `value_1 == value_2`, we used `stop()` to create an error.  But with an additional argument, we can adjust how the function responds by testing the value of that argument.
 
-<!-- 3. Add a license by running in the Console: ```usethis::use_apache_license()```. -->
+Often for arguments that turn on or turn off a behavior, a TRUE/FALSE value makes sense so you could easily include the argument in a logical test.
 
-<!-- 4. Turn the project into a Git repository. Recall the steps from [Ch 6 Exercise 3: Setting up Git on an existing project](https://learning.nceas.ucsb.edu/2023-10-coreR/session_06.html#exercise-3-setting-up-git-on-an-existing-project). Follow the steps either using the `usethis` package or Command Line. -->
-<!-- ::: -->
+</details>
 
-<!-- ### Add Functions to the `aboutMe` Package -->
 
-<!-- ::: {.callout-note} -->
-<!-- #### Question 1 -->
-<!-- Create the following two functions for the `aboutMe` package:  -->
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: Answer 4d Code
 
-<!-- a. Function that prints out your name and your favorite color. -->
-<!-- b. Function calculates your age for the current year.  -->
-<!--     i. **Hint**: You can access the current year using `format(Sys.Date(), "%Y")`. -->
-<!--     ii. `Sys.Date()` returns the current date, and `format()` and `"%Y"` formats the date to just the year in the format `YYYY` (as opposed to `YY`). -->
+# `find_max()` function with error messages and checks
+find_max <- function(value_1, value_2, equal_ok = FALSE) {
+    
+    # `|` is the logical OR operator
+    # `!=` is the not-equal-to operator
+    if (is.numeric(value_1) != TRUE | is.numeric(value_2) != TRUE) {
+        # alt expression: is.numeric(value_1) == FALSE | is.numeric(value_2) == FALSE
+        stop("Value must be a numeric type.")
+    }
+    
+    if (value_1 == value_2) {
+        ### the values are equal; is value of the equal_ok argument TRUE?
+        if(equal_ok) return(value_1)
+        ### if equal_ok is not TRUE, then report an error
+        stop("Values must be different from each other.")
+    }
+    
+    if (value_1 > value_2) {
+        return(value_1)
+    }
+    else if (value_2 > value_1) {
+        return(value_2)
+    }
+}
 
-<!-- Write each of these functions in their own scripts and save them to the `R` directory. -->
+# try it out #
+# does the message appear as you expected?
+find_max(4, 4)
+find_max(4, 4, equal_ok = TRUE)
+```
 
-<!-- Note: If any of your functions have dependencies, make sure to add it to the `DESCRIPTION` file. -->
-<!-- ::: -->
-
-<!-- ### Add Documentation -->
-
-<!-- ::: {.callout-note} -->
-<!-- #### Question 2 -->
-
-<!-- Go back to each function script and add a Roxygen skeleton to document each function. -->
-<!-- ::: -->
-
-<!-- ### Test Age Function -->
-
-<!-- ::: {.callout-note} -->
-<!-- #### Question 3 -->
-<!-- Use `usethis::use_testthat()` and `usethis::use_test("test-file-name")` to test the age function. -->
-<!-- ::: -->
-
-<!-- ### Test, Check, and Install `aboutMe` -->
-
-<!-- ::: {.callout-note} -->
-<!-- #### Question 4 -->
-<!-- Use either the Build Tab or run the `devtools` functions `test()`, `check()`, and `install()` in the Console.  -->
-<!-- ::: -->
-
-<!-- After installing, go to the Packages Tab in the Files Pane, search for the `aboutMe` package, and check that the documentation for your package looks as you expected. Try loading the package using `library()` and call some of the functions you created. -->
 
 
 ::: {.callout-caution icon=false}
