@@ -26,21 +26,24 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 
 1.  Create a new repository with a partner
     a.  Determine who is the Owner and who is the Collaborator
-    b.  The Owner creates a repository on GitHub titled with both your names (i.e. If Angel and Camila were partners, and Angel is the Owner, she would create a repo called `angel-camila`)
+    b.  The Owner creates a repository on GitHub titled with both your names (i.e. If Casey and Camila were partners, and Casey is the Owner, she would create a repo called `casey-camila`)
         i.  When creating the repository, add a brief description (i.e. R Practice Session: Collaborating on, Wrangling & Visualizing Data), keep the repo Public, and Initialize the repo with a `README` file and an R `.gitignore` template.
     c.  The Owner adds the Collaborator to the repo
     d.  Both the Collaborator and the Owner clone the repo into their RStudio
-    e. Both the Collaborator and the Owner run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing
+    <!-- e.  Both the Collaborator and the Owner run ```git config pull.rebase false``` in the Terminal to set the `Git` default strategy for `Pull`ing -->
 
-**Step 2 and Step 3 are meant to be completed at the same time. Step 2 is for the Collaborator to complete, and Step 3 is for the Owner to complete.**
+**Step 2 and Step 3 are meant <u>to be completed at the same time</u>. 
+- Collaborator completes Step 2
+- Owner completes Step 3
+
 
 2.  **Collaborator** creates new files for exercise
-    a. The Collaborator creates the following directory:
+    a. The Collaborator creates the following directory (folder):
         i. `analysis` 
     b. After creating the directories, create the following Quarto Documents and store them in the listed folders:
         i.  Title it: "Owner Analysis", save it as: `owner-analysis.qmd`, and store in `analysis` folder
         ii. Title it: "Collaborator Analysis", save it as: `collaborator-analysis.qmd`, and store in `analysis` folder
-        iii. Title it: "Lobster Report" and save it as: `lobster-report.qmd` (do not need to put in a folder)
+        iii. Title it: "Lobster Report" and save it as: `lobster-report.qmd` and store in `analysis` folder
     b.  After creating the files, the Collaborator will `stage (add)`, `commit`, write a commit message, `pull`, and `push` the files to the remote repository (on GitHub)
     c.  The Owner `pull`s the changes and Quarto Documents into their local repository (their workspace)
 
@@ -56,7 +59,9 @@ These exercises will be using data on abundance, size, and trap counts (fishing 
 
 ### Explore, clean and wrangle data
 
-For this portion of the exercise, the Owner will be working with the lobster abundance and size data, and the Collaborator will be working with the lobster trap buoy counts data
+For this portion of the exercise, the 
+- <u>Owner</u> will be working with the **lobster abundance and size data**
+- <u>Collaborator</u> will be working with the **lobster trap buoy counts data**
 
 Questions 1-3 you will be working independently since you're working with different data frames, but you're welcome to check in with each other.
 
@@ -106,13 +111,13 @@ Make sure your Quarto Document is well organized and includes the following elem
 -   citation of the data
 -   brief summary of the abstract (i.e. 1-2 sentences) from the [EDI Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
 -   Owner analysis and visualizations (you choose which plots you want to include)
-    - add alternative text to your plots
-    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
+    - Try adding alternative text to your plots (See [Quarto Documentation](https://quarto.org/docs/authoring/figures.html#alt-text))
+    - Plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it's up to you if you want to include the code or not. 
 -   Collaborator analysis and visualizations (you choose which plots you want to include)
-    - add alternative text to your plots
-    - plots can be added either with the data visualization code or with Markdown syntax - it's up to you if you want to include the code or not. 
+    - Try adding alternative text to your plots (See [Quarto Documentation](https://quarto.org/docs/authoring/figures.html#alt-text))
+    - plots can be added either with the data visualization code or with Markdown syntax (calling a saved image) - it's up to you if you want to include the code or not. 
 
-Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 11](https://learning.nceas.ucsb.edu/2024-02-arctic/session_10.html) for steps on how to publish using GitHub pages.
+Finally, publish on GitHub pages (from Owner's repository). Refer back to [Chapter 12](https://learning.nceas.ucsb.edu/2024-10-coreR/session_12.html) for steps on how to publish using GitHub pages.
 
 
 ## Bonus: Add marine protected area (MPA) designation to the data
