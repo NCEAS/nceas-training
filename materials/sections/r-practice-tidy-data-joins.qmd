@@ -27,7 +27,7 @@ These exercises will be using bird survey data collected from the central Arizon
 
 1. Create a new Quarto Document. 
     a. Title it "R Practice: Tidy Data and Joins". 
-    b. Save the file and name it "r-practice-tidy-data-joins". 
+    b. Save the file and name it "r-practice-tidy-data-joins" in your `scripts` folder. 
 
 **Note:** Double check that you're in the right project. Where in RStudio can you check where you are?
 
@@ -37,6 +37,7 @@ These exercises will be using bird survey data collected from the central Arizon
 #| code-fold: false
 library(readr)
 library(dplyr)
+library(here)
 library(lubridate) # for bonus question
 
 # Quick question: Do you get a message after loading the libraries? What is it telling you? Talk to your neighbor about it or write a note in your qmd.
@@ -74,10 +75,10 @@ sites <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb
 taxalist <- read_csv("https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-cap.256.10&entityid=58f863b7e3066e68536a9cacdc7bd58e")
 
 # read in data from the data directory after manually downloading data 
-bird_observations <- read_csv("data/52_pp52_birds_1.csv")
-surveys <- read_csv("data/52_pp52_surveys_1.csv")
-sites <- read_csv("data/52_pp52_sites_1.csv")
-taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
+bird_observations <- read_csv(here::here("data/52_pp52_birds_1.csv"))
+surveys <- read_csv(here::here("data/52_pp52_surveys_1.csv"))
+sites <- read_csv(here::here("data/52_pp52_sites_1.csv"))
+taxalist <- read_csv(here::here("data/52_pp52_taxalist_1.csv"))
 ```
 
 ## Get familiar with the data
@@ -86,7 +87,7 @@ taxalist <- read_csv("data/52_pp52_taxalist_1.csv")
 #### Question 2a
 
 What functions can you use to explore the data you just read in? Think about which functions we've been using to explore the structure of the data frame, information about columns, unique observations, etc.
-Tip: run `View(name_of_your_data_frame) in the console to see data in a spreadsheet-style viewer.
+Tip: run `View(name_of_your_data_frame)` **in the console** to see data in a spreadsheet-style viewer.
 :::
 
 ```{r}
@@ -154,7 +155,7 @@ birds_subset <- bird_observations %>%
 
 First, answer: what do you expect the outcome data frame when doing `left_join()` between `birds_subset` and `sites` to look like? What observations do you expect in the outcome data frame.
 
-Write this in your Quarto Document or tell a neighbor.
+You can use paper to draw if that helps you or talk to your neighbor. Write down the steps  and expected outcome in your Quarto Document.
 :::
 
 <details>
@@ -195,7 +196,7 @@ First, answer: what do you expect a `full_join()` between `birds_subset` and `si
 
 <summary>Answer</summary>
 
-I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept.
+I expect to see all columns and all observations from `birds_subset` and all columns and all observations from `sites` to be merged into one data frame because in a full join everything is kept. `NA` values could be introduced.
 
 </details>
 
@@ -344,8 +345,8 @@ unique(bird_obs_subset$observer)
 ```
 
 ::: callout-important
-## Save your work and use Git
-Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
+## Save your work and dont's forget the Git and GitHub Workflow
+After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
 ## Bonus: Use a new package `lubridate` to wrangle the date data and find the total number of birds by park and month
