@@ -9,8 +9,8 @@ format: html
 
 **Structure of the data visualization exercises:** 
 
-- Questions 7-9 will have you create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
-- Question 10, return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.qmd` (start with just one plot and if there's time add styling code to another plot).
+- First you will create the necessary subsets to create the data visualizations, as well as the basic code to create a visualization. 
+- Then, you will return to the data visualization code you've written and add styling code to it. For this exercise, only add styling code to the visualization you want to include in the `lobster-report.qmd` (start with just one plot and if there's time add styling code to another plot).
 - Lastly, save the final visualizations to the `figs` folder before collaborating on the `lobster-report.qmd`.
 :::
 
@@ -30,7 +30,7 @@ lobster_traps <- read_csv("https://portal.edirepository.org/nis/dataviewer?packa
 ```
 
 ::: callout-note
-### Question 7
+### Question 5
 Create a multi-panel plot of lobster commercial traps (`TRAPS`) grouped by year, using `ggplot()`, `geom_histogram()`, and `facet_wrap()`. Use the variable `YEAR` in `facet_wrap()`. Use the object `lobster_traps`.
 :::
 
@@ -49,7 +49,7 @@ ggplot(data = lobster_traps, aes(x = TRAPS)) +
 </details>
 
 ::: callout-note
-### Question 8
+### Question 6
 
 Create a line graph of the number of total lobster commercial traps observed (y-axis) by year (x-axis) in the study, grouped by `SITE`.
 :::
@@ -93,7 +93,7 @@ ggplot(data = lobsters_traps_summarize, aes(x = YEAR, y = TOTAL_TRAPS)) +
 
 
 ::: callout-note
-### Question 9
+### Question 7
 Create a bar graph that shows the amount of high and low fishing pressure of lobster commercial traps at each `SITE` from 2019-2021.
 **Note:** The high and low fishing pressure metrics are completely made up and are not based on any known facts.
 :::
@@ -139,7 +139,7 @@ ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FI
 </details>
  
 ::: callout-note
-### Question 10
+### Question 8
 
 1. Go back to your visualization code and add some styling code (aka make your plots pretty!). Again, start with one plot and if there's time add styling code to additional plots. Here's a list of functions to help you get started (this is not an exhaustive list!) or revisit the [data visualization lesson](https://learning.nceas.ucsb.edu/2023-04-coreR/session_12.html):
 
@@ -167,7 +167,7 @@ ggplot(data = lobster_traps_fishing_pressure, aes(x = SITE, y = COUNT, fill = FI
 :::
 
 ::: callout-important
-## Save your work and use Git
-Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
+## Save your work and Don't forget the Git and GitHub workflow!
+After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 

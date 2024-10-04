@@ -25,7 +25,7 @@ library(here)
 
 ```{r}
 #| code-fold: false
-lobster_traps <- read_csv(here("data/Lobster_Trap_Counts_All_Years_20210519.csv"))
+lobster_traps <- read_csv(here::here("data/Lobster_Trap_Counts_All_Years_20210519.csv"))
 ```
 
 4. Look at your data. Take a minute to explore what your data structure looks like, what data types are in the data frame, or use a function to get a high-level summary of the data you're working with.
@@ -73,11 +73,22 @@ carp_20_traps <- lobster_traps %>%
     filter(SITE == "CARP" & TRAPS > 20)
 ```
 
+# Question 4
+Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `max()`). Check your output.
+
+```{r}
+#| echo: false
+# `group_by() %>% summarize()` practice
+max_lobster_traps <- lobster_traps %>% 
+    group_by(SITE, MONTH) %>%
+    summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
+```
+
 
 ::: callout-important
 
-## Save your work and use Git
-Don't forget the Git workflow! After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
+## Save your work and Don't forget the Git and GitHub workflow!
+After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
 
 
@@ -108,14 +119,4 @@ mean_lobster_traps <- lobster_traps %>%
     summarize(MEAN_TRAPS = mean(TRAPS, na.rm = TRUE))
 ```
 
-<!--# Question 6 -->
-<!--# Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the `NA` values in `TRAPS`. Check your output. -->
-
-```{r}
-#| echo: false
-# `group_by() %>% summarize()` practice
-max_lobster_traps <- lobster_traps %>% 
-    group_by(SITE, MONTH) %>%
-    summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
-```
 
