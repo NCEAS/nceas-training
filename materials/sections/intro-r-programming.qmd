@@ -18,7 +18,7 @@ There is a vibrant community out there that is collectively developing increasin
 
 So what is the difference between R and RStudio? Here is an analogy to start us off. **If you were a chef, R is a knife**. You have food to prepare, and the knife is one of the tools that you'll use to accomplish your task.
 
-And **if R were a knife, RStudio is the kitchen**. RStudio provides a place to do your work! Other tools, communication, community, it makes your life as a chef easier. RStudio makes your life as a researcher easier by bringing together other tools you need to do your work efficiently - like a file browser, data viewer, help pages, terminal, community, support, the list goes on. So it's not just the infrastructure (the user interface or IDE), although it is a great way to learn and interact with your variables, files, and interact directly with git. It's also data science philosophy, R packages, community, and more. Although you can prepare food without a kitchen and we could learn R without RStudio, that's not what we're going to do. We are going to take advantage of the great RStudio support, and learn R and RStudio together.
+And **if R were a knife, RStudio is the kitchen**. RStudio provides a place to do your work! RStudio makes your life as a researcher easier by bringing together other tools you need to do your work efficiently - like a file browser, data viewer, help pages, terminal, community, support, the list goes on. So it's not just the infrastructure (the user interface or IDE), although it is a great way to learn and interact with your variables, files, and interact directly with git. It's also data science philosophy, R packages, community, and more. Although you can prepare food without a kitchen and we could learn R without RStudio, that's not what we're going to do. We are going to take advantage of the great RStudio support, and learn R and RStudio together.
 
 Something else to start us off is to mention that you are learning a new language here. It's an ongoing process, it takes time, you'll make mistakes, it can be frustrating, but it will be overwhelmingly awesome in the long run. We all speak at least one language; it's a similar process, really. And no matter how fluent you are, you'll always be learning, you'll be trying things in new contexts, learning words that mean the same as others, etc, just like everybody else. And just like any form of communication, there will be miscommunication that can be frustrating, but hands down we are all better off because of it.
 
@@ -157,11 +157,11 @@ Running code in an R Script is different than running code in the Console (aka y
 
 So we know that objects are how R stores information, and we know we create objects using the assignment operator `<-`. Let's build upon that and learn how to use an object in calculations.
 
-Imagine we have the weight of a dog in kilograms. Create the object `weight_kg` and assign it a value of 55.
+Imagine we have the weight of a dog in kilograms. Create the object `weight_kg` and assign it a value of 25.
 
 ```{r}
 # weight of a dog in kilograms
-weight_kg <- 55 
+weight_kg <- 25
 ```
 
 Now that R has `weight_kg` saved in the Global Environment, we can run calculations with it.
@@ -183,7 +183,7 @@ First let's create a **vector** of weights in kilograms using `c()` (we'll talk 
 
 ```{r}
 # create a vector of weights in kilograms
-weight_kg <- c(55, 25, 12)
+weight_kg <- c(25, 33, 12)
 # call the object to inspect
 weight_kg
 ```
@@ -216,7 +216,7 @@ RStudio offers many handy [keyboard shortcuts](https://support.rstudio.com/hc/en
 For more RStudio tips, check out Master of Environmental Data Science (MEDS) workshop: [IDE Tips & Tricks](https://ucsb-meds.github.io/IDE-tips-and-tricks/#/title-slide).
 :::
 
-## Data types in R
+## Data types (class) in R
 
 | Data Type                         | Definition                                                                                                                                                                                                                             |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -281,11 +281,11 @@ Vectors are foundational for other data structures in R, including data frames, 
 ```{r}
 # atomic vector examples #
 # character vector
-chr_atomic_vector <- c("hello", "good bye", "see you later")
+chr_vector <- c("hello", "good bye", "see you later")
 # numeric vector
-numeric_atomic_vector <- c(5, 1.3, 10)
+numeric_vector <- c(5, 1.3, 10)
 # logical vector
-boolean_atomic_vector <- c(TRUE, FALSE, TRUE)
+boolean_vector <- c(TRUE, FALSE, TRUE)
 ```
 
 ## R Functions
