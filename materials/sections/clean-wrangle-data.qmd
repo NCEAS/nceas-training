@@ -27,10 +27,16 @@ Suppose you have the following `data.frame` called `length_data` with data about
 |  1992|    4.381523|
 |  1992|    5.597777|
 |  1992|    4.900052|
-The `dplyr` R library provides a fast and powerful way to do this calculation in a few lines of code:
+
+Before thinking about the code, let's think about the steps we need to take to get to the answer (aka pseudocode).
+
+Now, how would we code this? The `dplyr` R library provides a fast and powerful way to do this calculation in a few lines of code:
 
 ```{r}
 #| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
 length_data %>% 
   group_by(year) %>% 
   summarize(mean_length_cm = mean(length_cm))
@@ -55,12 +61,19 @@ This wide format works well for data entry and sometimes works well for analysis
 For example, how would you fit a model with year as a predictor variable? In an ideal world, we'd be able to just run `lm(length ~ year)`.
 But this won't work on our wide data because `lm()` needs `length` and `year` to be columns in our table.
 
+What steps would you take to get this data frame in a long format?
+
 The `tidyr` package allows us to quickly switch between wide format and long format using the `pivot_longer()` function:
 
 ```{r}
 #| eval: false
+#| code-fold: true
+#| code-summary: "Answer"
+
 site_data %>% 
-  pivot_longer(-site, names_to = "year", values_to = "length")
+  pivot_longer(-site, 
+               names_to = "year", 
+               values_to = "length")
 ```
 
 | site   | year |  length|
@@ -201,7 +214,7 @@ Before we get too much further, spend a minute or two outlining your Quarto docu
 :::
 
 ## Data exploration
-Similar to what we did in our [Literate Analysis](https://learning.nceas.ucsb.edu/2024-06-delta/session_04.html) lesson, it is good practice to skim through the data you just read in. 
+Similar to what we did in our [Literate Analysis](https://learning.nceas.ucsb.edu/2024-10-coreR/session_05.html) lesson, it is good practice to skim through the data you just read in. 
 
 Doing so is important to make sure the data is read as you were expecting and to familiarize yourself with the data.
 
