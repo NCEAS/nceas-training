@@ -443,53 +443,49 @@ In the Cleaning & Wrangling chapter we will cover more best practices for cleani
 
 ## Activity
 
-In groups of 3-4 we will do two activities that will help us put into practice the concepts of tidy data, identifying keys and structuring relational data.
+<!-- In groups of 2-3 we will do two activities that will help us put into practice the concepts of tidy data, identifying keys and structuring relational data. -->
 
-### Exercise 1:Identifying Tidy Data
-
-::: callout-note
-## Does the table follow the tidy data principles?
-
--   Look at the tables on [this file](files/recognizing-tidy-data-activity.pdf) and determine if they follow the three tidy data principles.
-    If not, which ones aren't met?
-
--   How would you wrangle the data to make it tidy?
-    Describe the steps you would take to tidy the data.
-
--   Sketch how would the tidy version look like.
-:::
-
-### Excersice 2: Relational Databases
+<!-- ### Exercise 1:Identifying Tidy Data -->
 
 ::: callout-tip
-## Prompt
+## Tidy data, keys and joins
+-   Get together in pairs or small groups
+-   Obtain materials from instructors including activity handout and blank paper(s).
+- Follow instructions in activity handout.
 
-> Our funding agency requires that we take surveys of individuals who complete our training courses so that we can report on the demographics of our trainees and how effective they find our courses to be.
 :::
 
-::: callout-note
-## Design data collection tables
+<!-- ### Excersice 2: Relational Databases -->
 
--   In your small groups, design a set of tables that will capture information collected in a participant survey that would apply to many courses.
+<!-- ::: callout-tip -->
+<!-- ## Prompt -->
 
--   Don't focus on designing a comprehensive set of questions for the survey, one or two simple questions would be sufficient (eg: "Did the course meet your expectations?", "What could be improved?", "To what degree did your knowledge increase?").
+<!-- > Our funding agency requires that we take surveys of individuals who complete our training courses so that we can report on the demographics of our trainees and how effective they find our courses to be. -->
+<!-- ::: -->
 
--   Include variables (columns) with basic set of information from the surveys and about the courses, such as the date of the course and name of the course, etc.
-:::
+<!-- ::: callout-note -->
+<!-- ## Design data collection tables -->
 
-::: callout-note
-## Create entity relationsip model
+<!-- -   In your small groups, design a set of tables that will capture information collected in a participant survey that would apply to many courses. -->
 
-After you have thought about what kind of information you care collecting, let's break it down and build the entity-relationship model.
+<!-- -   Don't focus on designing a comprehensive set of questions for the survey, one or two simple questions would be sufficient (eg: "Did the course meet your expectations?", "What could be improved?", "To what degree did your knowledge increase?"). -->
 
-1.  Identify the **entities** in the relational database and add each one in a box.
+<!-- -   Include variables (columns) with basic set of information from the surveys and about the courses, such as the date of the course and name of the course, etc. -->
+<!-- ::: -->
 
-2.  Add **variables** for each entity.
+<!-- ::: callout-note -->
+<!-- ## Create entity relationsip model -->
 
-3.  Identify the primary and foreign **keys** for those entities that relate to each other.
+<!-- After you have thought about what kind of information you care collecting, let's break it down and build the entity-relationship model. -->
 
-4.  Add "words" describing how each entity relates
+<!-- 1.  Identify the **entities** in the relational database and add each one in a box. -->
 
-5.  Add cardinality to every relationship in the diagram.
-    This mean, use the **EDR Crow's Foot** [Quick Reference](https://learning.nceas.ucsb.edu/2024-02-arctic/session_07.html#edr-crows-foot) to quantify how many items in an entity are related to another entity.
-:::
+<!-- 2.  Add **variables** for each entity. -->
+
+<!-- 3.  Identify the primary and foreign **keys** for those entities that relate to each other. -->
+
+<!-- 4.  Add "words" describing how each entity relates -->
+
+<!-- 5.  Add cardinality to every relationship in the diagram. -->
+<!--     This mean, use the **EDR Crow's Foot** [Quick Reference](https://learning.nceas.ucsb.edu/2024-02-arctic/session_07.html#edr-crows-foot) to quantify how many items in an entity are related to another entity. -->
+<!-- ::: -->
