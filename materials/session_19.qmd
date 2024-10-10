@@ -4,9 +4,33 @@ title-block-banner: true
 ---
 
 
+## Steps {.unnumbered}
+
+1. Go over the [Installing R and Git in your computer](https://learning.nceas.ucsb.edu/2024-10-coreR/session_22.html) session and make sure you have everything installed and updated.
+
+2. Introduce your GitHub credentials to your local computer. Follow the steps in [Git and GitHub Setup](https://learning.nceas.ucsb.edu/2024-10-coreR/session_03.html) section.
+
+3. Create a new repository on GitHub. It is up to you if you you named it something related to a project you are working or something more like a test-repo.
+
+4. Clone your GitHub repository into your local computer. Create a new RProject (with version control)
+
+5. Modify the README file. Provide a title to your project and a description. `Stage (add)` - `Commit` - `Pull` - `Push` your changes.
+
+6. Add sub-folders to your project. We have talked throughout the course the importance of organization, ultimately, it is up to you how you organize your project.
+
+7. Add data into your project and create a script (or Quarto doc)
+
+8. Read in your data and start working with it!
+
+
+:::callout-important
+## About gitignore
+
+If your data is too large you might wanna consider adding your the folder where your data live to the `gitignore` file. This way, Git will not track that file. GitHub has a size limit to 100 mb. This mean your will not be able to push files over that limit. This is when the `gitignore` comes handy.
+:::
 
 
 
-<!-- {{< include /sections/geospatial-vector-analysis.qmd >}} -->
+
 
 
