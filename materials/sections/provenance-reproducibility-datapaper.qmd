@@ -29,7 +29,7 @@ To enable others to fully interpret, reproduce or build upon our research, we ne
 
 ![](images/Smith-et-al.png)
 
-For example, if we look at the figure above convey multiple messages. But, by looking at the figure we don't get the full story how did scientist got to make this plot. What data were used in this study? What methods applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? Are the results reproducible?
+For example, the figure above conveys multiple messages. But, by looking at the figure we don't get the full story of the process the scientist used to make this plot. What data were used in this study? What methods were applied? What were the parameter settings? What documentation or code are available to us to evaluate the results? Can we trust these data and methods? Are the results reproducible?
 
 **Computational reproducibility** is the ability to document data, analyses, and models sufficiently for other researchers to be able to understand and ideally re-execute the computations that led to scientific results and conclusions.
 
@@ -54,7 +54,7 @@ Computational provenance refers to the origin and processing history of data inc
 - Figures
 - Methods, dataflow, and dependencies
 
-When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from initial data cleaning and integration, through analysis, modeling, and visualization. In other words, **computational provenance is a formalized description of a workflow from the origin of the data to it's final outcome**.
+When we put these all together with formal documentation, we create a **computational workflow** that captures all of the steps from initial data cleaning and integration, through analysis, modeling, and visualization. In other words, **computational provenance is a formalized description of a workflow from the origin of the data to its final outcome**.
 
 Here's an example of a computational workflow from Mark Carls: [Mark Carls. Analysis of hydrocarbons following the Exxon Valdez oil spill, Gulf of Alaska, 1989 - 2014. Gulf of Alaska Data Portal. urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171.](https://search.dataone.org/view/urn%3Auuid%3A3249ada0-afe3-4dd6-875e-0f7928a4c171), that represents a three step workflow comprising four source data files and two output visualizations. 
 
@@ -64,7 +64,6 @@ Here's an example of a computational workflow from Mark Carls: [Mark Carls. Anal
 ![](images/provenance.png)
 
 This image is a screenshot of an interactive user interface of a workflow built by DataONE. You can clearly see which data files were inputs to the process, the scripts that are used to process and visualize the data, and the final output objects that are produced, in this case two graphical maps of Prince William Sound in Alaska.
-
 
 
 ### From Provenance to Reproducibility
@@ -87,7 +86,7 @@ DataONE provides a tool to track and visualize provenance. It facilitates reprod
 
 ProvONE provides the fundamental information required to understand and analyze scientific workflow-based computational experiments. It covers the main aspects that have been identified as relevant in the provenance literature including **data structure**. This addresses the most relevant aspects of how the data, both used and produced by a computational process, is organized and represented. For scientific workflows this implies the inputs and outputs of the various tasks that form part of the workflow.
 -->
-One way to illustrate this is to look into the structure of a data package. A **data package** is the unit of publication of your data, including datasets, metadata, software and provenance. The image below represents a data package and all it's components and how these components relate to each other.
+One way to illustrate this is to look into the structure of a data package. A **data package** is the unit of publication of your data, including datasets, metadata, software and provenance. The image below represents a data package and all its components and how these components relate to one another.
 
 ![](images/data-package.png)
 
@@ -168,7 +167,7 @@ rrtools::use_compendium("mypaper")
 `rrtools` has created the beginnings of a research compendium for us. The structure of this compendium is similar to the one needed to built an R package. That's because it uses the same underlying folder structure and metadata and therefore it technically is an R package (called `mypaper`). And this means our research compendium could be easy to install in someone elses' computer, similar to an R package.
 
 
-3. `rrtools` also helps you set up some key information like:
+3. `rrtools` also helps you set up some key information:
 
 - Set up a README file in the RMarkdown format
 - Create an `analysis` folder to hold our reproducible paper
@@ -244,7 +243,7 @@ tinytex::install_tinytex() ## this may take several minutes
 
 ## Set up
 
-0.  If you do not have `rticle` installed, go aherad and inatall calling the following function in the console: `install.packages('rticles')` Restart your RStudio session
+0.  If you do not have `rticle` installed, go ahead and install calling the following function in the console: `install.packages('rticles')` Restart your RStudio session.
 
 1. To create a new file from `rticles`custom templates, got to `File | New File | R Markdown...` menu, which shows the following dialog:
 
@@ -281,13 +280,13 @@ Things we can do with our research compendium:
 -   Write out any figures in `./analysis/figures`
 
 
-You can then write all of your R code in your RMarkdown/Quarto, and generate your manuscript all in the format needed for your journal (using it's .csl file, stored in the paper directory).
+You can then write all of your R code in your RMarkdown/Quarto, and generate your manuscript all in the format needed for your journal (using its .csl file, stored in the paper directory).
 
 
 
 ### Adding `renv` to conserve your environment
 
-- `rrtools` has a couple more tricks up it's sleeve to help your compendium be as reproducible and portable as possible. 
+- `rrtools` has a couple more tricks up its sleeve to help your compendium be as reproducible and portable as possible. 
 
 
 - To capture the R packages and versions this project depends on,  we can use the `renv` package. 
@@ -319,7 +318,7 @@ You can then write all of your R code in your RMarkdown/Quarto, and generate you
 
 - Once you have your research compendium, you can called `rrtools::use_dockerfile()`. If needed, re-install `rrtools` directly from GitHub `remotes::install_github("benmarwick/rrtools")`
 
-- This, first creates a Dockerfile that loads a standard image for using R with the tidyverse, 
+- This first creates a Dockerfile that loads a standard image for using R with the tidyverse.
 
 - And then has more instructions for how to create the environment so that it has the very specific R packages and versions you need.
 
@@ -367,7 +366,7 @@ RUN . /etc/environment \
 
 ![](images/Living-paper.png)
 
-**Whole Tale** is a project that aims to simplify computational reproducibility. It enables researchers to easily package and share 'tales'. Tales are executable research objects captured in a standards-based tale format complete with metadata. They can contain:
+**Whole Tale** is a project that aims to simplify computational reproducibility. It enables researchers to easily package and share 'Tales'. Tales are executable research objects captured in a standards-based tale format complete with metadata. They can contain:
 
 - Data (references)
 - Code (computational methods)
@@ -376,12 +375,11 @@ RUN . /etc/environment \
 
 ![](images/whole-tale-container.png)
 
-By combining data, code and the compute environment, tales allow researchers to:
+By combining data, code and the compute environment, Tales allow researchers to:
 
 - Re-create the computational results from a scientific study
 - Achieve computational reproducibility 
 - “Set the default to reproducible.”
-
 
 
 **Full circle reproducibility can be achieved by publishing data, code AND the computational environment.**
