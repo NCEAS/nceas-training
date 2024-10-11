@@ -5,129 +5,103 @@
 - Practice creating issues in GitHub
 - Craft informative READMEs for Git repositories
 
-::: {.callout-note}
-## Acknowledgements
 
-We'll be utilizing the LTER Scientific Computing Team's [Collaborative Coding with GitHub](https://nceas.github.io/scicomp-workshop-collaborative-coding/) Project Management lessons.
 
-Exercises are adapted from Ben Best’s EDS 211: Team Science, Collaborative Analysis and Project Management Course for the Bren School’s Master of Environmental Data Science program.
-:::
+## Slides {.unnumbered}
 
-## Exercise: GitHub Organization, Project, and Issues
+<iframe width="560" height="380"src="https://docs.google.com/presentation/d/1ehw-Mg-i1QfXpz0MTLwIlaXNKRp42NB5TboZOhuTqtI/preview"allowfullscreen></iframe>
 
-**Step 0:** In your group, designate who will be the Owner of the organization.
+
+
+## Exercise: GitHub Issues
+
+Get back together with your partner that you collaborate for the Lobster Report.
+
 
 ::: {.callout-note icon=false}
 ### Question 1
-Owner creates a new GitHub Organization for the group.
+Owner creates a new Issue and tags collaborator.
 ::: 
 
 <details>
 <summary>Steps</summary>
-
-- Step 1: Click profile icon in the top right corner and in the drop down menu click "Your organizations"
-- Step 2: Click "New organization"
-- Step 3: Click "Create a free organization"
-- Step 4: Come up with an Organization account name. **Need inspiration?** Check out [Rafael Triantafillidis's Repository Name Generator](https://alator21.github.io/repository-name-generator/)
-- Step 5: Owner enters their GitHub email in the Contact email field
-- Step 6: Under "This organization belongs to:", Select "My personal account"
-- Step 7: Verify your account, Accept the Terms of Service, and click Next
-- Step 8: Owner add group members as organization members
-- Step 9: Owner sets organization members' permissions to admin persmissions
+- Navigate to the Lobster Report repository
+- Go to the "Issue" tab of the repository
+- Click on "New Issue"
+- Give the Issue a title (Eg: Choose which plot to include in final report)
+- Describe the issue and tag your collaborator by adding `@` followed by their username (Practice Markdown syntax when writing the issue)
+- Click on Submit New Issue
 
 </details> 
 
 ::: {.callout-note icon=false}
 ### Question 2
-Add repositories the organization.
+Collaborator responds to Issue and creates a checklist
 ::: 
 
 <details>
 <summary>Steps</summary>
-- Step 1: Navigate to the repository
-- Step 2: Go to the "Settings" tab of the repository 
-- Step 3: Scroll to the bottom to the "Danger Zone"
-- Step 4: Click "Transfer" to transfer the ownership of the repository to the organization created in Question 1
-- Step 5: Under "Select one of my organizations", Select the name of the organization created in Question 1
-- Step 6: Type to the `username/repo_name` to confirm and then click "I understand, transfer this repository"
+- Collaborator navigates to issue (either from the email notification or going into the Issue tab in the Lobster Report repo)
+- Respond Issue and include a To Do list indicating next steps (tip: Markdown syntax for list is /- [ ])
+- Submit your response
 
 </details> 
 
 ::: {.callout-note icon=false}
 ### Question 3
-Create and test GitHub Issues features.
+Collaborator create a GitHub Issues referencing code on one of the `.qmd` files
 ::: 
 
-In the repository, click on the Issues tab and then click "New issue".
+<details>
+<summary>Steps</summary>
+- Navigate to a script in the Lobster Report Report repository
+- Hover over the line you want to reference in the Issue
+- Click on the line number (on the left), then click on the three dots right next to the number
+- Choose the option "Reference in new issue"
+- Write a description of the "issue" you want to address
+- Submit Issue
+- Assign Issue to Owner
 
-In the new issue, add the title as "Testing Github Issue features".
 
-Then copy and paste the following into the "Leave a comment" section:
-
-    ## Github Issue Basics
-    - [x] Create an issue
-    - [x] Create this task list in initial comment of issue
-    - [ ] Convert the following two tasks into issues:
-      - [ ] Assign user
-      - [ ] Add new label
-    - [ ] Add emoji reaction to a comment
+</details> 
     
-    ## Github Flavored Markdown in Issue Comments
-    - [ ] Paste a screenshot into a comment
-    - [ ] Reference lines of code with a canonical URL
-    - [ ] Add a fenced R code block
-    - [ ] Mention a Github user on your team
-    - [ ] Use emoji in a comment
-    
-    ## Reference Issues
-    - [ ] Mention in issue comment another issue that is in the same repo
-    - [ ] Mention in issue comment another issue that is in a different repo
-    - [ ] Mention in `git commit` message an issue in the same repo
-    
-Finally, click "Submit new issue". Then complete the tasks.
 
 ::: {.callout-note icon=false}
 ### Question 4
-Create a GitHub Project and add Issues to the project.
-:::
+Owner reacts to issue with an emoji and adds a label
+::: 
 
-## Exercise: Create Your Profile README
+<details>
+<summary>Steps</summary>
+- Owner navigates to issue (either from the email notification or going into the Issue tab in the Lobster Report repo)
+- Add an emoji to issue submitted by Collaborator
+- Add a label
+    - On the right side menu click on Label
+    - Either choose one of the default labels or create your own by selecting "Edit labels"
 
-A Profile README on GitHub is a special README file that is added to your GitHub Profile that highlights information about yourself to share with others.
+</details> 
 
-::: {.callout-caution icon=false}
-### Profile README Examples
 
-- NCEAS Residents...
-    - [Samantha Csik, Data Training Coordinator](https://github.com/samanthacsik#hi-im-sam-csik-pronounced-chick-)
-    - [Joe DeCesaro, Data Analyst](https://github.com/joedecesaro)
-    - [Halina Do-Linh, Data Training Program Manager](https://github.com/hdolinh)
-    - [Carmen Galaz García, Data Scientist](https://github.com/carmengg)
-    - [Julie Lowndes, Openscapes Founders](https://github.com/jules32)
-    - [Ian Nesbitt, Research Software Engineer](https://github.com/iannesbitt)
-    - [Camila Vargas Poulsen, Data Science Educator](https://github.com/camilavargasp)
-    - [Daphne Virlar-Knight, Project Manager Western Wildfire Resiliency Index](https://github.com/dvirlar2)
 
-- ...and Beyond
-    - [Awesome GitHub Profile READMEs](https://zzetao.github.io/awesome-github-profile/)
-    - [Allison Horst](https://github.com/allisonhorst)
-:::
 
-**Steps to create your Profile README**
 
-- Step 1: In the upper-right corner of any page, use the "+" drop-down menu, and select "New repository"
-- Step 2: Under "Repository name", type a repository name that matches your GitHub username *exactly*
-- Step 3: Optionally, in the "Description" field, type a description of your repository. For example, "My personal repository"
-- Step 4: Select Public
-- Step 5: Select Initialize this repository with a README
-- Step 6: Click Create repository
-- Step 7: Above the right sidebar, click Edit README.
+## Exercise: Practice creating informative READMEs
+
+You can do this either for the training_username repo, or the Lobster Report repo (make sure just one of you edits this one) or edit a personal repo from one of your projects. Make sure to include the 6 core elements:
+
+- [ ] A short, but descriptive title
+- [ ] A brief explanation of the repository’s purpose
+- [ ] A concise description of what’s housed in the repository
+- [ ] Details regarding data access
+- [ ] A list of authors or contributors (for collaborative work)
+- [ ] References / acknowledgements
 
 ::: {.callout-caution icon=false}
-### Create a Profile Picture Using an Octocat
+### README Examples
 
-- [Build Your Own Octocat](https://myoctocat.com/)
-- [GitHub Octodex](https://octodex.github.com/)
+-  [A shiny dashboard for exploring my personal Strava data, by Sam Csik](https://github.com/samanthacsik/strava-dashboard?tab=readme-ov-file#a-shiny-dashboard-for-exploring-my-personal-strava-data)
+
+- [Thomas Fire Data Analysis by Anna Ramji](https://github.com/annaramji/thomas-fire?tab=readme-ov-file#thomas-fire-data-analysis)
+
 :::
-
 
