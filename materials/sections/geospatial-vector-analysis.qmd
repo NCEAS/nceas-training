@@ -543,7 +543,7 @@ m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
         fillOpacity = 1,
         weight = 0.25,
         color = "black",
-        label = ~ paste0(pop_4326_sf$city, ", population ", comma(pop_4326$population))
+        label = ~ paste0(pop_4326_sf$city, ", population ", comma(pop_4326_sf$population))
     ) %>%
     addLegend(
         position = "bottomleft",
