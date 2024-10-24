@@ -64,6 +64,7 @@ file.remove('shapefile_demo_data.zip')
 #| warning: false
 #| message: false
 library(readr)
+library(here)
 library(sf)
 library(ggplot2)
 library(leaflet)
@@ -75,13 +76,12 @@ library(dplyr)
 
 ## Exploring the data using `plot()` and `st_crs()`
 
-First let's read in the shapefile of regional boundaries in Alaska using `read_sf()` and then create a basic plot of the data `plot()`.
+First let's read in the shapefile of regional boundaries in Alaska using `read_sf()` and then create a basic plot of the data `plot()`.  Here we're adding a `_sf` suffix to our object name, to remind us that this is a Simple Features object with spatial information.
 
 ```{r}
 #| eval: false
-
 # read in shapefile using read_sf()
-ak_regions <- read_sf("data/ak_regions_simp.shp")
+ak_rgns_sf <- read_sf(here("data/ak_regions_simp.shp"))
 ```
 
 ```{r read_shp_sf}
@@ -89,22 +89,20 @@ ak_regions <- read_sf("data/ak_regions_simp.shp")
 #| message: false
 #| warning: false
 
-library(here)
-
-# data is saved in a different folder than participants
-ak_regions <- read_sf(here("data/shapefiles/ak_regions_simp.shp"))
+# for quarto rendering, data is saved in a different folder than participants
+ak_rgns_sf <- read_sf(here("data/shapefiles/ak_regions_simp.shp"))
 
 ```
 
 ```{r}
 # quick plot
-plot(ak_regions)
+plot(ak_rgns_sf)
 ```
 
 We can also examine its class using `class()`.
 
 ```{r}
-class(ak_regions)
+class(ak_rgns_sf)
 ```
 
 `sf` objects usually have two types of classes: `sf` and `data.frame`.
@@ -115,9 +113,9 @@ But, unlike a typical `data.frame`, an `sf` object has spatial metadata (`geomet
 
 ```{r}
 #| message: false
-head(ak_regions)
+head(ak_rgns_sf)
 
-glimpse(ak_regions)
+glimpse(ak_rgns_sf)
 ```
 
 ### Coordinate Reference System (CRS)
@@ -141,7 +139,7 @@ ESRI has a [blog post](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapp
 You can view what `crs` is set by using the function `st_crs()`.
 
 ```{r}
-st_crs(ak_regions)
+st_crs(ak_rgns_sf)
 ```
 
 This looks pretty confusing. Without getting into the details, that long string says that this data has a geographic coordinate system (WGS84) with no projection. A convenient way to reference `crs` quickly is by using the EPSG code, a number that represents a standard projection and datum. You can check out a list of (lots!) of EPSG codes [here](http://spatialreference.org/ref/epsg/?page=1).
@@ -155,14 +153,14 @@ We will use multiple EPSG codes in this lesson. Here they are, along with their 
 You will often need to transform your geospatial data from one coordinate system to another. The `st_transform()` function does this quickly for us. You may have noticed the maps above looked wonky because of the dateline. We might want to set a different projection for this data so it plots nicer. A good one for Alaska is called the Alaska Albers projection, with an EPSG code of [3338](http://spatialreference.org/ref/epsg/3338/).
 
 ```{r}
-ak_regions_3338 <- ak_regions %>%
+ak_rgns_3338_sf <- ak_rgns_sf %>%
     st_transform(crs = 3338)
 
-st_crs(ak_regions_3338)
+st_crs(ak_rgns_3338_sf)
 ```
 
 ```{r}
-plot(ak_regions_3338)
+plot(ak_rgns_3338_sf)
 ```
 
 Much better!
@@ -177,24 +175,26 @@ Since `sf` objects are data.frames, they play nicely with packages in the `tidyv
 
 ```{r select}
 # returns the names of all the columns in dataset
-colnames(ak_regions_3338)
+colnames(ak_rgns_3338_sf)
 ```
 
 ```{r}
-ak_regions_3338 %>%
+ak_rgns_3338_sf %>%
     select(region)
 ```
 
-Note the sticky geometry column! The geometry column will stay with your `sf` object even if it is not called explicitly.
+Note the sticky `geometry` column stays with the `region` column! The geometry column will stay with your `sf` object even if it is not called explicitly.
 
 ### `filter()`
 
+Recall that `==` is problematic if you're testing whether a variable might match multiple values - use `%in%` for that situation!
+
 ```{r}
-unique(ak_regions_3338$region)
+unique(ak_rgns_3338_sf$region)
 ```
 
 ```{r filter}
-ak_regions_3338 %>%
+ak_rgns_3338_sf %>%
     filter(region == "Southeast")
 ```
 
@@ -213,20 +213,22 @@ We have some population data, but it gives the population by city, not by region
 4.  Save the spatial object you created using `write_sf()`
 :::
 
-**1. Read in `alaska_population.csv` using `read.csv()`**
+**1. Read in `alaska_population.csv` using `read_csv()`**
+
+Here we'll add a `_df` suffix to remind us that this is just a regular data frame, not a spatial data frame.  It does contain spatial variables (longitude and latitude), but as far as it knows, those are just numbers, not recognized as spatial geometry... yet!
 
 ```{r}
 #| eval: false
 # read in population data
-pop <- read_csv("data/alaska_population.csv")
+pop_df <- read_csv(here("data/alaska_population.csv"))
 ```
 
 ```{r}
 #| echo: false
 #| message: false
 
-# data is saved in a different folder than participants
-pop <- read_csv(here("data/shapefiles/alaska_population.csv"))
+# for Quarto rendering, data is saved in a different folder than participants
+pop_df <- read_csv(here("data/shapefiles/alaska_population.csv"))
 ```
 
 **Turn `pop` into a spatial object**
@@ -235,13 +237,15 @@ The `st_join()` function is a spatial left join. The arguments for both the left
 
 We can do this easily using the `st_as_sf()` function, which takes as arguments the coordinates and the `crs`. The `remove = F` specification here ensures that when we create our `geometry` column, we retain our original `lat` `lng` columns, which we will need later for plotting. Although it isn't said anywhere explicitly in the file, let's assume that the coordinate system used to reference the latitude longitude coordinates is WGS84, which has a `crs` number of 4326.
 
-```{r}
-pop_4326 <- st_as_sf(pop,
-                     coords = c('lng', 'lat'),
-                     crs = 4326,
-                     remove = F)
+Note that we're adding a `_sf` suffix to our new object, because now it is a Simple Features spatial data frame!
 
-head(pop_4326)
+```{r}
+pop_4326_sf <- st_as_sf(pop_df,
+                        coords = c('lng', 'lat'),
+                        crs = 4326,
+                        remove = F)
+
+head(pop_4326_sf)
 ```
 
 **2. Join population data with Alaska regions data using `st_join()`**
@@ -252,9 +256,9 @@ In this case, we want to find what region each city falls within, so we will use
 
 ```{r}
 #| eval: false
-pop_joined <- st_join(pop_4326, 
-                      ak_regions_3338, 
-                      join = st_within)
+pop_joined_sf <- st_join(pop_4326_sf, 
+                         ak_rgns_3338_sf, 
+                         join = st_within)
 ```
 
 This gives an error!
@@ -266,16 +270,16 @@ Error: st_crs(x) == st_crs(y) is not TRUE
 Turns out, this won't work right now because our coordinate reference systems are not the same. Luckily, this is easily resolved using `st_transform()`, and projecting our population object into Alaska Albers.
 
 ```{r}
-pop_3338 <- st_transform(pop_4326, 
-                         crs = 3338)
+pop_3338_sf <- st_transform(pop_4326_sf, 
+                            crs = 3338)
 ```
 
 ```{r}
-pop_joined <- st_join(pop_3338, 
-                      ak_regions_3338, 
-                      join = st_within)
+pop_joined_sf <- st_join(pop_3338_sf, 
+                         ak_rgns_3338_sf, 
+                         join = st_within)
 
-head(pop_joined)
+head(pop_joined_sf)
 ```
 
 ::: {.callout-caution icon="false"}
@@ -286,26 +290,26 @@ There are many different types of joins you can do with geospatial data. Examine
 
 **3. Calculate the total population by region using `group_by()` and `summarize()`**
 
-Next we compute the total population for each region. In this case, we want to do a `group_by()` and `summarize()` as this were a regular `data.frame`. Otherwise all of our point geometries would be included in the aggregation, which is not what we want. Our goal is just to get the total population by region. We remove the sticky geometry using `as.data.frame()`, on the advice of the `sf::tidyverse` help page.
+Next we compute the total population for each region. In this case, we want to do a `group_by()` and `summarize()` as if this were a regular `data.frame`, without the spatial information - otherwise all of our point geometries would be included in the aggregation, which is not what we want.  We remove the sticky geometry using `st_drop_geometry()`.  Here we're adding a `_df` suffix because it's no longer a spatial data frame.
 
 ```{r}
-pop_region <- pop_joined %>%
-    as.data.frame() %>%
+pop_rgn_df <- pop_joined_sf %>%
+    st_drop_geometry() %>%
     group_by(region) %>%
-    summarise(total_pop = sum(population))
+    summarize(total_pop = sum(population))
 
-head(pop_region)
+head(pop_rgn_df)
 ```
 
 And use a regular `left_join()` to get the information back to the Alaska region shapefile. Note that we need this step in order to regain our region geometries so that we can make some maps.
 
 ```{r}
-pop_region_3338 <- left_join(ak_regions_3338, 
-                             pop_region, 
+pop_rgn_3338_sf <- left_join(ak_rgns_3338_sf, 
+                             pop_rgn_df, 
                              by = "region")
 
 # plot to check
-plot(pop_region_3338["total_pop"])
+plot(pop_rgn_3338_sf["total_pop"])
 ```
 
 So far, we have learned how to use `sf` and `dplyr` to use a spatial join on two datasets and calculate a summary metric from the result of that join.
@@ -319,11 +323,11 @@ The `group_by()` and `summarize()` functions can also be used on `sf` objects to
 Say we want to calculate the population by Alaska management area, as opposed to region.
 
 ```{r}
-pop_mgmt_3338 <- pop_region_3338 %>%
+pop_mgmt_3338_sf <- pop_rgn_3338_sf %>%
     group_by(mgmt_area) %>%
     summarize(total_pop = sum(total_pop))
 
-plot(pop_mgmt_3338["total_pop"])
+plot(pop_mgmt_3338_sf["total_pop"])
 ```
 
 Notice that the region geometries were combined into a single polygon for each management area.
@@ -331,11 +335,11 @@ Notice that the region geometries were combined into a single polygon for each m
 If we don't want to combine geometries, we can specify `do_union = F` as an argument.
 
 ```{r}
-pop_mgmt_3338 <- pop_region_3338 %>%
+pop_mgmt_3338_sf <- pop_rgn_3338_sf %>%
     group_by(mgmt_area) %>%
     summarize(total_pop = sum(total_pop), do_union = F)
 
-plot(pop_mgmt_3338["total_pop"])
+plot(pop_mgmt_3338_sf["total_pop"])
 ```
 
 **4. Save the spatial object to a new file using `write_sf()`**
@@ -344,7 +348,7 @@ Save the spatial object to disk using `write_sf()` and specifying the filename. 
 
 ```{r plot}
 #| eval: false
-write_sf(pop_region_3338, "data/ak_regions_population.shp")
+write_sf(pop_rgn_3338_sf, here("data/ak_regions_population.shp"))
 ```
 
 ## Visualize with `ggplot`
@@ -355,7 +359,7 @@ We can plot `sf` objects just like regular data.frames using `geom_sf`.
 
 ```{r}
 #| message: false
-ggplot(pop_region_3338) +
+ggplot(pop_rgn_3338_sf) +
     geom_sf(aes(fill = total_pop)) +
     labs(fill = "Total Population") +
     scale_fill_continuous(low = "khaki",
@@ -373,17 +377,17 @@ We can also plot multiple shapefiles in the same plot. Say if we want to visuali
 ```{r}
 #| echo: false
 
-# data is saved in a different folder than participants
-rivers_3338 <- read_sf(here("data/shapefiles/ak_rivers_simp.shp"))
+# for Quarto rendering, data is saved in a different folder than participants
+rivers_3338_sf <- read_sf(here("data/shapefiles/ak_rivers_simp.shp"))
 ```
 
 ```{r}
 #| eval: false
-rivers_3338 <- read_sf("data/ak_rivers_simp.shp")
+rivers_3338_sf <- read_sf(here("data/ak_rivers_simp.shp"))
 ```
 
 ```{r}
-st_crs(rivers_3338)
+st_crs(rivers_3338_sf)
 ```
 
 Note that although no EPSG code is set explicitly, with some sleuthing we can determine that this is `EPSG:3338`. [This site](https://epsg.io) is helpful for looking up EPSG codes.
@@ -391,11 +395,11 @@ Note that although no EPSG code is set explicitly, with some sleuthing we can de
 ```{r}
 
 ggplot() +
-    geom_sf(data = pop_region_3338, 
+    geom_sf(data = pop_rgn_3338_sf, 
             aes(fill = total_pop)) +
-    geom_sf(data = pop_3338, 
+    geom_sf(data = pop_3338_sf, 
             size = 0.5) +
-    geom_sf(data = rivers_3338,
+    geom_sf(data = rivers_3338_sf,
             aes(linewidth = StrOrder)) +
     scale_linewidth(range = c(0.05, 0.5),
                     guide = "none") +
@@ -416,15 +420,15 @@ The `ggspatial` package has a function that can add tile layers from a few prede
 Then we will add `ggspatial::annotation_map_tile()` function into `ggplot` to add a base map to our map. This can take a couple of minutes to load.
 
 ```{r}
-pop_3857 <- st_transform(pop_3338, 
+pop_3857_sf <- st_transform(pop_3338_sf, 
                          crs = 3857)
 ```
 
 ```{r}
 #| message: false
 
-ggplot(data = pop_3857) +
-    ggspatial::annotation_map_tile(type = "osm", zoom = 4) + # higher zoom values are more detailed 
+ggplot(data = pop_3857_sf) +
+    ggspatial::annotation_map_tile(type = "osm", zoom = 4, progress = 'none') + # higher zoom values are more detailed 
     geom_sf(aes(color = population),
             fill = NA) +
     scale_color_continuous(low = "darkkhaki",
@@ -439,10 +443,10 @@ ggplot(data = pop_3857) +
 
 ## Potential way of plotting base maps with more basemap providers. Issue: cropping is right at the border of the western, norther, eastern and southern point. So plot looks funky.
 
-pop_osm <- maptiles::get_tiles(pop_3857, crop = TRUE) # retrieve maptiles
+pop_osm <- maptiles::get_tiles(pop_3857_sf, crop = TRUE) # retrieve maptiles
 
 
-ggplot(data = pop_3857) + # pop polygon layer
+ggplot(data = pop_3857_sf) + # pop polygon layer
   tidyterra::geom_spatraster_rgb(data = pop_osm) + #add basemap 
   geom_sf(aes(color = population),  #add geometry
           fill = NA)+
@@ -473,19 +477,19 @@ epsg3338 <- leaflet::leafletCRS(
 You might notice that this looks familiar! The syntax is a bit different, but most of this information is also contained within the `crs` of our shapefile:
 
 ```{r}
-st_crs(pop_region_3338)
+st_crs(pop_rgn_3338_sf)
 ```
 
 Since `leaflet` requires that we use an unprojected coordinate system, let's use `st_transform()` yet again to get back to WGS84.
 
 ```{r}
-pop_region_4326 <- pop_region_3338 %>% 
+pop_rgn_4326_sf <- pop_rgn_3338_sf %>% 
     st_transform(crs = 4326)
 ```
 
 ```{r}
 m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
-    addPolygons(data = pop_region_4326,
+    addPolygons(data = pop_rgn_4326_sf,
                 fillColor = "gray",
                 weight = 1)
 
@@ -495,11 +499,11 @@ m
 We can add labels, legends, and a color scale.
 
 ```{r}
-pal <- colorNumeric(palette = "Reds", domain = pop_region_4326$total_pop)
+pal <- colorNumeric(palette = "Reds", domain = pop_rgn_4326_sf$total_pop)
 
 m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
     addPolygons(
-        data = pop_region_4326,
+        data = pop_rgn_4326_sf,
         fillColor = ~ pal(total_pop),
         weight = 1,
         color = "black",
@@ -509,7 +513,7 @@ m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
     addLegend(
         position = "bottomleft",
         pal = pal,
-        values = range(pop_region_4326$total_pop),
+        values = range(pop_rgn_4326_sf$total_pop),
         title = "Total Population"
     )
 
@@ -519,18 +523,18 @@ m
 We can also add the individual communities, with popup labels showing their population, on top of that!
 
 ```{r}
-pal <- colorNumeric(palette = "Reds", domain = pop_region_4326$total_pop)
+pal <- colorNumeric(palette = "Reds", domain = pop_rgn_4326_sf$total_pop)
 
 m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
     addPolygons(
-        data = pop_region_4326,
+        data = pop_rgn_4326_sf,
         fillColor = ~ pal(total_pop),
         weight = 1,
         color = "black",
         fillOpacity = 1
     ) %>%
     addCircleMarkers(
-        data = pop_4326,
+        data = pop_4326_sf,
         lat = ~ lat,
         lng = ~ lng,
         radius = ~ log(population / 500),
@@ -539,12 +543,12 @@ m <- leaflet(options = leafletOptions(crs = epsg3338)) %>%
         fillOpacity = 1,
         weight = 0.25,
         color = "black",
-        label = ~ paste0(pop_4326$city, ", population ", comma(pop_4326$population))
+        label = ~ paste0(pop_4326_sf$city, ", population ", comma(pop_4326$population))
     ) %>%
     addLegend(
         position = "bottomleft",
         pal = pal,
-        values = range(pop_region_4326$total_pop),
+        values = range(pop_rgn_4326_sf$total_pop),
         title = "Total Population"
     )
 

@@ -185,7 +185,7 @@ Now, let's plot total daily visits by restoration location. We will show this by
 
 ## Option 1 - data and mapping called in the ggplot() function
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits))+
+       aes(x = restore_loc, y = daily_visits)) +
     geom_col()
 
 
@@ -203,7 +203,7 @@ ggplot() +
 
 They all will create the same plot:
 
-(Apologies for the crumble text on the x-axis, we will learn how to make this look better soon)
+(Apologies for the jumbled text on the x-axis, we will learn how to make this look better soon)
 
 ```{r esc_plot}
 #| echo: false
@@ -276,7 +276,7 @@ Let's go back to our base bar graph. What if we want our bars to be blue instead
 
 ggplot(data = daily_visits_loc,
        aes(x = restore_loc, y = daily_visits,
-           fill = "blue"))+
+           fill = "blue")) +
     geom_col()
 ```
 
@@ -289,7 +289,7 @@ What we really wanted to do was just change the color of the bars. If we want do
 ```{r fill_blue_geom}
 
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits))+
+       aes(x = restore_loc, y = daily_visits)) +
     geom_col(fill = "blue")
 
 ```
@@ -300,7 +300,7 @@ What if we did want to map the color of the bars to a variable, such as `visitor
 
 ggplot(data = daily_visits_loc,
        aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
+           fill = visitor_type)) +
     geom_col()
 
 ```
@@ -311,7 +311,7 @@ ggplot(data = daily_visits_loc,
 
 - If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
 
-- If you want to update your plot base with a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
+- If you want to update your plot base with a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant `geom_` layer outside the `aes()` call.
 
 :::
 
@@ -322,22 +322,20 @@ ggplot(data = daily_visits_loc,
 We have successfully plotted our data. But, this is clearly not a nice plot. Let's work on making this plot look a bit nicer. We are going to:
 
 - Add a title, subtitle and adjust labels using `labs()`
-- Flip the x and y axis to better read the graph using `coord_flip()`
+- Flip the x and y axis to make it a sideways column plot and make the labels easier to read
 - Include a built in theme using `theme_bw()`
 
 
 ```{r theme_bw_plot}
 
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(y = restore_loc, x = daily_visits, fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during July 2017 and March 2018")+
-    coord_flip()+
+         subtitle = "Sum of all visits during July 2017 and March 2018") +
     theme_bw()
     
     
@@ -364,18 +362,16 @@ Let's look at an example of a `theme()` call, where we change the position of th
 
 ```{r}
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(y = restore_loc, x = daily_visits, fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    theme_bw()+
+         subtitle = "Sum of all visits during study period") +
+    theme_bw() +
     theme(legend.position = "bottom",
-          axis.ticks.y = element_blank()) ## note we mention y-axis here
+          axis.ticks.y = element_blank()) 
     
 ```
 
@@ -396,15 +392,13 @@ So now our code will look like this:
 
 ```{r}
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(y = restore_loc, x = daily_visits, fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
+         subtitle = "Sum of all visits during study period") +
     my_theme
 
 ```
@@ -415,7 +409,7 @@ ggplot(data = daily_visits_loc,
 
 What changes do you expect to see in your plot by adding the following line of code? Discuss with your neighbor and then try it out!
 
-`scale_y_continuous(breaks = seq(0,120, 20))`
+`scale_x_continuous(breaks = seq(0,120, 20))`
 
 :::
 
@@ -425,16 +419,14 @@ What changes do you expect to see in your plot by adding the following line of c
 #| code-summary: "Answer"
 
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(y = restore_loc, x = daily_visits, fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20))+
+         subtitle = "Sum of all visits during study period") +
+    scale_x_continuous(breaks = seq(0,120, 20)) +
     my_theme
 
 ```
@@ -443,16 +435,14 @@ Finally we are going to expand the bars all the way to the axis line. In other w
 
 ```{r}
 ggplot(data = daily_visits_loc,
-       aes(x = restore_loc, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(y = restore_loc, x = daily_visits, fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+         subtitle = "Sum of all visits during study period") +
+    scale_x_continuous(breaks = seq(0,120, 20), expand = c(0,0)) +
     my_theme
 
 ```
@@ -461,33 +451,34 @@ ggplot(data = daily_visits_loc,
 
 #### Reordering things
 
-`ggplot()` loves putting things in alphabetical order. But more frequent than not, that's not the order you actually want things to be plotted. One way to do this is to use the `fct_reorder()` function from the `forcats` package. `forcats` provides tools for working with categorical variables. In this case, we want to reorder our categorical variable of `restore_loc` based on the total number of visits.
+`ggplot()` loves putting things in alphabetical order. But more frequently than not, that's not the order you actually want things to be plotted. One way to do this is to use the `fct_reorder()` function from the `forcats` package. `forcats` provides tools for working with categorical variables. In this case, we want to reorder our categorical variable of `restore_loc` based on the total number of visits.
 
-The first thing we need to do is to add a column to our data with the _total number of visits_ by location. This will be our "sorting" variable.
+The first thing we need to do is to add a column to our data with the _total number of visits_ by location. This will be our "sorting" variable.  Then we use `fct_reorder()` to reorder the `restore_loc` variable according to our sorting variable.
 
 ```{r}
 daily_visits_totals <- daily_visits_loc %>% 
     group_by(restore_loc) %>%
     mutate(n = sum(daily_visits)) %>% 
-    ungroup()
+    ungroup() %>%
+    mutate(restore_loc = fct_reorder(restore_loc, n))
 
 head(daily_visits_totals)
+levels(daily_visits_totals$restore_loc) ### not alphabetical any more!
 ```
 
 Next, we will run the code for our plot adding the `fct_reorder()` function.
 
 ```{r}
 ggplot(data = daily_visits_totals,
-       aes(x = fct_reorder(restore_loc, n), y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(x = daily_visits, y = restore_loc,
+           fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+         subtitle = "Sum of all visits during study period") +
+    scale_x_continuous(breaks = seq(0,120, 20), expand = c(0,0)) +
     my_theme
 
 ```
@@ -495,27 +486,24 @@ ggplot(data = daily_visits_totals,
 What if you want to plot the other way around? In this case from least to greater? We add the `desc()` to the variable we are sorting by.
 
 ```{r}
+daily_visits_totals <- daily_visits_loc %>% 
+    group_by(restore_loc) %>%
+    mutate(n = sum(daily_visits)) %>% 
+    ungroup() %>%
+    mutate(restore_loc = fct_reorder(restore_loc, desc(n)))
+
 ggplot(data = daily_visits_totals,
-       aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(x = daily_visits, y = restore_loc,
+           fill = visitor_type)) +
+    geom_col() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+         subtitle = "Sum of all visits during study period") +
+    scale_x_continuous(breaks = seq(0,120, 20), expand = c(0,0)) +
     my_theme
-
 ```
-
-<!--- INCLUDE??
-:::callout-important
-Note how `coord_flip()` changes the parameters
-:::
-?? Add somthing about reordering the legend??
---->
 
 
 #### Colors
@@ -525,17 +513,16 @@ The last thing we will do to our plot is change the color. To do this we are goi
 ```{r}
 
 ggplot(data = daily_visits_totals,
-       aes(x = fct_reorder(restore_loc, desc(n)), y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
-    scale_fill_viridis_d()+
-    labs(x = "Restoration Location",
-         y = "Number of Visits",
+       aes(x = daily_visits, y = restore_loc,
+           fill = visitor_type)) +
+    geom_col() +
+    scale_fill_viridis_d() +
+    labs(x = "Number of Visits",
+         y = "Restoration Location",
          fill = "Type of Visitor",
          title = "Total Number of Visits to Delta Restoration Areas by visitor type",
-         subtitle = "Sum of all visits during study period")+
-    coord_flip()+
-    scale_y_continuous(breaks = seq(0,120, 20), expand = c(0,0))+
+         subtitle = "Sum of all visits during study period") +
+    scale_x_continuous(breaks = seq(0,120, 20), expand = c(0,0)) +
     my_theme
 
 
@@ -567,18 +554,18 @@ The default behavior of facet wrap is to put all facets on the same x and y scal
 ```{r}
 facet_plot <- ggplot(data = daily_visits_totals,
        aes(x = visitor_type, y = daily_visits,
-           fill = visitor_type))+
-    geom_col()+
+           fill = visitor_type)) +
+    geom_col() +
     facet_wrap(~restore_loc,
                scales = "free_y",
                ncol = 5,
-               nrow = 2)+
-    scale_fill_viridis_d()+
+               nrow = 2) +
+    scale_fill_viridis_d() +
     labs(x = "Type of visitor",
          y = "Number of Visits",
          title = "Total Number of Visits to Delta Restoration Areas",
-         subtitle = "Sum of all visits during study period")+
-    theme_bw()+
+         subtitle = "Sum of all visits during study period") +
+    theme_bw() +
     theme(legend.position = "bottom",
           axis.ticks.x = element_blank(),
           axis.text.x = element_blank())

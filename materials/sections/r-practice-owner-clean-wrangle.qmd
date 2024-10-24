@@ -76,9 +76,10 @@ aque_70mm <- lobster_abundance %>%
     filter(SITE == "AQUE" & SIZE_MM >= 70)
 ```
 
-
-# Question 4
+::: callout-note
+### Question 4
 Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM` (Hint: check the arguments in `max()`). Check your output.
+:::
 
 ```{r}
 #| code-summary: "Answer"

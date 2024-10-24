@@ -38,7 +38,7 @@ The Collaborator will make changes to the repository and then `push` those chang
 
 The instructors will demonstrate this process in the next section.
 
-### Step 0: Owner adds a Collaborator to their repository on GitHub {.unnumbered}
+### Step 1: Owner adds a Collaborator to their repository on GitHub {.unnumbered}
 
 The Owner must change the settings of the remote repository and give the Collaborator access to the repository by inviting them as a collaborator. Once the Collaborator accepts the owner's invitation, they will have push access to the repository -- meaning they can contribute their own changes/commits to the Owner's repository.
 
@@ -46,7 +46,7 @@ To do this, the owner will navigate to their remote repository on GitHub, then c
 
 
 
-### Step 1: Collaborator clones the remote repository {.unnumbered}
+### Step 2: Collaborator clones the remote repository {.unnumbered}
 
 In order to contribute, the Collaborator must **clone** the repository from the **Owner's** GitHub account (*Note: as a Collaborator, you won't see the repository appear under your profile's Repositories page*). To do this, the Collaborator should navigate to the Owner's repository on GitHub, then copy the clone URL. In RStudio, the Collaborator will create a new project from version control by pasting this clone URL into the appropriate dialog box (see the [earlier chapter](https://learning.nceas.ucsb.edu/2024-06-delta/session_05.html#exercise-2-clone-your-repository-and-use-git-locally-in-rstudio) introducing GitHub).
 
@@ -54,12 +54,12 @@ In order to contribute, the Collaborator must **clone** the repository from the 
 
 Frequent communication is SO important when collaborating! Letting one another know that you're about to make and push changes to the remote repo can help to prevent merge conflicts (and reduce headaches). **The easiest way to avoid merge conflicts is to ensure that you and your collaborators aren't working on the same file(s)/section(s) of code at the same time.**
 
-### Step 2: Collaborator edits files locally {.unnumbered}
+### Step 3: Collaborator edits files locally {.unnumbered}
 
 With the repo cloned locally, the Collaborator can now make changes to the
 `README.md` file, adding a line or statement somewhere noticeable near the top. Save the changes.
 
-### Step 3: Collaborator `commit`s, `pull`s, and `push`s {.unnumbered}
+### Step 4: Collaborator `commit`s, `pull`s, and `push`s {.unnumbered}
 
 It's recommended that all collaborators (including the repo Owner) follow this workflow when syncing changes between their local repo and the remote repo (in this example, the Collaborator is now following these steps):
 
@@ -80,7 +80,7 @@ The **merge** part of `git pull` will fail if you have uncommitted changes in yo
 
 Remember, communication is key! The Owner now knows that they can pull those changes down to their local repo.
 
-### Step 4: Owner `pull`s new changes from the remote repo to their local repo {.unnumbered}
+### Step 5: Owner `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
 The Owner can now open their local working copy of the code
 in RStudio, and `pull` to fetch and merge those changes into their local copy.
@@ -91,7 +91,7 @@ in RStudio, and `pull` to fetch and merge those changes into their local copy.
 
 Did we mention that communication is important? :)
 
-### Step 5: Owner edits, `commit`s, `pull`s (just in case!) and `push`es {.unnumbered}
+### Step 6: Owner edits, `commit`s, `pull`s (just in case!) and `push`es {.unnumbered}
 
 Following the same workflow as the Collaborator did earlier:
 
@@ -103,7 +103,7 @@ Following the same workflow as the Collaborator did earlier:
 
 Yes, this seems silly to repeat, yet again -- but it's also easy to forget in practice!
 
-### Step 6: Collaborator `pull`s new changes from the remote repo to their local repo {.unnumbered}
+### Step 7: Collaborator `pull`s new changes from the remote repo to their local repo {.unnumbered}
 
 The Collaborator can now `pull` down those changes from the Owner, 
 and all copies are once again fully synced. And just like that, you've successfully collaborated!
@@ -155,9 +155,7 @@ git config pull.rebase false
 
 You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
-- **Step 0:** Designate one person as the Owner and one as the Collaborator.
-
-**Round One:**
+**Round One:** Designate one person as the **Owner** and one as the **Collaborator**.
 
 - **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository (see Setup block above for detailed steps)
 - **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
@@ -168,10 +166,9 @@ You will do the exercise twice, where each person will get to practice being bot
 - **Step 6:** Owner edits the `README` file:
     - Under "Git Workflow", Owner adds the steps of the Git workflow we've been practicing
 - **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
-- **Step 8:** Collaborator pulls the `Owners` changes from GitHub
-- **Step 9:** Go back to Step 0, switch roles, and then follow the steps in Round Two.
+- **Step 8:** Collaborator pulls the Owner's changes from GitHub
 
-**Round Two:**
+**Round Two:** Swap **Owner** and **Collaborator** roles and repeat!
 
 - **Step 1:** Owner adds Collaborator to `{FIRSTNAME}_test` repository
 - **Step 2:** Collaborator clones the Owner's `{FIRSTNAME}_test` repository
@@ -182,7 +179,7 @@ You will do the exercise twice, where each person will get to practice being bot
 - **Step 6:** Owner edits the `README` file:
     - Under "How to Create a Git Repository", Owner adds the high level steps for this workflow
 - **Step 7:** Owner commits and pushes the `README` file with the new changes to GitHub
-- **Step 8:** Collaborator pulls the `Owners` changes from GitHub
+- **Step 8:** Collaborator pulls the Owner's changes from GitHub
 
 **Hint:** If you don't remember how to create a Git repository, refer to the chapter [Intro to Git and GitHub](https://learning.nceas.ucsb.edu/2023-04-coreR/session_07.html) where we created two Git repositories
 :::
@@ -359,12 +356,10 @@ Note you will only need to complete the Setup and Git configuration steps again 
 
 Now it's your turn. In pairs, intentionally create a merge conflict, and then go through the steps needed to resolve the issues and continue developing with the merged files. See the sections above for help with each of the steps below. You will do the exercise twice, where each person will get to practice being both the Owner and the Collaborator roles.
 
-- **Step 0:** Designate one person as the Owner and one as the Collaborator.
-
-**Round One:**
+**Round One:** Designate one person as the Owner and one as the Collaborator.  Both open the Owner's `{FIRSTNAME}_test` project.
 
 - **Step 1:** Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
-- **Step 2:** Owner edits the `README` file and makes a change to the title and commits **do not push**
+- **Step 2:** Owner edits the `README` file and makes a change to the title and commits but **do not push yet!**
 - **Step 3:** **On the same line**, Collaborator edits the `README` file and makes a change to the title and commits 
 - **Step 4:** Collaborator pushes the file to GitHub
 - **Step 5:** Owner pushes their changes and gets an error
@@ -374,12 +369,11 @@ Now it's your turn. In pairs, intentionally create a merge conflict, and then go
 - **Step 9:** Owner pushes the resolved changes to GitHub
 - **Step 10:** Collaborator pulls the resolved changes from GitHub
 - **Step 11:** Both view commit history
-- **Step 12:** Go back to Step 0, switch roles, and then follow the steps in Round Two.
 
-**Round Two:**
+**Round Two:** Swap Owner and Collaborator roles and repeat!  Switch to the new Owner's `{FIRSTNAME}_test` project.
 
 - **Step 1:** Both Owner and Collaborator `pull` to ensure both have the most up-to-date changes
-- **Step 2:** Owner edits the `README` file and makes a change to line 2 and commits **do not push**
+- **Step 2:** Owner edits the `README` file and makes a change to line 2 and commits but **do not push yet!**
 - **Step 3:** **On the same line**, Collaborator edits the `README` file and makes a change to line 2 and commits 
 - **Step 4:** Collaborator pushes the file to GitHub
 - **Step 5:** Owner pushes their changes and gets an error

@@ -21,12 +21,12 @@ Suppose you have the following `data.frame` called `length_data` with data about
 
 |  year|  length\_cm|
 |-----:|-----------:|
-|  1990|    5.673318|
-|  1991|    3.081224|
-|  1991|    4.592696|
-|  1992|    4.381523|
-|  1992|    5.597777|
-|  1992|    4.900052|
+|  1990|         5.6|
+|  1991|         3.0|
+|  1991|         4.5|
+|  1992|         4.3|
+|  1992|         5.5|
+|  1992|         4.9|
 
 Before thinking about the code, let's think about the steps we need to take to get to the answer (aka pseudocode).
 
@@ -50,10 +50,10 @@ length_data %>%
 
 | site   | 1990 | 1991 | ... | 1993 |
 |--------|------|------|-----|------|
-| gold   | 100  | 118  | ... | 112  |
-| lake   | 100  | 118  | ... | 112  |
+| gold   | 101  | 109  | ... | 112  |
+| lake   | 104  |  98  | ... | 102  |
 | ...    | ...  | ...  | ... | ...  |
-| dredge | 100  | 118  | ... | 112  |
+| dredge | 144  | 118  | ... | 145  |
 
 You are probably familiar with data in the above format, where values of the variable being observed are spread out across columns. 
 In this example we have a different column per year. 
@@ -178,14 +178,15 @@ The code chunk you use to read in the data should look something like this:
 catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
-**Note for Windows users:** Keep in mind, if you want to replicate this workflow in your local computer you also need to use the `url()` function here with the argument `method = "libcurl"`. 
+<!-- I think this is not true, at least on my Windows machine - is this a holdover from `read.csv` instead of `read_csv`? -->
+<!-- **Note for Windows users:** Keep in mind, if you want to replicate this workflow in your local computer you also need to use the `url()` function here with the argument `method = "libcurl"`.  -->
 
-It would look like this:
+<!-- It would look like this: -->
 
-```{r}
-#| eval: false
-catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl"))
-```
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", method = "libcurl")) -->
+<!-- ``` -->
 
 :::
 
@@ -271,7 +272,7 @@ If you think of the assignment operator (`<-`) as reading like "gets", then the 
 
 So you might think of the above chunk being translated as:
 
-> The cleaned data frame gets the original data, and then a filter (of the original data), and then a select (of the filtered data).
+> The cleaned data frame **gets** the original data, and **then** a filter (of the original data), and **then** a select (of the filtered data).
 
 The benefits to using pipes are that you don't have to keep track of (or overwrite) intermediate data frames. The drawbacks are that it can be more difficult to explain the reasoning behind each step, especially when many operations are chained together. It is good to strike a balance between writing efficient code (chaining operations), while ensuring that you are still clearly explaining, both to your future self and others, what you are doing and why you are doing it.
 
@@ -565,6 +566,28 @@ sse_catch <- catch_long %>%
 head(sse_catch)
 ```
 
+::: {.callout-important}
+
+## `==` and `%in%` operators
+
+The `filter()` function performs a logical test across all the rows of a dataframe, and if that test is `TRUE` for a given row, it keeps that row.  The `==` operator tests whether the left hand side and right hand side match - in the example above, does the value of the `Region` variable match the value `"SSE"`?
+
+But if you want to test whether a variable's value is within a set of possible values, *do not* use the `==` operator - it will very likely give false results!  Instead, use the `%in%` operator:
+```{r}
+catch_long %>%
+  filter(Region == c("SSE", "ALU")) %>%
+  nrow()
+
+catch_long %>%
+  filter(Region %in% c("SSE", "ALU")) %>%
+  nrow()
+```
+
+This is because the `==` version "recycles" the vector of allowed values, so it tests whether the first row matches `"SSE"` (yep!), whether the second matches `"ALU"` (nope! this row gets dropped!), and then whether the third is `"SSE"` again and so on.
+
+Note that the `%in%` operator actually works for single values too, so you can never go wrong with that!
+:::
+
 ::: {.callout-note icon=false}
 ## Exercise
 
@@ -581,13 +604,13 @@ catch_million <- catch_long %>%
     filter(catch > 1000000)
 
 ## Chinook from SSE data
-chinook_see <- catch_long %>%
+chinook_sse <- catch_long %>%
     filter(Region == "SSE",
            species == "Chinook")
 
-## OR
-chinook_see <- catch_long %>%
-    filter(Region == "SSE" & species == "Chinook")
+## OR combine tests with & ("and") or | ("or")... also, we can swap == for %in%
+chinook_sse <- catch_long %>%
+    filter(Region %in% "SSE" & species %in% "Chinook")
 ```
 :::
 
@@ -700,12 +723,21 @@ mean_region <- catch_original %>%
   pivot_longer(-c(Region, Year), 
                names_to = "species", 
                values_to = "catch") %>%
-  mutate(catch = catch*1000) %>% 
+  mutate(catch = catch * 1000) %>% 
   group_by(Region) %>% 
   summarize(mean_catch = mean(catch)) %>% 
   arrange(desc(mean_catch))
 
 head(mean_region)
+```
+
+## Write out the results with `readr::write_csv()`
+
+Now that we have performed all this data wrangling, we can save out the results for future use using `readr::write_csv()`.
+
+```{r}
+#| eval: false
+write_csv(mean_region, here::here("data/mean_catch_by_region.csv"))
 ```
 
 

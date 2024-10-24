@@ -73,8 +73,10 @@ carp_20_traps <- lobster_traps %>%
     filter(SITE == "CARP" & TRAPS > 20)
 ```
 
-# Question 4
+::: callout-note
+### Question 4
 Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `max()`). Check your output.
+:::
 
 ```{r}
 #| echo: false

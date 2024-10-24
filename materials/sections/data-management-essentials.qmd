@@ -139,11 +139,11 @@ The article *Ten Simple Rules for Creating a Good Data Management Plan* (@michen
 
 #### Define how the data will be organized
 
--   Once you know the data you will be using (rule #2) it is time to define how are you going to work with your data. Where will the raw data live? How are the different collaborators going to access the data? The needs vary widely from one project to another depending on the data. When drafting your DMP is helpful to focus on identifying what products and software you will be using. When collaborating with a team it is important to identify f there are any limitations to accessing any software or tool.
+-   Once you know the data you will be using (rule #2) it is time to define how are you going to work with your data. Where will the raw data live? How are the different collaborators going to access the data? The needs vary widely from one project to another depending on the data. When drafting your DMP is helpful to focus on identifying what products and software you will be using. When collaborating with a team it is important to identify whether there are any limitations to accessing any software or tool.
 
 -   Resource
 
-    -   [Here is an example](https://nceas.github.io/scicomp.github.io/tutorial_server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
+    -   [Here is an example](https://lter.github.io/workshop-github/server.html) from the LTER Scientific Computing Support Team on working on NCEAS Server.
 
 #### Explain how the data will be documented
 
@@ -283,7 +283,7 @@ So, **how does a computer organize all this information?** There are a number of
 -   [Ecological Metadata Language (EML)](https://eml.ecoinformatics.org/)
 -   [Geospatial Metadata Standards (ISO 19115 and ISO 19139)](https://www.fgdc.gov/metadata/iso-standards)
     -   See [NOAA's ISO Workbook](http://www.ncei.noaa.gov/sites/default/files/2020-04/ISO%2019115-2%20Workbook_Part%20II%20Extentions%20for%20imagery%20and%20Gridded%20Data.pdf)
--   [Biological Data Profile (BDP)](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf)
+-   [Biological Data Profile (BDP)](https://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/biometadata/biodatap.pdf)
 -   [Dublin Core](https://www.dublincore.org/)
 -   [Darwin Core](https://dwc.tdwg.org/)
 -   [PREservation Metadata: Implementation Strategies (PREMIS)](https://www.loc.gov/standards/premis/)

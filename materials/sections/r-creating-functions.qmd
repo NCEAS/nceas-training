@@ -80,7 +80,7 @@ Functions in R are a mechanism to process some input and return a value. Similar
 ```{r}
 #| label: f2c-function
 
-fahr_to_celsius <- function(fahr) {
+convert_f_to_c <- function(fahr) {
   celsius <- (fahr - 32) * 5/9
   return(celsius)
 }
@@ -91,7 +91,7 @@ By running this code, we have created a function and stored it in R's global env
 ```{r}
 #| label: demo-f2c-function
 
-celsius1a <- fahr_to_celsius(fahr = airtemps[1])
+celsius1a <- convert_f_to_c(fahr = airtemps[1])
 celsius1a
 celsius1 == celsius1a
 ```
@@ -101,11 +101,11 @@ Excellent. So now we have a conversion function we can use. Note that, because m
 ```{r}
 #| label: f2c-function-vector
 
-celsius <- fahr_to_celsius(fahr = airtemps)
+celsius <- convert_f_to_c(fahr = airtemps)
 celsius
 ```
 
-This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.  Note also that we explicitly named the argument inside the function call (`fahr_to_celsius(fahr = airtemps)`), but in this simple case, R can figure it out if we didn't explicitly tell it the argument name (`fahr_to_celsius(airtemps)`).  More on this later!
+This takes a vector of temperatures in Fahrenheit, and returns a vector of temperatures in Celsius.  Note also that we explicitly named the argument inside the function call (`convert_f_to_c(fahr = airtemps)`), but in this simple case, R can figure it out if we didn't explicitly tell it the argument name (`convert_f_to_c(airtemps)`).  More on this later!
 
 #### Your Turn: Create a Function that Converts Celsius to Fahrenheit {.unnumbered}
 
@@ -113,9 +113,9 @@ This takes a vector of temperatures in Fahrenheit, and returns a vector of tempe
 
 #### Exercise
 
-Create a function named `celsius_to_fahr` that does the reverse, it takes temperature data in Celsius as input, and returns the data converted to Fahrenheit. 
+Create a function named `convert_c_to_f` that does the reverse, it takes temperature data in Celsius as input, and returns the data converted to Fahrenheit. 
 
-Create the function `celsius_to_fahr` in a new code chunk or even a separate R Script file.
+Create the function `convert_c_to_f` in a new code chunk or even a separate R Script file.
 
 Then use that formula to convert the `celsius` vector back into a vector of Fahrenheit values, and compare it to the original `airtemps` vector to ensure that your answers are correct. 
 
@@ -133,12 +133,12 @@ Don't peek until you write your own...
 ```{r}
 #| label: f2c-func-solution
 
-celsius_to_fahr <- function(celsius) {
+convert_c_to_f <- function(celsius) {
     fahr <- celsius * 9/5 + 32
     return(fahr)
 }
 
-result <- celsius_to_fahr(celsius)
+result <- convert_c_to_f(celsius)
 airtemps == result
 ```
 
@@ -161,7 +161,8 @@ convert_temps <- function(fahr) {
 }
 
 t_vec <- c(-100, -40, 0, 32, 98.6, 212)
-temps_df <- data.frame(convert_temps(t_vec))
+temps_list <- convert_temps(fahr = t_vec)
+temps_df <- data.frame(convert_temps(fahr = t_vec))
 ```
 
 ```{r}
@@ -218,8 +219,8 @@ This kind of function should take a vector (or multiple vectors) and return a *s
 #| label: func-mutate-example
 
 data.frame(f = t_vec) %>%
-    mutate(c  = fahr_to_celsius(fahr = f),
-           f2 = celsius_to_fahr(celsius = c))
+    mutate(c  = convert_f_to_c(fahr = f),
+           f2 = convert_c_to_f(celsius = c))
 ```
 
 Why wouldn't our `convert_temps()` function work here?
@@ -249,7 +250,9 @@ Let's make a function that can take a dataframe and calculate a new column that 
 
 ```{r}
 calc_hotcold <- function(df, thresh = 70) {
+    ### error check:
     if(!'fahr' %in% names(df)) stop('The data frame must have a column called `fahr`!')
+    
     out_df <- df %>%
         mutate(hotcold = ifelse(fahr > thresh, 'hot', 'cold'))
     
