@@ -26,6 +26,7 @@ book:
       - icon: github
         href: https://github.com/NCEAS/nceas-training/tree/2024-working-groups
   
+  ## NOTE: when commenting out each session make sur ethe indentation is correct
   chapters:
     - index.qmd # preface 
     
@@ -34,14 +35,15 @@ book:
         - session_01.qmd # Project Management
         - session_02.qmd # Data Management
         - session_03.qmd # Using GitHub for Project Management
+        # - session_04.qmd # Infographics and 1 pagers
           
-     - part: "Extended Learning"
-       chapters: 
-         - session_04.qmd # Infographics and 1 pagers
+    # - part: "Extended Learning"
+    #   chapters: 
     #     - session_05.qmd # Intro to Git and GitHub
     #     - session_06.qmd # Collaborating with Git adn Github
-    #     - session_07.qmd # Project management on GitHub
-    #     - session_08.qmd # Communicationg your results
+    #     - session_07.qmd # Communicationg your results
+    ## If you ned more session make sure to have the right indentation
+    #     - session_08.qmd # 
     # - session_09.qmd # Collaborating with Git
     # - session_10.qmd # Data Management
     # - session_11.qmd # Publishing to the Web
