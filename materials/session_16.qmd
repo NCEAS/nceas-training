@@ -1,11 +1,10 @@
 ---
-title: "Working with Spatial Data"
+title: "Creating Data Portals"
 title-block-banner: true
 format:
-  html:
+  html: 
     code-link: true
     code-overflow: wrap
 ---
 
-{{< include /sections/geospatial-vector-analysis.qmd >}}
-
+{{< include /sections/adc-creating-data-portals.qmd >}}

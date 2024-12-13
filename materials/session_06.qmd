@@ -1,12 +1,6 @@
 ---
-title: "Reproducibility: a Lego activity"
+title: "Literate Analysis with Quarto"
 title-block-banner: true
-format:
-  html:
-    code-overflow: wrap
-    code-link: true
 ---
 
-
-
-<!-- {{< include /sections/intro-tidy-data.qmd >}} -->
+{{< include /sections/r-intro-quarto.qmd >}}

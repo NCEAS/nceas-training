@@ -1,15 +1,10 @@
 ---
-title: "Tidy Data"
+title: "Data Modeling Essentials"
 title-block-banner: true
+format:
+  html:
+    code-overflow: wrap
+    code-link: true
 ---
 
-
-
-
-{{< include /sections/intro-tidy-data.qmd >}}
-
-<!-- {{< include /sections/r-practice-tidy-data-joins.qmd >}} -->
-
-
-
-
+{{< include /sections/data-modeling-socialsci.qmd >}}

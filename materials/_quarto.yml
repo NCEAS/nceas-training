@@ -3,8 +3,8 @@ project:
   output-dir: _book
   
 book: 
-  title: "NCEAS Learning Hub’s coreR Course"
-  subtitle: "October 7-11, 2024"
+  title: "Fundamentals in Data Management for Qualitative and Quantitative Arctic Research"
+  subtitle: "January 27-31, 2025"
   reader-mode: false
   
   # NoteHD: cover image is not working
@@ -23,33 +23,28 @@ book:
       - icon: twitter
         href: https://twitter.com/ucsb_nceas
       - icon: github
-        href: https://github.com/NCEAS/nceas-training/tree/2024-10-coreR
+        href: https://github.com/NCEAS/nceas-training/tree/2025-01-arctic
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # Introduction
-    - session_02.qmd # R Setup
-    - session_03.qmd # Git and GitHub set up
-    - session_04.qmd # Intro to R & RStudio
-    - session_05.qmd # Literate Analysis
-    - session_06.qmd # Lego Activity + Discussion
-    - session_07.qmd # Intro to Git and GitHub
-    - session_08.qmd # Tidy Data
+    - session_01.qmd # ADC intro
+    - session_02.qmd # R Setup 
+    - session_03.qmd # Intro to R programming
+    - session_04.qmd # Thinking preferencees + Social aspects of collab
+    - session_05.qmd # DMP
+    - session_06.qmd # Literate analysis
+    - session_07.qmd # ADC-Fundamental practice 1 
+    - session_08.qmd # Data Modeling and Tidy Data
     - session_09.qmd # Cleaning and Wrangling
-    - session_10.qmd # Practice Session I - joins
-    - session_11.qmd # Collaborating with Git 
-    - session_12.qmd # Publishing to the Web
-    - session_13.qmd # Intro to Data Viz
-    - session_14.qmd # Practice Session II -lobter report 
-    - session_15.qmd # Data Management
-    - session_16.qmd # Spatial Data
-    - session_17.qmd # Functions and Packages
-    - session_18.qmd # Practice Functions and Packages
-    - session_19.qmd # Office Hour Guidelines
-    - session_20.qmd # GitHub for Project management
-    - session_21.qmd # Repro and Provenance
-    - session_22.qmd # Appendix: Set up in personla comp
-    
+    - session_10.qmd # Intro Data Viz
+    - session_11.qmd # Ethical Data Collection
+    - session_12.qmd # ADC-Fundamentals practice 2
+    - session_13.qmd # Text data
+    - session_14.qmd # Census data
+    - session_15.qmd # Metadata best practices & publishing
+    - session_16.qmd # Data portals
+    - session_17.qmd # Survey Workflows
+    - session_18.qmd # Repro and Provenance
   
 
 bibliography: book.bib

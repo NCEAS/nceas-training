@@ -1,17 +1,20 @@
 ---
-title: "Working in R & RStudio"
+title: "Thinking Preferences & Social Aspects of Collaboration"
 title-block-banner: true
-# execute: 
-#   eval: false
-# format:
-#   html:
-#     code-link: true
-#     code-fold: true
-#     code-summary: "Answer"
-#     code-overflow: wrap
+execute: 
+  eval: false
+format:
+  html:
+    code-link: true
+    code-fold: true
+    code-summary: "Answer"
+    code-overflow: wrap
 ---
 
 
 
-{{< include /sections/intro-r-programming.qmd >}}
 
+{{< include /sections/collaboration-thinking-preferences.qmd >}}
+
+
+{{< include /sections/collaboration-social-data-policies.qmd >}}

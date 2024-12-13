@@ -1,9 +1,8 @@
 ---
-title: "Publishing to the Web"
+title: "R Practice: Cleaning and Wrangling"
 title-block-banner: true
-
+execute:
+  eval: false
 ---
 
-
-
-{{< include /sections/git-github-publishing-analysis.qmd >}}
+{{< include /sections/exercise-tidyverse-socialsci.qmd >}}
