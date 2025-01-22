@@ -21,19 +21,19 @@ doi:10.18739/A29Z90D3V.](https://doi.org/10.18739/A29Z90D3V).
 We will be focusing on the initial survey results
 (Initial_Survey111721_ADC.csv). In this file, individual survey
 responses are oriented as rows, and the questions are oriented as
-columns. The column names are Q1, Q2, etc. Information about what question was 
-asked, and what the allowed values mean, are available in
-the metadata for each file. **You can access the metadata for each file
-by clicking the "more info" link next to the file name at the top of the
+columns. The column names are Q1, Q2, etc. Information about what
+question was asked and what the allowed values mean are available in the
+metadata for each file. **You can access the metadata for each file by
+clicking the "more info" link next to the file name at the top of the
 page.**
 
 ::: callout-note
 ## Big Idea
 
 The goal for this session is to practice downloading data, reading it
-into R in a Quarto document, using R commands to summarize a
-variable within the dataset, and practice formatting a Quarto document
-using Markdown syntax.
+into R in a Quarto document, using R commands to summarize a variable
+within the dataset, and practice formatting a Quarto document using
+Markdown syntax.
 :::
 
 ## Exercise 1
@@ -41,18 +41,18 @@ using Markdown syntax.
 ::: callout-tip
 ## Set up
 
--   Navigate to the dataset archived in the [Artic Data Center
+-   Navigate to the dataset archived in the [Arctic Data Center
     repository](https://doi.org/10.18739/A29Z90D3V).
 -   Download the file `Initial_Survey111721_ADC.csv`
--   Upload the file to a `data` folder within your training project in the
-    server.
-    -   For this you have to click on the *Upload* button on the *Files
+-   Upload the file to a `data` folder within your training project in
+    the server.
+    -   For this, you have to click on the *Upload* button on the *Files
         Pane* in RStudio.
     -   A pop-up window will come up. Make sure that the *Target
-        directory* (directory where you file is going to be saved to) is
-        the `data` folder withing your RProject.
-    -    Click on *Choose File* and navigate to where
-        `Initial_Survey111721_ADC.csv` was downloaded in you local
+        directory* (directory where your file is going to be saved to)
+        is the `data` folder withing your RProject.
+    -   Click on *Choose File* and navigate to where
+        `Initial_Survey111721_ADC.csv` was downloaded in your local
         computer. Click *Open*, then press *OK*.
 
 You should now see the `Initial_Survey111721_ADC.csv` inside the `data`
@@ -64,11 +64,12 @@ folder in your project.
 ::: callout-note
 ## Step 1
 
-1. Create a new Quarto document. Give it a title something along the lines of "Practice Session". 
+1.  Create a new Quarto document. Give it a title something along the
+    lines of "Practice Session".
 
-2. Save it to your R project.
+2.  Save it to your R project.
 
-3. Structure your document with the following headers:
+3.  Structure your document with the following headers:
 
 -   Setup
 
@@ -81,15 +82,16 @@ folder in your project.
 -   Conclusion
 
 **Tip:** In Markdown syntax, `#` indicates the level of header. `#` is a
-“level one header”, meaning the biggest font and the top of the
+"level one header", meaning the biggest font and the top of the
 hierarchy. `###` is a level three header, and will show up nested below
 the `#` and `##` headers.
 :::
 
-
 ### Load necesary libraries
+
 ::: callout-note
 ## Step 2
+
 Under the Setup header load the `read` package.
 :::
 
@@ -99,9 +101,7 @@ Under the Setup header load the `read` package.
 ```{r}
 library(readr)
 ```
-
 :::
-
 
 ### Read in the data
 
@@ -117,7 +117,6 @@ Read in the data and store the data frame as `survey_data`.
 ```{r}
 survey_data <- read_csv("data/Initial_Survey111721_ADC.csv")
 ```
-
 :::
 
 ### Explore the data
@@ -143,7 +142,6 @@ str(survey_data)
 unique(survey_data$Q6_2)
 
 ```
-
 :::
 
 ### Calculate the mean
@@ -158,7 +156,6 @@ an object in your Global Environment.
 `?mean()`. Does Q3 column have `NA` values?
 :::
 
-
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Example Code
 
@@ -167,10 +164,7 @@ an object in your Global Environment.
 q3_mean <- mean(survey_data$Q3, na.rm = TRUE)
 
 ```
-
-
 :::
-
 
 ### Write a conclusion
 
@@ -184,11 +178,11 @@ calculated in text.
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 ## Example
-_Your Markdown file should look something like this_
 
-The average score about respondents perspective in xyz is \`r `round(`q3_mean)`\`. 
-This means that ...
+*Your Markdown file should look something like this*
 
+The average score about respondents perspective in xyz is \`r
+`round(`q3_mean)`\`. This means that ...
 :::
 
 ### Render and Code Chunk Options
@@ -196,15 +190,21 @@ This means that ...
 ::: callout-note
 ## Step 7
 
-Render your Quarto file and make sure you get the output you are expecting. Are you running into any errors? If your file is not rendering as you expect discuss with your neighbor how you can improve your file.
+Render your Quarto file and make sure you get the output you are
+expecting. Are you running into any errors? If your file is not
+rendering as you expect discuss with your neighbor how you can improve
+your file.
 
-Did you added any code chunk options? Review Section [A Quarto Document](https://learning.nceas.ucsb.edu/2024-01-arctic/session_06.html#a-quarto-document) on the Literate Analysis Lesson and decide what code chunck otion you want to include in your file.
+Did you added any code chunk options? Review Section [A Quarto
+Document](https://learning.nceas.ucsb.edu/2024-01-arctic/session_06.html#a-quarto-document)
+on the Literate Analysis Lesson and decide what code chunck otion you
+want to include in your file.
 :::
-
 
 ## Bonus
 
 ::: callout-note
 ## Go Further
+
 What other ways might you summarize the answers to question 3? Explore!
 :::
