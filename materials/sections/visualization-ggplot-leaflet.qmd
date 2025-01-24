@@ -119,11 +119,10 @@ colnames(escape)
 ```{r mean_esc}
 #| message: false
 annual_esc <- escape %>%
-    separate(sample_date, c("year", "month", "day"), sep = "-") %>%
-    mutate(year = as.numeric(year)) %>%
+    filter(species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink")) %>%
+    mutate(year = lubridate::year(sample_date)) %>%
     group_by(species, sasap_region, year) %>%
-    summarize(escapement = sum(daily_count)) %>%
-    filter(species %in% c("Chinook", "Sockeye", "Chum", "Coho", "Pink"))
+    summarize(escapement = sum(daily_count))
 
 head(annual_esc)
 ```
