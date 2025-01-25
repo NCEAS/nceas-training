@@ -91,23 +91,22 @@ To get a list of all the surveys in your Qualtrics instance, use the `all_survey
 
 ```{r, eval = FALSE}
 surveys <- all_surveys()
-kable(surveys) %>%
-    kable_styling()
+glimpse(surveys)
 ```
 
 This function returns a list of surveys, in this case only one, and information about each, including an identifier and it's name. We'll need that identifier later, so let's go ahead and extract it using base R from the data frame.
 
 ```{r, eval = FALSE}
-i <- which(surveys$name == "Survey for Data Science Training")
-id <- surveys$id[i]
+id <- surveys %>%
+    filter(name == "Survey for Data Science Training") %>%
+    pull(id)
 ```
 
 You can retrieve a list of the questions the survey asked using the `survey_questions` function and the survey `id`.
 
 ```{r, eval = FALSE}
 questions <- survey_questions(id)
-kable(questions) %>%
-    kable_styling()
+questions
 ```
 
 This returns a `data.frame` with one row per question with columns for question id, question name, question text, and whether the question was required. This is helpful to have as a reference for when you are looking at the full survey results.
@@ -116,10 +115,37 @@ To get the full survey results, run `fetch_survey` with the survey id.
 
 ```{r, eval = FALSE}
 survey_results <- fetch_survey(id)
-glimpse(survey_results)
+survey_results %>% head(1) %>% glimpse
 ```
 
 The survey results table has tons of information in it, not all of which will be relevant depending on your survey. The table has identifying information for the respondents (eg: `ResponseID`, `IPaddress`, `RecipientEmail`, `RecipientFirstName`, etc), much of which will be empty for this survey since it is anonymous. It also has information about the process of taking the survey, such as the `StartDate`, `EndDate`, `Progress`, and `Duration`. Finally, there are the answers to the questions asked, with columns labeled according to the `qname` column in the questions table (eg: Q1, Q2, Q3). Depending on the type of question, some questions might have multiple columns associated with them. We'll have a look at this more closely in a later example. 
+
+#### Response metadata
+
+As mentioned above, Qualtrics helpfully provides some metadata with each response. Let's use some of this information now. First, you'll noticed a column named `Finished`, containing `TRUE` or `FALSE` values. This indicates whether the respondent fully completed and submitted the survey. In many cases, you will want to filter out unfinished survey responses to avoid analyzing incomplete answers. Let's go ahead and remove those now.
+
+```{r, eval = FALSE}
+# Report the frequency of finished vs unfinished responses
+survey_results %>% count(Finished)
+
+# Remove unfinished responses
+survey_results <- survey_results %>% filter(Finished)
+```
+
+Second, you'll noticed columns named `LocationLongitude` and `LocationLatitude`. These give an approximate best-guess location of the respondent based on IP address. This is usually accurate to a city level in the United States, but perhaps only to a country for many international respondents, and can be completely wrong in some cases (e.g., if the respondent is using a VPN). Nevertheless, it can be useful to give at least a rough sense of where your respondents are located. Let's use `leaflet` to draw a quick map of our survey respondents.
+
+```{r, eval = FALSE}
+library(leaflet)
+survey_results %>%
+    leaflet %>%
+    addTiles() %>%
+    addMarkers(
+        lng = ~ LocationLongitude,
+        lat = ~ LocationLatitude,
+        popup = ~ Q2
+    )
+```
+
 
 #### Question 2
 
@@ -127,7 +153,7 @@ Let's look at the responses to the second question in the survey, "How long have
 
 We'll use the `dplyr` and `tidyr` tools we learned earlier to extract the information. Here are the steps:
 
-- `select` the column we want (`Q1`)
+- `select` the column we want (`Q2`)
 - `group_by` and `summarize` the values
 
 ```{r, eval = FALSE}
