@@ -126,19 +126,19 @@ library(ggplot2) # plot data
 ```{r}
 #| eval: false
 # Group A
-gutenberg_works(title == "The Phantom of the Opera") # phantom text
+gutenberg_works(title == "Emma")  # id: 158
 
 # Group B
-gutenberg_works(title == "Frankenstein; Or, The Modern Prometheus") # frankenstein text
+gutenberg_works(title == "The Wonderful Wizard of Oz")  # id: 55
 
 # Group C
-gutenberg_works(title == "The Strange Case of Dr. Jekyll and Mr. Hyde") # jekyll hyde text
+gutenberg_works(title == "The Phantom of the Opera") # phantom text
 ```
 :::
 
 ### Questions
 
-The answers in the code chunks are using the text of *The Great Gatsby*.
+The answers in the code chunks are using the text of *Heidi*.
 
 ::: callout-note
 #### Question 1
@@ -153,10 +153,10 @@ Get the id number from the `gutenberg_works()` function so that you can download
 
 
 # get id number
-gutenberg_works(title == "The Great Gatsby")
+gutenberg_works(title == "Heidi")  # id: 1448
 
 # access text data using id number from `gutenberg_works()`
-gatsby_corp <- gutenberg_download(64317)
+txt_corp <- gutenberg_download(1448)
 ```
 
 ::: callout-note
@@ -171,10 +171,10 @@ Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do w
 
 
 # tidy text data - unnest and remove stop words
-gatsby_tidy <- gatsby_corp %>% 
+txt_tidy <- txt_corp %>%
     unnest_tokens(word, text)
 
-head(gatsby_tidy)
+head(txt_tidy)
 ```
 
 ::: callout-note
@@ -191,10 +191,10 @@ Take a look at the data - are you satisfied with your data? We won't conduct any
 
 
 # remove stop words
-gatsby_tidy <- gatsby_tidy %>% 
+txt_tidy <- txt_tidy %>%
     dplyr::anti_join(stop_words, by = "word")
 
-head(gatsby_tidy)
+head(txt_tidy)
 ```
 
 ::: callout-note
@@ -209,11 +209,11 @@ Calculate the top 10 most frequent words using the functions `count()` and `slic
 
 
 # calculate top 10 most frequent words
-gatsby_count <- gatsby_tidy %>%
-    count(word) %>% 
+txt_count <- txt_tidy %>%
+    count(word) %>%
     slice_max(n = 10, order_by = n)
 
-head(gatsby_count)
+txt_count
 ```
 
 ::: callout-note
@@ -230,7 +230,7 @@ We recommend creating either a bar plot using `geom_col()` or a lollipop plot us
 
 
 # bar plot
-ggplot(data = gatsby_count, aes(n, reorder(word, n))) +
+ggplot(data = txt_count, aes(n, reorder(word, n))) +
   geom_col() +
     labs(x = "Count",
          y = "Token")
@@ -243,17 +243,13 @@ ggplot(data = gatsby_count, aes(n, reorder(word, n))) +
 
 
 # initial lollipop plot
-ggplot(data = gatsby_count, aes(x=word, y=n)) +
+ggplot(data = txt_count, aes(x=word, y=n)) +
     geom_point() +
     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
     coord_flip() +
     labs(x = "Token",
          y = "Count")
-
 ```
-
-
-
 
 
 ### Bonus Question
@@ -269,7 +265,7 @@ Consider elements in `theme()` and improve your plot.
 #| code-summary: Custom Lollipop Plot Code
 
 # ascending order pretty lollipop plot
-ggplot(data = gatsby_count, aes(x=reorder(word, n), y=n)) +
+ggplot(data = txt_count, aes(x=reorder(word, n), y=n)) +
     geom_point(color="cyan4") +
     geom_segment(aes(x=word, xend=word, y=0, yend=n), color="cyan4") +
     coord_flip() +
