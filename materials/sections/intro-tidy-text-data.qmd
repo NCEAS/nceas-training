@@ -463,7 +463,7 @@ Tokenize the tidy text data using `unnest_tokens()`
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-dp_ch8_unnest <- dp_ch8_tidy %>% 
+dp_ch8_unnest <- dp_ch8_tidy %>%
     unnest_tokens(output = word,
                   input = text)
 ```
@@ -478,7 +478,7 @@ Remove stop words using `anti_join()` and the `stop_words` data frame from `tidy
 #| code-fold: true
 #| code-summary: Answer
 #| message: false
-dp_ch8_words <- dp_ch8_unnest %>% 
+dp_ch8_words <- dp_ch8_unnest %>%
     dplyr::anti_join(stop_words)
 ```
 
@@ -576,6 +576,150 @@ The text analysis tools, methods, and packages depend greatly on your specific t
 +--------------------------------+------------------------------------------+---------------------------------------------------------+
 | Dependency Parsing             | `udpipe`, `spaCy`, `openNLP`             | Analyze grammatical structure and word dependencies.    |
 +--------------------------------+------------------------------------------+---------------------------------------------------------+
+
+### Exercise: Basic topic modeling
+
+```{r}
+library(topicmodels)
+```
+
+### Steps
+
+::: callout-note
+#### Step 1
+
+Get some PDFs from the Delta Stewardship Council
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: false
+#| eval: false
+delta_url <- "https://deltacouncil.ca.gov/pdf/delta-plan/"
+dp_ch3 <- pdftools::pdf_text(paste0(delta_url, "2018-04-26-amended-chapter-3.pdf"))
+dp_ch4 <- pdftools::pdf_text(paste0(delta_url, "2022-06-29-chapter-4-protect-restore-and-enhance-the-delta-ecosystem.pdf"))
+```
+
+```{r}
+#| echo: false
+path_df <- "data/text/dsc-plan-ch3.pdf"
+dp_ch3 <- pdftools::pdf_text(path_df)
+
+path_df <- "data/text/dsc-plan-ch4.pdf"
+dp_ch4 <- pdftools::pdf_text(path_df)
+```
+
+::: callout-note
+#### Step 2
+
+Tidy the data using word tokens, remove stop words, and combine both
+into one dataframe.
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: false
+
+dp_ch3_words <- dp_ch3 %>%
+  quanteda::corpus() %>%
+  tidy() %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+dp_ch4_words <- dp_ch4 %>%
+  quanteda::corpus() %>%
+  tidy() %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+dp_words <- bind_rows(
+  dp_ch3_words %>% mutate(document="Chapter3"),
+  dp_ch4_words %>% mutate(document="Chapter4")
+)
+```
+
+::: callout-note
+#### Step 3
+
+Create a document-term matrix.
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: false
+
+dp_dtm <- dp_words %>%
+  count(document, word, sort = TRUE) %>%
+  cast_dtm(document, word, n)
+```
+
+::: callout-note
+#### Step 4
+
+Run topic modeling using Latent Dirichlet allocation (LDA).
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: false
+
+dp_lda <- LDA(dp_dtm, k = 2, control = list(seed = 1234))
+dp_topics <- tidy(dp_lda, matrix = "beta")
+
+dp_top_terms <- dp_topics %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 20) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+```
+
+::: callout-note
+#### Step 4
+
+What are the top terms?
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: true
+
+dp_top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered()
+```
+
+::: callout-note
+#### Step 5
+
+What _are_ these two topics, as expressed using the words most strongly associated with each one?
+:::
+
+```{r}
+#| code-fold: true
+#| code-summary: Answer
+#| output: true
+
+beta_wide <- dp_topics %>%
+  mutate(topic = paste0("topic", topic)) %>%
+  tidyr::pivot_wider(names_from = topic, values_from = beta) %>%
+  filter(topic1 > .001 | topic2 > .001) %>%
+  mutate(log_ratio = log2(topic2 / topic1))
+
+beta_wide %>%
+  mutate(term=reorder(term, log_ratio)) %>%
+  slice_max(abs(log_ratio), n=20) %>%
+  ggplot +
+    geom_col(aes(term, log_ratio)) +
+    coord_flip()
+```
 
 ::: {.callout-caution icon="false"}
 ### R Text Mining Tools and Analysis Packages Resources
