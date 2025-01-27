@@ -13,15 +13,14 @@ From the [home page](http://ggplot2.tidyverse.org/):
 
 > `ggplot2` is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
-
 It's been around for years and has pretty good documentation and tons of example code around the web (like on [StackOverflow](https://stackoverflow.com/questions/tagged/ggplot2)). The goal of this lesson is to introduce you to the basic components of working with `ggplot2` and inspire you to go and explore this awesome resource for visualizing your data.
 
 ::: callout-important
 
 ## `ggplot2` vs base graphics in R vs others
-There are many different ways to plot your data in R. All of them work! However, `ggplot2` excels at making complicated plots easy and easy plots simple enough
+There are many different ways to plot your data in R. All of them work! However, `ggplot2` excels at making complicated plots easy and easy plots simple enough.
 
-Base R graphics  (`plot()`, `hist()`, etc) can be helpful for simple, quick and dirty plots. `ggplot2` can be used for almost everything else.
+Base R graphics (`plot()`, `hist()`, etc) can be helpful for simple, quick and dirty plots. `ggplot2` can be used for almost everything else.
 
 :::
 
@@ -30,7 +29,10 @@ Let's dive into creating and customizing plots with `ggplot2`.
 ::: callout-tip
 ## Setup
 
+0. Make sure you’re in the right project (`training_{USERNAME}`), create a new Quarto document, delete the default text, and save this document.
+<!--
 0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new Quarto document, delete the default text, and save this document.
+-->
 
 1. Load the packages we'll need:
 
@@ -52,13 +54,11 @@ library(DT) # interactive tables
 
 2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navigate to the link above, hover over the "Download" button for the `ADFG_firstAttempt_reformatted.csv`, right click, and select "Copy Link".
 
-
 ```{r}
 #| message: false
 #| warning: false
 
 escape_raw <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
-
 ```
 
 3. Learn about the data. For this session we are going to be working with data on **daily salmon escapement counts in Alaska**. Check out [the documentation](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ).
@@ -83,10 +83,9 @@ unique(escape_raw$Species)
 :::
 
 
-
 ## Getting the data ready
 
-It is more frequent than not, that we need to do some wrangling before we can plot our data the way we want to. Now that we have read out data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
+In most cases, we need to do some wrangling before we can plot our data the way we want to. Now that we have read in the data and have done some exploration, we'll put our data wrangling skills to practice to get our data in the desired format.
 
 ::: callout-important
 ## Side note on clean column names
@@ -99,7 +98,7 @@ escape <- escape_raw %>%
     janitor::clean_names()
 ```
 
-And that's it! If we look to the colomn names of the object `escape` we can see all the columns are in a lowercase, snake format.
+And that's it! If we look at the column names of the object `escape`, we can see the columns are now all in a lowercase, snake format.
 
 ```{r}
 colnames(escape)
@@ -111,7 +110,7 @@ colnames(escape)
 ::: callout-note
 ### Exercise
 
-- Calculate the annual escapement by `species` and `sasap_region`,
+- Calculate the annual escapement by `species` and `sasap_region`
 - Filter the main 5 salmon species (Chinook, Sockeye, Chum, Coho and Pink)
 
 :::
@@ -127,7 +126,7 @@ annual_esc <- escape %>%
 head(annual_esc)
 ```
 
-The chunk above used a lot of the dplyr commands that we've used, and some that are new. The `separate()` function is used to divide the `sample_date` column up into `year`, `month`, and `day` columns, and then we use `group_by()` to indicate that we want to calculate our results for the unique combinations of species, region, and year.  We next use `summarize()` to calculate an escapement value for each of these groups. Finally, we use a filter and the `%in%` operator to select only the salmon species.
+The chunk above used some dplyr commands that we've used previously, and some that are new. First, we use a filter with the `%in%` operator to select only the salmon species. Although we would get the same result if we ran this filter operation later in the sequence of steps, it's good practice to apply filters as early as possible because they reduce the size of the dataset and can make the subsequent operations faster. The `mutate()` function then adds a new column containing the `year`, which we extract from `sample_date` using the `year()` function in the helpful `lubridate` package. Next we use `group_by()` to indicate that we want to apply subsequent operations separately for each unique combination of species, region, and year. Finally, we apply `summarize()` to calculate the total escapement for each of these groups.
 
 ## Plotting with `ggplot2`
 
@@ -138,19 +137,17 @@ First, we’ll cover some `ggplot2` basics to create the foundation of our plot.
 
 ### The basics
 
-1. Indicate we are using `ggplot()` (call the `ggplot2::ggplot()` function)
-2. What data do we want to plot? (`data = my_data`)
-3. What is my mapping aesthetics? What variables do we want to plot? (define using`aes()` function)
-4. Define the geometry of our plot. This specifies the type of plot we're making (use `geom_*()` to indicate the type of plot e.g: point, bar, etc.)
+1. Initialize a `ggplot()` visualization, by calling the `ggplot2::ggplot()` function.
+2. Specify the data we want to plot, by setting `data = my_data`.
+3. Specify how columns in our data should map to aesthetics (i.e., visual elements) in the plot, by using `aes()` function.
+4. Define one or more plot geometries, i.e. specific data visualization layers (e.g., scatterplot, histogram, boxplot), by using relevant `geom_*()` functions.
 
 **Note**
-To add layers to our plot, for example, additional geometries/aesthetics and theme elements or any `ggplot` object we use `+`.
+To add layers, theme elements, and various customizations to the `ggplot` object initialized in the first step above, we use the `+` operator. You can think of this as a process of building out your desired visualization by starting with a blank canvas and incrementally adding the desired details.
 
 :::
 
-
 For example, let's plot total escapement by species. We will show this by creating the same plot in 3 slightly different ways. Each of the options below have the essential pieces of a `ggplot`.
-
 
 ```{r basic_esc_plot}
 #| eval: false
@@ -186,19 +183,36 @@ ggplot(data = annual_esc,
 
 Having the basic structure with the essential components in mind, we can easily change the type of graph by updating the `geom_*()`.
 
-
 ::: callout-important
 ### `ggplot2` and the pipe operator
 
-Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into the first argument of the `ggplot` function using the `%>%` operator.
+Remember that the first argument of `ggplot` is the data input. Just like in `dplyr` and `tidyr`, we can also pipe a `data.frame` directly into the first argument of the `ggplot` function using the `%>%` operator. This means we can create expressions that start with data, pipe it through various tidying and restructuring operations, then pipe into a `ggplot` call which we then build up as described above.
 
-This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand.
+This can certainly be convenient, but use it carefully! Combining too many data-tidying or subsetting operations with your `ggplot` call can make your code more difficult to debug and understand. In general, operations included in the pipe sequence preceding a `ggplot` call should be those needed to prepare the data for that particular visualization, whereas pre-processing steps that more generally prepare your data for analysis and visualization should be done separately, producing a new named `data.frame` object.
 :::
 
 Next, we will use the pipe operator to pass into `ggplot()` a filtered version of `annual_esc`, and make a plot with different geometries.
 
+**Line and point**
+
+Let's start with a line and point visualization.
+
+```{r line_poin_plot}
+annual_esc %>%
+    filter(species == "Sockeye",
+           sasap_region == "Bristol Bay") %>%
+    ggplot(aes(x = year, y = escapement)) +
+    geom_line() +
+    geom_point()
+```
+
+Here we are added _two_ layers to the plot. They are drawn in the order given in the expression, which means the points are drawn on top of the lines. In this example, it doesn't make a difference, but if you were to use different colors for the lines and points, you could look closely and see that the order matters where the lines overlap with the points.
+
+Also notice how we included the aesthetic mapping in the `ggplot` call, which means this mapping was used by both of the layers. If we didn't supply the mapping in the `ggplot` call, we would need to pass it into both of the layers separately.
 
 **Boxplot**
+
+Now let's try a box plot.
 
 ```{r boxplot_ex}
 annual_esc %>%
@@ -208,8 +222,22 @@ annual_esc %>%
     geom_boxplot()
 ```
 
+Notice how we again provided aesthetic mappings for both `x` and `y`.  Let's think about how the behavior of these two aesthetics is different in this plot compared with the point and line blot.
+
+Whereas in the previous example we set `x` to the continuous variable `year`, here we use the discrete variable `species`. But it still worked! This is handled by a so-called __*scale*__, another component of the `ggplot` grammar. In short, scales convert the values in your data to corresponding aesthetic values in the plot. You typically don't have to worry about this yourself, because `ggplot` chooses the relevant `scale` based on your input data type, the corresponding aesthetic, and the type of geom. In the plot above, `ggplot` applied its discrete x-axis scale, which is responsible for deciding how to order and space out the discrete set of species values along the `x` axis. Later we'll see how we can customize the `scale` in some cases.
+
+The `y` aesthetic also seems different in this plot. We mapped the `y` aesthetic to the `escapement` variable, but unlike in the point & line diagram, the plot does not have raw escapement values on the y-axis.  Instead, it's showing statistical properties of the data! How does that happen? The answer involves `stats`, one of the final key components of the `ggplot` grammar. A `stat` is a statistical summarization that `ggplot` applies to your data, producing a new dataframe that it then uses internally to produce the plot. For `geom_boxplot`, `ggplot` internally applies a `stat_boxplot` to your input data, producing the statistics needed to draw the boxplots. Fortunately, you will rarely ever need to invoke a `stat_*` function yourself, as each `geom_*` has a corresponding `stat_*` that will almost always do the job. But it's still useful to know this is happening under the hood.
+
+::: callout-important
+
+#### The identity stat
+
+If `ggplot` applies a statistical transformation to your data before plotting it, then how does the `geom_point` plot only your raw values?  The answer is that this and other geometries use `stat_identity`, which leaves the data unchanged! Although this might seem unnecessary, it allows `ggplot` to have a consistent behavior where all input dataframes are processed by a `stat_*` function before plotting, even if sometimes that step doesn't actually modify the data.
+:::
 
 **Violin plot**
+
+Finally, let's look at a violin plot. Other than the geom name itself, this expression is identical to what we used to produce the boxplot above. This is a nice example of how we can quickly switch visualization types -- and in this case, the corresponding statistical summarization of our data -- with a small change to the code.
 
 ```{r violin_plot}
 annual_esc %>%
@@ -217,18 +245,6 @@ annual_esc %>%
            species %in% c("Chum", "Pink")) %>%
     ggplot(aes(x = species, y = escapement)) +
     geom_violin()
-```
-
-
-**Line and point**
-
-```{r line_poin_plot}
-annual_esc %>%
-    filter(species  == "Sockeye",
-           sasap_region == "Bristol Bay") %>%
-    ggplot(aes(x = year, y = escapement)) +
-    geom_line() +
-    geom_point()
 ```
 
 
@@ -255,7 +271,7 @@ ggplot(annual_esc,
     geom_col(fill = "blue")
 ```
 
-What if we did want to map the color of the bars to a variable, such as region. `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data. 
+What if we did want to map the color of the bars to a variable, such as region? `ggplot()` is really powerful because we can easily get this plot to visualize more aspects of our data.
 
 ```{r}
 ggplot(annual_esc,
@@ -268,10 +284,17 @@ ggplot(annual_esc,
 
 ## Keep in mind
 
-- If you want to map a variable onto a graph aesthetic (e.g., point color should be based on a specific region), put it within `aes()`.
+- If you want to map a plot aesthetic to a variable in your data (e.g., point color should be based on a specific region), put it within the `aes()` expression passed to the `geom_` layer via its `mapping` argument.
+- If you want to set a plot aesthetic to a constant value (e.g., “Make ALL the points BLUE”), pass it as an argument directly to the relevant `geom_` layer.
+:::
 
-- If you want to update your plot base on a constant  (e.g. “Make ALL the points BLUE”), you can add the information directly to the relevant geom_ layer.
 
+::: {.callout-note icon=false}
+## Exercise
+
+The `geom_col` plot above introduces another useful `ggplot` layer control: __*position adjustments*__. Consider that at each position along the y axis, our data has potentially many escapement values to plot. Why don't we simply see many overlapping bars? This is handled by the `position` argument of `geom_col`, which takes either a `position_*` function or its corresponding string alias. The default value for column charts is `position_stack()`, which is equivalent to calling `geom_col(..., position = "stack")`, and produces the stacked bar chart you see above.
+
+Try repeating the plot with other available position adjustments relevant for this type of geom: "dodge", "dodge2", and "fill".
 :::
 
 
@@ -283,7 +306,7 @@ We are going to plot escapement by species over time, from 2000 to 2016, for eac
 
 An easy way to plot another aspect of your data is using the function `facet_wrap()`. This function takes a mapping to a variable using the syntax `~{variable_name}`. The `~` (tilde) is a model operator which tells `facet_wrap()` to model each unique value within `variable_name` to a facet in the plot.
 
-The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol = ` argument or number of rows using `nrow =`.
+The default behavior of facet wrap is to put all facets on the same x and y scale. You can use the `scales` argument to specify whether to allow different scales between facet plots (e.g `scales = "free_y"` to free the y axis scale). You can also specify the number of columns using the `ncol =` argument or number of rows using `nrow =`.
 
 
 ```{r facet_base_plot}
@@ -311,14 +334,13 @@ ggplot(annual_esc_2000s,
 
 #### Setting ggplot themes
 
-Now let's work on making this plot look a bit nicer. We are going to"
+Now let's work on making this plot look a bit nicer. We are going to:
 
 - Add a title using `labs()`
 - Adjust labels using `labs()`
 - Include a built in theme using `theme_bw()`
 
 There are a wide variety of built in themes in `ggplot` that help quickly set the look of the plot. Use the RStudio autocomplete `theme_` `<TAB>` to view a list of theme functions.
-
 
 ```{r theme_bw_plot}
 ggplot(annual_esc_2000s,
@@ -356,8 +378,6 @@ theme_light()
 theme_classic()
 ```
 
-
-
 The built in theme functions (`theme_*()`) change the default settings for many elements that can also be changed individually using the`theme()` function. The `theme()` function is a way to further fine-tune the look of your plot. This function takes MANY arguments (just have a look at `?theme`). Luckily there are many great `ggplot` resources online so we don't have to remember all of these, just Google ["ggplot cheat sheet"](https://www.google.com/search?q=ggplot+cheat+sheet&rlz=1C5CHFA_enUS989US989&oq=ggplot+chea&aqs=chrome.0.0i433i512j69i57j0i512l2j0i22i30i395l2.1681j1j7&sourceid=chrome&ie=UTF-8) and find one you like.
 
 Let's look at an example of a `theme()` call, where we change the position of the legend from the right side to the bottom, and remove its title.
@@ -391,7 +411,6 @@ my_theme <- theme_light() +
 
 So now our code will look like this:
 
-
 ```{r}
 ggplot(annual_esc_2000s,
        aes(x = year,
@@ -406,17 +425,16 @@ ggplot(annual_esc_2000s,
     my_theme
 ```
 
-
 ::: callout-note
 #### Exercise
 
- 1. Using whatever method you like, figure out how to rotate the x-axis tick labels to a 45 degree angle.
+1. Using whatever method you like, figure out how to rotate the x-axis tick labels to a 45-degree angle.
 
 **Hint:** You can start by looking at the documentation of the function by typing `?theme()` in the console. And googling is a great way to figure out how to do the modifications you want to your plot.
 
 2. What changes do you expect to see in your plot by adding the following line of code? Discuss with your neighbor and then try it out!
 
-`scale_x_continuous(breaks = seq(2000,2016, 2))`
+`scale_x_continuous(breaks = seq(2000, 2016, 2))`
 
 :::
 
@@ -440,7 +458,6 @@ ggplot(annual_esc_2000s,
          y = "Escapement") +
     my_theme +
     guides(x=guide_axis(angle = 45))
-
 ```
 
 
@@ -465,6 +482,26 @@ ggplot(annual_esc_2000s,
                 scales = "free_y") +
     labs(title = "Annual Salmon Escapement by Region",
          y = "Escapement") +
+    my_theme
+```
+
+Let's look at one more version of this graphic, with even fancier label customization. First, we'll supply names to the `scale_*()` calls, which `ggplot` then uses as the default axis titles. Secondly, we'll add an even fancier `label` specification for the y axis, dynamically adjusting the units. Finally, we'll fix the issue with truncated text in the long facet title, by using a `labeller` function. While we're at it, will also use a smaller size for the points.
+
+```{r}
+ggplot(annual_esc_2000s,
+       aes(x = year,
+           y = escapement,
+           color = species)) +
+    geom_line() +
+    geom_point(size=1) +
+    scale_x_continuous("Year",
+        breaks = seq(2000, 2016, 4),
+        guide = guide_axis(angle = 45)) +
+    scale_y_continuous("Escapement",
+        label = label_comma(scale_cut = cut_short_scale())) +
+    facet_wrap( ~ sasap_region, scales = "free_y",
+        labeller = labeller(sasap_region = label_wrap_gen())) +
+    labs(title = "Annual Salmon Escapement by Region") +
     my_theme
 ```
 
@@ -570,7 +607,11 @@ ggsave(annual_region_plot, "figures/annual_esc_region.png", width = 12, height =
 
 ### Tables with `DT`
 
-Now that we know how to make great static visualizations, let's introduce two other packages that allow us to display our data in interactive ways. These packages really shine when used with GitHub Pages, so at the end of this lesson we will publish our figures to the website we created earlier.
+Now that we know how to make great static visualizations, let's introduce two other packages that allow us to display our data in interactive ways.
+
+<!--
+These packages really shine when used with GitHub Pages, so at the end of this lesson we will publish our figures to the website we created earlier.
+-->
 
 First let's show an interactive table of unique sampling locations using `DT`.
 Write a `data.frame` containing unique sampling locations with no missing values using two new functions from `dplyr` and `tidyr`: `distinct()` and `drop_na()`.
@@ -634,8 +675,11 @@ leaflet(locations) %>%
 
 <br>
 
-Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here. This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be. 
+Leaflet has a ton of functionality that can enable you to create some beautiful, functional maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here.
 
+<!---
+This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be.
+-->
 
 <!--
 
