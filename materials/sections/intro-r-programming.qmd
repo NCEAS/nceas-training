@@ -36,7 +36,7 @@ Notice the default panes:
 -   Environment/History (tabbed in upper right)
 -   Files/Plots/Packages/Help (tabbed in lower right)
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 ### Quick Tip
 
 You can change the default location of the panes, among many other things, see [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio).
@@ -68,7 +68,7 @@ At it's most basic, we can use R as a calculator, let's try a couple of examples
 
 While there are many cases where it makes sense to type code directly in to the the console, it is not a great place to write most of your code since you can't save what you ran. **A better way is to create an R Script, and write your code there.** Then when you run your code from the script, you can save it when you are done. We're going to continue writing code in the Console for now, but we'll code in an R Script later in this lesson
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 When you're in the console you'll see a greater than sign (`>`) at the start of a line. This is called the "prompt" and when we see it, it means R is ready to accept commands. If you see a plus sign (`+`) in the Console, it means R is waiting on additional information before running. You can always press escape (`esc`) to return to the prompt. Try practicing this by running `3*` (or any incomplete expression) in the console.
@@ -93,7 +93,7 @@ important_value <- 3*4
 
 Notice how after creating the object, R doesn't print anything. However, we know our code worked because we see the object, and the value we wanted to store is now visible in our **Global Environment**. We can force R to print the value of the object by calling the object name (aka typing it out) or by using parentheses.
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 When you begin typing an object name RStudio will automatically show suggested completions for you that you can select by hitting `tab`, then press `return`.
@@ -106,7 +106,7 @@ important_value
 (important_value <- 3*4)
 ```
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 When you're in the Console use the up and down arrow keys to call your command history, with the most recent commands being shown first.
@@ -124,7 +124,7 @@ Before we run more calculations, let's talk about naming objects. For the object
 
 Choosing a [naming convention](https://en.wikipedia.org/wiki/Naming_convention_(programming)#:~:text=In%20computer%20programming%2C%20a%20naming,in%20source%20code%20and%20documentation) is a personal preference, but once you choose one - be consistent! A consistent naming convention will increase the readability of your code for others and your future self.
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 Object names cannot start with a digit and cannot contain certain characters such as a comma or a space.
@@ -179,7 +179,7 @@ Let's convert the weight into pounds. Weight in pounds is 2.2 times the weight i
 
 You can also store more than one value in a single object. Storing a series of weights in a single object is a convenient way to perform the same operation on multiple values at the same time. One way to create such an object is with the function `c()`, which stands for combine or concatenate.
 
-First let's create a **vector** of weights in kilograms using `c()` (we'll talk more about vectors in the next section, [Data structures in R](#data_structures)).
+First let's create a **vector** of weights in kilograms using `c()` (a vector is just an ordered collection of vales, and we'll talk more about vectors in the next section, [Data structures in R](#data_structures)).
 
 ```{r}
 # create a vector of weights in kilograms
@@ -188,7 +188,7 @@ weight_kg <- c(25, 33, 12)
 weight_kg
 ```
 
-Now convert the vector `weight_kg` to pounds.
+Now convert the vector `weight_kg` to pounds. Note that the conversion operates on all of the values in the vector.
 
 ```{r}
 # covert `weight_kg` to pounds 
@@ -204,7 +204,7 @@ weight_lb <- weight_kg * 2.2
 weight_lb
 ```
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 You will make many objects and the assignment operator `<-` can be tedious to type over and over. Instead, use **RStudio's keyboard shortcut: `option` + `-` (the minus sign)**.
@@ -240,11 +240,11 @@ We've been using primarily `integer` or `numeric` data types so far. Let's creat
 science_rocks <- "yes it does!"
 ```
 
-"yes it does!" is a string, and R knows it's a word and not a number because it has quotes `" "`. You can work with strings in your data in R easily thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
+"yes it does!" is a character string, and R knows it is not a number because it has quotes `" "`. You can work with character strings in your data in R easily thanks to the [`stringr`](http://stringr.tidyverse.org/) and [`tidytext`](https://github.com/juliasilge/tidytext) packages.
 
-**This lead us to an important concept in programming:** As we now know, there are different "classes" or types of objects in R. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings).
+**This lead us to an important concept in programming:** As we now know, there are different "classes" or types of objects in R. The operations you can do with an object will depend on what type of object it is because each object has their own specialized format, designed for a specific purpose. This makes sense! Just like you wouldn't do certain things with your car (like use it to eat soup), you won't do certain operations with character objects (strings), such as multiply them.
 
-Also, everything in R is an object. An object is a variable, function, data structure, or method that you have written to your environment.
+Also, everything in R is an object. An object can be any variable, function, data structure, or method that you have written to your environment.
 
 Try running the following line in your script:
 
@@ -253,40 +253,130 @@ Try running the following line in your script:
 "Hello world!" * 3
 ```
 
+`Error in "Hello world!" * 3 : non-numeric argument to binary operator`
+
 What happened? What do you see in the Console? Why?
 
-::: {.callout-caution icon="false"}
+Let's break down that error message. Everything before the colon indicates that we encountered an Error, which is R's way of saying that it could not execute the command we gave it. Despite being a bit cryptic, everything after the colon (`non-numeric argument to binary operator`) explains what went wrong. In this case, `non-numeric argument` refers to the fact that one of our `arguments` is not a number, while `to binary operator` refers to the multiplication operator, which takes two numeric objects and multiplies them together. In our case, we passed a character string (`"Hello world!"`) as one of the arguments, and R does not know how to use that in the multiplication operation. Makes sense, right?
+
+::: {.callout-tip icon="false"}
 ### Quick Tip
 
 You can see what data type or class an object is using the `class()` function, or you can use a logical test such as: `is.numeric()`, `is.character()`, `is.logical()`, and so on.
 
 ```{r}
-#| eval: false
+#| eval: true
 class(science_rocks) # returns character
 is.numeric(science_rocks) # returns FALSE
 is.character(science_rocks) # returns TRUE
 ```
 :::
 
-## Data structures in R {#data_structures}
+## Vector Data Structures in R {#data_structures}
 
-Okay, now let's talk about vectors.
+Okay, now let's talk about vectors. 
 
-**A vector is the most common and most basic data structure in R**. Vectors can be thought of as a way R stores a collection of values or elements. Think back to our `weight_lb` vector. That was a vector of  three elements each with a data type or class of `numeric`.
+::: {.callout-tip icon=false}
 
-What we're describing is a specific type of vector called **atomic vectors**. To put it simply, atomic vectors *only* contain elements of the *same* data type. Atomic vectors are very common.
+### Vectors
+In R, a **vector** is an *ordered collection of values*.
+
+For example, `[1, 7, 9]` or `[TRUE, FALSE, FALSE]`.
+
+:::
+
+**Interestingly, every object in R is a vector, making it the most common and most basic data structure in R**. Vectors can be thought of as a way R stores a collection of values or elements. Think back to our `weight_lb` vector. That was a vector of  three elements each with a data type or class of `numeric`. Even a single value like the number `5.5` is stored as a vector with a single element (and thus has length of 1).
+
+What we're describing is a specific type of vector called **atomic vectors**. To put it simply, atomic vectors *only* contain elements of the *same* data type. Atomic vectors are very common. The other type of vectors in R are lists, which are similar but may contain values of different types. 
 
 Vectors are foundational for other data structures in R, including data frames, and while we won't go into detail about other data structures there are great resources online that do. We recommend the chapter [Vectors](https://adv-r.hadley.nz/vectors-chap.html) from the online book [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
+
+Let's create some example vectors using the `c()` function.
 
 ```{r}
 # atomic vector examples #
 # character vector
-chr_vector <- c("hello", "good bye", "see you later")
+(chr_vector <- c("hello", "good bye", "see you later"))
 # numeric vector
-numeric_vector <- c(5, 1.3, 10)
+(numeric_vector <- c(5, 1.3, 10))
 # logical vector
-boolean_vector <- c(TRUE, FALSE, TRUE)
+(boolean_vector <- c(TRUE, FALSE, TRUE))
 ```
+
+
+**Subsetting and slicing vectors**
+
+Given a vector, sometimes you might want to work with all of the values (like when we converted the whole `weight_kg` vector above), but at other times you want to work with only one of the values or a subset. To do that, you can use square brackets `[]` to provide the position index of the value that you want to access. This works because vectors are ordered lists, so the values can be accessed via their index position. For example, if we create a numeric vector `nv` with a sequence of 9 values, we can print the whole set to screen:
+
+```{r}
+nv <- c(1:9)*2
+nv
+```
+
+We can also access the first value from the set using the index position 1:
+
+```{r}
+nv[1]              # select the first value from the vector
+```
+
+And the third value via the index position 3:
+
+```{r}
+nv[3]              # select the third value from the vector
+```
+
+Vectors also have a length (the number of values they contain). Consequently, the last value in a vector is at the position determined by that length.
+```{r}
+nv[length(nv)]     # select the value at the last position in the vector
+```
+
+We can even access multiple values from a vector, which produces a new, shorter vector that is a subset of the original:
+
+```{r}
+nv[3:4]            # select values from the index sequence 3 to 4
+nv[3:6]            # select values from the index sequence 3 to 6
+```
+
+**Multidimensional vectors**
+
+So far, we've been only dealing with one dimensional vectors (i.e., the values are indexed in a single, long collection). It's also possible to model two dimensional vectors (matrices) and multi-dimensional arrays. These are commonly used for statistical analyses and other computations, and work similarly to one-dimensional vectors. The main difference is that, for a two dimensional array, you use two dimensions to access the values (a column index and a row index). And for multidimensional arrays, you use as many indices as you have dimensions.
+
+To illustrate, let's convert our `nv` vector above into a two dimensional matric by assigning it a a `dim` attribute listing how many rows and columns it will have. We can then access specific elements in the matrix (using two index subscripts), or a whole row, or a whole column.
+
+```{r}
+dim(nv) <- c(3,3)  # A matrix with 3 rows and 3 columns
+nv
+```
+
+Note how the first three values make up the first column, the second three values constitute the second column, and the last three values constitute the third column. Not let's pull out some subsets:
+
+```{r}
+nv[2,3]            # select the value from row2, column3
+nv[,2]             # select values from the entire column2
+nv[3,]             # select values from the entire row3
+```
+You'll frequently see the use of these subsetting operations throughout R code, but it all follows this same basic pattern.
+
+::: callout-note
+## Exercise: Your turn with vectors and functions
+
+Imagine we have a study with 3 subjects with response times in seconds on task 1 (3.3, 5.1, 6.2) and task 2 (9.2, 7.2, 6.5). You can use the `sum()` function to add these response times. For example, using `sum(3.3, 9.2)` one gets `12.5`. How coud you do the following?
+
+- Encode this data in a two dimensional matrix
+- Calculate the sum of the response times for subject 2 and 3 using the `sum()` function and a subset of the values from the matrix for each subject
+
+:::
+
+:::{.callout-note collapse=true}
+# Code solution
+```{r}
+response_times <- c(3.3, 5.1, 6.2, 9.2, 7.2, 6.5)
+dim(response_times) <- c(3,2)
+response_times
+(subject_2 <- sum(response_times[2,]))
+(subject_3 <- sum(response_times[3,]))
+```
+:::
 
 ## R Functions
 
@@ -296,7 +386,7 @@ So far we've learned some of the basic syntax and concepts of R programming, and
 
 **All functions are called using the same syntax:** function name with parentheses around what the function needs in order to do what it was built to do. These "needs" are pieces of information called arguments, and are required to return an expected value.
 
-::: {.callout-caution icon=false}
+::: {.callout-tip icon=false}
 ### Syntax of a function will look something like:
 
 ```result_value <- function_name(argument1 = value1, argument2 = value2, ...)```
@@ -336,7 +426,7 @@ And there's also help for when you only sort of remember the function name: doub
 ??install 
 ```
 
-::: {.callout-caution icon=false}
+::: {.callout-tip icon=false}
 #### Not all functions have (or require) arguments
 
 Check out the documentation or Help page for `date()`.
@@ -440,7 +530,7 @@ bg_chem_dat <- read.csv(file = "data/BGchem2008data.csv")
 
 You should now have an object of the class `data.frame` in your environment called `bg_chem_dat`. Check your environment pane to ensure this is true. Or you can check the class using the function `class()` in the console.
 
-::: {.callout-caution icon=false}
+::: {.callout-tip icon=false}
 ##### Optional Arguments
 Notice that in the Help page there are many arguments that we didn't use in the call above. Some of the arguments in function calls are optional, and some are required. 
 
@@ -471,10 +561,10 @@ bg_chem_dat <- read.csv("data/BGchem2008data.csv", stringsAsFactors = FALSE)
 ```
 
 
-::: {.callout-caution icon=false}
+::: {.callout-tip icon=false}
 ##### Quick Tip
 
-For functions that are used often, you'll see many programmers will write code that does not explicitly call the first or second argument of a function.
+For functions that are used often, you'll see many programmers will write code that does not explicitly name the first or second argument of a function, depending on the order of arguments instead of the names of those arguments.
 :::
 
 ## Working with data frames in R using the Subset Operator `$`
@@ -598,10 +688,11 @@ rm(weight_kg)
 To remove everything (or click the Broom icon in the Environment pane):
 
 ```{r}
+#| eval: false
 rm(list = ls())
 ```
 
-::: {.callout-caution icon="false"}
+::: {.callout-tip icon="false"}
 #### Quick Tip
 
 It's good practice to clear your environment. Over time your Global Environmental will fill up with many objects, and this can result in unexpected errors or objects being overridden with unexpected values. Also it's difficult to read / reference your environment when it's cluttered!
@@ -635,7 +726,7 @@ We can ask questions about an object using **logical operators and expressions**
 -   `>=` means 'is greater than or equal to'
 
 ```{r}
-#| eval: false
+#| eval: true
 
 # examples using logical operators and expressions
 weight_lb == 2
