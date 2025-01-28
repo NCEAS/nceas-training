@@ -275,7 +275,7 @@ Hint: Navigate to Help \> Markdown Quick Reference to look-up the hyperlink synt
 
 Now that we have outlined our document, we can start writing code! To read the data into our environment, we will use a function from the `readr` package.
 
-To use a package in our analysis, we need to first make sure it is installed (you can install a package by running `install.package("name-of-package")`). Once installed you need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. **Loading the package is a key part of the *reproducible* aspect of our literate analysis**, so we will include it as an R chunk as part of our Setup.
+To use a package in our analysis, we need to first make sure it is installed (you can install a package by running `install.packages("name-of-package")`). Once installed you need to load it into our environment using `library(package_name)`. Even though we have installed it, we haven't yet told our R session to access it. Because there are so many packages (many with conflicting namespaces) R cannot automatically load every single package you have installed. Instead, you load only the ones you need for a particular analysis. **Loading the package is a key part of the *reproducible* aspect of our literate analysis**, so we will include it as an R chunk as part of our Setup.
 
 ::: {.callout-caution icon="false"}
 ## Best Practice
