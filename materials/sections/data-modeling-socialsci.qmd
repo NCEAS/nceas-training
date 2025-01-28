@@ -1,9 +1,9 @@
-## Learning Objectives {.unnumbered}
+## Learning Objectives
 
 -   Understand basics of relational data models aka tidy data
 -   Learn how to design and create effective data tables
 
-### Introduction
+## Introduction
 
 :::callout-note
 Slides for this lesson available [here](files/intro-tidy-data-slides.pdf).
@@ -16,7 +16,7 @@ In this lesson we are going to learn what relational data models are, and how th
 -   Enforce data integrity
 -   Decrease errors from redundant updates
 
-#### Simple guidelines for data management {.unnumbered}
+## Simple guidelines for data management
 
 A great paper called 'Some Simple Guidelines for Effective Data Management' [@borer_simple_2009] lays out exactly that - guidelines that make your data management, and your reproducible research, more effective.
 
@@ -51,49 +51,49 @@ The next three are a little more complex, but all are characteristics of the rel
 - Each column should contain only one type of information
 - Record a single piece of data only once; separate information collected at different scales into different tables.
 
-#### File and folder organization {-}
+### File and folder organization {-}
 
 Before moving on to discuss the last 3 rules, here is an example of how you might organize the files themselves following the simple rules above. Note that we have all open formats, plain text formats for data, sortable file names without special characters, scripts, and a special folder for raw files.
 
 ![](images/file-organization.png)
 
-### Recognizing untidy data
+## Recognizing untidy data
 
 Before we learn how to create a relational data model, let's look at how to recognize data that does not conform to the model.
 
-#### Data Organization {-}
+### Data Organization {-}
 
 This is a screenshot of an actual dataset that came across NCEAS. We have all seen spreadsheets that look like this - and it is fairly obvious that whatever this is, it isn't very tidy. Let's dive deeper in to exactly **why** we wouldn't consider it tidy.
 
 ![](images/tidy-data-images/tidy_data/excel-org-01.png)
 
-#### Multiple tables {-}
+### Multiple tables {-}
 
 Your human brain can see from the way this sheet is laid out that it has three tables within it. Although it is easy for us to see and interpret this, it is extremely difficult to get a computer to see it this way, which will create headaches down the road should you try to read in this information to R or another programming language.
 
 ![](images/tidy-data-images/tidy_data/excel-org-02.png)
 
-#### Inconsistent observations {-}
+### Inconsistent observations {-}
 
 Rows correspond to **observations**. If you look across a single row, and you notice that there are clearly multiple observations in one row, the data are likely not tidy.
 
 ![](images/tidy-data-images/tidy_data/excel-org-03.png)
 
-#### Inconsistent variables {-}
+### Inconsistent variables {-}
 
 Columns correspond to **variables**. If you look down a column, and see that multiple variables exist in the table, the data are not tidy. A good test for this can be to see if you think the column consists of only one unit type.
 
 ![](images/tidy-data-images/tidy_data/excel-org-04.png)
 
-#### Marginal sums and statistics {-}
+### Marginal sums and statistics {-}
 
 Marginal sums and statistics also are not considered tidy, and they are not the same type of observation as the other rows. Instead, they are a combination of observations.
 
 ![](images/tidy-data-images/tidy_data/excel-org-05.png)
 
-### Good enough data modeling
+## Good enough data modeling
 
-#### Denormalized data {-}
+### Denormalized data {-}
 
 When data are "denormalized" it means that observations about different entities are combined.
 
@@ -103,7 +103,7 @@ In the above example, each row has measurements about both the community in whic
 
 People often refer to this as *wide* format, because the observations are spread across a wide number of columns. Note that, should one survey another individual in either community, we would have to add new columns to the table. This is difficult to analyze, understand, and maintain.
 
-#### Tabular data {-}
+### Tabular data {-}
 
 **Observations**. A better way to model data is to organize the observations about each type of entity in its own table. This results in:
 
@@ -121,7 +121,8 @@ People often refer to this as *wide* format, because the observations are spread
 -   All columns pertain to the same observed entity (e.g., row)
 -   Each column represents either an identifying variable or a measured variable
 
-#### Challenge {- .exercise}
+:::{.callout-note}
+### Challenge
 
 Try to answer the following questions:
 
@@ -129,13 +130,13 @@ What are the observed entities in the example above?
 
 What are the measured variables associated with those observations?
 
-#### {-}
+:::
 
-
-Answer:
+:::{.callout-note collapse=true}
+### Answer
 
 ![](images/table-denorm-entity-var-ss.png)
-
+:::
 
 If we use these questions to tidy our data, we should end up with:
 
@@ -153,7 +154,7 @@ Note that this normalized version of the data meets the three guidelines set by 
 - Each column should contain only one type of information
 - Record a single piece of data only once; separate information collected at different scales into different tables.
 
-### Using normalized data
+## Using normalized data
 
 Normalizing data by separating it into multiple tables often makes researchers really uncomfortable. This is understandable! The person who designed this study collected all of this information for a reason - so that they could analyze it together. Now that our community and survey information are in separate tables, how would we use population as a predictor variable for language spoken, for example? The answer is keys - and they are the cornerstone of relational data models.
 
@@ -162,8 +163,8 @@ When one has normalized data, we often use unique identifiers to reference parti
 -   Primary Key: unique identifier for each observed entity, one per row
 -   Foreign Key: reference to a primary key in another table (linkage)
 
-
-#### Challenge {- .exercise}
+:::{.callout-note}
+### Challenge
 
 ![](images/tables-norm-ss.png)
 
@@ -172,29 +173,46 @@ In our normalized tables above, identify the following:
 - the primary key for each table
 - any foreign keys that exist
 
-#### {-}
+:::
 
-**Answer**
+:::{.callout-note collapse=true}
+### Answer
 
 The primary key of the top table is `community`. The primary key of the bottom table is `id`.
 
 The `community` column is the *primary key* of that table because it uniquely identifies each row of the table as a unique observation of a community. In the second table, however, the `community` column is a *foreign key* that references the primary key from the first table. 
 
 ![](images/tables-keys-ss.png)
+:::
 
-#### Entity-Relationship Model (ER) {-}
+## Entity-Relationship Model (ER)
 
 An Entity-Relationship model allows us to compactly draw the structure of the tables in a relational database, including the primary and foreign keys in the tables.
 
-![](images/plotobs-diagram-ss.png)
+```{mermaid}
+erDiagram
+    Responses |{--|| Communities : located_in
+    Communities {
+        string community PK
+        numeric latitude
+        numeric longitude
+        numeric population
+    }
+    Responses {
+        string id PK
+        string community FK
+        numeric age
+        string language
+    }
+```
 
 In the above model, one can see that each community in the community observations table must have one or more survey participants in the survey table, whereas each survey response has one and only one community.
 
 Here is a more complicated ER Model showing examples of other types of relationships.
 
-![](images/ERD_Relationship_Symbols_Quick_Reference-1.png)
+![](images/tidy-data-images/relational_data_models/ERD_Relationship_Symbols_Quick_Reference.png)
 
-#### Merging data {-}
+## Merging data
 
 Frequently, analysis of data will require merging these separately managed tables back together. There are multiple ways to join the observations in two tables, based on how the rows of one table are merged with the rows of the other.
 
@@ -208,7 +226,7 @@ Sometimes people represent these as Venn diagrams showing which parts of the lef
 
 In the figure above, the blue regions show the set of rows that are included in the result. For the INNER join, the rows returned are all rows in A that have a matching row in B.
 
-### Data modeling exercise
+## Data modeling exercise
 
 -   Break into groups
 
@@ -222,7 +240,7 @@ Include as variables (columns) a basic set of information not only from the surv
 Draw your entity-relationship model for your tables.
 
 
-### Resources
+## Resources
 
 -   [Borer et al. 2009. **Some Simple Guidelines for Effective Data Management.** Bulletin of the Ecological Society of America.](http://matt.magisa.org/pubs/borer-esa-2009.pdf)
 -   [White et al. 2013. **Nine simple ways to make it easier to (re)use your data.** Ideas in Ecology and Evolution 6.](https://doi.org/10.4033/iee.2013.6b.6.f)
