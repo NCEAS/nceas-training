@@ -51,7 +51,6 @@ library(DT) # interactive tables
 
 ```
 
-
 2. Load the data table directly from the [KNB Data Repository: Daily salmon escapement counts from the OceanAK database, Alaska, 1921-2017](https://knb.ecoinformatics.org/view/doi%3A10.5063%2FP26WJJ). Navigate to the link above, hover over the "Download" button for the `ADFG_firstAttempt_reformatted.csv`, right click, and select "Copy Link".
 
 ```{r}
@@ -106,7 +105,6 @@ colnames(escape)
 
 :::
 
-
 ::: callout-note
 ### Exercise
 
@@ -130,7 +128,8 @@ The chunk above used some dplyr commands that we've used previously, and some th
 
 ## Plotting with `ggplot2`
 
-### Essentials components
+### Essential components
+
 First, we’ll cover some `ggplot2` basics to create the foundation of our plot. Then, we’ll add on to make our great customized data visualization.
 
 ::: {.callout-caution icon=false}
@@ -178,6 +177,35 @@ ggplot(data = annual_esc,
        aes(x = species, y = escapement)) +
     geom_col()
 ```
+
+Let's take a minute to review a few of the core components of a ggplot visualization, and see how they relate back to the data that we are plotting. Consider this small subset of 12 records from our escapement data, and a corresponding scatterplot of daily fish counts across 5 days for a particular region.
+
+:::{.column-body-outset}
+![](images/ggplot-data-to-viz.png){.lightbox width=100% fig-align="center"}
+:::
+
+<!---
+figure_data <- escape %>%
+  filter(sasap_region == "Kodiak",
+           "1950-07-26" <= sample_date,
+           sample_date <= "1950-07-30",
+           0 < daily_count,
+           species %in% c("Pink", "Sockeye"))
+figure_data %>%
+  select(sample_date, location, species, daily_count) %>%
+  knitr::kable() %>%
+  kableExtra::kable_styling()
+figure_data %>%
+  ggplot +
+    geom_point(aes(sample_date, daily_count, colour=species, shape=location),
+               size=3) +
+    scale_x_date("Sample date") +
+    scale_y_log10("Daily count", label=scales::comma) +
+    scale_shape_discrete("Location") +
+    scale_color_discrete("Species") +
+    theme_light()
+--->
+
 
 ### Looking at different geoms
 
