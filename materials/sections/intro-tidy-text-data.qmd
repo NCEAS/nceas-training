@@ -30,29 +30,44 @@ Raw text data is often unstructured and quite "messy". This could include wrong 
 
 Here is a list of text data or text analysis terms we'll be referring to throughout this lesson. Note this is not a comprehensive list of text analysis terms that are used beyond this lesson.
 
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Term                              | Definition                                                                                                                                                                                                                                                                                                                                                                                                     |
-+===================================+================================================================================================================================================================================================================================================================================================================================================================================================================+
-| Corpus (corpora, plural)          | Collection or database of text or multiple texts. These types of objects typically contain raw strings annotated with additional metadata and details.                                                                                                                                                                                                                                                         |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Document-feature matrix (DFM)     | Represents the relationship between features and documents, where each row is a document and each column corresponds to a set of features. Features are not limited to terms and can include a variety of attributes that describe the documents. Each cell in the matrix contains a value that represents the presence, absence, or some quantitative measure of a specific feature in a particular document. |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Document-term matrix (DTM)        | Represents the relationship between terms and documents, where each row stands for a document and each column represents a term, and an entry is the number of occurrences of the term in the document.                                                                                                                                                                                                        |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Natural Language Processing (NLP) | NLP is an interdisciplinary field used in computer science, data science, linguistics, and others to analyze, categorize, and work with computerized text.                                                                                                                                                                                                                                                     |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Sparse matrix                     | A matrix where the majority of the entries are zero.                                                                                                                                                                                                                                                                                                                                                           |
-|                                   |                                                                                                                                                                                                                                                                                                                                                                                                                |
-|                                   | Both DFM and DTM are sparse matrices and this is normal. Typically, the bigger the DTM or DFM, the more zeros you'll see.                                                                                                                                                                                                                                                                                      |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| String                            | Specific type of data whose values are enclosed within a set of quotes. Typically values or elements are characters (e.g. "Hello World!").                                                                                                                                                                                                                                                                     |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Text analysis                     | The process of deriving high-quality information or patterns from text through evaluation and interpretation of the output. Also referred to as "text mining" or "text analytics".                                                                                                                                                                                                                             |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Token                             | A meaningful unit of text, such as a word, to use for analysis.                                                                                                                                                                                                                                                                                                                                                |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Tokenization                      | The process of splitting text into tokens.                                                                                                                                                                                                                                                                                                                                                                     |
-+-----------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------------------------+------------------------------------------------------------------------+
+| Term                              | Definition                                                             |
++===================================+========================================================================+
+| String                            | Specific type of data whose values are enclosed within a set of        |
+|                                   | quotes. Typically values or elements are characters (e.g. "Hello       |
+|                                   | World!").                                                              |
++-----------------------------------+------------------------------------------------------------------------+
+| Corpus (corpora, plural)          | Collection or database of text or multiple texts. These types of       |
+|                                   | objects typically contain raw strings annotated with additional        |
+|                                   | metadata and details.                                                  |
++-----------------------------------+------------------------------------------------------------------------+
+| Token                             | A meaningful unit of text, such as a word, to use for analysis.        |
++-----------------------------------+------------------------------------------------------------------------+
+| Tokenization                      | The process of splitting text into tokens.                             |
++-----------------------------------+------------------------------------------------------------------------+
+| Text analysis                     | The process of deriving high-quality information or patterns from text |
+|                                   | through evaluation and interpretation of the output. Also referred to  |
+|                                   | as "text mining" or "text analytics".                                  |
++-----------------------------------+------------------------------------------------------------------------+
+| Natural Language Processing (NLP) | NLP is an interdisciplinary field used in computer science, data       |
+|                                   | science, linguistics, and others to analyze, categorize, and work with |
+|                                   | computerized text.                                                     |
++-----------------------------------+------------------------------------------------------------------------+
+| Document-feature matrix (DFM)     | Represents the relationship between features and documents, where each |
+|                                   | row is a document and each column corresponds to a set of features.    |
+|                                   | Features are not limited to terms and can include a variety of         |
+|                                   | attributes that describe the documents. Each cell in the matrix        |
+|                                   | contains a value that represents the presence, absence, or some        |
+|                                   | quantitative measure of a specific feature in a particular document.   |
++-----------------------------------+------------------------------------------------------------------------+
+| Document-term matrix (DTM)        | Represents the relationship between terms and documents, where each    |
+|                                   | row stands for a document and each column represents a term, and an    |
+|                                   | entry is the number of occurrences of the term in the document.        |
++-----------------------------------+------------------------------------------------------------------------+
+| Sparse matrix                     | A matrix where the majority of the entries are zero. Both DFM and DTM  |
+|                                   | are sparse matrices and this is normal. Typically, the bigger the DTM  |
+|                                   | or DFM, the more zeros you'll see.                                     |
++-----------------------------------+------------------------------------------------------------------------+
 
 ### How is text data used in the environmental field?
 
@@ -102,7 +117,7 @@ The package contains many useful functions to wrangle text data into tidy format
 
 ![Source: Silge & Robinson](images/tidytext-tidy-workflow.png)
 
-We are going to use the `gutenbergr` package to access public domain texts from [Project Gutenberg](https://www.gutenberg.org/) (a library of free eBooks). We'll then use the `tidytext`, `dyplr` and `ggplot2` packages to practice the tidy text workflow.
+We are going to use the `gutenbergr` package to access public domain texts from [Project Gutenberg](https://www.gutenberg.org/) (a library of free eBooks). We'll then use the `tidytext`, `dplyr` and `ggplot2` packages to practice the tidy text workflow.
 
 ::: callout-tip
 ### Setup
@@ -115,10 +130,10 @@ We are going to use the `gutenbergr` package to access public domain texts from 
 #| warning: false
 #| message: false
 
-library(gutenbergr) # access public domain texts from Project Gutenberg
-library(tidytext) # text mining using tidy tools
 library(dplyr) # wrangle data
 library(ggplot2) # plot data
+library(tidytext) # text mining using tidy tools
+library(gutenbergr) # access public domain texts from Project Gutenberg
 ```
 
 3.  Depending on which group you're in, use one of the following public domain texts:
@@ -132,31 +147,37 @@ gutenberg_works(title == "Emma")  # id: 158
 gutenberg_works(title == "The Wonderful Wizard of Oz")  # id: 55
 
 # Group C
-gutenberg_works(title == "The Phantom of the Opera") # phantom text
+gutenberg_works(title == "The Phantom of the Opera") # id: 175
 ```
 :::
 
 ### Questions
 
-The answers in the code chunks are using the text of *Heidi*.
+The answers in the code chunks below are using the text of *Heidi*.
 
 ::: callout-note
 #### Question 1
 
-Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `{book-title}_corp`. View the object - is the data in a tidy format?
+Get the id number from the `gutenberg_works()` function so that you can download the text as a corpus using the function `gutenberg_download()`. Save the corpus to an object called `txt_corp`. View the object - is the data in a tidy format?
 :::
 
+<!-- Note: When compiling this document, we'll load from local files rather than pulling over the internet -->
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-#| output: false
-
+#| eval: false
 
 # get id number
 gutenberg_works(title == "Heidi")  # id: 1448
 
 # access text data using id number from `gutenberg_works()`
 txt_corp <- gutenberg_download(1448)
+```
+
+```{r}
+#| echo: false
+txt_corp <- gutenberg_download(gutenberg_id = 1448,
+    mirror = "local", files = "data/text/1448.zip")
 ```
 
 ::: callout-note
@@ -169,8 +190,7 @@ Tokenize the corpus data using `unnest_tokens()`. Take a look at the data - do w
 #| code-fold: true
 #| code-summary: Answer
 
-
-# tidy text data - unnest and remove stop words
+# tidy data - unnest
 txt_tidy <- txt_corp %>%
     unnest_tokens(word, text)
 
@@ -189,7 +209,6 @@ Take a look at the data - are you satisfied with your data? We won't conduct any
 #| code-fold: true
 #| code-summary: Answer
 
-
 # remove stop words
 txt_tidy <- txt_tidy %>%
     dplyr::anti_join(stop_words, by = "word")
@@ -206,7 +225,6 @@ Calculate the top 10 most frequent words using the functions `count()` and `slic
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-
 
 # calculate top 10 most frequent words
 txt_count <- txt_tidy %>%
@@ -228,29 +246,25 @@ We recommend creating either a bar plot using `geom_col()` or a lollipop plot us
 #| code-fold: true
 #| code-summary: Bar Plot Code
 
-
 # bar plot
 ggplot(data = txt_count, aes(n, reorder(word, n))) +
-  geom_col() +
-    labs(x = "Count",
-         y = "Token")
+    geom_col() +
+        labs(x = "Count",
+             y = "Token")
 ```
-
 
 ```{r}
 #| code-fold: true
 #| code-summary: Base Lollipop Plot Code
 
-
 # initial lollipop plot
-ggplot(data = txt_count, aes(x=word, y=n)) +
+ggplot(data = txt_count, aes(x = word, y = n)) +
     geom_point() +
     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
     coord_flip() +
     labs(x = "Token",
          y = "Count")
 ```
-
 
 ### Bonus Question
 
@@ -265,9 +279,10 @@ Consider elements in `theme()` and improve your plot.
 #| code-summary: Custom Lollipop Plot Code
 
 # ascending order pretty lollipop plot
-ggplot(data = txt_count, aes(x=reorder(word, n), y=n)) +
-    geom_point(color="cyan4") +
-    geom_segment(aes(x=word, xend=word, y=0, yend=n), color="cyan4") +
+ggplot(data = txt_count, aes(x = reorder(word, n), y = n)) +
+    geom_point(color = "cyan4") +
+    geom_segment(aes(x=word, xend=word, y=0, yend=n),
+                 color = "cyan4") +
     coord_flip() +
     labs(title = "Top Ten Words in The Phantom of the Opera",
          x = NULL,
@@ -288,7 +303,6 @@ In the [Tidy Text Workflow Exercise](#exercise-tidy-text-workflow), we converted
 Many text analysis methods, in particular NLP techniques (e.g. topic models) require text data to be stored in a mathematical format. **A common approach is to create a matrix, such as a: sparse matrix, a document term matrix (DTM), or a document-feature matrix (DFM)**. In a matrix format, algorithms are able to more easily compare one document to many other documents to identify patterns.
 
 Silge and Robinson kept this in mind as they built the `tidytext` package, and included helpful `cast()` functions to turn a tidy text object (again a table with one-token-per-row) into a matrix.
-
 
 <!---
 
@@ -365,7 +379,7 @@ all_books_dfm <- all_books_tidy %>%
 
 ## Exercise: Explore Unstructured Text Data from a PDF
 
-Frequently the text data we want to analyzed is in PDF format. In the next exercise we walk through how to read in a PDF file into R to be able to programmatically analyze the text. 
+Frequently the text data we want to analyzed is in PDF format. In the next exercise we walk through how to read in a PDF file into R to be able to programmatically analyze the text.
 
 ::: callout-tip
 ### Setup
@@ -388,41 +402,32 @@ library(ggplot2) # plots
 library(wordcloud)
 ```
 
-3.  Depending on which group you're in, read in one of the following chapters of the Delta Plan. Access and download the chapters of the Delta Plan from [Delta Stewardship Council website](https://deltacouncil.ca.gov/delta-plan/).
+3. Load a publication stored in the Arctic Data Center within the data package [Assessing Knowledge, Resilience & Adaptation and Policy Needs in Northern Russian Villages Experiencing Unprecedented Climate Change](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2ZW18T65). To get the link to a specific paper that you'll read into R, manually visit the page linked above, hover over the "Download" button for the on of the PDF reports, right click, and select "Copy Link". Then in R you can read in the associated PDF document over the web using the `pdftools` package.
+
+Here we demonstrate using _Crate_Current_Anthropology 2008.pdf_.
+
+```{r}
+#| eval: false
+pdf_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3Aea1c26fa-e91c-4f33-9993-4e86d00818d8"
+anthro_pdf <- pdftools::pdf_text(pdf_url)
+```
+
+```{r}
+#| echo: false
+pdf_path <- "data/text/crate-current-anthropology-2008.pdf"
+anthro_pdf <- pdftools::pdf_text(file.path(pdf_path))
+```
 
 **Notes for quick exploration of data:**
 
 -   Check the `class()` of the pdf you just read in - is it what you expected? How does the object appear in the Global Environment?
 -   Call the object in the Console. What does your data look like? What can you infer from how it's structured?
 
-```{r}
-#| eval: false
-
-# ch 3
-path_df <- "data/dsc-plan-ch3.pdf"
-dp_ch3 <- pdftools::pdf_text(path_df)
-
-# ch 4
-path_df <- "data/dsc-plan-ch4.pdf"
-dp_ch4 <- pdftools::pdf_text(path_df)
-
-# ch 5
-path_df <- "data/dsc-plan-ch5.pdf"
-dp_ch5 <- pdftools::pdf_text(path_df)
-
-# ch 6
-path_df <- "data/dsc-plan-ch6.pdf"
-dp_ch6 <- pdftools::pdf_text(path_df)
-```
-
-We will demonstrate using Chapter 8.
-
-```{r}
-path_df <- "data/text/dsc-plan-ch8.pdf"
-dp_ch8 <- pdftools::pdf_text(path_df)
-```
-
 4.  Using the `quanteda` package, turn the unstructured pdf text data into a corpus.
+
+```{r}
+anthro_corpus <- quanteda::corpus(anthro_pdf)
+```
 
 **Notes for quick exploration of data:**
 
@@ -430,29 +435,21 @@ dp_ch8 <- pdftools::pdf_text(path_df)
 -   Call the object in the Console. What does your data look like? How does this structure compare to the pdf object?
 -   Run `summary()` of the corpus in the Console. What insights can you glean?
 
+5.  Using `tidy()` from `tidytext`, make the corpus a tidy object.
 
 ```{r}
-dp_ch8_corpus <- quanteda::corpus(dp_ch8)
+anthro_tidy <- tidy(anthro_corpus)
 ```
-
-5.  Using `tidy()` from `tidytext`, make the corpus a tidy object.
 
 **Notes for quick exploration of data:**
 
 -   Check the `class()` of the corpus you created - is it what you expected? How does the object appear in the Global Environment?
 -   Call the object in the Console or use `View()`. What does your data look like? Is it what you expected?
-
-
-```{r}
-
-# ch 8 is used for demonstration and testing
-dp_ch8_tidy <- tidy(dp_ch8_corpus)
-```
 :::
 
 ### Questions
 
-Work independently or in groups for Question 1-5. The code solutions are based on the text data from Chapter 8 of the Delta Plan.
+Work independently or in groups for Question 1-5. The code solutions are based on the text data from the publication we loaded above.
 
 ::: callout-note
 #### Question 1
@@ -463,7 +460,7 @@ Tokenize the tidy text data using `unnest_tokens()`
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-dp_ch8_unnest <- dp_ch8_tidy %>%
+anthro_unnest <- anthro_tidy %>%
     unnest_tokens(output = word,
                   input = text)
 ```
@@ -478,7 +475,7 @@ Remove stop words using `anti_join()` and the `stop_words` data frame from `tidy
 #| code-fold: true
 #| code-summary: Answer
 #| message: false
-dp_ch8_words <- dp_ch8_unnest %>%
+anthro_words <- anthro_unnest %>%
     dplyr::anti_join(stop_words)
 ```
 
@@ -491,7 +488,7 @@ Calculate the top 10 most frequently occurring words. Consider using `count()` a
 ```{r}
 #| code-fold: true
 #| code-summary: Answer
-dp_ch8_count <- dp_ch8_words %>%
+anthro_count <- anthro_words %>%
     count(word) %>%
     slice_max(n = 10, order_by = n)
 ```
@@ -506,10 +503,10 @@ Visualize the results using a plot of your choice (e.g. bar plot, lollipop plot,
 #| code-fold: true
 #| code-summary: Bar Plot Code
 # bar plot
-ggplot(dp_ch8_count, aes(x = reorder(word, n), y = n)) +
+ggplot(anthro_count, aes(x = reorder(word, n), y = n)) +
     geom_col() +
     coord_flip() +
-    labs(title = "Top 10 Most Frequently Occurring Words in Chapter 8 of the Delta Plan",
+    labs(title = "Top 10 Most Frequently Occurring Words",
          x = NULL,
          y = "count") +
     theme_minimal()
@@ -519,11 +516,11 @@ ggplot(dp_ch8_count, aes(x = reorder(word, n), y = n)) +
 #| code-fold: true
 #| code-summary: Lollipop Plot Code
 # lollipop plot
-ggplot(data = dp_ch8_count, aes(x=reorder(word, n), y=n)) +
+ggplot(data = anthro_count, aes(x = reorder(word, n), y = n)) +
     geom_point() +
     geom_segment(aes(x=word, xend=word, y=0, yend=n)) +
     coord_flip() +
-    labs(title = "Top 10 Most Frequently Occurring Words in Chapter 8 of the Delta Plan",
+    labs(title = "Top 10 Most Frequently Occurring Words",
          x = NULL,
          y = "Count") +
     theme_minimal()
@@ -533,8 +530,8 @@ ggplot(data = dp_ch8_count, aes(x=reorder(word, n), y=n)) +
 #| code-fold: true
 #| code-summary: Wordcloud Plot Code
 # wordcloud
-wordcloud(words = dp_ch8_count$word,
-          freq = dp_ch8_count$n)
+wordcloud(words = anthro_count$word,
+          freq = anthro_count$n)
 ```
 
 ### Bonus Question
@@ -577,106 +574,316 @@ The text analysis tools, methods, and packages depend greatly on your specific t
 | Dependency Parsing             | `udpipe`, `spaCy`, `openNLP`             | Analyze grammatical structure and word dependencies.    |
 +--------------------------------+------------------------------------------+---------------------------------------------------------+
 
+### Exercise: Basic sentiment analysis
+
+Let's return to the Heidi text we examined earlier, and do some quick & dirty analysis of how sentiment changes throughout the book.
+
+To do this, we'll use the sentiment lexicon from Bing Liu and collaborators [@hu2004]. This lexicon, which is distributed in the `tidytext` package, includes nearly 7,000 english words manually labeled as either positive or negative sentiment.
+
+Here's the plan:
+
+1. Number every line in the book
+2. Tokenize the text into a tidy format, preserving the source line of each word
+3. Join on the Bing lexicon to retain only words with labeled sentiment
+4. For sequential chunks of 25 lines, count the number of positive words and the number of negative words
+5. Calculate a simple sentiment score as the difference between the positive word count and the negative word count
+
+And here's how that looks in code:
+
+```{r}
+bing <- get_sentiments("bing")
+lines_per_chunk <- 25
+
+txt_sentiment <- txt_corp %>%
+    mutate(line = row_number()) %>%
+    unnest_tokens(word, text) %>%
+    inner_join(bing, by="word", relationship = "many-to-many") %>%
+    count(chunk = line %/% lines_per_chunk, sentiment) %>%
+    tidyr::pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>%
+    mutate(sentiment = positive - negative)
+```
+
+To get a better feel for what's happening in the code above, try running it one line at a time to understand how the data is transformed by each operation.
+
+Let's plot these scores and see how sentiment changes throughout the book, in chunks of 25 lines at a time. (As an exercise, you may want to try running the code and visualization for different values of `lines_per_chunk`; there's certainly nothing magical about 25 lines!)
+
+```{r}
+ggplot(txt_sentiment, aes(chunk, sentiment, fill=sentiment)) +
+    geom_col() +
+    scale_x_continuous(paste0("Text chunk (", lines_per_chunk, " lines each)")) +
+    scale_y_continuous("Sentiment") +
+    scale_fill_gradient2(low="red", mid="gray50", high="green",
+                         guide="none")
+```
+
+For fun, let's extract the chunk with the most negative score, then pull
+that section of the book to see whether the low score makes sense to us.
+
+```{r}
+chunk_index <- txt_sentiment %>%
+    slice_min(sentiment, n=1) %>%
+    pull(chunk)
+txt_corp %>%
+    filter(chunk_index * lines_per_chunk <= row_number()) %>%
+    select(text) %>%
+    head(lines_per_chunk) %>%
+    print(n=lines_per_chunk)
+```
+
+And same for the chunk with the most positive score. What do you think? Does this seem like a more positive passage compared with the one above?
+
+```{r}
+## What's the most positive chunk?
+chunk_index <- txt_sentiment %>%
+    slice_max(sentiment, n=1) %>% pull(chunk)
+txt_corp %>%
+    filter(chunk_index * lines_per_chunk <= row_number()) %>%
+    select(text) %>%
+    head(lines_per_chunk) %>%
+    print(n=lines_per_chunk)
+```
+
+<!--
+```{r}
+#| eval: false
+txt_corp %>%
+    filter(lines_per_chunk * chunk_index <= row_number()) %>%
+    head(lines_per_chunk) %>%
+    unnest_tokens(input=text, output=word) %>%
+    anti_join(stop_words) %>%
+    inner_join(bing) %>%
+    count(word, sentiment, sort=TRUE)
+```
+-->
+
+<!--
+```{r}
+#| eval: false
+tmp <- txt_corp %>%
+    unnest_tokens(input=text, output=word) %>%
+    anti_join(stop_words) %>%
+    count(word, sort=TRUE) %>%
+    inner_join(bing) %>%
+    filter(10 <= n) %>%
+    mutate(n = ifelse(sentiment=="positive", n, -n)) %>%
+    arrange(desc(n))
+
+tmp %>%
+    mutate(row = row_number(),
+         sentiment = ifelse(0<n, "Positive", "Negative")) %>%
+    ggplot(aes(row, n)) +
+        ggrepel::geom_text_repel(aes(label=word, colour=sentiment),
+                                 max.overlaps=75) +
+        scale_color_manual(values=c(Positive="green", Negative="red"))
+```
+-->
+
 ### Exercise: Basic topic modeling
+
+Now let's switch back to the northern Russia village assessment we looked at earlier, published by Susan Crate. This time we'll add two more publications from that package, and do some basic topic modeling.
+
+::: callout-note
+#### Step 0
+
+Before we get going, let's load the `topicmodels` package.
+:::
 
 ```{r}
 library(topicmodels)
 ```
 
-### Steps
-
 ::: callout-note
 #### Step 1
 
-Get some PDFs from the Delta Stewardship Council
+Now read in two additional publications from the the Arctic Data Center entry [here](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2ZW18T65). In particular, let's get the URLs for _Crate_Weather Climate Society 2011.pdf_ and _Crate_Human Ecology Review 2008.pdf_.
 :::
 
+<!-- Note: When compiling this document, we'll load from local files rather than pulling over the internet -->
 ```{r}
-#| code-fold: true
-#| code-summary: Answer
-#| output: false
 #| eval: false
-delta_url <- "https://deltacouncil.ca.gov/pdf/delta-plan/"
-dp_ch3 <- pdftools::pdf_text(paste0(delta_url, "2018-04-26-amended-chapter-3.pdf"))
-dp_ch4 <- pdftools::pdf_text(paste0(delta_url, "2022-06-29-chapter-4-protect-restore-and-enhance-the-delta-ecosystem.pdf"))
+pdf_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3Ad7aedbec-8404-4194-a303-b6730065f499"
+climate_pdf <- pdftools::pdf_text(pdf_url)
+
+pdf_url <- "https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3Ac78be0d8-9b22-4bc0-8e16-0e3823212250"
+human_pdf <- pdftools::pdf_text(pdf_url)
 ```
 
 ```{r}
 #| echo: false
-path_df <- "data/text/dsc-plan-ch3.pdf"
-dp_ch3 <- pdftools::pdf_text(path_df)
+pdf_path <- "data/text/crate-weather-climate-society-2011.pdf"
+climate_pdf <- pdftools::pdf_text(pdf_path)
 
-path_df <- "data/text/dsc-plan-ch4.pdf"
-dp_ch4 <- pdftools::pdf_text(path_df)
+pdf_path <- "data/text/crate-human-ecology-review-2008.pdf"
+human_pdf <- pdftools::pdf_text(file.path(pdf_path))
 ```
 
 ::: callout-note
 #### Step 2
 
-Tidy the data using word tokens, remove stop words, and combine both
-into one dataframe.
+For each newly loaded PDF document, tidy the data using word tokens, then remove stop words. This should start to feel familiar by now! As an added step, we'll combine all three tidied datasets into one dataframe using the `dplyr::bind_rows()` function, while adding a simple `document` label to keep trap of where all the text game from.
 :::
 
 ```{r}
-#| code-fold: true
-#| code-summary: Answer
-#| output: false
+#| message: false
+climate_words <- climate_pdf %>%
+    quanteda::corpus() %>%
+    tidy() %>%
+    unnest_tokens(word, text) %>%
+    anti_join(stop_words)
 
-dp_ch3_words <- dp_ch3 %>%
-  quanteda::corpus() %>%
-  tidy() %>%
-  unnest_tokens(word, text) %>%
-  anti_join(stop_words)
+human_words <- human_pdf %>%
+    quanteda::corpus() %>%
+    tidy() %>%
+    unnest_tokens(word, text) %>%
+    anti_join(stop_words)
 
-dp_ch4_words <- dp_ch4 %>%
-  quanteda::corpus() %>%
-  tidy() %>%
-  unnest_tokens(word, text) %>%
-  anti_join(stop_words)
-
-dp_words <- bind_rows(
-  dp_ch3_words %>% mutate(document="Chapter3"),
-  dp_ch4_words %>% mutate(document="Chapter4")
+crate_words <- bind_rows(
+    anthro_words %>% mutate(document="Anthropology"),
+    human_words %>% mutate(document="Human"),
+    climate_words %>% mutate(document="Climate")
 )
 ```
 
 ::: callout-note
 #### Step 3
 
-Create a document-term matrix.
+This time, we're going to put a little more effort into the data
+preprocessing. In particular, let's:
+
+1. Remove all terms (words) that start with a digit (0-9).
+2. Remove terms "pp" and "volume", which are distracting from our goal of identifying substantative topics.
+3. Find all places where the words "climate" and "change" appear in sequence, and replace these with a compound "climate_change" term.
+
 :::
 
 ```{r}
-#| code-fold: true
-#| code-summary: Answer
-#| output: false
+# remove words starting with a digit
+crate_words <- crate_words %>%
+    filter(!stringr::str_detect(word, "^[0-9]")) %>%
+    filter(!word %in% c("pp", "volume"))
 
-dp_dtm <- dp_words %>%
-  count(document, word, sort = TRUE) %>%
-  cast_dtm(document, word, n)
+# combine "climate" and "change" into "climate_change"!
+crate_words <- crate_words %>%
+    mutate(word = ifelse(word=="climate" & lead(word)=="change",
+                         "climate_change", word)) %>%
+    filter(!(word=="change" | lag(word)=="climate_change"))
 ```
 
 ::: callout-note
 #### Step 4
 
-Run topic modeling using Latent Dirichlet allocation (LDA).
+Now that we have a nicely preprocessed (and tidy!) dataframe with our documents and terms, we're ready to convert this into a document-term matrix for input into the topic model. After you create this in your session, have a look at the object. Does its structure make sense?
 :::
 
 ```{r}
-#| code-fold: true
-#| code-summary: Answer
-#| output: false
-
-dp_lda <- LDA(dp_dtm, k = 2, control = list(seed = 1234))
-dp_topics <- tidy(dp_lda, matrix = "beta")
-
-dp_top_terms <- dp_topics %>%
-  group_by(topic) %>%
-  slice_max(beta, n = 20) %>%
-  ungroup() %>%
-  arrange(topic, -beta)
+crate_dtm <- crate_words %>%
+    count(document, word, sort = TRUE) %>%
+    cast_dtm(document, word, n)
 ```
 
+::: callout-note
+#### Step 5
+
+Now that the prep work is all done, it's time to do the topic model itself -- in just one line of code!
+
+Here we are using **Latent Dirichlet Allocation** (LDA). LDA is a commonly used topic model that assumes (a) each document is composed of some set of topics, and (2) each topic is composed of a set of words. More precisely, it assumes each document is a particular _probability distribution_ over topics, and each topic is a _probability distribution_ over words. If you're new to this stuff, that might sound like a mouthful, but we'll see some probabilities later, so it's worth mentioning it now.
+
+Like many traditional models, note that LDA treats documents as _bags of words_, discarding information about word order, word proximity, and other high level semantic structures. But the trade-off is that running an LDA is fast and cheap!
+
+One of the hyperparameters of LDA -- i.e., things we have to choose as analysts - is how many topics to model across all of the documents. LDA is not capable of figuring this out on its own. There are ways to tune this parameter, but for this exercise we'll just used a fixed set of 4 topics, specified by the argument `k` below.
+:::
+
+```{r}
+crate_lda <- LDA(crate_dtm, k = 4, control = list(seed = 99))
+```
+
+::: callout-note
+#### Step 6
+
+Using the LDA output, we can ask some questions of the fitted model.
+
+For starters, for each topic, what are the estimated probabilities of each word? In rough terms, this is a measure of the strength of association between each word and each topic. The `tidy` function let's us extract these so-called _beta_ values very easily from the fitted LDA object. Below, we'll extract the 20 highest probability words for each of our 4 topics.
+:::
+
+```{r}
+crate_term_topics <- tidy(crate_lda, matrix = "beta")
+
+crate_top_terms <- crate_term_topics %>%
+    group_by(topic) %>%
+    slice_max(beta, n = 20) %>%
+    ungroup() %>%
+    arrange(topic, -beta)
+```
+
+::: callout-note
+#### Step 7
+
+Using these top terms per topic, we can plot a bar chart that helps us figure out what _are_ these four inferred topics, as described using the words most strongly associated with each one.
+:::
+
+```{r}
+#| fig-height: 7
+crate_top_terms %>%
+    mutate(topic = paste("Topic", topic),
+           term = reorder_within(term, beta, topic)) %>%
+    ggplot(aes(beta, term, fill = topic)) +
+        geom_col(show.legend = FALSE) +
+        scale_x_continuous("Probability",
+                           label = scales::label_percent()) +
+        scale_y_reordered("Term") +
+        facet_wrap(~ topic, scales = "free_y")
+```
+
+::: callout-note
+#### Step 8
+
+Now let's get a sense of the relationship between each document and the inferred topics. To do this, we'll again use the `tidy()` function, but this time with the "gamma" argument to extract document-topic probabilities. In rough terms, these measure the strength of association between each document and each topic.
+
+With only 3 documents and 4 topics, it's straightforward to look at the extracted probabilities directly, but let's still use `ggplot` to make a simple heat map to show the pattern visually.
+
+:::
+
+```{r}
+crate_doc_topics <- tidy(crate_lda, matrix = "gamma")
+
+crate_doc_topics %>%
+    ggplot() +
+        geom_tile(aes(document, topic, fill = gamma)) +
+        scale_fill_gradient("Probability", limits = c(0, 1),
+                            low = "white", high = "tomato2",
+                            label = scales::label_percent()) +
+        labs(x = "Document", y = "Topic")
+```
+
+::: callout-note
+#### Step 9
+
+Below, we'll extract the highest probability document for each topic, join it back to the top words, and visualize those top words in a faceted chart labeling the most strongly associated document (and its estimate probability). Whew!
+
+:::
+
+```{r}
+#| fig-height: 7
+crate_top_doc_topics <- crate_doc_topics %>%
+    group_by(topic) %>%
+    slice_max(order_by = gamma, n = 1) %>%
+    mutate(percent = paste0(round(100*gamma), "%"),
+           document = paste0(document, " (", percent, ")"))
+crate_top_doc_topics %>%
+    inner_join(crate_top_terms, by = "topic") %>%
+    mutate(term = reorder_within(term, beta, topic)) %>%
+    ggplot(aes(beta, term, fill = factor(topic))) +
+        geom_col() +
+        scale_x_continuous("Probability",
+                           label = scales::label_percent()) +
+        scale_y_reordered("Term") +
+        scale_fill_discrete("Topic") +
+        facet_wrap(~ document, scales = "free_y")
+```
+
+There we have it! What do you think about these topics? Do they kind of make sense? An interesting property of LDA is that it allows terms to participate in multiple topics. The topics here have a lot of overlap, which probably makes sense given that these papers have a lot in common.  However, you should be able to get a sense for how the topics differ based on their term composition, and hence a corresponding flavor for each of the corresponding documents.
+
+<!--
 ::: callout-note
 #### Step 4
 
@@ -688,38 +895,20 @@ What are the top terms?
 #| code-summary: Answer
 #| output: true
 
-dp_top_terms %>%
-  mutate(term = reorder_within(term, beta, topic)) %>%
-  ggplot(aes(beta, term, fill = factor(topic))) +
-  geom_col(show.legend = FALSE) +
-  facet_wrap(~ topic, scales = "free") +
-  scale_y_reordered()
-```
-
-::: callout-note
-#### Step 5
-
-What _are_ these two topics, as expressed using the words most strongly associated with each one?
-:::
-
-```{r}
-#| code-fold: true
-#| code-summary: Answer
-#| output: true
-
-beta_wide <- dp_topics %>%
-  mutate(topic = paste0("topic", topic)) %>%
-  tidyr::pivot_wider(names_from = topic, values_from = beta) %>%
-  filter(topic1 > .001 | topic2 > .001) %>%
-  mutate(log_ratio = log2(topic2 / topic1))
+beta_wide <- crate_term_topics %>%
+    mutate(topic = paste0("topic", topic)) %>%
+    tidyr::pivot_wider(names_from = topic, values_from = beta) %>%
+    filter(topic1 > .001 | topic2 > .001) %>%
+    mutate(log_ratio = log2(topic2 / topic1))
 
 beta_wide %>%
-  mutate(term=reorder(term, log_ratio)) %>%
-  slice_max(abs(log_ratio), n=20) %>%
-  ggplot +
-    geom_col(aes(term, log_ratio)) +
-    coord_flip()
+    mutate(term=reorder(term, log_ratio)) %>%
+    slice_max(abs(log_ratio), n = 20) %>%
+    ggplot +
+        geom_col(aes(term, log_ratio)) +
+        coord_flip()
 ```
+-->
 
 ::: {.callout-caution icon="false"}
 ### R Text Mining Tools and Analysis Packages Resources
