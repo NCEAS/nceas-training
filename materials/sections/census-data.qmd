@@ -163,7 +163,18 @@ The resulting data frame you get from this query is a tibble in "tidy" format wi
 -   variable = census code for the variable (eg. P1_001N is the code for the total population in the 2020 population redistricting file)
 -   value = population count
 
-This table provides data for one single variable. In this case the variable is "P1_001N" which refers to total population.
+This table provides data for one single variable. In this case the variable is `P1_001N` which refers to total population. Because those codes are relatively hard to keep track of, tidycensus provides a way to easily rename the variables when you request them by passing in a named vector for the requested variables, where each name is used rather than the census code:
+
+```{r}
+#| eval: false
+
+pop_2020_named <- get_decennial(
+    geography = "state",
+    variable = c(total_pop = "P1_001N"),
+    year = 2020)
+head(pop_2020_named)
+```
+![](images/tidycensus-totalpop.png)
 
 ::: callout-important
 ## Message
@@ -177,14 +188,14 @@ In the past other privacy methods have been used to preserve confidentiality. Di
 Only the population data is differentially infused. The household data are not.
 :::
 
-Note that to get total population data for the 2010 decennial census the variable code is different than the 2020 census (even though the arguments of the functions are the same). In this case the code would look like this.
+Note that to get total population data for the 2010 decennial census the variable code is different than the 2020 census (even though the arguments of the functions are the same). In this case the variable code would be different, but we can still name it `total_pop` to make it clear:
 
 ```{r}
 #| eval: false
 
 pop_2010 <- get_decennial(
   geography = "state", 
-  variables = "P001001",
+  variables = c(total_pop = "P001001"),
   year = 2010)
 
 ```
@@ -305,7 +316,7 @@ To learn more about the arguments for geography for each core function of `tidyc
 
 #### Quering for multiple variables
 
-The `varaible` argument can take a vector of variables as an input, allowing to query for more than one variable at the time. We can create a vector and then call that vector as the input of the `variable` argument, or we can use the concatenate function `c()` and request data from multiple variables.
+The `variable` argument can take a vector of variables as an input, allowing to query for more than one variable at the time. We can create a vector and then call that vector as the input of the `variable` argument, or we can use the concatenate function `c()` and request data from multiple variables.
 
 ```{r}
 #| eval: false
@@ -332,13 +343,13 @@ Note how this table returns the variable name we assigned in the vector above in
 
 Also, note that we added one more argument to our request `summary_var = "P2_001N`. This adds one more column to our output data frame, one with the summary variable value.
 
-In every table you can generally find a variable that is an appropriate denominators for a group of variables. Following the example above, the P2 table, which provides population by race with Hispanic origin, the variable "P2001N" represents the total population. Because this variable is an an appropriate denominator for the other variables in the table, it helps to have it in a different column to make it easier to calculate proportions or percentage.
+In every table you can generally find a variable that is an appropriate denominators for a group of variables. Following the example above, the P2 table, which provides population by race with Hispanic origin, the variable "P2_001N" represents the total population. Because this variable is an an appropriate denominator for the other variables in the table, it helps to have it in a different column to make it easier to calculate proportions or percentage.
 
 ## Getting Census Data ready for analysis
 
 Once we access the data we want, we can apply our data wrangling skills to get the data in the format that we want.
 
-Let's demonstrate this with an example. Let's compare the distribution of percentage White population and percentage Native population by census track infour Alaska counties.
+Let's demonstrate this with an example. Let's compare the distribution of percentage White population and percentage Native population by census track in four Alaska counties.
 
 The first step is to get the data.
 
