@@ -181,6 +181,10 @@ semantic annotation of the variables, your dataset that includes
 information about carbon dioxide flux but that calls it CO2 flux WOULD
 be included in that search.
 
+More information on metadata guidelines for data to be submitted can be
+found on our website's ["Submission Guidelines"
+page](https://arcticdata.io/submit/).
+
 ### Rights and Attribution
 
 Correctly **assigning a way for your datasets to be cited** and reused
@@ -392,7 +396,7 @@ below as part of a hands-on activity.
 I've already uploaded the test data package, and so you can access the
 data here:
 
--   https://demo.arcticdata.io/view/urn%3Auuid%3A98c799ef-d7c9-4658-b432-4d486221fca3
+-   https://demo.arcticdata.io/#view/urn:uuid:0702cc63-4483-4af4-a218-531ccc59069f
 
 Grab both CSV files, and the R script, and store them in a convenient
 folder.
@@ -426,23 +430,22 @@ prompts to provide the required metadata.
 You can select multiple files at a time to efficiently upload many
 files.
 
-![](images/editor-01-socialsci.png)
+![](images/editor-01.png)
 
 The files will upload showing a progress indicator. You can continue
 editing metadata while they upload.
 
-![](images/editor-02-socialsci.png)
+![](images/editor-02.png)
 
 #### Enter Overview information
 
 This includes a descriptive title, abstract, and keywords.
 
-![](images/editor-03-socialsci.png) ![](images/editor-04-socialsci.png)
-You also must enter a funding award number and choose a license. The
-funding field will search for an NSF award identifier based on words in
-its title or the number itself. The licensing options are CC-0 and
-CC-BY, which both allow your data to be downloaded and re-used by other
-researchers.
+![](images/editor-03.png) ![](images/editor-04.png) You also must enter
+a funding award number and choose a license. The funding field will
+search for an NSF award identifier based on words in its title or the
+number itself. The licensing options are CC-0 and CC-BY, which both
+allow your data to be downloaded and re-used by other researchers.
 
 -   CC-0 Public Domain Dedication: "...can copy, modify, distribute and
     perform the work, even for commercial purposes, all without asking
@@ -453,7 +456,7 @@ researchers.
     appropriate credit, provide a link to the license, and indicate if
     changes were made."
 
-![](images/editor-05-socialsci.png)
+![](images/editor-05.png)
 
 #### People Information
 
@@ -472,7 +475,7 @@ people:
 For each, please provide their [ORCID](https://orcid.org) identifier,
 which helps link this dataset to their other scholarly works.
 
-![](images/editor-07-socialsci.png)
+![](images/editor-07.png)
 
 #### Location Information
 
@@ -493,7 +496,7 @@ local to global:
 
 -   Mission Canyon, Santa Barbara, California, USA
 
-![](images/editor-09-socialsci.png)
+![](images/editor-09.png)
 
 #### Temporal Information
 
@@ -501,7 +504,7 @@ Add the temporal coverage of the data, which represents the time period
 to which data apply. Again, use multiple date ranges if your sampling
 was discontinuous.
 
-![](images/editor-10-socialsci.png)
+![](images/editor-10.png)
 
 #### Methods
 
@@ -512,7 +515,7 @@ quality assurance procedures, and/or computational techniques and
 software. Please be complete with your methods sections, as they are
 fundamentally important to reuse of the data.
 
-![](images/editor-11-socialsci.png)
+![](images/editor-11.png)
 
 #### Save a first version with **Submit**
 
@@ -525,7 +528,7 @@ you should see a large green banner with a link to the current dataset
 view. Click the `X` to close that banner if you want to continue editing
 metadata.
 
-![](images/editor-12-socialsci.png) Success!
+![](images/editor-12.png) Success!
 
 ### File and variable level metadata
 
@@ -538,27 +541,25 @@ For example, for data tables, you'll need the name, label, and
 definition of each variable in your file. Click the **Describe** button
 to access a dialog to enter this information.
 
-![](images/editor-18-socialsci.png) The **Attributes** tab is where you
-enter variable (aka attribute) information, including:
+![](images/editor-18.png) The **Attributes** tab is where you enter
+variable (aka attribute) information, including:
 
 -   variable name (for programs)
 -   variable label (for display)
 
-![](images/editor-19-socialsci.png) - variable definition (be
-specific) - type of measurement ![](images/editor-20-socialsci.png) -
-units & code definitions
+![](images/editor-19.png) - variable definition (be specific) - type of
+measurement ![](images/editor-20.png) - units & code definitions
 
-![](images/editor-21-socialsci.png) You'll need to add these definitions
-for every variable (column) in the file. When done, click **Done**. Now,
-the list of data files will show a green checkbox indicating that you
-have fully described that file's internal structure. Proceed with the
-other CSV files, and then click **Submit Dataset** to save all of these
+![](images/editor-21.png) You'll need to add these definitions for every
+variable (column) in the file. When done, click **Done**. Now, the list
+of data files will show a green checkbox indicating that you have fully
+described that file's internal structure. Proceed with the other CSV
+files, and then click **Submit Dataset** to save all of these changes.
+
+![](images/editor-23.png) After you get the big green success message,
+you can visit your dataset and review all of the information that you
+provided. If you find any errors, simply click **Edit** again to make
 changes.
-
-![](images/editor-23-socialsci.png) After you get the big green success
-message, you can visit your dataset and review all of the information
-that you provided. If you find any errors, simply click **Edit** again
-to make changes.
 
 ### Add workflow provenance
 
@@ -573,24 +574,26 @@ data from raw data to derived to outputs.
 You add provenance by navigating to the data table descriptions and
 selecting the `Add` buttons to link the data and scripts that were used
 in your computational workflow. On the left side, select the `Add`
-circle to add an **input** data source to the events.csv file.
-This starts building the provenance graph to explain the origin and
-history of each data object.
+circle to add an **input** data source to the events.csv file. This
+starts building the provenance graph to explain the origin and history
+of each data object.
 
-![](images/editor-13-socialsci.png) The linkage to the source dataset
-should appear.
+![](images/editor-13.png) The linkage to the source dataset should
+appear.
 
-![](images/editor-14-socialsci.png)
+![](images/editor-14.png)
 
-Then you can add the link to the file that was the source for the derived data files by clicking on the `Add` arrow and selecting the file:
+Then you can add the link to the file that was the source for the
+derived data files by clicking on the `Add` arrow and selecting the
+file:
 
-![](images/editor-15-socialsci.png) ![](images/editor-16-socialsci.png)
-![](images/editor-17-socialsci.png) The diagram now shows the
-relationships among the data files, so click **Submit**
-to save another version of the package.
+![](images/editor-15.png) ![](images/editor-16.png)
+![](images/editor-17.png) The diagram now shows the relationships among
+the data files, so click **Submit** to save another version of the
+package.
 
-![](images/editor-24-socialsci.png) Et voilà! A beautifully preserved
-data package!
+![](images/editor-24.png) Et voilà! A beautifully preserved data
+package!
 
 ## Exercise: Evaluate a Data Package on the ADC Repository
 
