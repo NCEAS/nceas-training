@@ -55,13 +55,13 @@ The three main questions of the survey have three types of responses: a multiple
 First, open a new Quarto document and add a chunk to load the libraries we'll need for this lesson:
 
 ```{r, eval = FALSE}
-library(qualtRics)
-library(tidyr)
-library(knitr)
-library(ggplot2)
 library(readr)
-library(kableExtra)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(qualtRics)
+library(knitr)
+library(kableExtra)
 ```
 
 Next, we need to set the API credentials. The `qualtrics_api_credentials` function creates environment variables to hold your Qualtrics account information. The function can either temporarily store this information for just this session, 
@@ -188,7 +188,8 @@ q3 <- survey_results %>%
 ggplot(data = q3, 
        mapping = aes(x = Q3, y = n)) +
     geom_col() +
-    labs(x = "What language do you currently use most frequently?", y = "Number of reponses") +
+    labs(x = "What language do you currently use most frequently?",
+         y = "Number of reponses") +
     theme_minimal()
 ```
 
@@ -199,7 +200,7 @@ q3_text <- survey_results %>%
     select(Q3_7_TEXT) %>% 
     drop_na()
 
-kable(q3_text, col.names = c("Other responses to 'What language do you currently use mose frequently?'")) %>% 
+kable(q3_text, col.names = c("Other responses to 'What language do you currently use most frequently?'")) %>%
     kable_styling()
 ```
 
@@ -259,14 +260,14 @@ Make sure you click the third check box enabling the Tidyverse API to see, edit,
 When you come back to your R environment, you should have a data frame containing the data in your sheet! Let's take a quick look at the structure of that sheet.
 
 ```{r}
-dplyr::glimpse(responses)
+glimpse(responses)
 ```
 
 So, now that we have the data in a standard R `data.frame`, we can easily summarize it and plot results. By default, the column names in the sheet are the long fully descriptive questions that were asked, which can be hard to type. We can save those questions into a vector for later reference, like when we want to use the question text for plot titles.
 
 ```{r}
 questions <- colnames(responses)[2:5]
-dplyr::glimpse(questions)
+glimpse(questions)
 ```
 
 We can make the responses data frame more compact by renaming the columns of the vector with short numbered names of the form `Q1`. Note that, by using a sequence, this should work for sheets from just a few columns to many hundreds of columns, and provides a consistent question naming convention.
@@ -277,21 +278,21 @@ names(questions) <- paste0("Q", seq(1,4))
 questions
 
 colnames(responses) <- c("Timestamp", names(questions))
-dplyr::glimpse(responses)
+glimpse(responses)
 ```
 
 Now that we've renamed our columns, let's summarize the responses for the first question. We can use the same pattern that we usually do to split the data from Q1 into groups, then summarize it by counting the number of records in each group, and then merge the count of each group back together into a summarized data frame.  We can then plot the Q1 results using `ggplot`:
 
 ```{r eval=FALSE}
-q1 <- responses %>% 
-    dplyr::select(Q1) %>% 
-    dplyr::group_by(Q1) %>% 
-    dplyr::summarise(n = dplyr::n())
+q1 <- responses %>%
+    select(Q1) %>%
+    group_by(Q1) %>%
+    summarise(n = n())
 
 ggplot2::ggplot(data = q1, mapping = aes(x = Q1, y = n)) +
     geom_col() +
     labs(x = questions[1], 
-         y = "Number of reponses",
+         y = "Number of responses",
          title = "To what degree did the course meet expectations?") +
     theme_minimal()
 ```
