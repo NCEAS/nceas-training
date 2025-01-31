@@ -173,8 +173,8 @@ rrtools::use_compendium("mypaper")
 - Create an `analysis` folder to hold our reproducible paper
 
 ```{r add-structure, eval=FALSE, echo=TRUE}
-
-rrtools::use_readme_rmd()
+usethis::use_apl2_license()
+rrtools::use_readme_qmd()
 rrtools::use_analysis()
 
 ```
@@ -243,7 +243,7 @@ tinytex::install_tinytex() ## this may take several minutes
 
 ## Set up
 
-0.  If you do not have `rticle` installed, go ahead and install calling the following function in the console: `install.packages('rticles')` Restart your RStudio session.
+0.  If you do not have `rticles` installed, go ahead and install calling the following function in the console: `install.packages('rticles')` Restart your RStudio session.
 
 1. To create a new file from `rticles`custom templates, got to `File | New File | R Markdown...` menu, which shows the following dialog:
 
@@ -272,11 +272,11 @@ tinytex::install_tinytex() ## this may take several minutes
 
 Things we can do with our research compendium:
 
--   Edit `./analysis/paper/paper.Rmd` to begin writing your paper and your analysis in the same document
+-   Edit `./analysis/paper/paper.qmd` to begin writing your paper and your analysis in the same document
 -   Add any citations to `./analysis/paper/pnas-sample.bib`
 -   Add any longer R scripts that don't fit in your paper in an `R` folder at the top level
 -   Add raw data to `./data/raw_data`
--   Write out any derived data (generated in `paper.Rmd`) to `./data/derived_data`
+-   Write out any derived data (generated in `paper.qmd`) to `./data/derived_data`
 -   Write out any figures in `./analysis/figures`
 
 
@@ -316,7 +316,7 @@ You can then write all of your R code in your RMarkdown/Quarto, and generate you
 
 **In practice**
 
-- Once you have your research compendium, you can called `rrtools::use_dockerfile()`. If needed, re-install `rrtools` directly from GitHub `remotes::install_github("benmarwick/rrtools")`
+- Once you have your research compendium, you can call `rrtools::use_dockerfile()`. If needed, re-install `rrtools` directly from GitHub `remotes::install_github("benmarwick/rrtools")`
 
 - This first creates a Dockerfile that loads a standard image for using R with the tidyverse.
 
