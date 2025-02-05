@@ -3,8 +3,8 @@ project:
   output-dir: _book
   
 book: 
-  title: "Fundamentals in Data Management for Qualitative and Quantitative Arctic Research"
-  subtitle: "January 27-31, 2025"
+  title: "Reproducible Approaches to Arctic Research Using R"
+  subtitle: "February 24-28, 2025"
   reader-mode: false
   
   # NoteHD: cover image is not working
@@ -28,24 +28,20 @@ book:
   
   chapters:
     - index.qmd # preface 
-    - session_01.qmd # ADC intro
-    - session_02.qmd # R Setup 
-    - session_03.qmd # Intro to R programming
-    - session_04.qmd # Thinking preferencees + Social aspects of collab
-    - session_05.qmd # DMP
-    - session_06.qmd # Literate analysis
-    - session_07.qmd # ADC-Fundamental practice 1 
-    - session_08.qmd # Data Modeling and Tidy Data
-    - session_09.qmd # Cleaning and Wrangling
-    - session_10.qmd # Intro Data Viz
-    - session_11.qmd # Ethical Data Collection
-    - session_12.qmd # ADC-Fundamentals practice 2
-    - session_13.qmd # Text data
-    - session_14.qmd # Census data
-    - session_15.qmd # Metadata best practices & publishing
-    - session_16.qmd # Data portals
-    - session_17.qmd # Survey Workflows
-    - session_18.qmd # Repro and Provenance
+    - session_01.qmd # ADC intro and R Setup
+    - session_02.qmd # Quarto
+    - session_03.qmd # DMP and Data Submission
+    - session_04.qmd # git intro
+    - session_05.qmd # Data Modeling
+    - session_06.qmd # Dplyr
+    - session_07.qmd # git collaboration
+    - session_08.qmd # Publishing analysis and data viz
+    - session_09.qmd # Practice I
+    - session_10.qmd # Functions and packages
+    - session_11.qmd # Thinking preferences and FAIR/CARE
+    - session_12.qmd # Practice II and portals
+    - session_13.qmd # Geospatial
+    - session_14.qmd # reproducible papers
   
 
 bibliography: book.bib

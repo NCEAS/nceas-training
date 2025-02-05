@@ -1,8 +1,10 @@
 ---
-title: "Introduction to R Programming"
+title: "Data Management Plans & Submitting to the Arctic Data Center"
 title-block-banner: true
 execute: 
   eval: true
 ---
 
-{{< include /sections/intro-r-programming.qmd >}}
+{{< include /sections/data-management-plans-reduced.qmd >}}
+
+{{< include /sections/metadata-adc-data-documentation-hands-on.qmd >}}

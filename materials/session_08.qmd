@@ -1,5 +1,5 @@
 ---
-title: "Data Modeling / Tidy Data"
+title: "Publishing Analysis to the Web and Data Visualization"
 title-block-banner: true
 format:
   html:
@@ -7,4 +7,6 @@ format:
     code-link: true
 ---
 
-{{< include /sections/data-modeling-socialsci.qmd >}}
+{{< include /sections/git-github-publishing-analysis.qmd >}}
+
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}

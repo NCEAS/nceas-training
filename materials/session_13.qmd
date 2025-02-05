@@ -1,5 +1,5 @@
 ---
-title: "Working with Text Data in R"
+title: "Working with Spatial Data"
 title-block-banner: true
 # execute:
 #   eval: false
@@ -11,4 +11,4 @@ title-block-banner: true
 #     code-overflow: wrap
 ---
 
-{{< include /sections/intro-tidy-text-data.qmd >}}
+{{< include /sections/geospatial-vector-analysis.qmd >}}

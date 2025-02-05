@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the Arctic Data Center"
+title: "Introduction to the Arctic Data Center and RStudio Server Setup"
 title-block-banner: true
 format:
   html:
@@ -7,3 +7,5 @@ format:
 ---
 
 {{< include /sections/adc-intro-to-policies.qmd >}}
+
+{{< include /sections/rstudio-server-setup.qmd >}}

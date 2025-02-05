@@ -1,8 +1,10 @@
 ---
-title: "R Practice: Cleaning and Wrangling"
+title: "R Practice II and Data Portals"
 title-block-banner: true
 execute:
   eval: false
 ---
 
-{{< include /sections/exercise-tidyverse-socialsci.qmd >}}
+{{< include /sections/r-practice-function-cleaning-data.qmd >}}
+
+{{< include /sections/adc-creating-data-portals.qmd >}}
