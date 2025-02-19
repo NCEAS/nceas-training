@@ -31,15 +31,15 @@ Manipulating data using scripts (like R!) gives you much more control over all d
 :::
 
 ::: callout-tip
-#### Prefer open file formats (e.g. csv, txt)
-
-Using a file that can be read by free, open source software greatly increases the longevity and accessibility of your data. In contrast, proprietary formats bind your data to a particular vendor or software license that may be hard to maintain and may become obsolete.
-:::
-
-::: callout-tip
 #### Keep a raw version of data
 
 In conjunction with using a scripted language, keeping a raw version of your data is essential for maintaining a reproducible workflow. When you keep your raw data, your scripts can read from that raw data and create as many derived data products as you need, and you will always be able to re-run your scripts and know that you will get the same output.
+:::
+
+::: callout-tip
+#### Prefer open file formats (e.g. csv, txt)
+
+Using a file that can be read by free, open source software greatly increases the longevity and accessibility of your data. In contrast, proprietary formats bind your data to a particular vendor or software license that may be hard to maintain and may become obsolete.
 :::
 
 ::: callout-tip
@@ -322,7 +322,9 @@ The `site` column is the *primary key* of that table because it uniquely identif
 ![](images/tidy-data-images/relational_data_models/primary_foreign_keys.png){.lightbox width=450}
 :::
 
-There are various strategies for choosing and/or creating keys, including natural key, surrogate keys, and compound keys. Each type of key has advantages and disadvantages. We won't discuss them more here, but you can read more about it in [this article](https://www.databasestar.com/database-keys).
+In the examples above, each key corresponds to an individual column in a table. However, it's also possible to define a key based on multiple columns. Imagine a table containing one unique observation for each _date_ from each _site_. In that case, although neither date nor site alone uniquely identifies each table record, the combination of these two columns contains all the information we need. Keys made up of two or more columns in a table are called _composite keys_, and you'll see a lot of these in practice.
+
+Finally, note that there are various strategies for choosing and/or creating keys when desiging a data model, including natural keys, surrogate keys, and compound keys. Each type of key has advantages and disadvantages. We won't discuss them more here, but you can read more about it in [this article](https://www.databasestar.com/database-keys).
 
 ### Joining tables
 
