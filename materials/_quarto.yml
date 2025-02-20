@@ -30,18 +30,23 @@ book:
     - index.qmd # preface 
     - session_01.qmd # ADC intro and R Setup
     - session_02.qmd # Quarto
-    - session_03.qmd # DMP and Data Submission
-    - session_04.qmd # git intro
-    - session_05.qmd # Data Modeling
-    - session_06.qmd # Dplyr
-    - session_07.qmd # git collaboration
-    - session_08.qmd # Publishing analysis and data viz
-    - session_09.qmd # Practice I
-    - session_10.qmd # Functions and packages
-    - session_11.qmd # Thinking preferences and FAIR/CARE
-    - session_12.qmd # Practice II and portals
-    - session_13.qmd # Geospatial
-    - session_14.qmd # reproducible papers
+    - session_03.qmd # DMP
+    - session_04.qmd # data submission
+    - session_05.qmd # git intro
+    - session_06.qmd # data modeling
+    - session_07.qmd # dplyr
+    - session_08.qmd # git collab
+    - session_09.qmd # publishing to the web
+    - session_10.qmd # dataviz
+    - session_11.qmd # practice I
+    - session_12.qmd # functions
+    - session_13.qmd # packages
+    - session_14.qmd # collaboration
+    - session_15.qmd # FAIR/CARE
+    - session_16.qmd # practice II
+    - session_17.qmd # portals
+    - session_18.qmd # sf
+    - session_19.qmd # reproducible papers
   
 
 bibliography: book.bib

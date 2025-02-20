@@ -1,14 +1,11 @@
 ---
-title: "Practice Session I"
+title: "Publishing Analysis to the Web"
 title-block-banner: true
-execute:
-  eval: false
 format:
-  html: 
-    code-link: true
-    code-fold: true
-    code-summary: "Answer"
+  html:
     code-overflow: wrap
+    code-link: true
 ---
 
-{{< include /sections/r-practice-clean-wrangle-visualize.qmd >}}
+{{< include /sections/git-github-publishing-analysis.qmd >}}
+

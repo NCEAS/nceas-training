@@ -1,20 +1,8 @@
 ---
-title: "Introduction to git and GitHub"
+title: "Submitting to the Arctic Data Center"
 title-block-banner: true
 execute: 
-  eval: false
-format:
-  html:
-    code-link: true
-    code-fold: true
-    code-summary: "Answer"
-    code-overflow: wrap
+  eval: true
 ---
 
-
-
-
-{{< include /sections/git-github-intro.qmd >}}
-
-
-
+{{< include /sections/metadata-adc-data-documentation-hands-on.qmd >}}
