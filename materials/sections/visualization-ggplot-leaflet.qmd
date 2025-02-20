@@ -29,10 +29,11 @@ Let's dive into creating and customizing plots with `ggplot2`.
 ::: callout-tip
 ## Setup
 
-0. Make sure you’re in the right project (`training_{USERNAME}`), create a new Quarto document, delete the default text, and save this document.
+<!-- Choose the right Step 0 depending on whether the current course covers Git & GitHub -->
 <!--
-0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new Quarto document, delete the default text, and save this document.
+0. Make sure you’re in the right project (`training_{USERNAME}`), create a new Quarto document, delete the default text, and save this document as `intro-visualization.qmd`.
 -->
+0. Make sure you’re in the right project (`training_{USERNAME}`) and use the `Git` workflow by `Pull`ing to check for any changes. Then, create a new Quarto document, delete the default text, and save this document as `intro_visualization.qmd`.
 
 1. Load the packages we'll need for the `ggplot2` exploration and exercises.
 
@@ -715,26 +716,22 @@ leaflet(locations) %>%
 
 Leaflet has a ton of functionality that can enable you to create some beautiful, functional, web-based maps with relative ease. [Here](https://pages.github.nceas.ucsb.edu/NCEAS/sasap-data/language_vis.html) is an example of some we created as part of the [State of Alaskan Salmon and People (SASAP) project](https://www.nceas.ucsb.edu/workinggroups/state-alaskan-salmon-and-people-sasap), created using the same tools we showed you here.
 
-<!---
-This map hopefully gives you an idea of how powerful the combination of R Markdown and GitHub Pages can be.
--->
-
-<!--
-
 ## Publish the Data Visualization lesson to your webpage
+
+As alluded above, these visualization widgets really shine when included in published web pages. Let's combine what we learned in this session with what you've previously learned about publishing analyses using GitHub Pages.
 
 ::: callout-tip
 ### Steps
 
-1. Save the `Rmd` you have been working on for this lesson.
-2. "Knit" the `Rmd`. This is a good way to test if everything in your code is working.
-3. Go to your `index.Rmd` and the link to the `html` file with this lesson's content.
-4. Save and render `index.Rmd` to an `html`.
-5. Use the `Git` workflow: ```Stage > Commit > Pull > Push```
+1. Save the `qmd` you have been working on for this lesson.
+2. Render the `qmd` file, then view it in the browser to verify everything in your code is working as expected.
+3. Open the `index.qmd` file you created in the Publishing Analysis to the Web module, and add a new link to the `html` file you just created in the previous step.
+4. Save and render `index.qmd` to an `html`, and again verify that it looks & behaves as expected.
+5. Use the `Git` workflow to publish all new & updated files to GitHub: `Stage > Commit > Pull > Push`
 
 :::
 
--->
+Congrats! You've created a publically available web page that anyone can visit to interact with your tables and maps.
 
 ## `ggplot2` Resources
 

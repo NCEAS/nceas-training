@@ -1,5 +1,5 @@
 ---
-execute: 
+execute:
   eval: false
   warning: false
 ---
@@ -21,9 +21,9 @@ So far in this course, we've introduced a small set of powerful tools for doing 
 - GitHub
 - Quarto
 
-Quarto, in particular, is amazingly powerful for creating scientific reports but, so far, we haven't tapped its full potential for sharing our work with others.
+Quarto, in particular, is amazingly powerful for creating scientific reports. We've already gotten a glimpse into how we can use it to organize, document, and present ideas along with code & code outputs within our RStudio environment. However, we haven't yet tapped its full potential for sharing our work with others.
 
-In this lesson, we're going to take our `training_{USERNAME}` GitHub repository and turn it into a beautiful and easy to read web page using the tools listed above.
+In this lesson, we're going to take our `training_{USERNAME}` GitHub repository and turn it into a beautiful and easy-to-read web page that you can publish and share using the tools listed above.
 
 ::: callout-tip
 ## Set up
@@ -34,20 +34,20 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
 
     a. Go to the RStudio menu  File -> New File -> Quarto Document
     b. This will bring up a dialog box. Add the title "GitHub Pages Example", keep the Default Output Format as "HTML", and then click "OK"
-    
+
 2. Save the Quarto Document you just created. Use `index.qmd` as the file name
     a. Be sure to use the exact case (**lower case "index"**) as different operating systems handle case differently and it can interfere with loading your web page later
 
 3. Press "Render" and observe the rendered output
     a. Notice the new file in the same directory `index.html`
     b. This is our Quarto file rendered as `HTML` (a web page)
-    
+
 4. Commit your changes (for both `index.qmd` and `index.html`) with a commit message, and `push` to GitHub
-    a. If you have a folder called `index_files`, commit this as well. This folder contains the all the formatting and display settings for your html page. 
+    a. If you have a folder called `index_files`, commit this as well. This folder contains the all the formatting and display settings for your html page.
 
 5. Open your web browser to the [github.com](https://github.com/) and navigate to the page for your `training_{USERNAME}` repository
 
-6. Activate GitHub Pages for the `main` branch 
+6. Activate GitHub Pages for the `main` branch
     a. Go to Settings -> Pages (underneath the Code and Automation section)
     b. Keep the "Source" as "Deploy from a branch"
     c. Under "Branch" you'll see a message that says "GitHub Pages is currently disabled". To change this, change the branch from "None" to `main`. Keep the folder as the `root` and then click "Save"
@@ -57,16 +57,16 @@ In this lesson, we're going to take our `training_{USERNAME}` GitHub repository 
 :::
 
 Now, the rendered website version of your repo will show up at a special URL.
-    
+
 GitHub Pages follows a convention like this:
-    
-![](images/github_pages.png){fig-alt="GitHub Pages URL pattern"}
-     
+
+![](images/github_pages.png){.lightbox fig-align="center" width=350}
+
 Note that it changes from **github.com** to **github.io**
-     
+
 - Go to `https://{username}.github.io/{repo_name}/` (Note the trailing `/`)
 - Observe the awesome rendered output
-    
+
 
 Now that we've successfully published a web page from an Quarto Document, let's make a change to our Quarto Document and follow the steps to publish the change on the web:
 
@@ -78,11 +78,11 @@ Now that we've successfully published a web page from an Quarto Document, let's 
 - Delete all the content, except the `YAML` frontmatter
 - Type "Hello world"
 - Render `index.qmd`
-- Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
+- Use Git workflow: `Stage (add) -> Commit -> Pull -> Push`
 - Go back to `https://{username}.github.io/{repo_name}/`
 :::
 
-Next, we will show how you can link different `qmd`'s rendered into `html` so you can easily share different parts of your work. 
+Next, we will show how you can link different `qmd`'s rendered into `html` so you can easily share different parts of your work.
 
 ::: callout-note
 ## Exercise
@@ -96,43 +96,56 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 ```
 ## Course Lessons
 
-- Introduction to Literate Analysis Using Quarto 
+- Introduction to Quarto
+- Introduction to git and GitHub
 - Cleaning and Wrangling data
-- Data Visualization
-- Functions and packages
 
 ## Course Practice Session
 
 - Practice I
 - Practice II
 - Practice III
-
 ```
 
+In the instructions below, we'll assume you created a Quarto document called `quarto-intro.qmd` during the module on [Introduction to Quarto](../session_02.html), and have pushed that to GitHub within the same repo where you just created the `index.qmd` file above.
 
-- Make sure you have the `html` versions of your `intro-to-qmd.qmd` and `data-cleaning.qmd` files. If you only see the `qmd` version, you need to "Render" your files first
+::: {.callout-important collapse="true"}
+#### But what if I don't have a `quarto-intro.qmd` file?!?
 
-- In your `index.qmd` let's add the links to the `html` files we want to show on our webpage. Do you remember the Markdown syntax to create a link?
+If you created a Quarto document in the intro session but named it something else, no problem! Simply adapt the instructions below to match your file name.
 
+If you haven't created this file at all, nor any other Quarto documents from previous modules, go ahead and create a new Quarto document in RStudio, and save it as `quarto-intro.qmd`. Just for quick illustration, add an R code chunk or two, such as:
+
+````
+```{r}`r ''`
+library(dplyr)
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE)
+```
+````
+:::
+
+- Make sure you have the `html` version of your `quarto-intro.qmd` file, and any other Quarto pages you wish to publish. If you only see the `qmd` version, you need to "Render" your files first.
+
+- In your `index.qmd`, add the links to the `html` file(s) you want to show on our webpage. Do you remember how to create a link using Markdown?
 
 <details>
   <summary>Markdown syntax to create a link:</summary>
-  - ```[Text you want to hyperlink](link)```
-  - Example: ```[Data wrangling and cleaning](scripts/data-wrangling-cleaning.html)```
+  - `[Text you want to hyperlink](link)`
+  - Example: `[Introduction to Quarto](quarto-intro.html)`
 </details>
 
-- Render `index.qmd`
+- Render `index.qmd`, then verify that the rendered page looks the way you expect, that the link works, and that the linked page looks good.
 
-- Use Git workflow: ```Stage (add) -> Commit -> Pull -> Push```
+- Use Git workflow: `Stage (add) -> Commit -> Pull -> Push`. Be sure to include the updated `qmd` files, `html` files, and any newly created folders created during the render process.
 
-Now when you visit your web site, you'll see the table of contents, and can navigate to the others file you linked.
+After pushing, it may take up to a couple of minutes for GitHub to build your site, but after that is complete, you should be able to refresh your website.
+Confirm that you see the table of contents, and can successfully navigate to whatever page(s) you linked.
 
 :::
 
-
 Quarto web pages are a great way to share work in progress with your colleagues. Here we showed an example with the materials we have created in this course. However, you can use these same steps to share the different files and progress of a project you've been working on. To do so simply requires thinking through your presentation so that it highlights the workflow to be reviewed. You can include multiple pages and build a simple web site and make your work accessible to people who aren't set up to open your project in R. Your site could look something like this:
 
-
-
-![](images/github-pages-index-coreR.png)
-
+![](images/github-pages-index-adc.png){.lightbox fig-align="center" width=500}
