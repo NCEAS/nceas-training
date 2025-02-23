@@ -1,22 +1,21 @@
-```{=html}
-<!-- ## Learning Objectives {.unnumbered}
+## Learning Objectives {.unnumbered}
 
 - The advantages of using R packages for organizing code
 - Simple techniques for creating R packages
-- Approaches to documenting code in packages-->
-```
-## R Packages
+- Approaches to documenting code in packages
+
+## Why packages?
 
 Most R users are familiar with loading and utilizing packages in their work. And they know how rich CRAN is in providing for many conceivable needs. Most people have never created a package for their own work, and most think the process is too complicated. Really it's pretty straighforward and super useful in your personal work. Creating packages serves two main use cases:
 
--   Mechanism to redistribute reusable code (even if just for yourself)
--   Mechanism to reproducibly document analysis and models and their results
+- Mechanism to redistribute reusable code (even if just for yourself)
+- Mechanism to reproducibly document analysis and models and their results
 
 Even if you don't plan on writing a package with such broad appeal such as, say, `ggplot2` or `dplyr`, you still might consider creating a package to contain:
 
--   Useful utility functions you write (i.e. a [Personal Package](https://hilaryparker.com/2013/04/03/personal-r-packages/)). Having a place to put these functions makes it much easier to find and use them later.
--   A set of shared routines for your lab or research group, making it easier to remain consistent within your team and also to save time.
--   The analysis accompanying a thesis or manuscript, making it all that much easier for others to reproduce your results.
+- Useful utility functions you write (i.e. a [Personal Package](https://hilaryparker.com/2013/04/03/personal-r-packages/)). Having a place to put these functions makes it much easier to find and use them later.
+- A set of shared routines for your lab or research group, making it easier to remain consistent within your team and also to save time.
+- The analysis accompanying a thesis or manuscript, making it all that much easier for others to reproduce your results.
 
 ::: {.callout-caution icon="false"}
 ### Packages for Creating and Maintaining Packages
@@ -24,7 +23,7 @@ Even if you don't plan on writing a package with such broad appeal such as, say,
 The `usethis`, `devtools` and `roxygen2` packages make creating and maintining a package to be a straightforward experience.
 :::
 
-### Create a Basic Package
+## Create a Basic Package
 
 To create a package we're going to use the following packages:
 
@@ -37,46 +36,45 @@ Thanks to the great [usethis](https://usethis.r-lib.org/) package, it only takes
 
 ```{r}
 #| eval: false
-
 usethis::create_package("~/mytools")
 ```
 
-```         
-✔ Creating '/home/dolinh/mytools/'
-✔ Setting active project to '/home/dolinh/mytools'
-✔ Creating 'R/'
-✔ Writing 'DESCRIPTION'
+```
+✔ Creating /home/ruser/mytools/.
+✔ Setting active project to "/home/ruser/mytools".
+✔ Creating R/.
+✔ Writing DESCRIPTION.
 Package: mytools
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R (parsed):
-    * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+    * First Last <first.last@example.com> [aut, cre]
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
-✔ Writing 'NAMESPACE'
-✔ Writing 'mytools.Rproj'
-✔ Adding '^mytools\\.Rproj$' to '.Rbuildignore'
-✔ Adding '.Rproj.user' to '.gitignore'
-✔ Adding '^\\.Rproj\\.user$' to '.Rbuildignore'
-✔ Opening '/home/dolinh/mytools/' in new RStudio session
-✔ Setting active project to '<no active project>'
+RoxygenNote: 7.3.2
+✔ Writing NAMESPACE.
+✔ Writing mytools.Rproj.
+✔ Adding "^mytools\\.Rproj$" to .Rbuildignore.
+✔ Adding ".Rproj.user" to .gitignore.
+✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
+✔ Opening /home/ruser/mytools/ in new RStudio session.
+✔ Setting active project to "<no active project>".
 ```
 
 ::: {.callout-caution icon="false"}
 #### What did the `create_package()` function do?
 
-1.  Open a new project called `mytools` (the name of the package) in a new RStduio session.
-2.  Create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure):
-    a.  `DESCRIPTION`file: The most important file, which provides metadata about your package. Edit this file to provide reasonable values for each of the fields, including your contact information.
-    b.  `NAMESPACE` file declares the functions your package exports for external use and the external functions your package imports from other packages.
-    c.  `R/` directory is where you save all your function scripts and other `.R` files.
-    d.  `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source.
-    e.  `.Rproj.user` is a directory used internally by RStudio.
-3.  Add the **Build Tab** to the Environment Pane.
+1. Open a new project called `mytools` (the name of the package) in a new RStudio session.
+2. Create a top-level directory structure, including a number of critical files under the [standard R package structure](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure):
+    a. `DESCRIPTION`file: The most important file, which provides metadata about your package. Edit this file to provide reasonable values for each of the fields, including your contact information.
+    b. `NAMESPACE` file declares the functions your package exports for external use and the external functions your package imports from other packages.
+    c. `R/` directory is where you save all your function scripts and other `.R` files.
+    d. `.Rbuildignore` lists files that we need to have around but that should not be included when building the R package from source.
+    e. `.Rproj.user` is a directory used internally by RStudio.
+3. Add the **Build Tab** to the Environment Pane.
 :::
 
 ### Add a License
@@ -86,32 +84,32 @@ Information about choosing a `LICENSE` is provided in the R Package (2e) book [C
 The `DESCRIPTION` file expects the license to be chose from a predefined list, but you can use its various utility methods for setting a specific license file, such as the `MIT` license or the `Apache 2` license:
 
 ```{r}
-#| eval: false 
-
+#| eval: false
 usethis::use_apache_license()
 ```
 
-```         
-✔ Setting License field in DESCRIPTION to 'Apache License (>= 2.0)'
-✔ Writing 'LICENSE.md'
-✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+```
+✔ Setting active project to "/home/ruser/mytools".
+✔ Adding "Apache License (>= 2)" to License.
+✔ Writing LICENSE.md.
+✔ Adding "^LICENSE\\.md$" to .Rbuildignore.
 ```
 
 Once your license has been chosen, and you've edited your `DESCRIPTION` file with your contact information, a title, and a description, it will look like this:
 
 ::: {.callout-tip appearance="minimal"}
-```         
+```
 Package: mytools
-Title: Halina Do-Linh's Utility R Functions
+Title: My Amazing Utility R Functions
 Version: 0.0.0.9000
-Authors@R: 
-    person("Halina", "Do-Linh", email = "dolinh@nceas.ucsb.edu", role = c("aut", "cre"),
+Authors@R:
+    person("R", "User", email = "ruser@somewhere.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: A collection of useful R functions that I use for general utilities.
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 ```
 :::
 
@@ -121,12 +119,11 @@ The skeleton package created contains a directory `R` which should contain your 
 
 ```{r eval=FALSE}
 #| eval: false
-
 usethis::use_r("custom_theme")
 ```
 
-```         
-✔ Setting active project to '/home/dolinh/mytools'
+```
+✔ Setting active project to '/home/ruser/mytools'
 • Modify 'R/custom_theme.R'
 • Call `use_test()` to create a matching test file
 ```
@@ -135,34 +132,32 @@ creates the file `R/custom_theme` and stores it in the `R` directory, which you 
 
 ```{r}
 #| eval: false
-
 custom_theme <- function(base_size = 9) {
-    ggplot2::theme(
-      axis.ticks       = ggplot2::element_blank(),
-      text             = ggplot2::element_text(family = 'Helvetica', 
-                                               color = 'gray30', 
-                                               size = base_size),
-      plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25), 
-                                               hjust = 0.5, 
-                                               face = 'bold'),
-      panel.background = ggplot2::element_blank(),
-      legend.position  = 'right',
-      panel.border     = ggplot2::element_blank(),
-      panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major = ggplot2::element_line(colour = 'grey90', 
-                                               linewidth = .25),
-      legend.key       = ggplot2::element_rect(colour = NA, 
-                                               fill = NA),
-      axis.line        = ggplot2::element_blank()
-      )
+  ggplot2::theme(
+    axis.ticks = ggplot2::element_blank(),
+    text = ggplot2::element_text(family = 'Helvetica',
+                                 color = 'gray30',
+                                 size = base_size),
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.25),
+                                       hjust = 0.5,
+                                       face = 'bold'),
+    panel.background = ggplot2::element_blank(),
+    legend.position = 'right',
+    panel.border = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.grid.major = ggplot2::element_line(colour = 'grey90',
+                                             linewidth = .25),
+    legend.key = ggplot2::element_rect(colour = NA,
+                                       fill = NA),
+    axis.line = ggplot2::element_blank()
+  )
 }
-
 ```
 
 ::: {.callout-caution icon="false"}
 #### Power of Packages
 
-Remember when we created `custom_theme()` from the [Functions Lesson Section 15.1.4](https://learning.nceas.ucsb.edu/2023-10-coreR/session_15.html#examples-minimizing-work-with-functions)? Now that we've added it to our `mytools` package, we don't have to worry about coyping the code from another file, sourcing the file from another directory, or copying the script from an R Project.
+Remember when we created `custom_theme()` in the [Writing Functions](../session_12.html) session? Now that we've added it to our `mytools` package, we don't have to worry about coyping the code from another file, sourcing the file from another directory, or copying the script from an R Project.
 
 Instead we can leverage the portable functionality of a package to easily access our custom functions **and** maintain the code in one location.
 :::
@@ -177,31 +172,30 @@ Once again, `usethis` provides a handy helper method:
 
 ```{r}
 #| eval: false
-
 usethis::use_package("ggplot2")
 ```
 
-```         
+```
 ✔ Adding 'ggplot2' to Imports field in DESCRIPTION
 • Refer to functions with `ggplot2::fun()`
 ```
 
-Take a look at the `DESCRIPTION` file again, and you'll see the Imports section has been added, with `ggplot2` underneath.
+Take a look at the `DESCRIPTION` file again, and you'll see a new **Imports** section has been added, with listed `ggplot2` underneath.
 
 ::: {.callout-tip appearance="minimal"}
-```         
+```
 Package: mytools
-Title: Halina Do-Linh's Utility R Functions
+Title: My Amazing Utility R Functions
 Version: 0.0.0.9000
-Authors@R: 
-    person("Halina", "Do-Linh", email = "dolinh@nceas.ucsb.edu", role = c("aut", "cre"),
+Authors@R:
+    person("R", "User", email = "ruser@somewhere.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: A collection of useful R functions that I use for general utilities.
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
-Imports: 
+RoxygenNote: 7.3.2
+Imports:
     ggplot2
 ```
 :::
@@ -224,31 +218,29 @@ Let's add documentation for the `custom_theme()` function.
 #'
 #' @examples
 #' library(ggplot2)
-#' 
-#'   ggplot(data = mtcars, aes(x = mpg, y = disp)) +
-#'     geom_point() +
-#'     custom_theme(base_size = 30)
+#' ggplot(data = mtcars, aes(x = mpg, y = disp)) +
+#'   geom_point() +
+#'   custom_theme(base_size = 30)
 custom_theme <- function(base_size = 9) {
   ggplot2::theme(
-    axis.ticks       = ggplot2::element_blank(),
-    text             = ggplot2::element_text(family = 'Helvetica',
-                                             color = 'gray30',
-                                             size = base_size),
-    plot.title       = ggplot2::element_text(size = ggplot2::rel(1.25),
-                                             hjust = 0.5,
-                                             face = 'bold'),
+    axis.ticks = ggplot2::element_blank(),
+    text = ggplot2::element_text(family = 'Helvetica',
+                                 color = 'gray30',
+                                 size = base_size),
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.25),
+                                       hjust = 0.5,
+                                       face = 'bold'),
     panel.background = ggplot2::element_blank(),
-    legend.position  = 'right',
-    panel.border     = ggplot2::element_blank(),
+    legend.position = 'right',
+    panel.border = ggplot2::element_blank(),
     panel.grid.minor = ggplot2::element_blank(),
     panel.grid.major = ggplot2::element_line(colour = 'grey90',
                                              linewidth = .25),
-    legend.key       = ggplot2::element_rect(colour = NA,
-                                             fill = NA),
-    axis.line        = ggplot2::element_blank()
+    legend.key = ggplot2::element_rect(colour = NA,
+                                       fill = NA),
+    axis.line = ggplot2::element_blank()
   )
 }
-
 ```
 
 Once your files are documented, you can then process the documentation using `devtools::document()` to generate the appropriate `.Rd` files that your package needs. The `.Rd` files will appear in the `man/` directory, which is automatically created by `devtools::document()`.
@@ -259,9 +251,10 @@ Once your files are documented, you can then process the documentation using `de
 devtools::document()
 ```
 
-```         
+```
 ℹ Updating mytools documentation
 ℹ Loading mytools
+Writing NAMESPACE
 Writing custom_theme.Rd
 ```
 
@@ -271,11 +264,10 @@ We now have a package that we can `check()` and `install()` and `release()`. The
 
 You can test your code using the `testthat` package's testing framework. The `ussethis::use_testthat()` function will set up your package for testing, and then you can use the `use_test()` function to setup individual test files. For example, in the Functions Lesson we created some tests for our `fahr_to_celsius` functions but ran them line by line in the console.
 
-First, lets add that function to our package. Run the `use_r` function in the console:
+First, let's add that function to our package. Run the `use_r` function in the console:
 
 ```{r}
 #| eval: false
-
 usethis::use_r("fahr_to_celsius")
 ```
 
@@ -284,17 +276,16 @@ Then copy the function and documentation into the R script that opens and save t
 ```{r}
 #' Convert temperature values from Fahrenheit to Celsius
 #'
-#' @param fahr Numeric or numeric vector in degrees Fahrenheit
-#' 
-#' @return Numeric or numeric vector in degrees Celsius
+#' @param fahr Numeric vector in degrees Fahrenheit
+#'
+#' @return Numeric vector in degrees Celsius
 #' @export
-#' 
+#'
 #' @examples
 #' fahr_to_celsius(32)
 #' fahr_to_celsius(c(32, 212, 72))
-
 fahr_to_celsius <- function(fahr) {
-  celsius <- (fahr-32)*5/9
+  celsius <- (fahr - 32) * 5 / 9
   return(celsius)
 }
 ```
@@ -303,64 +294,56 @@ Now, set up your package for testing:
 
 ```{r}
 #| eval: false
-
 usethis::use_testthat()
 ```
 
-```         
-✔ Setting active project to '/home/dolinh/mytools'
-✔ Adding 'testthat' to Suggests field in DESCRIPTION
-✔ Setting Config/testthat/edition field in DESCRIPTION to '3'
-✔ Creating 'tests/testthat/'
-✔ Writing 'tests/testthat.R'
-• Call `use_test()` to initialize a basic test file and open it for editing.
+```
+✔ Adding testthat to Suggests field in DESCRIPTION.
+✔ Adding "3" to Config/testthat/edition.
+✔ Creating tests/testthat/.
+✔ Writing tests/testthat.R.
+☐ Call usethis::use_test() to initialize a basic test file and open it for editing.
 ```
 
 Then write a test for `fahr_to_celsius`:
 
 ```{r}
 #| eval: false
-
 usethis::use_test("fahr_to_celsius")
 ```
 
-```         
+```
 ✔ Writing 'tests/testthat/test-fahr_to_celsius.R'
 • Modify 'tests/testthat/test-fahr_to_celsius.R'
 ```
 
-You can now add tests to the `test-fahr_to_celsius.R`, and you can run all of the tests using `devtools::test()`. For example, if you add a test to the `test-fahr_to_celsius.R` file:
+Notice that this has created a new R script named `test-fahr_to_celsius.R` in the `tests/testthat/` director. This script contains a sample test that has nothing to do with your function. Let's replace it with a more meaningful test:
 
 ```{r}
 #| eval: false
-
 test_that("fahr_to_celsius works", {
   expect_equal(fahr_to_celsius(32), 0)
   expect_equal(fahr_to_celsius(212), 100)
 })
-
 ```
 
-Then you can run the tests to be sure all of your functions are working using `devtools::test()`:
+Once we have a test defined, we can run all tests using `devtools::test()`. Let's give it a try:
 
 ```{r}
 #| eval: false
-
 devtools::test()
 ```
 
-```         
+```
 ℹ Testing mytools
-✔ | F W S  OK | Context
-✔ |         2 | fahr_to_celsius [0.2s]                                                                                             
+✔ | F W  S  OK | Context
+✔ |          2 | fahr_to_celsius
 
-══ Results ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-Duration: 0.4 s
-
+══ Results ═══════════════════════════════════════════════════════════════════════════════════════
 [ FAIL 0 | WARN 0 | SKIP 0 | PASS 2 ]
 ```
 
-Yay, all tests passed!
+Hooray, all tests passed!
 
 ### Checking and Installing
 
@@ -368,14 +351,15 @@ Now that you've completed testing your package, you can check it for consistency
 
 ```{r}
 #| eval: false
-
 devtools::check()
 ```
 
-```         
+```
 ══ Documenting ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ℹ Updating mytools documentation
 ℹ Loading mytools
+Writing NAMESPACE
+Writing fahr_to_celsius.Rd
 
 ══ Building ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Setting env vars:
@@ -386,13 +370,13 @@ Setting env vars:
 • CXX17FLAGS: -Wall -pedantic -fdiagnostics-color=always
 • CXX20FLAGS: -Wall -pedantic -fdiagnostics-color=always
 ── R CMD build ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-✔  checking for file ‘/home/dolinh/mytools/DESCRIPTION’ (610ms)
+✔  checking for file ‘/home/ruser/mytools/DESCRIPTION’ (657ms)
 ─  preparing ‘mytools’:
-✔  checking DESCRIPTION meta-information (338ms)
-─  checking for LF line-endings in source and make files and shell scripts
+✔  checking DESCRIPTION meta-information
+─  checking for LF line-endings in source and make files and shell scripts (598ms)
 ─  checking for empty or unneeded directories
 ─  building ‘mytools_0.0.0.9000.tar.gz’
-   
+
 ══ Checking ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Setting env vars:
 • _R_CHECK_CRAN_INCOMING_REMOTE_               : FALSE
@@ -401,87 +385,93 @@ Setting env vars:
 • _R_CHECK_PACKAGES_USED_IGNORE_UNUSED_IMPORTS_: FALSE
 • NOT_CRAN                                     : true
 ── R CMD check ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-─  using log directory ‘/tmp/Rtmp1UgqFD/file6d79323df6fae/mytools.Rcheck’ (649ms)
-─  using R version 4.2.2 (2022-10-31)
-─  using platform: x86_64-pc-linux-gnu (64-bit)
+
+─  using log directory ‘/tmp/RtmpTM1qoX/file1e21d33c132b73/mytools.Rcheck’ (731ms)
+─  using R version 4.4.2 (2024-10-31)
+─  using platform: x86_64-pc-linux-gnu
+─  R was compiled by
+       gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+       GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+─  running under: Ubuntu 22.04.5 LTS
 ─  using session charset: UTF-8
 ─  using options ‘--no-manual --as-cran’
 ✔  checking for file ‘mytools/DESCRIPTION’
 ─  this is package ‘mytools’ version ‘0.0.0.9000’
 ─  package encoding: UTF-8
 ✔  checking package namespace information
-✔  checking package dependencies (2.1s)
-✔  checking if this is a source package
+✔  checking package dependencies (2.5s)
+✔  checking if this is a source package ...
 ✔  checking if there is a namespace
-✔  checking for executable files
+✔  checking for executable files ...
 ✔  checking for hidden files and directories
 ✔  checking for portable file names
 ✔  checking for sufficient/correct file permissions
 ✔  checking serialization versions
-✔  checking whether package ‘mytools’ can be installed (3.2s)
-✔  checking installed package size
+✔  checking whether package ‘mytools’ can be installed (3.5s)
+✔  checking installed package size ...
 ✔  checking package directory
-✔  checking for future file timestamps (412ms)
-✔  checking DESCRIPTION meta-information (584ms)
+✔  checking for future file timestamps ...
+✔  checking DESCRIPTION meta-information (599ms)
 ✔  checking top-level files ...
 ✔  checking for left-over files
 ✔  checking index information
 ✔  checking package subdirectories ...
-✔  checking R files for non-ASCII characters ...
+✔  checking code files for non-ASCII characters ...
 ✔  checking R files for syntax errors ...
-✔  checking whether the package can be loaded (481ms)
+✔  checking whether the package can be loaded (468ms)
 ✔  checking whether the package can be loaded with stated dependencies ...
 ✔  checking whether the package can be unloaded cleanly ...
 ✔  checking whether the namespace can be loaded with stated dependencies ...
-✔  checking whether the namespace can be unloaded cleanly (450ms)
-✔  checking loading without being on the library search path (522ms)
-✔  checking dependencies in R code (1.2s)
-✔  checking S3 generic/method consistency (1s)
+✔  checking whether the namespace can be unloaded cleanly (484ms)
+✔  checking loading without being on the library search path (585ms)
+✔  checking dependencies in R code (1.8s)
+✔  checking S3 generic/method consistency (566ms)
 ✔  checking replacement functions ...
 ✔  checking foreign function calls ...
-✔  checking R code for possible problems (5.2s)
-✔  checking Rd files (449ms)
+✔  checking R code for possible problems (5.8s)
+✔  checking Rd files (516ms)
 ✔  checking Rd metadata ...
 ✔  checking Rd line widths ...
 ✔  checking Rd cross-references ...
 ✔  checking for missing documentation entries ...
-✔  checking for code/documentation mismatches (885ms)
-✔  checking Rd \usage sections (1.3s)
+✔  checking for code/documentation mismatches (1s)
+✔  checking Rd \usage sections (855ms)
 ✔  checking Rd contents ...
 ✔  checking for unstated dependencies in examples ...
-✔  checking examples (2.7s)
+✔  checking examples (3.1s)
 ✔  checking for unstated dependencies in ‘tests’ ...
-─  checking tests (418ms)
-✔  Running ‘testthat.R’ (1.4s)
+─  checking tests (480ms)
+✔  Running ‘testthat.R’ (1.9s)
 ✔  checking for non-standard things in the check directory
 ✔  checking for detritus in the temp directory
-   
-   
+
 ── R CMD check results ──────────────────────────────────────────────────────────────────────────────────── mytools 0.0.0.9000 ────
 Duration: 27.3s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
 
-Then you can install it locally using `devtools::install()`, which needs to be run from the parent directory of your module
+Wow, that was a lot! Basically this `check()` first helpfully completed a few documentation steps we had forgotten to do ourselves: creating the R documentation for `fahr_to_celsius`, and exporting the function in our `NAMESPACE` file. It then attempts to build a package from the source code, and runs a slew of checks to make sure everything looks good.
+
+Next you can install the package locally using `devtools::install()`, which needs to be run from the parent directory of your module
 
 ```{r}
 #| eval: false
-
 devtools::install()
 ```
 
-```         
-── R CMD build ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-✔  checking for file ‘/home/dolinh/mytools/DESCRIPTION’ (541ms)
+```
+── R CMD build ───────────────────────────────────────────────────────────────────────────────────
+✔  checking for file ‘/home/ruser/mytools/DESCRIPTION’ (557ms)
 ─  preparing ‘mytools’:
-✔  checking DESCRIPTION meta-information ...
-─  checking for LF line-endings in source and make files and shell scripts
+✔  checking DESCRIPTION meta-information
+─  checking for LF line-endings in source and make files and shell scripts (621ms)
 ─  checking for empty or unneeded directories
 ─  building ‘mytools_0.0.0.9000.tar.gz’
-   
-Running /opt/R/4.2.2/lib/R/bin/R CMD INSTALL /tmp/Rtmp1UgqFD/mytools_0.0.0.9000.tar.gz --install-tests 
-* installing to library ‘/home/dolinh/R/x86_64-pc-linux-gnu-library/4.2’
+
+Running /opt/R/4.4.2/lib/R/bin/R CMD INSTALL /tmp/RtmpTM1qoX/mytools_0.0.0.9000.tar.gz \
+  --install-tests
+* installing to library ‘/home/ruser/R/x86_64-pc-linux-gnu-library/4.4’
 * installing *source* package ‘mytools’ ...
 ** using staged installation
 ** R
@@ -496,41 +486,41 @@ Running /opt/R/4.2.2/lib/R/bin/R CMD INSTALL /tmp/Rtmp1UgqFD/mytools_0.0.0.9000.
 * DONE (mytools)
 ```
 
-After installing, your package is now available for use in your local environment, yay!
+After installing, your package is now available for use in your local environment, and you should be able to either use `mytools::fahr_to_celsius(c(32, 212, 72))` or import your package and use your functions directly.
 
 ::: callout-important
-##### Check out the Build Tab
+#### Check out the Build Tab
 
 Remember when we ran `usethis::create_package()` and after we ran it we saw the Build Tab added to the Environment pane?
 
 In the Build Tab, each of the buttons correspond with one of the `devtools` functions we ran, meaning:
 
--   Test button is equivalent to running `devtools::test()` in the Console
--   Check button is equivalent to running `devtools::check()` in the Console
--   Install button is equivalent to running `devtools::install()` in the Console
+- Test button is equivalent to running `devtools::test()` in the Console
+- Check button is equivalent to running `devtools::check()` in the Console
+- Install button is equivalent to running `devtools::install()` in the Console
 :::
 
 ### Sharing and Releasing
 
--   **GitHub**: The simplest way to share your package with others is to upload it to a [GitHub repository](https://github.com), which allows others to install your package using the `install_github('mytools','github_username')` function from `devtools`.
+- **GitHub**: The simplest way to share your package with others is to upload it to a public [GitHub repository](https://github.com). Others would be able clone and build the package locally. Or even more conveniently, they could use the `devtools::install_github()` function. For example, if you pushed your 'mytools' package to GitHub under your hypothetical GitHub account with username 'ruser', then anyone would be able to install it by calling `devtools::install_github("ruser/mytools")`.
 
--   **CRAN**: If your package might be broadly useful, also consider releasing it to [CRAN](https://cran.r-project.org/), using the `release()` method from `devtools()`. Releasing a package to CRAN requires a significant amount of work to ensure it follows the standards set by the R community, but it is entirely tractable and a valuable contribution to the science community. If you are considering releasing a package more broadly, you may find that the supportive community at [ROpenSci](https://ropensci.org) provides incredible help and valuable feeback through their onboarding process.
+- **CRAN**: If your package might be broadly useful, also consider releasing it to [CRAN](https://cran.r-project.org/), using the `release()` method from `devtools()`. Releasing a package to CRAN requires a significant amount of work to ensure it follows the standards set by the R community, but it is entirely tractable and a valuable contribution to the science community. If you are considering releasing a package more broadly, you may find that the supportive community at [ROpenSci](https://ropensci.org) provides incredible help and valuable feeback through their onboarding process.
 
--   **R-Universe**: A newer approach is to link your package release to [R-Universe](https://r-universe.dev), which is an effective way to make it easy to test and maintain packages so that many people can install them using the familiar `install.pacakges()` function in R. In R-Universe, people and organizations can [create their own *universe* of packages](https://github.com/r-universe-org/help#how-to-setup-your-personal-universe), which represent a collection of packages that appear as a CRAN-compatible repository in R. For example, for DataONE we maintain the [DataONE R-Universe](https://dataoneorg.r-universe.dev), which lists the packages we actively maintain as an organization. So, any R-user that wants to install these packages can do so by adding our universe to their list of repositories, and then installing packages as normal. For example, to install the `codyn` package, one could use:
+- **R-Universe**: A newer approach is to link your package release to [R-Universe](https://r-universe.dev), which is an effective way to make it easy to test and maintain packages so that many people can install them using the familiar `install.packages()` function in R. In R-Universe, people and organizations can [create their own *universe* of packages](https://github.com/r-universe-org/help#how-to-setup-your-personal-universe), which represent a collection of packages that appear as a CRAN-compatible repository in R. For example, for DataONE we maintain the [DataONE R-Universe](https://dataoneorg.r-universe.dev), which lists the packages we actively maintain as an organization. So, any R-user that wants to install these packages can do so by adding our universe to their list of repositories, and then installing packages as normal. For example, to install the `codyn` package, one could use:
 
 ```{r}
 #| eval: false
-
-install.packages('codyn', repos = c('https://dataoneorg.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('codyn',
+    repos = c('https://dataoneorg.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ### Exercise: Add More Functions
 
 Add additional temperature conversion functions to the `mytools` package and:
 
--   Add full documentation for each function
--   Write tests to ensure the functions work properly
--   Rebuild the package using `document()`, `check()`, and `install()`
+- Add full documentation for each function
+- Write tests to ensure the functions work properly
+- Rebuild the package using `document()`, `check()`, and `install()`
 
 ::: callout-important
 #### Don't forget to update the version number before you install!
@@ -539,10 +529,10 @@ Version information is located in the `DESCRIPTION` file and when you first crea
 
 This version number follows the format major.minor.patch.dev. The different parts of the version represent different things:
 
--   **Major**: A significant change to the package that would be expected to break users code. This is updated very rarely when the package has been redesigned in some way.
--   **Minor**: A minor version update means that new functionality has been added to the package. It might be new functions to improvements to existing functions that are compatible with most existing code.
--   **Patch**: Patch updates are bug fixes. They solve existing issues but don't do anything new.
--   **Dev**: Dev versions are used during development and this part is missing from release versions. For example you might use a dev version when you give someone a beta version to test. A package with a dev version can be expected to change rapidly or have undiscovered issues.
+- **Major**: A significant change to the package that would be expected to break users code. This is updated very rarely when the package has been redesigned in some way.
+- **Minor**: A minor version update means that new functionality has been added to the package. It might be new functions to improvements to existing functions that are compatible with most existing code.
+- **Patch**: Patch updates are bug fixes. They solve existing issues but don't do anything new.
+- **Dev**: Dev versions are used during development and this part is missing from release versions. For example you might use a dev version when you give someone a beta version to test. A package with a dev version can be expected to change rapidly or have undiscovered issues.
 
 After you've made some changes to a package, but before you install run the code:
 
@@ -551,9 +541,9 @@ After you've made some changes to a package, but before you install run the code
 usethis::use_version()
 ```
 
-```         
+```
 Current version is 0.0.0.9000.
-What should the new version be? (0 to exit) 
+What should the new version be? (0 to exit)
 
 1: major --> 1.0.0
 2: minor --> 0.1.0
@@ -563,7 +553,7 @@ What should the new version be? (0 to exit)
 
 Since we're adding new functions, we can consider this a *minor* change and can select option 2.
 
-```         
+```
 Selection: 2
 ✔ Setting Version field in DESCRIPTION to '0.1.0'
 ```
@@ -571,9 +561,9 @@ Selection: 2
 *Source: COMBINE's R package workshop, [Ch 9: Versioning](https://combine-australia.github.io/r-pkg-dev/versioning.html)*
 :::
 
-### Additional Resources
+## Additional Resources
 
--   Hadley Wickham and Jenny Bryan's awesome book: [R Packages](https://r-pkgs.org/)
--   ROpenSci Blog Post: [How to create your personal CRAN-like repository on R-universe](https://ropensci.org/blog/2021/06/22/setup-runiverse/)
--   Karl Broman's: [R package primer: a minimal tutorial on writing R packages](https://kbroman.org/pkg_primer)
--   Thomas Westlake's Short Tutorial: [Writing an R package from scratch](https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/) (his post is an updated version of Hilary Parker's [blog post](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/))
+- Hadley Wickham and Jenny Bryan's awesome book: [R Packages](https://r-pkgs.org/)
+- ROpenSci Blog Post: [How to create your personal CRAN-like repository on R-universe](https://ropensci.org/blog/2021/06/22/setup-runiverse/)
+- Karl Broman's: [R package primer: a minimal tutorial on writing R packages](https://kbroman.org/pkg_primer)
+- Thomas Westlake's Short Tutorial: [Writing an R package from scratch](https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/) (his post is an updated version of Hilary Parker's [blog post](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/))
