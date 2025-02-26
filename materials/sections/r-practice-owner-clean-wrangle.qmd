@@ -46,8 +46,7 @@ The variable `SIZE_MM` uses -99999 as the code for missing values (see metadata 
 
 ```{r}
 #| code-summary: "Answer"
-lobster_abundance <- lobster_abundance %>% 
-    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+
 ```
 
 ## `filter()` practice
@@ -60,8 +59,7 @@ Create and store a subset that does NOT include observations from Naples Reef (`
 
 ```{r}
 #| code-summary: "Answer"
-not_napl <- lobster_abundance %>% 
-    filter(SITE != "NAPL")
+
 ```
 
 ::: callout-note
@@ -72,8 +70,7 @@ Create and store a subset with lobsters at Arroyo Quemado (`AQUE`) AND with a ca
 
 ```{r}
 #| code-summary: "Answer"
-aque_70mm <- lobster_abundance %>% 
-    filter(SITE == "AQUE" & SIZE_MM >= 70)
+
 ```
 
 ::: callout-note
@@ -81,20 +78,34 @@ aque_70mm <- lobster_abundance %>%
 Find the maximum carapace length using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the NA values in `SIZE_MM` (Hint: check the arguments in `max()`). Check your output.
 :::
 
-```{r}
-#| code-summary: "Answer"
-# `group_by() %>% summarize()` practice
 
-max_lobster <- lobster_abundance %>% 
-  group_by(SITE, MONTH) %>% 
-  summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
-```
 
 ::: callout-important
 
 ## Save your work and don't forget the Git and GitHub workflow!
 After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
+
+
+### Answers (don't cheat!)
+
+```{r}
+#| code-summary: "Answer"
+# `group_by() %>% summarize()` practice
+lobster_abundance <- lobster_abundance %>% 
+    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+
+not_napl <- lobster_abundance %>% 
+    filter(SITE != "NAPL")
+
+aque_70mm <- lobster_abundance %>% 
+    filter(SITE == "AQUE" & SIZE_MM >= 70)
+
+max_lobster <- lobster_abundance %>% 
+  group_by(SITE, MONTH) %>% 
+  summarize(MAX_LENGTH = max(SIZE_MM, na.rm = TRUE))
+
+```
 
 <!--# Extra Questions -->
 

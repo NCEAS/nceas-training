@@ -45,8 +45,7 @@ The variable `TRAPS` uses -99999 as the code for missing values (see metadata or
 
 ```{r}
 #| code-summary: "Answer"
-lobster_traps <- lobster_traps %>% 
-    mutate(TRAPS = na_if(TRAPS, -99999))
+
 ```
 
 ## `filter()` practice
@@ -58,8 +57,7 @@ Create and store a subset that does NOT include observations from Naples Reef (`
 
 ```{r}
 #| code-summary: "Answer"
-not_napl <- lobster_traps %>% 
-    filter(SITE != "NAPL")
+
 ```
 
 ::: callout-note
@@ -69,8 +67,7 @@ Create and store a subset with lobsters at Carpinteria Reef (`CARP`) AND number 
 
 ```{r}
 #| code-summary: "Answer"
-carp_20_traps <- lobster_traps %>% 
-    filter(SITE == "CARP" & TRAPS > 20)
+
 ```
 
 ::: callout-note
@@ -78,13 +75,7 @@ carp_20_traps <- lobster_traps %>%
 Find the maximum number of commercial trap floats using `max()` and group by `SITE` and `MONTH`. Think about how you want to treat the `NA` values in `TRAPS` (Hint: check the arguments in `max()`). Check your output.
 :::
 
-```{r}
-#| echo: false
-# `group_by() %>% summarize()` practice
-max_lobster_traps <- lobster_traps %>% 
-    group_by(SITE, MONTH) %>%
-    summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
-```
+
 
 
 ::: callout-important
@@ -92,6 +83,25 @@ max_lobster_traps <- lobster_traps %>%
 ## Save your work and Don't forget the Git and GitHub workflow!
 After you've completed the exercises or reached a significant stopping point, use the workflow: ```Stage (add) -> Commit -> Pull -> Push```
 :::
+
+### Answer (dont' cheat!)
+
+```{r}
+#| code-summary: "Answer"
+# `group_by() %>% summarize()` practice
+lobster_traps <- lobster_traps %>% 
+    mutate(TRAPS = na_if(TRAPS, -99999))
+
+not_napl <- lobster_traps %>% 
+    filter(SITE != "NAPL")
+
+carp_20_traps <- lobster_traps %>% 
+    filter(SITE == "CARP" & TRAPS > 20)
+
+max_lobster_traps <- lobster_traps %>% 
+    group_by(SITE, MONTH) %>%
+    summarize(MAX_TRAPS = max(TRAPS, na.rm = TRUE))
+```
 
 
 <!--# Extra Questions -->
