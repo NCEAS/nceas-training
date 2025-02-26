@@ -107,14 +107,14 @@ In this exercise, you'll create a table of contents with the lessons of this cou
 - Practice III
 ```
 
-In the instructions below, we'll assume you created a Quarto document called `quarto-intro.qmd` during the module on [Introduction to Quarto](../session_02.html), and have pushed that to GitHub within the same repo where you just created the `index.qmd` file above.
+In the instructions below, we'll assume you created a Quarto document called `quarto-intro.qmd` in your `scripts` directory during the module on [Introduction to Quarto](../session_02.html), and have pushed that to GitHub within the same repo where you just created the `index.qmd` file above.
 
 ::: {.callout-important collapse="true"}
-#### But what if I don't have a `quarto-intro.qmd` file?!?
+#### But what if I don't have a `scripts/quarto-intro.qmd` file?!?
 
 If you created a Quarto document in the intro session but named it something else, no problem! Simply adapt the instructions below to match your file name.
 
-If you haven't created this file at all, nor any other Quarto documents from previous modules, go ahead and create a new Quarto document in RStudio, and save it as `quarto-intro.qmd`. Just for quick illustration, add an R code chunk or two, such as:
+If you haven't created this file at all, nor any other Quarto documents from previous modules, go ahead and create a new Quarto document in RStudio, and save it as `quarto-intro.qmd` in the `scripts` directory. Just for quick illustration, add an R code chunk or two, such as:
 
 ````{verbatim}
 ```{r}
@@ -134,7 +134,7 @@ ggplot(airquality, aes(Temp, Ozone)) +
 <details>
   <summary>Markdown syntax to create a link:</summary>
   - `[Text you want to hyperlink](link)`
-  - Example: `[Introduction to Quarto](quarto-intro.html)`
+  - Example: `[Introduction to Quarto](scripts/quarto-intro.html)`
 </details>
 
 - Render `index.qmd`, then verify that the rendered page looks the way you expect, that the link works, and that the linked page looks good.
