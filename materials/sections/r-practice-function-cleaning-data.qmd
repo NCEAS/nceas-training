@@ -85,6 +85,7 @@ Read in each data file and store the data frame as `nest_data`, `predator_survey
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
 
 ## When reading from a file in your data folder in your Rpoj
 nest_data <-  read_csv("data/Utqiagvik_nest_data.csv")
@@ -123,6 +124,7 @@ Before thinking of how to write a function, first discuss what are you trying to
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
 
 predator_comm_names <- left_join(predator_survey,
                                  species,
@@ -143,6 +145,7 @@ The idea is that you can use this function in **any data frame** that has a colu
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
 
 assign_species_name <- function(df, species){
     return_df <- left_join(df, species, by = c("species" = "alpha_code"))
@@ -162,6 +165,7 @@ Place the cursor inside your function, In the top menu go to Code > Insert Roxyg
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
 
 #' Title
 #'
@@ -192,6 +196,7 @@ Create clean versions of the three data frames by applying the function you crea
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
  
 ## This is one solution. 
 predator_clean <- assign_species_name(predator_survey, species) %>% 
@@ -220,6 +225,7 @@ For a little extra challenge, try to incorporate an `if` statement that looks fo
 
 ```{r}
 #| code-summary: "Answer"
+#| code-fold: true
 
 #' Function to add common name to data.frame according to the BBL list of species codes
 
