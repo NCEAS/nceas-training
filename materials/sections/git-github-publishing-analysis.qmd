@@ -116,8 +116,8 @@ If you created a Quarto document in the intro session but named it something els
 
 If you haven't created this file at all, nor any other Quarto documents from previous modules, go ahead and create a new Quarto document in RStudio, and save it as `quarto-intro.qmd`. Just for quick illustration, add an R code chunk or two, such as:
 
-````
-```{r}`r ''`
+````{verbatim}
+```{r}
 library(dplyr)
 library(ggplot2)
 ggplot(airquality, aes(Temp, Ozone)) +
