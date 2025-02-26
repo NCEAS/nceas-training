@@ -42,26 +42,59 @@ The group has also published templates for use by publishers and repositories to
 ## Group Discussion
 
 ::: callout-tip
-## Data publishing policies
+## Evaluating a Data Package
 
-Consider the following hypothetical scenario:
+## Exercise: Evaluate a Data Package on the EDI Repository
 
-> The data coordinator at the Arctic Data Center receives an email in 2022 from a prior postdoctoral fellow who was employed as part of an NSF-funded project on microbial diversity in Alaskan tundra ecosystems.
-> The email states that a dataset from 2014 in the Arctic Data Center was published with the project PI as author, but omits two people, the postdoc and an undergraduate student, as co-authors on the dataset.
-> The PI retired in 2019, and the postdoc asks that they be added to the author list of the dataset to correct the historical record and provide credit.
+Explore data packages published on EDI assess the quality of their metadata. Imagine you're a data curator!
 
-At the Arctic Data Center, we need to develop policies and procedures governing how we react to potential breaches of data publication ethics.
-This exercise, aims to **instigate a group discussion on how the Arctic Data Center should respond to reports of data ethics issues**, and whether we should adopt the Joint FORCE11 & COPE Research Data Publishing Ethics Working Group Policy [Templates](https://zenodo.org/record/6422102/files/Repository%20Policy%20Template%20v1.pdf?download=1) for repositories.
+::: callout-tip
+### Setup
 
--   **Guiding questions:**
-    -   Should the repository adopt the repository [policy templates](https://zenodo.org/record/6422102/files/Repository%20Policy%20Template%20v1.pdf?download=1) from Force11?
-    -   Who should be involved in evaluation of the merits of ethical cases reported to ADC?
-    -    Who should be involved in deciding the actions to take?
-    -   What are the range of responses that the repository should consider for ethical breaches?
-    -   Who should be notified when a determination has been made that a breach has occurred?
+1. Break into groups and use the following data packages:
+    a. **Group A:** EDI Data Portal [SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-sbc.77.8)
+    b. **Group B:** EDI Data Portal [Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-nwt.268.1)
+    c. **Group C:** EDI Data Portal [Ecological and social interactions in urban parks: bird surveys in local parks in the central Arizona-Phoenix metropolitan area](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=256&revision=10)
+:::
 
 
-Consider the  hypothetical scenario described above to for your response.
+You and your group will evaluate a data package for its: (1) metadata quality, (2) data documentation quality for reproducibility, and (3) FAIRness and CAREness.
+
+::: callout-note
+### Exercise: Evaluate a data package on EDI Data Portal
+1.  View our [Data Package Assessment Rubric](https://docs.google.com/document/d/1PQpw9ohOMY7K1yBWaknMHV0dGEm0GnZ9pCB8_i2JPoU/edit?usp=sharing) and make a copy of it to:
+    a. **Investigate the metadata in the provided data**
+        i. Does the metadata meet the standards we talked about? How so?
+        ii. If not, how would you improve the metadata based on the standards we talked about?
+    b. **Investigate the overall data documentation in the data package**
+        i. Is the documentation sufficient enough for reproducibility? Why or why not?
+        ii. If not, how would you improve the data documentation? What's missing?
+    c. **Identify elements of FAIR and CARE**
+        i. Is it clear that the data package used a FAIR and CARE lens? 
+        ii. If not, what documentation or considerations would you add?
+2. Elect someone to share back to the group the following:
+    a.  How easy or challenging was it to find the metadata and other data documentation you were evaluating? Why or why not?
+    b. What documentation stood out to you? What did you like or not like about it?
+    c. How well did these data packages uphold FAIR and CARE Principles?
+    d. Do you feel like you understand the research project enough to use the data yourself (aka reproducibility?)
+    
+*If your group finishes early, check out more datasets in the bonus question.*
+:::
+
+## Bonus: Investigate metadata and data documentation in other Data Repositories
+
+Not all environmental data repositories document and publish datasets and data packages in the same way. Nor do they have the same submission requirements. It's helpful to become familiar with metadata and data documentation jargon so it's easier to identify the information you're looking for. It's also helpful for when you're nearing the end of your project and are getting ready to publish your datasets.
+
+Evaluate the following data packages at these data repositories: 
+
+1. KNB [Arthropod pitfall trap biomass captured (weekly) and pitfall biomass model predictions (daily) near Toolik Field Station, Alaska, summers 2012-2016](https://knb.ecoinformatics.org/view/https%3A%2F%2Fpasta.lternet.edu%2Fpackage%2Fmetadata%2Feml%2Fknb-lter-arc%2F20052%2F1)
+2. DataOne [USDA-NOAA NWS Daily Climatological Data](https://search.dataone.org/view/knb-lter-jrn.20020210.9893)
+3. Arctic Data Center [Landscape evolution and adapting to change in ice-rich permafrost systems 2021-2022](https://arcticdata.io/catalog/view/doi%3A10.18739%2FA2JQ0SW7X)
+
+How different are these data repositories from the EDI Data Portal? Would you consider publishing you data at one or multiple of these repositories? 
+
+
+<br>
 :::
 
 ## Resources
