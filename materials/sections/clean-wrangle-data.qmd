@@ -645,6 +645,50 @@ mean_region <- catch_long %>%
 head(mean_region)
 ```
 
+### Joins in dplyr
+
+So now that we're awesome at manipulating a single `data.frame`, where do we go from here? Manipulating **more than one** `data.frame`.
+
+If you've ever used a database, you may have heard of or used what's called a "join", which allows us to to intelligently merge two tables together into a single table based upon a shared column between the two. We've already covered joins in [Data Modeling & Tidy Data] so let's see how it's done with `dplyr`.
+
+The dataset we're working with, <https://knb.ecoinformatics.org/#view/df35b.304.2>, contains a second CSV which has the definition of each `Region` code. This is a really common way of storing auxiliary information about our dataset of interest (catch) but, for analylitcal purposes, we often want them in the same `data.frame`. Joins let us do that easily.
+
+Let's look at a preview of what our join will do by looking at a simplified version of our data:
+
+![Visualisation of our `left_join`](images/left_join_catchdata.png)
+
+First, let's read in the region definitions data table and select only the columns we want. Note that I have piped my `read.csv` result into a select call, creating a tidy chunk that reads and selects the data that we need.
+
+```{r, cache=TRUE}
+region_defs <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
+    select(code, mgmtArea)
+
+head(region_defs)
+```
+
+If you examine the `region_defs` `data.frame`, you'll see that the column names don't exactly match the image above. If the names of the key columns are not the same, you can explicitly specify which are the key columns in the left and right side as shown below:
+
+```{r}
+catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
+
+head(catch_joined)
+```
+
+Notice that I have deviated from our usual pipe syntax (although it does work here!) because I prefer to see the `data.frames` that I am joining side by side in the syntax.
+
+Another way you can do this join is to use `rename` to change the column name `code` to `Region` in the `region_defs` `data.frame`, and run the `left_join` this way:
+
+```{r, eval = F}
+region_defs <- region_defs %>% 
+  rename(Region = code, Region_Name = mgmtArea)
+
+catch_joined <- left_join(catch_long, region_defs, by = c("Region"))
+
+head(catch_joined)
+```
+
+Now our catches have the auxiliary information from the region definitions file alongside them. Note: `dplyr` provides a complete set of joins: inner, left, right, full, semi, anti, not just left\_join.
+
 ## Splitting a column using `separate()` and `unite()`
 
 The `separate()` function allow us to easily split a single column into numerous. Its complement, the `unite()` function, allows us to combine multiple columns into a single one.
