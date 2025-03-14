@@ -17,7 +17,7 @@ knitr::include_graphics("images/R_RStudio.png")
 
 - **New install:** To install RStudio, visit <https://posit.co/download/rstudio-desktop/>. Download the free (“Open Source Edition”) Desktop version for your operating system. You should install the most up-to-date version available that is supported by your operating system.
 
-- **Update:** If you already have RStudio and need to update: Open RStudio, and under ‘Help’ in the top menu, choose ‘Check for updates.’ If you have the most recent release, it will return ‘No update available. You are running the most recent version of RStudio.’ Otherwise, you should follow the instructions to install an updated version.
+- **Update:** If you already have RStudio and need to update: Open RStudio, and under ‘Help’ in the top menu, choose ‘Check for updates.’ If you have the most recent release, it will return ‘No update available. You are running the most recent version of RStudio.’ Otherwise, you should follow the instructions to install an updated version (Note you'll have to download the new version in order to update).
 
 - Open RStudio: **If upon opening RStudio you are prompted to install Command Line Tools, do it.**
 
@@ -38,13 +38,13 @@ You might already have git on your device, let’s check.
 
 - Open RStudio
 
-- In the Terminal tab, run the following command:
+- In the Terminal tab ([what is the Terminal?](https://learning.nceas.ucsb.edu/2024-working-groups/session_08.html#what-is-the-terminal)), run the following command:
 
 ```{bash eval=FALSE}
 which git
 ```
 
-- If after running that you get something that looks like a file path to git on your computer, then you have git installed. For example, that might return something like this (or it could differ a bit): `/usr/local/bin/git`. If you instead get no response at all, you should download & install git from here: [git-scm.com/downloads](https://git-scm.com/downloads)
+- If after running that you get something that looks like a file path to git on your computer, then you have git installed. For example, that might return something like this (or it could differ a bit): `/usr/local/bin/git`. If you instead get no response at all or see something like `git command not found` or "git is not installed", you should download & install git from here: [git-scm.com/downloads](https://git-scm.com/downloads)
 
 
 **An aside:** Is it necessary to have Git installed in your machine for this workshop. GitHub's [Git Guides](https://github.com/git-guides) are a really wonderful resource to start learning about this topic.
@@ -60,7 +60,8 @@ which git
 - Install the `usethis` and `gitcreds` packages in R by running the following in the RStudio Console: 
 
 ```{r eval=FALSE}
-install.packages(“usethis”)
+
+install.packages("usethis")
 
 install.packages("gitcreds")
 ```
@@ -134,6 +135,14 @@ usethis::git_sitrep()
 ### STEP 6: Congratulations!{.unnumbered}
 
 **Once you've completed these steps you are ready for our workshop on Git and Github**
+ 
+ <br>
+
+:::callout-important
+## Need help?
+If you run into any issues during this process please check out [Happy Git nd GitHub for the useR](https://happygitwithr.com/) (great resource from Jennifer Bryan) or more details or contact us to help you troubleshoot.
+
+:::
 
 
 <br>
@@ -157,7 +166,7 @@ knitr::include_graphics("images/R_RStudio.png")
 
 - **New install:** To install RStudio, visit <https://posit.co/download/rstudio-desktop/>. Download the free (“Open Source Edition”) Desktop version for your operating system. You should install the most up-to-date version available that is supported by your operating system.
 
-- **Update:** If you already have RStudio and need to update: Open RStudio, and under ‘Help’ in the top menu, choose ‘Check for updates.’ If you have the most recent release, it will return ‘No update available. You are running the most recent version of RStudio.’ Otherwise, you should follow the instructions to install an updated version.
+- **Update:** If you already have RStudio and need to update: Open RStudio, and under ‘Help’ in the top menu, choose ‘Check for updates.’ If you have the most recent release, it will return ‘No update available. You are running the most recent version of RStudio.’ Otherwise, you should follow the instructions to install an updated version (Note you'll have to download the new version in order to update).
 
 - Open RStudio: **If upon opening RStudio you are prompted to install Command Line Tools, do it.**
 
@@ -174,7 +183,7 @@ You should already have git on your device, but let’s check for it anyway.
 
 - Open RStudio
 
-- In the Terminal, run the following command:
+- In the Terminal ([what is the Terminal?](https://learning.nceas.ucsb.edu/2024-working-groups/session_08.html#what-is-the-terminal)), run the following command:
 
 ```{bash eval=FALSE}
 where git
@@ -281,9 +290,21 @@ usethis::git_sitrep()
 
 **Once you've completed these steps you are ready for our workshop on Git and Github**
 
+<br>
+
+:::callout-important
+## Need help?
+If you run into any issues during this process please check out [Happy Git nd GitHub for the useR](https://happygitwithr.com/) (great resource from Jennifer Bryan) or more details or contact us to help you troubleshoot.
+
+:::
 
 
-## Troubleshooting
+
+<br>
+
+## Additional Information
+
+### 1. Troubleshooting{.unnumbered}
 
 :::callout-warning
 ## Issues installing Git on a Windows
@@ -296,3 +317,44 @@ Restart your computer and try running `git --version` on the terminal. You shoul
 
 **If you see the git version printed out in your terminal, you are all set**
 :::
+
+<br>
+
+### 2. Strategy to integrate changes from one branch into another{.unnumbered}
+
+Above we configured our global options for all the repositories you create in your server session to use `pull.rebase = "false"` as the strategy to integrate changes from two branches. With this we are saying to [merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) changes (as opposed to rebasing).
+
+It is important to highlight that this configuration can be repo specific. This mean, you can configure how you want git to reconciling two branches at a repository level and not "for all repositories". Allowing you to control on how git weaves things in when collaborating with others.
+
+If you don't define `pull.rebase = "false"` when setting the global configurations, you will have to define this for each repository you create. You will likely see the following message after you pull, meaning you have not define how to reconciling two branches in your repository. 
+
+![](images/git_pull_reconcile_message.png)
+
+
+To solve this issues you have to run either of the two suggested strategies on the terminal.
+
+```bash
+git config pull.rebase false
+```
+
+or
+
+```bash
+git config pull.rebase true
+```
+
+<br>
+
+### 3. What is the terminal?{.unnumbered}
+
+::: {.callout-caution icon=false}
+## What's the Terminal?
+
+Technically, the Terminal is an interface for the shell, a computer program. To put that simply, we use the Terminal to tell a computer what to do. This is different from the Console in RStudio, which interprets R code and returns a value.
+
+You can access the terminal through RStudio by clicking Tools \> Terminal \> New Terminal.
+
+A Terminal tab should now be open right next to the Console tab.
+:::
+
+
