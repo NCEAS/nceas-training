@@ -2,7 +2,7 @@
 
 -   Apply the principles of Git to track and manage changes of a project
 -   Utilize the Git workflow including pulling changes, staging modified files, committing changes, pulling again to incorporate remote changes, and pushing changes to a remote repository
--   Create and configure Git repositories using different workflows
+-   Create and configure a Git repository and clone to RStudio
 
 ## Introduction to Version Control
 
@@ -462,24 +462,24 @@ If you look at the History pane again, you'll notice that the labels next to the
 
 ![](images/github-history.png)
 
-### Defining Merge Method
+<!-- ### Defining Merge Method -->
 
-::: callout-caution
-## Some Git configuration to surpress warning messages
+<!-- ::: callout-caution -->
+<!-- ## Some Git configuration to surpress warning messages -->
 
-Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal:
+<!-- Git version 2.27 includes a new feature that allows users to specify the default method for integrating changes from a remote repository into a local repository, without receiving a warning (this warning is informative, but can get annoying). To suppress this warning *for this repository only* we need to configure Git by running this line of code in the Terminal: -->
 
-```{bash}
-#| eval: false
-#| echo: true
+<!-- ```{bash} -->
+<!-- #| eval: false -->
+<!-- #| echo: true -->
 
-git config pull.rebase false
-```
+<!-- git config pull.rebase false -->
+<!-- ``` -->
 
-`pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Collaborating with Git and GitHub](https://learning.nceas.ucsb.edu/2024-06-delta/session_09.html)).
+<!-- `pull.rebase false` is a default strategy for pulling where Git will first try to auto-merge the files. If auto-merging is not possible, it will indicate a merge conflict (more on resolving merge conflicts in [Collaborating with Git and GitHub](https://learning.nceas.ucsb.edu/2024-06-delta/session_09.html)). -->
 
-**Note:** Unlike when we first configured Git, we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference.
-:::
+<!-- **Note:** Unlike when we first configured Git, we do not include the `--global` flag here (e.g. `git config --global pull.rebase false`). This sets this default strategy for this repository only (rather than globally for all your repositories). We do this because your chosen/default method of grabbing changes from a remote repository (e.g. [pulling](https://git-scm.com/docs/git-pull) vs. [rebasing](https://git-scm.com/docs/git-rebase)) may change depending on collaborator/workflow preference. -->
+<!-- ::: -->
 
 ## Exercise 3: Setting up Git on an existing project
 
@@ -595,8 +595,13 @@ Initialized empty Git repository in /home/username/training_username/.git/
 ```
 
 ::: {.callout-important}
-## You may have to quit and reopen your RStudio session on the server for the Git tab to appear
-You'll likely need to help `included-crab` along in recognizing that this R Project has been initialized as a git repository -- click **Session** > **Quit Session...** > **New Session** > choose `training_{USERNAME}` to reopen your project.
+## You may have to restart RStudio or close the project and reopenfor the Git tab to appear
+You'll likely need to help RStudio in recognizing that this R Project has been initialized as a git repository -- 
+
+- **To Restart** click **Session** > **Restart R** 
+
+- **Close and re-open project** click **File** > **Close Project** once the project has been closed click **File** > **Open Project** > Navigate to the `.Rproj` file of the project you'd like to open.
+
 :::
 
 Once complete, you should see the **Git** tab appear in your top left pane in RStudio and a `.gitignore` file appear in your **Files** tab.
