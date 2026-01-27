@@ -1,14 +1,11 @@
 ---
-title: "Collaborating with git and GitHub"
+title: "Publishing Analysis to the Web"
 title-block-banner: true
-execute:
-  eval: true
-# format:
-#   html: 
-#     code-link: true
-#     code-fold: true
-#     code-summary: "Example Code"
-#     code-overflow: wrap
+format:
+  html:
+    code-overflow: wrap
+    code-link: true
 ---
 
-{{< include /sections/git-collab-merge-conflicts.qmd >}}
+{{< include /sections/git-github-publishing-analysis.qmd >}}
+

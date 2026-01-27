@@ -1,5 +1,5 @@
 ---
-title: "Publishing Analysis to the Web"
+title: "Data Visualization"
 title-block-banner: true
 format:
   html:
@@ -7,5 +7,4 @@ format:
     code-link: true
 ---
 
-{{< include /sections/git-github-publishing-analysis.qmd >}}
-
+{{< include /sections/visualization-ggplot-leaflet.qmd >}}

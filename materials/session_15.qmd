@@ -1,8 +1,8 @@
 ---
-title: "FAIR/CARE and Ethical Data Collection"
+title: "Data Portals"
 title-block-banner: true
+execute:
+  eval: false
 ---
 
-{{< include /sections/fair-care-principles.qmd >}}
-
-{{< include /sections/research-data-publising-ethics.qmd >}}
+{{< include /sections/adc-creating-data-portals.qmd >}}
