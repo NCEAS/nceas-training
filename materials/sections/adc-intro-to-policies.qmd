@@ -16,7 +16,7 @@ We’re best known in the research community as a data archive – researchers u
 
 ![](images/arctic-data-center/ADC-features.png)
 
-NSF has long had a commitment to data reuse and sharing. Since our start in 2016, we’ve grown substantially – from that original 4 TB of data from ACADIS to now over 140 TB towards the end of 2024. In 2021 alone, we saw 16% growth in dataset count, and about 30% growth in data volume. This increase has come from advances in tools – both ours and of the scientific community, plus active community outreach and a strong culture of data preservation from NSF and from researchers. We plan to add more storage capacity in the coming months, as researchers are coming to us with datasets in the terabytes, and we’re excited to preserve these research products in our archive. We’re projecting our growth to be around several hundred TB this year, which has a big impact on processing time. Give us a heads up if you’re planning on having larger submissions so that we can work with you and be prepared for a large influx of data.
+NSF has long had a commitment to data reuse and sharing. Since our start in 2016, we’ve grown substantially – from that original 4 TB of data from ACADIS to now over 300 TB at the start of 2026. In 2021 alone, we saw 16% growth in dataset count, and about 30% growth in data volume. This increase has come from advances in tools – both ours and of the scientific community, plus active community outreach and a strong culture of data preservation from NSF and from researchers. We plan to add more storage capacity in the coming months, as researchers are coming to us with datasets in the terabytes, and we’re excited to preserve these research products in our archive. We’re projecting our growth to be around several hundred TB this year, which has a big impact on processing time. Give us a heads up if you’re planning on having larger submissions so that we can work with you and be prepared for a large influx of data.
 
 ![](images/arctic-data-center/ADC repo size jan 2025.png)
 
@@ -26,11 +26,11 @@ The data that we have in the Arctic Data Center comes from a wide variety of dis
 
 Along with that diversity of disciplines comes a diversity of file types. The most common file type we have are image files in four different file types. Probably less than 200-300 of the datasets have the majority of those images – we have some large datasets that have image and/or audio files from drones. Most of those 6600+ datasets are tabular datasets. There’s a large diversity of data files, though, whether you want to look at remote sensing images, listen to passive acoustic audio files, or run applications – or something else entirely. We also cover a long period of time, at least by human standards. The data represented in our repository spans across centuries.
 
-![](images/arctic-data-center/ADC-filetypes.png)
+![](images/arctic-data-center/ADC-filetypes-2026.png)
 
 We also have data that spans the entire Arctic, as well as the sub-Arctic, regions.
 
-![](images/arctic-data-center/ADC-panarctic.png)
+![](images/arctic-data-center/adc-catalogue-map.png)
 
 ### Data Discovery Portal
 
@@ -39,7 +39,7 @@ To browse the data catalog, navigate to [arcticdata.io](https://arcticdata.io/).
 ![](images/arctic-data-center/ADC-search-screenshot.png)
 Clicking on a dataset brings you to this page. You have the option to download all the files by clicking the green “Download All” button, which will zip together all the files in the dataset to your Downloads folder. You can also pick and choose to download just specific files.
 
-![](images/arctic-data-center/adc_dataset.png)
+![](images/arctic-data-center/adc-dataset-2026.png)
 
 All the raw data is in open formats to make it easily accessible and compliant with [FAIR](https://www.go-fair.org/fair-principles/) principles – for example, tabular documents are in .csv (comma separated values) rather than Excel documents.
 
@@ -122,4 +122,4 @@ Recognizing the importance of sensitive data handling and of ethical treatment o
 
 All the above informtion can be found on our website or if you need help, ask our support team at support@arcticdata.io or tweet us \@arcticdatactr!
 
-![](images/arctic-data-center/adc-metrics.png)
+![](images/arctic-data-center/adc-metrics-2026.png)
