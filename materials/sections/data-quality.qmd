@@ -76,21 +76,122 @@ At the Arctic Data Center, we have chosen to tackle the first two types of data 
 
 When these checks are run, each dataset recieves a report like the below:
 
-![](images/adc-data-quality-overview.png){width="80%" fig-align="center"}
+![](images/adc-data-quality-overview.png){fig-align="center"}
 
 Warnings are issued for checks that failed, but are optional. Within each row, output describes the result of the check. For example: Column names in Riverbank_Sediment_ADC.csv are well formed. No non-printable characters detected.
 
 Some output is collapsed for readability:
 
-![](images/adc-data-quality-warning-detail.png){width="80%" fig-align="center"}
+![](images/adc-data-quality-warning-detail.png){fig-align="center"}
 
 At the Arctic Data Center we can use these checks to gain insights about our data holdings. TODO: maybe insert figures here?
 
-### Data Quality and You
+### Checking Data Quality in R
 
 Poll: 
 
 - What are the most common quality issues you see? (free text)
 - What kind of data quality checks do you use on your own data? (free text)
 - Do you have ideas for checks you think we should add to the ADC quality suite?
+
+Although the Arctic Data Center has implemented data quality checks that are automated, the vast majority of data quality work still falls on researchers doing analysis. In this section we will discuss a few tools that researchers can use in R to do general data quality work.
+
+#### Resolving mysteries with `file`
+
+When a researcher receives a new file to incorporate into an analysis, the first step is to examine the file. One tool already used in the Arctic Data Center data quality suite is the `file` utility in linux/unix systems. This is a command run using the terminal that performs tests on the **content** of a file to determine its type. This is useful for files where the type is unknown, or for files that cannot be read into R for unknown reasons. 
+
+In the terminal, run the following:
+
+```
+file data/BGchem2008data.csv
+```
+
+You should see an output like: `data/BGchem2008data.csv: CSV text`. Which makes sense!
+
+The file command is very helpful at catching things like this, where we have an excel file masquerading as a csv file. You might wind up using this if you try to read in the example file below using `read.csv`, and get output that looks completely garbled.
+
+```
+file example-data/my-data.csv 
+example-data/my-data.csv: Microsoft Excel 2007+
+```
+
+Another great use of the file command is for mystery extensions:
+
+```
+file example-data/JUSTIN_400__001.DZG 
+example-data/JUSTIN_400__001.DZG: ASCII text, with CRLF, LF line terminators
+```
+
+#### Quick Summaries with `skimr`.
+
+First, we need to install the `skimr` package.
+
+```{r, eval = FALSE}
+install.packages("skimr")
+```
+
+And load it into our environment, along with `readr`
+
+```{r, warning = FALSE, message = FALSE}
+library(skimr)
+library(readr)
+library(dplyr)
+library(lubridate)
+```
+
+Now we'll read in a familar file, the `BGChem2008data.csv` from  [Craig Tweedie. (2009). North Pole Environmental Observatory Bottle Chemistry. Arctic Data Center. doi:10.18739/A25T3FZ8X.](https://doi.org/doi:10.18739/A25T3FZ8X)
+
+```{r}
+bg_chem <- read_csv("data/BGchem2008data.csv")
+```
+Notice that the `read_csv` call already gives us some information about the dataset here. It tells us what the columns are, and what the column types are. `skimr` can give us even more information that will be helpful.
+
+```{r}
+skim(bg_chem)
+```
+
+`skim` gives us information about the data frame including basic statistics on the numeric values, missing values, and number of unique values in the character variables.
+
+Helpfully, `skim` can also handle grouped output, if we wanted to look more closely at summaries of oxygen concentaration by `station`, for example, we can run:
+
+```{r}
+bg_chem %>% 
+  select(Station, O2) %>% 
+  group_by(Station) %>% 
+  skim()
+```
+
+Skim is a great way to get a big picture overview of your data to spot major issues. Does anything stand out here?
+
+-99 (or some repetition of those digits) is a very common missing value code that isn't automatically recognized by R. Let's go back to the `read_csv` call to add it in as an argument.
+
+```{r}
+bg_chem <- read_csv("data/BGchem2008data.csv", na = "-99")
+```
+
+Another similar package is called `visdat`. It lets you visualize a data frame with its column types, variable names, and missing values.
+
+```{r, eval = FALSE}
+install.packages("visdat")
+```
+
+```{r}
+library(visdat)
+```
+
+```{r}
+vis_dat(bg_chem) + 
+    theme(axis.text.x = element_text(angle = 45, vjust = 0))
+```
+
+Similar to `skimr`, you can also group (in this case facet) the output by a variable.
+
+```{r}
+vis_dat(bg_chem, facet = Station) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 0))
+```
+
+This is helpful because it shows us where the missing values are and in which variable.
+
+
 
