@@ -1,0 +1,96 @@
+## Data Quality
+
+Learning objectives:
+
+- How the Arctic Data Center evaluates data quality
+- How to use R to evaluate data quality
+
+### Automated Data Quality Assessment at the Arctic Data Center
+
+The Arctic Data Center performs automated metadata and data quality assessments of every dataset shortly after it is submitted. Each assessment consists of a series of checks that are performed on either the metadata or data (or both!) contained within the dataset. Within what is called a "suite" of checks, the checks are classified into either required, optional, or informational checks. Additionally, they are classified into FAIR categories, where FAIR represents Findable, Accessible, Interoperable, Reusable.
+
+An overall score is then calculated for each dataset, according to the following formula:
+
+$$score = \frac{R_{pass} + O_{pass}}{R_{pass} + R_{fail} + O_{pass}}$$
+where R is the number of Required checks that pass or fail, and O is the number of Optional checks that pass or fail. This ensures that datasets are not penalized for failing optional checks. This system allows the Arctic Data Center to evaluate FAIR-ness of its datasets over time. The figure below shows the quality scores of the repository through time for metadata FAIRness.
+
+![](images/adc-fair-timeseries.png){width="80%" fig-align="center"}
+To evaluate data quality over a wide range of data types and disciplines, the Arctic Data Center first conceptualized four categories of data quality checks. These categories are: congruency, accessibility, validity, and accuracy.
+
+#### Congruency {.unnumbered}
+
+**Is the file what it says it is?**
+
+Examples:  
+- data format matches format listed
+- checksum of file matches documentation
+- variable names in file match documentation
+
+#### Accessibility {.unnumbered}
+
+**Can the file be accessed and read correctly?**
+
+Examples:
+- text formatted files valid according to subtype (eg: csv files match format)
+- binary files validate against declared type (eg: hdf5 is valid against HDF5 standard)
+- characters in text files are valid against declared encoding
+
+#### Validity {.unnumbered}
+
+**Are values valid within reasonable bounds?**
+
+- air temperatures within -100 and 100 degrees C
+- ocean depth does not exceed 10,935m
+- tree diameters do not get smaller through time
+
+#### Accuracy {.unnumbered}
+
+**Does this value make sense given the other values?**
+
+- statistical outliers in measured variables
+- anomalous NDVI values caused by cloud interference
+
+At the Arctic Data Center, we have chosen to tackle the first two types of data checks, since they are domain agnostic and do not require specialized knowledge to implement the checks. So far, the data suite we have developed has implemented the following checks:
+
+| Check ID | Description |
+|----------|-------------|
+| All files | Content malware-free |
+| All files | Data format congruent with metadata|
+| All files | Data content not zipped unless it is a shapefile set |
+| Text files | Text encoding valid according to guessed format |
+| Text delimited tables | Table variables congruent with metadata |
+| Text delimited tables | Table well-formed |
+| Text delimited tables | Column names printable |
+| Text delimited tables | Columns and rows contain data |
+| Text delimited tables | Dates parse correctly according to metadata |
+| Text delimited tables | Latitude/longitude data congruent with metadata |
+| Text delimited tables | Missing values documented |
+| Text delimited tables | Shows a glimpse of a table |
+| Shapefiles | Shapefile sets complete |
+| Shapefiles | Shapefile coordinates within CRS bounds |
+| Shapefiles | Shapefile geometry congruent with metadata |
+| NetCDF files | NetCDF global attributes complete |
+| NetCDF files | NetCDF variable attributes complete |
+| NetCDF files | NetCDF coordinate attributes complete |
+| Raster files | Raster well-formed |
+
+When these checks are run, each dataset recieves a report like the below:
+
+![](images/adc-data-quality-overview.png){width="80%" fig-align="center"}
+
+Warnings are issued for checks that failed, but are optional. Within each row, output describes the result of the check. For example: Column names in Riverbank_Sediment_ADC.csv are well formed. No non-printable characters detected.
+
+Some output is collapsed for readability:
+
+![](images/adc-data-quality-warning-detail.png){width="80%" fig-align="center"}
+
+At the Arctic Data Center we can use these checks to gain insights about our data holdings. TODO: maybe insert figures here?
+
+### Data Quality and You
+
+Poll: 
+
+- What are the most common quality issues you see? (free text)
+- What kind of data quality checks do you use on your own data? (free text)
+- Do you have ideas for checks you think we should add to the ADC quality suite?
+
