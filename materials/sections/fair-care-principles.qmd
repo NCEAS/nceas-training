@@ -55,6 +55,46 @@ The [CARE Principles](https://www.gida-global.org/care) for Indigenous Data Gove
 
 -   **Assess the CAREness of your research.** Like FAIR, CARE Principles are a lens to apply to your work. With CARE, it's important to center human well-being in addition to open science and data sharing. To do this, reflect on how you're giving access to Indigenous groups, on who your data impacts and the relationships you have with them, and the ethical concerns in your work. The Arctic Data Center, a data repository for Arctic research, now requires an [Ethical Research Practices Statement](https://arcticdata.io/all/blog/2022/04/applying-care-documenting-ethical-data-procedures-and-sensitive-data-at-the-arctic-data-center/) when submitting data to them. They also have multiple [guidelines](https://arcticdata.io/data-ethics/) on how to write and what to include in an Ethical Research Practices Statement.
 
+## Research Data Publishing Ethics
+
+For over 20 years, the [Committee on Publication Ethics (COPE)](https://publicationethics.org/) has provided trusted guidance on ethical practices for scholarly publishing.
+The COPE guidelines have been broadly adopted by academic publishers across disciplines, and represent a common approach to identify, classify, and adjudicate potential breaches of ethics in publication such as authorship conflicts, peer review manipulation, and falsified findings, among many other areas.
+Despite these guidelines, there has been a lack of ethics standards, guidelines, or recommendations for data publications, even while some groups have begun to evaluate and act upon reported issues in data publication ethics.
+
+![Data retractions](images/ethical-dataset-retractions.png)
+
+To address this gap, the [Force 11 Working Group on Research Data Publishing Ethics](https://force11.org/groups/research-data-publishing-ethics/home/) was formed as a collaboration among research data professionals and the Committee on Publication Ethics (COPE) "to develop industry-leading guidance and recommended best practices to support repositories, journal publishers, and institutions in handling the ethical responsibilities associated with publishing research data." The group released the "Joint FORCE11 & COPE Research Data Publishing Ethics Working Group Recommendations" [@puebla_2021], which outlines recommendations for four categories of potential data ethics issues:
+
+-   [Authorship and Contribution Conflicts](https://zenodo.org/record/5391293/files/Authorship%20%26%20Contributions_datapubethics.pdf?download=1)
+    -   Authorship omissions
+    -   Authorship ordering changes / conflicts
+    -   Institutional investigation of author finds misconduct
+-   [Legal/regulatory restrictions](https://zenodo.org/record/5391293/files/Legal%20%26%20Regulatory%20Restrictions_datapubethics.pdf?download=1)
+    -   Copyright violation
+    -   Insufficient rights for deposit
+    -   Breaches of national privacy laws (GPDR, CCPA)
+    -   Breaches of biosafety and biosecurity protocols
+    -   Breaches of contract law governing data redistribution
+-   [Risks of publication or release](https://zenodo.org/record/5391293/files/Risk_datapubethics.pdf?download=1)
+    -   Risks to human subjects
+        -   Lack of consent
+        -   Breaches of himan rights
+        -   Release of personally identifiable information (PII)
+    -   Risks to species, ecosystems, historical sites
+        -   Locations of endangered species or historical sites
+    -   Risks to communities or societies
+        -   Data harvested for profit or surveillance
+        -   Breaches of data sovereignty
+-   [Rigor of published data](https://zenodo.org/record/5391293/files/Rigor_datapubethics.pdf?download=1)
+    -   Unintentional errors in collection, calculation, display
+    -   Un-interpretable data due to lack of adequate documentation
+    -   Errors of of study design and inference
+    -   Data manipulation or fabrication
+
+Guidelines cover what actions need to be taken, depending on whether the data are already published or not, as well as who should be involved in decisions, who should be notified of actions, and when the public should be notified.
+The group has also published templates for use by publishers and repositories to announce the extent to which they plan to conform to the data ethics guidelines.
+
+![Force11/COPE](images/force11-cope-logos.png)
 <!--
 ::: callout-note
 ## CARE Exercise
