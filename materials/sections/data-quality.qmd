@@ -177,6 +177,7 @@ install.packages("visdat")
 
 ```{r}
 library(visdat)
+library(ggplot2)
 ```
 
 ```{r}
