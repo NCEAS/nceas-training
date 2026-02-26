@@ -122,7 +122,7 @@ file example-data/JUSTIN_400__001.DZG
 example-data/JUSTIN_400__001.DZG: ASCII text, with CRLF, LF line terminators
 ```
 
-#### Quick Summaries with `skimr`.
+#### Quick Summaries with `skimr` and `visdat`
 
 First, we need to install the `skimr` package.
 
@@ -166,7 +166,7 @@ Skim is a great way to get a big picture overview of your data to spot major iss
 -99 (or some repetition of those digits) is a very common missing value code that isn't automatically recognized by R. Let's go back to the `read_csv` call to add it in as an argument.
 
 ```{r}
-bg_chem <- read_csv("data/BGchem2008data.csv", na = "-99")
+bg_chem_clean <- read_csv("data/BGchem2008data.csv", na = "-99")
 ```
 
 Another similar package is called `visdat`. It lets you visualize a data frame with its column types, variable names, and missing values.
@@ -181,18 +181,138 @@ library(ggplot2)
 ```
 
 ```{r}
-vis_dat(bg_chem) + 
+vis_dat(bg_chem_clean) + 
     theme(axis.text.x = element_text(angle = 45, vjust = 0))
 ```
 
 Similar to `skimr`, you can also group (in this case facet) the output by a variable.
 
 ```{r}
-vis_dat(bg_chem, facet = Station) +
+vis_dat(bg_chem_clean, facet = Station) +
     theme(axis.text.x = element_text(angle = 45, vjust = 0))
 ```
 
 This is helpful because it shows us where the missing values are and in which variable.
 
 
+#### Formalized Validation with `pointblank`
 
+```{r}
+library(pointblank)
+```
+
+
+The `pointblank` package allows you to assess the state of data quality for a table according to a set of a priori rules that are user defined. Functions from the package integrate seamlessly into a `tidyverse` style workflow.
+
+First we'll show a simple example with our original `bg_chem` data. Here, we pipe `bg_chem` into the function `col_vals_gt`. The `pointblank` package has many, many different validation functions. For now, we'll have a look at the `col_vals_*` family of functions, which check that values in the columns you declare meet some condition. In this example, we'll use `col_vals_gt` to check that column values are greater than 0 by passing the columns to check to `columns`, and then to the `value` argument we pass 0 (what the values should be greater than). We can also specify whether `NA` values are allowed. The default there is `FALSE` so we will set to `TRUE`.
+
+```{r, eval = FALSE}
+bg_chem %>% 
+    col_vals_gt(columns = O2, value = 0, na_pass = TRUE)
+```
+
+When we run this, you'll see we get an error!
+
+```
+Error: Exceedance of failed test units where values in `O2` should have been > `0`.
+The `col_vals_gt()` validation failed beyond the absolute threshold level (1).
+* failure level (53) >= failure threshold (1)
+```
+
+And we expected this, we already knew this particular data frame had the `-99` values in the `O2` column. What the function did, then, was completely stop processing since the validation did not pass. This means that you can use these functions within data processing pipelines as ways to check and ensure your data are of high quality at key steps. For example, say our processing required us to transform this O2 variable in some way. You could add a validation step prior to a key mutate call to make sure that errors do not propogate through your data processing and analysis pipelines.
+
+```{r, eval = FALSE}
+bg_chem_final <- bg_chem %>% 
+    col_vals_gt(columns = O2, value = 0, na_pass = TRUE) %>% 
+    mutate(important_metric = O2 * 0.321)
+```
+
+```
+Error: Exceedance of failed test units where values in `O2` should have been > `0`.
+The `col_vals_gt()` validation failed beyond the absolute threshold level (1).
+* failure level (53) >= failure threshold (1)
+```
+
+The reason why this works becomes apparent if we run this test on the `bg_chem_clean` dataset instead (the dataset that has -99 accounted for as a missing value).
+
+```{r}
+bg_chem_clean %>% 
+    col_vals_gt(columns = O2, value = 0, na_pass = TRUE) %>% 
+    head()
+```
+
+You'll see from the above that if the test passes, the return value is just the data frame. So we can easily pipe it through to our important `mutate` call with no changes.
+
+```{r}
+bg_chem_final <- bg_chem_clean %>% 
+    col_vals_gt(columns = O2, value = 0, na_pass = TRUE) %>% 
+    mutate(important_metric = O2 * 0.321)
+```
+
+##### Validation Reporting
+
+`pointblank` also allows you to build a validation table, if, instead of inserting validation steps into processing pipelines, you just want to report on the quality of a particular data frame. To create this report, first we will use the `create_agent` function. This function takes the data.frame as an argument. After `create_agent` we pipe our validation functions like `col_vals_gt` above. Then, at the end, we pass those results to `interrogate()`.
+
+In this example, I will add more validation functions to different variables, and our agent and interrogation steps that generate a report:
+
+```{r, eval = FALSE}
+bg_chem_clean %>% 
+    create_agent() %>% 
+    col_vals_gt(vars(O2, NO3, NO2, NH4, P, Si), value = 0, na_pass = TRUE) %>% 
+    col_vals_between(columns = vars(CTD_Salinity, Bottle_Salinity), left = 0, right = 42, na_pass = TRUE) %>% 
+    col_vals_between(Latitude, left = -90, right = 90) %>%
+    col_vals_between(Longitude, left = -180, right = 180) %>% 
+    interrogate()
+```
+
+![](images/pointblank-validate.png){fig-align="center"}
+
+In the generated report, the left side of the table (red) shows the validation rules that were implemented. The right side shows the results. You can see that two of our rules, the greater than 0 rules for NO3 and NO2 has failures (in the FAIL column).
+
+`pointblank` also allows you to set what are called `action_levels`. These signal thresholds for the following actions: warn, stop, and notify (W, S, N, respectively, in the right side of the validation table). These thresholds can be set as the relative proportion of failing rows or the absolute number of rows.
+
+Let's create some action levels so that we are warned 1 row failing, and stopped if more than 10.
+
+```{r}
+al <- action_levels(warn_at = 1, stop_at = 10)
+```
+
+We can then pass those action levels to the `create_agent` function to apply them to all of the rules.
+
+```{r}
+bg_chem_clean %>% 
+    create_agent(actions = al) %>% 
+    col_vals_gt(vars(O2, NO3, NO2, NH4, P, Si), value = 0, na_pass = TRUE) %>% 
+    col_vals_between(columns = vars(CTD_Salinity, Bottle_Salinity), left = 0, right = 42, na_pass = TRUE) %>% 
+    col_vals_between(Latitude, left = -90, right = 90) %>%
+    col_vals_between(Longitude, left = -180, right = 180) %>% 
+    interrogate()
+```
+
+You can also pass action levels to the validation functions themselves. Let's say you want to have a different warning level for the lat/lons. We can override our less strict action level at the agent level at the lat/long validation step only.
+
+```{r}
+al_latlon <- action_levels(warn_at = 1, stop_at = 5)
+```
+
+```{r}
+bg_chem_clean %>% 
+    create_agent(actions = al) %>% 
+    col_vals_gt(vars(O2, NO3, NO2, NH4, P, Si), value = 0, na_pass = TRUE) %>% 
+    col_vals_between(columns = vars(CTD_Salinity, Bottle_Salinity), left = 0, right = 42, na_pass = TRUE) %>% 
+    col_vals_between(Latitude, left = -90, right = 90, actions = al_latlon) %>%
+    col_vals_between(Longitude, left = -180, right = 180, actions = al_latlon) %>% 
+    interrogate()
+```
+
+### Summary
+
+To summarize, we first talked about data quality as a concept. Data quality is not just "are my measurements valid?" - it also asks questions like:
+
+1. Are my files written according to their standard?
+2. Are my files documented accurately?
+3. Is my file encoded correctly?
+
+We explored the Arctic Data Center's automated data quality tools which seek to evaluate questions like those for all of the datasets at the Arctic Data Center.
+
+Next, we showed how to evaluate data quality in R. Beginning with the humble `file` command, we expanded to look at two useful data summary packages, `skimr` and `visdat` which can help researchers spot quality issues quickly. Finally, we took a more in depth look at the `pointblank` package, which allows users to write their own data quality rules to either ensure that data look as expected through data processing operations, or to write a data quality report.
