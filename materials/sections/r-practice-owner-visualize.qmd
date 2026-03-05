@@ -64,7 +64,7 @@ First, you'll need to create a new dataset subset called `lobsters_summarize`:
 #| code-summary: "Answer"
 lobsters_summarize <- lobster_abundance %>% 
   group_by(SITE, YEAR) %>% 
-  summarize(COUNT = n())
+  summarize(COUNT = sum(COUNT, na.rm = TRUE))
 ```
 
 Next, create a line graph using `ggplot()` and `geom_line()`. Use `geom_point()` to make the data points more distinct, but ultimately up to you if you want to use it or not. We also want `SITE` information on this graph, do this by specifying the variable in the `color` argument. Where should the `color` argument go? Inside or outside of `aes()`? Why or why not?
@@ -108,7 +108,7 @@ lobster_size_lrg <- lobster_abundance %>%
     filter(YEAR %in% c(2019, 2020, 2021)) %>%
     mutate(SIZE_BIN = if_else(SIZE_MM <= 70, true = "small", false = "large")) %>%
     group_by(SITE, SIZE_BIN) %>%
-    summarize(COUNT = n()) %>%
+    summarize(COUNT = sum(COUNT, na.rm = TRUE))
     drop_na()
 ```
 
