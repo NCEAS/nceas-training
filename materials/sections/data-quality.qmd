@@ -14,14 +14,13 @@ An overall score is then calculated for each dataset, according to the following
 $$score = \frac{R_{pass} + O_{pass}}{R_{pass} + R_{fail} + O_{pass}}$$
 where R is the number of Required checks that pass or fail, and O is the number of Optional checks that pass or fail. This ensures that datasets are not penalized for failing optional checks. This system allows the Arctic Data Center to evaluate FAIR-ness of its datasets over time. The figure below shows the quality scores of the repository through time for metadata FAIRness.
 
-![](images/adc-fair-timeseries.png){width="80%" fig-align="center"}
+![](images/adc-fair-timeseries.png){fig-align="center"}
 To evaluate data quality over a wide range of data types and disciplines, the Arctic Data Center first conceptualized four categories of data quality checks. These categories are: congruency, accessibility, validity, and accuracy.
 
 #### Congruency {.unnumbered}
 
 **Is the file what it says it is?**
 
-Examples:  
 - data format matches format listed
 - checksum of file matches documentation
 - variable names in file match documentation
@@ -30,7 +29,6 @@ Examples:
 
 **Can the file be accessed and read correctly?**
 
-Examples:
 - text formatted files valid according to subtype (eg: csv files match format)
 - binary files validate against declared type (eg: hdf5 is valid against HDF5 standard)
 - characters in text files are valid against declared encoding
@@ -83,15 +81,17 @@ Warnings are issued for checks that failed, but are optional. Within each row, o
 Some output is collapsed for readability:
 
 ![](images/adc-data-quality-warning-detail.png){fig-align="center"}
+The figure below shows a summary of the percentage of files that pass our data quality checks, by check:
 
-At the Arctic Data Center we can use these checks to gain insights about our data holdings. TODO: maybe insert figures here?
+![](images/results-by-check.png){fig-align="center"}
+
 
 ### Checking Data Quality in R
 
 Poll: 
 
-- What are the most common quality issues you see? (free text)
-- What kind of data quality checks do you use on your own data? (free text)
+- What are the most common quality issues you see?
+- What kind of data quality checks do you use on your own data?
 - Do you have ideas for checks you think we should add to the ADC quality suite?
 
 Although the Arctic Data Center has implemented data quality checks that are automated, the vast majority of data quality work still falls on researchers doing analysis. In this section we will discuss a few tools that researchers can use in R to do general data quality work.
